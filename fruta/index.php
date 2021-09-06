@@ -24,13 +24,6 @@
 <body>
 
 
-
-
-
-
-
-
-
 <?php include_once "config/footer.php"; ?>  
 </body>
 </html>

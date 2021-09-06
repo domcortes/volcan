@@ -1996,9 +1996,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopExportadora.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Exportadora" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopExportadora.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2026,9 +2025,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopConsignatorio.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Consignatario" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopConsignatorio.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2056,9 +2054,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopNotificador.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Notificador" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopNotificador.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2086,14 +2083,12 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopBroker.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Broker" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopBroker.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                         <div class="form-group">
                                                             <label>Recibidor Final</label>
@@ -2117,9 +2112,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopRfinal.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Recibidor Final" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopRfinal.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2168,9 +2162,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopMercado.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Mercado" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopMercado.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2198,9 +2191,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopDfinal.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Destino Final" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopDfinal.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2249,9 +2241,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopAaduana.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Agente Aduana" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAaduana.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2279,9 +2270,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopAgcarga.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Agente Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAgcarga.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2336,9 +2326,8 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Transporte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -2366,9 +2355,8 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopLcarga.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Lugar Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLcarga.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -2396,9 +2384,8 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopLdestino.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Lugar Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLdestino.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -2430,71 +2417,18 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopLaerea.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Linea Aerea" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLaerea.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                             <div class="form-group">
-                                                                <label>Aerolina </label>
-                                                                <input type="hidden" class="form-control" placeholder="AEROLINIAE" id="AEROLINIAE" name="AEROLINIAE" value="<?php echo $AEROLINIA; ?>" />
-                                                                <select class="form-control select2" id="AEROLINIA" name="AEROLINIA" style="width: 100%;" <?php echo $DISABLED; ?>>
-                                                                    <option></option>
-                                                                    <?php foreach ($ARRAYAEROLINIA as $r) : ?>
-                                                                        <?php if ($ARRAYAEROLINIA) {    ?>
-                                                                            <option value="<?php echo $r['ID_AEROLINIA']; ?>" <?php if ($AEROLINIA == $r['ID_AEROLINIA']) {
-                                                                                                                                    echo "selected";
-                                                                                                                                } ?>>
-                                                                                <?php echo $r['NOMBRE_AEROLINIA'] ?>
-                                                                            </option>
-                                                                        <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
-                                                                        <?php } ?>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                                <label id="val_aerolinea" class="validacion"> </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                            <div class="form-group">
-                                                                <label>Agregar </label>
-                                                                <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopAerolinia.php' ); ">
-                                                                    <i class="glyphicon glyphicon-plus"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
-                                                            <div class="form-group">
-                                                                <label>Aeronave </label>
-                                                                <input type="hidden" class="form-control" placeholder="AERONAVEE" id="AERONAVEE" name="AERONAVEE" value="<?php echo $AERONAVE; ?>" />
-                                                                <select class="form-control select2" id="AERONAVE" name="AERONAVE" style="width: 100%;" <?php echo $DISABLED; ?>>
-                                                                    <option></option>
-                                                                    <?php foreach ($ARRAYAERONAVE as $r) : ?>
-                                                                        <?php if ($ARRAYAERONAVE) {    ?>
-                                                                            <option value="<?php echo $r['ID_AERONAVE']; ?>" <?php if ($AERONAVE == $r['ID_AERONAVE']) {
-                                                                                                                                    echo "selected";
-                                                                                                                                } ?>>
-                                                                                <?php echo $r['NOMBRE_AERONAVE'] ?>
-                                                                            </option>
-                                                                        <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
-                                                                        <?php } ?>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                                <label id="val_aeronave" class="validacion"> </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                            <div class="form-group">
-                                                                <label>Agregar </label>
-                                                                <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopAeronave.php' ); ">
-                                                                    <i class="glyphicon glyphicon-plus"></i>
-                                                                </button>
+                                                                <label>Nave </label>
+                                                                <input type="hidden" class="form-control" placeholder="NAVEE" id="NAVEE" name="NAVEE" value="<?php echo $NAVE; ?>" />
+                                                                <input type="hidden" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" />
+                                                                <label id="val_nave" class="validacion"> </label>
                                                             </div>
                                                         </div>
                                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -2528,9 +2462,8 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopAcarga.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Aeropuerto Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAcarga.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -2558,9 +2491,8 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopAdestino.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Aeropuerto Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAdestino.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -2594,9 +2526,8 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopNaviera.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Naviera" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopNaviera.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -2605,20 +2536,7 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Nave </label>
                                                                 <input type="hidden" class="form-control" placeholder="NAVEE" id="NAVEE" name="NAVEE" value="<?php echo $NAVE; ?>" />
-                                                                <select class="form-control select2" id="NAVE" name="NAVE" style="width: 100%;" <?php echo $DISABLED; ?>>
-                                                                    <option></option>
-                                                                    <?php foreach ($ARRAYNAVE as $r) : ?>
-                                                                        <?php if ($ARRAYNAVE) {    ?>
-                                                                            <option value="<?php echo $r['ID_NAVE']; ?>" <?php if ($NAVE == $r['ID_NAVE']) {
-                                                                                                                                echo "selected";
-                                                                                                                            } ?>>
-                                                                                <?php echo $r['NOMBRE_NAVE'] ?>
-                                                                            </option>
-                                                                        <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
-                                                                        <?php } ?>
-                                                                    <?php endforeach; ?>
-                                                                </select>
+                                                                <input type="hidden" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" />
                                                                 <label id="val_nave" class="validacion"> </label>
                                                             </div>
                                                         </div>
@@ -2670,9 +2588,8 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopPcarga.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Puerto Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPcarga.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -2700,9 +2617,8 @@ if (isset($_POST)) {
                                                         </div>
                                                         <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                             <div class="form-group">
-                                                                <label>Agregar </label>
                                                                 <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopPdestino.php' ); ">
+                                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Puerto Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPdestino.php' ); ">
                                                                     <i class="glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -2737,9 +2653,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopTcontenedor.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Tipo Contenedor" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTcontenedor.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2767,9 +2682,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopAtmosfera.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Atmósfera" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAtmosfera.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2845,9 +2759,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopFpago.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Forma Pago" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopFpago.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2875,9 +2788,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopMventa.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Modalidad Venta" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopMventa.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2905,9 +2817,8 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopCventa.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cláusula Venta" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopCventa.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -2935,11 +2846,18 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
-                                                            <label>Agregar </label>
                                                             <br>
-                                                            <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopTflete.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cláusula Venta" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopCventa.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                        <div class="form-group">
+                                                            <label>Costo Flete </label>
+                                                            <input type="hidden" class="form-control" placeholder="COSTOFLETEE" id="COSTOFLETEE" name="COSTOFLETEE" value="<?php echo $COSTOFLETE; ?>" />
+                                                            <input type="number" step="0.01" class="form-control" placeholder="Costo Flete" id="COSTOFLETE" name="COSTOFLETE" value="<?php echo $COSTOFLETE; ?>" <?php echo $DISABLED; ?> />
+                                                            <label id="val_costoflete" class="validacion"> </label>
                                                         </div>
                                                     </div>
                                                     <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
@@ -2967,7 +2885,6 @@ if (isset($_POST)) {
                                                             <label id="val_dus" class="validacion"> </label>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                         <div class="form-group">
                                                             <label>BOL/AWB/CRT </label>
@@ -2976,7 +2893,6 @@ if (isset($_POST)) {
                                                             <label id="val_bolawbcrt" class="validacion"> </label>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                         <div class="form-group">
                                                             <label>Tarifa Flete(Neto) </label>
@@ -2985,7 +2901,6 @@ if (isset($_POST)) {
                                                             <label id="val_neto" class="validacion"> </label>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                         <div class="form-group">
                                                             <label>Rebate </label>
@@ -2996,7 +2911,7 @@ if (isset($_POST)) {
                                                     </div>
                                                     <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                         <div class="form-group">
-                                                            <label>$USD Flete </label>
+                                                            <label>Publica </label>
                                                             <input type="hidden" class="form-control" placeholder="PUBLICAINSTRUCTIVOE" id="PUBLICAINSTRUCTIVOE" name="PUBLICAINSTRUCTIVOE" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" />
                                                             <input type="number" class="form-control" placeholder="$USD Flete Instructivo" id="PUBLICAINSTRUCTIVO" name="PUBLICAINSTRUCTIVO" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> disabled />
                                                             <label id="val_publica" class="validacion"> </label>
@@ -3047,7 +2962,7 @@ if (isset($_POST)) {
                                                     <i class="ti-trash"></i>
                                                 </button>
                                             </form>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR"  onclick="return validacion()">
+                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
                                                 <i class="ti-save-alt"></i>
                                             </button>
                                         <?php } ?>
@@ -3055,16 +2970,16 @@ if (isset($_POST)) {
                                             <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarICarga.php'); ">
                                                 <i class="ti-back-left "></i>
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?>  onclick="return validacion()">
+                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                 <i class="ti-pencil-alt"></i>
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?>  onclick="return validacion()">
+                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                 <i class="ti-save-alt"></i>
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="informe"  Onclick="abrirPestana('../documento/informeICarga.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
+                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="informe" Onclick="abrirPestana('../documento/informeICarga.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i>
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Carga Real" id="defecto" name="cargareal"  Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>'); ">
+                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Carga Real" id="defecto" name="cargareal" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i>
                                             </button>
 
