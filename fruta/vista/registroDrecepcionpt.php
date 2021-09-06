@@ -241,7 +241,7 @@ if (isset($_REQUEST['CREAR'])) {
     $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
     $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
+    //$EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
 
 
 
@@ -291,6 +291,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         if ($TRECEPCION == "1") {
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $FECHARECEPCION = "" . $r['FECHA_RECEPCION'];
+            $PLANTA2 = "" . $r['ID_PLANTA2'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
@@ -937,6 +938,7 @@ if ($_POST) {
                                                 <input type="hidden" class="form-control" placeholder="TRECEPCION" id="TRECEPCION" name="TRECEPCION" value="<?php echo $TRECEPCION; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="FOLIO" id="FOLIO" name="FOLIO" value="<?php echo $FOLIO; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="FECHARECEPCION" id="FECHARECEPCION" name="FECHARECEPCION" value="<?php echo $FECHARECEPCION; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="PLANTA2" id="PLANTA2" name="PLANTA2" value="<?php echo $PLANTA2; ?>" />
                                                 <label>Productor </label>
                                                 <?php if ($TRECEPCION == 1) { ?>
                                                     <input type="hidden" class="form-control" placeholder="PRODUCTOR" id="PRODUCTOR" name="PRODUCTOR" value="<?php echo $PRODUCTOR; ?>" />
