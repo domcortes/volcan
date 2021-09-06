@@ -232,12 +232,11 @@ if (isset($_REQUEST['CREAR'])) {
             $_REQUEST['PLANTA'],
             $_REQUEST['TEMPORADA'],
         );
-        
+
         //REDIRECCIONAR A PAGINA registroRecepcionpt.php 
         $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
         $_SESSION["parametro1"] = "crear";
         echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
-    
     }
 }
 //OPERACION EDICION DE FILA
@@ -316,17 +315,17 @@ if (isset($_REQUEST['CERRAR'])) {
 
         $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //$RECEPCIONPT_ADO->cerrado($RECEPCIONPT);
+        $RECEPCIONPT_ADO->cerrado($RECEPCIONPT);
 
 
-        $ARRAYEXISENCIARECEPCION = $EXIMATERIAPRIMA_ADO->buscarPorRecepcion($_REQUEST['IDP']);
+        $ARRAYEXISENCIARECEPCION = $EXIEXPORTACION_ADO->buscarPorRecepcion($_REQUEST['IDP']);
 
         foreach ($ARRAYEXISENCIARECEPCION as $r) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-         //   $EXIEXPORTACION_ADO->vigente($EXIEXPORTACION);
+            $EXIEXPORTACION_ADO->vigente($EXIEXPORTACION);
         endforeach;
-        /*
+
         //REDIRECCIONAR A PAGINA registroRecepcionpt.php 
         //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
         if ($_SESSION['parametro1'] == "crear") {
@@ -339,7 +338,6 @@ if (isset($_REQUEST['CERRAR'])) {
             $_SESSION["parametro1"] = "ver";
             echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
         }
-        */
     }
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -414,8 +412,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             $ESTADO = "" . $r['ESTADO'];
-            $DIFERENCIAKILOS = $KILOSBRUTORECEPCION - $TOTALGUIA;
-            $PORCENTAJEDIFERENCIA =  (($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100;
+            $DIFERENCIAKILOS = number_format($KILOSBRUTORECEPCION - $TOTALGUIA, 0, ' ', '.');
+            $PORCENTAJEDIFERENCIA =  number_format((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100, 2, ',', '.');
         endforeach;
     }
 
@@ -469,8 +467,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             $ESTADO = "" . $r['ESTADO'];
-            $DIFERENCIAKILOS = $KILOSBRUTORECEPCION - $TOTALGUIA;
-            $PORCENTAJEDIFERENCIA =  (($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100;
+            $DIFERENCIAKILOS = number_format($KILOSBRUTORECEPCION - $TOTALGUIA, 0, ' ', '.');
+            $PORCENTAJEDIFERENCIA =  number_format((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100, 2, ',', '.');
 
         endforeach;
     }
@@ -527,8 +525,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             $ESTADO = "" . $r['ESTADO'];
-            $DIFERENCIAKILOS = $KILOSBRUTORECEPCION - $TOTALGUIA;
-            $PORCENTAJEDIFERENCIA =  (($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100;
+            $DIFERENCIAKILOS = number_format($KILOSBRUTORECEPCION - $TOTALGUIA, 0, ' ', '.');
+            $PORCENTAJEDIFERENCIA =  number_format((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100, 2, ',', '.');
         endforeach;
     }
 }

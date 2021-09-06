@@ -66,7 +66,9 @@ $(function () {
                 "next": "<i class='ti-angle-right'> </i>",
                 "previous": "<i class='ti-angle-left'> </i>",
             },
-        }
+        },
+        "dom": 'Bfrtip',
+        "buttons": ["excel"],
     });
     // $('#existencia thead tr').clone(true).appendTo('#existencia thead');
     $('#hexistencia #filtro th').each(function () {

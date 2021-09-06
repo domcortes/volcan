@@ -44,7 +44,7 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachopt` limit 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachopt limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -63,7 +63,7 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachopt` ;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachopt ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -82,12 +82,12 @@ class DESPACHOPT_ADO
 
             $datos = $this->conexion->prepare("SELECT * ,
                                                     DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',
-                                                    DATE_FORMAT(FECHA_INGRESO_DESPACHO, '%d-%m-%Y %H:%i:%S') AS 'INGRESO',
-                                                    DATE_FORMAT(FECHA_MODIFICACION_DESPACHO, '%d-%m-%Y %H:%i:%S') AS 'MODIFICACION',
-                                                     FORMAT(IFNULL(`CANTIDAD_ENVASE_DESPACHO`,0),0,'de_DE') AS 'ENVASE',   
-                                                     FORMAT(IFNULL(`KILOS_NETO_DESPACHO`,0),2,'de_DE') AS 'NETO',  
-                                                     FORMAT(IFNULL(`KILOS_BRUTO_DESPACHO`,0),2,'de_DE')  AS 'BRUTO' 
-                                            FROM `fruta_despachopt`                                                                           
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i:%S') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i:%S') AS 'MODIFICACION',
+                                                     FORMAT(IFNULL(CANTIDAD_ENVASE_DESPACHO,0),0,'de_DE') AS 'ENVASE',   
+                                                     FORMAT(IFNULL(KILOS_NETO_DESPACHO,0),2,'de_DE') AS 'NETO',  
+                                                     FORMAT(IFNULL(KILOS_BRUTO_DESPACHO,0),2,'de_DE')  AS 'BRUTO' 
+                                            FROM fruta_despachopt                                                                           
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
@@ -108,7 +108,7 @@ class DESPACHOPT_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                            FROM `fruta_despachopt`                                                                           
+                                            FROM fruta_despachopt                                                                           
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
@@ -129,7 +129,7 @@ class DESPACHOPT_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                            FROM `fruta_despachopt`                                                                           
+                                            FROM fruta_despachopt                                                                           
                                             WHERE TDESPACHO = 1
                                             AND ESTADO_DESPACHO = 2
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -152,10 +152,10 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHO`),0) AS 'ENVASE',   
-                                                     IFNULL(SUM(`KILOS_NETO_DESPACHO`),0) AS 'NETO',  
-                                                     IFNULL(SUM(`KILOS_BRUTO_DESPACHO`),0)  AS 'BRUTO'  
-                                            FROM `fruta_despachopt` ;	");
+            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0) AS 'ENVASE',   
+                                                     IFNULL(SUM(KILOS_NETO_DESPACHO),0) AS 'NETO',  
+                                                     IFNULL(SUM(KILOS_BRUTO_DESPACHO),0)  AS 'BRUTO'  
+                                            FROM fruta_despachopt ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -173,13 +173,13 @@ class DESPACHOPT_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',
-                                                       DATE_FORMAT(FECHA_INGRESO_DESPACHO, '%d-%m-%Y %H:%i:%S') AS 'INGRESO',
-                                                       DATE_FORMAT(FECHA_MODIFICACION_DESPACHO, '%d-%m-%Y %H:%i:%S') AS 'MODIFICACION',
+                                                       DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i:%S') AS 'INGRESO',
+                                                       DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i:%S') AS 'MODIFICACION',
                                                        FORMAT(CANTIDAD_ENVASE_DESPACHO,0,'de_DE')  AS 'ENVASE',
                                                        FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO',
                                                        FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO',
                                                        FORMAT(NUMERO_GUIA_DESPACHO,2,'de_DE')  AS 'GUIA'
-                                            FROM `fruta_despachopt` ;	");
+                                            FROM fruta_despachopt ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -196,10 +196,10 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHO`),0),0,'de_DE') AS 'ENVASE',   
-                                                     FORMAT(IFNULL(SUM(`KILOS_NETO_DESPACHO`),0),2,'de_DE') AS 'NETO',  
-                                                     FORMAT(IFNULL(SUM(`KILOS_BRUTO_DESPACHO`),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM `fruta_despachopt` 
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'  
+                                            FROM fruta_despachopt 
                                             
                                             ;	");
             $datos->execute();
@@ -218,11 +218,11 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHO`),0),0,'de_DE') AS 'ENVASE',   
-                                                     FORMAT(IFNULL(SUM(`KILOS_NETO_DESPACHO`),0),2,'de_DE') AS 'NETO',  
-                                                     FORMAT(IFNULL(SUM(`KILOS_BRUTO_DESPACHO`),0),2,'de_DE')  AS 'BRUTO'  ,  
-                                                     FORMAT(IFNULL(SUM(`TOTAL_PRECIO`),0),2,'de_DE')  AS 'PRECIO'  
-                                            FROM `fruta_despachopt` 
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'  ,  
+                                                     FORMAT(IFNULL(SUM(TOTAL_PRECIO),0),2,'de_DE')  AS 'PRECIO'  
+                                            FROM fruta_despachopt 
                                             WHERE ID_DESPACHO = '" . $IDDESPACHO . "'
                                             
                                             ;	");
@@ -242,10 +242,10 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHO`),0) AS 'ENVASE',   
-                                                     IFNULL(SUM(`KILOS_NETO_DESPACHO`),0) AS 'NETO',  
-                                                     IFNULL(SUM(`KILOS_BRUTO_DESPACHO`),0)  AS 'BRUTO'  
-                                            FROM `fruta_despachopt` 
+            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0) AS 'ENVASE',   
+                                                     IFNULL(SUM(KILOS_NETO_DESPACHO),0) AS 'NETO',  
+                                                     IFNULL(SUM(KILOS_BRUTO_DESPACHO),0)  AS 'BRUTO'  
+                                            FROM fruta_despachopt 
                                                                                                                  
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -267,10 +267,10 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHO`),0) AS 'ENVASE',   
-                                                     IFNULL(SUM(`KILOS_NETO_DESPACHO`),0) AS 'NETO',  
-                                                     IFNULL(SUM(`KILOS_BRUTO_DESPACHO`),0)  AS 'BRUTO'  
-                                            FROM `fruta_despachopt` 
+            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0) AS 'ENVASE',   
+                                                     IFNULL(SUM(KILOS_NETO_DESPACHO),0) AS 'NETO',  
+                                                     IFNULL(SUM(KILOS_BRUTO_DESPACHO),0)  AS 'BRUTO'  
+                                            FROM fruta_despachopt 
                                                                                                                  
                                             WHERE TDESPACHO = 1
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -293,10 +293,10 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHO`),0),0,'de_DE') AS 'ENVASE',   
-                                                     FORMAT(IFNULL(SUM(`KILOS_NETO_DESPACHO`),0),2,'de_DE') AS 'NETO',  
-                                                     FORMAT(IFNULL(SUM(`KILOS_BRUTO_DESPACHO`),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM `fruta_despachopt` 
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'  
+                                            FROM fruta_despachopt 
                                                                                                                  
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -318,10 +318,10 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHO`),0),0,'de_DE') AS 'ENVASE',   
-                                                       FORMAT(IFNULL(SUM(`KILOS_NETO_DESPACHO`),0),2,'de_DE') AS 'NETO',  
-                                                       FORMAT(IFNULL(SUM(`KILOS_BRUTO_DESPACHO`),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM `fruta_despachopt`                                                                                                                  
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                       FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                       FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'  
+                                            FROM fruta_despachopt                                                                                                                  
                                             WHERE  TDESPACHO = 1
                                             AND ESTADO_DESPACHO = 2
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -346,7 +346,7 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachopt` WHERE `ID_TDESPACHOMP` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachopt WHERE ID_TDESPACHOMP = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -364,7 +364,7 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachopt`  WHERE `ID_TDESPACHOMP` = 2;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachopt  WHERE ID_TDESPACHOMP = 2;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -383,10 +383,10 @@ class DESPACHOPT_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,DATE_FORMAT(FECHA_DESPACHO, '%Y-%m-%d') AS 'FECHA',
-                                             DATE_FORMAT(FECHA_INGRESO_DESPACHO, '%Y-%m-%d') AS 'INGRESO',
-                                             DATE_FORMAT(FECHA_MODIFICACION_DESPACHO, '%Y-%m-%d') AS 'MODIFICACION' 
-                                             FROM `fruta_despachopt`
-                                             WHERE `ID_DESPACHO`= '" . $ID . "';");
+                                             DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                             DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
+                                             FROM fruta_despachopt
+                                             WHERE ID_DESPACHO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -406,10 +406,10 @@ class DESPACHOPT_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA'
-                                                    , DATE_FORMAT(FECHA_INGRESO_DESPACHO, '%d-%m-%Y') AS 'INGRESO'
-                                                    , DATE_FORMAT(FECHA_MODIFICACION_DESPACHO, '%d-%m-%Y') AS 'MODIFICACION'
-                                            FROM `fruta_despachopt`
-                                            WHERE `ID_DESPACHO`= '" . $ID . "';");
+                                                    , DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO'
+                                                    , DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                            FROM fruta_despachopt
+                                            WHERE ID_DESPACHO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -429,7 +429,7 @@ class DESPACHOPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachopt` WHERE `OBSERVACION_DESPACHO` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachopt WHERE OBSERVACION_DESPACHO LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -449,15 +449,15 @@ class DESPACHOPT_ADO
         try {
 
             $query =
-                "INSERT INTO `fruta_despachopt` ( `NUMERO_DESPACHO`, `FECHA_DESPACHO`,  `NUMERO_GUIA_DESPACHO`, 
-                                            `CANTIDAD_ENVASE_DESPACHO`, `KILOS_NETO_DESPACHO`,`KILOS_BRUTO_DESPACHO`, `NUMERO_SELLO_DESPACHO`, 
-                                            `PATENTE_CAMION`,`PATENTE_CARRO`,`OBSERVACION_DESPACHO`, `TDESPACHO`, 
-                                            `REGALO_DESPACHO`, `TOTAL_PRECIO`,`VGM`,
-                                            `ID_PLANTA2`, `ID_PLANTA3`,`ID_PRODUCTOR`, `ID_COMPRADOR`, 
-                                            `ID_CONDUCTOR`, `ID_TRANSPORTE`,  
-                                            `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, 
-                                            `FECHA_INGRESO_DESPACHO`, `FECHA_MODIFICACION_DESPACHO`, 
-                                            `ESTADO`,  `ESTADO_DESPACHO`,  `ESTADO_REGISTRO`)
+                "INSERT INTO fruta_despachopt ( NUMERO_DESPACHO, FECHA_DESPACHO,  NUMERO_GUIA_DESPACHO, 
+                                            CANTIDAD_ENVASE_DESPACHO, KILOS_NETO_DESPACHO,KILOS_BRUTO_DESPACHO, NUMERO_SELLO_DESPACHO, 
+                                            PATENTE_CAMION,PATENTE_CARRO,OBSERVACION_DESPACHO, TDESPACHO, 
+                                            REGALO_DESPACHO, TOTAL_PRECIO,VGM,
+                                            ID_PLANTA2, ID_PLANTA3,ID_PRODUCTOR, ID_COMPRADOR, 
+                                            ID_CONDUCTOR, ID_TRANSPORTE,  
+                                            ID_EMPRESA, ID_PLANTA, ID_TEMPORADA, 
+                                            INGRESO, MODIFICACION, 
+                                            ESTADO,  ESTADO_DESPACHO,  ESTADO_REGISTRO)
              VALUES
                ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(),  SYSDATE(), 1, 1, 1);";
 
@@ -499,7 +499,7 @@ class DESPACHOPT_ADO
     public function eliminarDespachopt($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_despachopt` WHERE `ID_DESPACHO`=" . $id . ";";
+            $sql = "DELETE FROM fruta_despachopt WHERE ID_DESPACHO=" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -514,32 +514,32 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-		UPDATE `fruta_despachopt` SET
-        `FECHA_DESPACHO` = ?,
-        `NUMERO_GUIA_DESPACHO` = ?,
-        `CANTIDAD_ENVASE_DESPACHO` = ?,
-        `KILOS_NETO_DESPACHO` = ?, 
-        `KILOS_BRUTO_DESPACHO` = ?, 
-        `NUMERO_SELLO_DESPACHO` = ?, 
-        `FECHA_MODIFICACION_DESPACHO` = SYSDATE(),
-        `PATENTE_CAMION` = ?,
-        `PATENTE_CARRO` = ?,
-        `OBSERVACION_DESPACHO` = ?,
-        `TDESPACHO` = ?,
-        `REGALO_DESPACHO` = ?,
-        `TOTAL_PRECIO` = ?,
-        `VGM` = ?,
-        `ID_PLANTA2` = ?,
-        `ID_PLANTA3` = ?,
-        `ID_PRODUCTOR` = ?,
-        `ID_COMPRADOR` = ?,
-        `ID_CONDUCTOR` = ?,
-        `ID_TRANSPORTE` = ?, 
-        `ID_EMPRESA` = ?,
-        `ID_PLANTA` = ?, 
-        `ID_TEMPORADA` = ?, 
-        `ESTADO` = 1
-		WHERE `ID_DESPACHO`= ?;";
+		UPDATE fruta_despachopt SET
+        FECHA_DESPACHO = ?,
+        NUMERO_GUIA_DESPACHO = ?,
+        CANTIDAD_ENVASE_DESPACHO = ?,
+        KILOS_NETO_DESPACHO = ?, 
+        KILOS_BRUTO_DESPACHO = ?, 
+        NUMERO_SELLO_DESPACHO = ?, 
+        MODIFICACION = SYSDATE(),
+        PATENTE_CAMION = ?,
+        PATENTE_CARRO = ?,
+        OBSERVACION_DESPACHO = ?,
+        TDESPACHO = ?,
+        REGALO_DESPACHO = ?,
+        TOTAL_PRECIO = ?,
+        VGM = ?,
+        ID_PLANTA2 = ?,
+        ID_PLANTA3 = ?,
+        ID_PRODUCTOR = ?,
+        ID_COMPRADOR = ?,
+        ID_CONDUCTOR = ?,
+        ID_TRANSPORTE = ?, 
+        ID_EMPRESA = ?,
+        ID_PLANTA = ?, 
+        ID_TEMPORADA = ?, 
+        ESTADO = 1
+		WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -585,11 +585,11 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_despachopt` SET
-        `CANTIDAD_ENVASE_DESPACHO`= ?,
-        `KILOS_NETO_DESPACHO`= ?,
-        `FECHA_MODIFICACION_DESPACHO` = SYSDATE()        
-    WHERE `ID_DESPACHO`= ?;";
+    UPDATE fruta_despachopt SET
+        CANTIDAD_ENVASE_DESPACHO= ?,
+        KILOS_NETO_DESPACHO= ?,
+        MODIFICACION = SYSDATE()        
+    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -609,11 +609,11 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_despachopt` SET
-        `CANTIDAD_ENVASE_DESPACHO`= ?,
-        `KILOS_NETO_DESPACHO`= ?,
-        `FECHA_MODIFICACION_DESPACHO` = SYSDATE()        
-    WHERE `ID_DESPACHO`= ?;";
+    UPDATE fruta_despachopt SET
+        CANTIDAD_ENVASE_DESPACHO= ?,
+        KILOS_NETO_DESPACHO= ?,
+        MODIFICACION = SYSDATE()        
+    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -637,9 +637,9 @@ class DESPACHOPT_ADO
 
         try {
             $query = "
-    UPDATE `fruta_despachopt` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_DESPACHO`= ?;";
+    UPDATE fruta_despachopt SET			
+            ESTADO_REGISTRO = 0
+    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -656,9 +656,9 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_despachopt` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_DESPACHO`= ?;";
+    UPDATE fruta_despachopt SET			
+            ESTADO_REGISTRO = 1
+    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -677,9 +677,9 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-                    UPDATE `fruta_despachopt` SET			
-                            `ESTADO` = 1
-                    WHERE `ID_DESPACHO`= ?;";
+                    UPDATE fruta_despachopt SET			
+                            ESTADO = 1
+                    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -695,9 +695,9 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-                    UPDATE `fruta_despachopt` SET			
-                            `ESTADO` = 0
-                    WHERE `ID_DESPACHO`= ?;";
+                    UPDATE fruta_despachopt SET			
+                            ESTADO = 0
+                    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -720,9 +720,9 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-                    UPDATE `fruta_despachopt` SET			
-                            `ESTADO_DESPACHO` = 1
-                    WHERE `ID_DESPACHO`= ?;";
+                    UPDATE fruta_despachopt SET			
+                            ESTADO_DESPACHO = 1
+                    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -737,9 +737,9 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-                    UPDATE `fruta_despachopt` SET			
-                            `ESTADO_DESPACHO` = 2
-                    WHERE `ID_DESPACHO`= ?;";
+                    UPDATE fruta_despachopt SET			
+                            ESTADO_DESPACHO = 2
+                    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -754,9 +754,9 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-                    UPDATE `fruta_despachopt` SET			
-                            `ESTADO_DESPACHO` = 3
-                    WHERE `ID_DESPACHO`= ?;";
+                    UPDATE fruta_despachopt SET			
+                            ESTADO_DESPACHO = 3
+                    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -772,9 +772,9 @@ class DESPACHOPT_ADO
     {
         try {
             $query = "
-                    UPDATE `fruta_despachopt` SET			
-                            `ESTADO_DESPACHO` = 4
-                    WHERE `ID_DESPACHO`= ?;";
+                    UPDATE fruta_despachopt SET			
+                            ESTADO_DESPACHO = 4
+                    WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -804,7 +804,7 @@ class DESPACHOPT_ADO
     ) {
         try {
             $datos = $this->conexion->prepare(" SELECT *
-                                            FROM `fruta_despachopt`
+                                            FROM fruta_despachopt
                                             WHERE 
                                                  FECHA_DESPACHO LIKE '" . $FECHADESPACHOMP . "' 
                                                  AND NUMERO_GUIA_DESPACHO  = '" . $NUMEROGUIADESPACHO . "'  
@@ -812,8 +812,8 @@ class DESPACHOPT_ADO
                                                  AND KILOS_NETO_DESPACHO  = '" . $KILOSNETODESPACHO . "' 
                                                  AND KILOS_BRUTO_DESPACHO  = '" . $KILOSBRUTODESPACHO . "' 
 
-                                                 AND DATE_FORMAT(FECHA_INGRESO_DESPACHO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
-                                                 AND DATE_FORMAT(FECHA_MODIFICACION_DESPACHO, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')
+                                                 AND DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
+                                                 AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')
                                                  
                                                  AND ID_CONDUCTOR = '" . $CONDUCTOR . "'   
                                                  AND ID_TRANSPORTE = '" . $TRANSPORTE . "' 
@@ -862,7 +862,7 @@ class DESPACHOPT_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT *
-                                                FROM `fruta_despachopt`
+                                                FROM fruta_despachopt
                                                 WHERE 
                                                     NUMERO_GUIA_DESPACHO = " . $NUMEROGUIA . "
                                                     AND ID_PRODUCTOR = " . $PRODUCTOR . "                                                 
@@ -893,7 +893,7 @@ class DESPACHOPT_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT  COUNT(IFNULL(NUMERO_DESPACHO,0)) AS 'NUMERO'
-                                            FROM `fruta_despachopt`
+                                            FROM fruta_despachopt
                                             WHERE  
                                                 ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'

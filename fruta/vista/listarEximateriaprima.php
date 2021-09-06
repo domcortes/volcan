@@ -7,6 +7,7 @@ include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/RECEPCIONMP_ADO.php';
 include_once '../controlador/REPALETIZAJEMP_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
@@ -22,6 +23,7 @@ $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
 $REPALETIZAJEMP_ADO =  new REPALETIZAJEMP_ADO();
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 
@@ -171,7 +173,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                         <div class="box">
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
                                             <table id="existencia" class="table table-hover " style="width: 100%;">
                                                 <thead>
@@ -187,6 +189,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Variedad </th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilo Neto</th>
+                                                        <th>Tipo Manejo</th>
                                                         <th>Número Recepción</th>
                                                         <th>Fecha Recepción</th>
                                                         <th>Tipo Recepción</th>
@@ -301,6 +304,12 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NOMBREVESPECIES = "Sin Datos";
                                                             $NOMBRESPECIES = "Sin Datos";
                                                         }
+                                                        $ARRAYTMANEJO =$TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                        if ($ARRAYTMANEJO) {
+                                                            $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                        } else {
+                                                            $NOMBRETMANEJO = "Sin Datos";
+                                                        }
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                         if ($ARRAYEMPRESA) {
                                                             $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -332,6 +341,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
+                                                            <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $r['RECEPCION']; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
