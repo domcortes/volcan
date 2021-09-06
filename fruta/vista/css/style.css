@@ -1,0 +1,140 @@
+﻿
+
+/*FORMATO TABLAS*/
+
+
+
+.bor, #bor{
+	
+	border: 2px solid #b9b0b0;
+}
+.bl, #bl{
+	border-left: 1px solid #000000;
+}
+.br, #br{
+	border-right: 1px solid #000000;
+}
+.bb, #bb{
+	border-bottom: 1px solid #000000;
+}
+.bt, #bt{
+	border-top: 1px solid #000000;
+}
+
+
+
+/**
+FORMATO DE MENSAJE DE VALIDACION DE FORMULARIO
+**/
+
+
+.validacion {
+    color      : #ff0000;
+    margin-left: 5%;
+}
+
+#validacion {
+    color      : #ff0000;
+    margin-left: 5%;
+}
+
+.validacion2 {
+    color      : #FFFAFA ;
+    margin-left: 5%;
+    text-align: center;
+}
+
+#validacion2 {
+    color      : #FFFAFA ;
+    margin-left: 5%;
+    text-align: center;
+}
+
+.up{
+    margin-top: -10%;
+}
+#up{
+    margin-top: -10%;
+}
+
+/**
+ FORMATO MENSAJE DE VALIDACIOND DE TABLAS VACIAS  
+  **/
+
+#noDato {
+    background-color: transparent;
+    
+    color           : #ff0000;
+    text-align      : center;
+}
+
+#siDato {
+    background-color: transparent;
+    color           : #FFFAFA;
+}
+
+
+
+
+
+
+/*ALIGNACIONTEXTO*/
+
+.center {
+
+
+    text-align: center;
+}
+
+.justify {
+
+    text-align: justify;
+}
+
+.right {
+
+    text-align: right;
+}
+
+.left {
+
+    text-align: left;
+}
+
+.start {
+    text-align: start;
+}
+
+.end {
+    text-align: end;
+
+}
+#center {
+
+
+    text-align: center;
+}
+
+#justify {
+
+    text-align: justify;
+}
+
+#right {
+
+    text-align: right;
+}
+
+#left {
+
+    text-align: left;
+}
+
+#start {
+    text-align: start;
+}
+
+#end {
+    text-align: end;
+
+}
