@@ -8,7 +8,6 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/TETIQUETA_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 include_once '../controlador/ECOMERCIAL_ADO.php';
-include_once '../controlador/MERCADO_ADO.php';
 
 
 
@@ -23,7 +22,6 @@ $ESPECIES_ADO =  new ESPECIES_ADO();
 $TETIQUETA_ADO =  new TETIQUETA_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 $ECOMERCIAL_ADO =  new ECOMERCIAL_ADO();
-$MERCADO_ADO =  new MERCADO_ADO();
 
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 //INIICIALIZAR MODELO
@@ -48,7 +46,6 @@ $ESPECIES = "";
 $ETIQUETA = "";
 $TEMBALAJE = "";
 $ECOMERCIAL = "";
-$MERCADO = "";
 $EMBOLSADO = "";
 $STOCK = "";
 $ESTADO = "";
@@ -72,7 +69,6 @@ $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
 $ARRAYETIQUETA  = $TETIQUETA_ADO->listarEtiquetaPorEmpresaCBX($EMPRESAS);
 $ARRAYTEMBALAJE  = $TEMBALAJE_ADO->listarEmbalajePorEmpresaCBX($EMPRESAS);
 $ARRAYECOMERCIAL = $ECOMERCIAL_ADO->listarEcomercialPorEmpresaCBX($EMPRESAS);
-$ARRAYMERCADO = $MERCADO_ADO->listarMercadoPorEmpresaCBX($EMPRESAS);
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 
@@ -100,7 +96,6 @@ if (isset($_REQUEST['GUARDAR'])) {
     $EEXPORTACION->__SET('ID_TETIQUETA', $_REQUEST['ETIQUETA']);
     $EEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
     $EEXPORTACION->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
-    $EEXPORTACION->__SET('ID_MERCADO', $_REQUEST['MERCADO']);
     $EEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $EEXPORTACION->__SET('ID_USUARIOI', $IDUSUARIOS);
     $EEXPORTACION->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -131,7 +126,6 @@ if (isset($_REQUEST['EDITAR'])) {
     $EEXPORTACION->__SET('ID_TETIQUETA', $_REQUEST['ETIQUETA']);
     $EEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
     $EEXPORTACION->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
-    $EEXPORTACION->__SET('ID_MERCADO', $_REQUEST['MERCADO']);
     $EEXPORTACION->__SET('ID_USUARIOM', $IDUSUARIOS);
     $EEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -193,7 +187,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $ETIQUETA = "" . $r['ID_TETIQUETA'];
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
             $ECOMERCIAL = "" . $r['ID_ECOMERCIAL'];
-            $MERCADO = "" . $r['ID_MERCADO'];
 
         endforeach;
     }
@@ -226,7 +219,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $ETIQUETA = "" . $r['ID_TETIQUETA'];
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
             $ECOMERCIAL = "" . $r['ID_ECOMERCIAL'];
-            $MERCADO = "" . $r['ID_MERCADO'];
         endforeach;
     }
 }
@@ -269,7 +261,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     STOCK = document.getElementById("STOCK").selectedIndex;
                     TEMBALAJE = document.getElementById("TEMBALAJE").selectedIndex;
                     ECOMERCIAL = document.getElementById("ECOMERCIAL").selectedIndex;
-                    MERCADO = document.getElementById("MERCADO").selectedIndex;
 
                     document.getElementById('val_codigo').innerHTML = "";
                     document.getElementById('val_nombre').innerHTML = "";
@@ -286,7 +277,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_stock').innerHTML = "";
                     document.getElementById('val_embalaje').innerHTML = "";
                     document.getElementById('val_ec').innerHTML = "";
-                    document.getElementById('val_mercado').innerHTML = "";
 
                     if (CODIGOESTANDAR == null || CODIGOESTANDAR == 0) {
                         document.form_reg_dato.CODIGOESTANDAR.focus();
@@ -396,13 +386,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     }
                     document.form_reg_dato.ECOMERCIAL.style.borderColor = "#4AF575";
 
-                    if (MERCADO == null || MERCADO == 0) {
-                        document.form_reg_dato.MERCADO.focus();
-                        document.form_reg_dato.MERCADO.style.borderColor = "#FF0000";
-                        document.getElementById('val_mercado').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.MERCADO.style.borderColor = "#4AF575";
 
                 }
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -714,30 +697,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label>Mercado</label>
-                                                        <select class="form-control select2" id="MERCADO" name="MERCADO" style="width: 100%;" value="<?php echo $MERCADO; ?>" <?php echo $DISABLED; ?>>
-                                                            <option></option>
-                                                            <?php foreach ($ARRAYMERCADO as $r) : ?>
-                                                                <?php if ($ARRAYMERCADO) {    ?>
-                                                                    <option value="<?php echo $r['ID_MERCADO']; ?>" <?php if ($MERCADO == $r['ID_MERCADO']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
-                                                                        <?php echo $r['NOMBRE_MERCADO'] ?>
-                                                                    </option>
-                                                                <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                                <?php } ?>
-
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <label id="val_mercado" class="validacion"> </label>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
@@ -779,7 +738,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['CODIGO_ESTANDAR']; ?>
+                                                                    <?php echo $r['ID_ESTANDAR']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>

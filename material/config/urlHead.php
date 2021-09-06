@@ -14,8 +14,8 @@
 
 <!-- Plantilla Estilo-->
 <!-- Vendors Style-->
-<link rel="stylesheet" href="../api/cryptioadmin10/html/main/css/vendors_css.css">
 
+<link rel="stylesheet" href="../../api/cryptioadmin10/html/main/css/vendors_css.css">
 <!-- Style-->
-<link rel="stylesheet" href="../api/cryptioadmin10/html/main/css/style.css">
-<link rel="stylesheet" href="../api/cryptioadmin10/html/main/css/skin_color.css">
+<link rel="stylesheet" href="../../api/cryptioadmin10/html/main/css/style.css">
+<link rel="stylesheet" href="../../api/cryptioadmin10/html/main/css/skin_color.css">

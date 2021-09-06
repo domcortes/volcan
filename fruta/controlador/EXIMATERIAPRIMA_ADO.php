@@ -822,11 +822,11 @@ class EXIMATERIAPRIMA_ADO
 
     //OBTENER EL ULTIMO FOLIO OCUPADO DEL DETALLE DE  RECEPCIONS
 
-    public function obtenerFolio($IDFOLIO)
+    public function obtenerFolioContar($IDFOLIO)
     {
         try {
 
-            $datos = $this->conexion->prepare(" SELECT IFNULL(COUNT(ID_FOLIO),0) AS 'ULTIMOFOLIO'
+            $datos = $this->conexion->prepare(" SELECT IFNULL(COUNT(ID_FOLIO),0) AS 'CONTERO'
                                                 FROM fruta_eximateriaprima  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0; ");
@@ -842,4 +842,27 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+    public function obtenerFolio($IDFOLIO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT IFNULL(MAX(FOLIO_AUXILIAR_EXIMATERIAPRIMA),0) AS 'ULTIMOFOLIO'
+                                                FROM fruta_eximateriaprima  
+                                                WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
+                                                AND FOLIO_MANUAL = 0
+                                                GROUP BY FOLIO_AUXILIAR_EXIMATERIAPRIMA
+                                                ORDER BY ULTIMOFOLIO; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 }

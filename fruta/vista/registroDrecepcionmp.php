@@ -151,7 +151,7 @@ if (isset($_REQUEST['CREAR'])) {
             if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
                 $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
             } else {
-                $FOLIOEXPORTACION =   $ARRAYVERFOLIO[0]['NUMERO_FOLIO']+$ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
+                $FOLIOEXPORTACION =   $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
             }
         } else {
             $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
