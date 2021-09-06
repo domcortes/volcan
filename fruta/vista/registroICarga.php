@@ -30,13 +30,11 @@ include_once '../controlador/LCARGA_ADO.php';
 include_once '../controlador/LDESTINO_ADO.php';
 
 include_once '../controlador/LAEREA_ADO.php';
-include_once '../controlador/AEROLINIA_ADO.php';
 include_once '../controlador/AERONAVE_ADO.php';
 include_once '../controlador/ACARGA_ADO.php';
 include_once '../controlador/ADESTINO_ADO.php';
 
 include_once '../controlador/NAVIERA_ADO.php';
-include_once '../controlador/NAVE_ADO.php';
 include_once '../controlador/PCARGA_ADO.php';
 include_once '../controlador/PDESTINO_ADO.php';
 
@@ -89,12 +87,10 @@ $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $LCARGA_ADO =  new LCARGA_ADO();
 $LDESTINO_ADO =  new LDESTINO_ADO();
 $LAEREA_ADO =  new LAEREA_ADO();
-$AEROLINIA_ADO =  new AEROLINIA_ADO();
 $AERONAVE_ADO =  new AERONAVE_ADO();
 $ACARGA_ADO =  new ACARGA_ADO();
 $ADESTINO_ADO =  new ADESTINO_ADO();
 $NAVIERA_ADO =  new NAVIERA_ADO();
-$NAVE_ADO =  new NAVE_ADO();
 $PCARGA_ADO =  new PCARGA_ADO();
 $PDESTINO_ADO =  new PDESTINO_ADO();
 $FPAGO_ADO =  new FPAGO_ADO();
@@ -670,17 +666,12 @@ if (isset($_REQUEST['CERRAR'])) {
         }
     }
 }
-
-
 if (isset($_REQUEST['ELIMINAR'])) {
     $IDELIMINAR = $_REQUEST['IDELIMINAR'];
     $DICARGA->__SET('ID_DICARGA', $IDELIMINAR);
     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
     $DICARGA_ADO->deshabilitar($DICARGA);
 }
-
-
-
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
@@ -1079,7 +1070,6 @@ if (isset($_POST)) {
         if ($TEMBARQUE == "2") {
             if (isset($_REQUEST['LAEREA'])) {
                 $LAEREA = $_REQUEST['LAEREA'];
-                $ARRAYAEROLINIA = $AEROLINIA_ADO->buscarAerolineaPorLarea($LAEREA);
                 $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
             }
             if (isset($_REQUEST['AEROLINIA'])) {
@@ -1101,7 +1091,6 @@ if (isset($_POST)) {
         if ($TEMBARQUE == "3") {
             if (isset($_REQUEST['NAVIERA'])) {
                 $NAVIERA = $_REQUEST['NAVIERA'];
-                $ARRAYNAVE = $NAVE_ADO->buscarNavePorNaviera($NAVIERA);
             }
             if (isset($_REQUEST['NAVE'])) {
                 $NAVE = $_REQUEST['NAVE'];
@@ -1493,14 +1482,12 @@ if (isset($_POST)) {
                         }
                         if (TEMBARQUE == 2) {
                             LAEREA = document.getElementById("LAEREA").selectedIndex;
-                            AEROLINIA = document.getElementById("AEROLINIA").selectedIndex;
                             AERONAVE = document.getElementById("AERONAVE").selectedIndex;
                             NVUELO = document.getElementById("NVUELO").value;
                             ACARGA = document.getElementById("ACARGA").selectedIndex;
                             ADESTINO = document.getElementById("ADESTINO").selectedIndex;
 
                             document.getElementById('val_larea').innerHTML = "";
-                            document.getElementById('val_aerolinea').innerHTML = "";
                             document.getElementById('val_aeronave').innerHTML = "";
                             document.getElementById('val_nvuelo').innerHTML = "";
                             document.getElementById('val_acarga').innerHTML = "";
@@ -1514,13 +1501,6 @@ if (isset($_POST)) {
                             }
                             document.form_reg_dato.LAEREA.style.borderColor = "#4AF575";
 
-                            if (AEROLINIA == null || AEROLINIA == 0) {
-                                document.form_reg_dato.AEROLINIA.focus();
-                                document.form_reg_dato.AEROLINIA.style.borderColor = "#FF0000";
-                                document.getElementById('val_aerolinea').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                                return false;
-                            }
-                            document.form_reg_dato.AEROLINIA.style.borderColor = "#4AF575";
 
                             if (AERONAVE == null || AERONAVE == 0) {
                                 document.form_reg_dato.AERONAVE.focus();
@@ -1557,14 +1537,12 @@ if (isset($_POST)) {
                         if (TEMBARQUE == 3) {
 
                             NAVIERA = document.getElementById("NAVIERA").selectedIndex;
-                            NAVE = document.getElementById("NAVE").selectedIndex;
                             FECHASTACKING = document.getElementById("FECHASTACKING").value;
                             NVIAJE = document.getElementById("NVIAJE").value;
                             PCARGA = document.getElementById("PCARGA").selectedIndex;
                             PDESTINO = document.getElementById("PDESTINO").selectedIndex;
 
                             document.getElementById('val_naviera').innerHTML = "";
-                            document.getElementById('val_nave').innerHTML = "";
                             document.getElementById('val_fechastacking').innerHTML = "";
                             document.getElementById('val_nviaje').innerHTML = "";
                             document.getElementById('val_pcarga').innerHTML = "";
@@ -1578,13 +1556,6 @@ if (isset($_POST)) {
                             }
                             document.form_reg_dato.NAVIERA.style.borderColor = "#4AF575";
 
-                            if (NAVE == null || NAVE == 0) {
-                                document.form_reg_dato.NAVE.focus();
-                                document.form_reg_dato.NAVE.style.borderColor = "#FF0000";
-                                document.getElementById('val_nave').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                                return false;
-                            }
-                            document.form_reg_dato.NAVE.style.borderColor = "#4AF575";
 
                             if (FECHASTACKING == null || FECHASTACKING.length == 0 || /^\s+$/.test(FECHASTACKING)) {
                                 document.form_reg_dato.FECHASTACKING.focus();

@@ -740,7 +740,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </ul>
               </li>
               <li><a href="registroConductor.php"><i class="ti-more"></i>Conductor</a></li>
-
             </ul>
           </li>
           <li class="treeview">
@@ -756,7 +755,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroEcomercial.php"><i class="ti-more"></i> Comercial</a></li>
             </ul>
           </li>
-
           <li class="treeview">
             <a href="#">Mercado
               <span class="pull-left-container">
@@ -768,7 +766,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroRmercado.php"><i class="ti-more"></i>Restrinccion Mercado</a></li>
             </ul>
           </li>
-
           <li class="treeview">
             <a href="#">Instructivo
               <span class="pull-left-container">
@@ -776,7 +773,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-
               <li class="treeview">
                 <a href="#">Pago
                   <span class="pull-left-container">
