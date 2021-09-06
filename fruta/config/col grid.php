@@ -19,6 +19,7 @@ boton agregar
 col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3
 
 
+
 para detalle
 input
 col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 

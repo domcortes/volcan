@@ -167,7 +167,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <html lang="es">
 
 <head>
-    <title>Registro Restrinccion Mercado</title>
+    <title>Registro Restrinccion Mercado  de productores  </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -266,14 +266,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title"> Restrinccion Mercado</h3>
+                                <h3 class="page-title"> Restrinccion Mercado  de productores  </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page"> Mantenedores</li>
                                             <li class="breadcrumb-item" aria-current="page"> Mercado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroRmercado.php"> Operaciones Restrinccion Mercado </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroRmercado.php"> Operaciones Restrinccion Mercado de productores </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -314,7 +314,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                     <!-- /.box-header -->
                                     <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
+                                            <h4 > Este registro, es para los
+                                                    <b style="color:red;"> MERCADOS</b> a los cuales 
+                                                    <b style="color:red;">NO</b> puede ir el
+                                                    <b style="color:red;"> PRODUCTOR</b>.
                                             </h4>
                                             <hr class="my-15">
                                             <div class="form-group">
