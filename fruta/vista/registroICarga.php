@@ -461,7 +461,7 @@ if (isset($_REQUEST['CREAR'])) {
         $ICARGA->__SET('ID_USUARIOI', $IDUSUARIOS);
         $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $ICARGA_ADO->agregarIcarga($ICARGA);
+        // $ICARGA_ADO->agregarIcarga($ICARGA);
 
         $ARRAYICARGA2 = $ICARGA_ADO->buscarIcargaID(
             $_REQUEST['FECHAINSTRUCTIVO'],
@@ -475,7 +475,7 @@ if (isset($_REQUEST['CREAR'])) {
 
         );
         //REDIRECCIONAR A PAGINA registroRecepcion.php 
-        echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $ARRAYICARGA2[0]['ID_ICARGA'] . "&&parametro1=crear';</script>";
+        //    echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $ARRAYICARGA2[0]['ID_ICARGA'] . "&&parametro1=crear';</script>";
     }
 }
 //OPERACION EDICION DE FILA
@@ -3079,28 +3079,32 @@ if (isset($_POST)) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
                                     <table>
                                         <tbody>
-
                                             <tr>
-                                                <th class=" center">
-                                                    Agregar
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td class=" center">
-                                                    <div class="form-group">
-                                                        <button type="button" class=" btn btn-rounded btn-success btn-outline" <?php echo $DISABLED2; ?> id="defecto" name="agregar" Onclick="abrirVentana('registroDicarga.php?IDICARGA=<?php echo $IDOP ?>&& EMPRESA=<?php echo $EMPRESA; ?>&&PLANTA=<?php echo $PLANTA; ?>&&TEMPORADA=<?php echo $TEMPORADA; ?> ' ); ">
-                                                            <i class="glyphicon glyphicon-plus"></i>
-                                                        </button>
-                                                    </div>
+                                                <td>
+                                                    <form method="post" id="form2" name="form2">
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" placeholder="ID ICARGA" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="OP ICARGA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="URL ICARGA" id="URLP" name="URLP" value="registroICarga" />
+                                                            <input type="hidden" class="form-control" placeholder="URL DICARGA" id="URLD" name="URLD" value="registroDiarga" />
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                        } ?>>
+                                                                <i class=" glyphicon glyphicon-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>
                                                     Total Envase
-                                                    </td>
+                                                </th>
+                                            </tr>
+                                            <tr>
                                                 <td>
 
                                                     <div class="form-group">
@@ -3113,6 +3117,8 @@ if (isset($_POST)) {
                                                 <th>
                                                     Total Kilos Neto
                                                 </th>
+                                            </tr>
+                                            <tr>
                                                 <td>
                                                     <div class="form-group">
                                                         <input type="hidden" class="form-control" id="TOTALKILONETO" name="TOTALKILONETO" value="<?php echo $TOTALKILONETO; ?>" />
@@ -3124,6 +3130,8 @@ if (isset($_POST)) {
                                                 <th>
                                                     Total Kilos Bruto
                                                 </th>
+                                            </tr>
+                                            <tr>
                                                 <td>
                                                     <div class="form-group">
                                                         <input type="hidden" class="form-control" id="TOTALKILOBRUTO" name="TOTALKILOBRUTO" value="<?php echo $TOTALKILOBRUTO; ?>" />
@@ -3135,6 +3143,8 @@ if (isset($_POST)) {
                                                 <th>
                                                     Total US
                                                 </th>
+                                            </tr>
+                                            <tr>
                                                 <td>
                                                     <div class="form-group">
                                                         <input type="hidden" class="form-control" id="TOTALUS" name="TOTALUS" value="<?php echo $TOTALUS; ?>" />
