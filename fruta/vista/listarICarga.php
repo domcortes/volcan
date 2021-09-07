@@ -49,13 +49,16 @@ $ARRAYDFINAL = "";
 
 if ($EMPRESAS   && $TEMPORADAS) {
 
-    $ARRAYICARGA = $ICARGA_ADO->listarIcargaEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYICARGA = $ICARGA_ADO->listarIcargaEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYTOTALICARGA = $ICARGA_ADO->obtenerTotalesEmpresaTemporada($EMPRESAS,  $TEMPORADAS);
     $TOTALENVASE = $ARRAYTOTALICARGA[0]['ENVASE'];
     $TOTALNETO = $ARRAYTOTALICARGA[0]['NETO'];
     $TOTALBRUTO = $ARRAYTOTALICARGA[0]['BRUTO'];
     $TOTALUS = $ARRAYTOTALICARGA[0]['US'];
-} 
+}
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrLP.php";
+
 
 
 
@@ -126,6 +129,11 @@ if ($EMPRESAS   && $TEMPORADAS) {
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
                     window.open(url, 'window', opciones);
                 }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
             </script>
 
 </head>
@@ -189,11 +197,12 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                     <tr>
                                                         <th>Número </th>
                                                         <th>Estado</th>
+                                                        <th>Fecha Instructivo</th>
                                                         <th class="text-center">Operaciónes </th>
                                                         <th>Estado Instructivo</th>
+                                                        <th>Tipo Emarque</th>
                                                         <th>Tipo Contenedor</th>
                                                         <th>Contenedor</th>
-                                                        <th>Fecha Instructivo</th>
                                                         <th>Fecha ETD</th>
                                                         <th>Fecha ETA</th>
                                                         <th>Días Estimados</th>
@@ -207,110 +216,118 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYICARGA as $r) : ?>
+
+                                                        <?php
+                                                        if ($r['ESTADO_ICARGA'] == "1") {
+                                                            $ESTADOICARGA = "Creado";
+                                                        }
+                                                        if ($r['ESTADO_ICARGA'] == "2") {
+                                                            $ESTADOICARGA = "Confirmado";
+                                                        }
+                                                        if ($r['ESTADO_ICARGA'] == "3") {
+                                                            $ESTADOICARGA = "Despachado";
+                                                        }
+                                                        if ($r['ESTADO_ICARGA'] == "4") {
+                                                            $ESTADOICARGA = "Arrivado";
+                                                        }
+                                                        if ($r['ESTADO_ICARGA'] == "5") {
+                                                            $ESTADOICARGA = "Cancelado";
+                                                        }
+                                                        if ($r['TEMBARQUE_ICARGA'] == "1") {
+                                                            $TEMBARQUE = "Terrestre";
+                                                        }
+                                                        if ($r['TEMBARQUE_ICARGA'] == "2") {
+                                                            $TEMBARQUE = "Aereo";
+                                                        }
+                                                        if ($r['TEMBARQUE_ICARGA'] == "3") {
+                                                            $TEMBARQUE = "Maritimo";
+                                                        }
+
+                                                        $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
+                                                        if ($ARRAYTCONTENEDOR) {
+                                                            $NOMBRETCONTENEDOR = $ARRAYTCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
+                                                        } else {
+                                                            $NOMBRETCONTENEDOR = "Sin Datos";
+                                                        }
+                                                        $ARRAYDFINAL = $DFINAL_ADO->verDfinal($r['ID_DFINAL']);
+                                                        if ($ARRAYDFINAL) {
+                                                            $NOMBRDFINAL = $ARRAYDFINAL[0]['NOMBRE_DFINAL'];
+                                                        } else {
+                                                            $NOMBRDFINAL = "Sin Datos";
+                                                        }
+
+                                                        ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['NUMERO_ICARGA']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td <?php if ($r['ESTADO'] == "0") {
-                                                                    echo "style='background-color: #FF0000;'";
-                                                                }
-                                                                if ($r['ESTADO'] == "1") {
-                                                                    echo "style='background-color: #4AF575;'";
-                                                                }  ?>>
-                                                                <?php
-                                                                if ($r['ESTADO'] == "0") {
-                                                                    echo "Cerrado";
-                                                                }
-                                                                if ($r['ESTADO'] == "1") {
-                                                                    echo "Abierto";
-                                                                }
-                                                                ?>
+                                                            <td>
+                                                                <?php if ($r['ESTADO'] == "0") { ?>
+                                                                    <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                                <?php  }  ?>
+                                                                <?php if ($r['ESTADO'] == "1") { ?>
+                                                                    <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                                <?php  }  ?>
                                                             </td>
+                                                            <td> <?php echo $r['FECHA']; ?> </td>
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <i class="glyphicon glyphicon-cog"></i>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
+                                                                                <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_ICARGA']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroICarga" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarICarga" />
                                                                                 <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeIcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
-                                                                                    </button>Informe
-                                                                                    <br>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
-                                                                                    </button>Carga Real
-                                                                                    <br>
-                                                                                <div class="dropdown-divider"></div>
+
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                        <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                            <i class="ti-eye"></i>
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline mr-1" id="defecto" name="editar" Onclick="irPagina('registroICarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&parametro1=editar'); ">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>Editar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                        <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                            <i class="ti-pencil-alt"></i>
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
-                                                                                <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline mr-1" id="defecto" name="ver" Onclick="irPagina('registroICarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&parametro1=ver'); ">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>Ver
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
+                                                                                    <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                    </button>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </form>
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                if ($r['ESTADO_ICARGA'] == "1") {
-                                                                    echo "Creado";
-                                                                }
-                                                                if ($r['ESTADO_ICARGA'] == "2") {
-                                                                    echo "Confirmado";
-                                                                }
-                                                                if ($r['ESTADO_ICARGA'] == "3") {
-                                                                    echo "Despachado";
-                                                                }
-                                                                if ($r['ESTADO_ICARGA'] == "4") {
-                                                                    echo "Arrivado";
-                                                                }
-                                                                if ($r['ESTADO_ICARGA'] == "5") {
-                                                                    echo "Cancelado";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                if ($r['ID_TCONTENEDOR']) {
-                                                                    $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
-                                                                    echo $ARRAYTCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
-                                                                } else {
-                                                                    echo "-";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td> <?php echo $r['BOLAWBCRT_ICARGA']; ?> </td>
-                                                            <td> <?php echo $r['FECHA_ICARGA']; ?> </td>
-                                                            <td> <?php echo $r['FECHAETD_ICARGA']; ?> </td>
-                                                            <td> <?php echo $r['FECHAETA_ICARGA']; ?> </td>
+                                                            <td> <?php echo $ESTADOICARGA; ?> </td>
+                                                            <td> <?php echo $TEMBARQUE; ?> </td>
+                                                            <td> <?php echo $NOMBRETCONTENEDOR; ?> </td>
+                                                            <td> <?php echo $r['CONTENEDOR']; ?> </td>
+                                                            <td> <?php echo $r['FECHAETD']; ?> </td>
+                                                            <td> <?php echo $r['FECHAETA']; ?> </td>
                                                             <td> <?php echo $r['ESTIMADO']; ?> </td>
                                                             <td> <?php echo $r['REAL']; ?> </td>
-                                                            <td>
-                                                                <?php
-                                                                if ($r['ID_DFINAL']) {
-                                                                    $ARRAYDFINAL = $DFINAL_ADO->verDfinal($r['ID_DFINAL']);
-                                                                    echo $ARRAYDFINAL[0]['NOMBRE_DFINAL'];
-                                                                } else {
-                                                                    echo "-";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td> <?php echo $r['TOTAL_ENVASE_ICAGRA']; ?> </td>
-                                                            <td> <?php echo $r['TOTAL_NETO_ICARGA'];  ?> </td>
-                                                            <td> <?php echo $r['TOTAL_BRUTO_ICARGA'];  ?> </td>
-                                                            <td> <?php echo $r['TOTAL_US_ICARGA'];  ?> </td>
+                                                            <td> <?php echo $NOMBRDFINAL; ?> </td>
+                                                            <td> <?php echo $r['ENVASE']; ?> </td>
+                                                            <td> <?php echo $r['NETO'];  ?> </td>
+                                                            <td> <?php echo $r['BRUTO'];  ?> </td>
+                                                            <td> <?php echo $r['US'];  ?> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
 

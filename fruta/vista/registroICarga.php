@@ -163,6 +163,7 @@ $CVENTA = "";
 $MVENTA = "";
 $FUMIGADO = "";
 $TFLETE = "";
+$COSTOFLETE = "";
 $FDA = "";
 $TCONTENEDOR = "";
 $ATMOSFERA = "";
@@ -173,9 +174,9 @@ $TALAMAPAINSTRUCTIVO = "";
 $ALAMPAINSTRUCTIVO = "";
 $DUSINSTRUCTIVO = "";
 $BOLAWBCRTINSTRUCTIVO = "";
-$NETOINSTRUCTIVO = "";
-$REBATEINSTRUCTIVO = "";
-$PUBLICAINSTRUCTIVO = "";
+$NETOINSTRUCTIVO = 0;
+$REBATEINSTRUCTIVO = 0;
+$PUBLICAINSTRUCTIVO = 0;
 $SEGURO = "";
 $OBSERVACIONINSTRUCTIVO = "";
 $ESTADO = "";
@@ -307,6 +308,7 @@ $ARRAYDCARGATOTAL2 = "";
 $ARRAYCONSOLIDADODESPACHO = "";
 $ARRAYCONSOLIDADODESPACHO2 = "";
 $ARRAYCALIBRE = "";
+$ARRAYNUMERO = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
@@ -357,14 +359,18 @@ $ARRAYPAIS = $PAIS_ADO->listarPaisCBX();
 
 
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarCBX();
-$ARRAYNUMERO = "";
-
+$ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($PLANTAS);
+if ($ARRAYVERPLANTA) {
+    $FDA = $ARRAYVERPLANTA[0]['FDA_PLANTA'];
+}
 $ARRAYFECHAACTUAL = $ICARGA_ADO->obtenerFecha();
 $FECHAINSTRUCTIVO = $ARRAYFECHAACTUAL[0]['FECHA'];
 $FECHAETA = $ARRAYFECHAACTUAL[0]['FECHA'];
 $FECHAETD = $ARRAYFECHAACTUAL[0]['FECHA'];
 $FECHASTACKING = $ARRAYFECHAACTUAL[0]['FECHA'];
 
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrlD.php";
 
 
 //OPERACIONES
@@ -380,13 +386,7 @@ if (isset($_REQUEST['CREAR'])) {
 
     if ($SINO == "0") {
 
-        if ($_REQUEST['NETOINSTRUCTIVO'] && $_REQUEST['REBATEINSTRUCTIVO']) {
-            $PUBLICA = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
-        } else {
-            $PUBLICA = 0;
-        }
-
-        $ARRAYNUMERO = $ICARGA_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+        $ARRAYNUMERO = $ICARGA_ADO->obtenerNumero($_REQUEST['EMPRESA'],  $_REQUEST['TEMPORADA']);
         $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
         $ICARGA->__SET('NUMERO_ICARGA', $NUMERO);
@@ -401,19 +401,15 @@ if (isset($_REQUEST['CREAR'])) {
         $ICARGA->__SET('T_ICARGA', $_REQUEST['TINSTRUCTIVO']);
         $ICARGA->__SET('O2_ICARGA', $_REQUEST['O2INSTRUCTIVO']);
         $ICARGA->__SET('C02_ICARGA', $_REQUEST['CO2INSTRUCTIVO']);
-        $ICARGA->__SET('TALAMPA_ICARGA', $_REQUEST['TALAMAPAINSTRUCTIVO']);
         $ICARGA->__SET('ALAMPA_ICARGA', $_REQUEST['ALAMPAINSTRUCTIVO']);
+        $ICARGA->__SET('COSTO_FLETE_ICARGA', $_REQUEST['COSTOFLETE']);
         $ICARGA->__SET('DUS_ICARGA', $_REQUEST['DUSINSTRUCTIVO']);
         $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
         $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
         $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-        $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICA);
+        $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
         $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
         $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
-        $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', 0);
-        $ICARGA->__SET('TOTAL_NETO_ICARGA', 0);
-        $ICARGA->__SET('TOTAL_BRUTO_ICARGA', 0);
-        $ICARGA->__SET('TOTAL_US_ICARGA', 0);
         $ICARGA->__SET('ID_TSERVICIO', $_REQUEST['TSERVICIO']);
         $ICARGA->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORA']);
         $ICARGA->__SET('ID_CONSIGNATARIO', $_REQUEST['CONSIGNATARIO']);
@@ -428,6 +424,7 @@ if (isset($_REQUEST['CREAR'])) {
         $ICARGA->__SET('ID_CVENTA', $_REQUEST['CVENTA']);
         $ICARGA->__SET('ID_MVENTA', $_REQUEST['MVENTA']);
         $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
+        $ICARGA->__SET('COSTO_FLETE_ICARGA', $_REQUEST['COSTOFLETE']);
         $ICARGA->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
         $ICARGA->__SET('ID_ATMOSFERA', $_REQUEST['ATMOSFERA']);
         if (isset($_REQUEST['TEMBARQUE'])) {
@@ -439,15 +436,14 @@ if (isset($_REQUEST['CREAR'])) {
             }
             if ($_REQUEST['TEMBARQUE'] == "2") {
                 $ICARGA->__SET('ID_LAREA', $_REQUEST['LAEREA']);
-                $ICARGA->__SET('ID_AEROLINEA', $_REQUEST['AEROLINIA']);
-                $ICARGA->__SET('ID_AERONAVE', $_REQUEST['AERONAVE']);
-                $ICARGA->__SET('NVUELO_ICARGA', $_REQUEST['NVUELO']);
+                $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
+                $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
                 $ICARGA->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
                 $ICARGA->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
             }
             if ($_REQUEST['TEMBARQUE'] == "3") {
                 $ICARGA->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
-                $ICARGA->__SET('ID_NAVE', $_REQUEST['NAVE']);
+                $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
                 $ICARGA->__SET('FECHASTACKING_ICARGA', $_REQUEST['FECHASTACKING']);
                 $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
                 $ICARGA->__SET('ID_PCARGA', $_REQUEST['PCARGA']);
@@ -455,36 +451,33 @@ if (isset($_REQUEST['CREAR'])) {
             }
         }
         $ICARGA->__SET('ID_PAIS',  $_REQUEST['PAIS']);
-        $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-        $ICARGA->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-        $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
+        $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
+        $ICARGA->__SET('ID_PLANTA',  $_REQUEST['PLANTA']);
+        $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
         $ICARGA->__SET('ID_USUARIOI', $IDUSUARIOS);
         $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        // $ICARGA_ADO->agregarIcarga($ICARGA);
+        $ICARGA_ADO->agregarIcarga($ICARGA);
 
-        $ARRAYICARGA2 = $ICARGA_ADO->buscarIcargaID(
+        $ARRYAOBTENERID = $ICARGA_ADO->obtenerId(
             $_REQUEST['FECHAINSTRUCTIVO'],
-            $_REQUEST['TSERVICIO'],
-            $_REQUEST['TEMBARQUE'],
-            $_REQUEST['BOOKINGINSTRUCTIVO'],
             $_REQUEST['OBSERVACIONINSTRUCTIVO'],
             $_REQUEST['EMPRESA'],
-            $_REQUEST['PLANTA'],
             $_REQUEST['TEMPORADA'],
 
         );
-        //REDIRECCIONAR A PAGINA registroRecepcion.php 
-        //    echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $ARRAYICARGA2[0]['ID_ICARGA'] . "&&parametro1=crear';</script>";
+
+        //REDIRECCIONAR A PAGINA registroICarga.php 
+        $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_ICARGA'];
+        $_SESSION["parametro1"] = "crear";
+        echo "<script type='text/javascript'> location.href ='registroICarga.php?op';</script>";
     }
 }
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
-
-    $PUBLICA = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
     $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
     $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
-    $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVOE']);
+    $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
     $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
     $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
     $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
@@ -493,20 +486,18 @@ if (isset($_REQUEST['EDITAR'])) {
     $ICARGA->__SET('T_ICARGA', $_REQUEST['TINSTRUCTIVO']);
     $ICARGA->__SET('O2_ICARGA', $_REQUEST['O2INSTRUCTIVO']);
     $ICARGA->__SET('C02_ICARGA', $_REQUEST['CO2INSTRUCTIVO']);
-    $ICARGA->__SET('TALAMPA_ICARGA', $_REQUEST['TALAMAPAINSTRUCTIVO']);
     $ICARGA->__SET('ALAMPA_ICARGA', $_REQUEST['ALAMPAINSTRUCTIVO']);
+    $ICARGA->__SET('COSTO_FLETE_ICARGA', $_REQUEST['COSTOFLETE']);
     $ICARGA->__SET('DUS_ICARGA', $_REQUEST['DUSINSTRUCTIVO']);
     $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
     $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
     $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-    $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICA);
-    $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
+    $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
     $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
     $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', $_REQUEST['TOTALENVASE']);
     $ICARGA->__SET('TOTAL_NETO_ICARGA', $_REQUEST['TOTALKILONETO']);
     $ICARGA->__SET('TOTAL_BRUTO_ICARGA', $_REQUEST['TOTALKILOBRUTO']);
     $ICARGA->__SET('TOTAL_US_ICARGA', $_REQUEST['TOTALUS']);
-    $ICARGA->__SET('ID_TSERVICIO', $_REQUEST['TSERVICIO']);
     $ICARGA->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORA']);
     $ICARGA->__SET('ID_CONSIGNATARIO', $_REQUEST['CONSIGNATARIO']);
     $ICARGA->__SET('ID_NOTIFICADOR', $_REQUEST['NOTIFICADOR']);
@@ -516,12 +507,6 @@ if (isset($_REQUEST['EDITAR'])) {
     $ICARGA->__SET('ID_AADUANA', $_REQUEST['AADUANA']);
     $ICARGA->__SET('ID_AGCARGA', $_REQUEST['AGCARGA']);
     $ICARGA->__SET('ID_DFINAL', $_REQUEST['DFINAL']);
-    $ICARGA->__SET('ID_FPAGO', $_REQUEST['FPAGO']);
-    $ICARGA->__SET('ID_CVENTA', $_REQUEST['CVENTA']);
-    $ICARGA->__SET('ID_MVENTA', $_REQUEST['MVENTA']);
-    $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
-    $ICARGA->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
-    $ICARGA->__SET('ID_ATMOSFERA', $_REQUEST['ATMOSFERA']);
     if (isset($_REQUEST['TEMBARQUE'])) {
         if ($_REQUEST['TEMBARQUE'] == "1") {
             $ICARGA->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
@@ -531,34 +516,40 @@ if (isset($_REQUEST['EDITAR'])) {
         }
         if ($_REQUEST['TEMBARQUE'] == "2") {
             $ICARGA->__SET('ID_LAREA', $_REQUEST['LAEREA']);
-            $ICARGA->__SET('ID_AEROLINEA', $_REQUEST['AEROLINIA']);
-            $ICARGA->__SET('ID_AERONAVE', $_REQUEST['AERONAVE']);
-            $ICARGA->__SET('NVUELO_ICARGA', $_REQUEST['NVUELO']);
+            $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
+            $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
             $ICARGA->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
             $ICARGA->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
         }
         if ($_REQUEST['TEMBARQUE'] == "3") {
             $ICARGA->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
-            $ICARGA->__SET('ID_NAVE', $_REQUEST['NAVE']);
+            $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
             $ICARGA->__SET('FECHASTACKING_ICARGA', $_REQUEST['FECHASTACKING']);
             $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
             $ICARGA->__SET('ID_PCARGA', $_REQUEST['PCARGA']);
             $ICARGA->__SET('ID_PDESTINO', $_REQUEST['PDESTINO']);
         }
     }
+    $ICARGA->__SET('ID_TSERVICIO', $_REQUEST['TSERVICIO']);
+    $ICARGA->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
+    $ICARGA->__SET('ID_ATMOSFERA', $_REQUEST['ATMOSFERA']);
+    $ICARGA->__SET('ID_FPAGO', $_REQUEST['FPAGO']);
+    $ICARGA->__SET('ID_CVENTA', $_REQUEST['CVENTA']);
+    $ICARGA->__SET('ID_MVENTA', $_REQUEST['MVENTA']);
+    $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
+    $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
     $ICARGA->__SET('ID_PAIS',  $_REQUEST['PAIS']);
-    $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-    $ICARGA->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-    $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
+    $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
+    $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
     $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $ICARGA->__SET('ID_ICARGA', $_REQUEST['ID']);
+    $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
     $ICARGA_ADO->actualizarIcarga($ICARGA);
 }
 if (isset($_REQUEST['CERRAR'])) {
 
-    if ($_REQUEST['ID']) {
-        $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($_REQUEST['ID']);
+    if ($_REQUEST['IDP']) {
+        $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($_REQUEST['IDP']);
     }
     if ($ARRAYDCARGA) {
         $SINO = "0";
@@ -568,10 +559,9 @@ if (isset($_REQUEST['CERRAR'])) {
         $MENSAJE = "DEBE TENER AL MENOS UN REGISTRO EN EL DETALLE";
     }
     if ($SINO == "0") {
-        $PUBLICA = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
         $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
         $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
-        $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVOE']);
+        $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
         $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
         $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
         $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
@@ -580,20 +570,18 @@ if (isset($_REQUEST['CERRAR'])) {
         $ICARGA->__SET('T_ICARGA', $_REQUEST['TINSTRUCTIVO']);
         $ICARGA->__SET('O2_ICARGA', $_REQUEST['O2INSTRUCTIVO']);
         $ICARGA->__SET('C02_ICARGA', $_REQUEST['CO2INSTRUCTIVO']);
-        $ICARGA->__SET('TALAMPA_ICARGA', $_REQUEST['TALAMAPAINSTRUCTIVO']);
         $ICARGA->__SET('ALAMPA_ICARGA', $_REQUEST['ALAMPAINSTRUCTIVO']);
+        $ICARGA->__SET('COSTO_FLETE_ICARGA', $_REQUEST['COSTOFLETE']);
         $ICARGA->__SET('DUS_ICARGA', $_REQUEST['DUSINSTRUCTIVO']);
         $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
         $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
         $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-        $ICARGA->__SET('PUBLICA_ICARGA', $PUBLICA);
-        $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
+        $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
         $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
         $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', $_REQUEST['TOTALENVASE']);
         $ICARGA->__SET('TOTAL_NETO_ICARGA', $_REQUEST['TOTALKILONETO']);
         $ICARGA->__SET('TOTAL_BRUTO_ICARGA', $_REQUEST['TOTALKILOBRUTO']);
         $ICARGA->__SET('TOTAL_US_ICARGA', $_REQUEST['TOTALUS']);
-        $ICARGA->__SET('ID_TSERVICIO', $_REQUEST['TSERVICIO']);
         $ICARGA->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORA']);
         $ICARGA->__SET('ID_CONSIGNATARIO', $_REQUEST['CONSIGNATARIO']);
         $ICARGA->__SET('ID_NOTIFICADOR', $_REQUEST['NOTIFICADOR']);
@@ -603,12 +591,6 @@ if (isset($_REQUEST['CERRAR'])) {
         $ICARGA->__SET('ID_AADUANA', $_REQUEST['AADUANA']);
         $ICARGA->__SET('ID_AGCARGA', $_REQUEST['AGCARGA']);
         $ICARGA->__SET('ID_DFINAL', $_REQUEST['DFINAL']);
-        $ICARGA->__SET('ID_FPAGO', $_REQUEST['FPAGO']);
-        $ICARGA->__SET('ID_CVENTA', $_REQUEST['CVENTA']);
-        $ICARGA->__SET('ID_MVENTA', $_REQUEST['MVENTA']);
-        $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
-        $ICARGA->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
-        $ICARGA->__SET('ID_ATMOSFERA', $_REQUEST['ATMOSFERA']);
         if (isset($_REQUEST['TEMBARQUE'])) {
             if ($_REQUEST['TEMBARQUE'] == "1") {
                 $ICARGA->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
@@ -618,51 +600,58 @@ if (isset($_REQUEST['CERRAR'])) {
             }
             if ($_REQUEST['TEMBARQUE'] == "2") {
                 $ICARGA->__SET('ID_LAREA', $_REQUEST['LAEREA']);
-                $ICARGA->__SET('ID_AEROLINEA', $_REQUEST['AEROLINIA']);
-                $ICARGA->__SET('ID_AERONAVE', $_REQUEST['AERONAVE']);
-                $ICARGA->__SET('NVUELO_ICARGA', $_REQUEST['NVUELO']);
+                $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
+                $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
                 $ICARGA->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
                 $ICARGA->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
             }
             if ($_REQUEST['TEMBARQUE'] == "3") {
                 $ICARGA->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
-                $ICARGA->__SET('ID_NAVE', $_REQUEST['NAVE']);
+                $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
                 $ICARGA->__SET('FECHASTACKING_ICARGA', $_REQUEST['FECHASTACKING']);
                 $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
                 $ICARGA->__SET('ID_PCARGA', $_REQUEST['PCARGA']);
                 $ICARGA->__SET('ID_PDESTINO', $_REQUEST['PDESTINO']);
             }
         }
+        $ICARGA->__SET('ID_TSERVICIO', $_REQUEST['TSERVICIO']);
+        $ICARGA->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
+        $ICARGA->__SET('ID_ATMOSFERA', $_REQUEST['ATMOSFERA']);
+        $ICARGA->__SET('ID_FPAGO', $_REQUEST['FPAGO']);
+        $ICARGA->__SET('ID_CVENTA', $_REQUEST['CVENTA']);
+        $ICARGA->__SET('ID_MVENTA', $_REQUEST['MVENTA']);
+        $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
+        $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
         $ICARGA->__SET('ID_PAIS',  $_REQUEST['PAIS']);
-        $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-        $ICARGA->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-        $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
+        $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
+        $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
         $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ID']);
+        $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
         $ICARGA_ADO->actualizarIcarga($ICARGA);
 
 
-        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ID']);
+        $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $ICARGA_ADO->cerrrado($ICARGA);
+        // $ICARGA_ADO->cerrrado($ICARGA);
 
-        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ID']);
+        $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $ICARGA_ADO->confirmado($ICARGA);
+        //  $ICARGA_ADO->confirmado($ICARGA);
 
+        $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($_REQUEST['IDP']);
         foreach ($ARRAYDCARGA as $f) :
             $DICARGA->__SET('ID_DICARGA', $f['ID_DICARGA']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $DICARGA_ADO->cerrado($DICARGA);
+        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+        //   $DICARGA_ADO->cerrado($DICARGA);
         endforeach;
 
 
         if ($_REQUEST['parametro1'] == "crear") {
-            echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver';</script>";
+            //   echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver';</script>";
         }
         if ($_REQUEST['parametro1'] == "editar") {
-            echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver';</script>";
+            //     echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver';</script>";
         }
     }
 }
@@ -674,16 +663,16 @@ if (isset($_REQUEST['ELIMINAR'])) {
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
-if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
+
+if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //ALMACENAR DATOS DE VARIABLES DE LA URL
-    $IDOP = $_REQUEST['parametro'];
-    $OP = $_REQUEST['parametro1'];
+    $IDOP = $_SESSION['parametro'];
+    $OP = $_SESSION['parametro1'];
+
     $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($IDOP);
     $ARRAYDCARGATOTAL = $DICARGA_ADO->totalesPorIcarga($IDOP);
     $ARRAYDCARGATOTAL2 = $DICARGA_ADO->totalesPorIcarga2($IDOP);
     $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
-
-
 
     $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
     $TOTALKILONETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
@@ -709,8 +698,7 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
         $DISABLED3 = "disabled";
         $DISABLEDMENU = "disabled";
         $DISABLEDSTYLE3 = "style='background-color: #eeeeee;'";
-
-        $ARRAYVERICARGA = $ICARGA_ADO->verIcarga2($IDOP);
+        $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYVERICARGA as $r) :
@@ -720,8 +708,8 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $TSERVICIO = $r['ID_TSERVICIO'];
             $BOOKINGINSTRUCTIVO = $r['BOOKING_ICARGA'];
             $NUMEROREFERENCIAINSTRUCTIVO = $r['NREFERENCIA_ICARGA'];
-            $FECHAINGRESO = $r['FECHA_INGRESOI'];
-            $FECHAMODIFCIACION = $r['FECHA_MODIFICACIONI'];
+            $FECHAINGRESO = $r['INGRESO'];
+            $FECHAMODIFCIACION = $r['MODIFICACION'];
             $EXPORTADORA = $r['ID_EXPPORTADORA'];
             $CONSIGNATARIO = $r['ID_CONSIGNATARIO'];
             $NOTIFICADOR = $r['ID_NOTIFICADOR'];
@@ -735,6 +723,7 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $DFINAL = $r['ID_DFINAL'];
             $FDA = $r['FDA_ICARGA'];
             $TEMBARQUE = $r['TEMBARQUE_ICARGA'];
+            $COSTOFLETE = $r['COSTO_FLETE_ICARGA'];
             if ($TEMBARQUE) {
                 if ($TEMBARQUE == "1") {
                     $TRANSPORTE = $r['ID_TRANSPORTE'];
@@ -744,18 +733,16 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
                 }
                 if ($TEMBARQUE == "2") {
                     $LAEREA = $r['ID_LAREA'];
-                    $ARRAYAEROLINIA = $AEROLINIA_ADO->buscarAerolineaPorLarea($LAEREA);
                     $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
                     $AEROLINIA = $r['ID_AEROLINEA'];
                     $AERONAVE = $r['ID_AERONAVE'];
-                    $NVUELO = $r['NVUELO_ICARGA'];
+                    $NVIAJE = $r['NVIAJE_ICARGA'];
                     $ACARGA = $r['ID_ACARGA'];
                     $ADESTINO = $r['ID_ADESTINO'];
                 }
                 if ($TEMBARQUE == "3") {
                     $NAVIERA = $r['ID_NAVIERA'];
-                    $ARRAYNAVE = $NAVE_ADO->buscarNavePorNaviera($NAVIERA);
-                    $NAVE = $r['ID_NAVE'];
+                    $NAVE = $r['NAVE_ICARGA'];
                     $FECHASTACKING = $r['FECHASTACKING_ICARGA'];
                     $NVIAJE = $r['NVIAJE_ICARGA'];
                     $PCARGA = $r['ID_PCARGA'];
@@ -772,7 +759,6 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $TINSTRUCTIVO = $r['T_ICARGA'];
             $O2INSTRUCTIVO = $r['O2_ICARGA'];
             $CO2INSTRUCTIVO = $r['C02_ICARGA'];
-            $TALAMAPAINSTRUCTIVO = $r['TALAMPA_ICARGA'];
             $ALAMPAINSTRUCTIVO = $r['ALAMPA_ICARGA'];
             $DUSINSTRUCTIVO = $r['DUS_ICARGA'];
             $BOLAWBCRTINSTRUCTIVO = $r['BOLAWBCRT_ICARGA'];
@@ -781,15 +767,13 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $PUBLICAINSTRUCTIVO = $r['PUBLICA_ICARGA'];
             $SEGURO = $r['ID_SEGURO'];
             $OBSERVACIONINSTRUCTIVO = $r['OBSERVACION_ICARGA'];
-            $ESTADO = $r['ESTADO'];
             $PAIS = $r['ID_PAIS'];
-            $PLANTA = $r['ID_PLANTA'];
             $EMPRESA = $r['ID_EMPRESA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
+            $ESTADO = $r['ESTADO'];
 
         endforeach;
     }
-
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
 
@@ -804,18 +788,18 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
         $DISABLED3 = "disabled";
         $DISABLEDMENU = "disabled";
         $DISABLEDSTYLE3 = "style='background-color: #eeeeee;'";
-
-        $ARRAYVERICARGA = $ICARGA_ADO->verIcarga2($IDOP);
+        $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYVERICARGA as $r) :
+
             $NUMEROVER = $r['NUMERO_ICARGA'];
             $FECHAINSTRUCTIVO = $r['FECHA_ICARGA'];
             $TSERVICIO = $r['ID_TSERVICIO'];
             $BOOKINGINSTRUCTIVO = $r['BOOKING_ICARGA'];
             $NUMEROREFERENCIAINSTRUCTIVO = $r['NREFERENCIA_ICARGA'];
-            $FECHAINGRESO = $r['FECHA_INGRESOI'];
-            $FECHAMODIFCIACION = $r['FECHA_MODIFICACIONI'];
+            $FECHAINGRESO = $r['INGRESO'];
+            $FECHAMODIFCIACION = $r['MODIFICACION'];
             $EXPORTADORA = $r['ID_EXPPORTADORA'];
             $CONSIGNATARIO = $r['ID_CONSIGNATARIO'];
             $NOTIFICADOR = $r['ID_NOTIFICADOR'];
@@ -829,6 +813,7 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $DFINAL = $r['ID_DFINAL'];
             $FDA = $r['FDA_ICARGA'];
             $TEMBARQUE = $r['TEMBARQUE_ICARGA'];
+            $COSTOFLETE = $r['COSTO_FLETE_ICARGA'];
             if ($TEMBARQUE) {
                 if ($TEMBARQUE == "1") {
                     $TRANSPORTE = $r['ID_TRANSPORTE'];
@@ -838,18 +823,16 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
                 }
                 if ($TEMBARQUE == "2") {
                     $LAEREA = $r['ID_LAREA'];
-                    $ARRAYAEROLINIA = $AEROLINIA_ADO->buscarAerolineaPorLarea($LAEREA);
                     $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
                     $AEROLINIA = $r['ID_AEROLINEA'];
                     $AERONAVE = $r['ID_AERONAVE'];
-                    $NVUELO = $r['NVUELO_ICARGA'];
+                    $NVIAJE = $r['NVIAJE_ICARGA'];
                     $ACARGA = $r['ID_ACARGA'];
                     $ADESTINO = $r['ID_ADESTINO'];
                 }
                 if ($TEMBARQUE == "3") {
                     $NAVIERA = $r['ID_NAVIERA'];
-                    $ARRAYNAVE = $NAVE_ADO->buscarNavePorNaviera($NAVIERA);
-                    $NAVE = $r['ID_NAVE'];
+                    $NAVE = $r['NAVE_ICARGA'];
                     $FECHASTACKING = $r['FECHASTACKING_ICARGA'];
                     $NVIAJE = $r['NVIAJE_ICARGA'];
                     $PCARGA = $r['ID_PCARGA'];
@@ -866,7 +849,6 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $TINSTRUCTIVO = $r['T_ICARGA'];
             $O2INSTRUCTIVO = $r['O2_ICARGA'];
             $CO2INSTRUCTIVO = $r['C02_ICARGA'];
-            $TALAMAPAINSTRUCTIVO = $r['TALAMPA_ICARGA'];
             $ALAMPAINSTRUCTIVO = $r['ALAMPA_ICARGA'];
             $DUSINSTRUCTIVO = $r['DUS_ICARGA'];
             $BOLAWBCRTINSTRUCTIVO = $r['BOLAWBCRT_ICARGA'];
@@ -875,15 +857,13 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $PUBLICAINSTRUCTIVO = $r['PUBLICA_ICARGA'];
             $SEGURO = $r['ID_SEGURO'];
             $OBSERVACIONINSTRUCTIVO = $r['OBSERVACION_ICARGA'];
-            $ESTADO = $r['ESTADO'];
             $PAIS = $r['ID_PAIS'];
-            $PLANTA = $r['ID_PLANTA'];
             $EMPRESA = $r['ID_EMPRESA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
+            $ESTADO = $r['ESTADO'];
 
         endforeach;
     }
-
     //ver =  OBTENCION DE DATOS PARA LA VISUALIZACION DEL REGISTRO
     if ($OP == "ver") {
         //DESABILITAR INPUT DEL FORMULARIO
@@ -901,18 +881,18 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
         $DISABLED3 = "disabled";
         $DISABLEDMENU = "disabled";
         $DISABLEDSTYLE3 = "style='background-color: #eeeeee;'";
-        $ARRAYVERICARGA = $ICARGA_ADO->verIcarga2($IDOP);
+        $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
-
         foreach ($ARRAYVERICARGA as $r) :
+
             $NUMEROVER = $r['NUMERO_ICARGA'];
             $FECHAINSTRUCTIVO = $r['FECHA_ICARGA'];
             $TSERVICIO = $r['ID_TSERVICIO'];
             $BOOKINGINSTRUCTIVO = $r['BOOKING_ICARGA'];
             $NUMEROREFERENCIAINSTRUCTIVO = $r['NREFERENCIA_ICARGA'];
-            $FECHAINGRESO = $r['FECHA_INGRESOI'];
-            $FECHAMODIFCIACION = $r['FECHA_MODIFICACIONI'];
+            $FECHAINGRESO = $r['INGRESO'];
+            $FECHAMODIFCIACION = $r['MODIFICACION'];
             $EXPORTADORA = $r['ID_EXPPORTADORA'];
             $CONSIGNATARIO = $r['ID_CONSIGNATARIO'];
             $NOTIFICADOR = $r['ID_NOTIFICADOR'];
@@ -926,6 +906,7 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $DFINAL = $r['ID_DFINAL'];
             $FDA = $r['FDA_ICARGA'];
             $TEMBARQUE = $r['TEMBARQUE_ICARGA'];
+            $COSTOFLETE = $r['COSTO_FLETE_ICARGA'];
             if ($TEMBARQUE) {
                 if ($TEMBARQUE == "1") {
                     $TRANSPORTE = $r['ID_TRANSPORTE'];
@@ -935,18 +916,16 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
                 }
                 if ($TEMBARQUE == "2") {
                     $LAEREA = $r['ID_LAREA'];
-                    $ARRAYAEROLINIA = $AEROLINIA_ADO->buscarAerolineaPorLarea($LAEREA);
                     $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
                     $AEROLINIA = $r['ID_AEROLINEA'];
                     $AERONAVE = $r['ID_AERONAVE'];
-                    $NVUELO = $r['NVUELO_ICARGA'];
+                    $NVIAJE = $r['NVIAJE_ICARGA'];
                     $ACARGA = $r['ID_ACARGA'];
                     $ADESTINO = $r['ID_ADESTINO'];
                 }
                 if ($TEMBARQUE == "3") {
                     $NAVIERA = $r['ID_NAVIERA'];
-                    $ARRAYNAVE = $NAVE_ADO->buscarNavePorNaviera($NAVIERA);
-                    $NAVE = $r['ID_NAVE'];
+                    $NAVE = $r['NAVE_ICARGA'];
                     $FECHASTACKING = $r['FECHASTACKING_ICARGA'];
                     $NVIAJE = $r['NVIAJE_ICARGA'];
                     $PCARGA = $r['ID_PCARGA'];
@@ -963,7 +942,6 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $TINSTRUCTIVO = $r['T_ICARGA'];
             $O2INSTRUCTIVO = $r['O2_ICARGA'];
             $CO2INSTRUCTIVO = $r['C02_ICARGA'];
-            $TALAMAPAINSTRUCTIVO = $r['TALAMPA_ICARGA'];
             $ALAMPAINSTRUCTIVO = $r['ALAMPA_ICARGA'];
             $DUSINSTRUCTIVO = $r['DUS_ICARGA'];
             $BOLAWBCRTINSTRUCTIVO = $r['BOLAWBCRT_ICARGA'];
@@ -972,11 +950,10 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
             $PUBLICAINSTRUCTIVO = $r['PUBLICA_ICARGA'];
             $SEGURO = $r['ID_SEGURO'];
             $OBSERVACIONINSTRUCTIVO = $r['OBSERVACION_ICARGA'];
-            $ESTADO = $r['ESTADO'];
             $PAIS = $r['ID_PAIS'];
-            $PLANTA = $r['ID_PLANTA'];
             $EMPRESA = $r['ID_EMPRESA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
+            $ESTADO = $r['ESTADO'];
 
         endforeach;
     }
@@ -984,12 +961,10 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
 
 //PROCESO PARA OBTENER LOS DATOS DEL FORMULARIO  Y MANTENERLO AL ACTUALIZACION QUE REALIZA EL SELECT DE PRODUCTOR
 if (isset($_POST)) {
-
     //DATOS GENERALES        
     if (isset($_REQUEST['IDINSTRUCTIVO'])) {
         $IDINSTRUCTIVO = $_REQUEST['IDINSTRUCTIVO'];
     }
-
     if (isset($_REQUEST['FECHAINSTRUCTIVO'])) {
         $FECHAINSTRUCTIVO = $_REQUEST['FECHAINSTRUCTIVO'];
     }
@@ -1002,11 +977,9 @@ if (isset($_POST)) {
     if (isset($_REQUEST['NUMEROREFERENCIAINSTRUCTIVO'])) {
         $NUMEROREFERENCIAINSTRUCTIVO = $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO'];
     }
-
     if (isset($_REQUEST['MERCADO'])) {
         $MERCADO = $_REQUEST['MERCADO'];
     }
-
     //DATOS EXPORTACION 
     if (isset($_REQUEST['EXPORTADORA'])) {
         $EXPORTADORA = $_REQUEST['EXPORTADORA'];
@@ -1026,7 +999,6 @@ if (isset($_POST)) {
     if (isset($_REQUEST['PAIS'])) {
         $PAIS = $_REQUEST['PAIS'];
     }
-
     //DATOS EMBARQUE 
     if (isset($_REQUEST['FECHAETD'])) {
         $FECHAETD = $_REQUEST['FECHAETD'];
@@ -1043,11 +1015,9 @@ if (isset($_POST)) {
     if (isset($_REQUEST['DFINAL'])) {
         $DFINAL = $_REQUEST['DFINAL'];
     }
-
     if (isset($_REQUEST['FDA'])) {
         $FDA = $_REQUEST['FDA'];
     }
-
     //TIPOS EMBAQRQUE
     if (isset($_REQUEST['TEMBARQUE'])) {
         $TEMBARQUE = $_REQUEST['TEMBARQUE'];
@@ -1055,11 +1025,9 @@ if (isset($_POST)) {
             if (isset($_REQUEST['TRANSPORTE'])) {
                 $TRANSPORTE = $_REQUEST['TRANSPORTE'];
             }
-
             if (isset($_REQUEST['CRT'])) {
                 $CRT = $_REQUEST['CRT'];
             }
-
             if (isset($_REQUEST['LCARGA'])) {
                 $LCARGA = $_REQUEST['LCARGA'];
             }
@@ -1072,14 +1040,11 @@ if (isset($_POST)) {
                 $LAEREA = $_REQUEST['LAEREA'];
                 $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
             }
-            if (isset($_REQUEST['AEROLINIA'])) {
-                $AEROLINIA = $_REQUEST['AEROLINIA'];
+            if (isset($_REQUEST['NAVE'])) {
+                $NAVE = $_REQUEST['NAVE'];
             }
-            if (isset($_REQUEST['AERONAVE'])) {
-                $AERONAVE = $_REQUEST['AERONAVE'];
-            }
-            if (isset($_REQUEST['NVUELO'])) {
-                $NVUELO = $_REQUEST['NVUELO'];
+            if (isset($_REQUEST['NVIAJE'])) {
+                $NVIAJE = $_REQUEST['NVIAJE'];
             }
             if (isset($_REQUEST['ACARGA'])) {
                 $ACARGA = $_REQUEST['ACARGA'];
@@ -1109,7 +1074,6 @@ if (isset($_POST)) {
             }
         }
     }
-
     //DATO COMERCIAL
     if (isset($_REQUEST['FPAGO'])) {
         $FPAGO = $_REQUEST['FPAGO'];
@@ -1129,8 +1093,6 @@ if (isset($_POST)) {
     if (isset($_REQUEST['FUMIGADO'])) {
         $FUMIGADO = $_REQUEST['FUMIGADO'];
     }
-
-
     //DATO CONTENEDRO
     if (isset($_REQUEST['TCONTENEDOR'])) {
         $TCONTENEDOR = $_REQUEST['TCONTENEDOR'];
@@ -1153,45 +1115,37 @@ if (isset($_POST)) {
     if (isset($_REQUEST['ALAMPAINSTRUCTIVO'])) {
         $ALAMPAINSTRUCTIVO = $_REQUEST['ALAMPAINSTRUCTIVO'];
     }
-
     //OTROS
-
     if (isset($_REQUEST['DUSINSTRUCTIVO'])) {
         $DUSINSTRUCTIVO = $_REQUEST['DUSINSTRUCTIVO'];
     }
-
     if (isset($_REQUEST['BOLAWBCRTINSTRUCTIVO'])) {
         $BOLAWBCRTINSTRUCTIVO = $_REQUEST['BOLAWBCRTINSTRUCTIVO'];
     }
-
     if (isset($_REQUEST['NETOINSTRUCTIVO'])) {
         $NETOINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'];
     }
-
     if (isset($_REQUEST['REBATEINSTRUCTIVO'])) {
         $REBATEINSTRUCTIVO = $_REQUEST['REBATEINSTRUCTIVO'];
     }
-
+    if (isset($_REQUEST['NETOINSTRUCTIVO']) && isset($_REQUEST['REBATEINSTRUCTIVO'])) {
+        $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
+    }
     if (isset($_REQUEST['PUBLICAINSTRUCTIVO'])) {
         $PUBLICAINSTRUCTIVO = $_REQUEST['PUBLICAINSTRUCTIVO'];
     }
-
     if (isset($_REQUEST['SEGURO'])) {
         $SEGURO = $_REQUEST['SEGURO'];
     }
-
     if (isset($_REQUEST['OBSERVACIONINSTRUCTIVO'])) {
         $OBSERVACIONINSTRUCTIVO = $_REQUEST['OBSERVACIONINSTRUCTIVO'];
     }
-
     if (isset($_REQUEST['EMPRESA'])) {
         $EMPRESA = "" . $_REQUEST['EMPRESA'];
     }
-
     if (isset($_REQUEST['PLANTA'])) {
         $PLANTA = "" . $_REQUEST['PLANTA'];
     }
-
     if (isset($_REQUEST['TEMPORADA'])) {
         $TEMPORADA = "" . $_REQUEST['TEMPORADA'];
     }
@@ -1225,35 +1179,12 @@ if (isset($_POST)) {
                     BOOKINGINSTRUCTIVO = document.getElementById("BOOKINGINSTRUCTIVO").value;
                     NUMEROREFERENCIAINSTRUCTIVO = document.getElementById("NUMEROREFERENCIAINSTRUCTIVO").value;
                     EXPORTADORA = document.getElementById("EXPORTADORA").selectedIndex;
-                    CONSIGNATARIO = document.getElementById("CONSIGNATARIO").selectedIndex;
-                    NOTIFICADOR = document.getElementById("NOTIFICADOR").selectedIndex;
-                    BROKER = document.getElementById("BROKER").selectedIndex;
-                    RFINAL = document.getElementById("RFINAL").selectedIndex;
-                    MERCADO = document.getElementById("MERCADO").selectedIndex;
-                    PAIS = document.getElementById("PAIS").selectedIndex;
-                    FECHAETD = document.getElementById("FECHAETD").value;
-                    FECHAETA = document.getElementById("FECHAETA").value;
                     AADUANA = document.getElementById("AADUANA").selectedIndex;
-                    AGCARGA = document.getElementById("AGCARGA").selectedIndex;
-                    DFINAL = document.getElementById("DFINAL").selectedIndex;
                     FPAGO = document.getElementById("FPAGO").selectedIndex;
-                    MVENTA = document.getElementById("MVENTA").selectedIndex;
-                    CVENTA = document.getElementById("CVENTA").selectedIndex;
-                    TFLETE = document.getElementById("TFLETE").selectedIndex;
-                    FUMIGADO = document.getElementById("FUMIGADO").selectedIndex;
                     TCONTENEDOR = document.getElementById("TCONTENEDOR").selectedIndex;
-                    ATMOSFERA = document.getElementById("ATMOSFERA").selectedIndex;
-                    TINSTRUCTIVO = document.getElementById("TINSTRUCTIVO").value;
-                    O2INSTRUCTIVO = document.getElementById("O2INSTRUCTIVO").value;
-                    CO2INSTRUCTIVO = document.getElementById("CO2INSTRUCTIVO").value;
-                    TALAMAPAINSTRUCTIVO = document.getElementById("TALAMAPAINSTRUCTIVO").selectedIndex;
-                    ALAMPAINSTRUCTIVO = document.getElementById("ALAMPAINSTRUCTIVO").value;
-                    DUSINSTRUCTIVO = document.getElementById("DUSINSTRUCTIVO").value;
-                    BOLAWBCRTINSTRUCTIVO = document.getElementById("BOLAWBCRTINSTRUCTIVO").value;
-                    NETOINSTRUCTIVO = document.getElementById("NETOINSTRUCTIVO").value;
-                    REBATEINSTRUCTIVO = document.getElementById("REBATEINSTRUCTIVO").value;
-                    SEGURO = document.getElementById("SEGURO").selectedIndex;
                     OBSERVACIONINSTRUCTIVO = document.getElementById("OBSERVACIONINSTRUCTIVO").value;
+
+
 
 
                     document.getElementById('val_fecha').innerHTML = "";
@@ -1261,35 +1192,9 @@ if (isset($_POST)) {
                     document.getElementById('val_tembarque').innerHTML = "";
                     document.getElementById('val_booking').innerHTML = "";
                     document.getElementById('val_nreferencia').innerHTML = "";
-                    document.getElementById('val_exportadora').innerHTML = "";
-                    document.getElementById('val_consignatario').innerHTML = "";
-                    document.getElementById('val_notificador').innerHTML = "";
-                    document.getElementById('val_broker').innerHTML = "";
-                    document.getElementById('val_rfinal').innerHTML = "";
-                    document.getElementById('val_mercado').innerHTML = "";
-                    document.getElementById('val_pais').innerHTML = "";
-                    document.getElementById('val_fechaetd').innerHTML = "";
-                    document.getElementById('val_fechaeta').innerHTML = "";
                     document.getElementById('val_aaduana').innerHTML = "";
-                    document.getElementById('val_agcarga').innerHTML = "";
-                    document.getElementById('val_dfinal').innerHTML = "";
                     document.getElementById('val_fpago').innerHTML = "";
-                    document.getElementById('val_mventa').innerHTML = "";
-                    document.getElementById('val_cventa').innerHTML = "";
-                    document.getElementById('val_tflete').innerHTML = "";
-                    document.getElementById('val_fumigado').innerHTML = "";
                     document.getElementById('val_tcontenedor').innerHTML = "";
-                    document.getElementById('val_atmosfera').innerHTML = "";
-                    document.getElementById('val_t').innerHTML = "";
-                    document.getElementById('val_o2').innerHTML = "";
-                    document.getElementById('val_co2').innerHTML = "";
-                    document.getElementById('val_talampa').innerHTML = "";
-                    document.getElementById('val_alampa').innerHTML = "";
-                    document.getElementById('val_dus').innerHTML = "";
-                    document.getElementById('val_bolawbcrt').innerHTML = "";
-                    document.getElementById('val_neto').innerHTML = "";
-                    document.getElementById('val_rebate').innerHTML = "";
-                    document.getElementById('val_seguro').innerHTML = "";
                     document.getElementById('val_observacion').innerHTML = "";
 
 
@@ -1335,6 +1240,22 @@ if (isset($_POST)) {
 
 
                     if (EXPORTADORA) {
+                        CONSIGNATARIO = document.getElementById("CONSIGNATARIO").selectedIndex;
+                        NOTIFICADOR = document.getElementById("NOTIFICADOR").selectedIndex;
+                        BROKER = document.getElementById("BROKER").selectedIndex;
+                        RFINAL = document.getElementById("RFINAL").selectedIndex;
+                        MERCADO = document.getElementById("MERCADO").selectedIndex;
+                        PAIS = document.getElementById("PAIS").selectedIndex;
+                        DFINAL = document.getElementById("DFINAL").selectedIndex;
+
+                        document.getElementById('val_exportadora').innerHTML = "";
+                        document.getElementById('val_consignatario').innerHTML = "";
+                        document.getElementById('val_notificador').innerHTML = "";
+                        document.getElementById('val_broker').innerHTML = "";
+                        document.getElementById('val_rfinal').innerHTML = "";
+                        document.getElementById('val_mercado').innerHTML = "";
+                        document.getElementById('val_pais').innerHTML = "";
+                        document.getElementById('val_dfinal').innerHTML = "";
                         if (EXPORTADORA == null || EXPORTADORA == 0) {
                             document.form_reg_dato.EXPORTADORA.focus();
                             document.form_reg_dato.EXPORTADORA.style.borderColor = "#FF0000";
@@ -1375,14 +1296,6 @@ if (isset($_POST)) {
                         }
                         document.form_reg_dato.RFINAL.style.borderColor = "#4AF575";
 
-                        if (MERCADO == null || MERCADO == 0) {
-                            document.form_reg_dato.MERCADO.focus();
-                            document.form_reg_dato.MERCADO.style.borderColor = "#FF0000";
-                            document.getElementById('val_mercado').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                            return false;
-                        }
-                        document.form_reg_dato.MERCADO.style.borderColor = "#4AF575";
-
                         if (PAIS == null || PAIS == 0) {
                             document.form_reg_dato.PAIS.focus();
                             document.form_reg_dato.PAIS.style.borderColor = "#FF0000";
@@ -1391,26 +1304,32 @@ if (isset($_POST)) {
                         }
                         document.form_reg_dato.PAIS.style.borderColor = "#4AF575";
 
+                        if (MERCADO == null || MERCADO == 0) {
+                            document.form_reg_dato.MERCADO.focus();
+                            document.form_reg_dato.MERCADO.style.borderColor = "#FF0000";
+                            document.getElementById('val_mercado').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.MERCADO.style.borderColor = "#4AF575";
+
+                        if (DFINAL == null || DFINAL == 0) {
+                            document.form_reg_dato.DFINAL.focus();
+                            document.form_reg_dato.DFINAL.style.borderColor = "#FF0000";
+                            document.getElementById('val_dfinal').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.DFINAL.style.borderColor = "#4AF575";
                     }
-
-                    if (FECHAETD == null || FECHAETD.length == 0 || /^\s+$/.test(FECHAETD)) {
-                        document.form_reg_dato.FECHAETD.focus();
-                        document.form_reg_dato.FECHAETD.style.borderColor = "#FF0000";
-                        document.getElementById('val_fechaetd').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.FECHAETD.style.borderColor = "#4AF575";
-
-                    if (FECHAETA == null || FECHAETA.length == 0 || /^\s+$/.test(FECHAETA)) {
-                        document.form_reg_dato.FECHAETA.focus();
-                        document.form_reg_dato.FECHAETA.style.borderColor = "#FF0000";
-                        document.getElementById('val_fechaeta').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.FECHAETA.style.borderColor = "#4AF575";
-
-
                     if (AADUANA) {
+
+                        FECHAETD = document.getElementById("FECHAETD").value;
+                        FECHAETA = document.getElementById("FECHAETA").value;
+                        AGCARGA = document.getElementById("AGCARGA").selectedIndex;
+
+                        document.getElementById('val_agcarga').innerHTML = "";
+                        document.getElementById('val_fechaetd').innerHTML = "";
+                        document.getElementById('val_fechaeta').innerHTML = "";
+
                         if (AADUANA == null || AADUANA == 0) {
                             document.form_reg_dato.AADUANA.focus();
                             document.form_reg_dato.AADUANA.style.borderColor = "#FF0000";
@@ -1418,6 +1337,23 @@ if (isset($_POST)) {
                             return false;
                         }
                         document.form_reg_dato.AADUANA.style.borderColor = "#4AF575";
+
+                        if (FECHAETD == null || FECHAETD.length == 0 || /^\s+$/.test(FECHAETD)) {
+                            document.form_reg_dato.FECHAETD.focus();
+                            document.form_reg_dato.FECHAETD.style.borderColor = "#FF0000";
+                            document.getElementById('val_fechaetd').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.FECHAETD.style.borderColor = "#4AF575";
+
+                        if (FECHAETA == null || FECHAETA.length == 0 || /^\s+$/.test(FECHAETA)) {
+                            document.form_reg_dato.FECHAETA.focus();
+                            document.form_reg_dato.FECHAETA.style.borderColor = "#FF0000";
+                            document.getElementById('val_fechaeta').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.FECHAETA.style.borderColor = "#4AF575";
+
 
                         if (AGCARGA == null || AGCARGA == 0) {
                             document.form_reg_dato.AGCARGA.focus();
@@ -1427,13 +1363,6 @@ if (isset($_POST)) {
                         }
                         document.form_reg_dato.AGCARGA.style.borderColor = "#4AF575";
 
-                        if (DFINAL == null || DFINAL == 0) {
-                            document.form_reg_dato.DFINAL.focus();
-                            document.form_reg_dato.DFINAL.style.borderColor = "#FF0000";
-                            document.getElementById('val_dfinal').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                            return false;
-                        }
-                        document.form_reg_dato.DFINAL.style.borderColor = "#4AF575";
 
                         if (TEMBARQUE == 1) {
                             CRT = document.getElementById("CRT").value;
@@ -1593,6 +1522,19 @@ if (isset($_POST)) {
 
                     }
                     if (TCONTENEDOR) {
+
+                        ATMOSFERA = document.getElementById("ATMOSFERA").selectedIndex;
+                        TINSTRUCTIVO = document.getElementById("TINSTRUCTIVO").value;
+                        O2INSTRUCTIVO = document.getElementById("O2INSTRUCTIVO").value;
+                        CO2INSTRUCTIVO = document.getElementById("CO2INSTRUCTIVO").value;
+                        ALAMPAINSTRUCTIVO = document.getElementById("ALAMPAINSTRUCTIVO").value;
+
+                        document.getElementById('val_atmosfera').innerHTML = "";
+                        document.getElementById('val_t').innerHTML = "";
+                        document.getElementById('val_o2').innerHTML = "";
+                        document.getElementById('val_co2').innerHTML = "";
+                        document.getElementById('val_alampa').innerHTML = "";
+
                         if (TCONTENEDOR == null || TCONTENEDOR == 0) {
                             document.form_reg_dato.TCONTENEDOR.focus();
                             document.form_reg_dato.TCONTENEDOR.style.borderColor = "#FF0000";
@@ -1617,7 +1559,7 @@ if (isset($_POST)) {
                         }
                         document.form_reg_dato.TINSTRUCTIVO.style.borderColor = "#4AF575";
 
-                        if (O2INSTRUCTIVO == null || O2INSTRUCTIVO <= 0 || /^\s+$/.test(O2INSTRUCTIVO)) {
+                        if (O2INSTRUCTIVO == null || O2INSTRUCTIVO == 0 || /^\s+$/.test(O2INSTRUCTIVO)) {
                             document.form_reg_dato.O2INSTRUCTIVO.focus();
                             document.form_reg_dato.O2INSTRUCTIVO.style.borderColor = "#FF0000";
                             document.getElementById('val_o2').innerHTML = "NO A INGRESADO DATO";
@@ -1625,7 +1567,7 @@ if (isset($_POST)) {
                         }
                         document.form_reg_dato.O2INSTRUCTIVO.style.borderColor = "#4AF575";
 
-                        if (CO2INSTRUCTIVO == null || CO2INSTRUCTIVO <= 0 || /^\s+$/.test(CO2INSTRUCTIVO)) {
+                        if (CO2INSTRUCTIVO == null || CO2INSTRUCTIVO == 0 || /^\s+$/.test(CO2INSTRUCTIVO)) {
                             document.form_reg_dato.CO2INSTRUCTIVO.focus();
                             document.form_reg_dato.CO2INSTRUCTIVO.style.borderColor = "#FF0000";
                             document.getElementById('val_co2').innerHTML = "NO A INGRESADO DATO";
@@ -1633,15 +1575,8 @@ if (isset($_POST)) {
                         }
                         document.form_reg_dato.CO2INSTRUCTIVO.style.borderColor = "#4AF575";
 
-                        if (TALAMAPAINSTRUCTIVO == null || TALAMAPAINSTRUCTIVO == 0) {
-                            document.form_reg_dato.TALAMAPAINSTRUCTIVO.focus();
-                            document.form_reg_dato.TALAMAPAINSTRUCTIVO.style.borderColor = "#FF0000";
-                            document.getElementById('val_talampa').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                            return false;
-                        }
-                        document.form_reg_dato.TALAMAPAINSTRUCTIVO.style.borderColor = "#4AF575";
 
-                        if (ALAMPAINSTRUCTIVO == null || ALAMPAINSTRUCTIVO <= 0 || /^\s+$/.test(ALAMPAINSTRUCTIVO)) {
+                        if (ALAMPAINSTRUCTIVO == null || ALAMPAINSTRUCTIVO == 0 || /^\s+$/.test(ALAMPAINSTRUCTIVO)) {
                             document.form_reg_dato.ALAMPAINSTRUCTIVO.focus();
                             document.form_reg_dato.ALAMPAINSTRUCTIVO.style.borderColor = "#FF0000";
                             document.getElementById('val_alampa').innerHTML = "NO A INGRESADO DATO";
@@ -1651,6 +1586,28 @@ if (isset($_POST)) {
 
                     }
                     if (FPAGO) {
+                        MVENTA = document.getElementById("MVENTA").selectedIndex;
+                        CVENTA = document.getElementById("CVENTA").selectedIndex;
+                        TFLETE = document.getElementById("TFLETE").selectedIndex;
+                        COSTOFLETE = document.getElementById("COSTOFLETE").value;
+                        FUMIGADO = document.getElementById("FUMIGADO").selectedIndex;
+                        DUSINSTRUCTIVO = document.getElementById("DUSINSTRUCTIVO").value;
+                        BOLAWBCRTINSTRUCTIVO = document.getElementById("BOLAWBCRTINSTRUCTIVO").value;
+                        NETOINSTRUCTIVO = document.getElementById("NETOINSTRUCTIVO").value;
+                        REBATEINSTRUCTIVO = document.getElementById("REBATEINSTRUCTIVO").value;
+                        SEGURO = document.getElementById("SEGURO").selectedIndex;
+
+
+                        document.getElementById('val_mventa').innerHTML = "";
+                        document.getElementById('val_cventa').innerHTML = "";
+                        document.getElementById('val_tflete').innerHTML = "";
+                        document.getElementById('val_costoflete').innerHTML = "";
+                        document.getElementById('val_fumigado').innerHTML = "";
+                        document.getElementById('val_dus').innerHTML = "";
+                        document.getElementById('val_bolawbcrt').innerHTML = "";
+                        document.getElementById('val_neto').innerHTML = "";
+                        document.getElementById('val_rebate').innerHTML = "";
+                        document.getElementById('val_seguro').innerHTML = "";
                         if (FPAGO == null || FPAGO == 0) {
                             document.form_reg_dato.FPAGO.focus();
                             document.form_reg_dato.FPAGO.style.borderColor = "#FF0000";
@@ -1682,6 +1639,15 @@ if (isset($_POST)) {
                             return false;
                         }
                         document.form_reg_dato.TFLETE.style.borderColor = "#4AF575";
+
+
+                        if (COSTOFLETE == null || COSTOFLETE.length == 0 || /^\s+$/.test(COSTOFLETE)) {
+                            document.form_reg_dato.COSTOFLETE.focus();
+                            document.form_reg_dato.COSTOFLETE.style.borderColor = "#FF0000";
+                            document.getElementById('val_costoflete').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.COSTOFLETE.style.borderColor = "#4AF575";
 
                         if (FUMIGADO == null || FUMIGADO == 0) {
                             document.form_reg_dato.FUMIGADO.focus();
@@ -1807,6 +1773,11 @@ if (isset($_POST)) {
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
                     window.open(url, 'window', opciones);
                 }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
             </script>
 
 </head>
@@ -1814,7 +1785,8 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";  ?>
+            <?php //include_once "../config/menu.php";  
+            ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
@@ -1880,7 +1852,12 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" id="TOTALKILONETO" name="TOTALKILONETO" value="<?php echo $TOTALKILONETO; ?>" />
                                                 <input type="hidden" class="form-control" id="TOTALKILOBRUTO" name="TOTALKILOBRUTO" value="<?php echo $TOTALKILOBRUTO; ?>" />
                                                 <input type="hidden" class="form-control" id="TOTALUS" name="TOTALUS" value="<?php echo $TOTALUS; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="ID PROCESO" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+
+
+                                                <input type="hidden" class="form-control" placeholder="ID RECEPCION" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP RECEPCION" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL RECEPCION" id="URLP" name="URLP" value="registroICarga" />
+                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCION" id="URLD" name="URLD" value="registroDicarga" />
                                                 <input type="text" class="form-control " style="background-color: #eeeeee;" placeholder="Número Instructivo" id="IDINSTRUCTIVO" name="IDINSTRUCTIVO" value="<?php echo $NUMEROVER; ?>" disabled />
                                                 <label id="val_id" class="validacion"> </label>
                                             </div>
@@ -2276,25 +2253,15 @@ if (isset($_POST)) {
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <?php
-                                                    if ($FDA == 0) {
-                                                        $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($PLANTA);
-                                                        if ($ARRAYVERPLANTA) {
-                                                            $FDA = $ARRAYVERPLANTA[0]['FDA_PLANTA'];
-                                                        }
-                                                    }
-                                                    ?>
                                                     <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                         <div class="form-group">
                                                             <label>FDA </label>
                                                             <input type="hidden" class="form-control" placeholder="FDA" id="FDA" name="FDA" value="<?php echo $FDA; ?>" />
-                                                            <input type="text" class="form-control" placeholder="FDA" id="FDAE" name="FDAE" value="<?php echo $FDA; ?>" <?php echo $DISABLED3; ?> />
-                                                            <label id="val_fda" class="validacion"> </label>
+                                                            <input type="text" class="form-control" placeholder="FDA" id="FDAE" name="FDAE" value="<?php echo $FDA; ?>" disabled style='background-color: #eeeeee;' />
+                                                            <label id=" val_fda" class="validacion"> </label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <?php if ($TEMBARQUE == "1") { ?>
-                                                    <div class="row">
+                                                    <?php if ($TEMBARQUE == "1") { ?>
                                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                             <div class="form-group">
                                                                 <label>CRT</label>
@@ -2307,7 +2274,7 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Transporte</label>
                                                                 <input type="hidden" class="form-control" placeholder="TRANSPORTEE" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
-                                                                <select class="form-control select2" id="TRANSPORTE" name="TRANSPORTE" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?>>
+                                                                <select class="form-control select2" id="TRANSPORTE" name="TRANSPORTE" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                                     <option></option>
                                                                     <?php foreach ($ARRAYTRANSPORTE as $r) : ?>
                                                                         <?php if ($ARRAYTRANSPORTE) {    ?>
@@ -2390,10 +2357,8 @@ if (isset($_POST)) {
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                <?php } ?>
-                                                <?php if ($TEMBARQUE == "2") { ?>
-                                                    <div class="row">
+                                                    <?php } ?>
+                                                    <?php if ($TEMBARQUE == "2") { ?>
                                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                             <div class="form-group">
                                                                 <label>Linea Aerea</label>
@@ -2427,16 +2392,16 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Nave </label>
                                                                 <input type="hidden" class="form-control" placeholder="NAVEE" id="NAVEE" name="NAVEE" value="<?php echo $NAVE; ?>" />
-                                                                <input type="hidden" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" />
+                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" />
                                                                 <label id="val_nave" class="validacion"> </label>
                                                             </div>
                                                         </div>
                                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                             <div class="form-group">
-                                                                <label>Número Vuelo</label>
-                                                                <input type="hidden" class="form-control" placeholder="FECHA PROCESO" id="NVUELOE" name="NVUELOE" value="<?php echo $NVUELO; ?>" />
-                                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Vuelo" id="NVUELO" name="NVUELO" value="<?php echo $NVUELO; ?>" <?php echo $DISABLED; ?> />
-                                                                <label id="val_nvuelo" class="validacion"> </label>
+                                                                <label>Número Viaje</label>
+                                                                <input type="hidden" class="form-control" placeholder=NVIAJEE" id="NVIAJEE" name="NVIAJEE" value="<?php echo $NVIAJE; ?>" />
+                                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Viaje" id="NVIAJE" name="NVIAJE" value="<?php echo $NVIAJE; ?>" <?php echo $DISABLED; ?> />
+                                                                <label id="val_nviaje" class="validacion"> </label>
                                                             </div>
                                                         </div>
                                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
@@ -2498,10 +2463,8 @@ if (isset($_POST)) {
                                                             </div>
                                                         </div>
 
-                                                    </div>
-                                                <?php } ?>
-                                                <?php if ($TEMBARQUE == "3") { ?>
-                                                    <div class="row">
+                                                    <?php } ?>
+                                                    <?php if ($TEMBARQUE == "3") { ?>
                                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                             <div class="form-group">
                                                                 <label>Naviera </label>
@@ -2536,7 +2499,7 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Nave </label>
                                                                 <input type="hidden" class="form-control" placeholder="NAVEE" id="NAVEE" name="NAVEE" value="<?php echo $NAVE; ?>" />
-                                                                <input type="hidden" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" />
+                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" />
                                                                 <label id="val_nave" class="validacion"> </label>
                                                             </div>
                                                         </div>
@@ -2623,9 +2586,8 @@ if (isset($_POST)) {
                                                                 </button>
                                                             </div>
                                                         </div>
-
-                                                    </div>
-                                                <?php } ?>
+                                                    <?php } ?>
+                                                </div>
                                             </section>
                                             <h6>Datos Contenedor y Comercial</h6>
                                             <section>
@@ -2710,22 +2672,6 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="CO2INSTRUCTIVOE" id="CO2INSTRUCTIVOE" name="CO2INSTRUCTIVOE" value="<?php echo $CO2INSTRUCTIVO; ?>" />
                                                             <input type="number" step="0.01" class="form-control" placeholder="% CO2 Instructivo" id="CO2INSTRUCTIVO" name="CO2INSTRUCTIVO" value="<?php echo $CO2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                             <label id="val_co2" class="validacion"> </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                                        <div class="form-group">
-                                                            <label>Tipo Aper. Lampa</label>
-                                                            <input type="hidden" class="form-control" placeholder="TALAMAPAINSTRUCTIVOE" id="TALAMAPAINSTRUCTIVOE" name="TALAMAPAINSTRUCTIVOE" value="<?php echo $TALAMAPAINSTRUCTIVO; ?>" />
-                                                            <select class="form-control select2" id="TALAMAPAINSTRUCTIVO" name="TALAMAPAINSTRUCTIVO" style="width: 100%;" <?php echo $DISABLED; ?>>
-                                                                <option></option>
-                                                                <option value="1" <?php if ($TALAMAPAINSTRUCTIVO == "1") {
-                                                                                        echo "selected";
-                                                                                    } ?>>Decimal </option>
-                                                                <option value="2" <?php if ($TALAMAPAINSTRUCTIVO == "2") {
-                                                                                        echo "selected";
-                                                                                    } ?>> Porcentaje</option>
-                                                            </select>
-                                                            <label id="val_talampa" class="validacion"> </label>
                                                         </div>
                                                     </div>
                                                     <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -2897,7 +2843,7 @@ if (isset($_POST)) {
                                                         <div class="form-group">
                                                             <label>Tarifa Flete(Neto) </label>
                                                             <input type="hidden" class="form-control" placeholder="NETOINSTRUCTIVOE" id="NETOINSTRUCTIVOE" name="NETOINSTRUCTIVOE" value="<?php echo $NETOINSTRUCTIVO; ?>" />
-                                                            <input type="number" class="form-control" placeholder="Tarifa Flete(Neto) Instructivo" id="NETOINSTRUCTIVO" name="NETOINSTRUCTIVO" value="<?php echo $NETOINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                            <input type="number" class="form-control" placeholder="Tarifa Flete(Neto) Instructivo" id="NETOINSTRUCTIVO" name="NETOINSTRUCTIVO" onchange="this.form.submit()" value="<?php echo $NETOINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                             <label id="val_neto" class="validacion"> </label>
                                                         </div>
                                                     </div>
@@ -2905,15 +2851,15 @@ if (isset($_POST)) {
                                                         <div class="form-group">
                                                             <label>Rebate </label>
                                                             <input type="hidden" class="form-control" placeholder="REBATEINSTRUCTIVOE" id="REBATEINSTRUCTIVOE" name="REBATEINSTRUCTIVOE" value="<?php echo $REBATEINSTRUCTIVO; ?>" />
-                                                            <input type="number" class="form-control" placeholder="Rebate Instructivo " id="REBATEINSTRUCTIVO" name="REBATEINSTRUCTIVO" value="<?php echo $REBATEINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                            <input type="number" class="form-control" placeholder="Rebate Instructivo " id="REBATEINSTRUCTIVO" name="REBATEINSTRUCTIVO" onchange="this.form.submit()" value="<?php echo $REBATEINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                             <label id="val_rebate" class="validacion"> </label>
                                                         </div>
                                                     </div>
                                                     <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                         <div class="form-group">
                                                             <label>Publica </label>
-                                                            <input type="hidden" class="form-control" placeholder="PUBLICAINSTRUCTIVOE" id="PUBLICAINSTRUCTIVOE" name="PUBLICAINSTRUCTIVOE" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" />
-                                                            <input type="number" class="form-control" placeholder="$USD Flete Instructivo" id="PUBLICAINSTRUCTIVO" name="PUBLICAINSTRUCTIVO" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> disabled />
+                                                            <input type="hidden" class="form-control" placeholder="PUBLICAINSTRUCTIVO" id="PUBLICAINSTRUCTIVO" name="PUBLICAINSTRUCTIVO" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" />
+                                                            <input type="number" class="form-control" placeholder="$USD Flete Instructivo" id="PUBLICAINSTRUCTIVOE" name="PUBLICAINSTRUCTIVOE" value="<?php echo $PUBLICAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> disabled />
                                                             <label id="val_publica" class="validacion"> </label>
                                                         </div>
                                                     </div>
@@ -2970,7 +2916,7 @@ if (isset($_POST)) {
                                             <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarICarga.php'); ">
                                                 <i class="ti-back-left "></i>
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                 <i class="ti-pencil-alt"></i>
                                             </button>
                                             <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
@@ -2997,9 +2943,9 @@ if (isset($_POST)) {
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-1">
+                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
                                     <div class="form-group">
                                         <label>Detalle Instructivo </label>
                                     </div>
@@ -3089,7 +3035,7 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="ID ICARGA" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="OP ICARGA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL ICARGA" id="URLP" name="URLP" value="registroICarga" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DICARGA" id="URLD" name="URLD" value="registroDiarga" />
+                                                            <input type="hidden" class="form-control" placeholder="URL DICARGA" id="URLD" name="URLD" value="registroDicarga" />
                                                             <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
                                                                                                                                                                                                                                             echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                                         } ?>>
