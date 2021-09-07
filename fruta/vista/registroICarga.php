@@ -147,9 +147,6 @@ $TRANSPORTE = "";
 $LCARGA = "";
 $LDESTINO = "";
 $LAEREA = "";
-$AEROLINIA = "";
-$AERONAVE = "";
-$NVUELO = "";
 $ACARGA = "";
 $ADESTINO = "";
 $NAVIERA = "";
@@ -520,6 +517,7 @@ if (isset($_REQUEST['EDITAR'])) {
             $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
             $ICARGA->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
             $ICARGA->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
+            echo $_REQUEST['ADESTINO'];
         }
         if ($_REQUEST['TEMBARQUE'] == "3") {
             $ICARGA->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
@@ -633,33 +631,33 @@ if (isset($_REQUEST['CERRAR'])) {
 
         $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        // $ICARGA_ADO->cerrrado($ICARGA);
+        $ICARGA_ADO->cerrrado($ICARGA);
 
         $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //  $ICARGA_ADO->confirmado($ICARGA);
+        $ICARGA_ADO->confirmado($ICARGA);
 
         $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($_REQUEST['IDP']);
         foreach ($ARRAYDCARGA as $f) :
             $DICARGA->__SET('ID_DICARGA', $f['ID_DICARGA']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //   $DICARGA_ADO->cerrado($DICARGA);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $DICARGA_ADO->cerrado($DICARGA);
         endforeach;
 
 
-        if ($_REQUEST['parametro1'] == "crear") {
-            //   echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver';</script>";
+        //REDIRECCIONAR A PAGINA registroICarga.php 
+        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+        if ($_SESSION['parametro1'] == "crear") {
+            $_SESSION["parametro"] = $_REQUEST['IDP'];
+            $_SESSION["parametro1"] = "ver";
+            echo "<script type='text/javascript'> location.href ='registroICarga.php?op';</script>";
         }
-        if ($_REQUEST['parametro1'] == "editar") {
-            //     echo "<script type='text/javascript'> location.href ='registroICarga.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver';</script>";
+        if ($_SESSION['parametro1'] == "editar") {
+            $_SESSION["parametro"] = $_REQUEST['IDP'];
+            $_SESSION["parametro1"] = "ver";
+            echo "<script type='text/javascript'> location.href ='registroICarga.php?op';</script>";
         }
     }
-}
-if (isset($_REQUEST['ELIMINAR'])) {
-    $IDELIMINAR = $_REQUEST['IDELIMINAR'];
-    $DICARGA->__SET('ID_DICARGA', $IDELIMINAR);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DICARGA_ADO->deshabilitar($DICARGA);
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -733,9 +731,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 }
                 if ($TEMBARQUE == "2") {
                     $LAEREA = $r['ID_LAREA'];
-                    $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
-                    $AEROLINIA = $r['ID_AEROLINEA'];
-                    $AERONAVE = $r['ID_AERONAVE'];
+                    $NAVE = $r['NAVE_ICARGA'];
                     $NVIAJE = $r['NVIAJE_ICARGA'];
                     $ACARGA = $r['ID_ACARGA'];
                     $ADESTINO = $r['ID_ADESTINO'];
@@ -823,9 +819,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 }
                 if ($TEMBARQUE == "2") {
                     $LAEREA = $r['ID_LAREA'];
-                    $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
-                    $AEROLINIA = $r['ID_AEROLINEA'];
-                    $AERONAVE = $r['ID_AERONAVE'];
+                    $NAVE = $r['NAVE_ICARGA'];
                     $NVIAJE = $r['NVIAJE_ICARGA'];
                     $ACARGA = $r['ID_ACARGA'];
                     $ADESTINO = $r['ID_ADESTINO'];
@@ -916,9 +910,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 }
                 if ($TEMBARQUE == "2") {
                     $LAEREA = $r['ID_LAREA'];
-                    $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
-                    $AEROLINIA = $r['ID_AEROLINEA'];
-                    $AERONAVE = $r['ID_AERONAVE'];
+                    $NAVE = $r['NAVE_ICARGA'];
                     $NVIAJE = $r['NVIAJE_ICARGA'];
                     $ACARGA = $r['ID_ACARGA'];
                     $ADESTINO = $r['ID_ADESTINO'];
@@ -1130,9 +1122,6 @@ if (isset($_POST)) {
     }
     if (isset($_REQUEST['NETOINSTRUCTIVO']) && isset($_REQUEST['REBATEINSTRUCTIVO'])) {
         $PUBLICAINSTRUCTIVO = $_REQUEST['NETOINSTRUCTIVO'] + $_REQUEST['REBATEINSTRUCTIVO'];
-    }
-    if (isset($_REQUEST['PUBLICAINSTRUCTIVO'])) {
-        $PUBLICAINSTRUCTIVO = $_REQUEST['PUBLICAINSTRUCTIVO'];
     }
     if (isset($_REQUEST['SEGURO'])) {
         $SEGURO = $_REQUEST['SEGURO'];
@@ -1411,14 +1400,14 @@ if (isset($_POST)) {
                         }
                         if (TEMBARQUE == 2) {
                             LAEREA = document.getElementById("LAEREA").selectedIndex;
-                            AERONAVE = document.getElementById("AERONAVE").selectedIndex;
-                            NVUELO = document.getElementById("NVUELO").value;
+                            NAVE = document.getElementById("NAVE").value;
+                            NVIAJE = document.getElementById("NVIAJE").value;
                             ACARGA = document.getElementById("ACARGA").selectedIndex;
                             ADESTINO = document.getElementById("ADESTINO").selectedIndex;
 
                             document.getElementById('val_larea').innerHTML = "";
-                            document.getElementById('val_aeronave').innerHTML = "";
-                            document.getElementById('val_nvuelo').innerHTML = "";
+                            document.getElementById('val_nave').innerHTML = "";
+                            document.getElementById('val_nviaje').innerHTML = "";
                             document.getElementById('val_acarga').innerHTML = "";
                             document.getElementById('val_adestino').innerHTML = "";
 
@@ -1431,21 +1420,21 @@ if (isset($_POST)) {
                             document.form_reg_dato.LAEREA.style.borderColor = "#4AF575";
 
 
-                            if (AERONAVE == null || AERONAVE == 0) {
-                                document.form_reg_dato.AERONAVE.focus();
-                                document.form_reg_dato.AERONAVE.style.borderColor = "#FF0000";
-                                document.getElementById('val_aeronave').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            if (NAVE == null || NAVE.length == 0 || /^\s+$/.test(NAVE)) {
+                                document.form_reg_dato.NAVE.focus();
+                                document.form_reg_dato.NAVE.style.borderColor = "#FF0000";
+                                document.getElementById('val_nave').innerHTML = "NO A INGRESADO DATO";
                                 return false;
                             }
-                            document.form_reg_dato.AERONAVE.style.borderColor = "#4AF575";
+                            document.form_reg_dato.NAVE.style.borderColor = "#4AF575";
 
-                            if (NVUELO == null || NVUELO.length == 0 || /^\s+$/.test(NVUELO)) {
-                                document.form_reg_dato.NVUELO.focus();
-                                document.form_reg_dato.NVUELO.style.borderColor = "#FF0000";
-                                document.getElementById('val_nvuelo').innerHTML = "NO A INGRESADO DATO";
+                            if (NVIAJE == null || NVIAJE.length == 0 || /^\s+$/.test(NVIAJE)) {
+                                document.form_reg_dato.NVIAJE.focus();
+                                document.form_reg_dato.NVIAJE.style.borderColor = "#FF0000";
+                                document.getElementById('val_nviaje').innerHTML = "NO A INGRESADO DATO";
                                 return false;
                             }
-                            document.form_reg_dato.NVUELO.style.borderColor = "#4AF575";
+                            document.form_reg_dato.NVIAJE.style.borderColor = "#4AF575";
 
                             if (ACARGA == null || ACARGA == 0) {
                                 document.form_reg_dato.ACARGA.focus();
@@ -1785,7 +1774,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";  
+            <?php include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -1908,7 +1897,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_TSERVICIO'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -1964,7 +1953,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_EXPORTADORA'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -1993,7 +1982,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_CONSIGNATARIO'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2022,7 +2011,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_NOTIFICADOR'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2051,7 +2040,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_BROKER'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2080,7 +2069,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_RFINAL'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2109,7 +2098,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_PAIS'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2130,7 +2119,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_MERCADO'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2159,7 +2148,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_DFINAL'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2209,7 +2198,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_AADUANA'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2238,7 +2227,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_AGCARGA'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2284,7 +2273,7 @@ if (isset($_POST)) {
                                                                                 <?php echo $r['NOMBRE_TRANSPORTE'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2313,7 +2302,7 @@ if (isset($_POST)) {
                                                                                 <?php echo $r['NOMBRE_LCARGA'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2342,7 +2331,7 @@ if (isset($_POST)) {
                                                                                 <?php echo $r['NOMBRE_LDESTINO'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2363,7 +2352,7 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Linea Aerea</label>
                                                                 <input type="hidden" class="form-control" placeholder="LAEREAE" id="LAEREAE" name="LAEREAE" value="<?php echo $LAEREA; ?>" />
-                                                                <select class="form-control select2" id="LAEREA" name="LAEREA" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?>>
+                                                                <select class="form-control select2" id="LAEREA" name="LAEREA" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                                     <option></option>
                                                                     <?php foreach ($ARRAYLAEREA as $r) : ?>
                                                                         <?php if ($ARRAYLAEREA) {    ?>
@@ -2373,7 +2362,7 @@ if (isset($_POST)) {
                                                                                 <?php echo $r['NOMBRE_LAEREA'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2392,7 +2381,7 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Nave </label>
                                                                 <input type="hidden" class="form-control" placeholder="NAVEE" id="NAVEE" name="NAVEE" value="<?php echo $NAVE; ?>" />
-                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" />
+                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>"  <?php echo $DISABLED; ?>/>
                                                                 <label id="val_nave" class="validacion"> </label>
                                                             </div>
                                                         </div>
@@ -2418,7 +2407,7 @@ if (isset($_POST)) {
                                                                                 <?php echo $r['NOMBRE_ACARGA'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2440,14 +2429,14 @@ if (isset($_POST)) {
                                                                 <select class="form-control select2" id="ADESTINO" name="ADESTINO" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                                     <option></option>
                                                                     <?php foreach ($ARRAYADESTINO as $r) : ?>
-                                                                        <?php if ($ARRAYAERONAVE) {    ?>
+                                                                        <?php if ($ARRAYADESTINO) {    ?>
                                                                             <option value="<?php echo $r['ID_ADESTINO']; ?>" <?php if ($ADESTINO == $r['ID_ADESTINO']) {
                                                                                                                                     echo "selected";
                                                                                                                                 } ?>>
                                                                                 <?php echo $r['NOMBRE_ADESTINO'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2469,7 +2458,7 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Naviera </label>
                                                                 <input type="hidden" class="form-control" placeholder="NAVIERAE" id="NAVIERAE" name="NAVIERAE" value="<?php echo $NAVIERA; ?>" />
-                                                                <select class="form-control select2" id="NAVIERA" name="NAVIERA" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?>>
+                                                                <select class="form-control select2" id="NAVIERA" name="NAVIERA" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                                     <option></option>
 
                                                                     <?php foreach ($ARRAYNAVIERA as $r) : ?>
@@ -2480,7 +2469,7 @@ if (isset($_POST)) {
                                                                                 <?php echo $r['NOMBRE_NAVIERA'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2495,21 +2484,12 @@ if (isset($_POST)) {
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                             <div class="form-group">
                                                                 <label>Nave </label>
                                                                 <input type="hidden" class="form-control" placeholder="NAVEE" id="NAVEE" name="NAVEE" value="<?php echo $NAVE; ?>" />
-                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" />
+                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>"   <?php echo $DISABLED; ?>/>
                                                                 <label id="val_nave" class="validacion"> </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                            <div class="form-group">
-                                                                <label>Agregar </label>
-                                                                <br>
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" id="defecto" name="pop" Onclick="abrirVentana('registroPopNave.php' ); ">
-                                                                    <i class="glyphicon glyphicon-plus"></i>
-                                                                </button>
                                                             </div>
                                                         </div>
                                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -2542,7 +2522,7 @@ if (isset($_POST)) {
                                                                                 <?php echo $r['NOMBRE_PCARGA'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2571,7 +2551,7 @@ if (isset($_POST)) {
                                                                                 <?php echo $r['NOMBRE_PDESTINO'] ?>
                                                                             </option>
                                                                         <?php } else { ?>
-                                                                            <option>No Hay Datos Registrados </option>
+                                                                            <option value="0">No Hay Datos Registrados </option>
                                                                         <?php } ?>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -2606,7 +2586,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_TCONTENEDOR'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2635,7 +2615,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_ATMOSFERA'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2696,7 +2676,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_FPAGO'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2725,7 +2705,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_MVENTA'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2754,7 +2734,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_CVENTA'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2783,7 +2763,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_TFLETE'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2877,7 +2857,7 @@ if (isset($_POST)) {
                                                                             <?php echo $r['NOMBRE_SEGURO'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
-                                                                        <option>No Hay Datos Registrados </option>
+                                                                        <option value="0">No Hay Datos Registrados </option>
                                                                     <?php } ?>
                                                                 <?php endforeach; ?>
                                                             </select>
@@ -2973,30 +2953,31 @@ if (isset($_POST)) {
                                                     <?php if ($ARRAYDCARGA) { ?>
                                                         <?php foreach ($ARRAYDCARGA as $s) : ?>
                                                             <tr class="center">
-                                                                <td class="text-center">
-                                                                    <form method="post">
-                                                                        <?php if ($ESTADO == "0") { ?>
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline " title="Ver" Onclick="abrirVentana('registroDicarga.php?IDDICARGA=<?php echo $s['ID_DICARGA']; ?>&& EMPRESA=<?php echo $EMPRESA; ?>&&PLANTA=<?php echo $PLANTA; ?>&&TEMPORADA=<?php echo $TEMPORADA; ?>&&OP=ver ' ); ">
-                                                                                <i class="ti-eye"></i>
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                        <?php if ($ESTADO == "1") { ?>
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline " title="Editar" <?php echo $DISABLED2; ?> Onclick="abrirVentana('registroDicarga.php?IDDICARGA=<?php echo $s['ID_DICARGA']; ?>&& EMPRESA=<?php echo $EMPRESA; ?>&&PLANTA=<?php echo $PLANTA; ?>&&TEMPORADA=<?php echo $TEMPORADA; ?>&&OP=editar ' ); ">
-                                                                                <i class="ti-pencil-alt"></i>
-                                                                            </button>
-                                                                        <?php } ?>
-
-                                                                        <?php if ($ESTADO == "1") { ?>
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-secondary btn-outline " title="Duplicar" <?php echo $DISABLED2; ?> Onclick="abrirVentana('registroDicarga.php?IDDICARGA=<?php echo $s['ID_DICARGA']; ?>&& EMPRESA=<?php echo $EMPRESA; ?>&&PLANTA=<?php echo $PLANTA; ?>&&TEMPORADA=<?php echo $TEMPORADA; ?>&&OP=crear ' ); ">
-                                                                                <i class="fa fa-fw fa-copy"></i>
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                        <?php if ($ESTADO == "1") { ?>
-                                                                            <input type="hidden" class="form-control" id="IDELIMINAR" name="IDELIMINAR" value="<?php echo $s['ID_DICARGA']; ?>" />
-                                                                            <button type="subtmit" class="btn btn-rounded btn-sm btn-danger btn-outline " id="ELIMINAR" name="ELIMINAR" title="Eliminar" <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i>
-                                                                            </button>
-                                                                        <?php } ?>
+                                                                <td>
+                                                                    <form method="post" id="form1">
+                                                                        <input type="hidden" class="form-control" placeholder="ID DRECEPCIONE" id="IDD" name="IDD" value="<?php echo $s['ID_DICARGA']; ?>" />
+                                                                        <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                                        <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                                        <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroICarga" />
+                                                                        <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDicarga" />
+                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                            <?php if ($ESTADO == "0") { ?>
+                                                                                <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Instructivo Carga">
+                                                                                    <i class="ti-eye"></i>
+                                                                                </button>
+                                                                            <?php } ?>
+                                                                            <?php if ($ESTADO == "1") { ?>
+                                                                                <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
+                                                                                    <i class="ti-pencil-alt"></i>
+                                                                                </button>
+                                                                                <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
+                                                                                    <i class="fa fa-fw fa-copy"></i>
+                                                                                </button>
+                                                                                <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
+                                                                                    <i class="ti-close"></i>
+                                                                                </button>
+                                                                            <?php } ?>
+                                                                        </div>
                                                                     </form>
                                                                 </td>
                                                                 <td>
