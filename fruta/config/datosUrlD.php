@@ -1,7 +1,6 @@
 <?php
 
 if (isset($_REQUEST['SELECIONOCDURL'])) {
-
     $_SESSION["parametro"] = $_REQUEST['IDP'];
     $_SESSION["parametro1"] = $_REQUEST['OPP'];
     $_SESSION["urlO"] = $_REQUEST['URLP'];
