@@ -260,7 +260,7 @@ class TSERVICIO_ADO
 
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_tservicio` 
                                              WHERE `ESTADO_REGISTRO` = 1
-                                            AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
+                                              AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 

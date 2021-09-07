@@ -44,7 +44,7 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachoex` limit 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachoex limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -63,7 +63,7 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachoex` ;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachoex ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -81,7 +81,7 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                            FROM `fruta_despachoex`                                                                           
+                                            FROM fruta_despachoex                                                                           
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
@@ -102,10 +102,10 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHOEX`),0) AS 'ENVASE',   
-                                                     IFNULL(SUM(`KILOS_NETO_DESPACHOEX`),0) AS 'NETO',  
-                                                     IFNULL(SUM(`KILOS_BRUTO_DESPACHOEX`),0)  AS 'BRUTO'  
-                                            FROM `fruta_despachoex` ;	");
+            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0) AS 'ENVASE',   
+                                                     IFNULL(SUM(KILOS_NETO_DESPACHOEX),0) AS 'NETO',  
+                                                     IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0)  AS 'BRUTO'  
+                                            FROM fruta_despachoex ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -129,7 +129,7 @@ class DESPACHOEX_ADO
                                                        FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
                                                        FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO',
                                                        FORMAT(NUMERO_GUIA_DESPACHOEX,2,'de_DE')  AS 'GUIA'
-                                            FROM `fruta_despachoex` ;	");
+                                            FROM fruta_despachoex ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -146,10 +146,10 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHOEX`),0),0,'de_DE') AS 'ENVASE',   
-                                                     FORMAT(IFNULL(SUM(`KILOS_NETO_DESPACHOEX`),0),2,'de_DE') AS 'NETO',  
-                                                     FORMAT(IFNULL(SUM(`KILOS_BRUTO_DESPACHOEX`),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM `fruta_despachoex` 
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0),0,'de_DE') AS 'ENVASE',   
+                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHOEX),0),2,'de_DE') AS 'NETO',  
+                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0),2,'de_DE')  AS 'BRUTO'  
+                                            FROM fruta_despachoex 
                                             
                                             ;	");
             $datos->execute();
@@ -168,10 +168,10 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHOEX`),0),0,'de_DE') AS 'ENVASE',   
-                                                     FORMAT(IFNULL(SUM(`KILOS_NETO_DESPACHOEX`),0),2,'de_DE') AS 'NETO',  
-                                                     FORMAT(IFNULL(SUM(`KILOS_BRUTO_DESPACHOEX`),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM `fruta_despachoex` 
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0),0,'de_DE') AS 'ENVASE',   
+                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHOEX),0),2,'de_DE') AS 'NETO',  
+                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0),2,'de_DE')  AS 'BRUTO'  
+                                            FROM fruta_despachoex 
                                                                                                                  
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -195,7 +195,7 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachoex` WHERE `ID_TDESPACHOEX` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachoex WHERE ID_TDESPACHOEX = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -213,7 +213,7 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachoex`  WHERE `ID_TDESPACHOEX` = 2;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachoex  WHERE ID_TDESPACHOEX = 2;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -234,7 +234,7 @@ class DESPACHOEX_ADO
             $datos = $this->conexion->prepare("SELECT *,DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%Y-%m-%d') AS 'FECHA_GUIA',
                                              DATE_FORMAT(FECHA_INGRESO_DESPACHOEX, '%Y-%m-%d') AS 'FECHA_INGRESOR',
                                              DATE_FORMAT(FECHA_MODIFICACION_DESPACHOEX, '%Y-%m-%d') AS 'FECHA_MODIFICACIONR' 
-                                             FROM `fruta_despachoex` WHERE `ID_DESPACHOEX`= '" . $ID . "';");
+                                             FROM fruta_despachoex WHERE ID_DESPACHOEX= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -258,8 +258,8 @@ class DESPACHOEX_ADO
                                                      DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
                                                      DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD' ,
                                                      FORMAT(NUMERO_GUIA_DESPACHOEX,0,'de_DE') AS 'TOTAL_GUIA'  
-                                            FROM `fruta_despachoex`
-                                            WHERE `ID_DESPACHOEX`= '" . $ID . "';");
+                                            FROM fruta_despachoex
+                                            WHERE ID_DESPACHOEX= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -279,7 +279,7 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_despachoex` WHERE `OBSERVACION_DESPACHOEX` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachoex WHERE OBSERVACION_DESPACHOEX LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -389,23 +389,23 @@ class DESPACHOEX_ADO
 
 
             $query =
-                "INSERT INTO `fruta_despachoex` (  `NUMERO_DESPACHOEX`, `FECHA_DESPACHOEX`,  `SNICARGA`,`TERMOGRAFO_DESPACHOEX`, 
-                                            `NUMERO_SELLO_DESPACHOEX`, `FECHA_GUIA_DESPACHOEX`,   `NUMERO_GUIA_DESPACHOEX`, 
-                                            `NUMERO_CONTENEDOR_DESPACHOEX`,   `NUMERO_PLANILLA_DESPACHOEX`,
-                                            `CANTIDAD_ENVASE_DESPACHOEX`, `KILOS_NETO_DESPACHOEX`,`KILOS_BRUTO_DESPACHOEX`,                                             
-                                            `OBSERVACION_DESPACHOEX`, 
-                                            `PATENTE_CAMION`,`PATENTE_CARRO`, 
-                                            `TEMBARQUE_DESPACHOEX`,`BOOKING_DESPACHOEX`,`FECHAETD_DESPACHOEX`,`FECHAETA_DESPACHOEX`,                                            
-                                            `CRT_DESPACHOEX`,`NVUELO_DESPACHOEX`,`FECHASTACKING_DESPACHOEX`,`NVIAJE_DESPACHOEX`,    
-                                            `ID_DFINAL`,`ID_EXPPORTADORA`,`ID_RFINAL`,`ID_AGCARGA`,`ID_MERCADO`,
-                                            `ID_PAIS`,`ID_TRANSPORTE2`,`ID_TVEHICULO`,`ID_LCARGA`,`ID_LDESTINO`,
-                                            `ID_LAREA`,`ID_AEROLINEA`,`ID_AERONAVE`,`ID_ACARGA`,`ID_ADESTINO`,
-                                            `ID_NAVIERA`,`ID_NAVE`,`ID_PCARGA`,`ID_PDESTINO`,
-                                            `ID_INPECTOR`,`ID_ICARGA`,  
-                                            `ID_CONDUCTOR`, `ID_TRANSPORTE`,`ID_CONTRAPARTE`,
-                                            `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, 
-                                            `FECHA_INGRESO_DESPACHOEX`, `FECHA_MODIFICACION_DESPACHOEX`, 
-                                            `ESTADO`,  `ESTADO_REGISTRO`)
+                "INSERT INTO fruta_despachoex (  NUMERO_DESPACHOEX, FECHA_DESPACHOEX,  SNICARGA,TERMOGRAFO_DESPACHOEX, 
+                                            NUMERO_SELLO_DESPACHOEX, FECHA_GUIA_DESPACHOEX,   NUMERO_GUIA_DESPACHOEX, 
+                                            NUMERO_CONTENEDOR_DESPACHOEX,   NUMERO_PLANILLA_DESPACHOEX,
+                                            CANTIDAD_ENVASE_DESPACHOEX, KILOS_NETO_DESPACHOEX,KILOS_BRUTO_DESPACHOEX,                                             
+                                            OBSERVACION_DESPACHOEX, 
+                                            PATENTE_CAMION,PATENTE_CARRO, 
+                                            TEMBARQUE_DESPACHOEX,BOOKING_DESPACHOEX,FECHAETD_DESPACHOEX,FECHAETA_DESPACHOEX,                                            
+                                            CRT_DESPACHOEX,NVUELO_DESPACHOEX,FECHASTACKING_DESPACHOEX,NVIAJE_DESPACHOEX,    
+                                            ID_DFINAL,ID_EXPPORTADORA,ID_RFINAL,ID_AGCARGA,ID_MERCADO,
+                                            ID_PAIS,ID_TRANSPORTE2,ID_TVEHICULO,ID_LCARGA,ID_LDESTINO,
+                                            ID_LAREA,ID_AEROLINEA,ID_AERONAVE,ID_ACARGA,ID_ADESTINO,
+                                            ID_NAVIERA,ID_NAVE,ID_PCARGA,ID_PDESTINO,
+                                            ID_INPECTOR,ID_ICARGA,  
+                                            ID_CONDUCTOR, ID_TRANSPORTE,ID_CONTRAPARTE,
+                                            ID_EMPRESA, ID_PLANTA, ID_TEMPORADA, 
+                                            FECHA_INGRESO_DESPACHOEX, FECHA_MODIFICACION_DESPACHOEX, 
+                                            ESTADO,  ESTADO_REGISTRO)
              VALUES
                ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
@@ -476,7 +476,7 @@ class DESPACHOEX_ADO
     public function eliminarDespachoex($id)
     {
         try {
-            $sql = "DELETE FROM `fruta_despachoex` WHERE `ID_DESPACHOEX`=" . $id . ";";
+            $sql = "DELETE FROM fruta_despachoex WHERE ID_DESPACHOEX=" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -549,7 +549,7 @@ class DESPACHOEX_ADO
                 $DESPACHOEX->__SET('ID_LCARGA', NULL);
             }
             if ($DESPACHOEX->__GET('ID_LDESTINO') == NULL) {
-                $DESPACHOEX->__SET('ID_LDESTINO', NULL);                
+                $DESPACHOEX->__SET('ID_LDESTINO', NULL);
             }
             if ($DESPACHOEX->__GET('ID_LAREA') == NULL) {
                 $DESPACHOEX->__SET('ID_LAREA', NULL);
@@ -581,58 +581,58 @@ class DESPACHOEX_ADO
 
 
             $query = "
-                UPDATE `fruta_despachoex` SET
-                `FECHA_DESPACHOEX` = ?,
-                `SNICARGA` = ?,
-                `TERMOGRAFO_DESPACHOEX` = ?,
-                `NUMERO_SELLO_DESPACHOEX` = ?,
-                `FECHA_GUIA_DESPACHOEX` = ?,
-                `NUMERO_GUIA_DESPACHOEX` = ?,
-                `NUMERO_CONTENEDOR_DESPACHOEX` = ?,
-                `NUMERO_PLANILLA_DESPACHOEX` = ?,
-                `CANTIDAD_ENVASE_DESPACHOEX` = ?,
-                `KILOS_NETO_DESPACHOEX` = ?, 
-                `KILOS_BRUTO_DESPACHOEX` = ?, 
-                `FECHA_MODIFICACION_DESPACHOEX` = SYSDATE(),
-                `OBSERVACION_DESPACHOEX` = ?,
-                `PATENTE_CAMION` = ?,
-                `PATENTE_CARRO` = ?,
-                `TEMBARQUE_DESPACHOEX` = ?,
-                `BOOKING_DESPACHOEX` = ?,
-                `FECHAETD_DESPACHOEX` = ?,
-                `FECHAETA_DESPACHOEX` = ?,
-                `CRT_DESPACHOEX` = ?,
-                `NVUELO_DESPACHOEX` = ?,
-                `FECHASTACKING_DESPACHOEX` = ?,
-                `NVIAJE_DESPACHOEX` = ?,
-                `ID_DFINAL` = ?,
-                `ID_EXPPORTADORA` = ?,
-                `ID_RFINAL` = ?,
-                `ID_AGCARGA` = ?,
-                `ID_MERCADO` = ?,
-                `ID_PAIS` = ?,
-                `ID_TRANSPORTE2` = ?,
-                `ID_TVEHICULO` = ?,
-                `ID_LCARGA` = ?,
-                `ID_LDESTINO` = ?,
-                `ID_LAREA` = ?,
-                `ID_AEROLINEA` = ?,
-                `ID_AERONAVE` = ?,
-                `ID_ACARGA` = ?,
-                `ID_ADESTINO` = ?,
-                `ID_NAVIERA` = ?,
-                `ID_NAVE` = ?,
-                `ID_PCARGA` = ?,
-                `ID_PDESTINO` = ?,
-                `ID_INPECTOR` = ?, 
-                `ID_ICARGA` = ?, 
-                `ID_CONDUCTOR` = ?,
-                `ID_TRANSPORTE` = ?, 
-                `ID_CONTRAPARTE` = ?, 
-                `ID_EMPRESA` = ?,
-                `ID_PLANTA` = ?, 
-                `ID_TEMPORADA` = ?
-                WHERE `ID_DESPACHOEX`= ?;";
+                UPDATE fruta_despachoex SET
+                FECHA_DESPACHOEX = ?,
+                SNICARGA = ?,
+                TERMOGRAFO_DESPACHOEX = ?,
+                NUMERO_SELLO_DESPACHOEX = ?,
+                FECHA_GUIA_DESPACHOEX = ?,
+                NUMERO_GUIA_DESPACHOEX = ?,
+                NUMERO_CONTENEDOR_DESPACHOEX = ?,
+                NUMERO_PLANILLA_DESPACHOEX = ?,
+                CANTIDAD_ENVASE_DESPACHOEX = ?,
+                KILOS_NETO_DESPACHOEX = ?, 
+                KILOS_BRUTO_DESPACHOEX = ?, 
+                FECHA_MODIFICACION_DESPACHOEX = SYSDATE(),
+                OBSERVACION_DESPACHOEX = ?,
+                PATENTE_CAMION = ?,
+                PATENTE_CARRO = ?,
+                TEMBARQUE_DESPACHOEX = ?,
+                BOOKING_DESPACHOEX = ?,
+                FECHAETD_DESPACHOEX = ?,
+                FECHAETA_DESPACHOEX = ?,
+                CRT_DESPACHOEX = ?,
+                NVUELO_DESPACHOEX = ?,
+                FECHASTACKING_DESPACHOEX = ?,
+                NVIAJE_DESPACHOEX = ?,
+                ID_DFINAL = ?,
+                ID_EXPPORTADORA = ?,
+                ID_RFINAL = ?,
+                ID_AGCARGA = ?,
+                ID_MERCADO = ?,
+                ID_PAIS = ?,
+                ID_TRANSPORTE2 = ?,
+                ID_TVEHICULO = ?,
+                ID_LCARGA = ?,
+                ID_LDESTINO = ?,
+                ID_LAREA = ?,
+                ID_AEROLINEA = ?,
+                ID_AERONAVE = ?,
+                ID_ACARGA = ?,
+                ID_ADESTINO = ?,
+                ID_NAVIERA = ?,
+                ID_NAVE = ?,
+                ID_PCARGA = ?,
+                ID_PDESTINO = ?,
+                ID_INPECTOR = ?, 
+                ID_ICARGA = ?, 
+                ID_CONDUCTOR = ?,
+                ID_TRANSPORTE = ?, 
+                ID_CONTRAPARTE = ?, 
+                ID_EMPRESA = ?,
+                ID_PLANTA = ?, 
+                ID_TEMPORADA = ?
+                WHERE ID_DESPACHOEX= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -657,7 +657,7 @@ class DESPACHOEX_ADO
                         $DESPACHOEX->__GET('CRT_DESPACHOEX'),
                         $DESPACHOEX->__GET('NVUELO_DESPACHOEX'),
                         $DESPACHOEX->__GET('FECHASTACKING_DESPACHOEX'),
-                        $DESPACHOEX->__GET('NVIAJE_DESPACHOEX'),           
+                        $DESPACHOEX->__GET('NVIAJE_DESPACHOEX'),
                         $DESPACHOEX->__GET('ID_DFINAL'),
                         $DESPACHOEX->__GET('ID_EXPPORTADORA'),
                         $DESPACHOEX->__GET('ID_RFINAL'),
@@ -705,11 +705,11 @@ class DESPACHOEX_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_despachoex` SET
-        `CANTIDAD_ENVASE_DESPACHOEX`= ?,
-        `KILOS_NETO_DESPACHOEX`= ?,
-        `FECHA_MODIFICACION_DESPACHOEX` = SYSDATE()        
-    WHERE `ID_DESPACHOEX`= ?;";
+    UPDATE fruta_despachoex SET
+        CANTIDAD_ENVASE_DESPACHOEX= ?,
+        KILOS_NETO_DESPACHOEX= ?,
+        FECHA_MODIFICACION_DESPACHOEX = SYSDATE()        
+    WHERE ID_DESPACHOEX= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -729,11 +729,11 @@ class DESPACHOEX_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_despachoex` SET
-        `CANTIDAD_ENVASE_DESPACHOEX`= ?,
-        `KILOS_NETO_DESPACHOEX`= ?,
-        `FECHA_MODIFICACION_DESPACHOEX` = SYSDATE()        
-    WHERE `ID_DESPACHOEX`= ?;";
+    UPDATE fruta_despachoex SET
+        CANTIDAD_ENVASE_DESPACHOEX= ?,
+        KILOS_NETO_DESPACHOEX= ?,
+        FECHA_MODIFICACION_DESPACHOEX = SYSDATE()        
+    WHERE ID_DESPACHOEX= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -757,9 +757,9 @@ class DESPACHOEX_ADO
 
         try {
             $query = "
-    UPDATE `fruta_despachoex` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_DESPACHOEX`= ?;";
+    UPDATE fruta_despachoex SET			
+            ESTADO_REGISTRO = 0
+    WHERE ID_DESPACHOEX= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -776,9 +776,9 @@ class DESPACHOEX_ADO
     {
         try {
             $query = "
-    UPDATE `fruta_despachoex` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_DESPACHOEX`= ?;";
+    UPDATE fruta_despachoex SET			
+            ESTADO_REGISTRO = 1
+    WHERE ID_DESPACHOEX= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -797,9 +797,9 @@ class DESPACHOEX_ADO
     {
         try {
             $query = "
-                    UPDATE `fruta_despachoex` SET			
-                            `ESTADO` = 1
-                    WHERE `ID_DESPACHOEX`= ?;";
+                    UPDATE fruta_despachoex SET			
+                            ESTADO = 1
+                    WHERE ID_DESPACHOEX= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -815,9 +815,9 @@ class DESPACHOEX_ADO
     {
         try {
             $query = "
-                    UPDATE `fruta_despachoex` SET			
-                            `ESTADO` = 0
-                    WHERE `ID_DESPACHOEX`= ?;";
+                    UPDATE fruta_despachoex SET			
+                            ESTADO = 0
+                    WHERE ID_DESPACHOEX= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -831,35 +831,16 @@ class DESPACHOEX_ADO
 
 
     //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
-    public function buscarDespachoexID(
-        $FECHADESPACHOEX,
-        $NUMEROSELLO,
-        $FECHAGUIA,
-        $NUMEROGUIA,
-        $KILOSNETODESPACHOEX,
-        $KGBRUTODESPACHOEX,
-        $CONDUCTOR,
-        $TRANSPORTE,
-        $EMPRESA,
-        $PLANTA,
-        $TEMPORADA
-    ) {
+    public function buscarDespachoexID($FECHADESPACHOEX, $EMPRESA, $PLANTA, $TEMPORADA)
+    {
 
         try {
             $datos = $this->conexion->prepare(" SELECT *
-                                            FROM `fruta_despachoex`
+                                            FROM fruta_despachoex
                                             WHERE 
                                                  FECHA_DESPACHOEX LIKE '" . $FECHADESPACHOEX . "' 
-                                                 AND NUMERO_SELLO_DESPACHOEX = '" . $NUMEROSELLO . "' 
-                                                 AND FECHA_GUIA_DESPACHOEX LIKE '" . $FECHAGUIA . "' 
-                                                 AND NUMERO_GUIA_DESPACHOEX = '" . $NUMEROGUIA . "' 
-                                                 AND KILOS_NETO_DESPACHOEX  = '" . $KILOSNETODESPACHOEX . "'  
-                                                 AND KILOS_BRUTO_DESPACHOEX  = '" . $KGBRUTODESPACHOEX . "' 
                                                  AND DATE_FORMAT(FECHA_INGRESO_DESPACHOEX, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
-                                                 AND DATE_FORMAT(FECHA_MODIFICACION_DESPACHOEX, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')
-                                                 
-                                                 AND ID_CONDUCTOR = '" . $CONDUCTOR . "'   
-                                                 AND ID_TRANSPORTE = '" . $TRANSPORTE . "'                                                  
+                                                 AND DATE_FORMAT(FECHA_MODIFICACION_DESPACHOEX, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')                                                                                                 
                                                  AND ID_EMPRESA = '" . $EMPRESA . "'                                      
                                                  AND ID_PLANTA = '" . $PLANTA . "'                                      
                                                  AND ID_TEMPORADA = '" . $TEMPORADA . "'
@@ -904,7 +885,7 @@ class DESPACHOEX_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT *
-                                                FROM `fruta_despachoex`
+                                                FROM fruta_despachoex
                                                 WHERE 
                                                     NUMERO_SELLO_DESPACHOEX = " . $NUMEROGUIA . "
                                                     AND ID_PRODUCTOR = " . $PRODUCTOR . "                                                 
@@ -931,21 +912,21 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                            SUM(fruta_exiexportacion.`CANTIDAD_ENVASE_EXIEXPORTACION`) AS 'TOTAL_ENVASE',
-                                            SUM(fruta_exiexportacion.`KILOS_NETO_EXIEXPORTACION`) AS 'TOTAL_NETO',
-                                            fruta_exiexportacion.`FECHA_EMBALADO_EXIEXPORTACION` AS 'FECHA_EMBALADO' ,
-                                            fruta_exiexportacion.`ID_PRODUCTOR`,fruta_exiexportacion.`ID_VESPECIES`,
-                                            fruta_exiexportacion.`ID_ESTANDAR`,fruta_exiexportacion.`ID_FOLIO`
+                                            SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION) AS 'TOTAL_ENVASE',
+                                            SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION) AS 'TOTAL_NETO',
+                                            fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION AS 'FECHA_EMBALADO' ,
+                                            fruta_exiexportacion.ID_PRODUCTOR,fruta_exiexportacion.ID_VESPECIES,
+                                            fruta_exiexportacion.ID_ESTANDAR,fruta_exiexportacion.ID_FOLIO
                                         FROM fruta_despachoex, fruta_exiexportacion 
                                         WHERE  fruta_despachoex.ID_DESPACHOEX=fruta_exiexportacion.ID_DESPACHOEX
                                         AND fruta_despachoex.ID_ICARGA = '" . $IDICARGA . "'
-                                        AND fruta_exiexportacion.`ESTADO_REGISTRO` = 1  
+                                        AND fruta_exiexportacion.ESTADO_REGISTRO = 1  
                                         GROUP BY 
-                                        fruta_exiexportacion.`ID_PRODUCTOR`,
-                                        fruta_exiexportacion.`ID_VESPECIES`,
-                                        fruta_exiexportacion.`ID_ESTANDAR`,
-                                        fruta_exiexportacion.`ID_FOLIO`, 
-                                        fruta_exiexportacion.`FECHA_EMBALADO_EXIEXPORTACION`;
+                                        fruta_exiexportacion.ID_PRODUCTOR,
+                                        fruta_exiexportacion.ID_VESPECIES,
+                                        fruta_exiexportacion.ID_ESTANDAR,
+                                        fruta_exiexportacion.ID_FOLIO, 
+                                        fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION;
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -965,21 +946,21 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.`CANTIDAD_ENVASE_EXIEXPORTACION`),0),0,'de_DE') AS 'TOTAL_ENVASE',
-                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.`KILOS_NETO_EXIEXPORTACION`),0),2,'de_DE') AS 'TOTAL_NETO',
-                                            DATE_FORMAT(fruta_exiexportacion.`FECHA_EMBALADO_EXIEXPORTACION`, '%d-%m-%Y')  AS 'FECHA_EMBALADO' ,
-                                            fruta_exiexportacion.`ID_PRODUCTOR`,fruta_exiexportacion.`ID_VESPECIES`,
-                                            fruta_exiexportacion.`ID_ESTANDAR`,fruta_exiexportacion.`ID_FOLIO`
+                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'TOTAL_ENVASE',
+                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_NETO',
+                                            DATE_FORMAT(fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y')  AS 'FECHA_EMBALADO' ,
+                                            fruta_exiexportacion.ID_PRODUCTOR,fruta_exiexportacion.ID_VESPECIES,
+                                            fruta_exiexportacion.ID_ESTANDAR,fruta_exiexportacion.ID_FOLIO
                                         FROM fruta_despachoex, fruta_exiexportacion 
                                         WHERE  fruta_despachoex.ID_DESPACHOEX=fruta_exiexportacion.ID_DESPACHOEX
                                         AND fruta_despachoex.ID_ICARGA = '" . $IDICARGA . "'
-                                        AND fruta_exiexportacion.`ESTADO_REGISTRO` = 1  
+                                        AND fruta_exiexportacion.ESTADO_REGISTRO = 1  
                                         GROUP BY 
-                                        fruta_exiexportacion.`ID_PRODUCTOR`,
-                                        fruta_exiexportacion.`ID_VESPECIES`,
-                                        fruta_exiexportacion.`ID_ESTANDAR`,
-                                        fruta_exiexportacion.`ID_FOLIO`, 
-                                        fruta_exiexportacion.`FECHA_EMBALADO_EXIEXPORTACION`;
+                                        fruta_exiexportacion.ID_PRODUCTOR,
+                                        fruta_exiexportacion.ID_VESPECIES,
+                                        fruta_exiexportacion.ID_ESTANDAR,
+                                        fruta_exiexportacion.ID_FOLIO, 
+                                        fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION;
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -998,13 +979,13 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                            fruta_exiexportacion.`FECHA_EMBALADO_EXIEXPORTACION` AS 'FECHA_EMBALADO' ,
-                                            fruta_exiexportacion.`ID_PRODUCTOR`,fruta_exiexportacion.`ID_VESPECIES`,
-                                            fruta_exiexportacion.`ID_ESTANDAR`,fruta_exiexportacion.`ID_FOLIO`
+                                            fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION AS 'FECHA_EMBALADO' ,
+                                            fruta_exiexportacion.ID_PRODUCTOR,fruta_exiexportacion.ID_VESPECIES,
+                                            fruta_exiexportacion.ID_ESTANDAR,fruta_exiexportacion.ID_FOLIO
                                         FROM fruta_despachoex, fruta_exiexportacion 
                                         WHERE  fruta_despachoex.ID_DESPACHOEX=fruta_exiexportacion.ID_DESPACHOEX
                                         AND fruta_despachoex.ID_ICARGA = '" . $IDICARGA . "'
-                                        AND fruta_exiexportacion.`ESTADO_REGISTRO` = 1;
+                                        AND fruta_exiexportacion.ESTADO_REGISTRO = 1;
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -1024,14 +1005,14 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                     IFNULL(SUM(fruta_exiexportacion.`CANTIDAD_ENVASE_EXIEXPORTACION`),0) AS 'ENVASE',   
-                                                     IFNULL(SUM(fruta_exiexportacion.`KILOS_NETO_EXIEXPORTACION`),0) AS 'NETO',  
-                                                     IFNULL(SUM(fruta_exiexportacion.`KILOS_BRUTO_EXIEXPORTACION`),0)  AS 'BRUTO'  ,
-                                                     IFNULL(SUM(fruta_exiexportacion.`KILOS_DESHIRATACION_EXIEXPORTACION`),0)  AS 'DESHIDRATACION'  
+                                                     IFNULL(SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE',   
+                                                     IFNULL(SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION),0) AS 'NETO',  
+                                                     IFNULL(SUM(fruta_exiexportacion.KILOS_BRUTO_EXIEXPORTACION),0)  AS 'BRUTO'  ,
+                                                     IFNULL(SUM(fruta_exiexportacion.KILOS_DESHIRATACION_EXIEXPORTACION),0)  AS 'DESHIDRATACION'  
                                         FROM fruta_despachoex, fruta_exiexportacion 
                                         WHERE  fruta_despachoex.ID_DESPACHOEX=fruta_exiexportacion.ID_DESPACHOEX
                                         AND fruta_despachoex.ID_ICARGA = '" . $IDICARGA . "'
-                                        AND fruta_exiexportacion.`ESTADO_REGISTRO` = 1  ;
+                                        AND fruta_exiexportacion.ESTADO_REGISTRO = 1  ;
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -1050,7 +1031,7 @@ class DESPACHOEX_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT  COUNT(IFNULL(NUMERO_DESPACHOEX,0)) AS 'NUMERO'
-                                            FROM `fruta_despachoex`
+                                            FROM fruta_despachoex
                                             WHERE  
                                                 ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'

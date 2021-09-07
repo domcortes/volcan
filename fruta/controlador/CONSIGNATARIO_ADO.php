@@ -299,9 +299,9 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario`  
-                                            WHERE `ESTADO_REGISTRO` = 1
-                                            AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
+            $datos = $this->conexion->prepare(" SELECT * FROM `fruta_consignatario`  
+                                                WHERE `ESTADO_REGISTRO` = 1
+                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 

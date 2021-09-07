@@ -64,6 +64,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $TOTALENVASE = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
 }
 
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrLP.php";
 
 
 
@@ -195,10 +197,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">
-
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -230,51 +231,56 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 <?php echo $r['NUMERO_DESPACHOEX']; ?>
                                                             </a>
                                                         </td>
-                                                        <td <?php if ($r['ESTADO'] == "0") {
-                                                                echo "style='background-color: #FF0000;'";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "style='background-color: #4AF575;'";
-                                                            }  ?>>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "0") {
-                                                                echo "Cerrado";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Abierto";
-                                                            }
-                                                            ?>
+                                                        <td>
+                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                            <?php  }  ?>
+                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                            <?php  }  ?>
                                                         </td>
                                                         <td class="text-center">
                                                             <form method="post" id="form1">
                                                                 <div class="list-icons d-inline-flex">
                                                                     <div class="list-icons-item dropdown">
-                                                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
+                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                                        </button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeDespachoPackingList.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button>Packing List <br>
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeComercialDespacho.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button>Informe Comercial <br>
-                                                                            <div class="dropdown-divider"></div>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline mr-1" id="defecto" name="editar" Onclick="irPagina('registroDespachoEX.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&parametro1=editar'); ">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
-                                                                            <?php } ?>
+                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
+                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHOEX']; ?>" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoEX" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoEX" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline mr-1" id="defecto" name="ver" Onclick="irPagina('registroDespachoEX.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&parametro1=ver'); ">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
+
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i>
+                                                                                    </button>
+                                                                                </span>
                                                                             <?php } ?>
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoPackingList.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                </button>
+                                                                            </span>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe Comercial">
+                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeComercialDespacho.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                </button>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
-
-
                                                         </td>
                                                         <td>
                                                             <?php
@@ -283,14 +289,12 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             ?>
                                                         </td>
                                                         <td><?php echo $r['FECHA_DESPACHOEX']; ?></td>
-
                                                         <td><?php echo $r['NUMERO_SELLO_DESPACHOEX']; ?></td>
                                                         <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
                                                         <td><?php echo $r['FECHA_GUIA_DESPACHOEX']; ?></td>
                                                         <td><?php echo $r['CANTIDAD_ENVASE_DESPACHOEX']; ?></td>
                                                         <td><?php echo $r['KILOS_NETO_DESPACHOEX']; ?></td>
                                                         <td><?php echo $r['KILOS_BRUTO_DESPACHOEX']; ?></td>
-
                                                         <td><?php echo $r['FECHA_INGRESO_DESPACHOEX']; ?></td>
                                                         <td><?php echo $r['FECHA_MODIFICACION_DESPACHOEX']; ?></td>
                                                         <td>
@@ -307,8 +311,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         </td>
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
-
-
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -319,23 +321,23 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                         <div class="form-group">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Envase </label>
                                             <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Neto </label>
                                             <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Bruto </label>
                                             <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
@@ -343,7 +345,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- /.box -->
 

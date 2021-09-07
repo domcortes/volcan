@@ -310,52 +310,51 @@ $ARRAYNUMERO = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-$ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
-$ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
-$ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 
-$ARRAYTSERVICIO = $TSERVICIO_ADO->listarTservicioCBX();
-$ARRAYMERCADO = $MERCADO_ADO->listarMercadoCBX();
+$ARRAYTSERVICIO = $TSERVICIO_ADO->listarTservicioPorEmpresaCBX($EMPRESAS);
+$ARRAYMERCADO = $MERCADO_ADO->listarMercadoPorEmpresaCBX($EMPRESAS);
 
 $ARRAYEXPORTADORA = $EXPORTADORA_ADO->listarExportadoraCBX();
-$ARRAYCONSIGNATARIO = $CONSIGNATARIO_ADO->listarConsignatorioCBX();
-$ARRAYNOTIFICADOR = $NOTIFICADOR_ADO->listarNotificadorCBX();
-$ARRAYBROKER = $BROKER_ADO->listarBrokerCBX();
-$ARRAYRFINAL = $RFINAL_ADO->listarRfinalCBX();
+$ARRAYCONSIGNATARIO = $CONSIGNATARIO_ADO->listarConsignatorioPorEmpresaCBX($EMPRESAS);
 
-$ARRAYAADUANA = $AADUANA_ADO->listarAaduanaCBX();
-$ARRAYAGCARGA = $AGCARGA_ADO->listarAgcargaCBX();
-$ARRAYDFINAL = $DFINAL_ADO->listarDfinalCBX();
+$ARRAYNOTIFICADOR = $NOTIFICADOR_ADO->listarNotificadorPorEmpresaCBX($EMPRESAS);
+$ARRAYBROKER = $BROKER_ADO->listarBrokerPorEmpresaCBX($EMPRESAS);
+$ARRAYRFINAL = $RFINAL_ADO->listarRfinalPorEmpresaCBX($EMPRESAS);
 
-$ARRAYTRANSPORTE = $TRANSPORTE_ADO->listarTransporteCBX();
-$ARRAYLCARGA = $LCARGA_ADO->listarLcargaCBX();
-$ARRAYLDESTINO = $LDESTINO_ADO->listarLdestinoCBX();
+$ARRAYAADUANA = $AADUANA_ADO->listarAaduanaPorEmpresaCBX($EMPRESAS);
+$ARRAYAGCARGA = $AGCARGA_ADO->listarAgcargaPorEmpresaCBX($EMPRESAS);
+$ARRAYDFINAL = $DFINAL_ADO->listarDfinalPorEmpresaCBX($EMPRESAS);
 
-$ARRAYLAEREA = $LAEREA_ADO->listarLaereaCBX();
-$ARRAYACARGA = $ACARGA_ADO->listarAcargaCBX();
-$ARRAYADESTINO = $ADESTINO_ADO->listarAdestinoCBX();
+$ARRAYTRANSPORTE = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
+$ARRAYLCARGA = $LCARGA_ADO->listarLcargaPorEmpresaCBX($EMPRESAS);
+$ARRAYLDESTINO = $LDESTINO_ADO->listarLdestinoPorEmpresaCBX($EMPRESAS);
 
-$ARRAYNAVIERA = $NAVIERA_ADO->listarNavieraCBX();
-$ARRAYPCARGA = $PCARGA_ADO->listarPcargaCBX();
-$ARRAYPDESTINO = $PDESTINO_ADO->listarPdestinoCBX();
+$ARRAYLAEREA = $LAEREA_ADO->listarLaereaPorEmpresaCBX($EMPRESAS);
+$ARRAYACARGA = $ACARGA_ADO->listarAcargaPorEmpresaCBX($EMPRESAS);
+$ARRAYADESTINO = $ADESTINO_ADO->listarAdestinoPorEmpresaCBX($EMPRESAS);
+
+$ARRAYNAVIERA = $NAVIERA_ADO->listarNavierPorEmpresaCBX($EMPRESAS);
+$ARRAYPCARGA = $PCARGA_ADO->listarPcargaPorEmpresaCBX($EMPRESAS);
+$ARRAYPDESTINO = $PDESTINO_ADO->listarPdestinoPorEmpresaCBX($EMPRESAS);
 
 
 
-$ARRAYFPAGO = $FPAGO_ADO->listarFpagoCBX();
-$ARRAYMVENTA = $MVENTA_ADO->listarMventaCBX();
-$ARRAYCVENTA = $CVENTA_ADO->listarCventaCBX();;
-$ARRAYTFLETE = $TFLETE_ADO->listarTfleteCBX();
+$ARRAYFPAGO = $FPAGO_ADO->listarFpagoPorEmpresaCBX($EMPRESAS);
+$ARRAYMVENTA = $MVENTA_ADO->listarMventaPorEmpresaCBX($EMPRESAS);
+$ARRAYCVENTA = $CVENTA_ADO->listarCventaPorEmpresaCBX($EMPRESAS);;
+$ARRAYTFLETE = $TFLETE_ADO->listarTfletePorEmpresaCBX($EMPRESAS);
 
-$ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->listarTcontenedorCBX();
-$ARRAYATMOSFERA = $ATMOSFERA_ADO->listarAtmosferaCBX();
-$ARRAYSEGURO = $SEGURO_ADO->listarSeguroCBX();
+$ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->listarTcontenedorPorEmpresaCBX($EMPRESAS);
+$ARRAYATMOSFERA = $ATMOSFERA_ADO->listarAtmosferaPorEmpresaCBX($EMPRESAS);
+$ARRAYSEGURO = $SEGURO_ADO->listarSeguroPorEmpressCBX($EMPRESAS);
 
 $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
-$ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibreCBX();
+$ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 $ARRAYPAIS = $PAIS_ADO->listarPaisCBX();
 
 
-$ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarCBX();
+$ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
+
 $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($PLANTAS);
 if ($ARRAYVERPLANTA) {
     $FDA = $ARRAYVERPLANTA[0]['FDA_PLANTA'];
@@ -2381,7 +2380,7 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Nave </label>
                                                                 <input type="hidden" class="form-control" placeholder="NAVEE" id="NAVEE" name="NAVEE" value="<?php echo $NAVE; ?>" />
-                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>"  <?php echo $DISABLED; ?>/>
+                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" <?php echo $DISABLED; ?> />
                                                                 <label id="val_nave" class="validacion"> </label>
                                                             </div>
                                                         </div>
@@ -2488,7 +2487,7 @@ if (isset($_POST)) {
                                                             <div class="form-group">
                                                                 <label>Nave </label>
                                                                 <input type="hidden" class="form-control" placeholder="NAVEE" id="NAVEE" name="NAVEE" value="<?php echo $NAVE; ?>" />
-                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>"   <?php echo $DISABLED; ?>/>
+                                                                <input type="text" class="form-control" placeholder="NAVE" id="NAVE" name="NAVE" value="<?php echo $NAVE; ?>" <?php echo $DISABLED; ?> />
                                                                 <label id="val_nave" class="validacion"> </label>
                                                             </div>
                                                         </div>
