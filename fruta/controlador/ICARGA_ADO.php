@@ -665,7 +665,7 @@ class ICARGA_ADO
             die($e->getMessage());
         }
     }
-    public function listarIcargaConfirmadoCBX()
+    public function listarIcargaConfirmadoCBX($IDEMPRESA, $IDTEMPORADA)
     {
         try {
 
@@ -673,7 +673,9 @@ class ICARGA_ADO
                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
                                             FROM fruta_icarga  
                                             WHERE ESTADO_REGISTRO = 1
-                                            AND  ESTADO_ICARGA = 2; ");
+                                            AND  ESTADO_ICARGA = 2
+                                            AND ID_EMPRESA = '".$IDEMPRESA."'
+                                            AND ID_TEMPORADA = '".$IDTEMPORADA."' ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -686,7 +688,7 @@ class ICARGA_ADO
             die($e->getMessage());
         }
     }
-    public function listarIcargaTomadoCBX()
+    public function listarIcargaTomadoCBX($IDEMPRESA, $IDTEMPORADA)
     {
         try {
 
@@ -694,7 +696,9 @@ class ICARGA_ADO
                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
                                             FROM fruta_icarga  
                                             WHERE ESTADO_REGISTRO = 1
-                                            AND  ESTADO_ICARGA > 2; ");
+                                            AND  ESTADO_ICARGA > 2 
+                                            AND ID_EMPRESA = '".$IDEMPRESA."'
+                                            AND ID_TEMPORADA = '".$IDTEMPORADA."' ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
 

@@ -417,7 +417,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             $ESTADO = "" . $r['ESTADO'];
             $DIFERENCIAKILOS = $KILOSBRUTORECEPCION - $TOTALGUIA;
-            $PORCENTAJEDIFERENCIA =  Round((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100,2);
+            $PORCENTAJEDIFERENCIA =  Round((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100, 2);
         endforeach;
     }
 
@@ -472,7 +472,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             $ESTADO = "" . $r['ESTADO'];
             $DIFERENCIAKILOS = $KILOSBRUTORECEPCION - $TOTALGUIA;
-            $PORCENTAJEDIFERENCIA =  Round((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100,2);
+            $PORCENTAJEDIFERENCIA =  Round((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100, 2);
 
         endforeach;
     }
@@ -530,7 +530,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             $ESTADO = "" . $r['ESTADO'];
             $DIFERENCIAKILOS = $KILOSBRUTORECEPCION - $TOTALGUIA;
-            $PORCENTAJEDIFERENCIA =  Round((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100,2);
+            $PORCENTAJEDIFERENCIA =  Round((($KILOSBRUTORECEPCION * 100) / $TOTALGUIA) - 100, 2);
         endforeach;
     }
 }
@@ -1232,11 +1232,9 @@ if (isset($_POST)) {
                                 <div class="box-footer">
                                     <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
-                                            <form>
-                                                <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionmp.php');">
-                                                    <i class="ti-trash"></i>
-                                                </button>
-                                            </form>
+                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionmp.php');">
+                                                <i class="ti-trash"></i>
+                                            </button>
                                             <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-save-alt"></i>
                                             </button>

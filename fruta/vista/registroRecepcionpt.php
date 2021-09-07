@@ -1225,11 +1225,9 @@ if (isset($_POST)) {
                                 <div class="box-footer">
                                     <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
-                                            <form>
-                                                <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionpt.php');">
-                                                    <i class="ti-trash"></i>
-                                                </button>
-                                            </form>
+                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionpt.php');">
+                                                <i class="ti-trash"></i>
+                                            </button>
                                             <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-save-alt"></i>
                                             </button>
