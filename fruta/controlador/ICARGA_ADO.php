@@ -7,1081 +7,1009 @@ include_once '../modelo/ICARGA.php';
 include_once '../config/BDCONFIG.php';
 
 //INICIALIZAR VARIABLES
-$HOST="";
-$DBNAME="";
-$USER="";
-$PASS="";
+$HOST = "";
+$DBNAME = "";
+$USER = "";
+$PASS = "";
 
 //ESTRUCTURA DEL CONTROLADOR
-class ICARGA_ADO {
+class ICARGA_ADO
+{
     //ATRIBUTO
     private $conexion;
-    
+
     //LLAMADO A LA BD Y CONFIGURAR PARAMETROS
-    
+
     public function __CONSTRUCT()
     {
-        try
-        {
+        try {
             $BDCONFIG = new BDCONFIG();
             $HOST = $BDCONFIG->__GET('HOST');
             $DBNAME = $BDCONFIG->__GET('DBNAME');
             $USER = $BDCONFIG->__GET('USER');
             $PASS = $BDCONFIG->__GET('PASS');
 
-            
-            $this->conexion = new PDO('mysql:host='.$HOST.';dbname='.$DBNAME, $USER ,$PASS);
+
+            $this->conexion = new PDO('mysql:host=' . $HOST . ';dbname=' . $DBNAME, $USER, $PASS);
             $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    
-    
-    
- //FUNCIONES BASICAS 
- //LISTAR TODO CON LIMITE DE 6 FILAS  
-    public function listarIcarga(){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_icarga` LIMIT 6;	");
+
+
+
+    //FUNCIONES BASICAS 
+    //LISTAR TODO CON LIMITE DE 6 FILAS  
+    public function listarIcarga()
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_icarga LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	var_dump($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
     }
     //LISTAR TODO
-    public function listarIcargaCBX(){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+    public function listarIcargaCBX()
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
-                                            FROM `fruta_icarga`  
-                                            WHERE `ESTADO_REGISTRO` = 1;	");
+                                            FROM fruta_icarga  
+                                            WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	var_dump($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
-    }
-    public function listarIcargaEmpresaPlantaTemporadaCBX($EMPRESA,$PLANTA,$TEMPORADA){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
-                                                       DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
-                                            FROM `fruta_icarga`  
-                                            WHERE `ESTADO_REGISTRO` = 1                                                                                                        
-                                            AND ID_EMPRESA = '".$EMPRESA."' 
-                                            AND ID_PLANTA = '".$PLANTA."'
-                                            AND ID_TEMPORADA = '".$TEMPORADA."'
-                                            
-                                            ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    public function listarIcargaEmpresaTemporadaCBX($EMPRESA,$TEMPORADA){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
-                                                       DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
-                                            FROM `fruta_icarga`  
-                                            WHERE `ESTADO_REGISTRO` = 1                                                                                                        
-                                            AND ID_EMPRESA = '".$EMPRESA."' 
-                                            AND ID_TEMPORADA = '".$TEMPORADA."'
-                                            
-                                            ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
     }
 
-    
-    public function listarIcarga2CBX(){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_icarga`  WHERE `ESTADO_REGISTRO` = 0;	");
+
+
+    public function listarIcarga2CBX()
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_icarga  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	var_dump($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
     }
 
-    public function listarIcarga3CBX(){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
-                                                       DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
-                                            FROM `fruta_icarga`  
-                                            WHERE `ESTADO_REGISTRO` = 1
-                                            AND  `ESTADO_ICARGA` = 2; ");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    public function listarIcarga4CBX(){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
-                                                       DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
-                                            FROM `fruta_icarga`  
-                                            WHERE `ESTADO_REGISTRO` = 1
-                                            AND  `ESTADO_ICARGA` > 2; ");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
-    public function verIcarga($ID){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_icarga` WHERE `ID_ICARGA`= '".$ID."';");
+    public function verIcarga($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT *,
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
+                                                FROM fruta_icarga 
+                                                WHERE ID_ICARGA= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	var_dump($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
-    }   
-    	    
+    }
 
-     
+    public function verIcarga2($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
+                                            FROM fruta_icarga
+                                            WHERE ID_ICARGA = '" . $IDICARGA . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
     //REGISTRO DE UNA NUEVA FILA    
-    public function agregarIcarga(ICARGA $ICARGA){
-        try{
-            if($ICARGA->__GET('ID_CONSIGNATARIO')==NULL){
+    public function agregarIcarga(ICARGA $ICARGA)
+    {
+        try {
+            if ($ICARGA->__GET('ID_CONSIGNATARIO') == NULL) {
                 $ICARGA->__SET('ID_CONSIGNATARIO', NULL);
             }
-            if($ICARGA->__GET('ID_EXPPORTADORA')==NULL){
+            if ($ICARGA->__GET('ID_EXPPORTADORA') == NULL) {
                 $ICARGA->__SET('ID_EXPPORTADORA', NULL);
             }
-            if($ICARGA->__GET('ID_NOTIFICADOR')==NULL){
+            if ($ICARGA->__GET('ID_NOTIFICADOR') == NULL) {
                 $ICARGA->__SET('ID_NOTIFICADOR', NULL);
             }
-            if($ICARGA->__GET('ID_BROKER')==NULL){
+            if ($ICARGA->__GET('ID_BROKER') == NULL) {
                 $ICARGA->__SET('ID_BROKER', NULL);
             }
-            if($ICARGA->__GET('ID_RFINAL')==NULL){
+            if ($ICARGA->__GET('ID_RFINAL') == NULL) {
                 $ICARGA->__SET('ID_RFINAL', NULL);
-            }            
-            if($ICARGA->__GET('ID_MERCADO')==NULL){
+            }
+            if ($ICARGA->__GET('ID_MERCADO') == NULL) {
                 $ICARGA->__SET('ID_MERCADO', NULL);
             }
-            if($ICARGA->__GET('ID_AADUANA')==NULL){
+            if ($ICARGA->__GET('ID_AADUANA') == NULL) {
                 $ICARGA->__SET('ID_AADUANA', NULL);
             }
-            if($ICARGA->__GET('ID_AGCARGA')==NULL){
+            if ($ICARGA->__GET('ID_AGCARGA') == NULL) {
                 $ICARGA->__SET('ID_AGCARGA', NULL);
             }
-            if($ICARGA->__GET('ID_DFINAL')==NULL){
+            if ($ICARGA->__GET('ID_DFINAL') == NULL) {
                 $ICARGA->__SET('ID_DFINAL', NULL);
             }
-            if($ICARGA->__GET('ID_TRANSPORTE')==NULL){
+            if ($ICARGA->__GET('ID_TRANSPORTE') == NULL) {
                 $ICARGA->__SET('ID_TRANSPORTE', NULL);
             }
-            if($ICARGA->__GET('ID_LCARGA')==NULL){
+            if ($ICARGA->__GET('ID_LCARGA') == NULL) {
                 $ICARGA->__SET('ID_LCARGA', NULL);
             }
-            if($ICARGA->__GET('ID_LDESTINO')==NULL){
+            if ($ICARGA->__GET('ID_LDESTINO') == NULL) {
                 $ICARGA->__SET('ID_LDESTINO', NULL);
             }
-            if($ICARGA->__GET('ID_LAREA')==NULL){
+            if ($ICARGA->__GET('ID_LAREA') == NULL) {
                 $ICARGA->__SET('ID_LAREA', NULL);
             }
-            if($ICARGA->__GET('ID_AEROLINEA')==NULL){
-                $ICARGA->__SET('ID_AEROLINEA', NULL);
+            if ($ICARGA->__GET('NAVE_ICARGA') == NULL) {
+                $ICARGA->__SET('NAVE_ICARGA', NULL);
             }
-            if($ICARGA->__GET('ID_AERONAVE')==NULL){
-                $ICARGA->__SET('ID_AERONAVE', NULL);
-            }
-            if($ICARGA->__GET('ID_ACARGA')==NULL){
+            if ($ICARGA->__GET('ID_ACARGA') == NULL) {
                 $ICARGA->__SET('ID_ACARGA', NULL);
             }
-            if($ICARGA->__GET('ID_ADESTINO')==NULL){
+            if ($ICARGA->__GET('ID_ADESTINO') == NULL) {
                 $ICARGA->__SET('ID_ADESTINO', NULL);
-            }            
-            if($ICARGA->__GET('ID_NAVIERA')==NULL){
+            }
+            if ($ICARGA->__GET('ID_NAVIERA') == NULL) {
                 $ICARGA->__SET('ID_NAVIERA', NULL);
             }
-            if($ICARGA->__GET('ID_NAVE')==NULL){
-                $ICARGA->__SET('ID_NAVE', NULL);
-            }
-            if($ICARGA->__GET('ID_PCARGA')==NULL){
+            if ($ICARGA->__GET('ID_PCARGA') == NULL) {
                 $ICARGA->__SET('ID_PCARGA', NULL);
             }
-            if($ICARGA->__GET('ID_PDESTINO')==NULL){
+            if ($ICARGA->__GET('ID_PDESTINO') == NULL) {
                 $ICARGA->__SET('ID_PDESTINO', NULL);
             }
-            if($ICARGA->__GET('ID_FPAGO')==NULL){
+            if ($ICARGA->__GET('ID_FPAGO') == NULL) {
                 $ICARGA->__SET('ID_FPAGO', NULL);
             }
-            if($ICARGA->__GET('ID_CVENTA')==NULL){
+            if ($ICARGA->__GET('ID_CVENTA') == NULL) {
                 $ICARGA->__SET('ID_CVENTA', NULL);
             }
-            if($ICARGA->__GET('ID_MVENTA')==NULL){
+            if ($ICARGA->__GET('ID_MVENTA') == NULL) {
                 $ICARGA->__SET('ID_MVENTA', NULL);
             }
-            if($ICARGA->__GET('ID_TCONTENEDOR')==NULL){
+            if ($ICARGA->__GET('ID_TCONTENEDOR') == NULL) {
                 $ICARGA->__SET('ID_TCONTENEDOR', NULL);
             }
-            if($ICARGA->__GET('ID_ATMOSFERA')==NULL){
+            if ($ICARGA->__GET('ID_ATMOSFERA') == NULL) {
                 $ICARGA->__SET('ID_ATMOSFERA', NULL);
             }
-            if($ICARGA->__GET('ID_PAIS')==NULL){
+            if ($ICARGA->__GET('ID_PAIS') == NULL) {
                 $ICARGA->__SET('ID_PAIS', NULL);
             }
-            if($ICARGA->__GET('ID_TFLETE')==NULL){
+            if ($ICARGA->__GET('ID_TFLETE') == NULL) {
                 $ICARGA->__SET('ID_TFLETE', NULL);
             }
-            if($ICARGA->__GET('FUMIGADO_ICARGA')==NULL){
+            if ($ICARGA->__GET('FUMIGADO_ICARGA') == NULL) {
                 $ICARGA->__SET('FUMIGADO_ICARGA', NULL);
             }
-            if($ICARGA->__GET('ID_SEGURO')==NULL){
+            if ($ICARGA->__GET('ID_SEGURO') == NULL) {
                 $ICARGA->__SET('ID_SEGURO', NULL);
             }
 
-            
-            $query=            
-            "INSERT INTO `fruta_icarga` ( NUMERO_ICARGA, FECHA_ICARGA, BOOKING_ICARGA, NREFERENCIA_ICARGA, FECHAETD_ICARGA, FECHAETA_ICARGA, FDA_ICARGA, 
-                                    TEMBARQUE_ICARGA, CRT_ICARGA, NVUELO_ICARGA,  FECHASTACKING_ICARGA, NVIAJE_ICARGA, 
-                                    FUMIGADO_ICARGA, T_ICARGA, O2_ICARGA, C02_ICARGA, TALAMPA_ICARGA,
-                                    ALAMPA_ICARGA, DUS_ICARGA, BOLAWBCRT_ICARGA, NETO_ICARGA, REBATE_ICARGA,
-                                    PUBLICA_ICARGA, ID_SEGURO, OBSERVACION_ICARGA,
-                                    TOTAL_ENVASE_ICAGRA, TOTAL_NETO_ICARGA, TOTAL_BRUTO_ICARGA,TOTAL_US_ICARGA,
-                                    ID_EXPPORTADORA, ID_CONSIGNATARIO, ID_NOTIFICADOR, ID_BROKER, ID_RFINAL,
-                                    ID_MERCADO, ID_AADUANA, ID_AGCARGA, ID_DFINAL, ID_TRANSPORTE,
-                                    ID_LCARGA, ID_LDESTINO, ID_LAREA, ID_AEROLINEA,
-                                    ID_AERONAVE, ID_ACARGA, ID_ADESTINO, ID_NAVIERA, ID_NAVE,                                    
-                                    ID_PCARGA, ID_PDESTINO, ID_FPAGO, ID_CVENTA, ID_MVENTA,
-                                    ID_TCONTENEDOR, ID_ATMOSFERA, ID_TSERVICIO, ID_TFLETE,
-                                    ID_PAIS, `ID_EMPRESA`,`ID_PLANTA`,`ID_TEMPORADA`,
-                                    
-                                    ID_USUARIOI, 
-                                    ID_USUARIOM,  
-                                    INGRESO, MODIFICACION,  ESTADO,`ESTADO_ICARGA`, ESTADO_REGISTRO ) 
+            $query =
+                "INSERT INTO fruta_icarga ( 
+                                            NUMERO_ICARGA, 
+                                            FECHA_ICARGA, 
+                                            BOOKING_ICARGA, 
+                                            NREFERENCIA_ICARGA, 
+                                            FECHAETD_ICARGA, 
+                                            FECHAETA_ICARGA, 
+                                            FDA_ICARGA, 
+                                            TEMBARQUE_ICARGA, 
+                                            CRT_ICARGA,  
+                                            FECHASTACKING_ICARGA,
+                                            NVIAJE_ICARGA, 
+                                            FUMIGADO_ICARGA, 
+                                            T_ICARGA,
+                                            O2_ICARGA, 
+                                            C02_ICARGA, 
+                                            ALAMPA_ICARGA, 
+                                            COSTO_FLETE_ICARGA,
+                                            DUS_ICARGA, 
+                                            BOLAWBCRT_ICARGA, 
+                                            NETO_ICARGA, 
+                                            REBATE_ICARGA,
+                                            PUBLICA_ICARGA,  
+                                            OBSERVACION_ICARGA, 
+                                            NAVE_ICARGA, 
+                                            ID_EXPPORTADORA, 
+                                            ID_CONSIGNATARIO, 
+                                            ID_NOTIFICADOR, 
+                                            ID_BROKER, 
+                                            ID_RFINAL,
+                                            ID_MERCADO, 
+                                            ID_AADUANA, 
+                                            ID_AGCARGA, 
+                                            ID_DFINAL, 
+                                            ID_TRANSPORTE,
+                                            ID_LCARGA,
+                                            ID_LDESTINO, 
+                                            ID_LAREA,
+                                            ID_ACARGA, 
+                                            ID_ADESTINO, 
+                                            ID_NAVIERA,                                    
+                                            ID_PCARGA, 
+                                            ID_PDESTINO, 
+                                            ID_FPAGO, 
+                                            ID_CVENTA, 
+                                            ID_MVENTA,
+                                            ID_TCONTENEDOR, 
+                                            ID_ATMOSFERA, 
+                                            ID_TSERVICIO,
+                                            ID_TFLETE,
+                                            ID_SEGURO,
+                                            ID_PAIS, 
+                                            ID_EMPRESA,
+                                            ID_TEMPORADA,                                            
+                                            ID_USUARIOI, 
+                                            ID_USUARIOM,  
+                                            TOTAL_ENVASE_ICAGRA, 
+                                            TOTAL_NETO_ICARGA, 
+                                            TOTAL_BRUTO_ICARGA,
+                                            TOTAL_US_ICARGA,
+                                            INGRESO, 
+                                            MODIFICACION,  
+                                            ESTADO,
+                                            ESTADO_ICARGA, 
+                                            ESTADO_REGISTRO
+                                        ) 
             VALUES
-	       	    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
-                 ?, ?, ?, ?,
-                 ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                 ?, ?, ?, ?,
-                 SYSDATE(), SYSDATE(), 1, 1, 1);";
+	       	    ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+                 0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 1, 1);";
             $this->conexion->prepare($query)
-                            ->execute(
-                                    array(     
-                                        $ICARGA->__GET('NUMERO_ICARGA'),                   
-                                        $ICARGA->__GET('FECHA_ICARGA'),
-                                        $ICARGA->__GET('BOOKING_ICARGA'),
-                                        $ICARGA->__GET('NREFERENCIA_ICARGA'),
-                                        $ICARGA->__GET('FECHAETD_ICARGA'),
-                                        $ICARGA->__GET('FECHAETA_ICARGA'),
-                                        $ICARGA->__GET('FDA_ICARGA'),
-                                        $ICARGA->__GET('TEMBARQUE_ICARGA'),
-                                        $ICARGA->__GET('CRT_ICARGA'),
-                                        $ICARGA->__GET('NVUELO_ICARGA'),
-                                        $ICARGA->__GET('FECHASTACKING_ICARGA'),
-                                        $ICARGA->__GET('NVIAJE_ICARGA'),                        
-                                        $ICARGA->__GET('FUMIGADO_ICARGA'),
-                                        $ICARGA->__GET('T_ICARGA'),
-                                        $ICARGA->__GET('O2_ICARGA'),
-                                        $ICARGA->__GET('C02_ICARGA'),
-                                        $ICARGA->__GET('TALAMPA_ICARGA'),                        
-                                        $ICARGA->__GET('ALAMPA_ICARGA'),
-                                        $ICARGA->__GET('DUS_ICARGA'),
-                                        $ICARGA->__GET('BOLAWBCRT_ICARGA'),
-                                        $ICARGA->__GET('NETO_ICARGA'),
-                                        $ICARGA->__GET('REBATE_ICARGA'),
-                                        $ICARGA->__GET('PUBLICA_ICARGA'),
-                                        $ICARGA->__GET('ID_SEGURO'),
-                                        $ICARGA->__GET('OBSERVACION_ICARGA'),   
-                                        $ICARGA->__GET('TOTAL_ENVASE_ICAGRA'),   
-                                        $ICARGA->__GET('TOTAL_NETO_ICARGA'),   
-                                        $ICARGA->__GET('TOTAL_BRUTO_ICARGA'),   
-                                        $ICARGA->__GET('TOTAL_US_ICARGA'),   
-                                        $ICARGA->__GET('ID_EXPPORTADORA'),
-                                        $ICARGA->__GET('ID_CONSIGNATARIO'),
-                                        $ICARGA->__GET('ID_NOTIFICADOR'),
-                                        $ICARGA->__GET('ID_BROKER'),
-                                        $ICARGA->__GET('ID_RFINAL'),                          
-                                        $ICARGA->__GET('ID_MERCADO'),
-                                        $ICARGA->__GET('ID_AADUANA'),
-                                        $ICARGA->__GET('ID_AGCARGA'),
-                                        $ICARGA->__GET('ID_DFINAL'),
-                                        $ICARGA->__GET('ID_TRANSPORTE'),     
-                                        $ICARGA->__GET('ID_LCARGA'),            
-                                        $ICARGA->__GET('ID_LDESTINO'),            
-                                        $ICARGA->__GET('ID_LAREA'),            
-                                        $ICARGA->__GET('ID_AEROLINEA'),    
-                                        $ICARGA->__GET('ID_AERONAVE'),      
-                                        $ICARGA->__GET('ID_ACARGA'),      
-                                        $ICARGA->__GET('ID_ADESTINO'),      
-                                        $ICARGA->__GET('ID_NAVIERA'),    
-                                        $ICARGA->__GET('ID_NAVE'),    
-                                        $ICARGA->__GET('ID_PCARGA'),     
-                                        $ICARGA->__GET('ID_PDESTINO'),     
-                                        $ICARGA->__GET('ID_FPAGO'),     
-                                        $ICARGA->__GET('ID_CVENTA'),     
-                                        $ICARGA->__GET('ID_MVENTA'),    
-                                        $ICARGA->__GET('ID_TCONTENEDOR'),  
-                                        $ICARGA->__GET('ID_ATMOSFERA') ,  
-                                        $ICARGA->__GET('ID_TSERVICIO')  ,                                        
-                                        $ICARGA->__GET('ID_TFLETE')  ,                                       
-                                        $ICARGA->__GET('ID_PAIS')  ,
-                                        $ICARGA->__GET('ID_EMPRESA'),
-                                        $ICARGA->__GET('ID_PLANTA'),
-                                        $ICARGA->__GET('ID_TEMPORADA')   ,
-                                        $ICARGA->__GET('ID_USUARIOI') ,
-                                        $ICARGA->__GET('ID_USUARIOM')    
+                ->execute(
+                    array(
+                        $ICARGA->__GET('NUMERO_ICARGA'),
+                        $ICARGA->__GET('FECHA_ICARGA'),
+                        $ICARGA->__GET('BOOKING_ICARGA'),
+                        $ICARGA->__GET('NREFERENCIA_ICARGA'),
+                        $ICARGA->__GET('FECHAETD_ICARGA'),
+                        $ICARGA->__GET('FECHAETA_ICARGA'),
+                        $ICARGA->__GET('FDA_ICARGA'),
+                        $ICARGA->__GET('TEMBARQUE_ICARGA'),
+                        $ICARGA->__GET('CRT_ICARGA'),
+                        $ICARGA->__GET('FECHASTACKING_ICARGA'),
+                        $ICARGA->__GET('NVIAJE_ICARGA'),
+                        $ICARGA->__GET('FUMIGADO_ICARGA'),
+                        $ICARGA->__GET('T_ICARGA'),
+                        $ICARGA->__GET('O2_ICARGA'),
+                        $ICARGA->__GET('C02_ICARGA'),
+                        $ICARGA->__GET('ALAMPA_ICARGA'),
+                        $ICARGA->__GET('COSTO_FLETE_ICARGA'),
+                        $ICARGA->__GET('DUS_ICARGA'),
+                        $ICARGA->__GET('BOLAWBCRT_ICARGA'),
+                        $ICARGA->__GET('NETO_ICARGA'),
+                        $ICARGA->__GET('REBATE_ICARGA'),
+                        $ICARGA->__GET('PUBLICA_ICARGA'),
+                        $ICARGA->__GET('OBSERVACION_ICARGA'),
+                        $ICARGA->__GET('NAVE_ICARGA'),
+                        $ICARGA->__GET('ID_EXPPORTADORA'),
+                        $ICARGA->__GET('ID_CONSIGNATARIO'),
+                        $ICARGA->__GET('ID_NOTIFICADOR'),
+                        $ICARGA->__GET('ID_BROKER'),
+                        $ICARGA->__GET('ID_RFINAL'),
+                        $ICARGA->__GET('ID_MERCADO'),
+                        $ICARGA->__GET('ID_AADUANA'),
+                        $ICARGA->__GET('ID_AGCARGA'),
+                        $ICARGA->__GET('ID_DFINAL'),
+                        $ICARGA->__GET('ID_TRANSPORTE'),
+                        $ICARGA->__GET('ID_LCARGA'),
+                        $ICARGA->__GET('ID_LDESTINO'),
+                        $ICARGA->__GET('ID_LAREA'),
+                        $ICARGA->__GET('ID_ACARGA'),
+                        $ICARGA->__GET('ID_ADESTINO'),
+                        $ICARGA->__GET('ID_NAVIERA'),
+                        $ICARGA->__GET('ID_PCARGA'),
+                        $ICARGA->__GET('ID_PDESTINO'),
+                        $ICARGA->__GET('ID_FPAGO'),
+                        $ICARGA->__GET('ID_CVENTA'),
+                        $ICARGA->__GET('ID_MVENTA'),
+                        $ICARGA->__GET('ID_TCONTENEDOR'),
+                        $ICARGA->__GET('ID_ATMOSFERA'),
+                        $ICARGA->__GET('ID_TSERVICIO'),
+                        $ICARGA->__GET('ID_TFLETE'),
+                        $ICARGA->__GET('ID_SEGURO'),
+                        $ICARGA->__GET('ID_PAIS'),
+                        $ICARGA->__GET('ID_EMPRESA'),
+                        $ICARGA->__GET('ID_TEMPORADA'),
+                        $ICARGA->__GET('ID_USUARIOI'),
+                        $ICARGA->__GET('ID_USUARIOM')
 
-                                    )
-                                
-                                );
-            
-        }catch(Exception $e){
+                    )
+
+                );
+        } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    
+
     //ELIMINAR FILA, NO SE UTILIZA
-    public function eliminarIcarga($id){
-        try{$sql="DELETE FROM `fruta_icarga` WHERE `ID_ICARGA`=".$id.";";
-        $statement=$this->conexion->prepare($sql);
-        $statement->execute();
-        }catch(Exception $e){
+    public function eliminarIcarga($id)
+    {
+        try {
+            $sql = "DELETE FROM fruta_icarga WHERE ID_ICARGA=" . $id . ";";
+            $statement = $this->conexion->prepare($sql);
+            $statement->execute();
+        } catch (Exception $e) {
             die($e->getMessage());
-            
         }
-        
     }
- 
+
 
     //ACTUALIZAR INFORMACION DE LA FILA
-    public function actualizarIcarga(ICARGA $ICARGA){
-            if($ICARGA->__GET('ID_CONSIGNATARIO')==NULL){
-                $ICARGA->__SET('ID_CONSIGNATARIO', NULL);
-            }
-            if($ICARGA->__GET('ID_EXPPORTADORA')==NULL){
-                $ICARGA->__SET('ID_EXPPORTADORA', NULL);
-            }
-            if($ICARGA->__GET('ID_NOTIFICADOR')==NULL){
-                $ICARGA->__SET('ID_NOTIFICADOR', NULL);
-            }
-            if($ICARGA->__GET('ID_BROKER')==NULL){
-                $ICARGA->__SET('ID_BROKER', NULL);
-            }
-            if($ICARGA->__GET('ID_RFINAL')==NULL){
-                $ICARGA->__SET('ID_RFINAL', NULL);
-            }            
-            if($ICARGA->__GET('ID_MERCADO')==NULL){
-                $ICARGA->__SET('ID_MERCADO', NULL);
-            }
-            if($ICARGA->__GET('ID_AADUANA')==NULL){
-                $ICARGA->__SET('ID_AADUANA', NULL);
-            }
-            if($ICARGA->__GET('ID_AGCARGA')==NULL){
-                $ICARGA->__SET('ID_AGCARGA', NULL);
-            }
-            if($ICARGA->__GET('ID_DFINAL')==NULL){
-                $ICARGA->__SET('ID_DFINAL', NULL);
-            }
-            if($ICARGA->__GET('ID_TRANSPORTE')==NULL){
-                $ICARGA->__SET('ID_TRANSPORTE', NULL);
-            }
-            if($ICARGA->__GET('ID_LCARGA')==NULL){
-                $ICARGA->__SET('ID_LCARGA', NULL);
-            }
-            if($ICARGA->__GET('ID_LDESTINO')==NULL){
-                $ICARGA->__SET('ID_LDESTINO', NULL);
-            }
-            if($ICARGA->__GET('ID_LAREA')==NULL){
-                $ICARGA->__SET('ID_LAREA', NULL);
-            }
-            if($ICARGA->__GET('ID_AEROLINEA')==NULL){
-                $ICARGA->__SET('ID_AEROLINEA', NULL);
-            }
-            if($ICARGA->__GET('ID_AERONAVE')==NULL){
-                $ICARGA->__SET('ID_AERONAVE', NULL);
-            }
-            if($ICARGA->__GET('ID_ACARGA')==NULL){
-                $ICARGA->__SET('ID_ACARGA', NULL);
-            }
-            if($ICARGA->__GET('ID_ADESTINO')==NULL){
-                $ICARGA->__SET('ID_ADESTINO', NULL);
-            }            
-            if($ICARGA->__GET('ID_NAVIERA')==NULL){
-                $ICARGA->__SET('ID_NAVIERA', NULL);
-            }
-            if($ICARGA->__GET('ID_NAVE')==NULL){
-                $ICARGA->__SET('ID_NAVE', NULL);
-            }
-            if($ICARGA->__GET('ID_PCARGA')==NULL){
-                $ICARGA->__SET('ID_PCARGA', NULL);
-            }
-            if($ICARGA->__GET('ID_PDESTINO')==NULL){
-                $ICARGA->__SET('ID_PDESTINO', NULL);
-            }
-            if($ICARGA->__GET('ID_FPAGO')==NULL){
-                $ICARGA->__SET('ID_FPAGO', NULL);
-            }
-            if($ICARGA->__GET('ID_CVENTA')==NULL){
-                $ICARGA->__SET('ID_CVENTA', NULL);
-            }
-            if($ICARGA->__GET('ID_MVENTA')==NULL){
-                $ICARGA->__SET('ID_MVENTA', NULL);
-            }
-            if($ICARGA->__GET('ID_TCONTENEDOR')==NULL){
-                $ICARGA->__SET('ID_TCONTENEDOR', NULL);
-            }
-            if($ICARGA->__GET('ID_ATMOSFERA')==NULL){
-                $ICARGA->__SET('ID_ATMOSFERA', NULL);
-            }            
-            if($ICARGA->__GET('ID_PAIS')==NULL){
-                $ICARGA->__SET('ID_PAIS', NULL);
-            }
-            if($ICARGA->__GET('ID_TFLETE')==NULL){
-                $ICARGA->__SET('ID_TFLETE', NULL);
-            }
-            if($ICARGA->__GET('FUMIGADO_ICARGA')==NULL){
-                $ICARGA->__SET('FUMIGADO_ICARGA', NULL);
-            }
-            if($ICARGA->__GET('ID_SEGURO')==NULL){
-                $ICARGA->__SET('ID_SEGURO', NULL);
-            }
+    public function actualizarIcarga(ICARGA $ICARGA)
+    {
+        if ($ICARGA->__GET('ID_CONSIGNATARIO') == NULL) {
+            $ICARGA->__SET('ID_CONSIGNATARIO', NULL);
+        }
+        if ($ICARGA->__GET('ID_EXPPORTADORA') == NULL) {
+            $ICARGA->__SET('ID_EXPPORTADORA', NULL);
+        }
+        if ($ICARGA->__GET('ID_NOTIFICADOR') == NULL) {
+            $ICARGA->__SET('ID_NOTIFICADOR', NULL);
+        }
+        if ($ICARGA->__GET('ID_BROKER') == NULL) {
+            $ICARGA->__SET('ID_BROKER', NULL);
+        }
+        if ($ICARGA->__GET('ID_RFINAL') == NULL) {
+            $ICARGA->__SET('ID_RFINAL', NULL);
+        }
+        if ($ICARGA->__GET('ID_MERCADO') == NULL) {
+            $ICARGA->__SET('ID_MERCADO', NULL);
+        }
+        if ($ICARGA->__GET('ID_AADUANA') == NULL) {
+            $ICARGA->__SET('ID_AADUANA', NULL);
+        }
+        if ($ICARGA->__GET('ID_AGCARGA') == NULL) {
+            $ICARGA->__SET('ID_AGCARGA', NULL);
+        }
+        if ($ICARGA->__GET('ID_DFINAL') == NULL) {
+            $ICARGA->__SET('ID_DFINAL', NULL);
+        }
+        if ($ICARGA->__GET('ID_TRANSPORTE') == NULL) {
+            $ICARGA->__SET('ID_TRANSPORTE', NULL);
+        }
+        if ($ICARGA->__GET('ID_LCARGA') == NULL) {
+            $ICARGA->__SET('ID_LCARGA', NULL);
+        }
+        if ($ICARGA->__GET('ID_LDESTINO') == NULL) {
+            $ICARGA->__SET('ID_LDESTINO', NULL);
+        }
+        if ($ICARGA->__GET('ID_LAREA') == NULL) {
+            $ICARGA->__SET('ID_LAREA', NULL);
+        }
+        if ($ICARGA->__GET('NAVE_ICARGA') == NULL) {
+            $ICARGA->__SET('NAVE_ICARGA', NULL);
+        }
+        if ($ICARGA->__GET('ID_ACARGA') == NULL) {
+            $ICARGA->__SET('ID_ACARGA', NULL);
+        }
+        if ($ICARGA->__GET('ID_ADESTINO') == NULL) {
+            $ICARGA->__SET('ID_ADESTINO', NULL);
+        }
+        if ($ICARGA->__GET('ID_NAVIERA') == NULL) {
+            $ICARGA->__SET('ID_NAVIERA', NULL);
+        }
+        if ($ICARGA->__GET('ID_PCARGA') == NULL) {
+            $ICARGA->__SET('ID_PCARGA', NULL);
+        }
+        if ($ICARGA->__GET('ID_PDESTINO') == NULL) {
+            $ICARGA->__SET('ID_PDESTINO', NULL);
+        }
+        if ($ICARGA->__GET('ID_FPAGO') == NULL) {
+            $ICARGA->__SET('ID_FPAGO', NULL);
+        }
+        if ($ICARGA->__GET('ID_CVENTA') == NULL) {
+            $ICARGA->__SET('ID_CVENTA', NULL);
+        }
+        if ($ICARGA->__GET('ID_MVENTA') == NULL) {
+            $ICARGA->__SET('ID_MVENTA', NULL);
+        }
+        if ($ICARGA->__GET('ID_TCONTENEDOR') == NULL) {
+            $ICARGA->__SET('ID_TCONTENEDOR', NULL);
+        }
+        if ($ICARGA->__GET('ID_ATMOSFERA') == NULL) {
+            $ICARGA->__SET('ID_ATMOSFERA', NULL);
+        }
+        if ($ICARGA->__GET('ID_PAIS') == NULL) {
+            $ICARGA->__SET('ID_PAIS', NULL);
+        }
+        if ($ICARGA->__GET('ID_TFLETE') == NULL) {
+            $ICARGA->__SET('ID_TFLETE', NULL);
+        }
+        if ($ICARGA->__GET('FUMIGADO_ICARGA') == NULL) {
+            $ICARGA->__SET('FUMIGADO_ICARGA', NULL);
+        }
+        if ($ICARGA->__GET('ID_SEGURO') == NULL) {
+            $ICARGA->__SET('ID_SEGURO', NULL);
+        }
 
-
-        try{
+        try {
             $query = "
-		UPDATE `fruta_icarga` SET       
-			`MODIFICACION` = SYSDATE(),            
-			`FECHA_ICARGA` = ?,
-			`BOOKING_ICARGA` = ?,
-			`NREFERENCIA_ICARGA` = ?,
-			`FECHAETD_ICARGA` = ?,
-			`FECHAETA_ICARGA` = ?,
-			`FDA_ICARGA` = ?,            
-			`TEMBARQUE_ICARGA` = ?,
-			`CRT_ICARGA` = ?,
-			`NVUELO_ICARGA` = ?,
-			`FECHASTACKING_ICARGA` = ?,
-			`NVIAJE_ICARGA` = ?,            
-			`FUMIGADO_ICARGA` = ?,
-			`T_ICARGA` = ?,
-			`O2_ICARGA` = ?,
-			`C02_ICARGA` = ?,
-			`TALAMPA_ICARGA` = ?,            
-			`ALAMPA_ICARGA` = ?,
-			`DUS_ICARGA` = ?,
-			`BOLAWBCRT_ICARGA` = ?,
-			`NETO_ICARGA` = ?,
-			`REBATE_ICARGA` = ?,
-			`PUBLICA_ICARGA` = ?,
-			`ID_SEGURO` = ?,
-			`OBSERVACION_ICARGA` = ?,               
-			`TOTAL_ENVASE_ICAGRA` = ?,   
-			`TOTAL_NETO_ICARGA` = ?,   
-			`TOTAL_BRUTO_ICARGA` = ?,   
-			`TOTAL_US_ICARGA` = ?,   
-			`ID_EXPPORTADORA` = ?,
-			`ID_CONSIGNATARIO` = ?,
-			`ID_NOTIFICADOR` = ?,
-			`ID_BROKER` = ?,
-			`ID_RFINAL` = ?,            
-			`ID_MERCADO` = ?,
-			`ID_AADUANA` = ?,
-			`ID_AGCARGA` = ?,
-			`ID_DFINAL` = ?,
-			`ID_TRANSPORTE` = ?,    
-			`ID_LCARGA` = ?,
-			`ID_LDESTINO` = ?,
-			`ID_LAREA` = ?,
-			`ID_AEROLINEA` = ?,            
-			`ID_AERONAVE` = ?,
-			`ID_ACARGA` = ?,
-			`ID_ADESTINO` = ?,
-			`ID_NAVIERA` = ?,
-			`ID_NAVE` = ?,            
-			`ID_PCARGA` = ?,
-			`ID_PDESTINO` = ?,
-			`ID_FPAGO` = ?,
-			`ID_CVENTA` = ?,
-			`ID_MVENTA` = ?,            
-			`ID_TCONTENEDOR` = ?,
-			`ID_ATMOSFERA` = ?,
-			`ID_TSERVICIO` = ?,
-			`ID_TFLETE` = ?,
-			`ID_PAIS` = ?,
-			`ID_EMPRESA` = ?,
-			`ID_PLANTA` = ?,
-			`ID_TEMPORADA` = ?,
-            `ID_USUARIOM` = ?
-		WHERE `ID_ICARGA` = ?  ;";
+		UPDATE fruta_icarga SET       
+			MODIFICACION = SYSDATE(),     
+            FECHA_ICARGA=  ?, 
+            BOOKING_ICARGA = ?, 
+            NREFERENCIA_ICARGA = ?, 
+            FECHAETD_ICARGA = ?, 
+            FECHAETA_ICARGA = ?, 
+            FDA_ICARGA = ?, 
+            TEMBARQUE_ICARGA = ?, 
+            CRT_ICARGA = ?,
+            FECHASTACKING_ICARGA = ?,
+            NVIAJE_ICARGA = ?, 
+            FUMIGADO_ICARGA = ?, 
+            T_ICARGA = ?,
+            O2_ICARGA = ?, 
+            C02_ICARGA = ?, 
+            ALAMPA_ICARGA = ?, 
+            COSTO_FLETE_ICARGA = ?,
+            DUS_ICARGA = ?, 
+            BOLAWBCRT_ICARGA = ?, 
+            NETO_ICARGA = ?, 
+            REBATE_ICARGA = ?,
+            PUBLICA_ICARGA = ?,
+            OBSERVACION_ICARGA = ?, 
+            NAVE_ICARGA = ?, 
+            TOTAL_ENVASE_ICAGRA = ?, 
+            TOTAL_NETO_ICARGA = ?, 
+            TOTAL_BRUTO_ICARGA = ?,
+            TOTAL_US_ICARGA = ?,   
+            ID_EXPPORTADORA = ?, 
+            ID_CONSIGNATARIO = ?, 
+            ID_NOTIFICADOR = ?, 
+            ID_BROKER = ?, 
+            ID_RFINAL = ?,
+            ID_MERCADO = ?, 
+            ID_AADUANA = ?, 
+            ID_AGCARGA = ?, 
+            ID_DFINAL = ?, 
+            ID_TRANSPORTE = ?,
+            ID_LCARGA = ?,
+            ID_LDESTINO = ?, 
+            ID_LAREA = ?,
+            ID_ACARGA = ?, 
+            ID_ADESTINO = ?, 
+            ID_NAVIERA = ?,                                  
+            ID_PCARGA = ?, 
+            ID_PDESTINO = ?, 
+            ID_FPAGO = ?, 
+            ID_CVENTA = ?, 
+            ID_MVENTA = ?,
+            ID_TCONTENEDOR = ?, 
+            ID_ATMOSFERA = ?, 
+            ID_TSERVICIO = ?,
+            ID_TFLETE = ?,
+            ID_SEGURO = ?,
+            ID_PAIS = ?, 
+            ID_EMPRESA = ?,
+            ID_TEMPORADA = ?,
+            ID_USUARIOM = ?  
+		WHERE ID_ICARGA = ?  ;";
             $this->conexion->prepare($query)
-                            ->execute(
-                                    array( 
-                                        $ICARGA->__GET('FECHA_ICARGA'),
-                                        $ICARGA->__GET('BOOKING_ICARGA'),
-                                        $ICARGA->__GET('NREFERENCIA_ICARGA'),
-                                        $ICARGA->__GET('FECHAETD_ICARGA'),
-                                        $ICARGA->__GET('FECHAETA_ICARGA'),
-                                        $ICARGA->__GET('FDA_ICARGA'),
-                                        $ICARGA->__GET('TEMBARQUE_ICARGA'),
-                                        $ICARGA->__GET('CRT_ICARGA'),
-                                        $ICARGA->__GET('NVUELO_ICARGA'),
-                                        $ICARGA->__GET('FECHASTACKING_ICARGA'),
-                                        $ICARGA->__GET('NVIAJE_ICARGA'),   
-                                        $ICARGA->__GET('FUMIGADO_ICARGA'),
-                                        $ICARGA->__GET('T_ICARGA'),
-                                        $ICARGA->__GET('O2_ICARGA'),
-                                        $ICARGA->__GET('C02_ICARGA'),
-                                        $ICARGA->__GET('TALAMPA_ICARGA'),                                                
-                                        $ICARGA->__GET('ALAMPA_ICARGA'),
-                                        $ICARGA->__GET('DUS_ICARGA'),
-                                        $ICARGA->__GET('BOLAWBCRT_ICARGA'),
-                                        $ICARGA->__GET('NETO_ICARGA'),
-                                        $ICARGA->__GET('REBATE_ICARGA'),
-                                        $ICARGA->__GET('PUBLICA_ICARGA'),
-                                        $ICARGA->__GET('ID_SEGURO'),
-                                        $ICARGA->__GET('OBSERVACION_ICARGA'), 
-                                        $ICARGA->__GET('TOTAL_ENVASE_ICAGRA'),   
-                                        $ICARGA->__GET('TOTAL_NETO_ICARGA'),   
-                                        $ICARGA->__GET('TOTAL_BRUTO_ICARGA'),   
-                                        $ICARGA->__GET('TOTAL_US_ICARGA'),   
-                                        $ICARGA->__GET('ID_EXPPORTADORA'),
-                                        $ICARGA->__GET('ID_CONSIGNATARIO'),
-                                        $ICARGA->__GET('ID_NOTIFICADOR'),
-                                        $ICARGA->__GET('ID_BROKER'),
-                                        $ICARGA->__GET('ID_RFINAL'),                          
-                                        $ICARGA->__GET('ID_MERCADO'),
-                                        $ICARGA->__GET('ID_AADUANA'),
-                                        $ICARGA->__GET('ID_AGCARGA'),
-                                        $ICARGA->__GET('ID_DFINAL'),
-                                        $ICARGA->__GET('ID_TRANSPORTE'),     
-                                        $ICARGA->__GET('ID_LCARGA'),            
-                                        $ICARGA->__GET('ID_LDESTINO'),            
-                                        $ICARGA->__GET('ID_LAREA'),            
-                                        $ICARGA->__GET('ID_AEROLINEA'),    
-                                        $ICARGA->__GET('ID_AERONAVE'),      
-                                        $ICARGA->__GET('ID_ACARGA'),      
-                                        $ICARGA->__GET('ID_ADESTINO'),      
-                                        $ICARGA->__GET('ID_NAVIERA'),    
-                                        $ICARGA->__GET('ID_NAVE'),    
-                                        $ICARGA->__GET('ID_PCARGA'),     
-                                        $ICARGA->__GET('ID_PDESTINO'),     
-                                        $ICARGA->__GET('ID_FPAGO'),     
-                                        $ICARGA->__GET('ID_CVENTA'),     
-                                        $ICARGA->__GET('ID_MVENTA'),    
-                                        $ICARGA->__GET('ID_TCONTENEDOR'),  
-                                        $ICARGA->__GET('ID_ATMOSFERA'),    
-                                        $ICARGA->__GET('ID_TSERVICIO') ,                                        
-                                        $ICARGA->__GET('ID_TFLETE')  ,                                           
-                                        $ICARGA->__GET('ID_PAIS')  ,
-                                        $ICARGA->__GET('ID_EMPRESA'),
-                                        $ICARGA->__GET('ID_PLANTA'),
-                                        $ICARGA->__GET('ID_TEMPORADA') , 
-                                        $ICARGA->__GET('ID_USUARIOM') ,      
-                                        $ICARGA->__GET('ID_ICARGA')
-                                        
-                                    )
-                                
-                                );
-            
-        }catch(Exception $e){
+                ->execute(
+                    array(
+                        $ICARGA->__GET('FECHA_ICARGA'),
+                        $ICARGA->__GET('BOOKING_ICARGA'),
+                        $ICARGA->__GET('NREFERENCIA_ICARGA'),
+                        $ICARGA->__GET('FECHAETD_ICARGA'),
+                        $ICARGA->__GET('FECHAETA_ICARGA'),
+                        $ICARGA->__GET('FDA_ICARGA'),
+                        $ICARGA->__GET('TEMBARQUE_ICARGA'),
+                        $ICARGA->__GET('CRT_ICARGA'),
+                        $ICARGA->__GET('FECHASTACKING_ICARGA'),
+                        $ICARGA->__GET('NVIAJE_ICARGA'),
+                        $ICARGA->__GET('FUMIGADO_ICARGA'),
+                        $ICARGA->__GET('T_ICARGA'),
+                        $ICARGA->__GET('O2_ICARGA'),
+                        $ICARGA->__GET('C02_ICARGA'),
+                        $ICARGA->__GET('ALAMPA_ICARGA'),
+                        $ICARGA->__GET('COSTO_FLETE_ICARGA'),
+                        $ICARGA->__GET('DUS_ICARGA'),
+                        $ICARGA->__GET('BOLAWBCRT_ICARGA'),
+                        $ICARGA->__GET('NETO_ICARGA'),
+                        $ICARGA->__GET('REBATE_ICARGA'),
+                        $ICARGA->__GET('PUBLICA_ICARGA'),
+                        $ICARGA->__GET('OBSERVACION_ICARGA'),
+                        $ICARGA->__GET('NAVE_ICARGA'),
+                        $ICARGA->__GET('TOTAL_ENVASE_ICAGRA'),
+                        $ICARGA->__GET('TOTAL_NETO_ICARGA'),
+                        $ICARGA->__GET('TOTAL_BRUTO_ICARGA'),
+                        $ICARGA->__GET('TOTAL_US_ICARGA'),
+                        $ICARGA->__GET('ID_EXPPORTADORA'),
+                        $ICARGA->__GET('ID_CONSIGNATARIO'),
+                        $ICARGA->__GET('ID_NOTIFICADOR'),
+                        $ICARGA->__GET('ID_BROKER'),
+                        $ICARGA->__GET('ID_RFINAL'),
+                        $ICARGA->__GET('ID_MERCADO'),
+                        $ICARGA->__GET('ID_AADUANA'),
+                        $ICARGA->__GET('ID_AGCARGA'),
+                        $ICARGA->__GET('ID_DFINAL'),
+                        $ICARGA->__GET('ID_TRANSPORTE'),
+                        $ICARGA->__GET('ID_LCARGA'),
+                        $ICARGA->__GET('ID_LDESTINO'),
+                        $ICARGA->__GET('ID_LAREA'),
+                        $ICARGA->__GET('ID_ACARGA'),
+                        $ICARGA->__GET('ID_ADESTINO'),
+                        $ICARGA->__GET('ID_NAVIERA'),
+                        $ICARGA->__GET('ID_PCARGA'),
+                        $ICARGA->__GET('ID_PDESTINO'),
+                        $ICARGA->__GET('ID_FPAGO'),
+                        $ICARGA->__GET('ID_CVENTA'),
+                        $ICARGA->__GET('ID_MVENTA'),
+                        $ICARGA->__GET('ID_TCONTENEDOR'),
+                        $ICARGA->__GET('ID_ATMOSFERA'),
+                        $ICARGA->__GET('ID_TSERVICIO'),
+                        $ICARGA->__GET('ID_TFLETE'),
+                        $ICARGA->__GET('ID_SEGURO'),
+                        $ICARGA->__GET('ID_PAIS'),
+                        $ICARGA->__GET('ID_EMPRESA'),
+                        $ICARGA->__GET('ID_TEMPORADA'),
+                        $ICARGA->__GET('ID_USUARIOM'),
+                        $ICARGA->__GET('ID_ICARGA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
     }
     //FUNCIONES ESPECIALIZADAS 
-    //CAMBIO DE ESTADO DE LA FILA
-    //CAMBIO A DESACTIVADO
-    public function deshabilitar(ICARGA $ICARGA){
-
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    //CAMBIO A ACTIVADO
-    public function habilitar(ICARGA $ICARGA){
-
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    public function abierto(ICARGA $ICARGA){
-
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO` = 1
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    //CAMBIO A ACTIVADO
-    public function cerrrado(ICARGA $ICARGA){
-
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO` = 0
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    
-    //CAMBIO DE ESTADO DE LA FILA
-    //CAMBIO A CERRADO
-    public function Eliminado(ICARGA $ICARGA){
-
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO_ICARGA` = 0
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    public function creado(ICARGA $ICARGA){
-
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO_ICARGA` = 1
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    
-    public function confirmado(ICARGA $ICARGA){
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO_ICARGA` = 2
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    
-    public function Despachado(ICARGA $ICARGA){
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO_ICARGA` = 3
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-
-    public function Arrivado(ICARGA $ICARGA){
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO_ICARGA` = 4
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-    
-    public function Cancelado(ICARGA $ICARGA){
-        try{
-            $query = "
-		UPDATE `fruta_icarga` SET			
-            `ESTADO_ICARGA` = 5
-		WHERE `ID_ICARGA`= ?;";
-            $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $ICARGA->__GET('ID_ICARGA')                    
-                )
-                
-                );
-            
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-
-       //BUSCAR FECHA ACTUAL DEL SISTEMA
-   public function obtenerFecha(){
-    try{
-        
-        $datos=$this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
-        $datos->execute();
-        $resultado = $datos->fetchAll();
-        
-        //	print_r($resultado);
-        //	var_dump($resultado);
-        
-        
-        return $resultado;
-    }catch(Exception $e){
-        die($e->getMessage());
-    }
-    
-    }
 
 
-    public function verIcarga2($IDICARGA){
-        try{
-     
-            $datos=$this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'FECHA_INGRESOI', 
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'FECHA_MODIFICACIONI'
-                                            FROM `fruta_icarga`
-                                            WHERE `ID_ICARGA` = '".$IDICARGA."';");
+    //LISTAS
+    public function listarIcargaEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                         DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
+                                            FROM fruta_icarga  
+                                            WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                            
+                                            ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	var_dump($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
+    }
+    public function listarIcargaEmpresaTemporada2CBX($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL',
+                                                        DATE_FORMAT(FECHA_ICARGA, '%d-%m-%Y') AS 'FECHA', 
+                                                        DATE_FORMAT(FECHAETD_ICARGA, '%d-%m-%Y') AS 'FECHAETD', 
+                                                        DATE_FORMAT(FECHAETA_ICARGA, '%d-%m-%Y') AS 'FECHAETA', 
+                                                        IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'CONTENEDOR',
+                                                        FORMAT(IFNULL(TOTAL_ENVASE_ICAGRA,0),0,'de_DE') AS 'ENVASE',
+                                                        FORMAT(IFNULL(TOTAL_NETO_ICARGA,0),2,'de_DE') AS 'NETO',
+                                                        FORMAT(IFNULL(TOTAL_BRUTO_ICARGA,0),2,'de_DE') AS 'BRUTO',
+                                                        FORMAT(IFNULL(TOTAL_US_ICARGA,0),0,'de_DE') AS 'US'
+                                            FROM fruta_icarga  
+                                            WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarIcargaConfirmadoCBX()
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                       DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
+                                            FROM fruta_icarga  
+                                            WHERE ESTADO_REGISTRO = 1
+                                            AND  ESTADO_ICARGA = 2; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarIcargaTomadoCBX()
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                       DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
+                                            FROM fruta_icarga  
+                                            WHERE ESTADO_REGISTRO = 1
+                                            AND  ESTADO_ICARGA > 2; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    //TOTALES
+
+
+
+    public function obtenerTotalesEmpresaTemporada($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(TOTAL_ENVASE_ICAGRA),0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(SUM(TOTAL_NETO_ICARGA),0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(SUM(TOTAL_BRUTO_ICARGA),0),2,'de_DE') AS 'BRUTO',
+                                                    FORMAT(IFNULL(SUM(TOTAL_US_ICARGA),0),0,'de_DE') AS 'US'
+                                             FROM fruta_icarga
+                                             WHERE  ESTADO_REGISTRO = 1 
+                                              AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                              AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 
+
+
+    //CAMBIAR ESTADOS
+
+    //CAMBIO DE ESTADO DE LA FILA
+    //CAMBIO A DESACTIVADO
+    public function deshabilitar(ICARGA $ICARGA)
+    {
+
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO_REGISTRO = 0
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    //CAMBIO A ACTIVADO
+    public function habilitar(ICARGA $ICARGA)
+    {
+
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO_REGISTRO = 1
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function abierto(ICARGA $ICARGA)
+    {
+
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO = 1
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    //CAMBIO A ACTIVADO
+    public function cerrrado(ICARGA $ICARGA)
+    {
+
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO = 0
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    //CAMBIO DE ESTADO DE LA FILA
+    //CAMBIO A CERRADO
+    public function Eliminado(ICARGA $ICARGA)
+    {
+
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO_ICARGA = 0
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function creado(ICARGA $ICARGA)
+    {
+
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO_ICARGA = 1
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function confirmado(ICARGA $ICARGA)
+    {
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO_ICARGA = 2
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function Despachado(ICARGA $ICARGA)
+    {
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO_ICARGA = 3
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function Arrivado(ICARGA $ICARGA)
+    {
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO_ICARGA = 4
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function Cancelado(ICARGA $ICARGA)
+    {
+        try {
+            $query = "
+		UPDATE fruta_icarga SET			
+            ESTADO_ICARGA = 5
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
+    //OTRAS FUNCIONES
+    //BUSCAR FECHA ACTUAL DEL SISTEMA
+    public function obtenerFecha()
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
     //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
-    public function buscarIcargaID($FECHAICARGA, $IDTSERVICIO, $TEMBARQUEICARGA, $BOOKINGICARGA, $OBSERVACIONICARGA, $EMPRESA, $PLANTA, $TEMPORADA){
-        try{
-            $datos=$this->conexion->prepare(" SELECT *
-                                            FROM `fruta_icarga`
+    public function obtenerId($FECHAICARGA,  $OBSERVACIONICARGA, $EMPRESA, $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT *
+                                            FROM fruta_icarga
                                             WHERE 
-                                                 FECHA_ICARGA LIKE '".$FECHAICARGA."'                                                
-                                                 AND ID_TSERVICIO = ".$IDTSERVICIO." 
-                                                 AND TEMBARQUE_ICARGA = ".$TEMBARQUEICARGA."  
-                                                 AND BOOKING_ICARGA = ".$BOOKINGICARGA." 
-                                                 AND OBSERVACION_ICARGA LIKE '".$OBSERVACIONICARGA."' 
+                                                 FECHA_ICARGA LIKE '" . $FECHAICARGA . "'           
+                                                 AND OBSERVACION_ICARGA LIKE '" . $OBSERVACIONICARGA . "' 
                                                  AND DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
                                                  AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')
-                                                 AND ID_EMPRESA = ".$EMPRESA." 
-                                                 AND ID_PLANTA = ".$PLANTA." 
-                                                 AND ID_TEMPORADA = ".$TEMPORADA." 
+                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                                  ORDER BY ID_ICARGA DESC
                                                  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	var_dump($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
-    }
-    public function filtro4IcargaCBX($FECHADESDE, $FECHAHASTA){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT * ,DATE_FORMAT(FECHA_ICARGA, '%Y-%m-%d') AS 'FECHA_GUIA',
-                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'FECHA_INGRESO',
-                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'FECHA_MODIFICACION'
-                                            FROM `fruta_icarga`  
-                                            WHERE FECHA_ICARGA BETWEEN '".$FECHADESDE."' AND '".$FECHAHASTA."'
-                                            ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
-    }
-
-    
-    public function obtenerTotalLista(){
-        try{
-     
-            $datos=$this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(TOTAL_ENVASE_ICAGRA),0),0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(IFNULL(SUM(TOTAL_NETO_ICARGA),0),2,'de_DE') AS 'NETO',
-                                                    FORMAT(IFNULL(SUM(TOTAL_BRUTO_ICARGA),0),2,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(SUM(TOTAL_US_ICARGA),0),0,'de_DE') AS 'US'
-                                            FROM `fruta_icarga`
-                                           ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }
-        
     }
 
 
-    public function obtenerTotalesEmpresaPlantaTemporadaDisponible($EMPRESA,$PLANTA,$TEMPORADA){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(TOTAL_ENVASE_ICAGRA),0),0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(IFNULL(SUM(TOTAL_NETO_ICARGA),0),2,'de_DE') AS 'NETO',
-                                                    FORMAT(IFNULL(SUM(TOTAL_BRUTO_ICARGA),0),2,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(SUM(TOTAL_US_ICARGA),0),0,'de_DE') AS 'US'
-                                             FROM `fruta_icarga`
-                                             WHERE  ESTADO = 2 
-                                              AND `ESTADO_REGISTRO` = 1 
-                                              AND ID_EMPRESA = '".$EMPRESA."' 
-                                              AND ID_PLANTA = '".$PLANTA."'
-                                              AND ID_TEMPORADA = '".$TEMPORADA."' ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }    
-    }
-    public function obtenerTotalesEmpresaPlantaTemporada($EMPRESA,$PLANTA,$TEMPORADA){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(TOTAL_ENVASE_ICAGRA),0),0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(IFNULL(SUM(TOTAL_NETO_ICARGA),0),2,'de_DE') AS 'NETO',
-                                                    FORMAT(IFNULL(SUM(TOTAL_BRUTO_ICARGA),0),2,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(SUM(TOTAL_US_ICARGA),0),0,'de_DE') AS 'US'
-                                             FROM `fruta_icarga`
-                                             WHERE  `ESTADO_REGISTRO` = 1 
-                                              AND ID_EMPRESA = '".$EMPRESA."' 
-                                              AND ID_PLANTA = '".$PLANTA."'
-                                              AND ID_TEMPORADA = '".$TEMPORADA."' ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }    
-    }
-
-    public function obtenerTotalesEmpresaTemporada($EMPRESA,$TEMPORADA){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(TOTAL_ENVASE_ICAGRA),0),0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(IFNULL(SUM(TOTAL_NETO_ICARGA),0),2,'de_DE') AS 'NETO',
-                                                    FORMAT(IFNULL(SUM(TOTAL_BRUTO_ICARGA),0),2,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(SUM(TOTAL_US_ICARGA),0),0,'de_DE') AS 'US'
-                                             FROM `fruta_icarga`
-                                             WHERE  `ESTADO_REGISTRO` = 1 
-                                              AND ID_EMPRESA = '".$EMPRESA."' 
-                                              AND ID_TEMPORADA = '".$TEMPORADA."' ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            
-            //	print_r($resultado);
-            //	var_dump($resultado);
-            
-            
-            return $resultado;
-        }catch(Exception $e){
-            die($e->getMessage());
-        }    
-    }
-    public function obtenerNumero($EMPRESA,$PLANTA,$TEMPORADA){
-        try{
-            $datos=$this->conexion->prepare(" SELECT  COUNT(IFNULL(NUMERO_ICARGA,0)) AS 'NUMERO'
-                                                FROM `fruta_icarga`
+    public function obtenerNumero($EMPRESA,  $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT  COUNT(IFNULL(NUMERO_ICARGA,0)) AS 'NUMERO'
+                                                FROM fruta_icarga
                                                 WHERE  
-                                                    ID_EMPRESA = '".$EMPRESA."' 
-                                                AND ID_PLANTA = '".$PLANTA."'
-                                                AND ID_TEMPORADA = '".$TEMPORADA."'     
+                                                    ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'     
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	var_dump($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
     }
-    
 }
