@@ -108,7 +108,7 @@ $NUMEROGUIA = "";
 $PDE = "";
 $OBSERVACIONDESPACHOEX = "";
 $CONDUCTOR = "";
-$PATENTEVEHICULO = "";
+$PATENTECAMION = "";
 $PATENTECARRO = "";
 $TRANSPORTE = "";
 $ESTADO = "";
@@ -281,12 +281,11 @@ include_once "../config/datosUrlD.php";
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CREAR'])) {
-
     $ARRAYNUMERO = $DESPACHOEX_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
     $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
     //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
     $DESPACHOEX->__SET('NUMERO_DESPACHOEX', $NUMERO);
     $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
     $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLO']);
@@ -294,44 +293,41 @@ if (isset($_REQUEST['CREAR'])) {
     $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIA']);
     $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEX']);
     $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEX']);
-    $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
     $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEX']);
-    $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
+    $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
     $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-    /*
+    $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
     if (isset($_REQUEST['SNICARGA']) == "on") {
         $SNICARGAR = "1";
-        $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
         $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
         $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
         $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
         $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
+        $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
         $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
-        $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
-        $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
         $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
-        $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
+        $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
+        $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
         $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
+        $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
         if ($_REQUEST['TEMBARQUEE']) {
             if ($_REQUEST['TEMBARQUEE'] == "1") {
                 $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
                 $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
-                $DESPACHOEX->__SET('ID_TVEHICULO', $_REQUEST['TVEHICULOE']);
                 $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
                 $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
             }
             if ($_REQUEST['TEMBARQUEE'] == "2") {
                 $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
-                $DESPACHOEX->__SET('ID_AEROLINEA', $_REQUEST['AEROLINIAE']);
-                $DESPACHOEX->__SET('ID_AERONAVE', $_REQUEST['AERONAVEE']);
-                $DESPACHOEX->__SET('NVUELO_DESPACHOEX', $_REQUEST['NVUELOE']);
+                $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+                $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
                 $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
                 $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
             }
             if ($_REQUEST['TEMBARQUEE'] == "3") {
-                $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
-                $DESPACHOEX->__SET('ID_NAVE', $_REQUEST['NAVEE']);
                 $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
+                $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
+                $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
                 $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
                 $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
                 $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
@@ -354,48 +350,44 @@ if (isset($_REQUEST['CREAR'])) {
             if ($_REQUEST['TEMBARQUE'] == "1") {
                 $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRT']);
                 $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2']);
-                $DESPACHOEX->__SET('ID_TVEHICULO', $_REQUEST['TVEHICULO']);
                 $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGA']);
                 $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINO']);
             }
             if ($_REQUEST['TEMBARQUE'] == "2") {
                 $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREA']);
-                $DESPACHOEX->__SET('ID_AEROLINEA', $_REQUEST['AEROLINIA']);
-                $DESPACHOEX->__SET('ID_AERONAVE', $_REQUEST['AERONAVE']);
-                $DESPACHOEX->__SET('NVUELO_DESPACHOEX', $_REQUEST['NVUELO']);
+                $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVE']);
+                $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJE']);
                 $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
                 $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
             }
             if ($_REQUEST['TEMBARQUE'] == "3") {
-                $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
-                $DESPACHOEX->__SET('ID_NAVE', $_REQUEST['NAVE']);
                 $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKING']);
+                $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
+                $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVE']);
                 $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJE']);
                 $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGA']);
                 $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINO']);
             }
         }
     }
-    */
     $DESPACHOEX->__SET('SNICARGA', $SNICARGAR);
     $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTOR']);
-    $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTE']);
-    $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
     $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+    $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+    $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTE']);
     $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
     $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-
-
     $DESPACHOEX->__SET('ID_USUARIOI', $IDUSUARIOS);
     $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    //$DESPACHOEX_ADO->agregarDespachoex($DESPACHOEX);
+    $DESPACHOEX_ADO->agregarDespachoex($DESPACHOEX);
+
 
     if (isset($_REQUEST['ICARGA'])) {
-        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGA']);
+        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //     $ICARGA_ADO->Despachado($ICARGA);
+     //   $ICARGA_ADO->Despachado($ICARGA);
     }
 
 
@@ -407,11 +399,12 @@ if (isset($_REQUEST['CREAR'])) {
         $_REQUEST['PLANTA'],
         $_REQUEST['TEMPORADA'],
     );
-    //REDIRECCIONAR A PAGINA registroDespachoEX.php 
     /*
+    //REDIRECCIONAR A PAGINA registroDespachoEX.php 
     $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHOEX'];
     $_SESSION["parametro1"] = "crear";
-    echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?op';</script>";*/
+    echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?op';</script>";
+    */
 }
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
@@ -426,7 +419,7 @@ if (isset($_REQUEST['EDITAR'])) {
     $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
     $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEXE']);
     $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
-    $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+    $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
     $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
     $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTORE']);
 
@@ -507,7 +500,7 @@ if (isset($_REQUEST['CERRAR'])) {
         $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
         $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEXE']);
         $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
-        $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+        $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
         $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
         $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
         $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
@@ -662,7 +655,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAGUIA = "" . $r['FECHA_GUIA'];
             $NUMEROGUIA = "" . $r['NUMERO_GUIA_DESPACHOEX'];
             $OBSERVACIONDESPACHOEX = "" . $r['OBSERVACION_DESPACHOEX'];
-            $PATENTEVEHICULO = "" . $r['PATENTE_CAMION'];
+            $PATENTECAMION = "" . $r['PATENTE_CAMION'];
             $PATENTECARRO = "" . $r['PATENTE_CARRO'];
             $INPECTOR =  "" . $r['ID_INPECTOR'];
             if ($r['SNICARGA'] == "1") {
@@ -809,7 +802,26 @@ if (isset($_POST)) {
                     }
                 }
             }
-        } else {
+        }
+        if ($SNICARGA != "on") {
+            if (isset($_REQUEST['EXPORTADORA'])) {
+                $EXPORTADORA = "" . $_REQUEST['EXPORTADORA'];
+            }
+            if (isset($_REQUEST['RFINAL'])) {
+                $RFINAL = "" . $_REQUEST['RFINAL'];
+            }
+            if (isset($_REQUEST['AGCARGA'])) {
+                $AGCARGA = "" . $_REQUEST['AGCARGA'];
+            }
+            if (isset($_REQUEST['DFINAL'])) {
+                $DFINAL = "" . $_REQUEST['DFINAL'];
+            }
+            if (isset($_REQUEST['PAIS'])) {
+                $PAIS = "" . $_REQUEST['PAIS'];
+            }
+            if (isset($_REQUEST['MERCADO'])) {
+                $MERCADO = "" . $_REQUEST['MERCADO'];
+            }
             if (isset($_REQUEST['FECHAETD'])) {
                 $FECHAETD = "" . $_REQUEST['FECHAETD'];
             }
@@ -877,24 +889,6 @@ if (isset($_POST)) {
             }
         }
     }
-    if (isset($_REQUEST['EXPORTADORA'])) {
-        $EXPORTADORA = "" . $_REQUEST['EXPORTADORA'];
-    }
-    if (isset($_REQUEST['RFINAL'])) {
-        $RFINAL = "" . $_REQUEST['RFINAL'];
-    }
-    if (isset($_REQUEST['AGCARGA'])) {
-        $AGCARGA = "" . $_REQUEST['AGCARGA'];
-    }
-    if (isset($_REQUEST['DFINAL'])) {
-        $DFINAL = "" . $_REQUEST['DFINAL'];
-    }
-    if (isset($_REQUEST['PAIS'])) {
-        $PAIS = "" . $_REQUEST['PAIS'];
-    }
-    if (isset($_REQUEST['MERCADO'])) {
-        $MERCADO = "" . $_REQUEST['MERCADO'];
-    }
     if (isset($_REQUEST['FECHAINGRESODESPACHOEX'])) {
         $FECHAINGRESODESPACHOEX = "" . $_REQUEST['FECHAINGRESODESPACHOEX'];
     }
@@ -934,8 +928,8 @@ if (isset($_POST)) {
     if (isset($_REQUEST['CONDUCTOR'])) {
         $CONDUCTOR = "" . $_REQUEST['CONDUCTOR'];
     }
-    if (isset($_REQUEST['PATENTEVEHICULO'])) {
-        $PATENTEVEHICULO = "" . $_REQUEST['PATENTEVEHICULO'];
+    if (isset($_REQUEST['PATENTECAMION'])) {
+        $PATENTECAMION = "" . $_REQUEST['PATENTECAMION'];
     }
     if (isset($_REQUEST['PATENTECARRO'])) {
         $PATENTECARRO = "" . $_REQUEST['PATENTECARRO'];
@@ -980,7 +974,7 @@ if (isset($_POST)) {
                     CONTRAPARTE = document.getElementById("CONTRAPARTE").selectedIndex;
                     TRANSPORTE = document.getElementById("TRANSPORTE").selectedIndex;
                     CONDUCTOR = document.getElementById("CONDUCTOR").selectedIndex;
-                    PATENTEVEHICULO = document.getElementById("PATENTEVEHICULO").value;
+                    PATENTECAMION = document.getElementById("PATENTECAMION").value;
                     PATENTECARRO = document.getElementById("PATENTECARRO").value;
                     //OBSERVACIONDESPACHOEX = document.getElementById("OBSERVACIONDESPACHOEX").value;
 
@@ -1361,13 +1355,13 @@ if (isset($_POST)) {
                     document.form_reg_dato.CONDUCTOR.style.borderColor = "#4AF575";
 
 
-                    if (PATENTEVEHICULO == null || PATENTEVEHICULO == 0) {
-                        document.form_reg_dato.PATENTEVEHICULO.focus();
-                        document.form_reg_dato.PATENTEVEHICULO.style.borderColor = "#FF0000";
+                    if (PATENTECAMION == null || PATENTECAMION == 0) {
+                        document.form_reg_dato.PATENTECAMION.focus();
+                        document.form_reg_dato.PATENTECAMION.style.borderColor = "#FF0000";
                         document.getElementById('val_patente').innerHTML = "NO A INGRESADO DATO";
                         return false
                     }
-                    document.form_reg_dato.PATENTEVEHICULO.style.borderColor = "#4AF575";
+                    document.form_reg_dato.PATENTECAMION.style.borderColor = "#4AF575";
                     /*
 
                                         if (PATENTECARRO == null || PATENTECARRO == 0) {
@@ -1773,8 +1767,8 @@ if (isset($_POST)) {
                                                     <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                         <div class="form-group">
                                                             <label>Patente Camión</label>
-                                                            <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="PATENTEVEHICULOE" name="PATENTEVEHICULOE" value="<?php echo $PATENTEVEHICULO; ?>" />
-                                                            <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Camión" id="PATENTEVEHICULO" name="PATENTEVEHICULO" value="<?php echo $PATENTEVEHICULO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                            <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="PATENTECAMIONE" name="PATENTECAMIONE" value="<?php echo $PATENTECAMION; ?>" />
+                                                            <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Camión" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                             <label id="val_patente" class="validacion"> </label>
                                                         </div>
                                                     </div>
@@ -1997,12 +1991,12 @@ if (isset($_POST)) {
                                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                             <div class="form-group">
                                                                 <label>Transporte</label>
-                                                                <input type="hidden" class="form-control" placeholder="TRANSPORTEE" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
-                                                                <select class="form-control select2" id="TRANSPORTE" name="TRANSPORTE" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?>>
+                                                                <input type="hidden" class="form-control" placeholder="TRANSPORTE2E" id="TRANSPORTE2E" name="TRANSPORTE2E" value="<?php echo $TRANSPORTE2; ?>" />
+                                                                <select class="form-control select2" id="TRANSPORTE2" name="TRANSPORTE2" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?>>
                                                                     <option></option>
                                                                     <?php foreach ($ARRAYTRANSPORTE as $r) : ?>
                                                                         <?php if ($ARRAYTRANSPORTE) {    ?>
-                                                                            <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {
+                                                                            <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE2 == $r['ID_TRANSPORTE']) {
                                                                                                                                     echo "selected";
                                                                                                                                 } ?>>
                                                                                 <?php echo $r['NOMBRE_TRANSPORTE'] ?>
