@@ -205,10 +205,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Kilos Neto</th>
                                                         <th>% Deshidratacion</th>
                                                         <th>Kilos Deshidratacion</th>
+                                                        <th>Kilos Bruto</th>
                                                         <th>Días </th>
                                                         <th>Tipo Manejo</th>
-                                                        <th>Calibre </th>
-                                                        <th>Embalaje </th>
+                                                        <th>Tipo Calibre </th>
+                                                        <th>Tipo Embalaje </th>
                                                         <th>Stock</th>
                                                         <th>Número Recepción </th>
                                                         <th>Fecha Recepción </th>
@@ -340,9 +341,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NUMERODESPACHO = "Sin Datos";
                                                             $NUMEROGUIADESPACHO = "Sin Datos";
                                                         }
-
-
-
                                                         $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYVERPRODUCTORID) {
 
@@ -426,6 +424,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['NETO']; ?></td>
                                                             <td><?php echo $r['PORCENTAJE']; ?></td>
                                                             <td><?php echo $r['DESHIRATACION']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -436,7 +435,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
-
                                                             <td><?php echo $NUMEROREPALETIZAJE; ?></td>
                                                             <td><?php echo $r['REPALETIZAJE']; ?></td>
                                                             <td><?php echo $NUMERODESPACHO; ?></td>
@@ -467,10 +465,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Kilos Neto</th>
                                                         <th>% Deshidratacion</th>
                                                         <th>Kilos Deshidratacion</th>
+                                                        <th>Kilos Bruto</th>
                                                         <th>Días </th>
                                                         <th>Tipo Manejo</th>
-                                                        <th>Calibre </th>
-                                                        <th>Embalaje </th>
+                                                        <th>Tipo Calibre </th>
+                                                        <th>Tipo Embalaje </th>
                                                         <th>Stock</th>
                                                         <th>Número Recepción </th>
                                                         <th>Fecha Recepción </th>
@@ -504,10 +503,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
                 </div>
             </div>
-
-
-
-
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../config/footer.php"; ?>
