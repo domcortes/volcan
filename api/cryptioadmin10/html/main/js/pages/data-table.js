@@ -39,7 +39,7 @@ $(function () {
         "buttons": ["excel"],
     });
     $('#existencia').DataTable({
-        "scrollY": 500,
+        "scrollY": 450,
         "scrollX": true,
         'paging': false,
         'lengthChange': true, //ordernar por 10 25 100 500
@@ -118,7 +118,7 @@ $(function () {
         },
         "orderCellsTop": true,
         "fixedHeader": true,
-        "scrollY": 500,
+        "scrollY": 450,
         "scrollX": true,
         'paging': false,
         'lengthChange': true, //ordernar por 10 25 100 500
@@ -219,7 +219,7 @@ $(function () {
 
     //LISTA DE SELECION DE EXISTENCIA PARA LOS MODULOS
     $('#selecionExistencia').DataTable({
-        "scrollY": 600,
+        "scrollY": 450,
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
