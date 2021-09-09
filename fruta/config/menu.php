@@ -520,8 +520,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <!--
           <li><a href="listarExiexportacionAComercial.php"><i class="ti-more"></i> Existencia P. Terminado</a></li>-->
         </ul>
-      </li>
-      <!--
+      </li>      
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/transactions.svg" class="svg-icon" alt="">
@@ -542,10 +541,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarInpsag.php"><i class="ti-more"></i>Agrupado Inapección </a></li>
             </ul>
           </li>
-         <li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
+         <!--<li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>-->
         </ul>
-      </li>
-      -->
+      </li>      
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/maps.svg" class="svg-icon" alt="">
