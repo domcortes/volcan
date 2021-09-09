@@ -1,0 +1,670 @@
+<?php
+
+//LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
+include_once '../controlador/TUSUARIO_ADO.php';
+include_once '../controlador/USUARIO_ADO.php';
+include_once '../controlador/EMPRESA_ADO.php';
+include_once '../controlador/PLANTA_ADO.php';
+include_once '../controlador/TEMPORADA_ADO.php';
+
+include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../controlador/EXIEXPORTACION_ADO.php';
+include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../controlador/ICARGA_ADO.php';
+
+include_once '../controlador/EXPORTADORA_ADO.php';
+include_once '../controlador/TINPSAG_ADO.php';
+include_once '../controlador/VESPECIES_ADO.php';
+include_once '../controlador/PVESPECIES_ADO.php';
+include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../controlador/INPECTOR_ADO.php';
+include_once '../controlador/CONTRAPARTE_ADO.php';
+include_once '../controlador/PAIS_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/PROVINCIA_ADO.php';
+include_once '../controlador/COMUNA_ADO.php';
+include_once '../controlador/CIUDAD_ADO.php';
+
+
+
+include_once '../modelo/INPSAG.php';
+include_once '../modelo/EXIEXPORTACION.php';
+
+
+//INCIALIZAR LAS VARIBLES
+//INICIALIZAR CONTROLADOR
+$TUSUARIO_ADO = new TUSUARIO_ADO();
+$USUARIO_ADO = new USUARIO_ADO();
+$EMPRESA_ADO =  new EMPRESA_ADO();
+$PLANTA_ADO =  new PLANTA_ADO();
+$TEMPORADA_ADO =  new TEMPORADA_ADO();
+
+
+
+$EEXPORTACION_ADO = new EEXPORTACION_ADO();
+$EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
+$DESPACHOEX_ADO =  new DESPACHOEX_ADO();
+
+$ICARGA_ADO =  new ICARGA_ADO();
+$EXPORTADORA_ADO =  new EXPORTADORA_ADO();
+$TINPSAG_ADO =  new TINPSAG_ADO();
+$VESPECIES_ADO =  new VESPECIES_ADO();
+$PVESPECIES_ADO =  new PVESPECIES_ADO();
+$PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$INPECTOR_ADO =  new INPECTOR_ADO();
+$CONTRAPARTE_ADO =  new CONTRAPARTE_ADO();
+$PAIS_ADO =  new PAIS_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
+$PROVINCIA_ADO =  new PROVINCIA_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
+$CIUDAD_ADO =  new CIUDAD_ADO();
+
+
+//INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
+$NUMERO = "";
+$NUMEROVER = "";
+$IDDESPACHOEX = "";
+$FECHADESPACHOEX = "";
+$FECHAINGRESODESPACHOEX = "";
+$FECHAMODIFCIACIONDESPACHOEX = "";
+$TINPSAG = "";
+$EMBARQUE = "";
+$NOMBRETINPSAG = "";
+$NOMBRETESTADOSAG = "";
+
+$OBSERVACIONDESPACHOEX = "";
+$INPECTOR = "";
+$CONTRAPARTE = "";
+$PAIS = "";
+$EMPRESA = "";
+$TEMPORADA = "";
+$PLANTA = "";
+$CALIBRE = "";
+$TMANEJO = "";
+$EMPRESAURL = "";
+
+$CIF="";
+
+$TOTALENVASE = "";
+$TOTALNETO = "";
+$TOTALBRUTO = "";
+
+$TOTALENVASE2 = "";
+$TOTALNETO2 = "";
+$TOTALBRUTO2 = "";
+
+$CSGPRODUCTOR = "";
+$NOMBREPRODUCTOR = "";
+$COMUNAPRODUCTOR = "";
+$PROVINCIAPRODUCTOR="";
+
+$CODIGOESTANDAR = "";
+$NOMBREESTANDAR = "";
+$NOMBREVARIEDAD = "";
+
+
+$CSPPLANTA="";
+$RAZONPLANTA="";
+$COMUNAPLANTA="";
+$CIUDADPLANTA="";
+$NOMBREPROVINICA="";
+$CSPPLANTA2="";
+$NOMBREPLANTA2="";
+$COMUNAPLANTA2="";
+$PROVINCIAPLANTA2="";
+
+
+$CSPPLANTA3="";
+$NOMBREPLANTA3="";
+$COMUNAPLANTA3="";
+$PROVINCIAPLANTA3="";
+$NOMBRENAVE="";
+$NOMBREEXPORTADORA="";
+$NOMBRECONTRAPARTE="";
+
+$FECHAETA="";
+$FECHAETD="";
+
+//INICIALIZAR ARREGLOS
+$ARRAYDESPACHOEX = "";
+$ARRAYEXIEXPORTACION = "";
+$ARRAYEXIEXPORTACION2 = "";
+$ARRAYEXIEXPORTACIONBOLSA = "";
+$ARRAYEXIEXPORTACIONBOLSA2 = "";
+$ARRAYEXIEXPORTACIONBOLSA3 = "";
+
+$ARRAYEXIEXPORTACIONPRODUCTOR = "";
+$ARRAYEXIEXPORTACIONPRODUCTORESTANDAR = "";
+$ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = "";
+
+$ARRAYEXIEXPORTACIONPRODUCTORTOTAL = "";
+$ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL = "";
+$ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = "";
+
+$ARRAYEXIEXPORTACIONTOTAL = "";
+$ARRAYEXIEXPORTACIONTOTAL2 = "";
+$ARRAYEXIEXPORTACIONBOLSATOTAL = "";
+
+$ARRAYINPECTOR = "";
+$ARRAYCONTRAPARTE = "";
+$ARRAYPAIS = "";
+$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
+$ARRAYPROVINCIA = "";
+
+
+$ARRAYCIUDAD3 = "";
+$ARRAYCOMUNA3= "";
+$ARRAYCIUDAD2 = "";
+$ARRAYCOMUNA2 = "";
+$ARRAYNAVE="";
+
+$ARRAYEXPORTADORA="";
+$ARRAYFOLIO = "";
+$ARRAYEMPRESA = "";
+$ARRAYPLANTA = "";
+$ARRAYPLANTA2 = "";
+$ARRAYTEMPORADA = "";
+$ARRAYVESPECIES = "";
+$ARRAYPVESPECIES = "";
+$ARRAYEEXPORTACION = "";
+$ARRAYPRODUCTOR = "";
+$ARRAYCALIBRE = "";
+$ARRAYTMANEJO = "";
+$ARRAYUSUARIO="";
+$ARRAYICARGA="";
+
+
+if(isset($_REQUEST['NOMBREUSUARIO'])){
+  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
+  $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+  $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
+  
+}
+
+if (isset($_REQUEST['parametro'])) {
+  $IDOP = $_REQUEST['parametro'];
+}
+
+$ARRAYDESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($IDOP);
+$ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorDespachoex2AgrupadoFolio($IDOP);
+$ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesDespachoEx2($IDOP);
+$TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_ENVASE'];
+$TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_NETO'];
+$TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_BRUTO'];
+
+$ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaDespachoexInspeccion2($IDOP);
+$ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2($IDOP);
+$TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
+$TOTALNETOBOLSA= $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['NETO'];
+
+$NUMERODESPACHOEX = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
+$FECHADESPACHOEX = $ARRAYDESPACHOEX[0]['FECHA_DESPACHOR'];
+$EMBARQUE = $ARRAYDESPACHOEX[0]['TEMBARQUE_DESPACHOEX'];
+$NUMEROGUIA = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
+$NUMEROCONTENEDOR = $ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
+
+$FECHAETA= $ARRAYDESPACHOEX[0]['ETA'];
+$FECHAETD= $ARRAYDESPACHOEX[0]['ETD'];
+
+$ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->verContraparte($ARRAYDESPACHOEX[0]['ID_CONTRAPARTE']);
+if($ARRAYCONTRAPARTE){
+    $NOMBRECONTRAPARTE = $ARRAYCONTRAPARTE[0]['ID_CONTRAPARTE'];
+}
+
+
+$ARRAYEXPORTADORA=$ARRAYDESPACHOEX[0]['ID_EXPPORTADORA'];
+if($ARRAYEXPORTADORA){
+  $NOMBREEXPORTADORA=$ARRAYEXPORTADORA[0]['RAZON_SOCIAL_EXPORTADORA'];
+}
+
+if($ARRAYDESPACHOEX[0]['ID_ICARGA']){
+  $ARRAYICARGA=$ICARGA_ADO->verIcarga($ARRAYDESPACHOEX[0]['ID_ICARGA']);
+  if($ARRAYICARGA){
+    
+  $NUMEROICARGA=$ARRAYICARGA[0]['NUMERO_ICARGA'];
+  $NUMEROICARGAFINAL=$ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
+
+  }
+}else{
+  $NUMEROICARGA="Sin Datos";
+  $NUMEROICARGAFINAL="Sin Datos";
+}
+
+$ARRAYNAVE= $ARRAYDESPACHOEX[0]['ID_NAVE'];
+if($ARRAYNAVE){
+  $NOMBRENAVE=$ARRAYNAVE[0]['NOMBRE_NAVE'];
+}else{
+  $NOMBRENAVE = "Sin Datos";
+}
+
+if ($EMBARQUE == null || $EMBARQUE == "0") {
+  $NOMBRETEMBARQUE = "Sin Tipo";
+}
+if ($EMBARQUE == "1") {
+  $NOMBRETEMBARQUE = "Terrestre";
+}
+if ($EMBARQUE == "2") {
+  $NOMBRETEMBARQUE = "Aereo";
+}
+if ($EMBARQUE == "3") {
+  $NOMBRETEMBARQUE = "Maritimo";
+}
+
+
+
+
+
+$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
+$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYDESPACHOEX[0]['ID_EMPRESA']);
+$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYDESPACHOEX[0]['ID_TEMPORADA']);
+$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+
+
+
+
+$CSPPLANTA=$ARRAYPLANTA[0]['CODIGO_SAG_PLANTA'];
+$RAZONPLANTA=$ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
+
+
+$ARRAYCIUDAD3 = $CIUDAD_ADO->verCiudad($ARRAYPLANTA[0]['CIUDAD']);
+$CIUDADPLANTA=$ARRAYCIUDAD3[0]['NOMBRE_CIUDAD'];
+
+
+$ARRAYCOMUNA3 = $COMUNA_ADO->verComuna($ARRAYCIUDAD3[0]['ID_COMUNA']);
+$COMUNAPLANTA=$ARRAYCOMUNA3[0]['NOMBRE_COMUNA'];;
+
+$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+
+if ($EMPRESAURL == "") {
+  $EMPRESAURL = "img/empresa/no_disponible.png";
+}
+
+
+//OBTENCION DE LA FECHA
+date_default_timezone_set('America/Santiago');
+//SE LE PASA LA FECHA ACTUAL A UN ARREGLO
+$ARRAYFECHADOCUMENTO = getdate();
+
+//SE OBTIENE INFORMACION RELACIONADA CON LA HORA
+$HORA = "" . $ARRAYFECHADOCUMENTO['hours'];
+$MINUTO = "" . $ARRAYFECHADOCUMENTO['minutes'];
+$SEGUNDO = "" . $ARRAYFECHADOCUMENTO['seconds'];
+//EN CASO DE VALORES MENOS A 2 LENGHT, SE LE CONCATENA UN 0
+if ($MINUTO < 10) {
+  $MINUTO = "0" . $MINUTO;
+}
+if ($SEGUNDO < 10) {
+  $SEGUNDO = "0" . $SEGUNDO;
+}
+
+// SE JUNTA LA INFORMAICON DE LA HORA Y SE LE DA UN FORMATO
+$HORAFINAL = $HORA . "" . $MINUTO . "" . $SEGUNDO;
+$HORAFINAL2 = $HORA . ":" . $MINUTO . ":" . $SEGUNDO;
+
+//SE OBTIENE INFORMACION RELACIONADA CON LA FECHA
+$DIA = "" . $ARRAYFECHADOCUMENTO['mday'];
+
+$MES = "" . $ARRAYFECHADOCUMENTO['mon'];
+$ANO = "" . $ARRAYFECHADOCUMENTO['year'];
+$NOMBREMES = "" . $ARRAYFECHADOCUMENTO['month'];
+$NOMBREDIA = "" . $ARRAYFECHADOCUMENTO['weekday'];
+//EN CASO DE VALORES MENOS A 2 LENGHT, SE LE CONCATENA UN 0
+if ($DIA < 10) {
+  $DIA = "0" . $DIA;
+}
+//PARA TRAUDCIR EL MES AL ESPAÑOL
+$MESESNOMBRES = array(
+  "January" => "Enero",
+  "February" => "Febrero",
+  "March" => "Marzo",
+  "April" => "Abril",
+  "May" => "Mayo",
+  "June" => "Junio",
+  "July" => "Julio",
+  "August" => "Agosto",
+  "September" => "Septiembre",
+  "October" => "Octubre",
+  "November" => "Noviembre",
+  "December" => "Diciembre"
+);
+//PARA TRAUDCIR EL DIA AL ESPAÑOL
+$DIASNOMBRES = array(
+  "Monday" => "Lunes",
+  "Tuesday" => "Martes",
+  "Wednesday" => "Miércoles",
+  "Thursday" => "Jueves",
+  "Friday" => "Viernes",
+  "Saturday" => "Sábado",
+  "Sunday" => "Domingo"
+);
+
+$NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
+$NOMBREMES = $MESESNOMBRES[$NOMBREMES];
+// SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
+$FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
+
+
+$html = '
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Informe Despacho Exportacion</title>
+  </head>
+  <body>
+    <header class="clearfix">
+      <div id="logo">
+           <img src="../vista/img/logo.png" width="150px" height="45px"/>
+      </div>
+      <div id="company">
+        <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
+        <div>Camino a Antuco, Kilómetro N°13</div>
+        <div>Los Ángeles, Chile.</div>
+        <div><a href="mailto:ti@fvolcan.com">ti@fvolcan.cl</a></div>
+      </div>
+    </header>
+    <main>
+      <h2 class="titulo" style="text-align: center; color: black;">
+        INFORME DESPACHO EXPORTACION
+        <br>
+        <b> Número Despacho: ' . $NUMERODESPACHOEX . '</b>
+      </h2>
+      <div id="details" class="clearfix">        
+        <div id="invoice">
+          <div class="date"><b>Fecha Despacho: </b>' . $FECHADESPACHOEX . ' </div>
+          <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
+          <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
+          <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
+        </div>
+        <div id="client">
+           <div class="address"><b>Exportadora: </b>' . $NOMBREEXPORTADORA . '</div>
+           <div class="address"><b>Establecimiento: </b>' . $RAZONPLANTA . '</div>
+           <div class="address"><b>Comuna: </b>' . $COMUNAPLANTA . '</div>
+           <div class="address"><b>Ciudad: </b>' . $CIUDADPLANTA . '</div>
+           <div class="address"><b>CSP: </b>' . $CSPPLANTA . '</div>
+        </div>   
+        <div id="client">
+           <div class="address">
+                <b>Número Intructivo: </b>' . $NUMEROICARGA . ' 
+                <b>Número Final: </b>' . $NUMEROICARGAFINAL . '
+            </div>
+           <div class="address"><b>Número Guía: </b>' . $NUMEROGUIA . '</div>
+           <div class="address"><b>Número Contenedor: </b>' . $NUMEROCONTENEDOR . '</div>
+           <div class="address"><b>Nave : </b>' . $NOMBRENAVE . '</div>
+           <div class="address"><b>Fecha ETD: </b>' . $FECHAETD . '</div>
+           <div class="address"><b>Fecha ETA: </b>' . $FECHAETA . '</div>
+        </div>            
+      </div>     
+        ';
+
+
+
+$html = $html . '
+      <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th colspan="8" class="center">RESUMEN.</th>
+          </tr>
+          <tr>
+            <th class="color left">CSG</th>
+            <th class="color center ">Nombre Productor </th>
+            <th class="color center ">Comuna </th>
+            <th class="color center ">Provincia </th>
+            <th class="color center ">Envase/Estandar</th>
+            <th class="color center ">Variedad </th>
+            <th class="color center ">Cantidad Envases </th>
+            <th class="color center ">Kilos Netos</th>
+          </tr>
+        </thead>
+         <tbody>
+';
+
+foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
+
+  $ARRAYEXIEXPORTACIONPRODUCTOR = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2DiferenciadoProductor($IDOP, $a['ID_PRODUCTOR']);
+  $ARRAYEXIEXPORTACIONPRODUCTORTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeExnDiferenciadoProductor2($IDOP, $a['ID_PRODUCTOR']);
+  $TOTALENVASEPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['ENVASE'];
+  $TOTALNETOPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['NETO'];
+  foreach ($ARRAYEXIEXPORTACIONPRODUCTOR as $b) :
+    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($b['ID_PRODUCTOR']);
+    $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID[0]["CIUDAD"]);
+    $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
+
+    $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]["CSG_PRODUCTOR"];
+    $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]["NOMBRE_PRODUCTOR"];
+    $COMUNAPRODUCTOR = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
+    $ARRAYPROVINCIA= $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);
+
+    $NOMBREPROVINICA=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
+
+    $ARRAYEXIEXPORTACIONBOLSA2 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorDiferenciadoProductorEstandar($IDOP, $b['ID_PRODUCTOR']);
+    foreach ($ARRAYEXIEXPORTACIONBOLSA2 as $c) :
+
+      $ARRAYEXIEXPORTACIONPRODUCTORESTANDAR = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
+      $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
+      $TOTALENVASEESTANDAR = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL[0]['ENVASE'];
+      $TOTALNETOESTANDAR = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL[0]['NETO'];
+
+      foreach ($ARRAYEXIEXPORTACIONPRODUCTORESTANDAR as $d) :
+        $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($d['ID_ESTANDAR']);
+        $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]["CODIGO_ESTANDAR"];
+        $NOMBREESTANDAR = $ARRAYEEXPORTACION[0]["NOMBRE_ESTANDAR"];
+
+        $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandarVariedad($IDOP, $d['ID_PRODUCTOR'], $d['ID_ESTANDAR']);
+        foreach ($ARRAYEXIEXPORTACIONBOLSA3 as $e) :
+
+          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoeEx2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_PVESPECIES']);
+          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_PVESPECIES']);
+          $TOTALENVASEVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['ENVASE'];
+          $TOTALNETOVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['NETO'];
+          foreach ($ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD as $f) :
+
+            $ARRAYPVESPECIES = $PVESPECIES_ADO->verPvespecies($f['ID_PVESPECIES']);
+            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
+            $NOMBREVARIEDAD = $ARRAYVESPECIES[0]["NOMBRE_VESPECIES"];
+
+            $html = $html . '              
+            <tr >
+                <td class="left">' .  $CSGPRODUCTOR . '</td>
+                <td class="center">' . $NOMBREPRODUCTOR . '</td>
+                <td class="center">' . $COMUNAPRODUCTOR . '</td>
+                <td class="center">' . $NOMBREPROVINICA . '</td>
+                <td class="center">' . $NOMBREESTANDAR . '</td>
+                <td class="center">' . $NOMBREVARIEDAD . '</td>
+                <th class="center">' . $TOTALENVASEVARIEDAD . '</th>
+                <th class="center">' . $TOTALNETOVARIEDAD . '</th>
+            </tr>
+            ';
+
+
+          endforeach;
+
+
+        endforeach;
+
+
+      endforeach;
+
+      $html = $html . '              
+        <tr class="bt">
+            <th class=" center">&nbsp;</th>
+            <th class=" center">&nbsp;</th>
+            <th class=" center">&nbsp;</th>
+            <th class=" center">&nbsp;</th>
+            <th class=" center">&nbsp;</th>
+            <th class=" right"> Total Estandar </th>
+            <th class=" center">' . $TOTALENVASEVARIEDAD . '</th>
+            <th class=" center">' . $TOTALNETOVARIEDAD . '</th>
+        </tr>
+      ';
+
+    endforeach;
+
+
+
+  endforeach;
+  $html = $html . '              
+  <tr class="bt">
+      <th class=" center">&nbsp;</th>
+      <th class=" center">&nbsp;</th>
+      <th class=" center">&nbsp;</th>
+      <th class=" center">&nbsp;</th>
+      <th class=" center">&nbsp;</th>
+      <th class=" right"> Total Productor </th>
+      <th class=" center">' . $TOTALENVASEPRODUCTOR . '</th>
+      <th class=" center">' . $TOTALNETOPRODUCTOR . '</th>
+  </tr>
+';
+
+
+endforeach;
+$html = $html . '              
+<tr class="bt">
+    <th class="color center">&nbsp;</th>
+    <th class="color center">&nbsp;</th>
+    <th class="color center">&nbsp;</th>
+    <th class="color center">&nbsp;</th>
+    <th class="color center">&nbsp;</th>
+    <th class="color right"> Total  </th>
+    <th class="color center">' . $TOTALENVASEBOLSA . '</th>
+    <th class="color center">' . $TOTALNETOBOLSA . '</th>
+</tr>
+';
+
+
+$html = $html . '
+        </tbody>
+      </table>
+
+      ';
+
+$html = $html . '
+      <div id="details" class="clearfix">
+        <div id="client">
+          <div class="address"><b></b></div>
+          <div class="address"> </div>
+          <div class="address"></div>
+          <div class="address"></div>
+          <div class="address"></div>
+        </div>
+      </div>
+      <div id="notices">
+        <div>IMPORTANTE:</div>
+        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
+      </div>
+<br>
+<br>    
+        <table >      
+          <tr>
+            <td class="color2 center" style="width: 30%;" > </td>
+            <td class="color2  center" style="width: 10%;"> <hr> </td>
+            <td class="color2 right" style="width: 30%;"> </td>
+          </tr>
+          <tr>
+            <td class="color2 center" style="width: 30%;" > </td>
+            <td class="color2  center" style="width: 10%;"> Firma Contraparte O Despachador Autorizado <br> '.$NOMBRECONTRAPARTE.' </td>
+            <td class="color2 center" style="width: 30%;"> </td>
+          </tr>    
+        </table>
+
+    </main>
+    <footer>
+      Informe generado por Departamento TI Fruticola Volcan
+      <br>
+      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+      
+    </footer>
+  </body>
+</html>
+
+';
+
+
+
+
+
+
+//CREACION NOMBRE DEL ARCHIVO
+$NOMBREARCHIVO = "InformeDespachoexComercial_";
+$FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
+$TIPODOCUMENTO = "Informe";
+$FORMATO = ".pdf";
+$NOMBREARCHIVOFINAL = $NOMBREARCHIVO . $FECHADOCUMENTO . $FORMATO;
+
+//CONFIGURACIOND DEL DOCUMENTO
+$TIPOPAPEL = "LETTER";
+$ORIENTACION = "P";
+$LENGUAJE = "ES";
+$UNICODE = "true";
+$ENCODING = "UTF-8";
+
+//DETALLE DEL CREADOR DEL INFORME
+$TIPOINFORME = "Informe Despacho Exportación Comercial";
+$CREADOR = "Usuario";
+$AUTOR = "Usuario";
+$ASUNTO = "Informe";
+
+//API DE GENERACION DE PDF
+require_once '../api/mpdf/mpdf/autoload.php';
+//$PDF = new \Mpdf\Mpdf();W
+$PDF = new \Mpdf\Mpdf(['format' => 'letter-L']);
+
+//CONFIGURACION FOOTER Y HEADER DEL PDF
+$PDF->SetHTMLHeader('
+    <table width="100%" >
+        <tbody>
+            <tr>
+                <th width="55%" class="left f10">' . $EMPRESA . '</th>
+                <td width="45%" class="right f10">' . $FECHANOMBRE . '</td>
+                <td width="10%" class="right f10">' . $HORAFINAL2 . '</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    
+');
+
+$PDF->SetHTMLFooter('
+    <table width="100%" >
+        <tbody>
+            <tr>
+                <td width="35%" class="left"><span>{PAGENO}/{nbpg}</span></td>
+                <td width="30%"  class="center f10">
+                       
+                        ' . $EMPRESA . '
+                </td>
+                <td width="35%"  class="right">{DATE j-m-Y}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+');
+
+
+$PDF->SetTitle($TIPOINFORME); //titulo pdf
+$PDF->SetCreator($CREADOR); //CREADOR PDF
+$PDF->SetAuthor($AUTOR); //AUTOR PDF
+$PDF->SetSubject($ASUNTO); //ASUNTO PDF
+
+
+//CONFIGURACION
+
+//$PDF->simpleTables = true; 
+//$PDF->packTableData = true;
+
+//INICIALIZACION DEL CSS
+$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
+
+//ENLASAR CSS CON LA VISTA DEL PDF
+$PDF->WriteHTML($stylesheet, 1);
+$PDF->WriteHTML($stylesheet2, 1);
+
+//GENERAR PDF
+$PDF->WriteHTML($html);
+//METODO DE SALIDA
+$PDF->Output($NOMBREARCHIVOFINAL, \Mpdf\Output\Destination::INLINE);

@@ -80,14 +80,8 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * ,DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%Y-%m-%d') AS 'FECHA_GUIA',
-                                                       DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'FECHA_INGRESO',
-                                                       DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'FECHA_MODIFICACION',
-                                                       FORMAT(CANTIDAD_ENVASE_DESPACHOEX,0,'de_DE')  AS 'ENVASE',
-                                                       FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
-                                                       FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO',
-                                                       FORMAT(NUMERO_GUIA_DESPACHOEX,2,'de_DE')  AS 'GUIA'
-                                            FROM fruta_despachoex ;	");
+            $datos = $this->conexion->prepare("SELECT * 
+                                               FROM fruta_despachoex ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -107,7 +101,7 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *,DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%Y-%m-%d') AS 'FECHA_GUIA',
+            $datos = $this->conexion->prepare("SELECT *,
                                              DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                              DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
                                              FROM fruta_despachoex WHERE ID_DESPACHOEX= '" . $ID . "';");
@@ -130,7 +124,7 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *, 
-                                                     DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA_DESPACHOR' ,
+                                                     DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA' ,
                                                      DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
                                                      DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD' ,
                                                      FORMAT(NUMERO_GUIA_DESPACHOEX,0,'de_DE') AS 'TOTAL_GUIA'  
@@ -288,53 +282,53 @@ class DESPACHOEX_ADO
 
             $this->conexion->prepare($query)
                 ->execute(
-                        array(
-                            $DESPACHOEX->__GET('NUMERO_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('SNICARGA'),
-                            $DESPACHOEX->__GET('NUMERO_SELLO_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHA_GUIA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NUMERO_GUIA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NUMERO_CONTENEDOR_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NUMERO_PLANILLA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('TERMOGRAFO_DESPACHOEX'),
-                            $DESPACHOEX->__GET('VGM'),
-                            $DESPACHOEX->__GET('TEMBARQUE_DESPACHOEX'),
-                            $DESPACHOEX->__GET('BOOKING_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHAETD_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHAETA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('CRT_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHASTACKING_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NVIAJE_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NAVE_DESPACHOEX'),
-                            $DESPACHOEX->__GET('PATENTE_CAMION'),
-                            $DESPACHOEX->__GET('PATENTE_CARRO'),
-                            $DESPACHOEX->__GET('OBSERVACION_DESPACHOEX'),  
-                            $DESPACHOEX->__GET('ID_ICARGA'),
-                            $DESPACHOEX->__GET('ID_EXPPORTADORA'),
-                            $DESPACHOEX->__GET('ID_DFINAL'),
-                            $DESPACHOEX->__GET('ID_AGCARGA'),
-                            $DESPACHOEX->__GET('ID_INPECTOR'),
-                            $DESPACHOEX->__GET('ID_RFINAL'),
-                            $DESPACHOEX->__GET('ID_MERCADO'),
-                            $DESPACHOEX->__GET('ID_PAIS'),
-                            $DESPACHOEX->__GET('ID_TRANSPORTE2'),
-                            $DESPACHOEX->__GET('ID_LCARGA'),
-                            $DESPACHOEX->__GET('ID_LDESTINO'),
-                            $DESPACHOEX->__GET('ID_LAREA'),
-                            $DESPACHOEX->__GET('ID_ACARGA'),
-                            $DESPACHOEX->__GET('ID_ADESTINO'),
-                            $DESPACHOEX->__GET('ID_NAVIERA'),
-                            $DESPACHOEX->__GET('ID_PCARGA'),
-                            $DESPACHOEX->__GET('ID_PDESTINO'),
-                            $DESPACHOEX->__GET('ID_TRANSPORTE'),
-                            $DESPACHOEX->__GET('ID_CONDUCTOR'),
-                            $DESPACHOEX->__GET('ID_CONTRAPARTE'),
-                            $DESPACHOEX->__GET('ID_EMPRESA'),
-                            $DESPACHOEX->__GET('ID_PLANTA'),
-                            $DESPACHOEX->__GET('ID_TEMPORADA'),
-                            $DESPACHOEX->__GET('ID_USUARIOI'),
-                            $DESPACHOEX->__GET('ID_USUARIOM')      
+                    array(
+                        $DESPACHOEX->__GET('NUMERO_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('SNICARGA'),
+                        $DESPACHOEX->__GET('NUMERO_SELLO_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHA_GUIA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NUMERO_GUIA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NUMERO_CONTENEDOR_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NUMERO_PLANILLA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('TERMOGRAFO_DESPACHOEX'),
+                        $DESPACHOEX->__GET('VGM'),
+                        $DESPACHOEX->__GET('TEMBARQUE_DESPACHOEX'),
+                        $DESPACHOEX->__GET('BOOKING_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHAETD_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHAETA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('CRT_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHASTACKING_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NVIAJE_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NAVE_DESPACHOEX'),
+                        $DESPACHOEX->__GET('PATENTE_CAMION'),
+                        $DESPACHOEX->__GET('PATENTE_CARRO'),
+                        $DESPACHOEX->__GET('OBSERVACION_DESPACHOEX'),
+                        $DESPACHOEX->__GET('ID_ICARGA'),
+                        $DESPACHOEX->__GET('ID_EXPPORTADORA'),
+                        $DESPACHOEX->__GET('ID_DFINAL'),
+                        $DESPACHOEX->__GET('ID_AGCARGA'),
+                        $DESPACHOEX->__GET('ID_INPECTOR'),
+                        $DESPACHOEX->__GET('ID_RFINAL'),
+                        $DESPACHOEX->__GET('ID_MERCADO'),
+                        $DESPACHOEX->__GET('ID_PAIS'),
+                        $DESPACHOEX->__GET('ID_TRANSPORTE2'),
+                        $DESPACHOEX->__GET('ID_LCARGA'),
+                        $DESPACHOEX->__GET('ID_LDESTINO'),
+                        $DESPACHOEX->__GET('ID_LAREA'),
+                        $DESPACHOEX->__GET('ID_ACARGA'),
+                        $DESPACHOEX->__GET('ID_ADESTINO'),
+                        $DESPACHOEX->__GET('ID_NAVIERA'),
+                        $DESPACHOEX->__GET('ID_PCARGA'),
+                        $DESPACHOEX->__GET('ID_PDESTINO'),
+                        $DESPACHOEX->__GET('ID_TRANSPORTE'),
+                        $DESPACHOEX->__GET('ID_CONDUCTOR'),
+                        $DESPACHOEX->__GET('ID_CONTRAPARTE'),
+                        $DESPACHOEX->__GET('ID_EMPRESA'),
+                        $DESPACHOEX->__GET('ID_PLANTA'),
+                        $DESPACHOEX->__GET('ID_TEMPORADA'),
+                        $DESPACHOEX->__GET('ID_USUARIOI'),
+                        $DESPACHOEX->__GET('ID_USUARIOM')
                     )
 
                 );
@@ -471,53 +465,53 @@ class DESPACHOEX_ADO
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                            $DESPACHOEX->__GET('NUMERO_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('SNICARGA'),
-                            $DESPACHOEX->__GET('NUMERO_SELLO_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHA_GUIA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NUMERO_GUIA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NUMERO_CONTENEDOR_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NUMERO_PLANILLA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('TERMOGRAFO_DESPACHOEX'),
-                            $DESPACHOEX->__GET('VGM'),
-                            $DESPACHOEX->__GET('TEMBARQUE_DESPACHOEX'),
-                            $DESPACHOEX->__GET('BOOKING_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHAETD_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHAETA_DESPACHOEX'),
-                            $DESPACHOEX->__GET('CRT_DESPACHOEX'),
-                            $DESPACHOEX->__GET('FECHASTACKING_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NVIAJE_DESPACHOEX'),
-                            $DESPACHOEX->__GET('NAVE_DESPACHOEX'),
-                            $DESPACHOEX->__GET('PATENTE_CAMION'),
-                            $DESPACHOEX->__GET('PATENTE_CARRO'),
-                            $DESPACHOEX->__GET('OBSERVACION_DESPACHOEX'),  
-                            $DESPACHOEX->__GET('ID_ICARGA'),
-                            $DESPACHOEX->__GET('ID_EXPPORTADORA'),
-                            $DESPACHOEX->__GET('ID_DFINAL'),
-                            $DESPACHOEX->__GET('ID_AGCARGA'),
-                            $DESPACHOEX->__GET('ID_INPECTOR'),
-                            $DESPACHOEX->__GET('ID_RFINAL'),
-                            $DESPACHOEX->__GET('ID_MERCADO'),
-                            $DESPACHOEX->__GET('ID_PAIS'),
-                            $DESPACHOEX->__GET('ID_TRANSPORTE2'),
-                            $DESPACHOEX->__GET('ID_LCARGA'),
-                            $DESPACHOEX->__GET('ID_LDESTINO'),
-                            $DESPACHOEX->__GET('ID_LAREA'),
-                            $DESPACHOEX->__GET('ID_ACARGA'),
-                            $DESPACHOEX->__GET('ID_ADESTINO'),
-                            $DESPACHOEX->__GET('ID_NAVIERA'),
-                            $DESPACHOEX->__GET('ID_PCARGA'),
-                            $DESPACHOEX->__GET('ID_PDESTINO'),
-                            $DESPACHOEX->__GET('ID_TRANSPORTE'),
-                            $DESPACHOEX->__GET('ID_CONDUCTOR'),
-                            $DESPACHOEX->__GET('ID_CONTRAPARTE'),
-                            $DESPACHOEX->__GET('ID_EMPRESA'),
-                            $DESPACHOEX->__GET('ID_PLANTA'),
-                            $DESPACHOEX->__GET('ID_TEMPORADA'),
-                            $DESPACHOEX->__GET('ID_USUARIOI'),
-                            $DESPACHOEX->__GET('ID_USUARIOM'),       
-                            $DESPACHOEX->__GET('ID_DESPACHOEX')
+                        $DESPACHOEX->__GET('FECHA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NUMERO_SELLO_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHA_GUIA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NUMERO_GUIA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NUMERO_CONTENEDOR_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NUMERO_PLANILLA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('TERMOGRAFO_DESPACHOEX'),
+                        $DESPACHOEX->__GET('VGM'),
+                        $DESPACHOEX->__GET('TEMBARQUE_DESPACHOEX'),
+                        $DESPACHOEX->__GET('BOOKING_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHAETD_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHAETA_DESPACHOEX'),
+                        $DESPACHOEX->__GET('CRT_DESPACHOEX'),
+                        $DESPACHOEX->__GET('FECHASTACKING_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NVIAJE_DESPACHOEX'),
+                        $DESPACHOEX->__GET('NAVE_DESPACHOEX'),
+                        $DESPACHOEX->__GET('PATENTE_CAMION'),
+                        $DESPACHOEX->__GET('PATENTE_CARRO'),
+                        $DESPACHOEX->__GET('OBSERVACION_DESPACHOEX'),
+                        $DESPACHOEX->__GET('CANTIDAD_ENVASE_DESPACHOEX'),
+                        $DESPACHOEX->__GET('KILOS_NETO_DESPACHOEX'),
+                        $DESPACHOEX->__GET('KILOS_BRUTO_DESPACHOEX'),     
+                        $DESPACHOEX->__GET('ID_ICARGA'),
+                        $DESPACHOEX->__GET('ID_EXPPORTADORA'),
+                        $DESPACHOEX->__GET('ID_DFINAL'),
+                        $DESPACHOEX->__GET('ID_AGCARGA'),
+                        $DESPACHOEX->__GET('ID_INPECTOR'),
+                        $DESPACHOEX->__GET('ID_RFINAL'),
+                        $DESPACHOEX->__GET('ID_MERCADO'),
+                        $DESPACHOEX->__GET('ID_PAIS'),
+                        $DESPACHOEX->__GET('ID_TRANSPORTE2'),
+                        $DESPACHOEX->__GET('ID_LCARGA'),
+                        $DESPACHOEX->__GET('ID_LDESTINO'),
+                        $DESPACHOEX->__GET('ID_LAREA'),
+                        $DESPACHOEX->__GET('ID_ACARGA'),
+                        $DESPACHOEX->__GET('ID_ADESTINO'),
+                        $DESPACHOEX->__GET('ID_NAVIERA'),
+                        $DESPACHOEX->__GET('ID_PCARGA'),
+                        $DESPACHOEX->__GET('ID_PDESTINO'),
+                        $DESPACHOEX->__GET('ID_TRANSPORTE'),
+                        $DESPACHOEX->__GET('ID_CONDUCTOR'),
+                        $DESPACHOEX->__GET('ID_CONTRAPARTE'),
+                        $DESPACHOEX->__GET('ID_EMPRESA'),
+                        $DESPACHOEX->__GET('ID_PLANTA'),
+                        $DESPACHOEX->__GET('ID_TEMPORADA'),
+                        $DESPACHOEX->__GET('ID_USUARIOM'),
+                        $DESPACHOEX->__GET('ID_DESPACHOEX')
                     )
 
                 );
@@ -608,6 +602,36 @@ class DESPACHOEX_ADO
         }
     }
 
+    public function listarDespachoexEmpresaPlantaTemporada2CBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * ,
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' , 
+                                                    DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA' ,
+                                                    DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%d-%m-%Y') AS 'GUIA',
+                                                    DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
+                                                    DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD',
+                                                    FORMAT(CANTIDAD_ENVASE_DESPACHOEX,0,'de_DE')  AS 'ENVASE',
+                                                    FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
+                                                    FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO'
+                                                FROM fruta_despachoex                                                                           
+                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //BUSCADOR
 
     public function buscarDespachoexPorProductorGuiaEmpresaPlantaTemporada($NUMEROGUIA, $PRODUCTOR, $EMPRESA, $PLANTA, $TEMPORADA)
@@ -830,7 +854,7 @@ class DESPACHOEX_ADO
     }
     //OTRAS FUNCIONALIDADES
     //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
-    public function obtenerId($FECHADESPACHOEX, $EMPRESA, $PLANTA, $TEMPORADA)
+    public function obtenerId($FECHADESPACHOEX, $OBSERVACIONDESPACHOEX, $EMPRESA, $PLANTA, $TEMPORADA)
     {
 
         try {
@@ -838,6 +862,7 @@ class DESPACHOEX_ADO
                                          FROM fruta_despachoex
                                          WHERE 
                                               FECHA_DESPACHOEX LIKE '" . $FECHADESPACHOEX . "' 
+                                              AND OBSERVACION_DESPACHOEX LIKE '" . $OBSERVACIONDESPACHOEX . "' 
                                               AND DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
                                               AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')                                                                                                 
                                               AND ID_EMPRESA = '" . $EMPRESA . "'                                      

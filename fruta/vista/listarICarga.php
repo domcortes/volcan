@@ -157,7 +157,7 @@ include_once "../config/datosUrLP.php";
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Logistica</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="listarICarga.php">Agrupado Instructivo Carga </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Instructivo Carga </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -242,7 +242,6 @@ include_once "../config/datosUrLP.php";
                                                         if ($r['TEMBARQUE_ICARGA'] == "3") {
                                                             $TEMBARQUE = "Maritimo";
                                                         }
-
                                                         $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
                                                         if ($ARRAYTCONTENEDOR) {
                                                             $NOMBRETCONTENEDOR = $ARRAYTCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
@@ -258,11 +257,7 @@ include_once "../config/datosUrLP.php";
 
                                                         ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_ICARGA']; ?>
-                                                                </a>
-                                                            </td>
+                                                            <td> <?php echo $r['NUMERO_ICARGA']; ?>  </td>
                                                             <td>
                                                                 <?php if ($r['ESTADO'] == "0") { ?>
                                                                     <button type="button" class="btn btn-block btn-danger">Cerrado</button>
@@ -330,7 +325,6 @@ include_once "../config/datosUrLP.php";
                                                             <td> <?php echo $r['US'];  ?> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -362,7 +356,6 @@ include_once "../config/datosUrLP.php";
                                             <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
                                         </div>
                                     </div>
-
                                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total US </label>
@@ -371,7 +364,6 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- /.box -->
 

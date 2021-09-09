@@ -56,7 +56,7 @@ $ARRAYVERCONDUCTOR = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYDESPACHOEXTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoexEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
     $TOTALBRUTO = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
@@ -207,7 +207,6 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número </th>
                                                     <th>Estado</th>
                                                     <th>Operaciónes</th>
-                                                    <th>Empresa</th>
                                                     <th>Fecha Despacho </th>
                                                     <th>Número Sello</th>
                                                     <th>Número Guía </th>
@@ -221,16 +220,53 @@ include_once "../config/datosUrLP.php";
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
+                                                    <th>Empresa</th>
+                                                    <th>Planta</th>
+                                                    <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYDESPACHOEX as $r) : ?>
+
+                                                    <?php
+                                                    $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
+                                                    if ($ARRAYVERTRANSPORTE) {
+                                                        $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+                                                    } else {
+                                                        $NOMBRETRANSPORTE = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
+                                                    if ($ARRAYVERCONDUCTOR) {
+
+                                                        $NOMBRECONDUCTOR = $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+                                                    } else {
+                                                        $NOMBRECONDUCTOR = "Sin Datos";
+                                                    }
+
+                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                    if ($ARRAYEMPRESA) {
+                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    } else {
+                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                    }
+                                                    $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                    if ($ARRAYPLANTA) {
+                                                        $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+                                                    } else {
+                                                        $NOMBREPLANTA = "Sin Datos";
+                                                    }
+                                                    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    if ($ARRAYTEMPORADA) {
+                                                        $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    } else {
+                                                        $NOMBRETEMPORADA = "Sin Datos";
+                                                    }
+                                                    ?>
+
+
+
                                                     <tr class="center">
-                                                        <td>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                <?php echo $r['NUMERO_DESPACHOEX']; ?>
-                                                            </a>
-                                                        </td>
+                                                        <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                         <td>
                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                 <button type="button" class="btn btn-block btn-danger">Cerrado</button>
@@ -252,7 +288,6 @@ include_once "../config/datosUrLP.php";
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoEX" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoEX" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
-
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
                                                                                         <i class="ti-eye"></i>
@@ -282,35 +317,22 @@ include_once "../config/datosUrLP.php";
                                                                 </div>
                                                             </form>
                                                         </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                            echo $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA']
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['FECHA_DESPACHOEX']; ?></td>
+                                                        <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $r['NUMERO_SELLO_DESPACHOEX']; ?></td>
                                                         <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['FECHA_GUIA_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['CANTIDAD_ENVASE_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['KILOS_NETO_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['KILOS_BRUTO_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['FECHA_INGRESO_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['FECHA_MODIFICACION_DESPACHOEX']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
-                                                            echo $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
-                                                            echo $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $r['GUIA']; ?></td>
+                                                        <td><?php echo $r['ENVASE']; ?></td>
+                                                        <td><?php echo $r['NETO']; ?></td>
+                                                        <td><?php echo $r['BRUTO']; ?></td>
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $NOMBRETRANSPORTE; ?></td>
+                                                        <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                        <td><?php echo $NOMBREPLANTA; ?></td>
+                                                        <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

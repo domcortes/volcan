@@ -3,20 +3,12 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
-
 
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 
 include_once '../controlador/TINPSAG_ADO.php';
-include_once '../controlador/TESTADOSAG_ADO.php';
 include_once '../controlador/INPSAG_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
@@ -29,12 +21,10 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
 
 
-$TESTADOSAG_ADO =  new TESTADOSAG_ADO();
 $TINPSAG_ADO =  new TINPSAG_ADO();
 $INPSAG_ADO =  new INPSAG_ADO();
 
@@ -66,22 +56,15 @@ $ARRAYTESTADOSAG = "";
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
 
-    $ARRAYDESPACHOEX = $INPSAG_ADO->listarInpsagEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOEXTOTALES = $INPSAG_ADO->obtenerTotalesInpsaEmpresaPlantaTemporadagCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-
-    $TOTALBRUTO = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
-} else {
-
-    $ARRAYDESPACHOEX = $INPSAG_ADO->listarInpsagCBX2();
-    $ARRAYDESPACHOEXTOTALES = $INPSAG_ADO->obtenerTotalesInpsagCBX2();
+    $ARRAYDESPACHOEX = $INPSAG_ADO->listarInpsagPlantaTemporadaCBX2( $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOEXTOTALES = $INPSAG_ADO->obtenerTotalesInpsaPlantaTemporadagCBX2($PLANTAS, $TEMPORADAS);
 
     $TOTALBRUTO = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
     $TOTALNETO = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
     $TOTALENVASE = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
 }
-
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrLP.php";
 
 
 
@@ -163,6 +146,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
                     window.open(url, 'window', opciones);
                 }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
             </script>
 </head>
 
@@ -184,7 +172,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Operaciones Sag</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarInpsag.php"> Listar Inspección SAG </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Inspección SAG </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -217,7 +205,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     <div class="box">
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -239,97 +227,102 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYDESPACHOEX as $r) : ?>
+                                                    <?php
+
+                                                    $ARRAYTINPSAG = $TINPSAG_ADO->verTinpsag($r['ID_TINPSAG']);
+                                                    if ($ARRAYTINPSAG) {
+                                                        $NOMBRETINPSAG = $ARRAYTINPSAG[0]['NOMBRE_TINPSAG'];
+                                                    } else {
+                                                        $NOMBRETINPSAG = "Sin Datos";
+                                                    }
+                                                    if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                        $TESTADOSAG = "Sin Condición";
+                                                    }
+                                                    if ($r['TESTADOSAG'] == "1") {
+                                                        $TESTADOSAG = "En Inspección";
+                                                    }
+                                                    if ($r['TESTADOSAG'] == "2") {
+                                                        $TESTADOSAG = "Aprobado Origen";
+                                                    }
+                                                    if ($r['TESTADOSAG'] == "3") {
+                                                        $TESTADOSAG = "Aprobado USLA";
+                                                    }
+                                                    if ($r['TESTADOSAG'] == "4") {
+                                                        $TESTADOSAG = "Fumigado";
+                                                    }
+                                                    if ($r['TESTADOSAG'] == "5") {
+                                                        $TESTADOSAG = "Rechazado";
+                                                    }
+                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($EMPRESAS);
+                                                    if ($ARRAYEMPRESA) {
+                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    } else {
+                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                    }
+                                                    ?>
+
                                                     <tr class="center">
+                                                        <td> <?php echo $r['NUMERO_INPSAG']; ?></td>
                                                         <td>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                <?php echo $r['NUMERO_INPSAG']; ?>
-                                                            </a>
-                                                        </td>
-                                                        <td <?php if ($r['ESTADO'] == "0") {
-                                                                echo "style='background-color: #FF0000;'";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "style='background-color: #4AF575;'";
-                                                            }  ?>>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "0") {
-                                                                echo "Cerrado";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Abierto";
-                                                            }
-                                                            ?>
+                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                            <?php  }  ?>
+                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                            <?php  }  ?>
                                                         </td>
                                                         <td class="text-center">
                                                             <form method="post" id="form1">
                                                                 <div class="list-icons d-inline-flex">
                                                                     <div class="list-icons-item dropdown">
-                                                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
+                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                                        </button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline " id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button> Informe <br>
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline " id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeInpsagPackingList.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button> Packing List <br>
-                                                                            <div class="dropdown-divider"></div>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline mr-1" id="defecto" name="editar" Onclick="irPagina('registroInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&parametro1=editar'); ">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
-                                                                            <?php } ?>
+                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
+                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_INPSAG']; ?>" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroInpsag" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarInpSag" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline mr-1" id="defecto" name="ver" Onclick="irPagina('registroInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&parametro1=ver'); ">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i>
+                                                                                    </button>
+                                                                                </span>
                                                                             <?php } ?>
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                </button>
+                                                                            </span>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
+                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Packing List" Onclick="abrirPestana('../documento/informeInpsagPackingList.php?parametro=<?php echo $r['ID_INPSAG']; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                </button>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
                                                         </td>
                                                         <td><?php echo $r['FECHA_INPSAG']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYTINPSAG = $TINPSAG_ADO->verTinpsag($r['ID_TINPSAG']);
-                                                            echo $ARRAYTINPSAG[0]['NOMBRE_TINPSAG'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
-                                                                echo "Sin Condición";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "1") {
-                                                                echo "En Inspección";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "2") {
-                                                                echo "Aprobado Origen";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "3") {
-                                                                echo "Aprobado USLA";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "4") {
-                                                                echo "Fumigado";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "5") {
-                                                                echo "Rechazado";
-                                                            }
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $NOMBRETINPSAG; ?></td>
+                                                        <td><?php echo $TESTADOSAG; ?></td>                                                
                                                         <td><?php echo $r['CIF']; ?></td>
                                                         <td><?php echo $r['ENVASE']; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
                                                         <td><?php echo $r['BRUTO']; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                            echo $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA']
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -339,23 +332,23 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                         <div class="form-group">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Envase </label>
                                             <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Neto </label>
                                             <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Bruto </label>
                                             <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
@@ -363,20 +356,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
+            <?php include_once "../config/footer.php"; ?>
+            <?php include_once "../config/menuExtra.php"; ?>
     </div>
     <?php include_once "../config/urlBase.php"; ?>
 </body>

@@ -798,6 +798,34 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    
+    public function buscarPorSag2($IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * ,           
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                    FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                    IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
+                                                FROM fruta_exiexportacion 
+                                                WHERE ID_INPSAG= '" . $IDINPSAG . "'                                               
+                                                AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorRepaletizaje($IDREPALETIZAJE)
     {
         try {
@@ -841,6 +869,35 @@ class EXIEXPORTACION_ADO
         }
     }
 
+    public function buscarPordespachoEx2($IDDESEXPORTACION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,           
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                    FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                    IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
+                                                FROM fruta_exiexportacion 
+                                                WHERE ID_DESPACHOEX= '" . $IDDESEXPORTACION . "'   
+                                                AND ESTADO BETWEEN 7 AND  8
+                                                AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
     public function buscarPordespachoEx($IDDESEXPORTACION)
     {
         try {
@@ -928,7 +985,72 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorEmpresaPlantaTemporadaEstadoSagNotNullInpsag($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare(" SELECT *,           
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                    FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                    IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'     
+                                                FROM fruta_exiexportacion
+                                                WHERE  ESTADO = 2                                                         
+                                                AND ESTADO_REGISTRO = 1 
+                                                AND ID_EMPRESA = '" . $EMPRESA . "'
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                                AND ID_INPSAG  IS NOT NULL
+                                                AND TESTADOSAG BETWEEN 2 AND 4  
+                                                        ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    
+    public function buscarPorPlantaTemporadaEstadoSagNullInpsag( $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT *,           
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                    FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                    IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'     
+                                                FROM fruta_exiexportacion
+                                                WHERE  ESTADO = 2                                                         
+                                                AND ESTADO_REGISTRO = 1 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                                AND ID_INPSAG  IS  NULL 
+                                                        ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //OBTENER TOTALES
     public function obtenerTotalesPorPcdespacho($IDPCDESPACHO)
@@ -1495,13 +1617,12 @@ class EXIEXPORTACION_ADO
                         MODIFICACION = SYSDATE(),
                         TESTADOSAG = 1 ,
                         ID_INPSAG = ?          
-                    WHERE ID_EXIEXPORTACION= ? AND FOLIO_AUXILIAR_EXIEXPORTACION= ?;";
+                    WHERE ID_EXIEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $EXIEXPORTACION->__GET('ID_INPSAG'),
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
-                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )
 
@@ -1610,13 +1731,12 @@ class EXIEXPORTACION_ADO
                     MODIFICACION = SYSDATE(),
                     ESTADO = 7,           
                     ID_DESPACHOEX = ?          
-                WHERE ID_EXIEXPORTACION= ? AND FOLIO_AUXILIAR_EXIEXPORTACION= ?;";
+                WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $EXIEXPORTACION->__GET('ID_DESPACHOEX'),
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
-                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )
 
@@ -1634,12 +1754,11 @@ class EXIEXPORTACION_ADO
                 MODIFICACION = SYSDATE(), 
                 ESTADO = 2,          
                 ID_DESPACHOEX = null          
-            WHERE ID_EXIEXPORTACION= ? AND FOLIO_AUXILIAR_EXIEXPORTACION= ?;";
+            WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
-                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )
 
@@ -1656,12 +1775,11 @@ class EXIEXPORTACION_ADO
                     MODIFICACION = SYSDATE(), 
                     TESTADOSAG = 0 ,
                     ID_INPSAG = null          
-                WHERE ID_EXIEXPORTACION= ? AND FOLIO_AUXILIAR_EXIEXPORTACION= ?;";
+                WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
-                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )
 
@@ -1865,11 +1983,13 @@ class EXIEXPORTACION_ADO
             $query = "
                             UPDATE fruta_exiexportacion SET	
                                     MODIFICACION = SYSDATE(), 		
+                                    FECHA_DESPACHOEX = ?, 		
                                     ESTADO = 8
                             WHERE ID_EXIEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
+                        $EXIEXPORTACION->__GET('FECHA_DESPACHOEX'),
                         $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
                     )
 

@@ -9,6 +9,13 @@ include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
 include_once '../controlador/PCDESPACHO_ADO.php';
 
+
+
+include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TEMBALAJE_ADO.php';
+
+
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 
@@ -51,6 +58,12 @@ include_once '../modelo/ICARGA.php';
 
 $DESPACHOEX_ADO =  new DESPACHOEX_ADO();
 $PCDESPACHO_ADO =  new PCDESPACHO_ADO();
+
+
+$TMANEJO_ADO =  new TMANEJO_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
@@ -384,13 +397,11 @@ if (isset($_REQUEST['CREAR'])) {
     $DESPACHOEX_ADO->agregarDespachoex($DESPACHOEX);
 
 
-    if (isset($_REQUEST['ICARGA'])) {
+    if (isset($_REQUEST['ICARGAD'])) {
         $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-     //   $ICARGA_ADO->Despachado($ICARGA);
+        $ICARGA_ADO->Despachado($ICARGA);
     }
-
-
     //OBTENER EL ID DE LA DESPACHOEX CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
     $ARRYAOBTENERID = $DESPACHOEX_ADO->obtenerId(
         $_REQUEST['FECHADESPACHOEX'],
@@ -399,87 +410,82 @@ if (isset($_REQUEST['CREAR'])) {
         $_REQUEST['PLANTA'],
         $_REQUEST['TEMPORADA'],
     );
-    /*
     //REDIRECCIONAR A PAGINA registroDespachoEX.php 
     $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHOEX'];
     $_SESSION["parametro1"] = "crear";
     echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?op';</script>";
-    */
 }
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
+
     $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
     $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
     $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
     $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIAE']);
     $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
     $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
+    $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
     $DESPACHOEX->__SET('CANTIDAD_ENVASE_DESPACHOEX', $_REQUEST['TOTALENVASE']);
     $DESPACHOEX->__SET('KILOS_NETO_DESPACHOEX', $_REQUEST['TOTALNETO']);
     $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
-    $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEXE']);
-    $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
     $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
     $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-    $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTORE']);
-
+    $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEXE']);
     $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
     $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
     $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
     $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
+    $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
     $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
     $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
     $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
     $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
     $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
     $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
-    if ($_REQUEST['TEMBARQUEE']) {
-        if ($_REQUEST['TEMBARQUEE'] == "1") {
-            $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
-            $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
-            $DESPACHOEX->__SET('ID_TVEHICULO', $_REQUEST['TVEHICULOE']);
-            $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
-            $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
-        }
-        if ($_REQUEST['TEMBARQUEE'] == "2") {
-            $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
-            $DESPACHOEX->__SET('ID_AEROLINEA', $_REQUEST['AEROLINIAE']);
-            $DESPACHOEX->__SET('ID_AERONAVE', $_REQUEST['AERONAVEE']);
-            $DESPACHOEX->__SET('NVUELO_DESPACHOEX', $_REQUEST['NVUELOE']);
-            $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
-            $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
-        }
-        if ($_REQUEST['TEMBARQUEE'] == "3") {
-            $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
-            $DESPACHOEX->__SET('ID_NAVE', $_REQUEST['NAVEE']);
-            $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
-            $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
-            $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
-            $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
-        }
+    if ($_REQUEST['TEMBARQUEE'] == "1") {
+        $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
+        $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
+        $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
+        $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
     }
-    $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTEE']);
-    $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+    if ($_REQUEST['TEMBARQUEE'] == "2") {
+        $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
+        $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+        $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
+        $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
+        $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
+    }
+    if ($_REQUEST['TEMBARQUEE'] == "3") {
+        $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
+        $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
+        $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+        $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
+        $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
+        $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
+    }
+    $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTORE']);
     $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+    $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+    $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTEE']);
     $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
     $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
     $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
+    $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    //$DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
+    $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
 
-    if (isset($_REQUEST['ICARGAE'])) {
-        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAE']);
+    if (isset($_REQUEST['ICARGADE'])) {
+        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //   $ICARGA_ADO->Despachado($ICARGA);
+        $ICARGA_ADO->Despachado($ICARGA);
     }
 }
 //OPERACION PARA CERRAR LA DESPACHOEX
 if (isset($_REQUEST['CERRAR'])) {
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $ARRAYDDESPACHOEX2 = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEX($_REQUEST['ID']);
+    $ARRAYDDESPACHOEX2 = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEX($_REQUEST['IDP']);
     if (empty($ARRAYDDESPACHOEX2)) {
         $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO SELECIONADO";
         $SINO = "1";
@@ -488,117 +494,109 @@ if (isset($_REQUEST['CERRAR'])) {
         $SINO = "0";
     }
     if ($SINO == "0") {
-
         $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
         $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
         $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
         $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIAE']);
         $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
         $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
+        $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
         $DESPACHOEX->__SET('CANTIDAD_ENVASE_DESPACHOEX', $_REQUEST['TOTALENVASE']);
         $DESPACHOEX->__SET('KILOS_NETO_DESPACHOEX', $_REQUEST['TOTALNETO']);
         $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
-        $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEXE']);
-        $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
         $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
         $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+        $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEXE']);
         $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
         $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
         $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
         $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
+        $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
         $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
         $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
         $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
         $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
         $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
         $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
-        if ($_REQUEST['SNICARGAE'] == "on") {
-            $SNICARGAR = "1";
-            $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGAE']);
+        if ($_REQUEST['TEMBARQUEE'] == "1") {
+            $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
+            $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
+            $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
+            $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
         }
-        if ($_REQUEST['SNICARGAE'] != "on") {
-            $SNICARGAR = "0";
+        if ($_REQUEST['TEMBARQUEE'] == "2") {
+            $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
+            $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+            $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
+            $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
+            $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
         }
-        $DESPACHOEX->__SET('SNICARGA', $SNICARGAR);
-        if ($_REQUEST['TEMBARQUEE']) {
-            if ($_REQUEST['TEMBARQUEE'] == "1") {
-                $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
-                $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
-                $DESPACHOEX->__SET('ID_TVEHICULO', $_REQUEST['TVEHICULOE']);
-                $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
-                $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
-            }
-            if ($_REQUEST['TEMBARQUEE'] == "2") {
-                $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
-                $DESPACHOEX->__SET('ID_AEROLINEA', $_REQUEST['AEROLINIAE']);
-                $DESPACHOEX->__SET('ID_AERONAVE', $_REQUEST['AERONAVEE']);
-                $DESPACHOEX->__SET('NVUELO_DESPACHOEX', $_REQUEST['NVUELOE']);
-                $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
-                $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
-            }
-            if ($_REQUEST['TEMBARQUEE'] == "3") {
-                $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
-                $DESPACHOEX->__SET('ID_NAVE', $_REQUEST['NAVEE']);
-                $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
-                $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
-                $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
-                $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
-            }
+        if ($_REQUEST['TEMBARQUEE'] == "3") {
+            $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
+            $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
+            $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+            $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
+            $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
+            $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
         }
         $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTORE']);
-        $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
         $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+        $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
         $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTEE']);
-        $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-        $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-        $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-        $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['ID']);
+        $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+        $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+        $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+        $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
+        $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //  $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
+        $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
 
-        $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['ID']);
+        $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //  $DESPACHOEX_ADO->cerrado($DESPACHOEX);
+        $DESPACHOEX_ADO->cerrado($DESPACHOEX);
 
-        if (isset($_REQUEST['ICARGAE'])) {
-            $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAE']);
+        if (isset($_REQUEST['ICARGADE'])) {
+            $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            //  $ICARGA_ADO->Despachado($ICARGA);
+            $ICARGA_ADO->Despachado($ICARGA);
         }
-        /*
-        $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEx($_REQUEST['ID']);
-        $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho($_REQUEST['ID']);
+
+        $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEx($_REQUEST['IDP']);
+        $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho($_REQUEST['IDP']);
 
         foreach ($ARRAYPCDESPACHO as $r) :
             $PCDESPACHO->__SET('ID_PCDESPACHO', $r['ID_PCDESPACHO']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $PCDESPACHO_ADO->despachodo($PCDESPACHO);
         endforeach;
-
+        //$DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
         foreach ($ARRAYEXISENCIADESPACHOEX as $r) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+            $EXIEXPORTACION->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $EXIEXPORTACION_ADO->despachado($EXIEXPORTACION);
         endforeach;
 
         //REDIRECCIONAR A PAGINA registroDespachoex.php 
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        if ($_REQUEST['parametro1'] == "crear") {
-            echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver ';</script>";
+        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        
+
+        if ($_SESSION['parametro1'] == "crear") {
+            $_SESSION["parametro"] = $_REQUEST['IDP'];
+            $_SESSION["parametro1"] = "ver";
+            echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?op';</script>";
         }
-        if ($_REQUEST['parametro1'] == "editar") {
-            echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver ';</script>";
-        }*/
+        if ($_SESSION['parametro1'] == "editar") {
+            $_SESSION["parametro"] = $_REQUEST['IDP'];
+            $_SESSION["parametro1"] = "ver";
+            echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?op';</script>";
+        }
     }
 }
 if (isset($_REQUEST['QUITAR'])) {
-
-    $IDEXIEXPORTACIONQUITAR = $_REQUEST['IDEXIEXPORTACIONQUITAR'];
-    $FOLIOEXIEXPORTACIONQUITAR = $_REQUEST['FOLIOEXIEXPORTACIONQUITAR'];
-    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACIONQUITAR);
-    $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $FOLIOEXIEXPORTACIONQUITAR);
+    $IDQUITAR = $_REQUEST['IDQUITAR'];
+    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
     // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    //   $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIEXPORTACION);
+    $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoExCambiarEstado($EXIEXPORTACION);
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -609,7 +607,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
     $ARRAYICARGA = $ICARGA_ADO->listarIcargaCBX();
 
-    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespachoEx($IDOP);
+    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespachoEx2($IDOP);
     $ARRAYDESPACHOTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesDespachoEx($IDOP);
     $ARRAYDESPACHOTOTAL2 = $EXIEXPORTACION_ADO->obtenerTotalesDespachoEx2($IDOP);
 
@@ -646,30 +644,31 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $IDDESPACHOEX = $IDOP;
             $NUMEROVER = "" . $r['NUMERO_DESPACHOEX'];
             $FECHADESPACHOEX = "" . $r['FECHA_DESPACHOEX'];
-            $FECHAINGRESODESPACHOEX = "" . $r['FECHA_INGRESOR'];
-            $FECHAMODIFCIACIONDESPACHOEX = "" . $r['FECHA_MODIFICACIONR'];
+            $FECHAINGRESODESPACHOEX = "" . $r['INGRESO'];
+            $FECHAMODIFCIACIONDESPACHOEX = "" . $r['MODIFICACION'];
             $NUMEROSELLO = "" . $r['NUMERO_SELLO_DESPACHOEX'];
             $NUMEROCONTENDORDESPACHOEX = "" . $r['NUMERO_CONTENEDOR_DESPACHOEX'];
             $NUMEROPLANILLADESPACHOEX =  "" . $r['NUMERO_PLANILLA_DESPACHOEX'];
             $TERMOGRAFODESPACHOEX =  "" . $r['TERMOGRAFO_DESPACHOEX'];
-            $FECHAGUIA = "" . $r['FECHA_GUIA'];
+            $FECHAGUIA = "" . $r['FECHA_GUIA_DESPACHOEX'];
             $NUMEROGUIA = "" . $r['NUMERO_GUIA_DESPACHOEX'];
             $OBSERVACIONDESPACHOEX = "" . $r['OBSERVACION_DESPACHOEX'];
             $PATENTECAMION = "" . $r['PATENTE_CAMION'];
             $PATENTECARRO = "" . $r['PATENTE_CARRO'];
             $INPECTOR =  "" . $r['ID_INPECTOR'];
-            if ($r['SNICARGA'] == "1") {
-                $SNICARGA = "on";
-                $ICARGA  = "" . $r['ID_ICARGA'];
-            } else {
-                $SNICARGA = "";
-            }
             $CONTRAPARTE =  "" . $r['ID_CONTRAPARTE'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            if ($r['SNICARGA'] == "1") {
+                $SNICARGA = "on";
+                $ARRAYICARGA = $ICARGA_ADO->listarIcargaTomadoCBX($EMPRESA, $TEMPORADA);
+                $ICARGAD  = "" . $r['ID_ICARGA'];
+            } else {
+                $SNICARGA = "";
+            }
             $TEMBARQUE = $r['TEMBARQUE_DESPACHOEX'];
             $FECHAETD = $r['FECHAETD_DESPACHOEX'];
             $FECHAETA = $r['FECHAETA_DESPACHOEX'];
@@ -684,38 +683,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 if ($TEMBARQUE == "1") {
                     $CRT = $r['CRT_DESPACHOEX'];
                     $TRANSPORTE2 = $r['ID_TRANSPORTE2'];
-                    $ARRAYTVEHICULO = $TVEHICULO_ADO->buscarTvehiculoPorTransporte($TRANSPORTE2);
-                    $TVEHICULO = $r['ID_TVEHICULO'];
                     $LCARGA = $r['ID_LCARGA'];
                     $LDESTINO = $r['ID_LDESTINO'];
                 }
                 if ($TEMBARQUE == "2") {
                     $LAEREA = $r['ID_LAREA'];
-                    $ARRAYAEROLINIA = $AEROLINIA_ADO->buscarAerolineaPorLarea($LAEREA);
-                    $ARRAYAERONAVE = $AERONAVE_ADO->buscarAeronavePorLarea($LAEREA);
-                    $AEROLINIA = $r['ID_AEROLINEA'];
-                    $AERONAVE = $r['ID_AERONAVE'];
-                    $NVUELO = $r['NVUELO_DESPACHOEX'];
+                    $NVIAJE = $r['NVIAJE_DESPACHOEX'];
+                    $NAVE = $r['NAVE_DESPACHOEX'];
                     $ACARGA = $r['ID_ACARGA'];
                     $ADESTINO = $r['ID_ADESTINO'];
                 }
                 if ($TEMBARQUE == "3") {
-                    $NAVIERA = $r['ID_NAVIERA'];
-                    $ARRAYNAVE = $NAVE_ADO->buscarNavePorNaviera($NAVIERA);
-                    $NAVE = $r['ID_NAVE'];
                     $FECHASTACKING = $r['FECHASTACKING_DESPACHOEX'];
+                    $NAVIERA = $r['ID_NAVIERA'];
+                    $NAVE = $r['NAVE_DESPACHOEX'];
                     $NVIAJE = $r['NVIAJE_DESPACHOEX'];
                     $PCARGA = $r['ID_PCARGA'];
                     $PDESTINO = $r['ID_PDESTINO'];
                 }
             }
             $ESTADO = "" . $r['ESTADO'];
-            if ($ESTADO == "0") {
-                $ARRAYICARGA = $ICARGA_ADO->listarIcargaTomadoCBX();
-            }
-
-
-
         endforeach;
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -731,8 +718,71 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         $DISABLEDMENU = "disabled";
         $DISABLEDSTYLE = "style='background-color: #eeeeee;'";
         $ARRAYDESPACHOEX = $DESPACHOEX_ADO->verDespachoex($IDOP);
-        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
+        foreach ($ARRAYDESPACHOEX as $r) :
+            $IDDESPACHOEX = $IDOP;
+            $NUMEROVER = "" . $r['NUMERO_DESPACHOEX'];
+            $FECHADESPACHOEX = "" . $r['FECHA_DESPACHOEX'];
+            $FECHAINGRESODESPACHOEX = "" . $r['INGRESO'];
+            $FECHAMODIFCIACIONDESPACHOEX = "" . $r['MODIFICACION'];
+            $NUMEROSELLO = "" . $r['NUMERO_SELLO_DESPACHOEX'];
+            $NUMEROCONTENDORDESPACHOEX = "" . $r['NUMERO_CONTENEDOR_DESPACHOEX'];
+            $NUMEROPLANILLADESPACHOEX =  "" . $r['NUMERO_PLANILLA_DESPACHOEX'];
+            $TERMOGRAFODESPACHOEX =  "" . $r['TERMOGRAFO_DESPACHOEX'];
+            $FECHAGUIA = "" . $r['FECHA_GUIA_DESPACHOEX'];
+            $NUMEROGUIA = "" . $r['NUMERO_GUIA_DESPACHOEX'];
+            $OBSERVACIONDESPACHOEX = "" . $r['OBSERVACION_DESPACHOEX'];
+            $PATENTECAMION = "" . $r['PATENTE_CAMION'];
+            $PATENTECARRO = "" . $r['PATENTE_CARRO'];
+            $INPECTOR =  "" . $r['ID_INPECTOR'];
+            $CONTRAPARTE =  "" . $r['ID_CONTRAPARTE'];
+            $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
+            $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $PLANTA = "" . $r['ID_PLANTA'];
+            $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            if ($r['SNICARGA'] == "1") {
+                $SNICARGA = "on";
+                $ARRAYICARGA = $ICARGA_ADO->listarIcargaTomadoCBX($EMPRESA, $TEMPORADA);
+                $ICARGAD  = "" . $r['ID_ICARGA'];
+            } else {
+                $SNICARGA = "";
+            }
+            $TEMBARQUE = $r['TEMBARQUE_DESPACHOEX'];
+            $FECHAETD = $r['FECHAETD_DESPACHOEX'];
+            $FECHAETA = $r['FECHAETA_DESPACHOEX'];
+            $BOOKINGINSTRUCTIVO = $r['BOOKING_DESPACHOEX'];
+            $EXPORTADORA = $r['ID_EXPPORTADORA'];
+            $RFINAL = $r['ID_RFINAL'];
+            $AGCARGA = $r['ID_AGCARGA'];
+            $DFINAL = $r['ID_DFINAL'];
+            $PAIS = $r['ID_PAIS'];
+            $MERCADO = $r['ID_MERCADO'];
+            if ($TEMBARQUE) {
+                if ($TEMBARQUE == "1") {
+                    $CRT = $r['CRT_DESPACHOEX'];
+                    $TRANSPORTE2 = $r['ID_TRANSPORTE2'];
+                    $LCARGA = $r['ID_LCARGA'];
+                    $LDESTINO = $r['ID_LDESTINO'];
+                }
+                if ($TEMBARQUE == "2") {
+                    $LAEREA = $r['ID_LAREA'];
+                    $NVIAJE = $r['NVIAJE_DESPACHOEX'];
+                    $NAVE = $r['NAVE_DESPACHOEX'];
+                    $ACARGA = $r['ID_ACARGA'];
+                    $ADESTINO = $r['ID_ADESTINO'];
+                }
+                if ($TEMBARQUE == "3") {
+                    $FECHASTACKING = $r['FECHASTACKING_DESPACHOEX'];
+                    $NAVIERA = $r['ID_NAVIERA'];
+                    $NAVE = $r['NAVE_DESPACHOEX'];
+                    $NVIAJE = $r['NVIAJE_DESPACHOEX'];
+                    $PCARGA = $r['ID_PCARGA'];
+                    $PDESTINO = $r['ID_PDESTINO'];
+                }
+            }
+            $ESTADO = "" . $r['ESTADO'];
+        endforeach;
     }
     //ver =  OBTENCION DE DATOS PARA LA VISUALIZACION DEL REGISTRO
     if ($OP == "ver") {
@@ -748,9 +798,71 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
         //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
         $ARRAYDESPACHOEX = $DESPACHOEX_ADO->verDespachoex($IDOP);
-        //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
-
+        foreach ($ARRAYDESPACHOEX as $r) :
+            $IDDESPACHOEX = $IDOP;
+            $NUMEROVER = "" . $r['NUMERO_DESPACHOEX'];
+            $FECHADESPACHOEX = "" . $r['FECHA_DESPACHOEX'];
+            $FECHAINGRESODESPACHOEX = "" . $r['INGRESO'];
+            $FECHAMODIFCIACIONDESPACHOEX = "" . $r['MODIFICACION'];
+            $NUMEROSELLO = "" . $r['NUMERO_SELLO_DESPACHOEX'];
+            $NUMEROCONTENDORDESPACHOEX = "" . $r['NUMERO_CONTENEDOR_DESPACHOEX'];
+            $NUMEROPLANILLADESPACHOEX =  "" . $r['NUMERO_PLANILLA_DESPACHOEX'];
+            $TERMOGRAFODESPACHOEX =  "" . $r['TERMOGRAFO_DESPACHOEX'];
+            $FECHAGUIA = "" . $r['FECHA_GUIA_DESPACHOEX'];
+            $NUMEROGUIA = "" . $r['NUMERO_GUIA_DESPACHOEX'];
+            $OBSERVACIONDESPACHOEX = "" . $r['OBSERVACION_DESPACHOEX'];
+            $PATENTECAMION = "" . $r['PATENTE_CAMION'];
+            $PATENTECARRO = "" . $r['PATENTE_CARRO'];
+            $INPECTOR =  "" . $r['ID_INPECTOR'];
+            $CONTRAPARTE =  "" . $r['ID_CONTRAPARTE'];
+            $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
+            $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
+            $EMPRESA = "" . $r['ID_EMPRESA'];
+            $PLANTA = "" . $r['ID_PLANTA'];
+            $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            if ($r['SNICARGA'] == "1") {
+                $SNICARGA = "on";
+                $ARRAYICARGA = $ICARGA_ADO->listarIcargaTomadoCBX($EMPRESA, $TEMPORADA);
+                $ICARGAD  = "" . $r['ID_ICARGA'];
+            } else {
+                $SNICARGA = "";
+            }
+            $TEMBARQUE = $r['TEMBARQUE_DESPACHOEX'];
+            $FECHAETD = $r['FECHAETD_DESPACHOEX'];
+            $FECHAETA = $r['FECHAETA_DESPACHOEX'];
+            $BOOKINGINSTRUCTIVO = $r['BOOKING_DESPACHOEX'];
+            $EXPORTADORA = $r['ID_EXPPORTADORA'];
+            $RFINAL = $r['ID_RFINAL'];
+            $AGCARGA = $r['ID_AGCARGA'];
+            $DFINAL = $r['ID_DFINAL'];
+            $PAIS = $r['ID_PAIS'];
+            $MERCADO = $r['ID_MERCADO'];
+            if ($TEMBARQUE) {
+                if ($TEMBARQUE == "1") {
+                    $CRT = $r['CRT_DESPACHOEX'];
+                    $TRANSPORTE2 = $r['ID_TRANSPORTE2'];
+                    $LCARGA = $r['ID_LCARGA'];
+                    $LDESTINO = $r['ID_LDESTINO'];
+                }
+                if ($TEMBARQUE == "2") {
+                    $LAEREA = $r['ID_LAREA'];
+                    $NVIAJE = $r['NVIAJE_DESPACHOEX'];
+                    $NAVE = $r['NAVE_DESPACHOEX'];
+                    $ACARGA = $r['ID_ACARGA'];
+                    $ADESTINO = $r['ID_ADESTINO'];
+                }
+                if ($TEMBARQUE == "3") {
+                    $FECHASTACKING = $r['FECHASTACKING_DESPACHOEX'];
+                    $NAVIERA = $r['ID_NAVIERA'];
+                    $NAVE = $r['NAVE_DESPACHOEX'];
+                    $NVIAJE = $r['NVIAJE_DESPACHOEX'];
+                    $PCARGA = $r['ID_PCARGA'];
+                    $PDESTINO = $r['ID_PDESTINO'];
+                }
+            }
+            $ESTADO = "" . $r['ESTADO'];
+        endforeach;
     }
 }
 //PROCESO PARA OBTENER LOS DATOS DEL FORMULARIO  Y MANTENERLO AL ACTUALIZACION QUE REALIZA EL SELECT DE CONDUCTOR
@@ -1449,7 +1561,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";
+            <?php include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -1511,6 +1623,12 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESAE" name="EMPRESAE" value="<?php echo $EMPRESA; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTAE" name="PLANTAE" value="<?php echo $PLANTA; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADAE" name="TEMPORADAE" value="<?php echo $TEMPORADA; ?>" />
+
+
+
+                                                <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
+                                                <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
+                                                <input type="hidden" class="form-control" id="TOTALBRUTO" name="TOTALBRUTO" value="<?php echo $TOTALBRUTO; ?>" />
 
                                                 <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
@@ -2315,31 +2433,30 @@ if (isset($_POST)) {
                                 <div class="box-footer">
                                     <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
-                                            <form>
-                                                <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachoEX.php');">
-                                                    <i class="ti-trash"></i>
-                                                </button>
-                                                <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i>
-                                                </button>
-                                            <?php } ?>
-                                            <?php if ($OP != "") { ?>
-                                                <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachoEX.php'); ">
-                                                    <i class="ti-back-left "></i>
-                                                </button>
-                                                <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                    <i class="ti-pencil-alt"></i>
-                                                </button>
-                                                <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPackingList.php?parametro=<?php echo $IDOP; ?>">
-                                                    <i class="fa fa-file-pdf-o"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeComercialDespacho.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                    <i class="fa fa-file-pdf-o"></i>
-                                                </button>
-                                            <?php } ?>
+                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachoEX.php');">
+                                                <i class="ti-trash"></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
+                                                <i class="ti-save-alt"></i>
+                                            </button>
+                                        <?php } ?>
+                                        <?php if ($OP != "") { ?>
+                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachoEX.php'); ">
+                                                <i class="ti-back-left "></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <i class="ti-pencil-alt"></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoExPackingList.php?parametro=<?php echo $IDOP; ?>');">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoexComercial.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </button>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </form>
@@ -2370,67 +2487,109 @@ if (isset($_POST)) {
                                                         </th>
                                                         <th class="text-center">Operaciónes</th>
                                                         <th>Fecha Embalado </th>
-                                                        <th>Cantidad Envase </th>
-                                                        <th>Kilo Neto </th>
+                                                        <th>Código Estandar</th>
+                                                        <th>Envase/Estandar</th>
+                                                        <th>Variedad</th>
+                                                        <th>Cantidad Envase</th>
+                                                        <th>Kilos Neto</th>
+                                                        <th>% Deshidratacion</th>
+                                                        <th>Kilos Deshidratacion</th>
+                                                        <th>Kilos Bruto</th>
                                                         <th>CSG</th>
                                                         <th>Productor</th>
-                                                        <th>Variedad</th>
-                                                        <th>Estandar </th>
+                                                        <th>Embolsado</th>
+                                                        <th>Tipo Manejo</th>
+                                                        <th>Calibre </th>
+                                                        <th>Embalaje </th>
+                                                        <th>Stock</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <form method="post" id="form2">
-                                                        <?php if ($ARRAYTOMADO) { ?>
-                                                            <?php foreach ($ARRAYTOMADO as $r) : ?>
-                                                                <tr class="center">
-                                                                    <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
-                                                                    <td>
-                                                                        <form method="post" id="form1">
-                                                                            <input type="hidden" class="form-control" id="IDEXIEXPORTACIONQUITAR" name="IDEXIEXPORTACIONQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                            <input type="hidden" class="form-control" id="FOLIOEXIEXPORTACIONQUITAR" name="FOLIOEXIEXPORTACIONQUITAR" value="<?php echo $r['FOLIO_EXIEXPORTACION']; ?>" />
-                                                                            <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                                <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </td>
-                                                                    <td><?php echo $r['FECHA_EMBALADO_EXIEXPORTACION']; ?></td>
-                                                                    <td><?php echo $r['CANTIDAD_ENVASE_EXIEXPORTACION']; ?></td>
-                                                                    <td><?php echo $r['KILOS_NETO_EXIEXPORTACION']; ?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                                        echo $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                        ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php
-                                                                        echo $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                                        ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php
-
-                                                                        $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-                                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
-                                                                        echo $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                                        ?>
-                                                                    </td>
-
-                                                                    <td>
-                                                                        <?php
-                                                                        $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                                        echo $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                                        ?>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php endforeach; ?>
-                                                        <?php } ?>
-                                                    </form>
+                                                    <?php if ($ARRAYTOMADO) { ?>
+                                                        <?php foreach ($ARRAYTOMADO as $r) : ?>
+                                                            <?php
+                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                            if ($ARRAYVERPRODUCTORID) {
+                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                            } else {
+                                                                $CSGPRODUCTOR = "Sin Datos";
+                                                                $NOMBREPRODUCTOR = "Sin Datos";
+                                                            }
+                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                            if ($ARRAYVERVESPECIESID) {
+                                                                $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                            } else {
+                                                                $NOMBREVARIEDAD = "Sin Datos";
+                                                            }
+                                                            $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                            if ($ARRAYEVERERECEPCIONID) {
+                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                            } else {
+                                                                $NOMBREESTANDAR = "Sin Datos";
+                                                                $CODIGOESTANDAR = "Sin Datos";
+                                                            }
+                                                            if ($r['EMBOLSADO'] == "1") {
+                                                                $EMBOLSADO =  "SI";
+                                                            }
+                                                            if ($r['EMBOLSADO'] == "0") {
+                                                                $EMBOLSADO =  "NO";
+                                                            }
+                                                            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                            if ($ARRAYTMANEJO) {
+                                                                $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                            } else {
+                                                                $NOMBRETMANEJO = "Sin Datos";
+                                                            }
+                                                            $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                            if ($ARRAYTCALIBRE) {
+                                                                $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                            } else {
+                                                                $NOMBRETCALIBRE = "Sin Datos";
+                                                            }
+                                                            $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                            if ($ARRAYTEMBALAJE) {
+                                                                $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                            } else {
+                                                                $NOMBRETEMBALAJE = "Sin Datos";
+                                                            }
+                                                            ?>
+                                                            <tr class="center">
+                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                <td>
+                                                                    <form method="post" id="form1">
+                                                                        <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
+                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                    echo "disabled";
+                                                                                                                                                                                                                                                } ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </td>
+                                                                <td><?php echo $r['EMBALADO']; ?></td>
+                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                                <td><?php echo $r['ENVASE']; ?></td>
+                                                                <td><?php echo $r['NETO']; ?></td>
+                                                                <td><?php echo $r['PORCENTAJE']; ?></td>
+                                                                <td><?php echo $r['DESHIRATACION']; ?></td>
+                                                                <td><?php echo $r['BRUTO']; ?></td>
+                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                <td><?php echo $EMBOLSADO; ?></td>
+                                                                <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                                <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                                <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                                <td><?php echo $r['STOCKR']; ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
-
                                         </div>
                                     </div>
                                 </div>
@@ -2444,7 +2603,7 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONPT" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONPT" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONPT" id="URLP" name="URLP" value="registroDespachoEX" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroSelecionPCdespacho" />
+                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroSelecionPCDespachoEx" />
                                                             <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion PC" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
                                                                                                                                                                                                                                         echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                                     } ?>>
@@ -2461,7 +2620,7 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONPT" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONPT" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONPT" id="URLP" name="URLP" value="registroDespachoEX" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroSelecionExistenciaDespachoExPT" />
+                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroSelecionExistenciaPTDespachoEx" />
                                                             <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
                                                                                                                                                                                                                                                 echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                                             } ?>>
@@ -2517,17 +2676,16 @@ if (isset($_POST)) {
                     <!-- /.content -->
                 </div>
             </div>
+
+
+
+
+            <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
+                <?php include_once "../config/footer.php"; ?>
+                <?php include_once "../config/menuExtra.php"; ?>
     </div>
-
-
-
-
-    <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
-        </div>
-        <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-            <?php include_once "../config/urlBase.php"; ?>
+    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
+        <?php include_once "../config/urlBase.php"; ?>
 </body>
 
 </html>

@@ -2937,6 +2937,22 @@ if (isset($_POST)) {
                                                 <tbody>
                                                     <?php if ($ARRAYDCARGA) { ?>
                                                         <?php foreach ($ARRAYDCARGA as $s) : ?>
+
+                                                            <?php
+                                                            $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
+                                                            if ($ARRAYEEXPORTACION) {
+                                                                $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                            } else {
+                                                                $NOMBREESTANTAR = "Sin Datos";
+                                                            }
+                                                            $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
+                                                            if ($ARRAYCALIBRE) {
+                                                                $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                            } else {
+                                                                $NOMBRECALIBRE = "Sin Datos";
+                                                            }
+                                                            ?>
+
                                                             <tr class="center">
                                                                 <td>
                                                                     <form method="post" id="form1">
@@ -2965,21 +2981,11 @@ if (isset($_POST)) {
                                                                         </div>
                                                                     </form>
                                                                 </td>
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
-                                                                    echo $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
-                                                                    ?>
-                                                                </td>
+                                                                <td><?php echo $NOMBREESTANTAR; ?></td>
                                                                 <td><?php echo $s['CANTIDAD_ENVASE_DICARGA']; ?></td>
                                                                 <td><?php echo $s['KILOS_NETO_DICARGA']; ?></td>
                                                                 <td><?php echo $s['KILOS_BRUTO_DICARGA']; ?></td>
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
-                                                                    echo $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                                    ?>
-                                                                </td>
+                                                                <td><?php echo $NOMBRECALIBRE; ?></td>
                                                                 <td><?php echo $s['PRECIO_US_DICARGA']; ?></td>
                                                                 <td><?php echo $s['TOTAL_PRECIO_US_DICARGA']; ?></td>
                                                             </tr>
