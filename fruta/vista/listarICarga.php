@@ -194,7 +194,7 @@ include_once "../config/datosUrLP.php";
                                         <div class="table-responsive">
                                             <table id="modulo" class="table table-hover " style="width: 100%;">
                                                 <thead>
-                                                    <tr>
+                                                    <tr class="text-left">
                                                         <th>Número </th>
                                                         <th>Estado</th>
                                                         <th>Fecha Instructivo</th>
@@ -256,7 +256,7 @@ include_once "../config/datosUrLP.php";
                                                         }
 
                                                         ?>
-                                                        <tr class="center">
+                                                        <tr class="text-left">
                                                             <td> <?php echo $r['NUMERO_ICARGA']; ?>  </td>
                                                             <td>
                                                                 <?php if ($r['ESTADO'] == "0") { ?>

@@ -209,10 +209,10 @@ include_once "../config/datosUrLP.php";
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
-                                                <tr>
+                                                <tr class="text-left">
                                                     <th>Numero </th>
                                                     <th>Estado</th>
-                                                    <th>Operaciónes</th>
+                                                    <th class="text-center">Operaciónes</th>
                                                     <th>Fecha Inspección </th>
                                                     <th>Tipo Inspección </th>
                                                     <th>Condicción </th>
@@ -261,7 +261,7 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     ?>
 
-                                                    <tr class="center">
+                                                    <tr class="text-left">
                                                         <td> <?php echo $r['NUMERO_INPSAG']; ?></td>
                                                         <td>
                                                             <?php if ($r['ESTADO'] == "0") { ?>

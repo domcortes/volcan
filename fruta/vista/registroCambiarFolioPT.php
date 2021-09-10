@@ -206,7 +206,7 @@ include_once "../config/datosUrLE.php";
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
                                                         <th>Folio Actual</th>
-                                                        <th>Operaciónes</th>
+                                                        <th class="text-center">Operaciónes</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
                                                         <th>Condición </th>

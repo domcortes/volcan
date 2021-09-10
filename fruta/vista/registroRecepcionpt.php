@@ -1320,7 +1320,7 @@ if (isset($_POST)) {
                                                         <tr class="text-lef">
                                                             <td><?php echo $CONTADOR ?></td>
                                                             <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <input type="hidden" class="form-control" placeholder="ID DRECEPCIONE" id="IDD" name="IDD" value="<?php echo $s['ID_DRECEPCION']; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />

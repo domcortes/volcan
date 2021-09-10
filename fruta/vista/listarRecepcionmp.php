@@ -211,10 +211,10 @@ include_once "../config/datosUrLP.php";
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
-                                                <tr>
+                                                <tr class="text-left">
                                                     <th>Numero Recepcion </th>
                                                     <th>Estado</th>
-                                                    <th>Operaciones</th>
+                                                    <th class="text-center">Operaciones</th>
                                                     <th>Empresa</th>
                                                     <th>Fecha Recepcion </th>
                                                     <th>Hora Recepcion </th>
@@ -237,7 +237,7 @@ include_once "../config/datosUrLP.php";
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYRECEPCION as $r) : ?>
-                                                    <tr class="center">
+                                                    <tr class="text-left">
                                                         <td>
                                                             <a href="#" class="text-warning hover-warning">
                                                                 <?php echo $r['NUMERO_RECEPCION']; ?>
