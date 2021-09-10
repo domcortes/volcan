@@ -219,7 +219,7 @@ $(function () {
 
     //LISTA DE SELECION DE EXISTENCIA PARA LOS MODULOS
     $('#selecionExistencia').DataTable({
-        "scrollY": 450,
+        "scrollY": 400,
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
