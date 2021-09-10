@@ -4,14 +4,8 @@ include_once "../config/validarUsuario.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
@@ -21,15 +15,8 @@ include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/PCDESPACHO_ADO.php';
 
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
-
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
@@ -58,19 +45,15 @@ $ARRAYPCDESPACHOTOTAL = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYPCDESPACHO = $PCDESPACHO_ADO->listarPcdespachoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYPCDESPACHO = $PCDESPACHO_ADO->listarPcdespachoEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYPCDESPACHOTOTAL = $PCDESPACHO_ADO->obtenerTotalesPcdespachoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALENVASE = $ARRAYPCDESPACHOTOTAL[0]['ENVASE'];
-    $TOTALNETO = $ARRAYPCDESPACHOTOTAL[0]['NETO'];
-} else {
-    $ARRAYPCDESPACHO = $PCDESPACHO_ADO->listarPcdespachoCBX();
-    $ARRAYPCDESPACHOTOTAL = $PCDESPACHO_ADO->obtenerTotalesPcdespachoCBX();
     $TOTALENVASE = $ARRAYPCDESPACHOTOTAL[0]['ENVASE'];
     $TOTALNETO = $ARRAYPCDESPACHOTOTAL[0]['NETO'];
 }
 
 
-
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrLP.php";
 
 ?>
 
@@ -137,6 +120,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
                     window.open(url, 'window', opciones);
                 }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
             </script>
 
 </head>
@@ -161,7 +149,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Planificador Carga</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="listarPcdespacho.php"> Agrupado Planificador Carga </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Planificador Carga </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -188,25 +176,23 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                             </div>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
-
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
                                             <table id="modulo" class="table table-hover " style="width: 100%;">
                                                 <thead>
-                                                    <tr>
+                                                    <tr class="text-left">
                                                         <th>
                                                             <a href="#" class="text-warning hover-warning">
                                                                 Número
                                                             </a>
                                                         </th>
                                                         <th>Estado </th>
-                                                        <th>Operaciónes </th>
+                                                        <th class="text-center">Operaciónes </th>
                                                         <th>Estado PC</th>
                                                         <th>Fecha PC </th>
                                                         <th>Motivo </th>
@@ -216,134 +202,116 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYPCDESPACHO as $r) : ?>
-                                                        <tr class="center">
+
+                                                        <?php
+                                                        if ($r['ESTADO_PCDESPACHO'] == "1") {
+                                                            $ESTADODESPACHO = "Creado";
+                                                        }
+                                                        if ($r['ESTADO_PCDESPACHO'] == "2") {
+                                                            $ESTADODESPACHO = "Confirmado";
+                                                        }
+                                                        if ($r['ESTADO_PCDESPACHO'] == "3") {
+                                                            $ESTADODESPACHO =  "En Despacho";
+                                                        }
+                                                        if ($r['ESTADO_PCDESPACHO'] == "4") {
+                                                            $ESTADODESPACHO = "Despachado";
+                                                        }
+                                                        ?>
+                                                        <tr class="text-left">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['NUMERO_PCDESPACHO']; ?>
                                                                 </a>
                                                             </td>
-                                                            <td <?php if ($r['ESTADO'] == "0") {
-                                                                    echo "style='background-color: #FF0000;'";
-                                                                }
-                                                                if ($r['ESTADO'] == "1") {
-                                                                    echo "style='background-color: #4AF575;'";
-                                                                }  ?>>
-                                                                <?php
-                                                                if ($r['ESTADO'] == "0") {
-                                                                    echo "Cerrado";
-                                                                }
-                                                                if ($r['ESTADO'] == "1") {
-                                                                    echo "Abierto";
-                                                                }
-                                                                ?>
+                                                            <td>
+                                                                <?php if ($r['ESTADO'] == "0") { ?>
+                                                                    <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                                <?php  }  ?>
+                                                                <?php if ($r['ESTADO'] == "1") { ?>
+                                                                    <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                                <?php  }  ?>
                                                             </td>
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <i class="glyphicon glyphicon-cog"></i>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-
-                                                                                <?php if ($r['ESTADO'] == 0) { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="informe" Onclick="abrirVentana('../documento/informePcdespacho.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
-                                                                                    </button>Informe <br>
-                                                                                <div class="dropdown-divider"></div>
-                                                                                <?php } ?>
-                                                                                <?php if ($r['ESTADO'] == 1) { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline mr-1" id="defecto" name="editar" Onclick="irPagina('registroPcdespacho.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&parametro1=editar'); ">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>Editar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PCDESPACHO']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroPcdespacho" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarPcdespacho" />
                                                                                 <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline mr-1" id="defecto" name="ver" Onclick="irPagina('registroPcdespacho.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&parametro1=ver'); ">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>Ver
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                        <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                            <i class="ti-eye"></i>
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
+                                                                                <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                        <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                            <i class="ti-pencil-alt"></i>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informePcdespacho.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                    </button>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </form>
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                if ($r['ESTADO_PCDESPACHO'] == "1") {
-                                                                    echo "Creado";
-                                                                }
-                                                                if ($r['ESTADO_PCDESPACHO'] == "2") {
-                                                                    echo "Confirmado";
-                                                                }
-                                                                if ($r['ESTADO_PCDESPACHO'] == "3") {
-                                                                    echo "En Despacho";
-                                                                }
-                                                                if ($r['ESTADO_PCDESPACHO'] == "4") {
-                                                                    echo "Despachado";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td><?php echo $r['FECHA_PCDESPACHO']; ?> </td>
+                                                            <td><?php echo $ESTADODESPACHO; ?> </td>
+                                                            <td><?php echo $r['FECHA']; ?> </td>
                                                             <td><?php echo $r['MOTIVO_PCDESPACHO']; ?> </td>
-                                                            <td><?php echo $r['CANTIDAD_ENVASE_PCDESPACHO']; ?> </td>
-                                                            <td><?php echo $r['KILOS_NETO_PCDESPACHO']; ?> </td>
+                                                            <td><?php echo $r['ENVASE']; ?> </td>
+                                                            <td><?php echo $r['NETO']; ?> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="box-footer">
-
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 col-xs-8">
                                         <div class="form-group">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Envase </label>
                                             <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Neto </label>
                                             <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <!-- /.box -->
-
                     </section>
                     <!-- /.content -->
-
                 </div>
             </div>
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../config/footer.php"; ?>
                 <?php include_once "../config/menuExtra.php"; ?>
     </div>
-
-
-
-
-
-    <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
-        </div>
-        <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-            <?php include_once "../config/urlBase.php"; ?>
+    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
+        <?php include_once "../config/urlBase.php"; ?>
 </body>
 
 </html>

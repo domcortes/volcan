@@ -520,7 +520,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <!--
           <li><a href="listarExiexportacionAComercial.php"><i class="ti-more"></i> Existencia P. Terminado</a></li>-->
         </ul>
-      </li>      
+      </li>
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/transactions.svg" class="svg-icon" alt="">
@@ -541,9 +541,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarInpsag.php"><i class="ti-more"></i>Agrupado Inapección </a></li>
             </ul>
           </li>
-         <!--<li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>-->
+          <!--<li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>-->
         </ul>
-      </li>      
+      </li>
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/maps.svg" class="svg-icon" alt="">
@@ -610,7 +610,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarDespachoEX.php"><i class="ti-more"></i>Agrupado Despacho</a></li>
             </ul>
           </li>
-          <!--
           <li class="treeview">
             <a href="#">Planificador Carga
               <span class="pull-left-container">
@@ -622,7 +621,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarPcdespacho.php"><i class="ti-more"></i>Agrupado PC</a></li>
             </ul>
           </li>
-                -->
           <li><a href="listarExiexportacionFrigorifico.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
           <li><a href="listarExiexportacionDespachadoFrigorifico.php"><i class="ti-more"></i>Despacho P. Terminado</a></li>
           <li><a href="registroCambiarFolioPT.php"><i class="ti-more"></i>Cambiar Folio P. Terminado</a></li>

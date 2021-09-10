@@ -579,7 +579,6 @@ if (isset($_REQUEST['CERRAR'])) {
 
         //REDIRECCIONAR A PAGINA registroDespachoex.php 
         //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        
-
         if ($_SESSION['parametro1'] == "crear") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
             $_SESSION["parametro1"] = "ver";
@@ -2485,6 +2484,7 @@ if (isset($_POST)) {
                                                                 N° Folio
                                                             </a>
                                                         </th>
+                                                        <th>Condición </th>
                                                         <th class="text-center">Operaciónes</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Código Estandar</th>
@@ -2508,6 +2508,24 @@ if (isset($_POST)) {
                                                     <?php if ($ARRAYTOMADO) { ?>
                                                         <?php foreach ($ARRAYTOMADO as $r) : ?>
                                                             <?php
+                                                            if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                                $ESTADOSAG = "Sin Condición";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "1") {
+                                                                $ESTADOSAG =  "En Inspección";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "2") {
+                                                                $ESTADOSAG =  "Aprobado Origen";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "3") {
+                                                                $ESTADOSAG =  "Aprobado USLA";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "4") {
+                                                                $ESTADOSAG =  "Fumigado";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "5") {
+                                                                $ESTADOSAG =  "Rechazado";
+                                                            }
                                                             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                             if ($ARRAYVERPRODUCTORID) {
                                                                 $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
@@ -2557,6 +2575,7 @@ if (isset($_POST)) {
                                                             ?>
                                                             <tr class="center">
                                                                 <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                <td><?php echo $ESTADOSAG; ?></td>
                                                                 <td>
                                                                     <form method="post" id="form1">
                                                                         <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
@@ -2600,10 +2619,10 @@ if (isset($_POST)) {
                                                 <td class=" center">
                                                     <form method="post" id="form2" name="form2">
                                                         <div class="form-group">
-                                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONPT" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="OP RECEPCIONPT" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="URL RECEPCIONPT" id="URLP" name="URLP" value="registroDespachoEX" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroSelecionPCDespachoEx" />
+                                                            <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLP" name="URLP" value="registroDespachoEX" />
+                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionPCDespachoEx" />
                                                             <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion PC" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
                                                                                                                                                                                                                                         echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                                     } ?>>
@@ -2617,10 +2636,10 @@ if (isset($_POST)) {
                                                 <td class=" center">
                                                     <form method="post" id="form3" name="form3">
                                                         <div class="form-group">
-                                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONPT" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="OP RECEPCIONPT" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="URL RECEPCIONPT" id="URLP" name="URLP" value="registroDespachoEX" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroSelecionExistenciaPTDespachoEx" />
+                                                            <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLP" name="URLP" value="registroDespachoEX" />
+                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTDespachoEx" />
                                                             <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
                                                                                                                                                                                                                                                 echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                                             } ?>>
@@ -2653,7 +2672,6 @@ if (isset($_POST)) {
                                                     </div>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <th>Total Bruto</th>
                                             </tr>
@@ -2669,8 +2687,6 @@ if (isset($_POST)) {
                                     </table>
                                 </div>
                             </div>
-
-
                         </div>
                     </section>
                     <!-- /.content -->

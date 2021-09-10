@@ -12,15 +12,18 @@ include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 
 
-include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../controlador/PCDESPACHO_ADO.php';
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 
-include_once '../modelo/DESPACHOEX.php';
+include_once '../modelo/PCDESPACHO.php';
 include_once '../modelo/EXIEXPORTACION.php';
 
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
+$PCDESPACHO_ADO =  new PCDESPACHO_ADO();
+$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
+
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
@@ -30,11 +33,9 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
 
-$DESPACHOEX_ADO =  new DESPACHOEX_ADO();
-$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 
 //INIICIALIZAR MODELO
-$DESPACHOEX =  new DESPACHOEX();
+$PCDESPACHO =  new PCDESPACHO();
 $EXIEXPORTACION =  new EXIEXPORTACION();
 
 
@@ -53,7 +54,7 @@ $TOTALCAJAS = 0;
 $TOTALNETO = 0;
 
 
-$IDDESPACHOEX = "";
+$IDPCDESPACHO = "";
 
 $EMPRESA = "";
 $PLANTA = "";
@@ -96,22 +97,27 @@ $ARRAYTMANEJO = "";
 //OPERACION DE REGISTRO DE FILA
 
 if (isset($_REQUEST['AGREGAR'])) {
-    $IDDESPACHOEX = $_REQUEST['IDP'];
+
+    $IDPCDESPACHO = $_REQUEST['IDP'];
+
     if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
-        $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
         $SINO = "0";
+        $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
     } else {
         $SINO = "1";
         $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
     }
     if ($SINO == "0") {
+
         foreach ($SELECIONAREXISTENCIA as $r) :
             $IDEXIEXPORTACION = $r;
-            $EXIEXPORTACION->__SET('ID_DESPACHOEX', $IDDESPACHOEX);
+            $EXIEXPORTACION->__SET('ID_PCDESPACHO', $IDPCDESPACHO);
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACION);
             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->actualizarSelecionarDespachoExCambiarEstado($EXIEXPORTACION);
+            $EXIEXPORTACION_ADO->actualizarSelecionarPCCambiarEstado($EXIEXPORTACION);
+
         endforeach;
+
         $_SESSION["parametro"] =  $_REQUEST['IDP'];
         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
         echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
@@ -122,9 +128,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaEstadoSagNotNullInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaPcDespachoNullNotNullInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrlD.php";
+
 
 
 ?>
@@ -148,19 +155,18 @@ include_once "../config/validarDatosUrlD.php";
                     window.opener.refrescar()
                     window.close();
                 }
+
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
                     location.href = "" + url;
                 }
             </script>
-
 </head>
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
-            ?>
+            <?php include_once "../config/menu.php";  ?>
 
             <div class="content-wrapper">
                 <div class="container-full">
@@ -175,7 +181,7 @@ include_once "../config/validarDatosUrlD.php";
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item" aria-current="page">Despacho Exportacion </li>
+                                            <li class="breadcrumb-item" aria-current="page">Planificador Carga</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Seleccion Existencia</a>
                                             </li>
                                         </ol>
@@ -210,13 +216,12 @@ include_once "../config/validarDatosUrlD.php";
                                         <h4 class="box-title">Different Width</h4>
                                         -->
                             </div>
-
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="box-body ">
 
-                                    <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="ID PCDESPACHO" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="OP PCDESPACHO" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="URL PCDESPACHO" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
@@ -347,8 +352,6 @@ include_once "../config/validarDatosUrlD.php";
                                         </div>
                                     </div>
                                     <!-- /.row -->
-
-
                                     <!-- /.box-body -->
                                     <div class="box-footer">
                                         <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
@@ -377,4 +380,5 @@ include_once "../config/validarDatosUrlD.php";
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
 </body>
+
 </html>

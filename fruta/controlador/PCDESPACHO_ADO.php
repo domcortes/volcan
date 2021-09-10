@@ -77,28 +77,6 @@ class PCDESPACHO_ADO
             die($e->getMessage());
         }
     }
-    public function listarPcdespachoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_pcdespacho 
-                                            WHERE ESTADO_REGISTRO = 1
-                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
-                                            AND ID_PLANTA = '" . $PLANTA . "'
-                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'
-                                            ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
 
     //LISTAR TODO
@@ -173,33 +151,35 @@ class PCDESPACHO_ADO
             $query =
                 "INSERT INTO fruta_pcdespacho (     
                                                 NUMERO_PCDESPACHO,
-                                                CANTIDAD_ENVASE_PCDESPACHO,
-                                                KILOS_NETO_PCDESPACHO,
+                                                FECHA_PCDESPACHO,
                                                 MOTIVO_PCDESPACHO,
                                                 ID_EMPRESA, 
                                                 ID_PLANTA, 
-                                                ID_TEMPORADA,
-                                                FECHA_PCDESPACHO,
-                                                NGRESO,
+                                                ID_TEMPORADA, 
+                                                ID_USUARIOI,
+                                                ID_USUARIOM,
+                                                CANTIDAD_ENVASE_PCDESPACHO,
+                                                KILOS_NETO_PCDESPACHO,
+                                                INGRESO,
                                                 MODIFICACION,
                                                 ESTADO,
-                                                ESTADO_REGISTRO  
-                                                ESTADO_PCDESPACHO, 
+                                                ESTADO_REGISTRO,  
+                                                ESTADO_PCDESPACHO
                                             ) 
             VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  1, 1, 1 );";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?,  0, 0, SYSDATE(), SYSDATE(),  1, 1, 1 );";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
 
                         $PCDESPACHO->__GET('NUMERO_PCDESPACHO'),
-                        $PCDESPACHO->__GET('CANTIDAD_ENVASE_PCDESPACHO'),
-                        $PCDESPACHO->__GET('KILOS_NETO_PCDESPACHO'),
+                        $PCDESPACHO->__GET('FECHA_PCDESPACHO'),
                         $PCDESPACHO->__GET('MOTIVO_PCDESPACHO'),
                         $PCDESPACHO->__GET('ID_EMPRESA'),
                         $PCDESPACHO->__GET('ID_PLANTA'),
                         $PCDESPACHO->__GET('ID_TEMPORADA'),
-                        $PCDESPACHO->__GET('FECHA_PCDESPACHO')
+                        $PCDESPACHO->__GET('ID_USUARIOI'),
+                        $PCDESPACHO->__GET('ID_USUARIOM')
 
                     )
 
@@ -230,14 +210,15 @@ class PCDESPACHO_ADO
         try {
             $query = "
 		UPDATE fruta_pcdespacho SET
+                    MODIFICACION = SYSDATE() ,
                     CANTIDAD_ENVASE_PCDESPACHO= ?,
                     KILOS_NETO_PCDESPACHO= ?, 
                     FECHA_PCDESPACHO = ?,
                     MOTIVO_PCDESPACHO= ?,
-                    MODIFICACION = SYSDATE(),
                     ID_EMPRESA = ?,
                     ID_PLANTA = ?, 
-                    ID_TEMPORADA = ?            
+                    ID_TEMPORADA = ?, 
+                    ID_USUARIOM = ?             
 		WHERE ID_PCDESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -249,30 +230,7 @@ class PCDESPACHO_ADO
                         $PCDESPACHO->__GET('ID_EMPRESA'),
                         $PCDESPACHO->__GET('ID_PLANTA'),
                         $PCDESPACHO->__GET('ID_TEMPORADA'),
-                        $PCDESPACHO->__GET('ID_PCDESPACHO')
-
-                    )
-
-                );
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-
-
-    public function actualizarPcdespachoADespacho(PCDESPACHO $PCDESPACHO)
-    {
-        try {
-            $query = "
-    UPDATE fruta_pcdespacho SET
-        ID_DESPACHOEX= ?,
-        MODIFICACION = SYSDATE()        
-    WHERE ID_PCDESPACHO= ?;";
-            $this->conexion->prepare($query)
-                ->execute(
-                    array(
-                        $PCDESPACHO->__GET('ID_DESPACHOEX'),
+                        $PCDESPACHO->__GET('ID_USUARIOM'),
                         $PCDESPACHO->__GET('ID_PCDESPACHO')
 
                     )
@@ -285,6 +243,59 @@ class PCDESPACHO_ADO
 
 
     //FUNCIONES ESPECIALIZADAS
+    //LISTAR
+    public function listarPcdespachoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                                FROM fruta_pcdespacho 
+                                                WHERE ESTADO_REGISTRO = 1
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function listarPcdespachoEmpresaPlantaTemporada2CBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * , 
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO' ,
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y')  AS 'MODIFICACION'  ,
+                                                    DATE_FORMAT(FECHA_PCDESPACHO, '%d-%m-%Y')  AS 'FECHA'  ,
+                                                    FORMAT(CANTIDAD_ENVASE_PCDESPACHO,0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(KILOS_NETO_PCDESPACHO,2,'de_DE') AS 'NETO'
+                                                FROM fruta_pcdespacho 
+                                                WHERE ESTADO_REGISTRO = 1
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //BUSCADOR
     public function buscarPorEmpresaPlantaTemporada($EMPRESA, $PLANTA, $TEMPORADA)
@@ -407,6 +418,29 @@ class PCDESPACHO_ADO
 
 
     //CAMBIO DE ESTADO DE REGISTRO DEL REGISTRO
+
+    public function actualizarPcdespachoADespacho(PCDESPACHO $PCDESPACHO)
+    {
+        try {
+            $query = "
+                UPDATE fruta_pcdespacho SET
+                    ID_DESPACHOEX= ?,
+                    MODIFICACION = SYSDATE()        
+                WHERE ID_PCDESPACHO= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $PCDESPACHO->__GET('ID_DESPACHOEX'),
+                        $PCDESPACHO->__GET('ID_PCDESPACHO')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     //CAMBIO A DESACTIVADO
     public function deshabilitar(PCDESPACHO $PCDESPACHO)
     {
@@ -565,7 +599,9 @@ class PCDESPACHO_ADO
             die($e->getMessage());
         }
     }
-    //OTRAS FUNCIONES
+
+
+    //OTRAS FUNCIONES7
 
     //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
     public function obtenerId($FECHADESPACHO, $MOTIVOPCDESPACHO, $EMPRESA, $PLANTA, $TEMPORADA)
@@ -574,7 +610,7 @@ class PCDESPACHO_ADO
             $datos = $this->conexion->prepare(" SELECT *
                                         FROM fruta_pcdespacho
                                         WHERE 
-                                             AND FECHA_PCDESPACHO LIKE '" . $FECHADESPACHO . "'    
+                                              FECHA_PCDESPACHO LIKE '" . $FECHADESPACHO . "'    
                                              AND MOTIVO_PCDESPACHO LIKE '" . $MOTIVOPCDESPACHO . "'   
                                              AND DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
                                              AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')   
