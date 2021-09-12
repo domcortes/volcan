@@ -5,28 +5,39 @@ include_once "../config/validarUsuario.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 
+include_once '../controlador/FOLIO_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 
 
+include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/DESPACHOPT_ADO.php';
 include_once '../controlador/MGUIAPT_ADO.php';
 
+
+
+
+include_once '../modelo/EXIEXPORTACION.php';
+include_once '../modelo/DESPACHOPT.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
+$FOLIO_ADO =  new FOLIO_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
-
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
 
+$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 $DESPACHOPT_ADO =  new DESPACHOPT_ADO();
 $MGUIAPT_ADO =  new MGUIAPT_ADO();
 
+//INIICIALIZAR MODELO
+$DESPACHOPT =  new DESPACHOPT();
+$EXIEXPORTACION =  new EXIEXPORTACION();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -39,6 +50,8 @@ $FECHAHASTA = "";
 
 $PRODUCTOR = "";
 $NUMEROGUIA = "";
+$MENSAJEFOLIO = "";
+$DISABLEDFOLIO = "";
 
 //INICIALIZAR ARREGLOS
 $ARRAYDESPACHOPT = "";
@@ -50,13 +63,17 @@ $ARRAYVERCONDUCTOR = "";
 $ARRAYMGUIAPT = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-
+$ARRAYFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($EMPRESAS, $PLANTAS, $TEMPORADAS);
+if (empty($ARRAYFOLIO)) {
+    $DISABLEDFOLIO = "disabled";
+    $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS PT </b> , PARA OCUPAR LA <b>  FUNCIONALIDAD </b>.  FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
+}
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYDESPACHOPT = $DESPACHOPT_ADO->listarDespachoptEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOPT_ADO->obtenerTotalesDespachoptEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPT = $DESPACHOPT_ADO->listarDespachoptEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPTTOTALES = $DESPACHOPT_ADO->obtenerTotalesDespachoptEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
     $TOTALBRUTO = $ARRAYDESPACHOPTTOTALES[0]['BRUTO'];
     $TOTALNETO = $ARRAYDESPACHOPTTOTALES[0]['NETO'];
@@ -78,7 +95,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Agrupado Despacho PT</title>
+    <title>Guia Por Recibir PT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -154,7 +171,8 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../config/menu.php";
+        ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -163,15 +181,15 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Despacho </h3>
+                            <h3 class="page-title">Producto Terminado </h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                        <li class="breadcrumb-item" aria-current="page">Despacho P. Terminado</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Despacho </a>
+                                        <li class="breadcrumb-item" aria-current="page">Guia Por Recibir</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Producto Terminado </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -199,10 +217,10 @@ include_once "../config/datosUrLP.php";
                     </div>
                 </div>
 
+                <label id="val_mensaje" class="validacion"><?php echo $MENSAJEFOLIO; ?> </label>
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">
-
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
@@ -293,8 +311,6 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
-
-                                                    $ARRAYMGUIAPT = $MGUIAPT_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
                                                     ?>
                                                     <tr class="text-left">
                                                         <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
@@ -317,32 +333,21 @@ include_once "../config/datosUrLP.php";
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachopt" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachopt" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLMR" name="URLMR" value="listarDespachoMguiaPT" />
-                                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="registroGuiaPorRecibirPT" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLM" name="URLM" value="registroGuiaPorRecibirMPT" />
+
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Aprobar">
+                                                                                <button type="submit" class="btn btn-success btn-block " id="APROBARURLPT" name="APROBARURLPT" <?php echo $DISABLEDFOLIO; ?>>
+                                                                                    <i class="fa fa-check"></i>
+                                                                                </button>
+                                                                            </span>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Rechazar">
+                                                                                <button type="submit" class="btn btn-danger btn-block " id="RECHAZARURLPT" name="RECHAZARURLPT" <?php echo $DISABLEDFOLIO; ?>>
+                                                                                    <i class="fa fa-close"></i>
+                                                                                </button>
+                                                                            </span>
                                                                             <hr>
-                                                                            <?php if ($ARRAYMGUIAPT) { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
-                                                                                    <button type="submit" class="btn btn-primary btn-block " id="VERMOTIVOSRURLPT" name="VERMOTIVOSRURLPT">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoPT.php?parametro=<?php echo $r['ID_DESPACHO']; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>

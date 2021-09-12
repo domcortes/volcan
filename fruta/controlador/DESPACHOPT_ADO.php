@@ -104,7 +104,28 @@ class DESPACHOPT_ADO
             die($e->getMessage());
         }
     }
+    public function verDespachopt2($ID)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT *,
+                                                    DATE_FORMAT(FECHA_DESPACHO, '%Y-%m-%Y') AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' 
+                                             FROM fruta_despachopt
+                                             WHERE ID_DESPACHO= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
     public function buscarNombreDespachopt($NOMBRE)
@@ -362,7 +383,35 @@ class DESPACHOPT_ADO
         }
     }
 
+    public function listarDespachoptEmpresaPlantaTemporadaInterplantaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT *,
+                                                    DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_DESPACHO,0),0,'de_DE') AS 'ENVASE',   
+                                                    FORMAT(IFNULL(KILOS_NETO_DESPACHO,0),2,'de_DE') AS 'NETO',  
+                                                    FORMAT(IFNULL(KILOS_BRUTO_DESPACHO,0),2,'de_DE')  AS 'BRUTO'  
+                                            FROM `fruta_despachopt`                                                                           
+                                            WHERE TDESPACHO = 1
+                                            AND ESTADO_DESPACHO = 4
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_PLANTA2 = '" . $PLANTA . "'
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function listarDespachoptEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
@@ -436,6 +485,35 @@ class DESPACHOPT_ADO
         }
     }
 
+    public function listarDespachoptEmpresaPlantaTemporadaGuiaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * ,
+                                                    DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_DESPACHO,0),0,'de_DE') AS 'ENVASE',   
+                                                    FORMAT(IFNULL(KILOS_NETO_DESPACHO,0),2,'de_DE') AS 'NETO',  
+                                                    FORMAT(IFNULL(KILOS_BRUTO_DESPACHO,0),2,'de_DE')  AS 'BRUTO' 
+                                                FROM fruta_despachopt                                                                           
+                                                WHERE TDESPACHO = 1
+                                                    AND ESTADO_DESPACHO = 2
+                                                    AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                    AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                    AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //TOTALES
     public function obtenerTotalesDespachoptCBX2()
     {
@@ -573,6 +651,33 @@ class DESPACHOPT_ADO
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesDespachoptEmpresaPlantaTemporadaInterplantaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(`CANTIDAD_ENVASE_DESPACHO`),0),0,'de_DE') AS 'ENVASE',   
+                                                       FORMAT(IFNULL(SUM(`KILOS_NETO_DESPACHO`),0),2,'de_DE') AS 'NETO',  
+                                                       FORMAT(IFNULL(SUM(`KILOS_BRUTO_DESPACHO`),0),2,'de_DE')  AS 'BRUTO'  
+                                            FROM `fruta_despachopt`                                                                                                                  
+                                            WHERE  TDESPACHO = 1
+                                            AND ESTADO_DESPACHO = 4
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_PLANTA2 = '" . $PLANTA . "'
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                            ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
