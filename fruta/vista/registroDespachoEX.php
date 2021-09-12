@@ -574,7 +574,7 @@ if (isset($_REQUEST['CERRAR'])) {
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
             $EXIEXPORTACION->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->despachado($EXIEXPORTACION);
+            $EXIEXPORTACION_ADO->despachadoEx($EXIEXPORTACION);
         endforeach;
 
         //REDIRECCIONAR A PAGINA registroDespachoex.php 
@@ -2471,145 +2471,139 @@ if (isset($_POST)) {
                                     </div>
                                 </div>
                             </div>
-                            <label id="val_dproceso" class="validacion center"><?php echo $MENSAJE; ?> </label>
+                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJE; ?> </label>
                             <div class="row">
                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
-                                    <div class="form-group">
-                                        <div class="table-responsive">
-                                            <table id="detalle" class="table table-hover " style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                N° Folio
-                                                            </a>
-                                                        </th>
-                                                        <th>Condición </th>
-                                                        <th class="text-center">Operaciónes</th>
-                                                        <th>Fecha Embalado </th>
-                                                        <th>Código Estandar</th>
-                                                        <th>Envase/Estandar</th>
-                                                        <th>Variedad</th>
-                                                        <th>Cantidad Envase</th>
-                                                        <th>Kilos Neto</th>
-                                                        <th>% Deshidratacion</th>
-                                                        <th>Kilos Deshidratacion</th>
-                                                        <th>Kilos Bruto</th>
-                                                        <th>CSG</th>
-                                                        <th>Productor</th>
-                                                        <th>Embolsado</th>
-                                                        <th>Tipo Manejo</th>
-                                                        <th>Calibre </th>
-                                                        <th>Embalaje </th>
-                                                        <th>Stock</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php if ($ARRAYTOMADO) { ?>
-                                                        <?php foreach ($ARRAYTOMADO as $r) : ?>
-                                                            <?php
-                                                            if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
-                                                                $ESTADOSAG = "Sin Condición";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "1") {
-                                                                $ESTADOSAG =  "En Inspección";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "2") {
-                                                                $ESTADOSAG =  "Aprobado Origen";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "3") {
-                                                                $ESTADOSAG =  "Aprobado USLA";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "4") {
-                                                                $ESTADOSAG =  "Fumigado";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "5") {
-                                                                $ESTADOSAG =  "Rechazado";
-                                                            }
-                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                            if ($ARRAYVERPRODUCTORID) {
-                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                            } else {
-                                                                $CSGPRODUCTOR = "Sin Datos";
-                                                                $NOMBREPRODUCTOR = "Sin Datos";
-                                                            }
-                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                            if ($ARRAYVERVESPECIESID) {
-                                                                $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                            } else {
-                                                                $NOMBREVARIEDAD = "Sin Datos";
-                                                            }
-                                                            $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                            if ($ARRAYEVERERECEPCIONID) {
-                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                            } else {
-                                                                $NOMBREESTANDAR = "Sin Datos";
-                                                                $CODIGOESTANDAR = "Sin Datos";
-                                                            }
-                                                            if ($r['EMBOLSADO'] == "1") {
-                                                                $EMBOLSADO =  "SI";
-                                                            }
-                                                            if ($r['EMBOLSADO'] == "0") {
-                                                                $EMBOLSADO =  "NO";
-                                                            }
-                                                            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                            if ($ARRAYTMANEJO) {
-                                                                $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                            } else {
-                                                                $NOMBRETMANEJO = "Sin Datos";
-                                                            }
-                                                            $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-                                                            if ($ARRAYTCALIBRE) {
-                                                                $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                            } else {
-                                                                $NOMBRETCALIBRE = "Sin Datos";
-                                                            }
-                                                            $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
-                                                            if ($ARRAYTEMBALAJE) {
-                                                                $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
-                                                            } else {
-                                                                $NOMBRETEMBALAJE = "Sin Datos";
-                                                            }
-                                                            ?>
-                                                            <tr class="center">
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
-                                                                <td><?php echo $ESTADOSAG; ?></td>
-                                                                <td>
-                                                                    <form method="post" id="form1">
-                                                                        <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                                } ?>>
-                                                                                <i class="ti-close"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </td>
-                                                                <td><?php echo $r['EMBALADO']; ?></td>
-                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                                <td><?php echo $r['ENVASE']; ?></td>
-                                                                <td><?php echo $r['NETO']; ?></td>
-                                                                <td><?php echo $r['PORCENTAJE']; ?></td>
-                                                                <td><?php echo $r['DESHIRATACION']; ?></td>
-                                                                <td><?php echo $r['BRUTO']; ?></td>
-                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                                <td><?php echo $EMBOLSADO; ?></td>
-                                                                <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                                <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                                <td><?php echo $NOMBRETEMBALAJE; ?></td>
-                                                                <td><?php echo $r['STOCKR']; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                    <div class="table-responsive">
+                                        <table id="detalle" class="table table-hover " style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th> N° Folio </th>
+                                                    <th>Condición </th>
+                                                    <th class="text-center">Operaciónes</th>
+                                                    <th>Fecha Embalado </th>
+                                                    <th>Código Estandar</th>
+                                                    <th>Envase/Estandar</th>
+                                                    <th>Variedad</th>
+                                                    <th>Cantidad Envase</th>
+                                                    <th>Kilos Neto</th>
+                                                    <th>% Deshidratacion</th>
+                                                    <th>Kilos Deshidratacion</th>
+                                                    <th>Kilos Bruto</th>
+                                                    <th>CSG</th>
+                                                    <th>Productor</th>
+                                                    <th>Embolsado</th>
+                                                    <th>Tipo Manejo</th>
+                                                    <th>Calibre </th>
+                                                    <th>Embalaje </th>
+                                                    <th>Stock</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($ARRAYTOMADO) { ?>
+                                                    <?php foreach ($ARRAYTOMADO as $r) : ?>
+                                                        <?php
+                                                        if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                            $ESTADOSAG = "Sin Condición";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "1") {
+                                                            $ESTADOSAG =  "En Inspección";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "2") {
+                                                            $ESTADOSAG =  "Aprobado Origen";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "3") {
+                                                            $ESTADOSAG =  "Aprobado USLA";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "4") {
+                                                            $ESTADOSAG =  "Fumigado";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "5") {
+                                                            $ESTADOSAG =  "Rechazado";
+                                                        }
+                                                        $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYVERPRODUCTORID) {
+                                                            $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                            $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $CSGPRODUCTOR = "Sin Datos";
+                                                            $NOMBREPRODUCTOR = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                        if ($ARRAYVERVESPECIESID) {
+                                                            $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                        } else {
+                                                            $NOMBREVARIEDAD = "Sin Datos";
+                                                        }
+                                                        $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                        if ($ARRAYEVERERECEPCIONID) {
+                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                        } else {
+                                                            $NOMBREESTANDAR = "Sin Datos";
+                                                            $CODIGOESTANDAR = "Sin Datos";
+                                                        }
+                                                        if ($r['EMBOLSADO'] == "1") {
+                                                            $EMBOLSADO =  "SI";
+                                                        }
+                                                        if ($r['EMBOLSADO'] == "0") {
+                                                            $EMBOLSADO =  "NO";
+                                                        }
+                                                        $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                        if ($ARRAYTMANEJO) {
+                                                            $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                        } else {
+                                                            $NOMBRETMANEJO = "Sin Datos";
+                                                        }
+                                                        $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                        if ($ARRAYTCALIBRE) {
+                                                            $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                        } else {
+                                                            $NOMBRETCALIBRE = "Sin Datos";
+                                                        }
+                                                        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                        if ($ARRAYTEMBALAJE) {
+                                                            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                        } else {
+                                                            $NOMBRETEMBALAJE = "Sin Datos";
+                                                        }
+                                                        ?>
+                                                        <tr class="center">
+                                                            <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                            <td><?php echo $ESTADOSAG; ?></td>
+                                                            <td>
+                                                                <form method="post" id="form1">
+                                                                    <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
+                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                        <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                echo "disabled";
+                                                                                                                                                                                                                                            } ?>>
+                                                                            <i class="ti-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </td>
+                                                            <td><?php echo $r['EMBALADO']; ?></td>
+                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                            <td><?php echo $r['ENVASE']; ?></td>
+                                                            <td><?php echo $r['NETO']; ?></td>
+                                                            <td><?php echo $r['PORCENTAJE']; ?></td>
+                                                            <td><?php echo $r['DESHIRATACION']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>
+                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                            <td><?php echo $EMBOLSADO; ?></td>
+                                                            <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                            <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                            <td><?php echo $r['STOCKR']; ?></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
