@@ -563,6 +563,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroRecepcionpt.php"><i class="ti-more"></i>Registro Recepción</a></li>
               <li><a href="listarRecepcionpt.php"><i class="ti-more"></i>Agrupado Recepción</a></li>
               <!--<li><a href="listarRecepcionptInterplanta.php"><i class="ti-more"></i>Agrupado Interplanta</a></li>-->
+              <!--<li><a href="registroGuiaPorRecibirPTFrigorifico.php"><i class="ti-more"></i> Producto Terminado</a></li>-->
             </ul>
           </li>
           <!--
@@ -577,16 +578,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarRepaletizajeEx.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
             </ul>
           </li>
-          <li class="treeview">
-            <a href="#">Guía Por Recibir
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirPTFrigorifico.php"><i class="ti-more"></i> Producto Terminado</a></li>
-            </ul>
-          </li>
+                -->
           <li class="treeview">
             <a href="#">Despacho P. Terminado
               <span class="pull-left-container">
@@ -598,7 +590,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarDespachopt.php"><i class="ti-more"></i>Agrupado Despacho</a></li>
             </ul>
           </li>
-                -->
           <li class="treeview">
             <a href="#">Despacho Exportacion
               <span class="pull-left-container">

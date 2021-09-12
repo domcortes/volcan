@@ -10,9 +10,12 @@ include_once '../controlador/PLANTA_ADO.php';
 include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
+
+include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TEMBALAJE_ADO.php';
 
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
@@ -36,8 +39,13 @@ $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
+
+$TMANEJO_ADO =  new TMANEJO_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+
+
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 
@@ -80,15 +88,15 @@ $ESTADO = "";
 $PRECIOPALLET = "";
 $VGM = "";
 
-$TOTALBRUTO = "";
-$TOTALNETO = "";
-$TOTALENVASE = "";
-$TOTALPRECIO = "";
+$TOTALBRUTO = 0;
+$TOTALNETO = 0;
+$TOTALENVASE = 0;
+$TOTALPRECIO = 0;
 
-$TOTALBRUTOV = "";
-$TOTALNETOV = "";
-$TOTALENVASEV = "";
-$TOTALPRECIOV = "";
+$TOTALBRUTOV = 0;
+$TOTALNETOV = 0;
+$TOTALENVASEV = 0;
+$TOTALPRECIOV = 0;
 
 $IDEMPRESA = "";
 $IDPLANTA = "";
@@ -113,7 +121,7 @@ $SINOPRECIO = "";
 $MENSAJEPRECIO = "";
 
 
-$IDEXIEXPORTACIONQUITAR = "";
+$IDQUITAR = "";
 $FOLIOEXIEXPORTACIONQUITAR = "";
 
 $IDEXIEXPORTACIONPRECIO = "";
@@ -165,140 +173,115 @@ $ARRAYCOMPRADOR = $COMPRADOR_ADO->listarCompradorCBX();
 
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
-$ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporada3CBX();
+$ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 
 
 $ARRAYFECHAACTUAL = $DESPACHOPT_ADO->obtenerFecha();
 $FECHADESPACHO = $ARRAYFECHAACTUAL[0]['FECHA'];
 
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrlD.php";
+
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CREAR'])) {
 
-    if ($_REQUEST['EMPRESA'] && $_REQUEST['PLANTA'] && $_REQUEST['TEMPORADA']) {
-        $SINO = "0";
-        $MENSAJEVALIDATO = "";
-    } else {
-        $SINO = "1";
-        $MENSAJEVALIDATO = "DEBE TENER SELECIONADO EMPRESA, PLANTA Y TEMPORADA";
+    $ARRAYNUMERO = $DESPACHOPT_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+    //UTILIZACION METODOS SET DEL MODELO
+    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $DESPACHOPT->__SET('NUMERO_DESPACHO', $NUMERO);
+    $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+    $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
+    $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
+    $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+    $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
+    $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHO']);
+    $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+    $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+    $DESPACHOPT->__SET('VGM', $_REQUEST['VGM']);
+    $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
+    if ($_REQUEST['TDESPACHO'] == "1") {
+        $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
     }
-
-
-    if ($SINO == "0") {
-        $ARRAYNUMERO = $DESPACHOPT_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-        $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-
-        //UTILIZACION METODOS SET DEL MODELO
-        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-        $DESPACHOPT->__SET('NUMERO_DESPACHO', $NUMERO);
-        $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-        $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
-        $DESPACHOPT->__SET('CANTIDAD_ENVASE_DESPACHO', 0);
-        $DESPACHOPT->__SET('KILOS_NETO_DESPACHO', 0);
-        $DESPACHOPT->__SET('KILOS_BRUTO_DESPACHO', 0);
-        $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
-        $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-        $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
-        $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHO']);
-        $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-        $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-        $DESPACHOPT->__SET('VGM', $_REQUEST['VGM']);
-        $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
-        if ($_REQUEST['TDESPACHO'] == "1") {
-            $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
-        }
-        if ($_REQUEST['TDESPACHO'] == "2") {
-            $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        }
-        if ($_REQUEST['TDESPACHO'] == "3") {
-            $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
-            $DESPACHOPT->__SET('TOTAL_PRECIO', 0);
-        }
-        if ($_REQUEST['TDESPACHO'] == "4") {
-            $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
-        }
-        if ($_REQUEST['TDESPACHO'] == "5") {
-            $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
-        }
-        $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $DESPACHOPT_ADO->agregarDespachopt($DESPACHOPT);
-
-
-        //OBTENER EL ID DE LA DESPACHOPT CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-        $ARRAYDESPACHOMP2 = $DESPACHOPT_ADO->buscarDespachoptID(
-            $_REQUEST['FECHADESPACHO'],
-            $_REQUEST['NUMEROGUIADESPACHO'],
-            0,
-            0,
-            0,
-            $_REQUEST['CONDUCTOR'],
-            $_REQUEST['TRANSPORTE'],
-            $_REQUEST['EMPRESA'],
-            $_REQUEST['PLANTA'],
-            $_REQUEST['TEMPORADA'],
-        );
-
-        //REDIRECCIONAR A PAGINA registroDespachomp.php 
-        echo "<script type='text/javascript'> location.href ='registroDespachopt.php?parametro=" . $ARRAYDESPACHOMP2[0]['ID_DESPACHO'] . "&&parametro1=crear';</script>";
+    if ($_REQUEST['TDESPACHO'] == "2") {
+        $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
     }
+    if ($_REQUEST['TDESPACHO'] == "3") {
+        $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+    }
+    if ($_REQUEST['TDESPACHO'] == "4") {
+        $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
+    }
+    if ($_REQUEST['TDESPACHO'] == "5") {
+        $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
+    }
+    $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+    $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+    $DESPACHOPT->__SET('ID_USUARIOI', $IDUSUARIOS);
+    $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+    $DESPACHOPT_ADO->agregarDespachopt($DESPACHOPT);
+
+
+    //OBTENER EL ID DE LA DESPACHOPT CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+    $ARRYAOBTENERID = $DESPACHOPT_ADO->obtenerId(
+        $_REQUEST['FECHADESPACHO'],
+        $_REQUEST['EMPRESA'],
+        $_REQUEST['PLANTA'],
+        $_REQUEST['TEMPORADA'],
+    );
+
+    //REDIRECCIONAR A PAGINA registroDespachoPT.php
+
+    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
+    $_SESSION["parametro1"] = "crear";
+    echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
 }
-if (isset($_REQUEST['GUARDAR'])) {
-    $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['ID']);
-    if (empty($ARRAYDDESPACHOMP2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
+if (isset($_REQUEST['EDITAR'])) {
+    $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+    $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+    $DESPACHOPT->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
+    $DESPACHOPT->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
+    $DESPACHOPT->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
+    $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+    $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+    $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
+    $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHOE']);
+    $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+    $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+    $DESPACHOPT->__SET('VGM', $_REQUEST['VGME']);
+    $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+    if ($_REQUEST['TDESPACHOE'] == "1") {
+        $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
     }
-    if ($SINO == "0") {
-
-        $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-        $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
-        $DESPACHOPT->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
-        $DESPACHOPT->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
-        $DESPACHOPT->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
-        $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
-        $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
-        $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHOE']);
-        $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-        $DESPACHOPT->__SET('VGM', $_REQUEST['VGME']);
-        $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-        if ($_REQUEST['TDESPACHOE'] == "1") {
-            $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "2") {
-            $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "3") {
-            $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
-            $DESPACHOPT->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "4") {
-            $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "5") {
-            $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
-        }
-        $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['ID']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $DESPACHOPT_ADO->actualizarDespachopt($DESPACHOPT);
+    if ($_REQUEST['TDESPACHOE'] == "2") {
+        $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
     }
+    if ($_REQUEST['TDESPACHOE'] == "3") {
+        $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+        $DESPACHOPT->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
+    }
+    if ($_REQUEST['TDESPACHOE'] == "4") {
+        $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+    }
+    if ($_REQUEST['TDESPACHOE'] == "5") {
+        $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+    }
+    $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+    $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+    $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+    $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+    $DESPACHOPT_ADO->actualizarDespachopt($DESPACHOPT);
 }
 //OPERACION PARA CERRAR LA DESPACHOPT
 if (isset($_REQUEST['CERRAR'])) {
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['ID']);
+    $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
     if (empty($ARRAYDDESPACHOMP2)) {
         $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
         $SINO = "1";
@@ -307,7 +290,7 @@ if (isset($_REQUEST['CERRAR'])) {
         $SINO = "0";
     }
     if ($_REQUEST['TDESPACHOE'] == "3") {
-        $ARRAYCONTEO = $EXIEXPORTACION_ADO->contarExistenciaPorDespachoPrecioNulo($_REQUEST['ID']);
+        $ARRAYCONTEO = $EXIEXPORTACION_ADO->contarExistenciaPorDespachoPrecioNulo($_REQUEST['IDP']);
         if ($ARRAYCONTEO) {
             if ($ARRAYCONTEO[0]["CONTEO"] != 0) {
                 $MENSAJE = "ES OBLIGATORIO TENER PRECIOS EN TODAS LAS EXISTENCIA SELECCIONADA";
@@ -318,8 +301,6 @@ if (isset($_REQUEST['CERRAR'])) {
             }
         }
     }
-
-
     if ($SINO == "0") {
         $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
         $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
@@ -353,20 +334,20 @@ if (isset($_REQUEST['CERRAR'])) {
         $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
         $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
         $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['ID']);
+        $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
         $DESPACHOPT_ADO->actualizarDespachopt($DESPACHOPT);
 
-        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['ID']);
+        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
         $DESPACHOPT_ADO->cerrado($DESPACHOPT);
 
-        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['ID']);
+        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
         $DESPACHOPT_ADO->Confirmado($DESPACHOPT);
 
-        $ARRAYEXISENCIADESPACHOMP = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['ID']);
-
+        $ARRAYEXISENCIADESPACHOMP = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
         foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
             if ($_REQUEST['TDESPACHOE'] == "1") {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
@@ -379,6 +360,7 @@ if (isset($_REQUEST['CERRAR'])) {
                 $EXIEXPORTACION_ADO->vgm($EXIEXPORTACION);
             } else {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+                $EXIEXPORTACION->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->despachado($EXIEXPORTACION);
 
@@ -389,30 +371,29 @@ if (isset($_REQUEST['CERRAR'])) {
                 $EXIEXPORTACION_ADO->vgm($EXIEXPORTACION);
             }
         endforeach;
-
-        //REDIRECCIONAR A PAGINA registroDespachomp.php 
+        //REDIRECCIONAR A PAGINA registroDespachopt.php 
         //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        if ($_REQUEST['parametro1'] == "crear") {
-            echo "<script type='text/javascript'> location.href ='registroDespachopt.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver ';</script>";
+        if ($_SESSION['parametro1'] == "crear") {
+            $_SESSION["parametro"] = $_REQUEST['IDP'];
+            $_SESSION["parametro1"] = "ver";
+            echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
         }
-        if ($_REQUEST['parametro1'] == "editar") {
-            echo "<script type='text/javascript'> location.href ='registroDespachopt.php?parametro=" . $_REQUEST['ID'] . "&&parametro1=ver ';</script>";
+        if ($_SESSION['parametro1'] == "editar") {
+            $_SESSION["parametro"] = $_REQUEST['IDP'];
+            $_SESSION["parametro1"] = "ver";
+            echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
         }
     }
 }
 if (isset($_REQUEST['QUITAR'])) {
-
-    $IDEXIEXPORTACIONQUITAR = $_REQUEST['IDEXIEXPORTACIONQUITAR'];
-    $FOLIOEXIEXPORTACIONQUITAR = $_REQUEST['FOLIOEXIEXPORTACIONQUITAR'];
-
-    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACIONQUITAR);
-    $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $FOLIOEXIEXPORTACIONQUITAR);
+    $IDQUITAR = $_REQUEST['IDQUITAR'];
+    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
     // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EXIEXPORTACION_ADO->actualizarDeselecionarDespacho2CambiarEstado($EXIEXPORTACION);
+    $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIEXPORTACION);
 }
 if (isset($_REQUEST['PRECIOS'])) {
 
-    $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['ID']);
+    $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
     if (empty($ARRAYDDESPACHOMP2)) {
         $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
         $SINO = "1";
@@ -421,7 +402,6 @@ if (isset($_REQUEST['PRECIOS'])) {
         $SINO = "0";
     }
     if ($SINO == 0) {
-
         $ARRAYIDDESPACHO = $_REQUEST['IDDESPACHO'];
         $ARRAYIDEXIEXPORTACIONPRECIO = $_REQUEST['IDEXIEXPORTACIONPRECIO'];
         $ARRAYFOLIOEXIEXPORTACIONPRECIO = $_REQUEST['FOLIOEXIEXPORTACIONPRECIO'];
@@ -447,28 +427,27 @@ if (isset($_REQUEST['PRECIOS'])) {
                 }
             } else {
                 $SINOPRECIO = 1;
+                $MENSAJEPRECIO = $MENSAJEPRECIO . " <br> " . $FOLIOEXIEXPORTACIONPRECIO . ": SE DEBE INGRESAR UN DATO";
             }
             if ($SINOPRECIO == 0) {
 
                 $EXIEXPORTACION->__SET('ID_DESPACHO', $IDDESPACHO);
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACIONPRECIO);
-                $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $FOLIOEXIEXPORTACIONPRECIO);
                 $EXIEXPORTACION->__SET('PRECIO_PALLET', $PRECIO);
                 // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $EXIEXPORTACION_ADO->actualizarDespacho2AgregarPrecio($EXIEXPORTACION);
+                $EXIEXPORTACION_ADO->actualizarDespachoAgregarPrecio($EXIEXPORTACION);
             }
         endforeach;
     }
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
-if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
+if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //ALMACENAR DATOS DE VARIABLES DE LA URL
-    $IDOP = $_REQUEST['parametro'];
-    $OP = $_REQUEST['parametro1'];
+    $IDOP = $_SESSION['parametro'];
+    $OP = $_SESSION['parametro1'];
 
-
-    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarEndespacho2($IDOP);
+    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespacho2($IDOP);
 
     $ARRAYDESPACHOTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesDespacho($IDOP);
     $ARRAYDESPACHOTOTAL2 = $EXIEXPORTACION_ADO->obtenerTotalesDespacho2($IDOP);
@@ -544,7 +523,6 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
 
         endforeach;
     }
-
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
 
@@ -601,7 +579,6 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
 
         endforeach;
     }
-
     //ver =  OBTENCION DE DATOS PARA LA VISUALIZACION DEL REGISTRO
     if ($OP == "ver") {
         //DESABILITAR INPUT DEL FORMULARIO
@@ -788,8 +765,8 @@ if (isset($_POST)) {
                     NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
                     TDESPACHO = document.getElementById("TDESPACHO").selectedIndex;
                     NUMEROSELLODESPACHO = document.getElementById("NUMEROSELLODESPACHO").value;
-                    TRANSPORTE = document.getElementById("TRANSPORTE").selectedIndex;
                     VGM = document.getElementById("VGM").selectedIndex;
+                    TRANSPORTE = document.getElementById("TRANSPORTE").selectedIndex;
                     CONDUCTOR = document.getElementById("CONDUCTOR").selectedIndex;
 
                     PATENTEVEHICULO = document.getElementById("PATENTEVEHICULO").value;
@@ -800,8 +777,8 @@ if (isset($_POST)) {
                     document.getElementById('val_numeroguia').innerHTML = "";
                     document.getElementById('val_tdespacho').innerHTML = "";
                     document.getElementById('val_numerosello').innerHTML = "";
-                    document.getElementById('val_transportita').innerHTML = "";
                     document.getElementById('val_vgm').innerHTML = "";
+                    document.getElementById('val_transportita').innerHTML = "";
                     document.getElementById('val_conductor').innerHTML = "";
                     document.getElementById('val_patentevehiculo').innerHTML = "";
                     document.getElementById('val_patentecarro').innerHTML = "";
@@ -840,6 +817,14 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.NUMEROSELLODESPACHO.style.borderColor = "#4AF575";
 
+                    if (VGM == null || VGM == 0) {
+                        document.form_reg_dato.VGM.focus();
+                        document.form_reg_dato.VGM.style.borderColor = "#FF0000";
+                        document.getElementById('val_vgm').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.VGM.style.borderColor = "#4AF575";
+
 
                     if (TRANSPORTE == null || TRANSPORTE == 0) {
                         document.form_reg_dato.TRANSPORTE.focus();
@@ -849,13 +834,6 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TRANSPORTE.style.borderColor = "#4AF575";
 
-                    if (VGM == null || VGM == 0) {
-                        document.form_reg_dato.VGM.focus();
-                        document.form_reg_dato.VGM.style.borderColor = "#FF0000";
-                        document.getElementById('val_vgm').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false
-                    }
-                    document.form_reg_dato.VGM.style.borderColor = "#4AF575";
 
 
                     if (CONDUCTOR == null || CONDUCTOR == 0) {
@@ -1037,7 +1015,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php //include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -1082,100 +1060,42 @@ if (isset($_POST)) {
                     </div>
                     <!-- Main content -->
                     <section class="content">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <!--
+                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <!--
                                         <h4 class="box-title">Different Width</h4>
                                         -->
-                            </div>
-                            <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" onsubmit="return validacion()">
+                                </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-sm-1">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
+                                                <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
+
+                                                <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESAE" name="EMPRESAE" value="<?php echo $EMPRESA; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTAE" name="PLANTAE" value="<?php echo $PLANTA; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADAE" name="TEMPORADAE" value="<?php echo $TEMPORADA; ?>" />
+
+                                                <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
+                                                <input type="hidden" class="form-control" id="TOTALBRUTO" name="TOTALBRUTO" value="<?php echo $TOTALBRUTO; ?>" />
+                                                <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
+                                                <input type="hidden" class="form-control" id="TOTALPRECIO" name="TOTALPRECIO" value="<?php echo $TOTALPRECIO; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLP" name="URLP" value="registroDespachopt" />
+
+
                                                 <label>Número Despacho</label>
-                                                <input type="hidden" class="form-control" placeholder="ID DESPACHOPT" id="ID" name="ID" value="<?php echo $IDDESPACHOMP; ?>" />
-                                                <input type="text" class="form-control" style="background-color: #eeeeee;" placeholder="Número Despacho" id="IDDESPACHOMP" name="IDDESPACHOMP" value="<?php echo $NUMEROVER; ?>" disabled />
+                                                <input type="text" class="form-control" style="background-color: #eeeeee;" placeholder="Número Despacho" id="NUMEROVER" name="NUMEROVER" value="<?php echo $NUMEROVER; ?>" disabled />
                                                 <label id="val_id" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <?php if ($TUSUARIO != "0") { ?>
-                                            <div class="col-sm-1">
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESA; ?>" />
-                                                    <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTA; ?>" />
-                                                    <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADA; ?>" />
-
-                                                    <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESAE" name="EMPRESAE" value="<?php echo $EMPRESA; ?>" />
-                                                    <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTAE" name="PLANTAE" value="<?php echo $PLANTA; ?>" />
-                                                    <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADAE" name="TEMPORADAE" value="<?php echo $TEMPORADA; ?>" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-12">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if ($TUSUARIO == "0") { ?>
-                                            <div class="col-sm-1 col-12">
-                                            </div>
-                                            <div class="col-sm-2 col-12">
-                                                <div class="form-group">
-                                                    <label>Empresa</label>
-                                                    <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESAE" name="EMPRESAE" value="<?php echo $EMPRESA; ?>" />
-                                                    <select class="form-control select2" id="EMPRESA" name="EMPRESA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                        <option></option>
-                                                        <?php foreach ($ARRAYEMPRESA as $r) : ?>
-                                                            <?php if ($ARRAYEMPRESA) {    ?>
-                                                                <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESA == $r['ID_EMPRESA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_EMPRESA'] ?> </option>
-                                                            <?php } else { ?>
-                                                                <option>No Hay Datos Registrados </option>
-                                                            <?php } ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <label id="val_empresa" class="validacion"> </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 col-12">
-                                                <div class="form-group">
-                                                    <label>Planta</label>
-                                                    <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTAE" name="PLANTAE" value="<?php echo $PLANTA; ?>" />
-                                                    <select class="form-control select2" id="PLANTA" name="PLANTA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                        <option></option>
-                                                        <?php foreach ($ARRAYPLANTA as $r) : ?>
-                                                            <?php if ($ARRAYPLANTA) {    ?>
-                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
-                                                            <?php } else { ?>
-                                                                <option>No Hay Datos Registrados </option>
-                                                            <?php } ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <label id="val_planta" class="validacion"> </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 col-12">
-                                                <div class="form-group">
-                                                    <label>Temporada</label>
-                                                    <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADAE" name="TEMPORADAE" value="<?php echo $TEMPORADA; ?>" />
-                                                    <select class="form-control select2" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                        <option></option>
-                                                        <?php foreach ($ARRAYTEMPORADA as $r) : ?>
-                                                            <?php if ($ARRAYTEMPORADA) {    ?>
-                                                                <option value="<?php echo $r['ID_TEMPORADA']; ?>" <?php if ($TEMPORADA == $r['ID_TEMPORADA']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>> <?php echo $r['NOMBRE_TEMPORADA'] ?> </option>
-                                                            <?php } else { ?>
-                                                                <option>No Hay Datos Registrados </option>
-                                                            <?php } ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <label id="val_temporada" class="validacion"> </label>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-6 col-xl-1 col-lg-1 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Ingreso</label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA DESPACHOPT" id="FECHAINGRESODESPACHOE" name="FECHAINGRESODESPACHOE" value="<?php echo $FECHAINGRESODESPACHO; ?>" />
@@ -1183,7 +1103,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechai" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Modificación</label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA MODIFICACION" id="FECHAMODIFCIACIONDESPACHOE" name="FECHAMODIFCIACIONDESPACHOE" value="<?php echo $FECHAMODIFCIACIONDESPACHO; ?>" />
@@ -1192,9 +1112,8 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                     </div>
-                                    <label id="val_validato" class="validacion"> <?php echo $MENSAJEVALIDATO; ?> </label>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Despacho </label>
                                                 <input type="hidden" class="Despachoform-control" placeholder="Fecha Despachomp" id="FECHADESPACHOE" name="FECHADESPACHOE" value="<?php echo $FECHADESPACHO; ?>" />
@@ -1202,7 +1121,7 @@ if (isset($_POST)) {
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número Guía </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
@@ -1210,7 +1129,7 @@ if (isset($_POST)) {
                                                 <label id="val_numeroguia" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Tipo Despacho </label>
                                                 <input type="hidden" class="form-control" placeholder="TDESPACHOE" id="TDESPACHOE" name="TDESPACHOE" value="<?php echo $TDESPACHO; ?>" />
@@ -1236,7 +1155,7 @@ if (isset($_POST)) {
                                                 <label id="val_tdespacho" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número Sello </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROSELLODESPACHOE" name="NUMEROSELLODESPACHOE" value="<?php echo $NUMEROSELLODESPACHO; ?>" />
@@ -1244,7 +1163,23 @@ if (isset($_POST)) {
                                                 <label id="val_numerosello" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="form-group">
+                                                <label>VGM </label>
+                                                <input type="hidden" class="form-control" placeholder="VGME" id="VGME" name="VGME" value="<?php echo $VGM; ?>" />
+                                                <select class="form-control select2" id="VGM" name="VGM" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                                                    <option></option>
+                                                    <option value="0" <?php if ($VGM == "0") {
+                                                                            echo "selected";
+                                                                        } ?>> No</option>
+                                                    <option value="1" <?php if ($VGM == "1") {
+                                                                            echo "selected";
+                                                                        } ?>> Si </option>
+                                                </select>
+                                                <label id="val_vgm" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Transporte</label>
                                                 <input type="hidden" class="form-control" placeholder="Transportita" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
@@ -1263,34 +1198,15 @@ if (isset($_POST)) {
                                                 <label id="val_transportita" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-12">
+                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                             <div class="form-group">
-                                                <label>Agregar </label>
                                                 <br>
-                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
+                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Transporte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
                                                     <i class="glyphicon glyphicon-plus"></i>
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1">
-                                            <div class="form-group">
-                                                <label>VGM </label>
-                                                <input type="hidden" class="form-control" placeholder="VGME" id="VGME" name="VGME" value="<?php echo $VGM; ?>" />
-                                                <select class="form-control select2" id="VGM" name="VGM" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                    <option></option>
-                                                    <option value="0" <?php if ($VGM == "0") {
-                                                                            echo "selected";
-                                                                        } ?>> No</option>
-                                                    <option value="1" <?php if ($VGM == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> Si </option>
-                                                </select>
-                                                <label id="val_vgm" class="validacion"> </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Conductor</label>
                                                 <input type="hidden" class="form-control" placeholder="Conductor" id="CONDUCTORE" name="CONDUCTORE" value="<?php echo $CONDUCTOR; ?>" />
@@ -1309,16 +1225,15 @@ if (isset($_POST)) {
                                                 <label id="val_conductor" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-12">
+                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                             <div class="form-group">
-                                                <label>Agregar </label>
                                                 <br>
-                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopConductor.php' ); ">
+                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Conductor" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopConductor.php' ); ">
                                                     <i class="glyphicon glyphicon-plus"></i>
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Patente Camión</label>
                                                 <input type="hidden" class="form-control" placeholder="Patente Vehiculo" id="PATENTEVEHICULOE" name="PATENTEVEHICULOE" value="<?php echo $PATENTEVEHICULO; ?>" />
@@ -1326,7 +1241,7 @@ if (isset($_POST)) {
                                                 <label id="val_patentevehiculo" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Patente Carro</label>
                                                 <input type="hidden" class="form-control" placeholder="Patente Carro" id="PATENTECARROE" name="PATENTECARROE" value="<?php echo $PATENTECARRO; ?>" />
@@ -1335,7 +1250,7 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                         <?php if ($TDESPACHO == "1") { ?>
-                                            <div class="col-sm-2">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Planta Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTADESTINOE" id="PLANTADESTINOE" name="PLANTADESTINOE" value="<?php echo $PLANTADESTINO; ?>" />
@@ -1354,18 +1269,9 @@ if (isset($_POST)) {
                                                     <label id="val_plantad" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-1 col-12">
-                                                <div class="form-group">
-                                                    <label>Agregar </label>
-                                                    <br>
-                                                    <button type="button" class=" btn btn-rounded btn-success btn-outline" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPlanta3.php' ); ">
-                                                        <i class="glyphicon glyphicon-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "2") { ?>
-                                            <div class="col-sm-2">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Productor</label>
                                                     <input type="hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -1384,18 +1290,17 @@ if (isset($_POST)) {
                                                     <label id="val_productor" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-1 col-12">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
-                                                    <label>Agregar </label>
                                                     <br>
-                                                    <button type="button" class=" btn btn-rounded btn-success btn-outline" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopProductor.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Productor" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopProductor.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "3") { ?>
-                                            <div class="col-sm-2">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Comprador</label>
                                                     <input type="hidden" class="form-control" placeholder="COMPRADORE" id="COMPRADORE" name="COMPRADORE" value="<?php echo $COMPRADOR; ?>" />
@@ -1414,18 +1319,17 @@ if (isset($_POST)) {
                                                     <label id="val_comprador" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-1 col-12">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
-                                                    <label>Agregar </label>
                                                     <br>
-                                                    <button type="button" class=" btn btn-rounded btn-success btn-outline" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopComprador.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Comprador" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopComprador.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "4") { ?>
-                                            <div class="col-sm-5">
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Regalo</label>
                                                     <input type="hidden" class="form-control" placeholder="REGALOE" id="REGALOE" name="REGALOE" value="<?php echo $REGALO; ?>" />
@@ -1434,9 +1338,8 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         <?php } ?>
-
                                         <?php if ($TDESPACHO == "5") { ?>
-                                            <div class="col-sm-2">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Planta Externa</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTAEXTERNAE" id="PLANTAEXTERNAE" name="PLANTAEXTERNAE" value="<?php echo $PLANTAEXTERNA; ?>" />
@@ -1457,9 +1360,8 @@ if (isset($_POST)) {
                                             </div>
                                             <div class="col-sm-1 col-12">
                                                 <div class="form-group">
-                                                    <label>Agregar </label>
                                                     <br>
-                                                    <button type="button" class=" btn btn-rounded btn-success btn-outline" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPlanta2.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Planta Externa" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPlanta2.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -1467,7 +1369,7 @@ if (isset($_POST)) {
                                         <?php } ?>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="OBSERVACIONDESPACHOE" name="OBSERVACIONDESPACHOE" value="<?php echo $OBSERVACIONDESPACHO; ?>" />
@@ -1476,312 +1378,289 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class=" center">Selección / Existencia Producto Terminado </label>
-                                            </div>
-                                        </div>
+                                </div> <!-- /.row -->
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <?php if ($OP == "") { ?>
+                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachopt.php');">
+                                                <i class="ti-trash"></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
+                                                <i class="ti-save-alt"></i>
+                                            </button>
+                                        <?php } ?>
+                                        <?php if ($OP != "") { ?>
+                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachopt.php'); ">
+                                                <i class="ti-back-left "></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <i class="ti-pencil-alt"></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPT.php?parametro=<?php echo $IDOP; ?>');">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </button>
+                                        <?php } ?>
                                     </div>
-                                    <label id="val_dproceso" class="validacion center"><?php echo $MENSAJE; ?> </label>
-                                    <label id="val_dproceso" class="validacion center"><?php echo $MENSAJEPRECIO; ?> </label>
-                                    <div class="row">
-                                        <div class="col-sm-10">
-                                            <div class="form-group">
-                                                <div class="table-responsive">
-                                                    <table id="detalle" class="table table-hover " style="width: 100%;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    <a href="#" class="text-warning hover-warning">
-                                                                        N° Folio
-                                                                    </a>
-                                                                </th>
-                                                                <th class="text-center">Operaciónes</th>
-                                                                <?php if ($TDESPACHO == "3") { ?>
-                                                                    <th>Precio Pallet </th>
-                                                                <?php } ?>
-                                                                <th>Fecha Embalado </th>
-                                                                <th>Código Estandar </th>
-                                                                <th>Envase/Estandar </th>
-                                                                <th>CSG</th>
-                                                                <th>Productor</th>
-                                                                <th>Variedad</th>
-                                                                <th>Cantidad Envase </th>
-                                                                <th>Kilo Neto </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <form method="post" id="form2">
-                                                                <?php if ($ARRAYTOMADO) { ?>
-                                                                    <?php foreach ($ARRAYTOMADO as $r) :
-
-                                                                        $CONTADOR = $CONTADOR + 1;
-                                                                    ?>
-                                                                        <tr class="center">
-                                                                            <td>
-                                                                                <a href="#" class="text-warning hover-warning">
-                                                                                    <?php
-                                                                                    echo $r['FOLIO_AUXILIAR_EXIEXPORTACION'];
-                                                                                    ?>
-                                                                                </a>
-                                                                            </td>
-                                                                            <td class="text-center">
-                                                                                <form method="post" id="form1">
-                                                                                    <input type="hidden" class="form-control" id="IDEXIEXPORTACIONQUITAR" name="IDEXIEXPORTACIONQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                                    <input type="hidden" class="form-control" id="FOLIOEXIEXPORTACIONQUITAR" name="FOLIOEXIEXPORTACIONQUITAR" value="<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>" />
-                                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-danger btn-outline mr-1" id="defecto" name="QUITAR" title="Quitar" <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                } ?>>
-                                                                                        <i class="ti-close  "></i> Quitar
-                                                                                    </button>
-                                                                                </form>
-                                                                            </td>
-                                                                            <?php if ($TDESPACHO == "3") { ?>
-                                                                                <td>
-                                                                                    <div class="form-group">
-                                                                                        <input type="hidden" class="form-control" name="IDDESPACHO[]" value="<?php echo $r['ID_DESPACHO']; ?>" />
-                                                                                        <input type="hidden" class="form-control" name="IDEXIEXPORTACIONPRECIO[]" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                                        <input type="hidden" class="form-control" name="FOLIOEXIEXPORTACIONPRECIO[]" value="<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>" />
-                                                                                        <input type="hidden" class="form-control" name="IDPRECIO[]" value="<?php echo  $CONTADOR; ?>">
-                                                                                        <input type="number" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0) {
-                                                                                                                                                        echo "disabled";
-                                                                                                                                                    } ?> value="<?php echo $r['PRECIO_PALLET']; ?>">
-                                                                                    </div>
-                                                                                </td>
-                                                                            <?php } ?>
-                                                                            <td><?php echo $r['FECHA']; ?></td>
-                                                                            <td>
-                                                                                <?php
-                                                                                $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                                                echo $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                                                ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php
-                                                                                echo $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                                                ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php
-                                                                                $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                                                echo $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                                ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php
-                                                                                echo $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                                                ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php
-                                                                                $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-                                                                                $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
-                                                                                echo $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                                                ?>
-                                                                            </td>
-                                                                            <td><?php echo $r['ENVASE']; ?></td>
-                                                                            <td><?php echo $r['NETO']; ?></td>
-                                                                        </tr>
-                                                                    <?php endforeach; ?>
-                                                                <?php } ?>
-
-                                                            </form>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <table>
-                                                <tbody>
+                                </div>
+                            </div>
+                        </form>
+                        <!--.row -->
+                        <div class="box">
+                            <div class="row">
+                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
+                                </div>
+                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
+                                    <div class="form-group">
+                                        <label> </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJE; ?> </label>
+                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJEPRECIO; ?> </label>
+                            <form method="post" id="form1">
+                                <div class="row">
+                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
+                                        <div class="table-responsive">
+                                            <table id="detalle" class="table table-hover " style="width: 180%;">
+                                                <thead>
                                                     <tr>
-                                                        <th class=" center">
-                                                            Seleccionar
-                                                        </th>
-
+                                                        <th> N° Folio </th>
+                                                        <th>Condición </th>
+                                                        <th class="text-center">Operaciónes</th>
                                                         <?php if ($TDESPACHO == "3") { ?>
-                                                            <th class=" center">
-                                                                Agregar Precios
-                                                            </th>
-                                                        <?php }   ?>
+                                                            <th>Precio Pallet </th>
+                                                        <?php } ?>
+                                                        <th>Fecha Embalado </th>
+                                                        <th>Código Estandar</th>
+                                                        <th>Envase/Estandar</th>
+                                                        <th>Variedad</th>
+                                                        <th>Cantidad Envase</th>
+                                                        <th>Kilos Neto</th>
+                                                        <th>% Deshidratacion</th>
+                                                        <th>Kilos Deshidratacion</th>
+                                                        <th>Kilos Bruto</th>
+                                                        <th>CSG</th>
+                                                        <th>Productor</th>
+                                                        <th>Embolsado</th>
+                                                        <th>Tipo Manejo</th>
+                                                        <th>Calibre </th>
+                                                        <th>Embalaje </th>
+                                                        <th>Stock</th>
                                                     </tr>
-                                                    <tr>
-                                                        <td class=" center">
-                                                            <div class="form-group">
-                                                                <button type="button" class=" btn btn-rounded btn-success btn-outline" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                    } ?> id="defecto" name="agregar" Onclick="abrirVentana('registroSelecionExistenciaDespachoPT.php?EMPRESA=<?php echo $EMPRESA; ?>&&PLANTA=<?php echo $PLANTA; ?>&&TEMPORADA=<?php echo $TEMPORADA; ?> && DESPACHOPT=<?php echo $IDOP ?>' ); ">
-                                                                    <i class="glyphicon glyphicon-plus"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                        <?php if ($TDESPACHO == "3") {
-                                                            $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($IDDESPACHOMP);
-                                                        ?>
-                                                            <td class=" center">
-                                                                <div class="form-group">
-                                                                    <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="PRECIOS" value="PRECIOS" <?php echo $DISABLED2; ?> <?php if (empty($ARRAYDDESPACHOMP2)) {
-                                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                                    } ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                echo "disabled";
-                                                                                                                                                                                                            } ?>>
-                                                                        <i class="glyphicon glyphicon-plus"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        <?php }   ?>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Total Envase</th>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
-                                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEV; ?>" disabled />
-                                                            </div>
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Total Neto</th>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
-                                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Total Bruto</th>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <input type="hidden" class="form-control" id="TOTALBRUTO" name="TOTALBRUTO" value="<?php echo $TOTALBRUTO; ?>" />
-                                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTOV; ?>" disabled />
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <?php if ($TDESPACHO == "3") { ?>
-                                                        <tr>
-                                                            <th>Total Precio</th>
-                                                            <td>
-                                                                <div class="form-group">
-                                                                    <input type="hidden" class="form-control" id="TOTALPRECIO" name="TOTALPRECIO" value="<?php echo $TOTALPRECIO; ?>" />
-                                                                    <input type="text" class="form-control" placeholder="Total Neto" id="TOTALPRECIOV" name="TOTALPRECIOV" value="<?php echo $TOTALPRECIOV; ?>" disabled />
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php if ($ARRAYTOMADO) { ?>
+                                                        <?php foreach ($ARRAYTOMADO as $r) : ?>
+                                                            <?php
+                                                            $CONTADOR = $CONTADOR + 1;
+
+                                                            if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                                $ESTADOSAG = "Sin Condición";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "1") {
+                                                                $ESTADOSAG =  "En Inspección";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "2") {
+                                                                $ESTADOSAG =  "Aprobado Origen";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "3") {
+                                                                $ESTADOSAG =  "Aprobado USLA";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "4") {
+                                                                $ESTADOSAG =  "Fumigado";
+                                                            }
+                                                            if ($r['TESTADOSAG'] == "5") {
+                                                                $ESTADOSAG =  "Rechazado";
+                                                            }
+                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                            if ($ARRAYVERPRODUCTORID) {
+                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                            } else {
+                                                                $CSGPRODUCTOR = "Sin Datos";
+                                                                $NOMBREPRODUCTOR = "Sin Datos";
+                                                            }
+                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                            if ($ARRAYVERVESPECIESID) {
+                                                                $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                            } else {
+                                                                $NOMBREVARIEDAD = "Sin Datos";
+                                                            }
+                                                            $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                            if ($ARRAYEVERERECEPCIONID) {
+                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                            } else {
+                                                                $NOMBREESTANDAR = "Sin Datos";
+                                                                $CODIGOESTANDAR = "Sin Datos";
+                                                            }
+                                                            if ($r['EMBOLSADO'] == "1") {
+                                                                $EMBOLSADO =  "SI";
+                                                            }
+                                                            if ($r['EMBOLSADO'] == "0") {
+                                                                $EMBOLSADO =  "NO";
+                                                            }
+                                                            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                            if ($ARRAYTMANEJO) {
+                                                                $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                            } else {
+                                                                $NOMBRETMANEJO = "Sin Datos";
+                                                            }
+                                                            $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                            if ($ARRAYTCALIBRE) {
+                                                                $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                            } else {
+                                                                $NOMBRETCALIBRE = "Sin Datos";
+                                                            }
+                                                            $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                            if ($ARRAYTEMBALAJE) {
+                                                                $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                            } else {
+                                                                $NOMBRETEMBALAJE = "Sin Datos";
+                                                            }
+                                                            ?>
+                                                            <tr class="center">
+                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                <td><?php echo $ESTADOSAG; ?></td>
+                                                                <td>
+                                                                    <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
+                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                        <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                echo "disabled";
+                                                                                                                                                                                                                                            } ?>>
+                                                                            <i class="ti-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                                <?php if ($TDESPACHO == "3") { ?>
+                                                                    <td>
+                                                                        <div class="form-group">
+                                                                            <input type="hidden" class="form-control" name="IDDESPACHO[]" value="<?php echo $r['ID_DESPACHO']; ?>" />
+                                                                            <input type="hidden" class="form-control" name="FOLIOEXIEXPORTACIONPRECIO[]" value="<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>" />
+                                                                            <input type="hidden" class="form-control" name="IDEXIEXPORTACIONPRECIO[]" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
+                                                                            <input type="hidden" class="form-control" name="IDPRECIO[]" value="<?php echo  $CONTADOR; ?>">
+                                                                            <input type="number" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0) {
+                                                                                                                                            echo "disabled";
+                                                                                                                                        } ?> value="<?php echo $r['PRECIO_PALLET']; ?>">
+                                                                        </div>
+                                                                    </td>
+                                                                <?php } ?>
+                                                                <td><?php echo $r['EMBALADO']; ?></td>
+                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                                <td><?php echo $r['ENVASE']; ?></td>
+                                                                <td><?php echo $r['NETO']; ?></td>
+                                                                <td><?php echo $r['PORCENTAJE']; ?></td>
+                                                                <td><?php echo $r['DESHIRATACION']; ?></td>
+                                                                <td><?php echo $r['BRUTO']; ?></td>
+                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                <td><?php echo $EMBOLSADO; ?></td>
+                                                                <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                                <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                                <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                                <td><?php echo $r['STOCKR']; ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
                                                     <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                </div> <!-- /.row -->
-                                <!-- /.box-body -->
-                                <div class="box-footer">
-                                    <table class="table ">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <?php if ($ESTADO == 0) { ?>
-                                                        <?php if ($OP == "crear") { ?>
-                                                            <button type="button" class="btn btn-rounded  btn-success btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDespachopt.php'); ">
-                                                                <i class="ti-back-left "></i> VOLVER
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class=" center">
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachopt" />
+                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTDespachoPt" />
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                            } ?>>
+                                                                <i class=" glyphicon glyphicon-plus"></i>
                                                             </button>
-                                                        <?php } ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
 
-                                                        <?php if ($OP == "") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachopt.php');">
-                                                                <i class="ti-trash"></i> CANCELAR
-                                                            </button>
-                                                        <?php } ?>
-                                                    <?php } ?>
-
-                                                    <?php if ($ESTADO != 0) { ?>
-                                                        <?php if ($OP == "crear") { ?>
-                                                            <button type="button" class="btn btn-rounded  btn-success btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDespachopt.php'); ">
-                                                                <i class="ti-back-left "></i> VOLVER
-                                                            </button>
-                                                        <?php } ?>
-                                                        <?php if ($OP == "") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachopt.php');">
-                                                                <i class="ti-trash"></i> CANCELAR
-                                                            </button>
-                                                        <?php } ?>
-                                                    <?php } ?>
-
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="button" class="btn btn-rounded  btn-success btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDespachopt.php'); ">
-                                                            <i class="ti-back-left "></i> VOLVER
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="button" class="btn btn-rounded  btn-success btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDespachopt.php'); ">
-                                                            <i class="ti-back-left "></i> VOLVER
-                                                        </button>
-                                                    <?php } ?>
-
-                                                    <?php if ($OP == "") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                            <i class="ti-save-alt"></i> CREAR
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "crear") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                    } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                    <?php }   ?>
-
-                                                    <?php if ($OP == "crear") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php echo $DISABLED; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                    } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php }   ?>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-rounded  btn-info btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeDespachoPT.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                        <i class="fa fa-file-pdf-o"></i>Informe
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                <?php if ($TDESPACHO == "3") {
+                                                    $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($IDDESPACHOMP);
+                                                ?>
+                                                    <tr>
+                                                        <td class=" center">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-primary btn-block" data-toggle="tooltip" title="Agregar Precios" name="PRECIOS" value="PRECIOS" <?php echo $DISABLED2; ?> <?php if (empty($ARRAYDDESPACHOMP2)) {
+                                                                                                                                                                                                                                    echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                } ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                        } ?>>
+                                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php }   ?>
+                                                <tr>
+                                                    <th>Total Envase</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
+                                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEV; ?>" disabled />
+                                                        </div>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Neto</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
+                                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Bruto</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" id="TOTALBRUTO" name="TOTALBRUTO" value="<?php echo $TOTALBRUTO; ?>" />
+                                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTOV; ?>" disabled />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php if ($TDESPACHO == "3") { ?>
+                                                    <tr>
+                                                        <th>Total Precio</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <input type="hidden" class="form-control" id="TOTALPRECIO" name="TOTALPRECIO" value="<?php echo $TOTALPRECIO; ?>" />
+                                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALPRECIOV" name="TOTALPRECIOV" value="<?php echo $TOTALPRECIOV; ?>" disabled />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </form>
                         </div>
-                        <!--.row -->
                     </section>
                     <!-- /.content -->
                 </div>
