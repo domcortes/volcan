@@ -223,10 +223,10 @@ $(function () {
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
-        'searching': true, //buscador
+        'searching': false, //buscador
         'ordering': true,
         'info': true,
-        'autoWidth': true,
+        'autoWidth': false,
         'responsive': false,
         'order': [
             [0, 'desc'], //desc ->descente asc -> ascedente
