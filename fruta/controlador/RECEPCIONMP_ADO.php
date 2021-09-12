@@ -554,9 +554,9 @@ class RECEPCIONMP_ADO
                                                  AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')
                                                  AND OBSERVACION_RECEPCION LIKE '" . $OBSERVACION . "'     
                                                  AND TRECEPCION = '" . $TRECEPCION . "'                                                     
-                                                 AND ID_EMPRESA = " . $EMPRESA . " 
-                                                 AND ID_PLANTA = " . $PLANTA . " 
-                                                 AND ID_TEMPORADA = " . $TEMPORADA . "         
+                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                 AND ID_PLANTA = '" . $PLANTA . "' 
+                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "'         
                                                  ORDER BY ID_RECEPCION DESC
                                                  ; ");
             $datos->execute();
