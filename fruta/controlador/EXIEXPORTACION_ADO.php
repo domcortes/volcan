@@ -189,7 +189,6 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-
     public function agregarExiexportacionGuia(EXIEXPORTACION $EXIEXPORTACION)
     {
         try {
@@ -214,10 +213,6 @@ class EXIEXPORTACION_ADO
                                                     PREFRIO,
                                                     TESTADOSAG,
                                                     VGM,
-                                                    FECHA_RECEPCION,
-                                                    FECHA_PROCESO,
-                                                    FECHA_REEMBALAJE,
-                                                    FECHA_REPALETIZAJE,
                                                     INGRESO,
                                                     ID_TCALIBRE,  
                                                     ID_TEMBALAJE,
@@ -226,20 +221,120 @@ class EXIEXPORTACION_ADO
                                                     ID_ESTANDAR,
                                                     ID_PRODUCTOR,   
                                                     ID_VESPECIES,
+                                                    ID_PLANTA2,    
+                                                    ID_DESPACHO2,
+                                                    ID_EMPRESA,
+                                                    ID_PLANTA,
+                                                    ID_TEMPORADA, 
+                                                    MODIFICACION,
+                                                    ESTADO,  
+                                                    ESTADO_REGISTRO
+                                                 ) VALUES
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?,     SYSDATE(), 2, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+                        $EXIEXPORTACION->__GET('FOLIO_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('FOLIO_MANUAL'),
+                        $EXIEXPORTACION->__GET('FECHA_EMBALADO_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('CANTIDAD_ENVASE_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('KILOS_NETO_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('KILOS_BRUTO_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('PDESHIDRATACION_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('KILOS_DESHIRATACION_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('OBSERVACION_EXIESPORTACION'),
+                        $EXIEXPORTACION->__GET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION'),
+                        $EXIEXPORTACION->__GET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION'),
+                        $EXIEXPORTACION->__GET('STOCK'),
+                        $EXIEXPORTACION->__GET('EMBOLSADO'),
+                        $EXIEXPORTACION->__GET('GASIFICADO'),
+                        $EXIEXPORTACION->__GET('PREFRIO'),
+                        $EXIEXPORTACION->__GET('TESTADOSAG'),
+                        $EXIEXPORTACION->__GET('VGM'),
+                        $EXIEXPORTACION->__GET('INGRESO'),
+                        $EXIEXPORTACION->__GET('ID_TCALIBRE'),
+                        $EXIEXPORTACION->__GET('ID_TEMBALAJE'),
+                        $EXIEXPORTACION->__GET('ID_TMANEJO'),
+                        $EXIEXPORTACION->__GET('ID_FOLIO'),
+                        $EXIEXPORTACION->__GET('ID_ESTANDAR'),
+                        $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
+                        $EXIEXPORTACION->__GET('ID_VESPECIES'),
+                        $EXIEXPORTACION->__GET('ID_PLANTA2'),
+                        $EXIEXPORTACION->__GET('ID_DESPACHO2'),
+                        $EXIEXPORTACION->__GET('ID_EMPRESA'),
+                        $EXIEXPORTACION->__GET('ID_PLANTA'),
+                        $EXIEXPORTACION->__GET('ID_TEMPORADA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
+    public function agregarExiexportacionRepaletizaje(EXIEXPORTACION $EXIEXPORTACION)
+    {
+        try {
+
+            $query =
+                "INSERT INTO fruta_exiexportacion (                    
+                                                    FOLIO_EXIEXPORTACION,
+                                                    FOLIO_AUXILIAR_EXIEXPORTACION,
+                                                    FOLIO_MANUAL,
+                                                    FECHA_EMBALADO_EXIEXPORTACION,
+                                                    CANTIDAD_ENVASE_EXIEXPORTACION,
+
+                                                    KILOS_NETO_EXIEXPORTACION,
+                                                    KILOS_BRUTO_EXIEXPORTACION,
+                                                    PDESHIDRATACION_EXIEXPORTACION,
+                                                    KILOS_DESHIRATACION_EXIEXPORTACION,
+                                                    OBSERVACION_EXIESPORTACION,
+
+                                                    ALIAS_DINAMICO_FOLIO_EXIESPORTACION,
+                                                    ALIAS_ESTATICO_FOLIO_EXIESPORTACION,                                               
+                                                    STOCK, 
+                                                    EMBOLSADO, 
+                                                    GASIFICADO, 
+
+                                                    PREFRIO,
+                                                    TESTADOSAG,
+                                                    VGM,
+                                                    FECHA_RECEPCION,
+                                                    FECHA_PROCESO,
+
+                                                    FECHA_REEMBALAJE,
+                                                    FECHA_REPALETIZAJE,
+                                                    INGRESO,
+                                                    ID_TCALIBRE,  
+                                                    ID_TEMBALAJE,
+
+                                                    ID_TMANEJO,
+                                                    ID_FOLIO,
+                                                    ID_ESTANDAR,
+                                                    ID_PRODUCTOR,   
+                                                    ID_VESPECIES,
+
                                                     ID_PLANTA2,
                                                     ID_RECEPCION,
                                                     ID_PROCESO,
                                                     ID_REPALETIZAJE,  
                                                     ID_REEMBALAJE,
-                                                    ID_DESPACHO,
+
+                                                    ID_DESPACHO2,
                                                     ID_EMPRESA,
                                                     ID_PLANTA,
-                                                    ID_TEMPORADA,  
+                                                    ID_TEMPORADA, 
+
                                                     MODIFICACION,
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   SYSDATE(), 2, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -279,7 +374,7 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_PROCESO'),
                         $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
                         $EXIEXPORTACION->__GET('ID_REEMBALAJE'),
-                        $EXIEXPORTACION->__GET('ID_DESPACHO'),
+                        $EXIEXPORTACION->__GET('ID_DESPACHO2'),
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
                         $EXIEXPORTACION->__GET('ID_PLANTA'),
                         $EXIEXPORTACION->__GET('ID_TEMPORADA')
@@ -291,6 +386,11 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+
+
+
+
+
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarExiexportacion($id)
     {
@@ -749,6 +849,30 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorFolioRepaletizaje($FOLIOAUXILIAREXIEXPORTACION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * 
+                                                FROM fruta_exiexportacion 
+                                                WHERE  
+                                                    FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                    AND ESTADO_REGISTRO =  1 
+                                                    AND ESTADO != 0  
+                                                    GROUP BY `FOLIO_AUXILIAR_EXIEXPORTACION` ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
 
     public function buscarPorProcesoFolio($IDPROCESO,  $FOLIODREXPORTACION)
@@ -975,6 +1099,112 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+
+
+    public function buscarExiexportacionEliminar($FOLIOAUX, $CANTIDAD, $TMANEJO, $TCALIBRE, $TEMBALAJE, $VARIEDAD, $PRODUCTOR, $ESTANDAR, $FOLIO, $FECHAEMBALADO, $IDREPALETIZAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                                FROM `fruta_exiexportacion`
+                                                WHERE `FOLIO_AUXILIAR_EXIEXPORTACION`= '" . $FOLIOAUX . "'
+                                                    AND `CANTIDAD_ENVASE_EXIEXPORTACION`= '" . $CANTIDAD . "'
+                                                    AND `ID_TMANEJO`= '" . $TMANEJO . "'  
+                                                    AND `ID_TCALIBRE`= '" . $TCALIBRE . "'  
+                                                    AND `ID_TEMBALAJE`= '" . $TEMBALAJE . "'  
+                                                    AND `ID_VESPECIES`= '" . $VARIEDAD . "'
+                                                    AND `ID_PRODUCTOR`= '" . $PRODUCTOR . "'   
+                                                    AND `ID_ESTANDAR`= '" . $ESTANDAR . "'   
+                                                    AND `ID_FOLIO`= '" . $FOLIO . "'  
+                                                    AND `FECHA_EMBALADO_EXIEXPORTACION`= '" . $FECHAEMBALADO . "'   
+                                                    AND `ID_REPALETIZAJE`= '" . $IDREPALETIZAJE . "'  
+                                                    ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorRepaletizaje2($IDREPALETIZAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,           
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                    FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                    IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
+                                                FROM fruta_exiexportacion 
+                                                WHERE ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "'   
+                                                AND ESTADO BETWEEN 3  AND 4 ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarPorRepaletizajeIngresando($IDREPALETIZAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                                FROM `fruta_exiexportacion` 
+                                                WHERE `ID_REPALETIZAJE`= '" . $IDREPALETIZAJE . "' 
+                                                    AND  `ESTADO` = 1  
+                                                    AND `ESTADO_REGISTRO` = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarPorRepaletizajeAgrupado($IDREPALETIZAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                                FROM `fruta_exiexportacion` 
+                                                WHERE `ID_REPALETIZAJE`= '" . $IDREPALETIZAJE . "'   
+                                                AND `ESTADO` BETWEEN 3  AND 4 
+                                                GROUP BY `FOLIO_AUXILIAR_EXIEXPORTACION`
+                                                
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     public function buscarPordespacho($IDDESEXPORTACION)
     {
@@ -1738,14 +1968,15 @@ class EXIEXPORTACION_ADO
                     UPDATE fruta_exiexportacion SET
                         MODIFICACION = SYSDATE(),
                         ESTADO = 3,           
-                        ID_REPALETIZAJE = ?          
-                    WHERE ID_EXIEXPORTACION= ? AND FOLIO_AUXILIAR_EXIEXPORTACION= ?;";
+                        ID_REPALETIZAJE = ?,           
+                        FECHA_REPALETIZAJE = ?       
+                    WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
-                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('FECHA_REPALETIZAJE'),
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )
 
@@ -1948,12 +2179,11 @@ class EXIEXPORTACION_ADO
                         MODIFICACION = SYSDATE(), 
                         ESTADO = 2,          
                         ID_REPALETIZAJE = null          
-                    WHERE ID_EXIEXPORTACION= ? AND FOLIO_AUXILIAR_EXIEXPORTACION= ?;";
+                    WHERE ID_EXIEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
-                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )
 
@@ -2057,8 +2287,6 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-
-
     public function eliminado(EXIEXPORTACION $EXIEXPORTACION)
     {
         try {
@@ -2070,6 +2298,28 @@ class EXIEXPORTACION_ADO
             $this->conexion->prepare($query)
                 ->execute(
                     array(
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function eliminadoRepaletizaje(EXIEXPORTACION $EXIEXPORTACION)
+    {
+        try {
+            $query = "
+                            UPDATE fruta_exiexportacion SET	
+                                    MODIFICACION = SYSDATE(), 		
+                                    ESTADO = 0, 		
+                                    ID_REPALETIZAJE = ?
+                            WHERE ID_EXIEXPORTACION= ?  AND ESTADO = 1;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
                         $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
                     )
 
@@ -2359,7 +2609,28 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function deshabilitarRepaletizaje(EXIEXPORTACION $EXIEXPORTACION)
+    {
 
+        try {
+            $query = "
+                    UPDATE fruta_exiexportacion SET		
+                            MODIFICACION = SYSDATE(), 	
+                            ESTADO_REGISTRO = 0, 	
+                            ID_REPALETIZAJE = ?
+                    WHERE ID_EXIEXPORTACION= ? AND ESTADO = 1;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function deshabilitar(EXIEXPORTACION $EXIEXPORTACION)
     {
 
