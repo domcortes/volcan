@@ -206,7 +206,7 @@ include_once "../config/datosUrLP.php";
                     <div class="box">
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>

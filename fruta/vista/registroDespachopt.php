@@ -1427,7 +1427,7 @@ if (isset($_POST)) {
                                         <div class="table-responsive">
                                             <table id="detalle" class="table table-hover " style="width: 180%;">
                                                 <thead>
-                                                    <tr>
+                                                    <tr class="text-left">
                                                         <th> N° Folio </th>
                                                         <th>Condición </th>
                                                         <th class="text-center">Operaciónes</th>
@@ -1523,10 +1523,10 @@ if (isset($_POST)) {
                                                                 $NOMBRETEMBALAJE = "Sin Datos";
                                                             }
                                                             ?>
-                                                            <tr class="center">
+                                                            <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
