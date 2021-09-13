@@ -12,10 +12,9 @@ include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 
 
-include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../controlador/REPALETIZAJEEX_ADO.php';
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 
-include_once '../modelo/DESPACHOEX.php';
 include_once '../modelo/EXIEXPORTACION.php';
 
 
@@ -30,11 +29,10 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
 
-$DESPACHOEX_ADO =  new DESPACHOEX_ADO();
+$REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
 $EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 
 //INIICIALIZAR MODELO
-$DESPACHOEX =  new DESPACHOEX();
 $EXIEXPORTACION =  new EXIEXPORTACION();
 
 
@@ -53,7 +51,7 @@ $TOTALCAJAS = 0;
 $TOTALNETO = 0;
 
 
-$IDDESPACHOEX = "";
+$IDREPALETIZAJE = "";
 
 $EMPRESA = "";
 $PLANTA = "";
@@ -66,14 +64,13 @@ $BORDER = "";
 $MENSAJE = "";
 
 
-$IDOP = "";
-$IDOP2 = "";
+$ID¿P = "";
 $OP = "";
 $NODATOURL = "";
 
 $SINO = "";
 $SINO2 = "";
-
+$FECHAREPALETIZAJE="";
 
 //INICIALIZAR ARREGLOS
 $ARRAYEXIEXPORTACION = "";
@@ -88,6 +85,7 @@ $ARRAYVERFOLIOID = "";
 $ARRAYVERPCDESPACHO = "";
 $ARRAYBUSCARNUMEROFOLIOEXIEXPORTACION = "";
 $ARRAYTMANEJO = "";
+$ARRAYREPALETIZAJE="";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
@@ -96,7 +94,8 @@ $ARRAYTMANEJO = "";
 //OPERACION DE REGISTRO DE FILA
 
 if (isset($_REQUEST['AGREGAR'])) {
-    $IDDESPACHOEX = $_REQUEST['IDP'];
+    $IDREPALETIZAJE = $_REQUEST['IDP'];
+    $FECHAREPALETIZAJE = $_REQUEST['FECHAREPALETIZAJE'];
     if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
         $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
         $SINO = "0";
@@ -106,12 +105,15 @@ if (isset($_REQUEST['AGREGAR'])) {
     }
     if ($SINO == "0") {
         foreach ($SELECIONAREXISTENCIA as $r) :
+
             $IDEXIEXPORTACION = $r;
-            $EXIEXPORTACION->__SET('ID_DESPACHOEX', $IDDESPACHOEX);
+            $EXIEXPORTACION->__SET('ID_REPALETIZAJE', $IDREPALETIZAJE);
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACION);
+            $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $FECHAREPALETIZAJE);
             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->actualizarSelecionarDespachoExCambiarEstado($EXIEXPORTACION);
+            $EXIEXPORTACION_ADO->actualizarSelecionarRepaletizajeCambiarEstado($EXIEXPORTACION);
         endforeach;
+        
         $_SESSION["parametro"] =  $_REQUEST['IDP'];
         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
         echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
@@ -122,7 +124,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaEstadoSagNotNullInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+
+    $ARRAYREPALETIZAJE=$REPALETIZAJEEX_ADO->verRepaletizaje($IDP);
+    $FECHAREPALETIZAJE=$ARRAYREPALETIZAJE[0]["INGRESO"];
+    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporada($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrlD.php";
 
@@ -182,7 +187,6 @@ include_once "../config/validarDatosUrlD.php";
                     setTimeout("mueveReloj()", 1000);
                 }
                 //F
-
                 //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
                 function cerrar() {
                     window.opener.refrescar()
@@ -199,8 +203,7 @@ include_once "../config/validarDatosUrlD.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
-            ?>
+            <?php include_once "../config/menu.php";  ?>
 
             <div class="content-wrapper">
                 <div class="container-full">
@@ -215,7 +218,8 @@ include_once "../config/validarDatosUrlD.php";
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item" aria-current="page">Despacho Exportacion </li>
+                                            <li class="breadcrumb-item" aria-current="page">Repaletizaje</li>
+                                            <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Seleccion Existencia</a>
                                             </li>
                                         </ol>
@@ -253,10 +257,10 @@ include_once "../config/validarDatosUrlD.php";
 
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="box-body ">
-
-                                    <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="OP REPALETIZAJE" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="URL REPALETIZAJE" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="FECHA REPALETIZAJE" id="FECHAREPALETIZAJE" name="FECHAREPALETIZAJE" value="<?php echo $FECHAREPALETIZAJE; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
@@ -356,7 +360,6 @@ include_once "../config/validarDatosUrlD.php";
                                                                 $NOMBRETEMBALAJE = "Sin Datos";
                                                             }
                                                             ?>
-
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>

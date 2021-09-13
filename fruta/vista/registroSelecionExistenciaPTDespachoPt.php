@@ -106,11 +106,12 @@ if (isset($_REQUEST['AGREGAR'])) {
     }
     if ($SINO == "0") {
         foreach ($SELECIONAREXISTENCIA as $r) :
+
             $IDEXIEXPORTACION = $r;
-            $EXIEXPORTACION->__SET('ID_DESPACHOEX', $IDDESPACHOEX);
+            $EXIEXPORTACION->__SET('ID_DESPACHO', $IDDESPACHOEX);
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACION);
             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->actualizarSelecionarDespachoExCambiarEstado($EXIEXPORTACION);
+            $EXIEXPORTACION_ADO->actualizarSelecionarDespachoCambiarEstado($EXIEXPORTACION);
         endforeach;
         $_SESSION["parametro"] =  $_REQUEST['IDP'];
         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -122,7 +123,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaEstadoSagNotNullInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporada($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrlD.php";
 
@@ -182,7 +183,6 @@ include_once "../config/validarDatosUrlD.php";
                     setTimeout("mueveReloj()", 1000);
                 }
                 //F
-
                 //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
                 function cerrar() {
                     window.opener.refrescar()
@@ -199,8 +199,7 @@ include_once "../config/validarDatosUrlD.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
-            ?>
+            <?php include_once "../config/menu.php";  ?>
 
             <div class="content-wrapper">
                 <div class="container-full">
@@ -254,9 +253,9 @@ include_once "../config/validarDatosUrlD.php";
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="box-body ">
 
-                                    <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
@@ -356,7 +355,6 @@ include_once "../config/validarDatosUrlD.php";
                                                                 $NOMBRETEMBALAJE = "Sin Datos";
                                                             }
                                                             ?>
-
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>

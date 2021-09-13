@@ -43,6 +43,7 @@ class EXIMATERIAPRIMA {
     private	  $ID_PROCESO;
     private   $ID_REPALETIZAJE;
     private   $ID_DESPACHO;
+    private   $ID_DESPACHO2;
     
     //FUNCIONES GET Y SET
     public function __GET($k){ return $this->$k; }

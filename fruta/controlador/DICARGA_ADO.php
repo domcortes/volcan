@@ -239,7 +239,9 @@ class DICARGA_ADO
                                             IFNULL(SUM(KILOS_NETO_DICARGA),0) AS 'NETO',
                                             IFNULL(SUM(KILOS_BRUTO_DICARGA),0) AS 'BRUTO',
                                             IFNULL(SUM(TOTAL_PRECIO_US_DICARGA),0) AS 'TOTALUS'
-                                         FROM fruta_dicarga WHERE ID_ICARGA =" . $IDICARGA . "   AND ESTADO_REGISTRO = 1;	");
+                                         FROM fruta_dicarga 
+                                         WHERE ID_ICARGA = '" . $IDICARGA . "'
+                                               AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -262,7 +264,9 @@ class DICARGA_ADO
                                             FORMAT(IFNULL(SUM(KILOS_NETO_DICARGA),0),2,'de_DE') AS 'NETO',
                                             FORMAT(IFNULL(SUM(KILOS_BRUTO_DICARGA),0),2,'de_DE') AS 'BRUTO',
                                             FORMAT(IFNULL(SUM(TOTAL_PRECIO_US_DICARGA),0),2,'de_DE') AS 'TOTALUS'
-                                         FROM fruta_dicarga WHERE ID_ICARGA =" . $IDICARGA . "   AND ESTADO_REGISTRO = 1;	");
+                                         FROM fruta_dicarga 
+                                         WHERE ID_ICARGA = '" . $IDICARGA . "'   
+                                               AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 

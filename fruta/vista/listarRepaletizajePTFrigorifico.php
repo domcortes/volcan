@@ -3,15 +3,9 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/FOLIO_ADO.php';
 
@@ -20,11 +14,6 @@ include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/DREPALETIZAJEEX_ADO.php';
 
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
 $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
@@ -33,18 +22,19 @@ $DREPALETIZAJEEX_ADO =  new DREPALETIZAJEEX_ADO();
 
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
-$TOTALNETO = "";
-$TOTALENVASE = "";
-$TOTALNETO2 = "";
-$TOTALENVASE2 = "";
+$TOTALNETO = 0;
+$TOTALENVASE = 0;
+$TOTALNETO2 = 0;
+$TOTALENVASE2 = 0;
 $FECHADESDE = "";
 $FECHAHASTA = "";
+$FOLIOORIGINAL="";
+$FOLIONUEVO="";
 
 
 //INICIALIZAR ARREGLOS
@@ -62,14 +52,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $ARRAYREPALETIZAJEEXTOTAL = $REPALETIZAJEEX_ADO->obtenerTotalesRepaletizajeEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALENVASE2 = $ARRAYREPALETIZAJEEXTOTAL[0]['ENVASE'];
     $TOTALNETO2 = $ARRAYREPALETIZAJEEXTOTAL[0]['NETO'];
-} else {
-
-    $ARRAYREPALETIZAJEEX = $REPALETIZAJEEX_ADO->listarRepaletizajeCBX2();
-    $ARRAYREPALETIZAJEEXTOTAL = $REPALETIZAJEEX_ADO->obtenerTotalesRepaletizajeCBX();
-
-    $TOTALENVASE2 = $ARRAYREPALETIZAJEEXTOTAL[0]['ENVASE'];
-    $TOTALNETO2 = $ARRAYREPALETIZAJEEXTOTAL[0]['NETO'];
 }
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrLP.php";
 
 
 
@@ -139,6 +124,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
                     window.open(url, 'window', opciones);
                 }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
             </script>
 
 </head>
@@ -163,7 +153,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Repaletizaje</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="listarRepaletizajeEx.php"> Agrupado Repaletizaje </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Repaletizaje </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -199,52 +189,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
                             </div>
                             <div class="box-body">
-                                <!--
-                                <form class="form" role="form" method="post" name="form_reg_dato">
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <label>Fecha Desde </label>
-                                                <input type="date" class="form-control" placeholder="Fecha Desde" id="FECHADESDE" name="FECHADESDE" value="<?php echo $FECHADESDE; ?>" />
-                                                <label id="val_fechad" class="validacion"> </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <label>Fecha Hasta </label>
-                                                <input type="date" class="form-control" placeholder="Fecha Hasta" id="FECHAHASTA" name="FECHAHASTA" value="<?php echo $FECHAHASTA; ?>" />
-                                                <label id="val_fechah" class="validacion"> </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <br>
-                                                <button type="submit" class="btn btn-rounded btn-warning btn-outline" name="LIMPIAR" value="LIMPIAR">
-                                                    <i class="ti-na"></i>
-                                                </button>
-
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="FILTRAR" value="FILTRAR">
-                                                    <i class="ti-filter"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </form>
-                                -->
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="table-responsive">
                                             <table id="modulo" class="table table-hover " style="width: 100%;">
                                                 <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                Número
-                                                            </a>
-                                                        </th>
+                                                    <tr class="text-left">
+                                                        <th>Número </th>
                                                         <th>Estado </th>
-                                                        <th>Operaciónes </th>
+                                                        <th class="text-center">Operaciónes </th>
                                                         <th>Folio Original </th>
                                                         <th>Folio Nuevo </th>
                                                         <th>Cantidad Envase </th>
@@ -253,143 +206,154 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Motivo </th>
                                                         <th>Fecha Ingreso </th>
                                                         <th>Fecha Modificación </th>
+                                                        <th>Empresa</th>
+                                                        <th>Planta</th>
+                                                        <th>Temporada</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
                                                     <?php foreach ($ARRAYREPALETIZAJEEX as $r) : ?>
-                                                        <tr class="center">
+
+                                                        <?php
+                                                        $ARRAYFOLIOREPALETIZAJE = $EXIEXPORTACION_ADO->buscarPorRepaletizajeAgrupado($r['ID_REPALETIZAJE']);
+                                                        if ($ARRAYFOLIOREPALETIZAJE) {
+                                                            foreach ($ARRAYFOLIOREPALETIZAJE as $dr) :
+                                                                $FOLIOORIGINAL = $FOLIOORIGINAL . $dr['FOLIO_AUXILIAR_EXIEXPORTACION'] . ", ";
+                                                            endforeach;
+                                                        } else {
+                                                            $FOLIOORIGINAL = "";
+                                                        }
+                                                        $ARRAYFOLIODREPALETIZAJE = $DREPALETIZAJEEX_ADO->buscarDrepaletizajeAgrupadoFolio($r['ID_REPALETIZAJE']);
+                                                        if ($ARRAYFOLIODREPALETIZAJE) {
+                                                            foreach ($ARRAYFOLIODREPALETIZAJE as $dr) :
+                                                                $FOLIONUEVO = $FOLIONUEVO . $dr['FOLIO_NUEVO_DREPALETIZAJE'] . ", ";
+                                                            endforeach;
+                                                        } else {
+                                                            $FOLIONUEVO = "";
+                                                        }
+
+                                                        $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                        if ($ARRAYEMPRESA) {
+                                                            $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                        } else {
+                                                            $NOMBREEMPRESA = "Sin Datos";
+                                                        }
+                                                        $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                        if ($ARRAYPLANTA) {
+                                                            $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $NOMBREPLANTA = "Sin Datos";
+                                                        }
+                                                        $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                        if ($ARRAYTEMPORADA) {
+                                                            $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                        } else {
+                                                            $NOMBRETEMPORADA = "Sin Datos";
+                                                        }
+                                                        ?>
+                                                        <tr class="text-left">
+                                                            <td><?php echo $r['NUMERO_REPALETIZAJE']; ?> </td>
                                                             <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_REPALETIZAJE']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td <?php if ($r['ESTADO'] == "0") {
-                                                                    echo "style='background-color: #FF0000;'";
-                                                                }
-                                                                if ($r['ESTADO'] == "1") {
-                                                                    echo "style='background-color: #4AF575;'";
-                                                                }  ?>>
-                                                                <?php
-                                                                if ($r['ESTADO'] == "0") {
-                                                                    echo "Cerrado";
-                                                                }
-                                                                if ($r['ESTADO'] == "1") {
-                                                                    echo "Abierto";
-                                                                }
-                                                                ?>
+                                                                <?php if ($r['ESTADO'] == "0") { ?>
+                                                                    <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                                <?php  }  ?>
+                                                                <?php if ($r['ESTADO'] == "1") { ?>
+                                                                    <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                                <?php  }  ?>
                                                             </td>
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <i class="glyphicon glyphicon-cog"></i>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-
-                                                                                <?php if ($r['ESTADO'] == 0) { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="informe" Onclick="abrirVentana('../documento/informeRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
-                                                                                    </button>Informe <br>
-                                                                                <?php } ?>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
-                                                                                </button>Tarja
-                                                                                <div class="dropdown-divider"></div>
-                                                                                <?php if ($r['ESTADO'] == 1) { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline mr-1" id="defecto" name="editar" Onclick="irPagina('registroRepaletizajeFrigorificoEx.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&parametro1=editar'); ">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>Editar
-                                                                                    <br>
-                                                                                <?php } ?>
-
+                                                                                <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_REPALETIZAJE']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRepaletizajePTFrigorifico" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRepaletizajePTFrigorifico" />
                                                                                 <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline mr-1" id="defecto" name="ver" Onclick="irPagina('registroRepaletizajeFrigorificoEx.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&parametro1=ver'); ">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>Ver
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                        <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                            <i class="ti-eye"></i>
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
+                                                                                <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                        <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                            <i class="ti-pencil-alt"></i>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                    </button>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </form>
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYFOLIOREPALETIZAJE = $EXIEXPORTACION_ADO->buscarPorRepaletizajeAgrupado($r['ID_REPALETIZAJE']);
-                                                                foreach ($ARRAYFOLIOREPALETIZAJE as $dr) :
-                                                                    echo $dr['FOLIO_AUXILIAR_EXIEXPORTACION'] . "<br>";
-                                                                endforeach;
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYFOLIODREPALETIZAJE = $DREPALETIZAJEEX_ADO->buscarDrepaletizajeAgrupadoFolio2($r['ID_REPALETIZAJE']);
-                                                                if ($ARRAYFOLIODREPALETIZAJE) {
-                                                                    foreach ($ARRAYFOLIODREPALETIZAJE as $dr) :
-                                                                        echo $dr['FOLIO_NUEVO_DREPALETIZAJE'] . "<br>";
-                                                                    endforeach;
-                                                                } else {
-                                                                    echo "-";
-                                                                }
-                                                                ?>
-                                                            </td>
+                                                            <td><?php echo $FOLIOORIGINAL; ?> </td>
+                                                            <td><?php echo $FOLIONUEVO; ?> </td>
                                                             <td><?php echo $r['CANTIDAD_ENVASE_REPALETIZAJE']; ?> </td>
                                                             <td><?php echo $r['NETOO']; ?> </td>
                                                             <td><?php echo $r['NETOR']; ?> </td>
                                                             <td><?php echo $r['MOTIVO_REPALETIZAJE']; ?> </td>
-                                                            <td><?php echo $r['FECHA_INGRESO']; ?> </td>
-                                                            <td><?php echo $r['FECHA_MODIFICACION']; ?> </td>
+                                                            <td><?php echo $r['INGRESO']; ?> </td>
+                                                            <td><?php echo $r['MODIFICACION']; ?> </td>
+                                                            <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                            <td><?php echo $NOMBREPLANTA; ?></td>
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 col-xs-8">
                                         <div class="form-group">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASE2V" name="TOTALENVASE2V" value="<?php echo $TOTALENVASE2; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASE2V" name="TOTALENVASE2V" value="<?php echo $TOTALNETO2; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- /.box -->
-
                     </section>
                     <!-- /.content -->
-
                 </div>
             </div>
-
-
-
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../config/footer.php"; ?>
                 <?php include_once "../config/menuExtra.php"; ?>
     </div>
-
-
-
-
-
     <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
         <?php include_once "../config/footer.php"; ?>
         <?php include_once "../config/menuExtra.php"; ?>

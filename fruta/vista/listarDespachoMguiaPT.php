@@ -4,11 +4,6 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 
 include_once '../controlador/EXIEXPORTACION_ADO.php';
@@ -39,25 +34,15 @@ $NODATOURL = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYMGUIAPT = "";
 $ARRAVERYPLANTA = "";
-if (isset($_REQUEST["parametro"])) {
-    $IDOP = $_REQUEST["parametro"];
-    $NODATOURL = "1";
-} else {
-    $NODATOURL = "0";
+
+
+if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
+    $IDP = $_SESSION['parametro'];
+    $OPP = $_SESSION['parametro1'];
+    $URLO = $_SESSION['urlO'];
+    $ARRAYMGUIAPT = $MGUIAPT_ADO->listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX($IDP, $EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
-
-
-if ($NODATOURL == "0") {
-    header('Location: index.php');
-}
-
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
-    $ARRAYMGUIAPT = $MGUIAPT_ADO->listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX($IDOP, $EMPRESAS, $PLANTAS, $TEMPORADAS);
-} else {
-
-    $ARRAYMGUIAPT = $MGUIAPT_ADO->listarMguiaCBX($IDOP);
-}
+include_once "../config/validarDatosUrlD.php";
 
 
 
@@ -128,6 +113,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
                     window.open(url, 'window', opciones);
                 }
+                //REDIRECCIONAR A LA PAGINA SELECIONADA
+                function irPagina(url) {
+                    location.href = "" + url;
+                }
             </script>
 
 </head>
@@ -185,23 +174,22 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                         <div class="box">
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="col-sm-11">
+                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 col-xs-10">
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
-                                            <label>Volver</label>
-                                            <button type="button" class="btn btn-circle  btn-success btn-outline  " title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDespachopt.php'); ">
+                                            <button type="button" class="btn btn-block  btn-success" data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDespachopt.php'); ">
                                                 <i class="ti-back-left "></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
                                             <table id="modulo" class="table table-hover " style="width: 100%;">
                                                 <thead>
-                                                    <tr>
+                                                    <tr class="text-left">
                                                         <th>Número </th>
                                                         <th>Fecha Ingreso</th>
                                                         <th>Número Despacho</th>
@@ -213,51 +201,30 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYMGUIAPT as $r) : ?>
-                                                        <tr class="">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_MGUIA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <a >
-                                                                    <?php echo $r['FECHA_INGRESO_MGUIA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <a >
-                                                                    <?php echo $r['NUMERO_DESPACHO']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <a >
-                                                                    <?php echo $r['NUMERO_GUIA']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                if ($r['ID_PLANTA2']) {
-                                                                    $ARRAVERYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
-                                                                    echo $ARRAVERYPLANTA[0]['NOMBRE_PLANTA'];
-                                                                } else {
-                                                                    echo "-";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                if ($r['ID_PLANTA']) {
-                                                                    $ARRAVERYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
-                                                                    echo $ARRAVERYPLANTA[0]['NOMBRE_PLANTA'];
-                                                                } else {
-                                                                    echo "-";
-                                                                }
-                                                                ?>
-                                                            </td>
+                                                        <?php
+                                                        $ARRAVERYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if ($ARRAVERYPLANTA) {
+                                                            $NOMBREPLANTA2 = $ARRAVERYPLANTA[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $NOMBREPLANTA2 = "Sin Datos";
+                                                        }
+                                                        $ARRAVERYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                        if ($ARRAVERYPLANTA) {
+                                                            $NOMBREPLANTA = $ARRAVERYPLANTA[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $NOMBREPLANTA = "Sin Datos";
+                                                        }
+                                                        ?>
+                                                        <tr class="text-left">
+                                                            <td> <?php echo $r['NUMERO_MGUIA']; ?> </td>
+                                                            <td> <?php echo $r['INGRESO']; ?></td>
+                                                            <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
+                                                            <td> <?php echo $r['NUMERO_GUIA']; ?> </td>
+                                                            <td> <?php echo $NOMBREPLANTA2; ?> </td>
+                                                            <td> <?php echo $NOMBREPLANTA; ?> </td>
                                                             <td> <?php echo $r['MOTIVO_MGUIA']; ?> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -275,10 +242,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
                 </div>
             </div>
-
-
-
-
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../config/footer.php"; ?>

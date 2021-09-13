@@ -40,8 +40,9 @@ class EXIEXPORTACION {
     private   $ID_REPALETIZAJE;
     private   $ID_REEMBALAJE;
     private   $ID_PCDESPACHO;    
-    private   $ID_DESPACHOEX;
     private   $ID_DESPACHO;
+    private   $ID_DESPACHO2;
+    private   $ID_DESPACHOEX;
     private   $ID_ICARGA;
     private   $ID_INPSAG;
     private   $ID_PLANTA2;

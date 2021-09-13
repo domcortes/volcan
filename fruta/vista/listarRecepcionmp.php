@@ -165,16 +165,16 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                                <h3 class="page-title">Agrupado Recepcion</h3>
-                                <div class="d-inline-block align-items-center">
-                                    <nav>
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                            <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Granel</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepcion</li>
-                                            <li class="breadcrumb-item" aria-current="page">Materia Prima</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">  Agrupado Recepción </a>
+                            <h3 class="page-title">Agrupado Recepcion</h3>
+                            <div class="d-inline-block align-items-center">
+                                <nav>
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
+                                        <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                        <li class="breadcrumb-item" aria-current="page">Granel</li>
+                                        <li class="breadcrumb-item" aria-current="page">Recepcion</li>
+                                        <li class="breadcrumb-item" aria-current="page">Materia Prima</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Recepción </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -207,7 +207,7 @@ include_once "../config/datosUrLP.php";
                     <div class="box">
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -264,7 +264,7 @@ include_once "../config/datosUrLP.php";
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRecepcionmp" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcionmp" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                
+
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
                                                                                         <i class="ti-eye"></i>
@@ -272,7 +272,7 @@ include_once "../config/datosUrLP.php";
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar" >
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                     <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
                                                                                         <i class="ti-pencil-alt"></i>
                                                                                     </button>

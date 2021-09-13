@@ -162,151 +162,146 @@ $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->listarExiindustrialHCBX();
 
                             </div>
                             <div class="box-body">
-                                <form class="form" role="form" method="post" name="form_filtro_dato" onsubmit="return validacionFiltro()">
-                                    <div class="row">
+                                <div class="row">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <div class="table-responsive">
+                                            <table id="hexistencia" class="table table-hover " style="width: 100%;">
+                                                <thead>
+                                                    <tr class="text-left">
+                                                        <th>Folio </th>
+                                                        <th>Estado</th>
+                                                        <th>Fecha Ingreso </th>
+                                                        <th>Fecha Modificacion </th>
+                                                        <th>CSG Productor </th>
+                                                        <th>Nombre Productor </th>
+                                                        <th>Estandar </th>
+                                                        <th>Especies </th>
+                                                        <th>Variedad </th>
+                                                        <th>Kilos Neto</th>
+                                                        <th>Dias </th>
+                                                        <th>Empresa</th>
+                                                        <th>Planta</th>
+                                                        <th>Temporada</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($ARRAYEXIINDUSTRIAL as $r) : ?>
+                                                        <tr class="text-left">
+                                                            <td>
+                                                                <a href="#" class="text-warning hover-warning">
+                                                                    <?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                if ($r['ESTADO'] == "0") {
+                                                                    echo "Eliminado";
+                                                                }
+                                                                if ($r['ESTADO'] == "1") {
+                                                                    echo "Ingresando";
+                                                                }
+                                                                if ($r['ESTADO'] == "2") {
+                                                                    echo "Disponible";
+                                                                }
+                                                                if ($r['ESTADO'] == "3") {
+                                                                    echo "En Despacho";
+                                                                }
+                                                                if ($r['ESTADO'] == "4") {
+                                                                    echo "Despachado";
+                                                                }
+                                                                if ($r['ESTADO'] == "5") {
+                                                                    echo "En Transito";
+                                                                }
 
+
+
+                                                                ?>
+                                                            </td>
+                                                            <td><?php echo $r['FECHA_INGRESO_EXIINDUSTRIAL']; ?></td>
+                                                            <td><?php echo $r['FECHA_MODIFICACION_EXIINDUSTRIAL']; ?></td>
+                                                            <td>
+                                                                <?php
+
+                                                                $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                echo $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                echo $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                                ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                $ARRAYEVERINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                                echo $ARRAYEVERINDUSTRIALID[0]['NOMBRE_ESTANDAR'];
+                                                                ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                                $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
+                                                                echo $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+                                                                ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                echo $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                                ?>
+                                                            </td>
+                                                            <td><?php echo $r['KILOS_NETO_EXIINDUSTRIAL']; ?></td>
+                                                            <td><?php echo $r['DIAS']; ?></td>
+                                                            <td>
+                                                                <?php
+                                                                $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                                echo $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                                ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                                echo $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+                                                                ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                                echo $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                                ?>
+                                                            </td>
+
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="text-left" id="filtro">
+                                                        <th>Folio </th>
+                                                        <th>Estado</th>
+                                                        <th>Fecha Ingreso </th>
+                                                        <th>Fecha Modificacion </th>
+                                                        <th>CSG Productor </th>
+                                                        <th>Nombre Productor </th>
+                                                        <th>Estandar </th>
+                                                        <th>Especies </th>
+                                                        <th>Variedad </th>
+                                                        <th>Kilos Neto</th>
+                                                        <th>Dias </th>
+                                                        <th>Empresa</th>
+                                                        <th>Planta</th>
+                                                        <th>Temporada</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+
+
+                                        </div>
                                     </div>
-                                </form>
-
-
-                                <div class="table-responsive">
-                                    <table id="hexistencia" class="table table-hover " style="width: 100%;">
-                                        <thead>
-                                            <tr class="text-left">
-                                                <th>Folio </th>
-                                                <th>Estado</th>
-                                                <th>Fecha Ingreso </th>
-                                                <th>Fecha Modificacion </th>
-                                                <th>CSG Productor </th>
-                                                <th>Nombre Productor </th>
-                                                <th>Estandar </th>
-                                                <th>Especies </th>
-                                                <th>Variedad </th>
-                                                <th>Kilos Neto</th>
-                                                <th>Dias </th>
-                                                <th>Empresa</th>
-                                                <th>Planta</th>
-                                                <th>Temporada</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($ARRAYEXIINDUSTRIAL as $r) : ?>
-                                                <tr class="text-left">
-                                                    <td>
-                                                        <a href="#" class="text-warning hover-warning">
-                                                            <?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        if ($r['ESTADO'] == "0") {
-                                                            echo "Eliminado";
-                                                        }
-                                                        if ($r['ESTADO'] == "1") {
-                                                            echo "Ingresando";
-                                                        }
-                                                        if ($r['ESTADO'] == "2") {
-                                                            echo "Disponible";
-                                                        }
-                                                        if ($r['ESTADO'] == "3") {
-                                                            echo "En Despacho";
-                                                        }
-                                                        if ($r['ESTADO'] == "4") {
-                                                            echo "Despachado";
-                                                        }
-                                                        if ($r['ESTADO'] == "5") {
-                                                            echo "En Transito";
-                                                        }
-
-
-
-                                                        ?>
-                                                    </td>
-                                                    <td><?php echo $r['FECHA_INGRESO_EXIINDUSTRIAL']; ?></td>
-                                                    <td><?php echo $r['FECHA_MODIFICACION_EXIINDUSTRIAL']; ?></td>
-                                                    <td>
-                                                        <?php
-
-                                                        $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                        echo $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        echo $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        $ARRAYEVERINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                        echo $ARRAYEVERINDUSTRIALID[0]['NOMBRE_ESTANDAR'];
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                        $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
-                                                        echo $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        echo $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                        ?>
-                                                    </td>
-                                                    <td><?php echo $r['KILOS_NETO_EXIINDUSTRIAL']; ?></td>
-                                                    <td><?php echo $r['DIAS']; ?></td>
-                                                    <td>
-                                                        <?php
-                                                        $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                        echo $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
-                                                        echo $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
-                                                        echo $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-                                                        ?>
-                                                    </td>
-
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr class="text-left" id="filtro">
-                                                <th>Folio </th>
-                                                <th>Estado</th>
-                                                <th>Fecha Ingreso </th>
-                                                <th>Fecha Modificacion </th>
-                                                <th>CSG Productor </th>
-                                                <th>Nombre Productor </th>
-                                                <th>Estandar </th>
-                                                <th>Especies </th>
-                                                <th>Variedad </th>
-                                                <th>Kilos Neto</th>
-                                                <th>Dias </th>
-                                                <th>Empresa</th>
-                                                <th>Planta</th>
-                                                <th>Temporada</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-
-
-
+                                </div>
+                                <div class="box-footer">
                                 </div>
                             </div>
-                            <div class="box-footer">
-                            </div>
-
-                        </div>
-                        <!-- /.box -->
+                            <!-- /.box -->
 
                     </section>
                     <!-- /.content -->
