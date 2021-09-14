@@ -1270,7 +1270,7 @@ if (isset($_POST)) {
                                                         <th>Numero Linea</th>
                                                         <th>Folio</th>
                                                         <th class="text-center">Operaciones</th>
-                                                        <th>Fecha Cosecha </th>
+                                                        <th>Fecha Embalado </th>
                                                         <th>Envase/Estandar</th>
                                                         <th>Variedad</th>
                                                         <th>Cantidad Envase</th>
