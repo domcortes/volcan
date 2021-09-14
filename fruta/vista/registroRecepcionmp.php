@@ -175,67 +175,7 @@ if (empty($ARRAYFOLIO3)) {
     $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS MP </b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
 }
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
 
-    $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    if ($ARRAYRECEPCIONBUSCARGPETP) {
-        $SINO = "1";
-        $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
-    } else {
-        $SINO = "0";
-        $MENSAJE3 = "";
-    }
-    if ($SINO == "0") {
-        $ARRAYNUMERO = $RECEPCIONMP_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-        $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-        //UTILIZACION METODOS SET DEL MODELO
-        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-        $RECEPCIONMP->__SET('NUMERO_RECEPCION', $NUMERO);
-        $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-        $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCION']);
-        $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
-        $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
-        $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', 0);
-        $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', 0);
-        $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', 0);
-        $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIA']);
-        $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
-        $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-        $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
-        $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCION']);
-        if ($_REQUEST['TRECEPCION'] == "1") {
-            $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        }
-        if ($_REQUEST['TRECEPCION'] == "2") {
-            $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-        }
-        $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-        $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-        $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $RECEPCIONMP->__SET('ID_USUARIOI', $IDUSUARIOS);
-        $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
-
-        //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-        $ARRAYRECEPCION2 = $RECEPCIONMP_ADO->obtenerID(
-            $_REQUEST['OBSERVACION'],
-            $_REQUEST['TRECEPCION'],
-            $_REQUEST['EMPRESA'],
-            $_REQUEST['PLANTA'],
-            $_REQUEST['TEMPORADA'],
-        );
-
-        //REDIRECCIONAR A PAGINA registroRecepcionmp.php 
-        $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
-        $_SESSION["parametro1"] = "crear";
-        echo "<script type='text/javascript'> location.href ='registroRecepcionmp.php?op';</script>";
-    }
-}
 
 
 //OPERACION EDICION DE FILA
@@ -934,7 +874,7 @@ if (isset($_POST)) {
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
                                 <div class="box-header with-border">
-                                    <p class="text-muted"><i class="fas fa-info-circle"></i> Se creara el registro de encabezado de recepcion</p>
+                                    <p class="text-muted"><i class="fas fa-info-circle"></i> Este es el encabezado del registro de recepcion</p>
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -1425,15 +1365,89 @@ if (isset($_POST)) {
                 </div>
             </div>
 
+    <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
+        <?php include_once "../config/footer.php"; ?>
+        <?php include_once "../config/menuExtra.php"; ?>
+        </div>
+        <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
+            <?php include_once "../config/urlBase.php"; ?>
 
+<?php
+    //OPERACION DE REGISTRO DE FILA
+    if (isset($_REQUEST['CREAR'])) {
+        $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+        if ($ARRAYRECEPCIONBUSCARGPETP) {
+            $SINO = "1";
+            $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
+        } else {
+            $SINO = "0";
+            $MENSAJE3 = "";
+        }
+        if ($SINO == "0") {
+            $ARRAYNUMERO = $RECEPCIONMP_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+            $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+            //UTILIZACION METODOS SET DEL MODELO
+            //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
 
+            $RECEPCIONMP->__SET('NUMERO_RECEPCION', $NUMERO);
+            $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+            $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCION']);
+            $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
+            $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
+            $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', 0);
+            $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', 0);
+            $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', 0);
+            $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIA']);
+            $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
+            $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+            $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
+            $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCION']);
+            if ($_REQUEST['TRECEPCION'] == "1") {
+                $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+            }
+            if ($_REQUEST['TRECEPCION'] == "2") {
+                $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+            }
+            $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+            $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+            $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+            $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+            $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+            $RECEPCIONMP->__SET('ID_USUARIOI', $IDUSUARIOS);
+            $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
+            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+            $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
 
-            <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
-    </div>
-    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+            //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+            $ARRAYRECEPCION2 = $RECEPCIONMP_ADO->obtenerID(
+                $_REQUEST['OBSERVACION'],
+                $_REQUEST['TRECEPCION'],
+                $_REQUEST['EMPRESA'],
+                $_REQUEST['PLANTA'],
+                $_REQUEST['TEMPORADA'],
+            );
+
+            //REDIRECCIONAR A PAGINA registroRecepcionmp.php
+            $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
+            $_SESSION["parametro1"] = "crear";
+             echo '<script>
+                Swal.fire({
+                    icon:"success",
+                    title:"Recepcion creada",
+                    text:"El encabezado de recepcion se ha creado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    if(result.value){
+                        location.href = "registroRecepcionmp.php?op";
+                    }
+                })
+            </script>';
+        }
+    }
+
+?>
 </body>
 
 </html>
