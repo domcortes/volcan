@@ -1166,7 +1166,7 @@ if (isset($_POST)) {
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-4" role="group" aria-label="Acciones generales">
+                                    <div class="btn-group btn-block col-6" role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
                                             <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionmp.php');">
                                                 <i class="ti-trash"></i> Borrar
@@ -1176,20 +1176,20 @@ if (isset($_POST)) {
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionmp.php'); ">
-                                                <i class="ti-back-left "></i>
+                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionmp.php'); ">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i>
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-pencil-alt"></i> Guardar
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Cerrar
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
+                                            <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> PDF
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
+                                            <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Tarjas
                                             </button>
 
                                         <?php } ?>
@@ -1316,10 +1316,8 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONMP" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONMP" id="URLP" name="URLP" value="registroRecepcionmp" />
                                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionmp" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                                    } ?>>
-                                                                <i class=" glyphicon glyphicon-plus"></i>
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {echo "disabled style='background-color: #eeeeee;'";} ?>>
+                                                                <i class=" glyphicon glyphicon-plus"></i> Detalle
                                                             </button>
                                                         </div>
                                                     </form>
