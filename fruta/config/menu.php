@@ -500,7 +500,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <li><a href="reimprimirTarjaPT.php"><i class="ti-more"></i>Reimprimir Tarja</a></li>
           -->
           <li><a href="listarExiindustrial.php"><i class="ti-more"></i>Existencia Industrial</a></li>
-
         </ul>
       </li>
       <li class="treeview">
