@@ -9,10 +9,9 @@ include_once '../controlador/EMPRESA_ADO.php';
 include_once '../controlador/DRECEPCIONPT_ADO.php';
 include_once '../controlador/RECEPCIONPT_ADO.php';
 
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/CALIBRE_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 
@@ -27,9 +26,8 @@ $DRECEPCIONPT_ADO =  new DRECEPCIONPT_ADO();
 $RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$CALIBRE_ADO =  new CALIBRE_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 
@@ -80,10 +78,10 @@ if (isset($_REQUEST['parametro'])) {
 	$NUMERORECEPCIONPT = $IDOP;
 }
 
-$ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->verRecepcionpt2($NUMERORECEPCIONPT);
+$ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->verRecepcion2($NUMERORECEPCIONPT);
 $ARRAYDRECEPCIONPT = $DRECEPCIONPT_ADO->buscarPorIdRecepcion2($NUMERORECEPCIONPT);
 $ARRAYDRECEPCIONPTTOTALES = $DRECEPCIONPT_ADO->obtenerTotales2($NUMERORECEPCIONPT);
-$FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA_RECEPCIONPT'];
+$FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA_RECEPCION'];
 
 $PRODUCTOR = $ARRAYRECEPCIONPT[0]['ID_PRODUCTOR'];
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
@@ -294,30 +292,29 @@ $html = '
 foreach ($ARRAYDRECEPCIONPT as $r) :
 
 	$ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-	$ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-	$ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
+	$ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
 	$ARRAYEVERECEPCIONPTID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-	$ARRAYCALIBRE = $CALIBRE_ADO->verCalibre($r['ID_CALIBRE']);
+	$ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
 	$ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
 	$TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
 
-	if ($r['EMBOLSADO_DRECEPCIONPT'] == "1") {
+	if ($r['EMBOLSADO_DRECEPCION'] == "1") {
 		$EMBOLSADO = "SI";
 	}
-	if ($r['EMBOLSADO_DRECEPCIONPT'] == "0") {
+	if ($r['EMBOLSADO_DRECEPCION'] == "0") {
 		$EMBOLSADO = "NO";
 	}
-	if ($r['PREFRIO_DRECEPCIONPT'] == "1") {
+	if ($r['PREFRIO_DRECEPCION'] == "1") {
 		$PREFRIO = "SI";
 	}
-	if ($r['PREFRIO_DRECEPCIONPT'] == "0") {
+	if ($r['PREFRIO_DRECEPCION'] == "0") {
 		$PREFRIO =  "NO";
 	}
 
-	if ($r['GASIFICADO_DRECEPCIONPT'] == "1") {
+	if ($r['GASIFICADO_DRECEPCION'] == "1") {
 		$GASIFICACION = "SI";
 	}
-	if ($r['GASIFICADO_DRECEPCIONPT'] == "0") {
+	if ($r['GASIFICADO_DRECEPCION'] == "0") {
 		$GASIFICACION =  "NO";
 	}
 
@@ -328,7 +325,7 @@ foreach ($ARRAYDRECEPCIONPT as $r) :
                 <img src="../vista/img/logo.png" width="100px" height="30px"/>
              </b>
 			 <br>
-        <b> PRODUCTO TERMINADO : </b> <b class="center f30">  ' . $r['FOLIO_DRECEPCIONPT'] . ' </b>	
+        <b> PRODUCTO TERMINADO : </b> <b class="center f30">  ' . $r['FOLIO_DRECEPCION'] . ' </b>	
 		</div>		
 		<br>
 		<div class="subtitulo2"></div>   	<div class="info ">
@@ -373,13 +370,13 @@ foreach ($ARRAYDRECEPCIONPT as $r) :
 
 	$html = $html . ' 
     <tr >
-        <td class="center"> ' . $r['FECHA_EMBALADO_DRECEPCIONPT'] . '</td>
+        <td class="center"> ' . $r['FECHA_EMBALADO_DRECEPCION'] . '</td>
         <td  class="center  ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
         <td  class="center  ">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>
         <td  class="center  ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . '</td>
         <td  class="center  ">' . $r['ENVASE'] . '</td>
         <td  class="center ">' . $r['NETO'] . '</td>
-        <td  class="center  ">' . $ARRAYCALIBRE[0]['NOMBRE_CALIBRE'] . '</td>
+        <td  class="center  ">' . $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'] . '</td>
         <td  class="center  ">' . $TMANEJO . '</td>
         <td  class="center  ">' . $EMBOLSADO . '</td>
         <td  class="center  ">' . $GASIFICACION . '</td>
@@ -421,8 +418,8 @@ $html = $html . '
 
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
-require_once '../api/mpdf/qrcode/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/qrcode/autoload.php';
 
 $PDF = new \Mpdf\Mpdf(['format' => [150, 100]]);
 //$PDF = new \Mpdf\Mpdf();
