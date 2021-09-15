@@ -10,25 +10,26 @@
         //ATRIBUTOS DE LA CLASE
         private	  $ID_DPEXPORTACION; 
         private	  $FOLIO_DPEXPORTACION; 
-        private	  $FOLIO_AUX_DPEXPORTACION; 
-        private	  $NUMERO_LINEA; 
+        private	  $FOLIO_MANUAL; 
         private   $FECHA_EMBALADO_DPEXPORTACION;
         private   $CANTIDAD_ENVASE_DPEXPORTACION;
         private   $KILOS_NETO_DPEXPORTACION;
-        private   $KILOS_BRUTO_DPEXPORTACION;
-        private   $KILOS_DESHIDRATACION_DPEXPORTACION;
         private   $PDESHIDRATACION_DPEXPORTACION;
-        private   $ALIAS_FOLIO_DPEXPORTACION;
+        private   $KILOS_DESHIDRATACION_DPEXPORTACION;
+        private   $KILOS_BRUTO_DPEXPORTACION;
         private   $EMBOLSADO;
         private   $ESTADO; 
         private   $ESTADO_REGISTRO; 
-        private   $ID_ESTANDAR;
-        private   $ID_CALIBRE;
-        private   $ID_FOLIO;
-        private   $ID_PVESPECIES;
-        private   $ID_PROCESO;
-        private   $ID_PRODUCTOR;
+        private   $INGRESO; 
+        private   $MODIFICACION; 
+        private   $ID_TEMBALAJE;
+        private   $ID_TCALIBRE;
         private   $ID_TMANEJO;
+        private   $ID_ESTANDAR;
+        private   $ID_FOLIO;
+        private   $ID_VESPECIES;
+        private   $ID_PRODUCTOR;
+        private   $ID_PROCESO;
         
         
         //FUNCIONES GET Y SET
