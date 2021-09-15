@@ -157,7 +157,7 @@ $ARRAYTRANSPORTE = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
 $ARRAYCONDUCTOR = $CONDUCTOR_ADO->listarConductorPorEmpresaCBX($EMPRESAS);
 $ARRAYVESPECIES = $VESPECIES_ADO->listarVespeciesPorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
-//$ARRAYPLANTA2 = $PLANTA_ADO->listarPlantaExternaCBX();
+$ARRAYPLANTA2 = $PLANTA_ADO->listarPlantaExternaCBX();
 
 
 $ARRAYFECHAACTUAL = $RECEPCIONMP_ADO->obtenerFecha();
@@ -567,255 +567,255 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -->
-        <?php include_once "../config/urlHead.php"; ?>
-        <!- FUNCIONES BASES -!>
-            <script type="text/javascript">
-                //VALIDACION DE FORMULARIO
-                function validacion() {
+    <?php include_once "../config/urlHead.php"; ?>
+    <!- FUNCIONES BASES -!>
+        <script type="text/javascript">
+            //VALIDACION DE FORMULARIO
+            function validacion() {
 
-                    FECHARECEPCION = document.getElementById("FECHARECEPCION").value;
-                    HORARECEPCION = document.getElementById("HORARECEPCION").value;
-                    TRECEPCION = document.getElementById("TRECEPCION").selectedIndex;
-
-
-                    NUMEROGUIA = document.getElementById("NUMEROGUIA").value;
-                    FECHAGUIA = document.getElementById("FECHAGUIA").value;
-                    TOTALGUIA = document.getElementById("TOTALGUIA").value;
-                    TRANSPORTE = document.getElementById("TRANSPORTE").selectedIndex;
-                    CONDUCTOR = document.getElementById("CONDUCTOR").selectedIndex;
-                    PATENTECAMION = document.getElementById("PATENTECAMION").value;
-                    PATENTECARRO = document.getElementById("PATENTECARRO").value;
-                    //OBSERVACION = document.getElementById("OBSERVACION").value;
+                FECHARECEPCION = document.getElementById("FECHARECEPCION").value;
+                HORARECEPCION = document.getElementById("HORARECEPCION").value;
+                TRECEPCION = document.getElementById("TRECEPCION").selectedIndex;
 
 
-                    document.getElementById('val_fechar').innerHTML = "";
-                    document.getElementById('val_horar').innerHTML = "";
-                    document.getElementById('val_trecepcion').innerHTML = "";
+                NUMEROGUIA = document.getElementById("NUMEROGUIA").value;
+                FECHAGUIA = document.getElementById("FECHAGUIA").value;
+                TOTALGUIA = document.getElementById("TOTALGUIA").value;
+                TRANSPORTE = document.getElementById("TRANSPORTE").selectedIndex;
+                CONDUCTOR = document.getElementById("CONDUCTOR").selectedIndex;
+                PATENTECAMION = document.getElementById("PATENTECAMION").value;
+                PATENTECARRO = document.getElementById("PATENTECARRO").value;
+                //OBSERVACION = document.getElementById("OBSERVACION").value;
 
 
-                    document.getElementById('val_numerog').innerHTML = "";
-                    document.getElementById('val_fechag').innerHTML = "";
-                    document.getElementById('val_totalg').innerHTML = "";
-                    document.getElementById('val_transporte').innerHTML = "";
-                    document.getElementById('val_conductor').innerHTML = "";
-                    document.getElementById('val_patentecamion').innerHTML = "";
-                    document.getElementById('val_patentecarro').innerHTML = "";
-                    //  document.getElementById('val_observacion').innerHTML = "";
-
-                    if (FECHARECEPCION == null || FECHARECEPCION.length == 0 || /^\s+$/.test(FECHARECEPCION)) {
-                        document.form_reg_dato.FECHARECEPCION.focus();
-                        document.form_reg_dato.FECHARECEPCION.style.borderColor = "#FF0000";
-                        document.getElementById('val_fechar').innerHTML = "NO A INGRESADO DATO";
-                        return false
-                    }
-                    document.form_reg_dato.FECHARECEPCION.style.borderColor = "#4AF575";
+                document.getElementById('val_fechar').innerHTML = "";
+                document.getElementById('val_horar').innerHTML = "";
+                document.getElementById('val_trecepcion').innerHTML = "";
 
 
-                    if (HORARECEPCION == null || HORARECEPCION.length == 0) {
-                        document.form_reg_dato.HORARECEPCION.focus();
-                        document.form_reg_dato.HORARECEPCION.style.borderColor = "#FF0000";
-                        document.getElementById('val_horar').innerHTML = "NO A INGRESADO DATO";
-                        return false
-                    }
-                    document.form_reg_dato.HORARECEPCION.style.borderColor = "#4AF575";
+                document.getElementById('val_numerog').innerHTML = "";
+                document.getElementById('val_fechag').innerHTML = "";
+                document.getElementById('val_totalg').innerHTML = "";
+                document.getElementById('val_transporte').innerHTML = "";
+                document.getElementById('val_conductor').innerHTML = "";
+                document.getElementById('val_patentecamion').innerHTML = "";
+                document.getElementById('val_patentecarro').innerHTML = "";
+                //  document.getElementById('val_observacion').innerHTML = "";
 
-
-
-                    if (TRECEPCION == null || TRECEPCION == 0) {
-                        document.form_reg_dato.TRECEPCION.focus();
-                        document.form_reg_dato.TRECEPCION.style.borderColor = "#FF0000";
-                        document.getElementById('val_trecepcion').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false
-                    }
-                    document.form_reg_dato.TRECEPCION.style.borderColor = "#4AF575";
-
-
-                    if (NUMEROGUIA == null || NUMEROGUIA.length == 0 || /^\s+$/.test(NUMEROGUIA)) {
-                        document.form_reg_dato.NUMEROGUIA.focus();
-                        document.form_reg_dato.NUMEROGUIA.style.borderColor = "#FF0000";
-                        document.getElementById('val_numerog').innerHTML = "NO A INGRESADO DATO";
-                        return false
-                    }
-                    document.form_reg_dato.NUMEROGUIA.style.borderColor = "#4AF575";
-
-
-
-                    if (FECHAGUIA == null || FECHAGUIA.length == 0 || /^\s+$/.test(FECHAGUIA)) {
-                        document.form_reg_dato.FECHAGUIA.focus();
-                        document.form_reg_dato.FECHAGUIA.style.borderColor = "#FF0000";
-                        document.getElementById('val_fechag').innerHTML = "NO A INGRESADO DATO";
-                        return false
-                    }
-                    document.form_reg_dato.FECHAGUIA.style.borderColor = "#4AF575";
-
-                    if (TOTALGUIA == null || TOTALGUIA == 0) {
-                        document.form_reg_dato.TOTALGUIA.focus();
-                        document.form_reg_dato.TOTALGUIA.style.borderColor = "#FF0000";
-                        document.getElementById('val_totalg').innerHTML = "NO A INGRESADO DATO";
-                        return false
-                    }
-                    document.form_reg_dato.TOTALGUIA.style.borderColor = "#4AF575";
-
-
-                    if (TRANSPORTE == null || TRANSPORTE == 0) {
-                        document.form_reg_dato.TRANSPORTE.focus();
-                        document.form_reg_dato.TRANSPORTE.style.borderColor = "#FF0000";
-                        document.getElementById('val_transporte').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false
-                    }
-                    document.form_reg_dato.TRANSPORTE.style.borderColor = "#4AF575";
-
-
-                    if (CONDUCTOR == null || CONDUCTOR == 0) {
-                        document.form_reg_dato.CONDUCTOR.focus();
-                        document.form_reg_dato.CONDUCTOR.style.borderColor = "#FF0000";
-                        document.getElementById('val_conductor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false
-                    }
-                    document.form_reg_dato.CONDUCTOR.style.borderColor = "#4AF575";
-
-                    if (PATENTECAMION == null || PATENTECAMION == 0) {
-                        document.form_reg_dato.PATENTECAMION.focus();
-                        document.form_reg_dato.PATENTECAMION.style.borderColor = "#FF0000";
-                        document.getElementById('val_patentecamion').innerHTML = "NO A INGRESADO DATO";
-                        return false
-                    }
-                    document.form_reg_dato.PATENTECAMION.style.borderColor = "#4AF575";
-
-                    /*
-                                        if (PATENTECARRO == null || PATENTECARRO == 0) {
-                                            document.form_reg_dato.PATENTECARRO.focus();
-                                            document.form_reg_dato.PATENTECARRO.style.borderColor = "#FF0000";
-                                            document.getElementById('val_patentecarro').innerHTML = "NO A INGRESADO DATO";
-                                            return false
-                                        }
-                                        document.form_reg_dato.PATENTECARRO.style.borderColor = "#4AF575";
-                    */
-
-                    if (TRECEPCION == 1) {
-                        PRODUCTOR = document.getElementById("PRODUCTOR").selectedIndex;
-
-
-                        document.getElementById('val_productor').innerHTML = "";
-
-                        if (PRODUCTOR == null || PRODUCTOR == 0) {
-                            document.form_reg_dato.PRODUCTOR.focus();
-                            document.form_reg_dato.PRODUCTOR.style.borderColor = "#FF0000";
-                            document.getElementById('val_productor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                            return false
-                        }
-                        document.form_reg_dato.PRODUCTOR.style.borderColor = "#4AF575";
-
-                    }
-
-                    if (TRECEPCION == 2) {
-                        PLANTA2 = document.getElementById("PLANTA2").selectedIndex;
-                        document.getElementById('val_planta2').innerHTML = "";
-                        if (PLANTA2 == null || PLANTA2 == 0) {
-                            document.form_reg_dato.PLANTA2.focus();
-                            document.form_reg_dato.PLANTA2.style.borderColor = "#FF0000";
-                            document.getElementById('val_planta2').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                            return false
-                        }
-                        document.form_reg_dato.PLANTA2.style.borderColor = "#4AF575";
-
-                    }
-
-
-                    /*
-                    if (OBSERVACION == null || OBSERVACION.length == 0 || /^\s+$/.test(OBSERVACION)) {
-                        document.form_reg_dato.OBSERVACION.focus();
-                        document.form_reg_dato.OBSERVACION.style.borderColor = "#FF0000";
-                        document.getElementById('val_observacion').innerHTML = "NO A INGRESADO DATO";
-                        return false
-                    }
-                    document.form_reg_dato.OBSERVACION.style.borderColor = "#4AF575"; 
-                    */
+                if (FECHARECEPCION == null || FECHARECEPCION.length == 0 || /^\s+$/.test(FECHARECEPCION)) {
+                    document.form_reg_dato.FECHARECEPCION.focus();
+                    document.form_reg_dato.FECHARECEPCION.style.borderColor = "#FF0000";
+                    document.getElementById('val_fechar').innerHTML = "NO A INGRESADO DATO";
+                    return false
                 }
+                document.form_reg_dato.FECHARECEPCION.style.borderColor = "#4AF575";
+
+
+                if (HORARECEPCION == null || HORARECEPCION.length == 0) {
+                    document.form_reg_dato.HORARECEPCION.focus();
+                    document.form_reg_dato.HORARECEPCION.style.borderColor = "#FF0000";
+                    document.getElementById('val_horar').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.HORARECEPCION.style.borderColor = "#4AF575";
+
+
+
+                if (TRECEPCION == null || TRECEPCION == 0) {
+                    document.form_reg_dato.TRECEPCION.focus();
+                    document.form_reg_dato.TRECEPCION.style.borderColor = "#FF0000";
+                    document.getElementById('val_trecepcion').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    return false
+                }
+                document.form_reg_dato.TRECEPCION.style.borderColor = "#4AF575";
+
+
+                if (NUMEROGUIA == null || NUMEROGUIA.length == 0 || /^\s+$/.test(NUMEROGUIA)) {
+                    document.form_reg_dato.NUMEROGUIA.focus();
+                    document.form_reg_dato.NUMEROGUIA.style.borderColor = "#FF0000";
+                    document.getElementById('val_numerog').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.NUMEROGUIA.style.borderColor = "#4AF575";
+
+
+
+                if (FECHAGUIA == null || FECHAGUIA.length == 0 || /^\s+$/.test(FECHAGUIA)) {
+                    document.form_reg_dato.FECHAGUIA.focus();
+                    document.form_reg_dato.FECHAGUIA.style.borderColor = "#FF0000";
+                    document.getElementById('val_fechag').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.FECHAGUIA.style.borderColor = "#4AF575";
+
+                if (TOTALGUIA == null || TOTALGUIA == 0) {
+                    document.form_reg_dato.TOTALGUIA.focus();
+                    document.form_reg_dato.TOTALGUIA.style.borderColor = "#FF0000";
+                    document.getElementById('val_totalg').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.TOTALGUIA.style.borderColor = "#4AF575";
+
+
+                if (TRANSPORTE == null || TRANSPORTE == 0) {
+                    document.form_reg_dato.TRANSPORTE.focus();
+                    document.form_reg_dato.TRANSPORTE.style.borderColor = "#FF0000";
+                    document.getElementById('val_transporte').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    return false
+                }
+                document.form_reg_dato.TRANSPORTE.style.borderColor = "#4AF575";
+
+
+                if (CONDUCTOR == null || CONDUCTOR == 0) {
+                    document.form_reg_dato.CONDUCTOR.focus();
+                    document.form_reg_dato.CONDUCTOR.style.borderColor = "#FF0000";
+                    document.getElementById('val_conductor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    return false
+                }
+                document.form_reg_dato.CONDUCTOR.style.borderColor = "#4AF575";
+
+                if (PATENTECAMION == null || PATENTECAMION == 0) {
+                    document.form_reg_dato.PATENTECAMION.focus();
+                    document.form_reg_dato.PATENTECAMION.style.borderColor = "#FF0000";
+                    document.getElementById('val_patentecamion').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.PATENTECAMION.style.borderColor = "#4AF575";
+
                 /*
-                                function confirmar() {
-
-
-                                    FOLIOELIMINAR = document.getElementById("FOLIOELIMINAR").value;
-                                    NOMBRESUSUARIOSLOGIN = document.getElementById("NOMBRESUSUARIOSLOGIN").value;
-
-                                    var mensaje = 'Estimado/a: ' + NOMBRESUSUARIOSLOGIN + ' ¿Estas seguro de eliminar el Folio: ' + FOLIOELIMINAR + '?';
-                                    
-
-
-                                    if (confirm("Desea seguir?")) {
-                                        return true;
-                                    } else {
-                                        return false;
+                                    if (PATENTECARRO == null || PATENTECARRO == 0) {
+                                        document.form_reg_dato.PATENTECARRO.focus();
+                                        document.form_reg_dato.PATENTECARRO.style.borderColor = "#FF0000";
+                                        document.getElementById('val_patentecarro').innerHTML = "NO A INGRESADO DATO";
+                                        return false
                                     }
-                                         }
-
+                                    document.form_reg_dato.PATENTECARRO.style.borderColor = "#4AF575";
                 */
 
+                if (TRECEPCION == 1) {
+                    PRODUCTOR = document.getElementById("PRODUCTOR").selectedIndex;
 
 
+                    document.getElementById('val_productor').innerHTML = "";
 
-                //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCIONMP
-                function refrescar() {
-                    document.getElementById("form_reg_dato").submit();
+                    if (PRODUCTOR == null || PRODUCTOR == 0) {
+                        document.form_reg_dato.PRODUCTOR.focus();
+                        document.form_reg_dato.PRODUCTOR.style.borderColor = "#FF0000";
+                        document.getElementById('val_productor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.PRODUCTOR.style.borderColor = "#4AF575";
+
                 }
 
-                //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCIONMP
-                function abrirVentana(url) {
-                    var opciones =
-                        "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
-                    window.open(url, 'window', opciones);
+                if (TRECEPCION == 2) {
+                    PLANTA2 = document.getElementById("PLANTA2").selectedIndex;
+                    document.getElementById('val_planta2').innerHTML = "";
+                    if (PLANTA2 == null || PLANTA2 == 0) {
+                        document.form_reg_dato.PLANTA2.focus();
+                        document.form_reg_dato.PLANTA2.style.borderColor = "#FF0000";
+                        document.getElementById('val_planta2').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.PLANTA2.style.borderColor = "#4AF575";
+
                 }
 
-                //REDIRECCIONAR A LA PAGINA SELECIONADA
-                function irPagina(url) {
-                    location.href = "" + url;
+
+                /*
+                if (OBSERVACION == null || OBSERVACION.length == 0 || /^\s+$/.test(OBSERVACION)) {
+                    document.form_reg_dato.OBSERVACION.focus();
+                    document.form_reg_dato.OBSERVACION.style.borderColor = "#FF0000";
+                    document.getElementById('val_observacion').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.OBSERVACION.style.borderColor = "#4AF575"; 
+                */
+            }
+            /*
+                            function confirmar() {
+
+
+                                FOLIOELIMINAR = document.getElementById("FOLIOELIMINAR").value;
+                                NOMBRESUSUARIOSLOGIN = document.getElementById("NOMBRESUSUARIOSLOGIN").value;
+
+                                var mensaje = 'Estimado/a: ' + NOMBRESUSUARIOSLOGIN + ' ¿Estas seguro de eliminar el Folio: ' + FOLIOELIMINAR + '?';
+                                
+
+
+                                if (confirm("Desea seguir?")) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                                     }
+
+            */
+
+
+
+
+            //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCIONMP
+            function refrescar() {
+                document.getElementById("form_reg_dato").submit();
+            }
+
+            //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCIONMP
+            function abrirVentana(url) {
+                var opciones =
+                    "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
+                window.open(url, 'window', opciones);
+            }
+
+            //REDIRECCIONAR A LA PAGINA SELECIONADA
+            function irPagina(url) {
+                location.href = "" + url;
+            }
+
+            function abrirPestana(url) {
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+            //FUNCION PARA OBTENER HORA Y FECHA
+            function mueveReloj() {
+
+
+                momentoActual = new Date();
+
+                dia = momentoActual.getDate();
+                mes = momentoActual.getMonth() + 1;
+                ano = momentoActual.getFullYear();
+
+                hora = momentoActual.getHours();
+                minuto = momentoActual.getMinutes();
+                segundo = momentoActual.getSeconds();
+
+                if (dia < 10) {
+                    dia = "0" + dia;
                 }
 
-                function abrirPestana(url) {
-                    var win = window.open(url, '_blank');
-                    win.focus();
+                if (mes < 10) {
+                    mes = "0" + mes;
                 }
-                //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
+                if (hora < 10) {
+                    hora = "0" + hora;
                 }
-            </script>
+                if (minuto < 10) {
+                    minuto = "0" + minuto;
+                }
+                if (segundo < 10) {
+                    segundo = "0" + segundo;
+                }
+
+                horaImprimible = hora + " : " + minuto;
+                fechaImprimible = dia + "-" + mes + "-" + ano;
+
+
+                //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
+                document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
+                setTimeout("mueveReloj()", 1000);
+            }
+        </script>
 
 
 </head>
@@ -1173,7 +1173,7 @@ if (isset($_POST)) {
                                                 <i class="ti-trash"></i> Borrar
                                             </button>
                                             <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>  Guardar
+                                                <i class="ti-save-alt"></i> Guardar
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
@@ -1317,7 +1317,9 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONMP" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONMP" id="URLP" name="URLP" value="registroRecepcionmp" />
                                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionmp" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {echo "disabled style='background-color: #eeeeee;'";} ?>>
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                                                    } ?>>
                                                                 <i class=" glyphicon glyphicon-plus"></i> Detalle
                                                             </button>
                                                         </div>
@@ -1364,72 +1366,87 @@ if (isset($_POST)) {
                 </div>
             </div>
 
-    <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
-        </div>
-        <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-            <?php include_once "../config/urlBase.php"; ?>
+            <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
+                <?php include_once "../config/footer.php"; ?>
+                <?php include_once "../config/menuExtra.php"; ?>
+    </div>
+    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
+        <?php include_once "../config/urlBase.php"; ?>
 
-<?php
-    //OPERACION DE REGISTRO DE FILA
-    if (isset($_REQUEST['CREAR'])) {
-        $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-        if ($ARRAYRECEPCIONBUSCARGPETP) {
-            $SINO = "1";
-            $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
-        } else {
-            $SINO = "0";
-            $MENSAJE3 = "";
-        }
-        if ($SINO == "0") {
-            $ARRAYNUMERO = $RECEPCIONMP_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-            $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-            //UTILIZACION METODOS SET DEL MODELO
-            //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+        <?php
+        //OPERACION DE REGISTRO DE FILA
+        if (isset($_REQUEST['CREAR'])) {
 
-            $RECEPCIONMP->__SET('NUMERO_RECEPCION', $NUMERO);
-            $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-            $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCION']);
-            $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
-            $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
-            $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', 0);
-            $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', 0);
-            $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', 0);
-            $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIA']);
-            $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
-            $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-            $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
-            $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCION']);
+
             if ($_REQUEST['TRECEPCION'] == "1") {
-                $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                if ($ARRAYRECEPCIONBUSCARGPETP) {
+                    $SINO = "1";
+                    $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
+                } else {
+                    $SINO = "0";
+                    $MENSAJE3 = "";
+                }
             }
             if ($_REQUEST['TRECEPCION'] == "2") {
-                $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+                $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorPlantaExternaGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                if ($ARRAYRECEPCIONBUSCARGPETP) {
+                    $SINO = "1";
+                    $MENSAJE3 = "LA GUIA DE LA PLANTA ORIGEN SE ENCUENTRA DUPLICADA";
+                } else {
+                    $SINO = "0";
+                    $MENSAJE3 = "";
+                }
             }
-            $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-            $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-            $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-            $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-            $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-            $RECEPCIONMP->__SET('ID_USUARIOI', $IDUSUARIOS);
-            $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
-            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
 
-            //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-            $ARRYAOBTENERID = $RECEPCIONMP_ADO->obtenerID(
-                $_REQUEST['OBSERVACION'],
-                $_REQUEST['TRECEPCION'],
-                $_REQUEST['EMPRESA'],
-                $_REQUEST['PLANTA'],
-                $_REQUEST['TEMPORADA'],
-            );
+            if ($SINO == "0") {
+                $ARRAYNUMERO = $RECEPCIONMP_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
 
-            //REDIRECCIONAR A PAGINA registroRecepcionmp.php
-            $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
-            $_SESSION["parametro1"] = "crear";
-             echo '<script>
+                $RECEPCIONMP->__SET('NUMERO_RECEPCION', $NUMERO);
+                $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCION']);
+                $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
+                $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
+                $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', 0);
+                $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', 0);
+                $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', 0);
+                $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIA']);
+                $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
+                $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+                $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
+                $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCION']);
+                if ($_REQUEST['TRECEPCION'] == "1") {
+                    $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                }
+                if ($_REQUEST['TRECEPCION'] == "2") {
+                    $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+                }
+                $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+                $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+                $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $RECEPCIONMP->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
+
+                //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+                $ARRYAOBTENERID = $RECEPCIONMP_ADO->obtenerID(
+                    $_REQUEST['OBSERVACION'],
+                    $_REQUEST['TRECEPCION'],
+                    $_REQUEST['EMPRESA'],
+                    $_REQUEST['PLANTA'],
+                    $_REQUEST['TEMPORADA'],
+                );
+
+                //REDIRECCIONAR A PAGINA registroRecepcionmp.php
+                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
+                $_SESSION["parametro1"] = "crear";
+                echo '<script>
                 Swal.fire({
                     icon:"success",
                     title:"Recepcion creada",
@@ -1443,10 +1460,10 @@ if (isset($_POST)) {
                     }
                 })
             </script>';
+            }
         }
-    }
 
-?>
+        ?>
 </body>
 
 </html>
