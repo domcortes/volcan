@@ -1195,7 +1195,7 @@ if (isset($_POST)) {
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
-                                                                                <i class="ti-eye"></i>
+                                                                                <i class="ti-eye"></i> Ver
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
@@ -1438,12 +1438,34 @@ if (isset($_POST)) {
             if ($_SESSION['parametro1'] == "crear") {
                 $_SESSION["parametro"] = $_REQUEST['IDP'];
                 $_SESSION["parametro1"] = "ver";
-                echo "<script type='text/javascript'> location.href ='registroRecepcionmp.php?op';</script>";
+                echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Recepcion Cerrada",
+                            text:"Esta recepcion se encuentra cerrada, por lo que tiene acciones limitadas",
+                            text:"Esta recepcion se encuentra cerrada"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href ="registroRecepcionmp.php?op";
+                            }
+                        })
+                    </script>';
             }
             if ($_SESSION['parametro1'] == "editar") {
                 $_SESSION["parametro"] = $_REQUEST['IDP'];
                 $_SESSION["parametro1"] = "ver";
-                echo "<script type='text/javascript'> location.href ='registroRecepcionmp.php?op';</script>";
+                echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Recepcion Cerrada",
+                            text:"Esta recepcion se encuentra cerrada, por lo que tiene acciones limitadas",
+                            text:"Esta recepcion se encuentra cerrada"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href ="registroRecepcionmp.php?op";
+                            }
+                        })
+                    </script>';
             }
         }
     }
