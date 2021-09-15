@@ -409,6 +409,30 @@ class RECEPCIONPT_ADO
             die($e->getMessage());
         }
     }
+    public function buscarRecepcionPorPlantaExternaGuiaEmpresaPlantaTemporada($NUMEROGUIA, $PLANTA2, $EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT *
+                                                FROM fruta_recepcionpt
+                                                WHERE 
+                                                    NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
+                                                    AND ID_PLANTA2 = " . $PLANTA2 . "                                                 
+                                                    AND ID_EMPRESA = " . $EMPRESA . " 
+                                                    AND ID_PLANTA = " . $PLANTA . " 
+                                                    AND ID_TEMPORADA = " . $TEMPORADA . "     
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //LISTA
 

@@ -3074,9 +3074,9 @@ if (isset($_POST)) {
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-1">
+                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
                                     <div class="form-group">
                                         <label>Carga Real</label>
                                     </div>
@@ -3084,61 +3084,62 @@ if (isset($_POST)) {
                             </div>
                             <label id="val_validacion" class="validacion center"> </label>
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label> </label>
-                                        <div class="table-responsive">
-                                            <table id="salida" class="table table-hover " style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Cantidad Envases </th>
-                                                        <th>Kilos Neto </th>
-                                                        <th>Fecha Embalado </th>
-                                                        <th>CSG Productor </th>
-                                                        <th>Nombre Productor </th>
-                                                        <th>Estandar </th>
-                                                        <th>Variedad </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php if ($ARRAYCONSOLIDADODESPACHO) { ?>
-                                                        <?php foreach ($ARRAYCONSOLIDADODESPACHO as $s) : ?>
-                                                            <tr class="center">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                    <div class="table-responsive">
+                                        <table id="salida" class="table table-hover " style="width: 100%;">
+                                            <thead>
+                                                <tr class="text-left">
+                                                    <th>Cantidad Envases </th>
+                                                    <th>Kilos Neto </th>
+                                                    <th>Fecha Embalado </th>
+                                                    <th>CSG Productor </th>
+                                                    <th>Nombre Productor </th>
+                                                    <th>Estandar </th>
+                                                    <th>Variedad </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($ARRAYCONSOLIDADODESPACHO) { ?>
+                                                    <?php foreach ($ARRAYCONSOLIDADODESPACHO as $s) : ?>
 
+                                                        <?php
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($s['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+                                                            $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $CSGPRODUCTOR = "Sin Datos";
+                                                            $NOMBREPRODUCTOR = "Sin Datos";
+                                                        }
+                                                        $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
+                                                        if ($ARRAYEEXPORTACION) {
+                                                            $NOMBRESTANDAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        } else {
+                                                            $NOMBRESTANDAR = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
+                                                        if ($ARRAYVERVESPECIESID) {
+                                                            $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                        } else {
+                                                            $NOMBREVARIEDAD = "Sin Datos";
+                                                        }
 
-                                                                <td><?php echo $s['TOTAL_ENVASE']; ?></td>
-                                                                <td><?php echo $s['TOTAL_NETO']; ?></td>
-                                                                <td><?php echo $s['FECHA_EMBALADO']; ?></td>
-
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($s['ID_PRODUCTOR']);
-                                                                    echo $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-                                                                    ?>
-                                                                </td>
-                                                                <td><?php echo $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR']; ?></td>
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
-                                                                    echo $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
-                                                                    ?>
-                                                                </td>
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($s['ID_PVESPECIES']);
-                                                                    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
-                                                                    echo $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                                    ?>
-                                                                </td>
-
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                        ?>
+                                                        <tr class="text-left">
+                                                            <td><?php echo $s['TOTAL_ENVASE']; ?></td>
+                                                            <td><?php echo $s['TOTAL_NETO']; ?></td>
+                                                            <td><?php echo $s['FECHA_EMBALADO']; ?></td>
+                                                            <td> <?php echo $CSGPRODUCTOR  ?> </td>
+                                                            <td> <?php echo $NOMBREPRODUCTOR  ?> </td>
+                                                            <td> <?php echo $NOMBRESTANDAR  ?> </td>
+                                                            <td> <?php echo $NOMBREVARIEDAD  ?> </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
+
                                 </div>
                             </div>
                             <!-- /.row -->

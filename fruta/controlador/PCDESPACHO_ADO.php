@@ -126,6 +126,7 @@ class PCDESPACHO_ADO
 
             $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO' ,
                                                        DATE_FORMAT(MODIFICACION, '%d-%m-%Y')  AS 'MODIFICACION'  ,
+                                                       DATE_FORMAT(FECHA_PCDESPACHO, '%d-%m-%Y')  AS 'FECHA'  ,
                                                        FORMAT(CANTIDAD_ENVASE_PCDESPACHO,0,'de_DE') AS 'ENVASE',
                                                        FORMAT(KILOS_NETO_PCDESPACHO,2,'de_DE') AS 'NETO'
                                                 FROM fruta_pcdespacho 

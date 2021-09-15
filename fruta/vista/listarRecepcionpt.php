@@ -217,8 +217,6 @@ include_once "../config/datosUrLP.php";
                                                     <th>Fecha Recepcion </th>
                                                     <th>Hora Recepcion </th>
                                                     <th>Tipo Recepcion</th>
-                                                    <th>CSG Productor</th>
-                                                    <th>Nombre Productor</th>
                                                     <th>Numero Guia </th>
                                                     <th>Fecha Guia </th>
                                                     <th>Total Kilos Guia</th>
@@ -245,16 +243,6 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TRECEPCION'] == "2") {
                                                         $TRECEPCION = "Planta Externa";
-                                                    }
-
-                                                    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                    if ($ARRAYVERPRODUCTORID) {
-
-                                                        $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                        $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                    } else {
-                                                        $CSGPRODUCTOR = "Sin Datos";
-                                                        $NOMBREPRODUCTOR = "Sin Datos";
                                                     }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -288,7 +276,6 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
                                                     ?>
-
                                                     <tr class="center">
                                                         <td> <?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                         <td>
@@ -328,12 +315,12 @@ include_once "../config/datosUrLP.php";
                                                                             <?php } ?>
                                                                             <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcione.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&NOMBREUSUARIO=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcionpt.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&NOMBREUSUARIO=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
-                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcionpt.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>
                                                                             </span>
@@ -345,8 +332,6 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $r['HORA_RECEPCION']; ?></td>
                                                         <td><?php echo $TRECEPCION;  ?></td>
-                                                        <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                        <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                         <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                         <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                         <td><?php echo $r['GUIA']; ?></td>

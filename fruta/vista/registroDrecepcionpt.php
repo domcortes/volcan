@@ -139,7 +139,6 @@ include_once "../config/validarDatosUrlD.php";
 if (isset($_REQUEST['CREAR'])) {
 
     //OBTENER EL FOLIO DEL DETALLE DE EXPORTACION DEL PROCESO   
-
     $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
     $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
     if (isset($_REQUEST['FOLIOMANUAL'])) {
@@ -357,7 +356,6 @@ if (isset($_REQUEST['EDITAR'])) {
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
     echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
 }
-
 if (isset($_REQUEST['ELIMINAR'])) {
     $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODRECEPCIONE'];
     $DRECEPCIONPT->__SET('ID_DRECEPCION', $_REQUEST['ID']);
@@ -375,8 +373,6 @@ if (isset($_REQUEST['ELIMINAR'])) {
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
     echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
 }
-
-
 //OBTENCION DE DATOS ENVIADOR A LA URL
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -398,8 +394,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         }
     endforeach;
 }
-
-
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO']) && isset($_SESSION['dparametro']) && isset($_SESSION['dparametro1'])) {

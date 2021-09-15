@@ -3,12 +3,6 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
-
 include_once '../controlador/ESPECIES_ADO.php';
 
 
@@ -19,11 +13,6 @@ include_once '../modelo/EINDUSTRIAL.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
@@ -64,8 +53,11 @@ $ARRAYTAINDUSTRIAL = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYESTANDAR = $EINDUSTRIAL_ADO->listarEstandarCBX();
+$ARRAYESTANDAR = $EINDUSTRIAL_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrl.php";
+
 
 
 //OPERACIONES
@@ -78,6 +70,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     $EINDUSTRIAL->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBRESTANDAR']);
     $EINDUSTRIAL->__SET('PESO_NETO_ESTANDAR', $_REQUEST['PESONETOESTANDAR']);
     $EINDUSTRIAL->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
+    $EINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $EINDUSTRIAL->__SET('ID_USUARIOI', $IDUSUARIOS);
+    $EINDUSTRIAL->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $EINDUSTRIAL_ADO->agregarEstandar($EINDUSTRIAL);
     //REDIRECCIONAR A PAGINA registroEexportacion.php
@@ -93,7 +88,9 @@ if (isset($_REQUEST['EDITAR'])) {
     $EINDUSTRIAL->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBRESTANDAR']);
     $EINDUSTRIAL->__SET('PESO_NETO_ESTANDAR', $_REQUEST['PESONETOESTANDAR']);
     $EINDUSTRIAL->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-    $EINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['parametro']);
+    $EINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $EINDUSTRIAL->__SET('ID_USUARIOM', $IDUSUARIOS);
+    $EINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $EINDUSTRIAL_ADO->actualizarEstandar($EINDUSTRIAL);
     //REDIRECCIONAR A PAGINA registroEexportacion.php
@@ -103,10 +100,10 @@ if (isset($_REQUEST['EDITAR'])) {
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
 //PREGUNTA SI LA URL VIENE  CON DATOS "parametro" y "parametro1"
-if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
+if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //ALMACENAR DATOS DE VARIABLES DE LA URL
-    $IDOP = $_REQUEST['parametro'];
-    $OP = $_REQUEST['parametro1'];
+    $IDOP = $_SESSION['parametro'];
+    $OP = $_SESSION['parametro1'];
 
 
     //IDENTIFICACIONES DE OPERACIONES    //OPERACION DE CAMBIO DE ESTADO
@@ -240,7 +237,7 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
                     }
                     document.form_reg_dato.ESPECIES.style.borderColor = "#4AF575";
 
-     
+
 
 
 
@@ -359,6 +356,8 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Codigo </label>
+                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                         <input type="text" class="form-control" placeholder="Codigo Estandar" id="CODIGOESTANDAR" name="CODIGOESTANDAR" value="<?php echo $CODIGOESTANDAR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_codigo" class="validacion"> </label>
                                                     </div>
@@ -433,7 +432,7 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Codigo </th>
                                                         <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
@@ -443,36 +442,40 @@ if (isset($_REQUEST['parametro']) && isset($_REQUEST['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_ESTANDAR']; ?>
+                                                                    <?php echo $r['CODIGO_ESTANDAR']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>
-
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
+                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
+                                                                                <i class="glyphicon glyphicon-cog"></i>
+                                                                            </a>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-
-                                                                                <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm  btn-danger btn-outline mr-1" id="defecto" name="desactivar" Onclick="irPagina('registroEindustrial.php?parametro=<?php echo $r['ID_ESTANDAR']; ?>&&parametro1=0'); ">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                <?php } ?>
-                                                                                <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="button" class="btn btn-rounded btn-sm  btn-success btn-outline mr-1" id="defecto" name="activar" Onclick="irPagina('registroEindustrial.php?parametro=<?php echo $r['ID_ESTANDAR']; ?>&&parametro1=1'); ">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                <?php } ?>
-                                                                                <div class="dropdown-divider"></div>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline mr-1" id="defecto" name="editar" Onclick="irPagina('registroEindustrial.php?parametro=<?php echo $r['ID_ESTANDAR']; ?>&&parametro1=editar'); ">
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_ESTANDAR']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroEindustrial" />
+                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
+                                                                                    <i class="ti-eye"></i>
+                                                                                </button>Ver
+                                                                                <br>
+                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
                                                                                     <i class="ti-pencil-alt"></i>
                                                                                 </button>Editar
                                                                                 <br>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline mr-1" id="defecto" name="ver" Onclick="irPagina('registroEindustrial.php?parametro=<?php echo $r['ID_ESTANDAR']; ?>&&parametro1=ver'); ">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
+                                                                                <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
+                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                        <i class="ti-na "></i>
+                                                                                    </button>Desahabilitar
+                                                                                    <br>
+                                                                                <?php } ?>
+                                                                                <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
+                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                        <i class="ti-check "></i>
+                                                                                    </button>Habilitar
+                                                                                    <br>
+                                                                                <?php } ?>
                                                                             </div>
                                                                         </div>
                                                                     </div>
