@@ -157,6 +157,7 @@ $ARRAYTRANSPORTE = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
 $ARRAYCONDUCTOR = $CONDUCTOR_ADO->listarConductorPorEmpresaCBX($EMPRESAS);
 $ARRAYVESPECIES = $VESPECIES_ADO->listarVespeciesPorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
+$ARRAYPLANTA2 = $PLANTA_ADO->listarPlantaExternaCBX();
 
 
 $ARRAYFECHAACTUAL = $RECEPCIONMP_ADO->obtenerFecha();
@@ -1417,7 +1418,7 @@ if (isset($_POST)) {
             $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
 
             //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-            $ARRAYRECEPCION2 = $RECEPCIONMP_ADO->obtenerID(
+            $ARRYAOBTENERID = $RECEPCIONMP_ADO->obtenerID(
                 $_REQUEST['OBSERVACION'],
                 $_REQUEST['TRECEPCION'],
                 $_REQUEST['EMPRESA'],
