@@ -276,7 +276,6 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
                                                     ?>
-
                                                     <tr class="center">
                                                         <td> <?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                         <td>
