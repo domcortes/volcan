@@ -211,78 +211,6 @@ if (isset($_REQUEST['GUARDAR'])) {
     $RECEPCIONMP_ADO->actualizarRecepcion($RECEPCIONMP);
 }
 
-
-//OPERACION PARA CERRAR LA RECEPCION
-if (isset($_REQUEST['CERRAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $ARRAYDRECEPCION2 = $DRECEPCIONMP_ADO->listarDRecepcionPorRecepcion($_REQUEST['IDP']);
-    if (empty($ARRAYDRECEPCION2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-    if ($SINO == "0") {
-
-        $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-        $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
-        $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-        $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
-        $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
-        $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
-        $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
-        $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
-        $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-        $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
-        $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
-        if ($_REQUEST['TRECEPCIONE'] == "1") {
-            $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-        }
-        if ($_REQUEST['TRECEPCIONE'] == "2") {
-            $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-        }
-        $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-        $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-        $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-        $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-        $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $RECEPCIONMP_ADO->actualizarRecepcion($RECEPCIONMP);
-
-        $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $RECEPCIONMP_ADO->cerrado($RECEPCIONMP);
-
-
-        $ARRAYEXISENCIARECEPCION = $EXIMATERIAPRIMA_ADO->buscarPorRecepcion($_REQUEST['IDP']);
-
-        foreach ($ARRAYEXISENCIARECEPCION as $r) :
-            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIMATERIAPRIMA_ADO->vigente($EXIMATERIAPRIMA);
-        endforeach;
-
-        //REDIRECCIONAR A PAGINA registroRecepcionmp.php 
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        if ($_SESSION['parametro1'] == "crear") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroRecepcionmp.php?op';</script>";
-        }
-        if ($_SESSION['parametro1'] == "editar") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroRecepcionmp.php?op';</script>";
-        }
-    }
-}
-
-
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -1089,14 +1017,6 @@ if (isset($_POST)) {
                                                     <label id="val_productor" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                <div class="form-group">
-                                                    <br>
-                                                    <button type="button" class=" btn btn-success btn-block" data-toggle="tooltip" title="Agregar Productor" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopProductor.php' ); ">
-                                                        <i class="glyphicon glyphicon-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "2") { ?>
                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -1176,23 +1096,26 @@ if (isset($_POST)) {
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionmp.php'); ">
-                                                <i class="ti-back-left "></i>
+                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionmp.php'); ">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i>
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-pencil-alt"></i> Guardar
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Cerrar
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-
                                         <?php } ?>
+                                    </div>
+                                    <div class="btn-group btn-block col-4 float-right">
+                                        <?php if ($OP !=""): ?>
+                                            <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> PDF
+                                            </button>
+                                            <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Tarjas
+                                            </button>
+                                        <?php endif ?>
                                     </div>
                                 </div>
                             </div>
@@ -1271,18 +1194,18 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionmp" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
-                                                                            <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
+                                                                            <button type="submit" class="btn btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
                                                                                 <i class="ti-eye"></i>
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
-                                                                            <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLED2; ?>>
                                                                                 <i class="ti-pencil-alt"></i>
                                                                             </button>
-                                                                            <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <button type="submit" class="btn btn-secondary btn-sm " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLED2; ?>>
                                                                                 <i class="fa fa-fw fa-copy"></i>
                                                                             </button>
-                                                                            <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLED2; ?>>
                                                                                 <i class="ti-close"></i>
                                                                             </button>
                                                                         <?php } ?>
@@ -1316,10 +1239,14 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONMP" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONMP" id="URLP" name="URLP" value="registroRecepcionmp" />
                                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionmp" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                                    } ?>>
-                                                                <i class=" glyphicon glyphicon-plus"></i>
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?>
+                                                                <?php echo $DISABLEDFOLIO; ?>
+                                                                <?php
+                                                                    if ($ESTADO == 0) {
+                                                                        echo "disabled style='background-color: #eeeeee;'";
+                                                                    }
+                                                                ?>
+                                                            > Agregar Detalle
                                                             </button>
                                                         </div>
                                                     </form>
@@ -1450,6 +1377,77 @@ if (isset($_POST)) {
             </script>';
         }
     }
+
+    //OPERACION PARA CERRAR LA RECEPCION
+    if (isset($_REQUEST['CERRAR'])) {
+        //UTILIZACION METODOS SET DEL MODELO
+        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+        $ARRAYDRECEPCION2 = $DRECEPCIONMP_ADO->listarDRecepcionPorRecepcion($_REQUEST['IDP']);
+        if (empty($ARRAYDRECEPCION2)) {
+            $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
+            $SINO = "1";
+        } else {
+            $MENSAJE = "";
+            $SINO = "0";
+        }
+        if ($SINO == "0") {
+
+            $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+            $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
+            $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
+            $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+            $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
+            $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
+            $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
+            $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
+            $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+            $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+            $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
+            $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
+            if ($_REQUEST['TRECEPCIONE'] == "1") {
+                $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+            }
+            if ($_REQUEST['TRECEPCIONE'] == "2") {
+                $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+            }
+            $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+            $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+            $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+            $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+            $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+            $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
+            $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $RECEPCIONMP_ADO->actualizarRecepcion($RECEPCIONMP);
+
+            $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $RECEPCIONMP_ADO->cerrado($RECEPCIONMP);
+
+
+            $ARRAYEXISENCIARECEPCION = $EXIMATERIAPRIMA_ADO->buscarPorRecepcion($_REQUEST['IDP']);
+
+            foreach ($ARRAYEXISENCIARECEPCION as $r) :
+                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $EXIMATERIAPRIMA_ADO->vigente($EXIMATERIAPRIMA);
+            endforeach;
+
+            //REDIRECCIONAR A PAGINA registroRecepcionmp.php
+            //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+            if ($_SESSION['parametro1'] == "crear") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "ver";
+                echo "<script type='text/javascript'> location.href ='registroRecepcionmp.php?op';</script>";
+            }
+            if ($_SESSION['parametro1'] == "editar") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "ver";
+                echo "<script type='text/javascript'> location.href ='registroRecepcionmp.php?op';</script>";
+            }
+        }
+    }
+
 
 ?>
 </body>

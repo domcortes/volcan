@@ -119,116 +119,6 @@ include_once "../config/validarDatosUrlD.php";
 
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-
-    //CONSULTA PARA OBTENER DATOS BASE PARA EL CALCULO DEL NUMEOR DE FOLIO Y NUMERO LINEA
-    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTmateriaprima($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-    $ARRAYULTIMOFOLIO = $EXIMATERIAPRIMA_ADO->obtenerFolio($FOLIO);
-    if (isset($_REQUEST['FOLIOMANUAL'])) {
-        $FOLIOMANUAL = $_REQUEST['FOLIOMANUAL'];
-    }
-    if ($FOLIOMANUAL == "on") {
-        $NUMEROFOLIODRECEPCION = $_REQUEST['NUMEROFOLIODRECEPCION'];
-        $FOLIOMANUALR = "1";
-        $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
-        if ($ARRAYFOLIOPOEXPO) {
-            $SINO = "1";
-            $MENSAJE = "EL FOLIO INGRESADO, YA EXISTE";
-        } else {
-            $SINO = "0";
-            $MENSAJE = "";
-        }
-    }
-    if ($FOLIOMANUAL != "on") {
-        $FOLIOMANUALR = "0";
-        $SINO = "0";
-        //$ARRAYULTIMOFOLIO = $DRECEPCIONPT_ADO->obtenerFolio($FOLIO);    
-
-        $ARRAYULTIMOFOLIO = $EXIMATERIAPRIMA_ADO->obtenerFolio($FOLIO);
-        if ($ARRAYULTIMOFOLIO) {
-            if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
-                $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-            } else {
-                $FOLIOEXPORTACION =   $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
-            }
-        } else {
-            $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-        }
-        $NUMEROFOLIODRECEPCION = $FOLIOEXPORTACION + 1;
-        $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
-
-        while (count($ARRAYFOLIOPOEXPO) == 1) {
-            $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
-            if (count($ARRAYFOLIOPOEXPO) == 1) {
-                $NUMEROFOLIODRECEPCION += 1;
-            }
-        };
-    }
-    $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION+1;
-    $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-        "_TIPO_FOLIO:MATERIA PRIMA_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
-
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-
-
-
-    $DRECEPCIONMP->__SET('FOLIO_DRECEPCION', $NUMEROFOLIODRECEPCION);
-    $DRECEPCIONMP->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-    $DRECEPCIONMP->__SET('FECHA_COSECHA_DRECEPCION', $_REQUEST['FECHACOSECHADRECEPCION']);
-    $DRECEPCIONMP->__SET('CANTIDAD_ENVASE_DRECEPCION', $_REQUEST['CANTIDADENVASEDRECEPCION']);
-    $DRECEPCIONMP->__SET('KILOS_NETO_DRECEPCION', $_REQUEST['KILOSNETODRECEPCION']);
-    $DRECEPCIONMP->__SET('KILOS_BRUTO_DRECEPCION', $_REQUEST['KILOSBRUTODRECEPCION']);
-    $DRECEPCIONMP->__SET('KILOS_PROMEDIO_DRECEPCION', $_REQUEST['KILOSPROMEDIODRECEPCION']);
-    $DRECEPCIONMP->__SET('PESO_PALLET_DRECEPCION', $_REQUEST['PESOPALLETRECEPCION']);
-    $DRECEPCIONMP->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
-    $DRECEPCIONMP->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
-    $DRECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    $DRECEPCIONMP->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-    $DRECEPCIONMP->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-    $DRECEPCIONMP->__SET('ID_FOLIO', $FOLIO);
-    $DRECEPCIONMP->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-    $DRECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DRECEPCIONMP_ADO->agregarDrecepcion($DRECEPCIONMP);
-
-    //OPERACIOENS SOBRE LA TABLA EXIMATERIPRIMA
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA', $NUMEROFOLIODRECEPCION);
-    $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $NUMEROFOLIODRECEPCION);
-    $EXIMATERIAPRIMA->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-    $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $_REQUEST['FECHACOSECHADRECEPCION']);
-    $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $_REQUEST['CANTIDADENVASEDRECEPCION']);
-    $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $_REQUEST['KILOSNETODRECEPCION']);
-    $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $_REQUEST['KILOSBRUTODRECEPCION']);
-    $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $_REQUEST['KILOSPROMEDIODRECEPCION']);
-    $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA', $_REQUEST['PESOPALLETRECEPCION']);
-    $EXIMATERIAPRIMA->__SET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASDIANAMICO);
-    $EXIMATERIAPRIMA->__SET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASESTACTICO);
-    $EXIMATERIAPRIMA->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
-    $EXIMATERIAPRIMA->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-    $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-    $EXIMATERIAPRIMA->__SET('ID_FOLIO',  $FOLIO);
-    $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-    $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-    $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $EXIMATERIAPRIMA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
-
-    //REDIRECCIONAR A PAGINA registroRecepcionmp.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
 
 if (isset($_REQUEST['EDITAR'])) {
 
@@ -1056,29 +946,29 @@ if ($_POST) {
                                     <!-- /.row -->
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i>
+                                        <div class="btn-group btn-block col-3" role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Cancelar
                                             </button>
                                             <?php if ($OP == "") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i>
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
+                                                    <i class="ti-save-alt"></i> Crear
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
                                                 <?php if ($OP == "crear") { ?>
-                                                    <button type="submit" class="btn btn-rounded btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                        <i class="ti-save-alt"></i>
+                                                    <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
+                                                        <i class="ti-save-alt"></i> Crear
                                                     </button>
                                                 <?php } ?>
                                                 <?php if ($OP == "editar") { ?>
-                                                    <button type="submit" class="btn btn-rounded btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?>>
-                                                        <i class="ti-save-alt"></i>
+                                                    <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?>>
+                                                        <i class="ti-save-alt"></i> Editar
                                                     </button>
                                                 <?php } ?>
                                                 <?php if ($OP == "eliminar") { ?>
-                                                    <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
-                                                        <i class="ti-trash"></i>
+                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                        <i class="ti-trash"></i> Eliminar
                                                     </button>
                                                 <?php } ?>
                                             <?php } ?>
@@ -1097,6 +987,133 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                //CONSULTA PARA OBTENER DATOS BASE PARA EL CALCULO DEL NUMEOR DE FOLIO Y NUMERO LINEA
+                $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTmateriaprima($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+                $ARRAYULTIMOFOLIO = $EXIMATERIAPRIMA_ADO->obtenerFolio($FOLIO);
+                if (isset($_REQUEST['FOLIOMANUAL'])) {
+                    $FOLIOMANUAL = $_REQUEST['FOLIOMANUAL'];
+                }
+                if ($FOLIOMANUAL == "on") {
+                    $NUMEROFOLIODRECEPCION = $_REQUEST['NUMEROFOLIODRECEPCION'];
+                    $FOLIOMANUALR = "1";
+                    $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
+                    if ($ARRAYFOLIOPOEXPO) {
+                        $SINO = "1";
+                        $MENSAJE = "EL FOLIO INGRESADO, YA EXISTE";
+                    } else {
+                        $SINO = "0";
+                        $MENSAJE = "";
+                    }
+                }
+                if ($FOLIOMANUAL != "on") {
+                    $FOLIOMANUALR = "0";
+                    $SINO = "0";
+                    //$ARRAYULTIMOFOLIO = $DRECEPCIONPT_ADO->obtenerFolio($FOLIO);
+
+                    $ARRAYULTIMOFOLIO = $EXIMATERIAPRIMA_ADO->obtenerFolio($FOLIO);
+                    if ($ARRAYULTIMOFOLIO) {
+                        if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
+                            $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                        } else {
+                            $FOLIOEXPORTACION =   $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
+                        }
+                    } else {
+                        $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                    }
+                    $NUMEROFOLIODRECEPCION = $FOLIOEXPORTACION + 1;
+                    $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
+
+                    while (count($ARRAYFOLIOPOEXPO) == 1) {
+                        $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
+                        if (count($ARRAYFOLIOPOEXPO) == 1) {
+                            $NUMEROFOLIODRECEPCION += 1;
+                        }
+                    };
+                }
+                $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION+1;
+                $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                    "_TIPO_FOLIO:MATERIA PRIMA_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
+
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+
+
+
+
+                $DRECEPCIONMP->__SET('FOLIO_DRECEPCION', $NUMEROFOLIODRECEPCION);
+                $DRECEPCIONMP->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                $DRECEPCIONMP->__SET('FECHA_COSECHA_DRECEPCION', $_REQUEST['FECHACOSECHADRECEPCION']);
+                $DRECEPCIONMP->__SET('CANTIDAD_ENVASE_DRECEPCION', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                $DRECEPCIONMP->__SET('KILOS_NETO_DRECEPCION', $_REQUEST['KILOSNETODRECEPCION']);
+                $DRECEPCIONMP->__SET('KILOS_BRUTO_DRECEPCION', $_REQUEST['KILOSBRUTODRECEPCION']);
+                $DRECEPCIONMP->__SET('KILOS_PROMEDIO_DRECEPCION', $_REQUEST['KILOSPROMEDIODRECEPCION']);
+                $DRECEPCIONMP->__SET('PESO_PALLET_DRECEPCION', $_REQUEST['PESOPALLETRECEPCION']);
+                $DRECEPCIONMP->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
+                $DRECEPCIONMP->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
+                $DRECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $DRECEPCIONMP->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                $DRECEPCIONMP->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $DRECEPCIONMP->__SET('ID_FOLIO', $FOLIO);
+                $DRECEPCIONMP->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                $DRECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $DRECEPCIONMP_ADO->agregarDrecepcion($DRECEPCIONMP);
+
+                //OPERACIOENS SOBRE LA TABLA EXIMATERIPRIMA
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA', $NUMEROFOLIODRECEPCION);
+                $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $NUMEROFOLIODRECEPCION);
+                $EXIMATERIAPRIMA->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $_REQUEST['FECHACOSECHADRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $_REQUEST['KILOSNETODRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $_REQUEST['KILOSBRUTODRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $_REQUEST['KILOSPROMEDIODRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA', $_REQUEST['PESOPALLETRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASDIANAMICO);
+                $EXIMATERIAPRIMA->__SET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASESTACTICO);
+                $EXIMATERIAPRIMA->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
+                $EXIMATERIAPRIMA->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                $EXIMATERIAPRIMA->__SET('ID_FOLIO',  $FOLIO);
+                $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $EXIMATERIAPRIMA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
+
+                //REDIRECCIONAR A PAGINA registroRecepcionmp.php
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Fila registrada",
+                        text:"Se ha creado una fila para el detalle de recepcion",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a recepcion"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href ="'. $_REQUEST['URLO'] . '.php?op";
+                        }
+                    })
+                </script>';
+
+                // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+            }
+        ?>
 </body>
 
 </html>
