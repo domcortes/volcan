@@ -284,6 +284,85 @@ class DRECEPCIONMP_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorRecepcionaAgrupadoVariedad2($IDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'FECHA_COSECHA_DRECEPCIONR',
+                                                        FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),0,'de_DE') AS 'ENVASE', 
+                                                        FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO', 
+                                                        FORMAT(IFNULL(KILOS_PROMEDIO_DRECEPCION,0),3,'de_DE') AS 'PROMEDIO' , 
+                                                        FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),2,'de_DE')  AS 'BRUTO'  
+                                             FROM fruta_drecepcionmp
+                                             WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
+                                             AND ESTADO_REGISTRO = 1                                              
+                                             GROUP  BY ID_VESPECIES; ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorIdRecepcionPorVespecies2($IDRECEPCION, $IDVESPECIES){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT *,
+                                                FORMAT(CANTIDAD_ENVASE_DRECEPCION,0,'de_DE') AS 'ENVASE',
+                                                FORMAT(KILOS_BRUTO_DRECEPCION, 2,'de_DE') AS 'BRUTO',
+                                                FORMAT(KILOS_NETO_DRECEPCION, 2,'de_DE') AS 'NETO'
+                                            FROM fruta_drecepcionmp
+                                            WHERE  ID_RECEPCION = '".$IDRECEPCION."'
+                                                AND  ID_VESPECIES = '".$IDVESPECIES."'
+                                                AND ESTADO_REGISTRO = '1'");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
+
+    
+    public function obtenerTotalPorRecepcionVariedad2($IDRECEPCION){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0),0,'de_DE') AS 'ENVASE', 
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO', 
+                                                FORMAT(IFNULL(SUM(KILOS_PROMEDIO_DRECEPCION),0),3,'de_DE') AS 'PROMEDIO' , 
+                                                FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE')  AS 'BRUTO'  
+                                            FROM fruta_drecepcionmp
+                                            WHERE ID_RECEPCION = '".$IDRECEPCION."'
+                                                  AND ESTADO_REGISTRO = '1'
+                                            GROUP BY ID_VESPECIES;
+                                            ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
 
     public function buscarPorRecepcionFolio($IDRECEPCION, $FOLIODRECEPCION)
     {
