@@ -182,14 +182,28 @@ if (empty($ARRAYFOLIO3)) {
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CREAR'])) {
 
-    $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    if ($ARRAYRECEPCIONBUSCARGPETP) {
-        $SINO = "1";
-        $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
-    } else {
-        $SINO = "0";
-        $MENSAJE3 = "";
+
+    if ($_REQUEST['TRECEPCION'] == "1") {
+        $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+        if ($ARRAYRECEPCIONBUSCARGPETP) {
+            $SINO = "1";
+            $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
+        } else {
+            $SINO = "0";
+            $MENSAJE3 = "";
+        }
+    }    
+    if ($_REQUEST['TRECEPCION'] == "2") {
+        $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+        if ($ARRAYRECEPCIONBUSCARGPETP) {
+            $SINO = "1";
+            $MENSAJE3 = "LA GUIA DE LA PLANTA EXTERNA SE ENCUENTRA DUPLICADA";
+        } else {
+            $SINO = "0";
+            $MENSAJE3 = "";
+        }
     }
+
     if ($SINO == "0") {
         $ARRAYNUMERO = $RECEPCIONPT_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
         $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
@@ -877,7 +891,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php //include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
