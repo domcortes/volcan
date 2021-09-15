@@ -217,8 +217,6 @@ include_once "../config/datosUrLP.php";
                                                     <th>Fecha Recepcion </th>
                                                     <th>Hora Recepcion </th>
                                                     <th>Tipo Recepcion</th>
-                                                    <th>CSG Productor</th>
-                                                    <th>Nombre Productor</th>
                                                     <th>Numero Guia </th>
                                                     <th>Fecha Guia </th>
                                                     <th>Total Kilos Guia</th>
@@ -245,16 +243,6 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TRECEPCION'] == "2") {
                                                         $TRECEPCION = "Planta Externa";
-                                                    }
-
-                                                    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                    if ($ARRAYVERPRODUCTORID) {
-
-                                                        $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                        $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                    } else {
-                                                        $CSGPRODUCTOR = "Sin Datos";
-                                                        $NOMBREPRODUCTOR = "Sin Datos";
                                                     }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -345,8 +333,6 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $r['HORA_RECEPCION']; ?></td>
                                                         <td><?php echo $TRECEPCION;  ?></td>
-                                                        <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                        <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                         <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                         <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                         <td><?php echo $r['GUIA']; ?></td>
