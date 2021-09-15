@@ -12,12 +12,11 @@ include_once '../controlador/DRECEPCIONPT_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 
 
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/CALIBRE_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 
 
@@ -34,12 +33,11 @@ $RECEPCIONPT_ADO = new RECEPCIONPT_ADO();
 $DRECEPCIONPT_ADO = new DRECEPCIONPT_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 
-$PVESPECIES_ADO = new PVESPECIES_ADO();
 $VESPECIES_ADO = new VESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
-$CALIBRE_ADO =  new CALIBRE_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -112,8 +110,8 @@ if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->verRecepcionpt2($IDOP);
-$ARRAYDRECEPCIONPT = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion($IDOP);
+$ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->verRecepcion2($IDOP);
+$ARRAYDRECEPCIONPT = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion2($IDOP);
 $ARRAYDRECEPCIONPTTOTAL = $DRECEPCIONPT_ADO->obtenerTotales2($IDOP);
 
 $TOTALENVASEI = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASEI'];
@@ -124,9 +122,9 @@ $TOTALNETOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_NETO'];
 $TOTALBRUTOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_BRUTO'];
 
 
-$NUMERORECEPCIONPT = $ARRAYRECEPCIONPT[0]['NUMERO_RECEPCIONPT'];
-$FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA_RECEPCIONPTR'];
-$HORARECEPCIONPT = $ARRAYRECEPCIONPT[0]['HORA_RECEPCIONPT'];
+$NUMERORECEPCIONPT = $ARRAYRECEPCIONPT[0]['NUMERO_RECEPCION'];
+$FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA_RECEPCION'];
+$HORARECEPCIONPT = $ARRAYRECEPCIONPT[0]['HORA_RECEPCION'];
 
 $PLANTAORIGEN = $ARRAYRECEPCIONPT[0]['ID_PLANTA2'];
 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONPT[0]['ID_PLANTA2']);
@@ -137,15 +135,15 @@ if ($ARRAYPLANTA2) {
 }
 
 
-$NOMBRETIPO = $ARRAYRECEPCIONPT[0]['TRECEPCIONPT'];
+$NOMBRETIPO = $ARRAYRECEPCIONPT[0]['TRECEPCION'];
 if ($NOMBRETIPO == "1") {
   $NOMBRETIPO = "Desde Productor";
 }
 if ($NOMBRETIPO == "2") {
   $NOMBRETIPO = "Planta Externa";
 }
-$NUMEROGUIA = $ARRAYRECEPCIONPT[0]['NUMERO_GUIA_RECEPCIONPT'];
-$FECHAGUIA = $ARRAYRECEPCIONPT[0]['FECHA_GUIA_RECEPCIONPT'];
+$NUMEROGUIA = $ARRAYRECEPCIONPT[0]['NUMERO_GUIA_RECEPCION'];
+$FECHAGUIA = $ARRAYRECEPCIONPT[0]['FECHA_GUIA_RECEPCION'];
 $PRODUCTOR = $ARRAYRECEPCIONPT[0]['ID_PRODUCTOR'];
 $PATENTECAMION = $ARRAYRECEPCIONPT[0]['PATENTE_CAMION'];
 $PATENTECARRO = $ARRAYRECEPCIONPT[0]['PATENTE_CARRO'];
@@ -159,9 +157,9 @@ $CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
 
 
 
-$TOTALENVASE = $ARRAYRECEPCIONPT[0]['CANTIDAD_ENVASE_RECEPCIONPT'];
-$TOTALNETO = $ARRAYRECEPCIONPT[0]['KILOS_NETO_RECEPCIONPT'];
-$TOTALBRUTO = $ARRAYRECEPCIONPT[0]['KILOS_BRUTO_RECEPCIONPT'];
+$TOTALENVASE = $ARRAYRECEPCIONPT[0]['CANTIDAD_ENVASE_RECEPCION'];
+$TOTALNETO = $ARRAYRECEPCIONPT[0]['KILOS_NETO_RECEPCION'];
+$TOTALBRUTO = $ARRAYRECEPCIONPT[0]['KILOS_BRUTO_RECEPCION'];
 
 
 
@@ -338,37 +336,37 @@ $html .= '
 
 foreach ($ARRAYDRECEPCIONPT as $d) :
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($d['ID_PRODUCTOR']);
-  $ARRAYPVESPECIES = $PVESPECIES_ADO->verPvespecies($d['ID_PVESPECIES']);
-  $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
+  $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($d['ID_VESPECIES']);
+
   $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($d['ID_ESTANDAR']);
-  $ARRAYCALIBRE = $CALIBRE_ADO->verCalibre($d['ID_CALIBRE']);
+  $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($d['ID_TCALIBRE']);
   $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($d['ID_TMANEJO']);
   
   $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-  if ($d['EMBOLSADO_DRECEPCIONPT'] == "1") {
+  if ($d['EMBOLSADO_DRECEPCION'] == "1") {
     $EMBOLSADO = "SI";
   }
-  if ($d['EMBOLSADO_DRECEPCIONPT'] == "0") {
+  if ($d['EMBOLSADO_DRECEPCION'] == "0") {
     $EMBOLSADO = "NO";
   }
 
 
-  if ($d['PREFRIO_DRECEPCIONPT'] == "1") {
+  if ($d['PREFRIO_DRECEPCION'] == "1") {
     $PREFRIO = "SI";
   }
-  if ($d['PREFRIO_DRECEPCIONPT'] == "0") {
+  if ($d['PREFRIO_DRECEPCION'] == "0") {
     $PREFRIO =  "NO";
   }
 
-  if ($d['GASIFICADO_DRECEPCIONPT'] == "1") {
+  if ($d['GASIFICADO_DRECEPCION'] == "1") {
     $GASIFICACION = "SI";
   }
-  if ($d['GASIFICADO_DRECEPCIONPT'] == "0") {
+  if ($d['GASIFICADO_DRECEPCION'] == "0") {
     $GASIFICACION =  "NO";
   }
 
-  if ($d['STOCK_DRECEPCIONPT']) {
-    $STOCK = $d['STOCK_DRECEPCIONPT'];
+  if ($d['STOCK_DRECEPCION']) {
+    $STOCK = $d['STOCK_DRECEPCION'];
   } else {
     $STOCK = "Sin Stock";
   }
@@ -376,8 +374,8 @@ foreach ($ARRAYDRECEPCIONPT as $d) :
   $html = $html . '
           
                       <tr >
-                          <th class=" left">' . $d['FOLIO_DRECEPCIONPT'] . '</th>
-                          <th class=" center">' . $d['FECHA_EMBALADO_DRECEPCIONPT'] . '</th>
+                          <th class=" left">' . $d['FOLIO_DRECEPCION'] . '</th>
+                          <th class=" center">' . $d['EMBALADO'] . '</th>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '</td>
                           <td class="center">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
@@ -389,7 +387,7 @@ foreach ($ARRAYDRECEPCIONPT as $d) :
                           <td class="center">' . $d['NETO_REAL'] . '</td>
                           <td class="center">' . $d['NETO'] . '</td>
                           <td class="center">' . $d['BRUTO'] . '</td>
-                          <td class="center">' . $ARRAYCALIBRE[0]['NOMBRE_CALIBRE'] . '</td>
+                          <td class="center">' . $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'] . '</td>
                           <td class="center">' . $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'] . '</td>
                           <td class="center">' . $EMBOLSADO . '</td>
                           <td class="center">' . $GASIFICACION . '</td>
@@ -441,20 +439,7 @@ $html = $html . '
         <div>IMPORTANTE:</div>
         <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
       </div>
-<br>
-<br>    
-        <table >      
-          <tr>
-            <td class="color2 center" style="width: 30%;" > </td>
-            <td class="color2  center" style="width: 10%;"> <hr> </td>
-            <td class="color2 right" style="width: 30%;"> </td>
-          </tr>
-          <tr>
-            <td class="color2 center" style="width: 30%;" > </td>
-            <td class="color2  center" style="width: 10%;"> Firma Responsable <br> '.$NOMBRE.' </td>
-            <td class="color2 center" style="width: 30%;"> </td>
-          </tr>    
-        </table>
+
 
     </main>
     <footer>
@@ -494,7 +479,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter-L']);
 
@@ -514,6 +499,19 @@ $PDF->SetHTMLHeader('
 ');
 
 $PDF->SetHTMLFooter('
+
+  <table width="100%" >   
+      <tr>
+        <td class="color2 center" style="width: 30%;" > </td>
+        <td class="color2  center" style="width: 10%;"> <hr> </td>
+        <td class="color2 right" style="width: 30%;"> </td>
+      </tr>
+      <tr>
+        <td class="color2 center" style="width: 30%;" > </td>
+        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> '.$NOMBRE.' </td>
+        <td class="color2 center" style="width: 30%;"> </td>
+      </tr>    
+    </table>
     <table width="100%" >
         <tbody>
             <tr>
