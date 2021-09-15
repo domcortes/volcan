@@ -178,13 +178,25 @@ if (empty($ARRAYFOLIO3)) {
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CREAR'])) {
 
-    $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    if ($ARRAYRECEPCIONBUSCARGPETP) {
-        $SINO = "1";
-        $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
-    } else {
-        $SINO = "0";
-        $MENSAJE3 = "";
+    if ($_REQUEST['TRECEPCION'] == "1") {
+        $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+        if ($ARRAYRECEPCIONBUSCARGPETP) {
+            $SINO = "1";
+            $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
+        } else {
+            $SINO = "0";
+            $MENSAJE3 = "";
+        }
+    }
+    if ($_REQUEST['TRECEPCION'] == "2") {
+        $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorPlantaExternaGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+        if ($ARRAYRECEPCIONBUSCARGPETP) {
+            $SINO = "1";
+            $MENSAJE3 = "LA GUIA DE LA PLANTA ORIGEN SE ENCUENTRA DUPLICADA";
+        } else {
+            $SINO = "0";
+            $MENSAJE3 = "";
+        }
     }
     if ($SINO == "0") {
         $ARRAYNUMERO = $RECEPCIONMP_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
