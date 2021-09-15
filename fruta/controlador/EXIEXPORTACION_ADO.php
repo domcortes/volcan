@@ -1154,7 +1154,8 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion 
-                                                WHERE ID_PROCESO= " . $IDPROCESO . " ;");
+                                                WHERE ID_PROCESO= '" . $IDPROCESO . "'                                            
+                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 

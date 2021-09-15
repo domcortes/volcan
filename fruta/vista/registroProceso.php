@@ -345,10 +345,9 @@ if (isset($_REQUEST['CERRAR'])) {
         $PROCESO_ADO->cerrado($PROCESO);
 
         $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->buscarPorProceso($_REQUEST['IDP']);
+
         $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorProceso($_REQUEST['IDP']);
         $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorProceso($_REQUEST['IDP']);
-        $ARRAYDEXPORTACION = $DPEXPORTACION_ADO->buscarPorProceso($_REQUEST['IDP']);
-        $ARRATDINDUSTRIAL = $DPINDUSTRIAL_ADO->buscarPorProceso($_REQUEST['IDP']);
 
 
 

@@ -478,7 +478,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </ul>
               </li>
             </ul>-->
-            <!--
+          <!--
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#"> Materia Prima
@@ -492,14 +492,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </ul>
               </li>
             </ul>
-                -->
           </li>
+                -->
           <!--
             <li><a href="listarEximateriaprimaProceso.php"><i class="ti-more"></i>Existencia Materia Prima</a></li>
             <li><a href="listarExiexportacion.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
-            <li><a href="listarExiindustrial.php"><i class="ti-more"></i>Existencia Industrial</a></li>
             <li><a href="reimprimirTarjaPT.php"><i class="ti-more"></i>Reimprimir Tarja</a></li>
           -->
+          <li><a href="listarExiindustrial.php"><i class="ti-more"></i>Existencia Industrial</a></li>
 
         </ul>
       </li>
@@ -641,7 +641,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         <ul class="treeview-menu">
           <li><a href="listarHEximateriaprima.php"><i class="ti-more"></i> Materia Prima</a></li>
           <li><a href="listarHExiexportacion.php"><i class="ti-more"></i> Producto Terminado</a></li>
-          <!--<li><a href="listarHExiindustrial.php"><i class="ti-more"></i>Producto Industrial</a></li>-->
+          <li><a href="listarHExiindustrial.php"><i class="ti-more"></i>Producto Industrial</a></li>
         </ul>
       </li>
 
