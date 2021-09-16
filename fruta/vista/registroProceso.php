@@ -219,41 +219,7 @@ if (empty($ARRAYFOLIO2)) {
     $MENSAJEFOLIO = $MENSAJEFOLIO . "<br> NECESITA <b> CREAR LOS FOLIOS INDUSTRIAL </b> , PARA OCUPAR LA <b>  FUNCIONALIDAD </b>.  FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
 }
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
 
-    $ARRAYNUMERO = $PROCESO_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $PROCESO->__SET('NUMERO_PROCESO', $NUMERO);
-    $PROCESO->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
-    $PROCESO->__SET('TURNO', $_REQUEST['TURNO']);
-    $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESO']);
-    $PROCESO->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-    $PROCESO->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESO']);
-    $PROCESO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PROCESO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $PROCESO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $PROCESO->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR  HORAINGRESOPROCESO
-    $PROCESO_ADO->agregarProceso($PROCESO);
-    //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-    $ARRYAOBTENERID = $PROCESO_ADO->obtenerId(
-        $_REQUEST['FECHAPROCESO'],
-        $_REQUEST['EMPRESA'],
-        $_REQUEST['PLANTA'],
-        $_REQUEST['TEMPORADA'],
-    );
-    //REDIRECCIONAR A PAGINA registroRecepcion.php 
-
-    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PROCESO'];
-    $_SESSION["parametro1"] = "crear";
-    echo "<script type='text/javascript'> location.href ='registroProceso.php?op';</script>";
-}
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
     $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
@@ -956,30 +922,30 @@ if (isset($_POST)) {
                                     <!-- /.row -->
                                 </div>
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                    <div class="btn-group btn-rounded btn-block col-4" role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProceso.php');">
-                                                <i class="ti-trash"></i>
+                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProceso.php');">
+                                                <i class="ti-trash"></i> Cancelar
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Crear
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarProceso.php'); ">
-                                                <i class="ti-back-left "></i>
+                                            <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarProceso.php'); ">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i>
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-pencil-alt"></i> Editar
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Cerrar
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
+                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Proceso
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
+                                            <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Tarjas
                                             </button>
                                         <?php } ?>
                                     </div>
@@ -1405,6 +1371,51 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                $ARRAYNUMERO = $PROCESO_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                $PROCESO->__SET('NUMERO_PROCESO', $NUMERO);
+                $PROCESO->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
+                $PROCESO->__SET('TURNO', $_REQUEST['TURNO']);
+                $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESO']);
+                $PROCESO->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                $PROCESO->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESO']);
+                $PROCESO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $PROCESO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $PROCESO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $PROCESO->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR  HORAINGRESOPROCESO
+                $PROCESO_ADO->agregarProceso($PROCESO);
+                //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+                $ARRYAOBTENERID = $PROCESO_ADO->obtenerId(
+                    $_REQUEST['FECHAPROCESO'],
+                    $_REQUEST['EMPRESA'],
+                    $_REQUEST['PLANTA'],
+                    $_REQUEST['TEMPORADA'],
+                );
+                //REDIRECCIONAR A PAGINA registroRecepcion.php
+
+                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PROCESO'];
+                $_SESSION["parametro1"] = "crear";
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Proceso registrado",
+                        showConfirmButton:true
+                    }).then((result)=>{
+                        location.href ="registroProceso.php?op";
+                    })
+                </script>';
+            }
+        ?>
 </body>
 
 </html>

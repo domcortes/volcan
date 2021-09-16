@@ -1450,8 +1450,7 @@ if (isset($_POST)) {
                         Swal.fire({
                             icon:"info",
                             title:"Recepcion Cerrada",
-                            text:"Esta recepcion se encuentra cerrada, por lo que tiene acciones limitadas",
-                            text:"Esta recepcion se encuentra cerrada"
+                            text:"Esta recepcion se encuentra cerrada y no puede ser modificada"
                         }).then((result)=>{
                             if(result.value){
                                 location.href ="registroRecepcionmp.php?op";
@@ -1466,8 +1465,7 @@ if (isset($_POST)) {
                         Swal.fire({
                             icon:"info",
                             title:"Recepcion Cerrada",
-                            text:"Esta recepcion se encuentra cerrada, por lo que tiene acciones limitadas",
-                            text:"Esta recepcion se encuentra cerrada"
+                            text:"Esta recepcion se encuentra cerrada y no puede ser modificada"
                         }).then((result)=>{
                             if(result.value){
                                 location.href ="registroRecepcionmp.php?op";
