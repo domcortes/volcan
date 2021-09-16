@@ -325,7 +325,7 @@ class EXIMATERIAPRIMA_ADO
                                                     FORMAT(IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0),0,'de_DE') AS 'ENVASE',
                                                     FORMAT(IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0),2,'de_DE') AS 'NETO',
                                                     FORMAT(IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0),0,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3),0,'de_DE') AS 'PROMEDIO',
+                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0),5,'de_DE') AS 'PROMEDIO',
                                                     FORMAT(IFNULL(PESO_PALLET_EXIMATERIAPRIMA,0),0,'de_DE') AS 'PALLET'
                                                     FROM fruta_eximateriaprima
                                                     WHERE ESTADO_REGISTRO = 1
@@ -360,7 +360,7 @@ class EXIMATERIAPRIMA_ADO
                                                     FORMAT(IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0),0,'de_DE') AS 'ENVASE',
                                                     FORMAT(IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0),2,'de_DE') AS 'NETO',
                                                     FORMAT(IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0),0,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3),0,'de_DE') AS 'PROMEDIO',
+                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0),5,'de_DE') AS 'PROMEDIO',
                                                     FORMAT(IFNULL(PESO_PALLET_EXIMATERIAPRIMA,0),0,'de_DE') AS 'PALLET'
                                                     FROM fruta_eximateriaprima
                                                     WHERE
@@ -432,7 +432,7 @@ class EXIMATERIAPRIMA_ADO
                                                     FORMAT(IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0),0,'de_DE') AS 'ENVASE',
                                                     FORMAT(IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0),2,'de_DE') AS 'NETO',
                                                     FORMAT(IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0),0,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3),0,'de_DE') AS 'PROMEDIO'
+                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3),5,'de_DE') AS 'PROMEDIO'
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ID_PROCESO= '" . $IDPROCESO . "'  
                                                       AND ESTADO_REGISTRO = 1;");
@@ -536,7 +536,7 @@ class EXIMATERIAPRIMA_ADO
                                                     FORMAT(IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0),0,'de_DE') AS 'ENVASE',
                                                     FORMAT(IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0),2,'de_DE') AS 'NETO',
                                                     FORMAT(IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0),0,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3),0,'de_DE') AS 'PROMEDIO',
+                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0),5,'de_DE') AS 'PROMEDIO',
                                                     FORMAT(IFNULL(PESO_PALLET_EXIMATERIAPRIMA,0),0,'de_DE') AS 'PALLET'
                                                 FROM fruta_eximateriaprima 
                                                 WHERE  ESTADO = 2  

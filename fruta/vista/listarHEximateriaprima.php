@@ -186,6 +186,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Variedad </th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilo Neto</th>
+                                                        <th>Kilo Promedio </th>
+                                                        <th>Kilo Bruto </th>
                                                         <th>Número Recepción</th>
                                                         <th>Fecha Recepción</th>
                                                         <th>Tipo Recepción</th>
@@ -332,6 +334,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
+                                                            <td><?php echo $r['PROMEDIO']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $r['RECEPCION']; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
@@ -365,6 +369,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Variedad </th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilo Neto</th>
+                                                        <th>Kilo Promedio </th>
+                                                        <th>Kilo Bruto </th>
                                                         <th>Número Recepción</th>
                                                         <th>Fecha Recepción</th>
                                                         <th>Tipo Recepción</th>
