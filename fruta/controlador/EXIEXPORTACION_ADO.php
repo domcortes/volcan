@@ -1474,8 +1474,38 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion
                                             WHERE ID_REEMBALAJE= " . $IDREEMBALAJE . "
-                                            AND ESTADO = 1 
+                                            AND ESTADO BETWEEN 5 AND 6
                                             AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+
+    public function buscarPorReembalaje2($IDREEMBALAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,           
+                                                        DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                        FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                        FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                        FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                        FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                        FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                        IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
+                                                FROM fruta_exiexportacion
+                                                WHERE ID_REEMBALAJE= " . $IDREEMBALAJE . "
+                                                AND ESTADO BETWEEN 5 AND 6
+                                                AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -1686,6 +1716,48 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorEmpresaPlantaTemporadaProductorVariedad($EMPRESA, $PLANTA, $TEMPORADA,  $VESPECIES, $PRODUCTOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT *,  
+                                                        DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',             
+                                                        DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
+                                                        DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',                                                    
+                                                        IFNULL(DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y'),'Sin Datos') AS 'RECEPCION',
+                                                        IFNULL(DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y'),'Sin Datos') AS 'PROCESO',
+                                                        IFNULL(DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y'),'Sin Datos') AS 'REEMBALAJE',
+                                                        IFNULL(DATE_FORMAT(FECHA_REPALETIZAJE, '%d-%m-%Y'),'Sin Datos') AS 'REPALETIZAJE',
+                                                        IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
+                                                        IFNULL(DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHOEX',
+                                                        FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                        FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                        FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                        FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                        FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                        IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR' 
+                                                FROM `fruta_exiexportacion` 
+                                                WHERE  `ESTADO` = 2  
+                                                    AND ID_PRODUCTOR = '" . $PRODUCTOR . "'
+                                                    AND ID_VESPECIES = '" . $VESPECIES . "'
+                                                    AND `ID_EMPRESA` = '" . $EMPRESA . "'
+                                                    AND `ID_PLANTA` = '" . $PLANTA . "'
+                                                    AND `ID_TEMPORADA` = '" . $TEMPORADA . "'                                                      
+                                                    AND `ESTADO_REGISTRO` = 1 
+                                                        ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     //OBTENER TOTALES
@@ -1716,8 +1788,8 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'TOTAL_ENVASE', 
-                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'TOTAL_NETO' 
+            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                             ID_REPALETIZAJE = '" . $IDREPALETIZAJE . "' 
@@ -1742,13 +1814,12 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'TOTAL_ENVASE', 
-                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'TOTAL_NETO' 
+            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_REEMBALAJE = '" . $IDREEMBALAJE . "' 
-                                            AND
-                                            ESTADO BETWEEN 5 AND  6
+                                            AND  ESTADO BETWEEN 5 AND  6
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -1766,9 +1837,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'TOTAL_ENVASE', 
-                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'TOTAL_NETO' ,
-                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'TOTAL_BRUTO' 
+            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO' ,
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'BRUTO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_DESPACHOEX = '" . $IDDESEXPORTACION . "' 
@@ -1791,9 +1862,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'TOTAL_ENVASE', 
-                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'TOTAL_NETO' ,
-                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'TOTAL_BRUTO' 
+            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO' ,
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'BRUTO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_INPSAG = '" . $IDINPSAG . "' 
@@ -1815,9 +1886,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'TOTAL_ENVASE', 
-                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'TOTAL_NETO' ,
-                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'TOTAL_BRUTO'  ,
+            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO' ,
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'BRUTO'  ,
                                                     IFNULL(SUM(PRECIO_PALLET),0) AS 'TOTAL_PRECIO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
@@ -1869,8 +1940,8 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_NETO' 
+            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_REEMBALAJE = '" . $IDREEMBALAJE . "' 
@@ -1893,8 +1964,8 @@ class EXIEXPORTACION_ADO
     public function obtenerTotalesRepaletizaje2($IDREPALETIZAJE)
     {
         try {
-            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_NETO' 
+            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_REPALETIZAJE = '" . $IDREPALETIZAJE . "' 
@@ -1917,9 +1988,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_NETO' ,
-                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_BRUTO' 
+            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO' ,
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_DESPACHOEX = '" . $IDDESEXPORTACION . "' 
@@ -1967,9 +2038,9 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_NETO' ,
-                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_BRUTO' 
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO' ,
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_INPSAG = '" . $IDINPSAG . "' 
@@ -2049,9 +2120,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_NETO' ,
-                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_BRUTO'  ,
+            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO' ,
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO'  ,
                                                     FORMAT(IFNULL(SUM(PRECIO_PALLET),0),2,'de_DE') AS 'TOTAL_PRECIO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
@@ -2158,15 +2229,14 @@ class EXIEXPORTACION_ADO
             $query = "
                 UPDATE fruta_exiexportacion SET
                     MODIFICACION = SYSDATE(),
-                    ESTADO = 6,           
+                    ESTADO = 5,           
                     ID_REEMBALAJE = ?          
-                WHERE ID_EXIEXPORTACION= ? AND FOLIO_AUXILIAR_EXIEXPORTACION= ?;";
+                WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $EXIEXPORTACION->__GET('ID_REEMBALAJE'),
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
-                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )
 
@@ -2319,12 +2389,11 @@ class EXIEXPORTACION_ADO
                     MODIFICACION = SYSDATE(), 
                     ESTADO = 2,          
                     ID_REEMBALAJE = null          
-                WHERE ID_EXIEXPORTACION= ? AND FOLIO_AUXILIAR_EXIEXPORTACION= ?;";
+                WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
-                        $EXIEXPORTACION->__GET('FOLIO_AUXILIAR_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )
 

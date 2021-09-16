@@ -453,14 +453,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $ARRAYDESPACHOTOTAL2 = $EXIEXPORTACION_ADO->obtenerTotalesDespacho2($IDOP);
 
 
-    $TOTALENVASEV = $ARRAYDESPACHOTOTAL2[0]['TOTAL_ENVASE'];
-    $TOTALNETOV = $ARRAYDESPACHOTOTAL2[0]['TOTAL_NETO'];
-    $TOTALBRUTOV = $ARRAYDESPACHOTOTAL2[0]['TOTAL_BRUTO'];
+    $TOTALENVASEV = $ARRAYDESPACHOTOTAL2[0]['ENVASE'];
+    $TOTALNETOV = $ARRAYDESPACHOTOTAL2[0]['NETO'];
+    $TOTALBRUTOV = $ARRAYDESPACHOTOTAL2[0]['BRUTO'];
     $TOTALPRECIOV = $ARRAYDESPACHOTOTAL2[0]['TOTAL_PRECIO'];
 
-    $TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['TOTAL_ENVASE'];
-    $TOTALNETO = $ARRAYDESPACHOTOTAL[0]['TOTAL_NETO'];
-    $TOTALBRUTO = $ARRAYDESPACHOTOTAL[0]['TOTAL_BRUTO'];
+    $TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
+    $TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
+    $TOTALBRUTO = $ARRAYDESPACHOTOTAL[0]['BRUTO'];
     $TOTALPRECIO = $ARRAYDESPACHOTOTAL[0]['TOTAL_PRECIO'];
 
     //FUNCION PARA LA OBTENCION DE LOS TOTALES DEL DETALLE ASOCIADO A DESPACHOPT
@@ -1015,7 +1015,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";
+            <?php include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">

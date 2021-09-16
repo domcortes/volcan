@@ -340,11 +340,12 @@ class DPEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * ,DATE_FORMAT(FECHA_EMBALADO_DPEXPORTACION, '%d-%m-%Y') AS 'FECHA_EMBALADO',
-                                                    FORMAT(CANTIDAD_ENVASE_DPEXPORTACION,0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(KILOS_NETO_DPEXPORTACION,2,'de_DE') AS 'NETO',
-                                                    FORMAT(KILOS_BRUTO_DPEXPORTACION,2,'de_DE') AS 'BRUTO',
-                                                    FORMAT(KILOS_DESHIDRATACION_DPEXPORTACION,2,'de_DE') AS 'DESHIDRATACION'
+            $datos = $this->conexion->prepare("SELECT * ,DATE_FORMAT(FECHA_EMBALADO_DPEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
+                                                        FORMAT(CANTIDAD_ENVASE_DPEXPORTACION,0,'de_DE') AS 'ENVASE',
+                                                        FORMAT(KILOS_NETO_DPEXPORTACION,2,'de_DE') AS 'NETO',
+                                                        FORMAT(KILOS_BRUTO_DPEXPORTACION,2,'de_DE') AS 'BRUTO',
+                                                        FORMAT(PDESHIDRATACION_DPEXPORTACION,2,'de_DE') AS 'PORCENTAJE',
+                                                        FORMAT(KILOS_DESHIDRATACION_DPEXPORTACION,2,'de_DE') AS 'DESHIDRATACION'
                                             FROM fruta_dpexportacion 
                                             WHERE ID_PROCESO= '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
