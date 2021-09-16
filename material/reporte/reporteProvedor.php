@@ -176,7 +176,7 @@ $ETIQUETA = "Reporte Proveedor";
 
 
 //API DE GENERACION DE PDF
-require_once '../api/phpoffice/vendor/autoload.php';
+require_once '../../api/phpoffice/vendor/autoload.php';
 //require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

@@ -104,8 +104,8 @@ class PCDESPACHO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO' ,
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d ')  AS 'MODIFICACION'  
+            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO' ,
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d')  AS 'MODIFICACION'  
                                                 FROM fruta_pcdespacho WHERE ID_PCDESPACHO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();

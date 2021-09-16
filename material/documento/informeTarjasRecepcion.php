@@ -490,8 +490,8 @@ $ASUNTO = "TARJA ";
 
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
-require_once '../api/mpdf/qrcode/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/qrcode/autoload.php';
 
 $PDF = new \Mpdf\Mpdf(['format' => [100, 200]]);
 //$PDF = new \Mpdf\Mpdf();

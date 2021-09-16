@@ -484,8 +484,8 @@ class DREPALETIZAJEEX_ADO
     {
         try {
             $datos = $this->conexion->prepare("SELECT 
-                                                SUM(CANTIDAD_ENVASE_DREPALETIZAJE) AS 'TOTAL_ENVASE', 
-                                                SUM(KILOS_NETO_DREPALETIZAJE) AS 'TOTAL_NETO', 
+                                                SUM(CANTIDAD_ENVASE_DREPALETIZAJE) AS 'ENVASE', 
+                                                SUM(KILOS_NETO_DREPALETIZAJE) AS 'NETO', 
                                                 FECHA_EMBALADO_DREPALETIZAJE AS 'FECHA_EMBALADO' ,
                                                 ID_FOLIO,  ID_ESTANDAR,ID_PRODUCTOR,ID_VESPECIES, 
                                                 ID_TMANEJO,ID_TCALIBRE,ID_TEMBALAJE,STOCK  
@@ -571,8 +571,8 @@ class DREPALETIZAJEEX_ADO
 
             $datos = $this->conexion->prepare("SELECT
                                                 IFNULL(COUNT(ID_DREPALETIZAJE),0) AS 'TOTA_REGISTRO_REPALETIZAJE',
-                                                IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0) AS 'TOTAL_ENVASE', 
-                                                IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0) AS 'TOTAL_NETO'
+                                                IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0) AS 'ENVASE', 
+                                                IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0) AS 'NETO'
                                              FROM fruta_drepaletizajeex
                                              WHERE ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "'
                                              AND ESTADO_REGISTRO = 1;");
@@ -595,8 +595,8 @@ class DREPALETIZAJEEX_ADO
 
             $datos = $this->conexion->prepare("SELECT
                                                 IFNULL(COUNT(ID_DREPALETIZAJE),0) AS 'TOTA_REGISTRO_REPALETIZAJE',
-                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                FORMAT(IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0),2,'de_DE') AS 'TOTAL_NETO'
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0),0,'de_DE') AS 'ENVASE', 
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0),2,'de_DE') AS 'NETO'
                                              FROM fruta_drepaletizajeex
                                              WHERE ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "'
                                              AND ESTADO_REGISTRO = 1;");
@@ -617,8 +617,8 @@ class DREPALETIZAJEEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                FORMAT(IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0),2,'de_DE') AS 'TOTAL_NETO'
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0),0,'de_DE') AS 'ENVASE', 
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0),2,'de_DE') AS 'NETO'
                                              FROM fruta_drepaletizajeex
                                              WHERE ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "'
                                              AND ESTADO_REGISTRO = 1
@@ -640,8 +640,8 @@ class DREPALETIZAJEEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                FORMAT(IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0),2,'de_DE') AS 'TOTAL_NETO'
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0),0,'de_DE') AS 'ENVASE', 
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0),2,'de_DE') AS 'NETO'
                                              FROM fruta_drepaletizajeex
                                              WHERE FOLIO_NUEVO_DREPALETIZAJE= '" . $FOLIONUEVODREPALETIZAJE . "'
                                              AND ESTADO_REGISTRO = 1
@@ -663,8 +663,8 @@ class DREPALETIZAJEEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                                IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0) AS 'TOTAL_ENVASE', 
-                                                IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0) AS 'TOTAL_NETO'
+                                                IFNULL(SUM(CANTIDAD_ENVASE_DREPALETIZAJE),0) AS 'ENVASE', 
+                                                IFNULL(SUM(KILOS_NETO_DREPALETIZAJE),0) AS 'NETO'
                                              FROM fruta_drepaletizajeex
                                              WHERE ID_EXIEXPORTACION= '" . $IDEXIEXPORTACION . "';");
             $datos->execute();

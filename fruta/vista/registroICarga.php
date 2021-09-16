@@ -2915,7 +2915,7 @@ if (isset($_POST)) {
                                     </div>
                                 </div>
                             </div>
-                            <label id="val_validacion" class="validacion center"> <?php echo  $MENSAJE; ?></label>
+                            <label id="val_validacion" class="validacion"> <?php echo  $MENSAJE; ?></label>
                             <div class="row">
                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
                                     <div class="table-responsive">

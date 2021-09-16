@@ -199,7 +199,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     <tr class="text-left">
                                                         <th>Folio </th>
                                                         <th>Fecha Embalado </th>
-                                                        <th>Estado </th>
                                                         <th>Condición </th>
                                                         <th>Código Estandar </th>
                                                         <th>Envase/Estandar </th>
@@ -222,12 +221,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Tipo Recepción </th>
                                                         <th>Fecha Guía Recepción
                                                         <th>Número Guía Recepción </th>
-                                                        <th>Número Repaletizaje </th>
-                                                        <th>Fecha Repaletizaje </th>
-                                                        <th>Número Despacho </th>
-                                                        <th>Fecha Despacho </th>
-                                                        <th>Tipo Despacho </th>
-                                                        <th>Número Guía Despacho </th>
                                                         <th>Fecha Ingreso </th>
                                                         <th>Fecha Modificación </th>
                                                         <th>Empresa</th>
@@ -240,42 +233,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
 
                                                         <?php
-                                                        if ($r['ESTADO'] == "0") {
-                                                            $ESTADO = "Elimnado";
-                                                        }
-                                                        if ($r['ESTADO'] == "1") {
-                                                            $ESTADO = "Ingresando";
-                                                        }
-                                                        if ($r['ESTADO'] == "2") {
-                                                            $ESTADO = "Disponible";
-                                                        }
-                                                        if ($r['ESTADO'] == "3") {
-                                                            $ESTADO = "En Repaletizaje";
-                                                        }
-                                                        if ($r['ESTADO'] == "4") {
-                                                            $ESTADO = "Repaletizado";
-                                                        }
-                                                        if ($r['ESTADO'] == "5") {
-                                                            $ESTADO = "En Reembalaje";
-                                                        }
-                                                        if ($r['ESTADO'] == "6") {
-                                                            $ESTADO = "Reembalaje";
-                                                        }
-                                                        if ($r['ESTADO'] == "7") {
-                                                            $ESTADO = "En Despacho";
-                                                        }
-                                                        if ($r['ESTADO'] == "8") {
-                                                            $ESTADO = "Despachado";
-                                                        }
-                                                        if ($r['ESTADO'] == "9") {
-                                                            $ESTADO = "En Transito";
-                                                        }
-                                                        if ($r['ESTADO'] == "10") {
-                                                            $ESTADO = "En Inpeccion Sag";
-                                                        }
-                                                        if ($r['ESTADO'] == "11") {
-                                                            $ESTADO = "Rechazado";
-                                                        }
+                                               
                                                         if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
                                                             $ESTADOSAG = "Sin Condición";
                                                         }
@@ -421,7 +379,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <tr class="text-left">
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $r['EMBALADO']; ?></td>
-                                                            <td><?php echo $ESTADO; ?></td>
                                                             <td><?php echo $ESTADOSAG; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
@@ -444,14 +401,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
-                                                            <td><?php echo $NUMEROREPALETIZAJE; ?></td>
-                                                            <td><?php echo $r['REPALETIZAJE']; ?></td>
-                                                            <td><?php echo $NUMERODESPACHO; ?></td>
-                                                            <td><?php echo $r['DESPACHO']; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
-                                                            <td><?php echo $NUMEROGUIADESPACHO; ?></td>
-                                                            <td><?php echo $r['INGRESOF']; ?></td>
-                                                            <td><?php echo $r['MODIFICACIONF']; ?></td>
+                                                            <td><?php echo $r['INGRESO']; ?></td>
+                                                            <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>

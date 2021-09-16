@@ -995,7 +995,7 @@ if (isset($_POST)) {
                                 <div class="row">
                                     <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
                                         <div class="table-responsive">
-                                            <table id="procesoexistencia" class="table table-hover " style="width: 100%;">
+                                            <table id="ingreso" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio </th>
@@ -1103,7 +1103,7 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                                                 <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroSelecionExistenciaMPProceso" />
-                                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
+                                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
                                                                                                                                                                                                                                                                         echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                                                                     } ?>>
                                                                     <i class=" glyphicon glyphicon-plus"></i>
@@ -1165,7 +1165,7 @@ if (isset($_POST)) {
                                 <div class="row">
                                     <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
                                         <div class="table-responsive">
-                                            <table id="procesodetalle" class="table table-hover " style="width: 100%;">
+                                            <table id="salida" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio</th>
@@ -1249,14 +1249,14 @@ if (isset($_POST)) {
                                                                         </div>
                                                                     </form>
                                                                 </td>
-                                                                <td><?php echo $r['FECHA_EMBALADO_DPEXPORTACION']; ?></td>
+                                                                <td><?php echo $r['EMBALADO']; ?></td>
                                                                 <td><?php echo $NOMBREESTANDAR; ?></td>
                                                                 <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                                <td><?php echo $r['CANTIDAD_ENVASE_DPEXPORTACION']; ?></td>
-                                                                <td><?php echo $r['KILOS_NETO_DPEXPORTACION']; ?></td>
-                                                                <td><?php echo $r['PDESHIDRATACION_DPEXPORTACION']; ?></td>
-                                                                <td><?php echo $r['KILOS_DESHIDRATACION_DPEXPORTACION']; ?></td>
-                                                                <td><?php echo $r['KILOS_BRUTO_DPEXPORTACION']; ?></td>
+                                                                <td><?php echo $r['ENVASE']; ?></td>
+                                                                <td><?php echo $r['NETO']; ?></td>
+                                                                <td><?php echo $r['PORCENTAJE']; ?></td>
+                                                                <td><?php echo $r['DESHIDRATACION']; ?></td>
+                                                                <td><?php echo $r['BRUTO']; ?></td>
                                                                 <td><?php echo $EMBOLSADO; ?></td>
                                                                 <td><?php echo $NOMBRETMANEJO; ?></td>
                                                                 <td><?php echo $NOMBRETCALIBRE; ?></td>
