@@ -456,7 +456,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Planificador Carga</h3>
+                                <h3 class="page-title">Registro Planificador Carga</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -464,7 +464,7 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Planificador Carga</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroPcdespacho.php">Operaciónes Planificador Carga</a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Operaciónes Registro Planificador Carga</a>
                                             </li>
                                         </ol>
                                     </nav>

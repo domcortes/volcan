@@ -67,7 +67,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Listar Reembalaje</title>
+    <title>Agrupado Reembalaje</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -148,14 +148,15 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Reembalaje</h3>
+                            <h3 class="page-title">Agrupado Reembalaje</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Modulo</li>
+                                        <li class="breadcrumb-item" aria-current="page">Packing</li>
                                         <li class="breadcrumb-item" aria-current="page">Reembalaje</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarReembalajeEx.php"> Listar Registro Reembalaje </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Reembalaje </a>
                                         </li>
                                     </ol>
                                 </nav>

@@ -404,7 +404,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
     //OBTENCIONS DE TOTALES O EL RESUMEN DE LAS TABLAS
-    $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
+     $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
     $ARRAYEXISTENCIATOTALESREEMBALAJE2 = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
 
 
@@ -750,7 +750,7 @@ if (isset($_POST)) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Proceso</li>
+                                            <li class="breadcrumb-item" aria-current="page">Packing</li>
                                             <li class="breadcrumb-item" aria-current="page">Reembalaje</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Operaciones Registro Reembalaje </a>
                                             </li>

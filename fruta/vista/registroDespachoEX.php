@@ -1568,14 +1568,14 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Despacho Exportacion</h3>
+                                <h3 class="page-title">Registro Despacho Exportacion</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroDespachoEX.php"> Operaciones Despacho Exportacion </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Registro Despacho Exportacion </a>
                                             </li>
                                         </ol>
                                     </nav>

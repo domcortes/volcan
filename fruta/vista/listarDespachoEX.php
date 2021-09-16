@@ -162,7 +162,7 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Despacho </h3>
+                            <h3 class="page-title">Agrupado Despacho </h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -170,7 +170,7 @@ include_once "../config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                         <li class="breadcrumb-item" aria-current="page">Depacho Exportación</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarDespachoEX.php"> Agrupado Depacho </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Depacho </a>
                                         </li>
                                     </ol>
                                 </nav>

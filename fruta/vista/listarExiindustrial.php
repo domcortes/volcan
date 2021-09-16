@@ -139,8 +139,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Packing</li>
                                             <li class="breadcrumb-item" aria-current="page">Proceso</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="listarExiindustrial.php"> Listar Producto Industrial </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Producto Industrial </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -293,18 +294,12 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
-
-
-
                                                             <td><?php echo $NUMEROPROCESO; ?></td>
                                                             <td><?php echo $r['PROCESO']; ?></td>
                                                             <td><?php echo $TPROCESO; ?></td>
                                                             <td><?php echo $NUMEROREEMBALEJE; ?></td>
                                                             <td><?php echo $r['REEMBALAJE']; ?></td>
                                                             <td><?php echo $TREEMBALAJE; ?></td>
-
-
-
                                                             <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['MODIFICACION']; ?></td>

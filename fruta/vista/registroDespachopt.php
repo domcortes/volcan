@@ -1023,7 +1023,7 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Despacho </h3>
+                                <h3 class="page-title">Registro Despacho </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -1031,7 +1031,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Depsacho P. Terminado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroDespachopt.php"> Operaciónes Despacho </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciónes Registro Despacho </a>
                                             </li>
                                         </ol>
                                     </nav>
