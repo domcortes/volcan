@@ -136,7 +136,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Existencia</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="listarHEximateriaprima.php"> Listar Existencia Materia Prima </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Existencia Materia Prima </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -186,6 +186,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Variedad </th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilo Neto</th>
+                                                        <th>Kilo Promedio </th>
+                                                        <th>Kilo Bruto </th>
                                                         <th>Número Recepción</th>
                                                         <th>Fecha Recepción</th>
                                                         <th>Tipo Recepción</th>
@@ -332,6 +334,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
+                                                            <td><?php echo $r['PROMEDIO']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $r['RECEPCION']; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
@@ -343,8 +347,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['DESPACHO']; ?></td>
                                                             <td><?php echo $NUMEROGUIADESPACHO; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
-                                                            <td><?php echo $r['INGRESOF']; ?></td>
-                                                            <td><?php echo $r['MODIFICACIONF']; ?></td>
+                                                            <td><?php echo $r['INGRESO']; ?></td>
+                                                            <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -365,6 +369,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Variedad </th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilo Neto</th>
+                                                        <th>Kilo Promedio </th>
+                                                        <th>Kilo Bruto </th>
                                                         <th>Número Recepción</th>
                                                         <th>Fecha Recepción</th>
                                                         <th>Tipo Recepción</th>

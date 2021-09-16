@@ -139,7 +139,6 @@ include_once "../config/validarDatosUrlD.php";
 if (isset($_REQUEST['CREAR'])) {
 
     //OBTENER EL FOLIO DEL DETALLE DE EXPORTACION DEL PROCESO   
-
     $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
     $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
     if (isset($_REQUEST['FOLIOMANUAL'])) {
@@ -357,7 +356,6 @@ if (isset($_REQUEST['EDITAR'])) {
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
     echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
 }
-
 if (isset($_REQUEST['ELIMINAR'])) {
     $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODRECEPCIONE'];
     $DRECEPCIONPT->__SET('ID_DRECEPCION', $_REQUEST['ID']);
@@ -375,8 +373,6 @@ if (isset($_REQUEST['ELIMINAR'])) {
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
     echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
 }
-
-
 //OBTENCION DE DATOS ENVIADOR A LA URL
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -390,16 +386,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         if ($TRECEPCION == "1") {
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $FECHARECEPCION = "" . $r['FECHA_RECEPCION'];
-            $PLANTA2 = "" . $r['ID_PLANTA2'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+        } 
+        if ($TRECEPCION == "2") { 
+            $PLANTA2 = "" . $r['ID_PLANTA2'];
         }
     endforeach;
 }
-
-
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO']) && isset($_SESSION['dparametro']) && isset($_SESSION['dparametro1'])) {
@@ -1037,8 +1033,8 @@ if ($_POST) {
                                                     <input type="text" class="form-control" placeholder="Productor" id="PRODUCTORV" name="PRODUCTORV" value="<?php echo $PRODUCTORDATOS; ?>" disabled style='background-color: #eeeeee;'"/>
                                                  <?php } ?>
                                                 <?php if ($TRECEPCION == 2) { ?>
-                                                    <input type=" hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
-                                                    <select class="form-control select2" id="PRODUCTOR" name="PRODUCTOR" style="width: 100%;">
+                                                    <input type="hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
+                                                    <select class="form-control select2" id="PRODUCTOR" name="PRODUCTOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                         <option></option>
                                                         <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                             <?php if ($ARRAYPRODUCTOR) {    ?>

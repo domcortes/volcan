@@ -243,6 +243,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
         }
+        if ($TRECEPCION == "2") { 
+            $PLANTA2 = "" . $r['ID_PLANTA2'];
+        }
     endforeach;
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -800,8 +803,8 @@ if ($_POST) {
                                                     <input type="text" class="form-control" placeholder="Productor" id="PRODUCTORV" name="PRODUCTORV" value="<?php echo $PRODUCTORDATOS; ?>" disabled style='background-color: #eeeeee;'"/>
                                                  <?php } ?>
                                                 <?php if ($TRECEPCION == 2) { ?>
-                                                    <input type=" hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
-                                                    <select class="form-control select2" id="PRODUCTOR" name="PRODUCTOR" style="width: 100%;">
+                                                    <input type="hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
+                                                    <select class="form-control select2" id="PRODUCTOR" name="PRODUCTOR" style="width: 100%;"  <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                         <option></option>
                                                         <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                             <?php if ($ARRAYPRODUCTOR) {    ?>

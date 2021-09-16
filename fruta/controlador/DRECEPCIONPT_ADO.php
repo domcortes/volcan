@@ -95,6 +95,37 @@ class DRECEPCIONPT_ADO
             die($e->getMessage());
         }
     }
+
+    public function listarDrecepcionPorRecepcion2($IDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * , 
+                                                    DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO', 
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_RECIBIDO_DRECEPCION,0),0,'de_DE') AS 'ENVASEI', 
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_RECHAZADO_DRECEPCION,0),0,'de_DE') AS 'ENVASER', 
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_APROBADO_DRECEPCION,0),0,'de_DE') AS 'ENVASEA', 
+                                                    FORMAT(IFNULL(KILOS_NETO_REAL_DRECEPCION,0),2,'de_DE') AS 'NETO_REAL', 
+                                                    FORMAT(IFNULL(KILOS_NETO_REAL_DRECEPCION,0),2,'de_DE') AS 'NETOREAL',
+                                                    FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),0,'de_DE') AS 'BRUTO' ,
+                                                    FORMAT(IFNULL(PDESHIDRATACION_DRECEPCION,0),2,'de_DE') AS 'PORCENTAJE' ,
+                                                    FORMAT(IFNULL(KILOS_DESHIDRATACION_DRECEPCION,0),2,'de_DE') AS 'DESHIDRATACION' 
+                                            FROM fruta_drecepcionpt 
+                                            WHERE ID_RECEPCION= '" . $IDRECEPCION . "' AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     //VER DATOS DE DETALLE DE RECEPCION
     public function verDrecepcion($IDDRECEPCION)
     {
@@ -414,6 +445,12 @@ class DRECEPCIONPT_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                 FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_APROBADO_DRECEPCION),0),0,'de_DE') AS 'TOTAL_ENVASE', 
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'TOTAL_NETO', 
+                                                FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE')  AS 'TOTAL_BRUTO'  ,
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECIBIDO_DRECEPCION),0),0,'de_DE') AS 'TOTAL_ENVASEI', 
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECHAZADO_DRECEPCION),0),0,'de_DE') AS 'TOTAL_ENVASER', 
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_APROBADO_DRECEPCION),0),0,'de_DE') AS 'TOTAL_ENVASEA', 
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_REAL_DRECEPCION),0),2,'de_DE') AS 'TOTAL_NETO_REAL', 
                                                 FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'TOTAL_NETO', 
                                                 FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE')  AS 'TOTAL_BRUTO'  
                                          FROM fruta_drecepcionpt                                         

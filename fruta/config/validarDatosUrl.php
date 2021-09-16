@@ -11,8 +11,4 @@ if ($OPURL == "") {
     $_SESSION["parametro1"] = "";
     $_SESSION["urlo"] = "";   
 }
-if ($OPURL != "") {
-    if ($_SESSION["parametro"] == "" && $_SESSION["parametro1"] == "") {
-        echo "<script type='text/javascript'> location.href ='" . $ACTUALURL . "';</script>";
-    }
-}
+

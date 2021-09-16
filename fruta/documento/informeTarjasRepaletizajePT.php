@@ -6,12 +6,11 @@ include_once '../controlador/REPALETIZAJEEX_ADO.php';
 
 include_once '../controlador/FOLIO_ADO.php';
 include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/CALIBRE_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -21,11 +20,10 @@ $REPALETIZAJEEX_ADO = new REPALETIZAJEEX_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 $EMPRESA_ADO = new EMPRESA_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
-$PVESPECIES_ADO = new PVESPECIES_ADO();
 $VESPECIES_ADO = new VESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
-$CALIBRE_ADO =  new CALIBRE_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $IDOP = "";
@@ -355,8 +353,7 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
 
 	foreach ($ARRAYEXIMATERIAPRIMA as $s) :
 		$ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($s['ID_PRODUCTOR']);
-		$ARRAYPVESPECIES = $PVESPECIES_ADO->verPvespecies($s['ID_PVESPECIES']);
-		$ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
+		$ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
 
 
 		$html = $html . ' 
@@ -425,8 +422,8 @@ $ASUNTO = "TARJA ";
 
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
-require_once '../api/mpdf/qrcode/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/qrcode/autoload.php';
 
 $PDF = new \Mpdf\Mpdf(['format' => [150, 100]]);
 //$PDF = new \Mpdf\Mpdf();

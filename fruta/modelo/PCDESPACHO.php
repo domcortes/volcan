@@ -9,12 +9,12 @@ class  PCDESPACHO {
     //ATRIBUTOS DE LA CLASE    
     private	  $ID_PCDESPACHO; 
     private	  $NUMERO_PCDESPACHO;
+    private	  $FECHA_PCDESPACHO;
     private	  $MOTIVO_PCDESPACHO;
     private	  $CANTIDAD_ENVASE_PCDESPACHO;
     private	  $KILOS_NETO_PCDESPACHO;
-    private	  $FECHA_PCDESPACHO;
-    private	  $FECHA_INGRESO_PCDESPACHO;
-    private	  $FECHA_MODIFCIACION_PCDESPACHO;
+    private	  $INGRESO;
+    private	  $MODIFCIACION;
     private	  $ESTADO;
     private	  $ESTADO_PCDESPACHO;
     private	  $ESTADO_REGISTRO;
@@ -22,6 +22,9 @@ class  PCDESPACHO {
     private   $ID_EMPRESA; 
     private   $ID_PLANTA; 
     private   $ID_TEMPORADA; 
+    private   $ID_USUARIOI;
+    private   $ID_USUARIOM;       
+
     
     
     //FUNCIONES GET Y SET    

@@ -1,26 +1,22 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/DRECEPCION_ADO.php';
-include_once '../controlador/RECEPCION_ADO.php';
+include_once '../controlador/DRECEPCIONMP_ADO.php';
+include_once '../controlador/RECEPCIONMP_ADO.php';
 include_once '../controlador/FOLIO_ADO.php';
 include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/TRECEPCION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$DRECEPCION_ADO= new DRECEPCION_ADO();
-$RECEPCION_ADO = new RECEPCION_ADO();
+$DRECEPCIONMP_ADO= new DRECEPCIONMP_ADO();
+$RECEPCIONMP_ADO = new RECEPCIONMP_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 $EMPRESA_ADO = new EMPRESA_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
-$TRECEPCION_ADO =  new TRECEPCION_ADO();
-$PVESPECIES_ADO = new PVESPECIES_ADO();
 $VESPECIES_ADO = new VESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 
@@ -63,36 +59,44 @@ if (isset($_REQUEST['parametro']) ) {
     $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYRECEPCION = $RECEPCION_ADO->verRecepcion2($IDOP);
-$ARRAYDRECEPCION = $DRECEPCION_ADO->buscarPorIdRecepcion2($IDOP); 
+$ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($IDOP);
+if($ARRAYRECEPCION){
 
-$NUMERORECEPCION=$ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
-$FECHARECEPCION=$ARRAYRECEPCION[0]['FECHA_RECEPCIONR'];
-$HORARECEPCION=$ARRAYRECEPCION[0]['HORA_RECEPCION'];
-$NUMEROGUIA=$ARRAYRECEPCION[0]['NUMERO_GUIA_RECEPCION'];
-$FECHAGUIA=$ARRAYRECEPCION[0]['FECHA_GUIA_RECEPCION'];
-$TOTALGUIA=$ARRAYRECEPCION[0]['TOTAL_GUIA'];
-$PRODUCTOR=$ARRAYRECEPCION[0]['ID_PRODUCTOR'];
-$ARRAYTIPO=$TRECEPCION_ADO->verTrecepcion($ARRAYRECEPCION[0]['ID_TRECEPCION']);
-$TIPO=$ARRAYTIPO[0]['NOMBRE_TRECEPCION'];
+	$ARRAYDRECEPCION = $DRECEPCIONMP_ADO->buscarPorRecepcion2($IDOP); 
 
-
-
-$ARRAYPRODUCTOR=$PRODUCTOR_ADO->verProductor($PRODUCTOR);
-
-$ARRAYPRODUCTOR2=$PRODUCTOR_ADO->obtenerNombreTarja($PRODUCTOR);
-$NOMBREPRODUCTOR=$ARRAYPRODUCTOR2[0]['NOMBRE_CORTADO'];
-$CSGPRODUCTOR=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-
-
-$ARRAYFOLIO=$FOLIO_ADO->verFolio($FOLIO);
-//$ALIASFOLIO=$ARRAYDRECEPCION[0]['ALIAS_FOLIO_DRECEPCION'];
-$ARRAYEMPRESA=$EMPRESA_ADO->verEmpresa($ARRAYRECEPCION[0]['ID_EMPRESA']);
-$EMPRESA=$ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL=$ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-
-if($EMPRESAURL==""){
-    $EMPRESAURL="img/empresa/no_disponible.png";
+	$NUMERORECEPCION=$ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
+	$FECHARECEPCION=$ARRAYRECEPCION[0]['FECHA'];
+	$HORARECEPCION=$ARRAYRECEPCION[0]['HORA_RECEPCION'];
+	$NUMEROGUIA=$ARRAYRECEPCION[0]['NUMERO_GUIA_RECEPCION'];
+	$FECHAGUIA=$ARRAYRECEPCION[0]['GUIA'];
+	$TOTALGUIA=$ARRAYRECEPCION[0]['TOTAL_KILOS_GUIA_RECEPCION'];
+	
+	$NOMBRETIPO = $ARRAYRECEPCION[0]['TRECEPCION'];
+	if ($NOMBRETIPO == "1") {
+	  $NOMBRETIPO = "Desde Productor";
+	}
+	if ($NOMBRETIPO == "2") {
+	  $NOMBRETIPO = "Planta Externa";
+	}
+	
+	$PRODUCTOR=$ARRAYRECEPCION[0]['ID_PRODUCTOR'];
+	$PRODUCTOR = $ARRAYRECEPCION[0]['ID_PRODUCTOR'];
+	$ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+	if ($ARRAYPRODUCTOR) {
+	  $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+	  $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+	}
+	
+	
+	$ARRAYFOLIO=$FOLIO_ADO->verFolio($FOLIO);
+	//$ALIASFOLIO=$ARRAYDRECEPCION[0]['ALIAS_FOLIO_DRECEPCION'];
+	$ARRAYEMPRESA=$EMPRESA_ADO->verEmpresa($ARRAYRECEPCION[0]['ID_EMPRESA']);
+	$EMPRESA=$ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+	$EMPRESAURL=$ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+	
+	if($EMPRESAURL==""){
+		$EMPRESAURL="img/empresa/no_disponible.png";
+	}
 }
 
 
@@ -292,8 +296,7 @@ $html='
 
 foreach ($ARRAYDRECEPCION as $s) :
     
-    $ARRAYPVESPECIES=$PVESPECIES_ADO->verPvespecies($s['ID_PVESPECIES']);
-    $ARRAYVESPECIES=$VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
+    $ARRAYVESPECIES=$VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
     $ARRAYEEXPORTACION=$ERECEPCION_ADO->verEstandar($s['ID_ESTANDAR']);
 
 
@@ -304,7 +307,7 @@ foreach ($ARRAYDRECEPCION as $s) :
 				 <img src="../vista/img/logo.png" width="100px" height="30px"/>
 			</b>
              <br>
-             <b> '.$TIPO.'</b>	
+             <b> '.$NOMBRETIPO.'</b>	
 		</div>		
 		<div class="subtitulo2">
 			<b style="font-size:11;"></b>
@@ -399,14 +402,13 @@ foreach ($ARRAYDRECEPCION as $s) :
 		<br>
 		<div class="subtitulo2"></div>
         <div class="subtitulo center" style="font-size: 18px; text-align: center;">
-			 <barcode code="'.$s['ALIAS_FOLIO_DRECEPCION'].'" size="0.9" type="QR"  class="barcode" disableborder="1" />
+			 <barcode code="'.$s['FOLIO_DRECEPCION'].'" size="0.9" type="QR"  class="barcode" disableborder="1" />
 		</div>
         <div class="titulo center">
            <b style="font-size: 10px;">  '.$EMPRESA.' </b>
-        </div>
-        
-
+        </div>        
       </div>  
+	  <div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>   
     ';
 
 
@@ -445,8 +447,8 @@ $ASUNTO = "TARJA ";
 
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
-require_once '../api/mpdf/qrcode/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/qrcode/autoload.php';
 
 $PDF = new \Mpdf\Mpdf(['format'=>[100,200] ]);
 //$PDF = new \Mpdf\Mpdf();

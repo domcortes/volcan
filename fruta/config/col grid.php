@@ -1,8 +1,3 @@
-
-
-
-
-
 para encabezado numero fechas ingreso fecha modifciacon
 numero
 col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6

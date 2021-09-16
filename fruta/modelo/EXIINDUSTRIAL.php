@@ -29,6 +29,8 @@ class EXIINDUSTRIAL {
     private   $ID_EMPRESA;
     private   $ID_PLANTA;
     private   $ID_TEMPORADA;
+    private   $ID_DESPACHO;
+    private   $ID_DESPACHO2;
     
     
     //FUNCIONES GET Y SET

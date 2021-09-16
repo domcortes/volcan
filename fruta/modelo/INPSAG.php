@@ -28,7 +28,6 @@
         private   $ID_PAIS2;
         private   $ID_PAIS3;
         private   $ID_PAIS4;
-        private   $ID_EMPRESA;
         private   $ID_PLANTA;
         private   $ID_TEMPORADA;
 

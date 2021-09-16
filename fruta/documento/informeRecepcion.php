@@ -8,11 +8,9 @@ include_once '../controlador/PLANTA_ADO.php';
 include_once '../controlador/TEMPORADA_ADO.php';
 
 
-include_once '../controlador/DRECEPCION_ADO.php';
-include_once '../controlador/RECEPCION_ADO.php';
-include_once '../controlador/TRECEPCION_ADO.php';
+include_once '../controlador/DRECEPCIONMP_ADO.php';
+include_once '../controlador/RECEPCIONMP_ADO.php';
 include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -30,12 +28,10 @@ $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
-$DRECEPCION_ADO = new DRECEPCION_ADO();
-$TRECEPCION_ADO = new TRECEPCION_ADO();
-$RECEPCION_ADO = new RECEPCION_ADO();
+$DRECEPCIONMP_ADO = new DRECEPCIONMP_ADO();
+$RECEPCIONMP_ADO = new RECEPCIONMP_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
-$PVESPECIES_ADO = new PVESPECIES_ADO();
 $VESPECIES_ADO = new VESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
@@ -93,70 +89,81 @@ $ARRAYPRODUCTOR = "";
 
 $ARRAYTRANSPORTE = "";
 $ARRAYCONDUCTOR = "";
-$ARRAYTMANEJO="";
-$ARRAYUSUARIO="";
+$ARRAYTMANEJO = "";
+$ARRAYUSUARIO = "";
 
-if(isset($_REQUEST['NOMBREUSUARIO'])){
+if (isset($_REQUEST['NOMBREUSUARIO'])) {
   $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-  
 }
 
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYRECEPCION = $RECEPCION_ADO->verRecepcion2($IDOP);
-$ARRAYDRECEPCION = $DRECEPCION_ADO->obtenerTotalPorVariedadDrecepcion2($IDOP);
-$ARRAYDRECEPCIONTOTAL = $DRECEPCION_ADO->obtenerTotales2($IDOP);
 
-$TOTALENVASEGENERAL = $ARRAYDRECEPCIONTOTAL[0]['TOTAL_ENVASE'];
-$TOTALNETOGENERAL = $ARRAYDRECEPCIONTOTAL[0]['TOTAL_NETO'];
-$TOTALBRUTOGENERAL = $ARRAYDRECEPCIONTOTAL[0]['TOTAL_BRUTO'];
+$ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($IDOP);
+$ARRAYDRECEPCION = $DRECEPCIONMP_ADO->buscarPorRecepcionaAgrupadoVariedad2($IDOP);
+if ($ARRAYRECEPCION) {
 
-$ARRAYTRECEPCION = $TRECEPCION_ADO->verTrecepcion($ARRAYRECEPCION[0]['ID_TRECEPCION']);
-$NOMBRETIPO = $ARRAYTRECEPCION[0]['NOMBRE_TRECEPCION'];
-
-$NUMERORECEPCION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
-$FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA_RECEPCIONR'];
-$HORARECEPCION = $ARRAYRECEPCION[0]['HORA_RECEPCION'];
-$NUMEROGUIA = $ARRAYRECEPCION[0]['NUMERO_GUIA_RECEPCION'];
-$FECHAGUIA = $ARRAYRECEPCION[0]['FECHA_GUIA_RECEPCION'];
-$TOTALGUIA = $ARRAYRECEPCION[0]['TOTAL_GUIA'];
-$PRODUCTOR = $ARRAYRECEPCION[0]['ID_PRODUCTOR'];
-$PATENTE = $ARRAYRECEPCION[0]['PATENTE_VEHICULO'];
+  $ARRAYDRECEPCIONTOTAL = $DRECEPCIONMP_ADO->obtenerTotales2($IDOP);
+  $TOTALENVASEGENERAL = $ARRAYDRECEPCIONTOTAL[0]['TOTAL_ENVASE'];
+  $TOTALNETOGENERAL = $ARRAYDRECEPCIONTOTAL[0]['TOTAL_NETO'];
+  $TOTALBRUTOGENERAL = $ARRAYDRECEPCIONTOTAL[0]['TOTAL_BRUTO'];
 
 
-$ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYRECEPCION[0]['ID_TRANSPORTE']);
-$ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYRECEPCION[0]['ID_CONDUCTOR']);;
-
-$TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-$CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
-
-
-
-$TOTALENVASE = $ARRAYRECEPCION[0]['CANTIDAD_ENVASE_RECEPCION'];
-$TOTALNETO = $ARRAYRECEPCION[0]['KILOS_NETO_RECEPCION'];
-$TOTALBRUTO = $ARRAYRECEPCION[0]['KILOS_BRUTO_RECEPCION'];
+  $NUMERORECEPCION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
+  $FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA'];
+  $HORARECEPCION = $ARRAYRECEPCION[0]['HORA_RECEPCION'];
+  $NUMEROGUIA = $ARRAYRECEPCION[0]['NUMERO_GUIA_RECEPCION'];
+  $FECHAGUIA = $ARRAYRECEPCION[0]['GUIA'];
+  $TOTALGUIA = $ARRAYRECEPCION[0]['TOTAL_KILOS_GUIA_RECEPCION'];
+  $PATENTECAMION = $ARRAYRECEPCION[0]['PATENTE_CAMION'];
+  $PATENTECARRO = $ARRAYRECEPCION[0]['PATENTE_CARRO'];
 
 
+  $NOMBRETIPO = $ARRAYRECEPCION[0]['TRECEPCION'];
+  if ($NOMBRETIPO == "1") {
+    $NOMBRETIPO = "Desde Productor";
+  }
+  if ($NOMBRETIPO == "2") {
+    $NOMBRETIPO = "Planta Externa";
+  }
+  $PLANTAORIGEN = $ARRAYRECEPCION[0]['ID_PLANTA2'];
+  $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
+  if ($ARRAYPLANTA2) {
+    $PLANTAORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+  } else {
+    $PLANTAORIGEN = "";
+  }
+  $PRODUCTOR = $ARRAYRECEPCION[0]['ID_PRODUCTOR'];
+  $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+  if ($ARRAYPRODUCTOR) {
+    $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+    $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+  }
+  $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYRECEPCION[0]['ID_TRANSPORTE']);
+  if ($ARRAYTRANSPORTE) {
+    $TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+  }
+  $ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYRECEPCION[0]['ID_CONDUCTOR']);
+  if ($ARRAYCONDUCTOR) {
+    $CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+  }
+  $TOTALENVASE = $ARRAYRECEPCION[0]['CANTIDAD_ENVASE_RECEPCION'];
+  $TOTALNETO = $ARRAYRECEPCION[0]['KILOS_NETO_RECEPCION'];
+  $TOTALBRUTO = $ARRAYRECEPCION[0]['KILOS_BRUTO_RECEPCION'];
 
-$ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
-$NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-$CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYRECEPCION[0]['ID_EMPRESA']);
+  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA']);
+  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYRECEPCION[0]['ID_TEMPORADA']);
+  $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+  $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+  $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+}
 
-$ARRAYFOLIO = $FOLIO_ADO->verFolio($FOLIO);
-
-$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYRECEPCION[0]['ID_EMPRESA']);
-
-$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA']);
-$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYRECEPCION[0]['ID_TEMPORADA']);
-$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-
-$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
 
 if ($EMPRESAURL == "") {
   $EMPRESAURL = "img/empresa/no_disponible.png";
@@ -266,9 +273,18 @@ $html = '
         <div id="client">
           <div class="address"><b>Tipo Recepcion: </b>' . $NOMBRETIPO . '</div>
           <div class="address"><b>Numero Guia: </b>' . $NUMEROGUIA . ' </div>
-          <div class="address"><b>Kilos Guia: </b>' . $TOTALGUIA . '  </div>
-          <div class="address"><b>Nombre Productor: </b>' . $NOMBREPRODUCTOR . '</div>
-          <div class="address"><b>CSG: </b>' . $CSGPRODUCTOR . '</div>
+          <div class="address"><b>Kilos Guia: </b>' . $TOTALGUIA . '  </div>          ';
+if ($PLANTAORIGEN != "") {
+  $html .= '
+                      <div class="address"><b> Planta Origen:  </b>' . $PLANTAORIGEN . '</div>
+                      ';
+} else {
+  $html .= '
+            <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>
+            ';
+}
+
+$html = $html . '
         </div>
         
       </div>
@@ -292,13 +308,31 @@ $html = '
         ';
 foreach ($ARRAYDRECEPCION as $d) :
 
-  //$ARRAYPVESPECIES=$PVESPECIES_ADO->verPvespecies($s['ID_PVESPECIES']);
-  // $ARRAYVESPECIES=$VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
-  $ARRAYDRECEPCION2 = $DRECEPCION_ADO->buscarPorIdRecepcionParaPvespeciesVespecies2($IDOP, $d['ID_VESPECIES']);
-
+  $ARRAYDRECEPCION2 = $DRECEPCIONMP_ADO->buscarPorIdRecepcionPorVespecies2($IDOP, $d['ID_VESPECIES']);
+  $ARRAYDRECEPCION2TOTALES = $DRECEPCIONMP_ADO->obtenerTotalPorRecepcionVariedad2($IDOP, $d['ID_VESPECIES']);
 
   foreach ($ARRAYDRECEPCION2 as $s) :
-    $ARRAYEEXPORTACION = $ERECEPCION_ADO->verEstandar($s['ID_ESTANDAR']);
+
+    $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($s['ID_ESTANDAR']);
+    if ($ARRAYEVERERECEPCIONID) {
+      $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+      $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+    } else {
+      $CODIGOESTANDAR = "Sin Datos";
+      $NOMBREESTANDAR = "Sin Datos";
+    }
+    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
+    if ($ARRAYVERVESPECIESID) {
+      $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+    } else {
+      $NOMBREVESPECIES = "Sin Datos";
+    }
+    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+    if ($ARRAYTMANEJO) {
+      $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+    } else {
+      $NOMBRETMANEJO = "Sin Datos";
+    }
     if ($s['GASIFICADO_DRECEPCION'] == "1") {
       $GASIFICACION = "SI";
     }
@@ -306,37 +340,38 @@ foreach ($ARRAYDRECEPCION as $d) :
       $GASIFICACION =  "NO";
     }
 
-    $ARRAYTMANEJO=$TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
 
     $html = $html . '
           
                       <tr >
                           <th class=" left">' . $s['FOLIO_DRECEPCION'] . '</th>
-                          <td class="left">' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '</td>
-                          <td class="center">' . $s['ENVASE_VARIEDADDR'] . '</td>
-                          <td class="center">' . $s['NETO_VARIEDADDR'] . '</td>
-                          <td class="center">' . $s['BRUTO_VARIEDADDR'] . '</td>
-                          <td class=" center">' . $s['NOMBRE_VESPECIES'] . '</td>
+                          <td class="left">' .  $NOMBREESTANDAR . '</td>
+                          <td class="center">' . $s['ENVASE'] . '</td>
+                          <td class="center">' . $s['NETO'] . '</td>
+                          <td class="center">' . $s['BRUTO'] . '</td>
+                          <td class=" center">' . $NOMBREVESPECIES . '</td>
                           <td class=" center">' . $GASIFICACION . '</td>
-                          <td class=" center">' . $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'] . '</td>
+                          <td class=" center">' . $NOMBRETMANEJO . '</td>
                       </tr>
               ';
 
+
   endforeach;
-  
+
   $html = $html . '
               
-                  <tr class="bt">
-                      <th class=" left">&nbsp;</th>
-                      <th class=" left">SUB TOTAL</th>
-                      <th class="center">' . $d['TOTAL_ENVASE_VARIEDAD'] . '</th>
-                      <th class="center">' . $d['TOTAL_NETO_VARIEDAD'] . '</th>
-                      <th class="center">' . $d['TOTAL_BRUTO_VARIEDAD'] . '</th>
-                      <th class=" center">&nbsp;</th>
-                      <th class=" center">&nbsp;</th>
-                      <th class=" center">&nbsp;</th>
-                  </tr>
-              ';
+  <tr class="bt">
+      <th class=" left">&nbsp;</th>
+      <th class=" left">SUB TOTAL</th>
+      <th class="center">' . $ARRAYDRECEPCION2TOTALES[0]['ENVASE'] . '</th>
+      <th class="center">' . $ARRAYDRECEPCION2TOTALES[0]['NETO'] . '</th>
+      <th class="center">' . $ARRAYDRECEPCION2TOTALES[0]['BRUTO'] . '</th>
+      <th class=" center">&nbsp;</th>
+      <th class=" center">&nbsp;</th>
+      <th class=" center">&nbsp;</th>
+  </tr>
+';
 
 
 endforeach;
@@ -362,9 +397,10 @@ $html = $html . '
       <div id="details" class="clearfix">
         <div id="client">
           <div class="address"><b>INFORMACION DE TRANSPORTE</b></div>
-          <div class="address">EMPRESA TRANSPORTE:  ' . $TRANSPORTE . ' </div>
-          <div class="address">CONDUCTOR: ' . $CONDUCTOR . '</div>
-          <div class="address">PATENTE: ' . $PATENTE . '</div>
+          <div class="address">Transporte:  ' . $TRANSPORTE . ' </div>
+          <div class="address">Conductor: ' . $CONDUCTOR . '</div>
+          <div class="address">Patente Camion: ' . $PATENTECAMION . '</div>
+          <div class="address">Patente Carro: ' . $PATENTE . '</div>
         </div>
       </div>
       <div id="notices">
@@ -373,18 +409,7 @@ $html = $html . '
       </div>
       <br>
       <br>    
-              <table >      
-                <tr>
-                  <td class="color2 center" style="width: 30%;" > </td>
-                  <td class="color2  center" style="width: 10%;"> <hr> </td>
-                  <td class="color2 right" style="width: 30%;"> </td>
-                </tr>
-                <tr>
-                  <td class="color2 center" style="width: 30%;" > </td>
-                  <td class="color2  center" style="width: 10%;"> Firma Responsable <br> '.$NOMBRE.' </td>
-                  <td class="color2 center" style="width: 30%;"> </td>
-                </tr>    
-              </table>
+          
       
     </main>
     <footer>
@@ -424,7 +449,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
@@ -444,6 +469,18 @@ $PDF->SetHTMLHeader('
 ');
 
 $PDF->SetHTMLFooter('
+<table width="100%" >
+    <tr>
+      <td class="color2 center" style="width: 30%;" > </td>
+      <td class="color2  center" style="width: 10%;"> <hr> </td>
+      <td class="color2 right" style="width: 30%;"> </td>
+    </tr>
+    <tr>
+      <td class="color2 center" style="width: 30%;" > </td>
+      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+      <td class="color2 center" style="width: 30%;"> </td>
+    </tr>    
+  </table>
     <table width="100%" >
         <tbody>
             <tr>

@@ -12,7 +12,6 @@ include_once '../controlador/DREXPORTACION_ADO.php';
 include_once '../controlador/DRINDUSTRIAL_ADO.php';
 include_once '../controlador/REEMBALAJE_ADO.php';
 
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/EXIEXPORTACION_ADO.php';
@@ -30,7 +29,6 @@ $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 $TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
@@ -83,7 +81,7 @@ $TOTALDIFERENCIA="";
 $EMPRESA="";
 $EMPRESAURL="";
 
-
+$NOMBRE="";
 $html='';
 
 
@@ -128,9 +126,9 @@ if (isset($_REQUEST['parametro']) ) {
     $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje3($IDOP);
+$ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($IDOP);
 $ARRAYREEMBALAJETOTALES = $REEMBALAJE_ADO->obtenerTotales($IDOP);
-$ARRAYEXISTENCIATOMADA=$EXIEXPORTACION_ADO->buscarPorProcesoReembalajeEnReembalaje2($IDOP);
+$ARRAYEXISTENCIATOMADA=$EXIEXPORTACION_ADO->buscarPorReembalaje2($IDOP);
 
 $ARRAYDEXPORTACION=$DREXPORTACION_ADO->buscarPorReembalaje2($IDOP);
 $ARRAYDEXPORTACIONTOTALES = $DREXPORTACION_ADO->obtenerTotales2($IDOP);
@@ -143,25 +141,24 @@ $PDINDUSTRIAL=$ARRAYREEMBALAJE[0]['PDINDUSTRIAL_REEMBALAJE'];
 $NUMEROREEMBALAJE=$ARRAYREEMBALAJE[0]['NUMERO_REEMBALAJE'];
 $PDTOTAL=$PDEXPORTACION+$PDINDUSTRIAL;
 
-$TOTALSALIDA=$ARRAYREEMBALAJETOTALES[0]['TOTAL_SALIDA'];
+$TOTALSALIDA=$ARRAYREEMBALAJETOTALES[0]['SALIDA'];
 
-$TOTALENVASEDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['TOTAL_ENVASE']; //TOTAL_DESHIDRATACION
-$TOTALNETODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['TOTAL_NETO'];
-$TOTALDESHIDRATACIONDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['TOTAL_DESHIDRATACION'];
-$TOTALBRUTODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['TOTAL_BRUTO'];
+$TOTALENVASEDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['ENVASE']; //TOTAL_DESHIDRATACION
+$TOTALNETODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['NETO'];
+$TOTALDESHIDRATACIONDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
+$TOTALBRUTODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['BRUTO'];
 
-$TOTALNETODINDUSTRIAL=$ARRAYDINDUSTRIALTOTALES[0]['TOTAL_NETO'];
+$TOTALNETODINDUSTRIAL=$ARRAYDINDUSTRIALTOTALES[0]['NETO'];
 //$TOTALBRUTODINDUSTRIAL=$ARRAYDINDUSTRIALTOTALES[0]['TOTAL_BRUTO'];
 
-$ARRAYEXISTENCIATOMADATOTALES=$EXIEXPORTACION_ADO->obtenerTotales2($IDOP);
+$ARRAYEXISTENCIATOMADATOTALES=$EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
 
-$TOTALENVASE=$ARRAYEXISTENCIATOMADATOTALES[0]['TOTAL_ENVASE'];
-$TOTALNETO=$ARRAYEXISTENCIATOMADATOTALES[0]['TOTAL_NETO'];
+$TOTALENVASE=$ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
+$TOTALNETO=$ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
 
 $TOTAL2=$TOTALNETO-$TOTALSALIDA;
 
-$ARRAYVERPVESPECIES=$PVESPECIES_ADO->verPvespecies($ARRAYREEMBALAJE[0]['ID_PVESPECIES']);
-$ARRAYVERVESPECIES=$VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIES[0]['ID_VESPECIES']);
+$ARRAYVERVESPECIES=$VESPECIES_ADO->verVespecies($ARRAYREEMBALAJE[0]['ID_VESPECIES']);
 
 $VARIEDAD=$ARRAYVERVESPECIES[0]['NOMBRE_VESPECIES'];
 $FECHAREEMBALAJE=$ARRAYREEMBALAJE[0]['FECHA'];
@@ -328,8 +325,7 @@ $html=$html.'
         foreach ($ARRAYEXISTENCIATOMADA as $r) : 
 
             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);  
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
             $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
             $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
             $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
@@ -346,7 +342,7 @@ $html=$html.'
                 <td class=" center">'.$ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'].'</td>
                 <td class=" center">'.$r['ENVASE'].'</td>
                 <td class=" center">'.$r['NETO'].'</td>
-                <td class=" center">'.$r['DESHIDRATACION'].'</td>
+                <td class=" center">'.$r['DESHIRATACION'].'</td>
                 <td class=" center">'.$EMBOLSADO.'</td>
                 <td class=" center">'.$TMANEJO.'</td>
                 <td class=" center ">'.$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'].' </td>
@@ -403,8 +399,7 @@ $html=$html.'
         foreach ($ARRAYDEXPORTACION as $r) : 
     
             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);  
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
             $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
             $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
             $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
@@ -417,7 +412,7 @@ $html=$html.'
         $html=$html.'    
         <tr>
             <th class=" left"> '.$r['FOLIO_DREXPORTACION'].'</th>
-            <td class=" center"> '.$r['FECHA'].'</td>
+            <td class=" center"> '.$r['EMBALADO'].'</td>
             <td class=" center"> '.$ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'].'</td>
             <td class=" center">'.$r['ENVASE'].' </td>
             <td class=" center"> '.$r['NETO'].'</td>
@@ -469,14 +464,13 @@ $html=$html.'
         foreach ($ARRAYDINDUSTRIAL as $r) : 
     
             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);  
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
             $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
                  
         $html=$html.'    
         <tr>
             <th class=" left"> '.$r['FOLIO_DRINDUSTRIAL'].'</th>
-            <td class=" center"> '.$r['FECHA'].'</td>
+            <td class=" center"> '.$r['EMBALADO'].'</td>
             <td class=" center"> '.$ARRAYEVEINDUSTRIALID[0]['NOMBRE_ESTANDAR'].'</td>
             <td class=" center"> '.$r['KILOS_NETO_DRINDUSTRIAL'].'</td>
             <td class=" center "> '.$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'].' </td>
@@ -570,7 +564,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format'=> 'letter']);
 

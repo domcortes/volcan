@@ -4,15 +4,10 @@ include_once "../config/validarUsuario.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/TREEMBALAJE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
+include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/REEMBALAJE_ADO.php';
 
@@ -22,15 +17,10 @@ include_once '../controlador/REEMBALAJE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
+$ESPECIES_ADO =  new ESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 
@@ -61,19 +51,14 @@ $ARRAYTOTALREEMBALAJE = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYREEMBALAJE = $REEMBALAJE_ADO->listarReembalajeEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYTOTALREEMBALAJE = $REEMBALAJE_ADO->obtenerTotalEmpresaPlantaTemporadaLista($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALNETO = $ARRAYTOTALREEMBALAJE[0]['NETO'];
-    $TOTALINDUSTRIAL = $ARRAYTOTALREEMBALAJE[0]['INDUSTRIAL'];
-    $TOTALEXPORTACION = $ARRAYTOTALREEMBALAJE[0]['EXPORTACION'];
-} else {
-    $ARRAYREEMBALAJE = $REEMBALAJE_ADO->listarReembalajeCBX();
-    $ARRAYTOTALREEMBALAJE = $REEMBALAJE_ADO->obtenerTotaleLista();
+    $ARRAYREEMBALAJE = $REEMBALAJE_ADO->listarReembalajeEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYTOTALREEMBALAJE = $REEMBALAJE_ADO->obtenerTotalEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALNETO = $ARRAYTOTALREEMBALAJE[0]['NETO'];
     $TOTALINDUSTRIAL = $ARRAYTOTALREEMBALAJE[0]['INDUSTRIAL'];
     $TOTALEXPORTACION = $ARRAYTOTALREEMBALAJE[0]['EXPORTACION'];
 }
-
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrLP.php";
 
 ?>
 
@@ -82,7 +67,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Listar Reembalaje</title>
+    <title>Agrupado Reembalaje</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -138,6 +123,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
 
 
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
+
                 //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
                 function abrirVentana(url) {
                     var opciones =
@@ -158,14 +148,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Reembalaje</h3>
+                            <h3 class="page-title">Agrupado Reembalaje</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Modulo</li>
+                                        <li class="breadcrumb-item" aria-current="page">Packing</li>
                                         <li class="breadcrumb-item" aria-current="page">Reembalaje</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarReembalajeEx.php"> Listar Registro Reembalaje </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Reembalaje </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -196,11 +187,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">
-
                         <div class="box-body">
-
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -208,174 +197,199 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     <th>Numero</th>
                                                     <th>Estado</th>
                                                     <th>Operaciones</th>
-                                                    <th>Empresa</th>
                                                     <th>Fecha Reembalaje</th>
                                                     <th>Tipo Reembalaje</th>
                                                     <th>Turno </th>
+                                                    <th>Especie</th>
+                                                    <th>Variedad</th>
                                                     <th>K. Neto Salida</th>
                                                     <th>K. Exportacion </th>
                                                     <th>K. Industrial</th>
                                                     <th>CSG Productor</th>
                                                     <th>Nombre Productor</th>
-                                                    <th>Variedad</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificacion</th>
+                                                    <th>Empresa</th>
+                                                    <th>Planta</th>
+                                                    <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYREEMBALAJE as $r) : ?>
+
+                                                    <?php
+
+
+                                                    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                    if ($ARRAYVERVESPECIESID) {
+                                                        $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                        $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
+                                                        if ($ARRAYVERVESPECIESID) {
+                                                            $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+                                                        } else {
+                                                            $NOMBRESPECIES = "Sin Datos";
+                                                        }
+                                                    } else {
+                                                        $NOMBREVESPECIES = "Sin Datos";
+                                                        $NOMBRESPECIES = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                    if ($ARRAYVERPRODUCTORID) {
+
+                                                        $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                        $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                    } else {
+                                                        $CSGPRODUCTOR = "Sin Datos";
+                                                        $NOMBREPRODUCTOR = "Sin Datos";
+                                                    }
+                                                    $ARRAYTREEMBALAJE = $TREEMBALAJE_ADO->verTreembalaje($r['ID_TREEMBALAJE']);
+                                                    if ($ARRAYTREEMBALAJE) {
+                                                        $TREEMBALAJE = $ARRAYTREEMBALAJE[0]['NOMBRE_TREEMBALAJE'];
+                                                    } else {
+                                                        $TREEMBALAJE = "Sin Datos";
+                                                    }
+                                                    if ($r['TURNO']) {
+                                                        if ($r['TURNO'] == "1") {
+                                                            $TURNO = "Dia";
+                                                        }
+                                                        if ($r['TURNO'] == "2") {
+                                                            $TURNO = "Noche";
+                                                        }
+                                                    } else {
+                                                        $TURNO = "Sin Datos";
+                                                    }
+                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                    if ($ARRAYEMPRESA) {
+                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    } else {
+                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                    }
+                                                    $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                    if ($ARRAYPLANTA) {
+                                                        $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+                                                    } else {
+                                                        $NOMBREPLANTA = "Sin Datos";
+                                                    }
+                                                    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    if ($ARRAYTEMPORADA) {
+                                                        $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    } else {
+                                                        $NOMBRETEMPORADA = "Sin Datos";
+                                                    }
+
+
+                                                    ?>
+
                                                     <tr class="center">
+                                                        <td> <?php echo $r['NUMERO_REEMBALAJE']; ?> </td>
                                                         <td>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                <?php echo $r['NUMERO_REEMBALAJE']; ?>
-                                                            </a>
+                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                            <?php  }  ?>
+                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                            <?php  }  ?>
                                                         </td>
-                                                        <td <?php if ($r['ESTADO'] == "0") {
-                                                                echo "style='background-color: #FF0000;'";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "style='background-color: #4AF575;'";
-                                                            }  ?>>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "0") {
-                                                                echo "Cerrado";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Abierto";
-                                                            }
-                                                            ?>
-                                                        </td>
+
                                                         <td class="text-center">
                                                             <form method="post" id="form1">
                                                                 <div class="list-icons d-inline-flex">
                                                                     <div class="list-icons-item dropdown">
-                                                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
+                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                                        </button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
+                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
+                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_REEMBALAJE']; ?>" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroReembalajeEx" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarReembalajeEx" />
+                                                                            <?php if ($r['ESTADO'] == "0") { ?>
 
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button>Informe
-                                                                            <br>
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeTarjasReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button>Tarjas
-                                                                            <div class="dropdown-divider"></div>
-
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline mr-1" id="defecto" name="editar" Onclick="irPagina('registroReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>&&parametro1=editar'); ">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i>
+                                                                                    </button>
+                                                                                </span>
                                                                             <?php } ?>
-
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline mr-1" id="defecto" name="ver" Onclick="irPagina('registroReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>&&parametro1=ver'); ">
-                                                                                <i class="ti-eye"></i>
-                                                                            </button>Ver
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                </button>
+                                                                            </span>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
+                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                </button>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
                                                         </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                            echo $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA']
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['FECHA_REEMBALAJE']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYTREEMBALAJE = $TREEMBALAJE_ADO->verTreembalaje($r['ID_TREEMBALAJE']);
-                                                            echo $ARRAYTREEMBALAJE[0]['NOMBRE_TREEMBALAJE'];
-                                                            ?>
-                                                        </td>
-                                                        <td><?php
-                                                            if ($r['TURNO'] == "1") {
-                                                                echo "Dia";
-                                                            }
-                                                            if ($r['TURNO'] == "2") {
-                                                                echo "Noche";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['KILOS_NETO_REEMBALAJE']; ?></td>
-                                                        <td><?php echo $r['KILOS_EXPORTACION_REEMBALAJE']; ?></td>
-                                                        <td><?php echo $r['KILOS_INDUSTRIAL_REEMBALAJE']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                            echo $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            echo $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYPVESPECIES = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-                                                            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
-                                                            echo $ARRAYVESPECIES[0]['NOMBRE_VESPECIES'];
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['FECHA_INGRESO_REEMBALAJE']; ?></td>
-                                                        <td><?php echo $r['FECHA_MODIFICACION_REEMBALAJE']; ?></td>
-
+                                                        <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $TREEMBALAJE; ?> </td>
+                                                        <td><?php echo $TURNO; ?> </td>
+                                                        <td><?php echo $NOMBRESPECIES; ?></td>
+                                                        <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                        <td><?php echo $r['NETO']; ?></td>
+                                                        <td><?php echo $r['EXPORTACION']; ?></td>
+                                                        <td><?php echo $r['INDUSTRIAL']; ?></td>
+                                                        <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                        <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                        <td><?php echo $NOMBREPLANTA; ?></td>
+                                                        <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
-
                                         </table>
-
-
-
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
                         <div class="box-footer">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                     <div class="form-group">
                                     </div>
                                 </div>
-
-                                <div class="col-sm-2">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                     <div class="form-group">
                                         <label>Total Neto </label>
                                         <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                     </div>
                                 </div>
-
-                                <div class="col-sm-2">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                     <div class="form-group">
                                         <label>Total Exportacion </label>
-                                        <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
+                                        <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
                                     </div>
                                 </div>
-
-                                <div class="col-sm-2">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                     <div class="form-group">
                                         <label>Total Industrial </label>
-                                        <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
+                                        <input type="text" class="form-control" placeholder="Total Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
         <?php include_once "../config/footer.php"; ?>
         <?php include_once "../config/menuExtra.php"; ?>
     </div>

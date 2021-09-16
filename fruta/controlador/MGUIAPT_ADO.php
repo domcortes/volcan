@@ -47,7 +47,7 @@ class MGUIAPT_ADO {
     public function listarMguia(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_mguiapt` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -66,7 +66,7 @@ class MGUIAPT_ADO {
     public function listarMguiaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_mguiapt` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -84,8 +84,8 @@ class MGUIAPT_ADO {
     public function listarMguiaDespachoCBX($DESPACHO){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_mguiapt` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt 
+                                            WHERE ESTADO_REGISTRO = 1
                                             AND ID_DESPACHO = '" . $DESPACHO . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -105,7 +105,7 @@ class MGUIAPT_ADO {
     public function listarMguiaCBX2(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_mguiapt` WHERE `ESTADO_REGISTRO`= 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt WHERE ESTADO_REGISTRO= 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -125,7 +125,7 @@ class MGUIAPT_ADO {
     public function verMguia($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_mguiapt` WHERE `ID_MGUIA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt WHERE ID_MGUIA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -147,10 +147,22 @@ class MGUIAPT_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_mguiapt` ( `NUMERO_MGUIA`,`NUMERO_DESPACHO`, `NUMERO_GUIA`, `MOTIVO_MGUIA`, 
-                                     `ID_DESPACHO`, `ID_PLANTA2`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, 
-                                     `FECHA_INGRESO_MGUIA`, `ESTADO_REGISTRO`) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), 1);";
+            "INSERT INTO fruta_mguiapt ( 
+                                            NUMERO_MGUIA,
+                                            NUMERO_DESPACHO, 
+                                            NUMERO_GUIA, 
+                                            MOTIVO_MGUIA, 
+                                            ID_DESPACHO, 
+                                            ID_PLANTA2, 
+                                            ID_EMPRESA, 
+                                            ID_PLANTA, 
+                                            ID_TEMPORADA, 
+                                            ID_USUARIOI, 
+                                            ID_USUARIOM, 
+                                            FECHA_INGRESO_MGUIA,
+                                            ESTADO_REGISTRO
+                                     ) VALUES
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -163,7 +175,9 @@ class MGUIAPT_ADO {
                     $MGUIAPT->__GET('ID_PLANTA2'),
                     $MGUIAPT->__GET('ID_EMPRESA'),
                     $MGUIAPT->__GET('ID_PLANTA'),
-                    $MGUIAPT->__GET('ID_TEMPORADA')
+                    $MGUIAPT->__GET('ID_TEMPORADA'),
+                    $MGUIAPT->__GET('ID_USUARIOI'),
+                    $MGUIAPT->__GET('ID_USUARIOM')                   
                     
                 )
                 
@@ -176,7 +190,7 @@ class MGUIAPT_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarMguia($id){
-        try{$sql="DELETE FROM `fruta_mguiapt` WHERE `ID_MGUIA`=".$id.";";
+        try{$sql="DELETE FROM fruta_mguiapt WHERE ID_MGUIA=".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -193,16 +207,17 @@ class MGUIAPT_ADO {
     public function actualizarMguia(MGUIAPT $MGUIAPT){
         try{
             $query = "
-		UPDATE `fruta_mguiapt` SET
-            `NUMERO_DESPACHO`= ?,
-            `NUMERO_GUIA`= ?,
-            `MOTIVO_MGUIA`= ?,
-            `ID_DESPACHO`= ?,
-            `ID_PLANTA2`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_PLANTA`= ?,
-            `ID_TEMPORADA`= ?            
-		WHERE `ID_MGUIA`= ?;";
+		UPDATE fruta_mguiapt SET
+            NUMERO_DESPACHO= ?,
+            NUMERO_GUIA= ?,
+            MOTIVO_MGUIA= ?,
+            ID_DESPACHO= ?,
+            ID_PLANTA2= ?,
+            ID_EMPRESA= ?,
+            ID_PLANTA= ?,
+            ID_TEMPORADA= ?,
+            ID_USUARIOM= ?          
+		WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -213,7 +228,8 @@ class MGUIAPT_ADO {
                     $MGUIAPT->__GET('ID_PLANTA2'),
                     $MGUIAPT->__GET('ID_EMPRESA'),
                     $MGUIAPT->__GET('ID_PLANTA'),
-                    $MGUIAPT->__GET('ID_TEMPORADA'),      
+                    $MGUIAPT->__GET('ID_TEMPORADA'),    
+                    $MGUIAPT->__GET('ID_USUARIOM') ,  
                     $MGUIAPT->__GET('ID_MGUIA')
                     
                 )
@@ -233,9 +249,9 @@ class MGUIAPT_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_mguiapt` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_MGUIA`= ?;";
+    UPDATE fruta_mguiapt SET			
+            ESTADO_REGISTRO = 0
+    WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -253,9 +269,9 @@ class MGUIAPT_ADO {
     public function habilitar(MGUIAPT $MGUIAPT){
         try{
             $query = "
-    UPDATE `fruta_mguiapt` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_MGUIA`= ?;";
+    UPDATE fruta_mguiapt SET			
+            ESTADO_REGISTRO = 1
+    WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -274,8 +290,8 @@ class MGUIAPT_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *
-                                             FROM `fruta_mguiapt` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+                                             FROM fruta_mguiapt 
+                                             WHERE ESTADO_REGISTRO = 1
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'
@@ -297,8 +313,8 @@ class MGUIAPT_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *
-                                             FROM `fruta_mguiapt` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+                                             FROM fruta_mguiapt 
+                                             WHERE ESTADO_REGISTRO = 1
                                             AND ID_DESPACHO = '" . $DESPACHO . "' 
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -321,12 +337,12 @@ class MGUIAPT_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *
-                                             FROM `fruta_mguiapt` 
-                                             WHERE `ESTADO_REGISTRO` = 1
-                                            AND ID_DESPACHO = '" . $DESPACHO . "' 
-                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
-                                            AND ID_PLANTA2 = '" . $PLANTA . "'
-                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                             FROM fruta_mguiapt 
+                                             WHERE ESTADO_REGISTRO = 1
+                                                AND ID_DESPACHO = '" . $DESPACHO . "' 
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -341,12 +357,39 @@ class MGUIAPT_ADO {
         }
         
     }
+    public function listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX2($DESPACHO, $EMPRESA, $PLANTA, $TEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO'
+                                             FROM fruta_mguiapt 
+                                             WHERE ESTADO_REGISTRO = 1
+                                                AND ID_DESPACHO = '" . $DESPACHO . "' 
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                             ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
+    //OTRAS FUNCIONALIDAES
     public function obtenerNumero($DESPACHO, $EMPRESA, $PLANTAORIGEN, $PLANTADESTINO, $TEMPORADA){
         try{
             
             $datos=$this->conexion->prepare("SELECT IFNULL(COUNT(NUMERO_MGUIA),0) AS 'NUMERO'
-                                             FROM `fruta_mguiapt` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+                                             FROM fruta_mguiapt 
+                                             WHERE ESTADO_REGISTRO = 1
                                             AND ID_DESPACHO = '" . $DESPACHO . "' 
                                             AND ID_PLANTA2= '" . $PLANTAORIGEN . "'
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 

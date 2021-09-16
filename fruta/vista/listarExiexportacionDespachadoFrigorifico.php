@@ -158,7 +158,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="listarExiexportacionFrigorifico.php"> Listar Existencia Producto Terminado </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Existencia Producto Terminado </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -210,10 +210,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Kilos Neto</th>
                                                         <th>% Deshidratacion</th>
                                                         <th>Kilos Deshidratacion</th>
+                                                        <th>Kilos Bruto</th>
                                                         <th>Días </th>
                                                         <th>Tipo Manejo</th>
-                                                        <th>Calibre </th>
-                                                        <th>Embalaje </th>
+                                                        <th>Tipo Calibre </th>
+                                                        <th>Tipo Embalaje </th>
                                                         <th>Stock</th>
                                                         <th>Número Recepción </th>
                                                         <th>Fecha Recepción </th>
@@ -318,8 +319,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         $ARRYADESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($r['ID_DESPACHOEX']);
 
                                                         if ($ARRAYVERDESPACHOPT) {
-                                                            $NUMERODESPACHO = $ARRAYDESPACHO[0]["NUMERO_DESPACHO"];
-                                                            $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
+                                                            $NUMERODESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_DESPACHO"];
+                                                            $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
                                                             
                                                             if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "1") {
                                                                 $TDESPACHO = "Interplanta";
@@ -415,7 +416,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NOMBRETEMPORADA = "Sin Datos";
                                                         }
                                                         ?>
-
                                                         <tr class="text-left">
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $r['EMBALADO']; ?></td>
@@ -431,6 +431,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['NETO']; ?></td>
                                                             <td><?php echo $r['PORCENTAJE']; ?></td>
                                                             <td><?php echo $r['DESHIRATACION']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -447,8 +448,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['DESPACHO']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NUMEROGUIADESPACHO; ?></td>
-                                                            <td><?php echo $r['INGRESOF']; ?></td>
-                                                            <td><?php echo $r['MODIFICACIONF']; ?></td>
+                                                            <td><?php echo $r['INGRESO']; ?></td>
+                                                            <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -487,11 +488,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
                 </div>
             </div>
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../config/footer.php"; ?>
                 <?php include_once "../config/menuExtra.php"; ?>

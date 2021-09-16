@@ -166,7 +166,7 @@ include_once "../config/datosUrLE.php";
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroCambiarFolioPT.php"> Cambiar Folio PT </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Cambiar Folio PT </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -206,7 +206,7 @@ include_once "../config/datosUrLE.php";
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
                                                         <th>Folio Actual</th>
-                                                        <th>Operaciónes</th>
+                                                        <th class="text-center">Operaciónes</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
                                                         <th>Condición </th>
@@ -328,8 +328,8 @@ include_once "../config/datosUrLE.php";
                                                         $ARRYADESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($r['ID_DESPACHOEX']);
 
                                                         if ($ARRAYVERDESPACHOPT) {
-                                                            $NUMERODESPACHO = $ARRAYDESPACHO[0]["NUMERO_DESPACHO"];
-                                                            $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
+                                                            $NUMERODESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_DESPACHO"];
+                                                            $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
 
                                                             if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "1") {
                                                                 $TDESPACHO = "Interplanta";
@@ -355,9 +355,6 @@ include_once "../config/datosUrLE.php";
                                                             $NUMERODESPACHO = "Sin Datos";
                                                             $NUMEROGUIADESPACHO = "Sin Datos";
                                                         }
-
-
-
                                                         $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYVERPRODUCTORID) {
 
@@ -479,8 +476,8 @@ include_once "../config/datosUrLE.php";
                                                             <td><?php echo $r['DESPACHO']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NUMEROGUIADESPACHO; ?></td>
-                                                            <td><?php echo $r['INGRESOF']; ?></td>
-                                                            <td><?php echo $r['MODIFICACIONF']; ?></td>
+                                                            <td><?php echo $r['INGRESO']; ?></td>
+                                                            <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>

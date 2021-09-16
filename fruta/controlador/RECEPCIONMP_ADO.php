@@ -409,6 +409,31 @@ class RECEPCIONMP_ADO
             die($e->getMessage());
         }
     }
+    public function buscarRecepcionPorPlantaExternaGuiaEmpresaPlantaTemporada($NUMEROGUIA, $PLANTA2, $EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT *
+                                                FROM fruta_recepcionmp
+                                                WHERE 
+                                                    NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
+                                                    AND ID_PLANTA2 = " . $PLANTA2 . "                                                 
+                                                    AND ID_EMPRESA = " . $EMPRESA . " 
+                                                    AND ID_PLANTA = " . $PLANTA . " 
+                                                    AND ID_TEMPORADA = " . $TEMPORADA . "     
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     //LISTA
 
@@ -554,9 +579,9 @@ class RECEPCIONMP_ADO
                                                  AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')
                                                  AND OBSERVACION_RECEPCION LIKE '" . $OBSERVACION . "'     
                                                  AND TRECEPCION = '" . $TRECEPCION . "'                                                     
-                                                 AND ID_EMPRESA = " . $EMPRESA . " 
-                                                 AND ID_PLANTA = " . $PLANTA . " 
-                                                 AND ID_TEMPORADA = " . $TEMPORADA . "         
+                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                 AND ID_PLANTA = '" . $PLANTA . "' 
+                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "'         
                                                  ORDER BY ID_RECEPCION DESC
                                                  ; ");
             $datos->execute();

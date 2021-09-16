@@ -424,79 +424,82 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <!--<li><a href="#"><i class="ti-more"></i>Existencia Industrial</a></li>-->
         </ul>
       </li>
-      <!--
-        <li class="treeview">
-          <a href="#">
-            <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms2.svg" class="svg-icon" alt="">
-            <span>Packing</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="treeview">
-              <a href="#">Proceso
-                <span class="pull-left-container">
-                  <i class=" fa fa-angle-right pull-right ti-more"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="registroProceso.php"><i class="ti-more"></i>Registro Proceso </a></li>
-                <li><a href="listarProceso.php"><i class="ti-more"></i>Agrupado Proceso</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">Reembalaje
-                <span class="pull-left-container">
-                  <i class=" fa fa-angle-right pull-right ti-more"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="registroReembalajeEx.php"><i class="ti-more"></i> Producto Terminado </a></li>
-                <li><a href="listarReembalajeEx.php"><i class="ti-more"></i>Agrupado Reembalaje</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#"> Repaletizaje
-                <span class="pull-left-container">
-                  <i class=" fa fa-angle-right pull-right ti-more"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"> Producto Terminado
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right ti-more"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroRepaletizajeEx.php"><i class="ti-more"></i> Registro Repaletizaje</a></li>
-                    <li><a href="listarRepaletizajeProceso.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <ul class="treeview-menu">
-                <li class="treeview">
-                  <a href="#"> Materia Prima
-                    <span class="pull-left-container">
-                      <i class=" fa fa-angle-right pull-right ti-more"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="registroRepaletizajeMp.php"><i class="ti-more"></i> Registro Repaletizaje</a></li>
-                    <li><a href="#"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="listarEximateriaprimaProceso.php"><i class="ti-more"></i>Existencia Materia Prima</a></li>
-            <li><a href="listarExiexportacion.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
-            <li><a href="listarExiindustrial.php"><i class="ti-more"></i>Existencia Industrial</a></li>
-          <li><a href="reimprimirTarjaPT.php"><i class="ti-more"></i>Reimprimir Tarja</a></li>
 
-          </ul>
-        </li>
-    -->
+      <li class="treeview">
+        <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms2.svg" class="svg-icon" alt="">
+          <span>Packing</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="treeview">
+            <a href="#">Proceso
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right ti-more"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="registroProceso.php"><i class="ti-more"></i>Registro Proceso </a></li>
+              <li><a href="listarProceso.php"><i class="ti-more"></i>Agrupado Proceso</a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">Reembalaje
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right ti-more"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="registroReembalajeEx.php"><i class="ti-more"></i> Producto Terminado </a></li>
+              <li><a href="listarReembalajeEx.php"><i class="ti-more"></i>Agrupado Reembalaje</a></li>
+            </ul>
+          </li>
+          <!--
+          <li class="treeview">
+            <a href="#"> Repaletizaje
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right ti-more"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#"> Producto Terminado
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroRepaletizajeEx.php"><i class="ti-more"></i> Registro Repaletizaje</a></li>
+                  <li><a href="listarRepaletizajeProceso.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
+                </ul>
+              </li>
+            </ul>-->
+          <!--
+            <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#"> Materia Prima
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroRepaletizajeMp.php"><i class="ti-more"></i> Registro Repaletizaje</a></li>
+                  <li><a href="#"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+                -->
+          <!--
+            <li><a href="reimprimirTarjaPT.php"><i class="ti-more"></i>Reimprimir Tarja</a></li>
+          -->
+          <li><a href="listarExiexportacion.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
+          <li><a href="listarEximateriaprimaProceso.php"><i class="ti-more"></i>Existencia Materia Prima</a></li>
+          <li><a href="listarExiindustrial.php"><i class="ti-more"></i>Existencia Industrial</a></li>
+        </ul>
+      </li>
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/exchange.svg" class="svg-icon" alt="">
@@ -517,11 +520,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarICarga.php">Agrupado Inst. Carga</a></li>
             </ul>
           </li>
-          <!--
-          <li><a href="listarExiexportacionAComercial.php"><i class="ti-more"></i> Existencia P. Terminado</a></li>-->
+          <li><a href="listarExiexportacionLogistica.php"><i class="ti-more"></i> Existencia P. Terminado</a></li>
         </ul>
       </li>
-      <!--
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/transactions.svg" class="svg-icon" alt="">
@@ -542,10 +543,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarInpsag.php"><i class="ti-more"></i>Agrupado Inapección </a></li>
             </ul>
           </li>
-         <li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
+          <li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
         </ul>
       </li>
-      -->
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/maps.svg" class="svg-icon" alt="">
@@ -564,10 +564,19 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroRecepcionpt.php"><i class="ti-more"></i>Registro Recepción</a></li>
               <li><a href="listarRecepcionpt.php"><i class="ti-more"></i>Agrupado Recepción</a></li>
-              <!--<li><a href="listarRecepcionptInterplanta.php"><i class="ti-more"></i>Agrupado Interplanta</a></li>-->
+              <li><a href="listarRecepcionptInterplanta.php"><i class="ti-more"></i>Agrupado Interplanta</a></li>
             </ul>
           </li>
-          <!--
+          <li class="treeview">
+            <a href="#">Guia Por Recibir
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right ti-more"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="registroGuiaPorRecibirPT.php"><i class="ti-more"></i> Producto Terminado</a></li>
+            </ul>
+          </li>
           <li class="treeview">
             <a href="#">Repaletizaje
               <span class="pull-left-container">
@@ -575,18 +584,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroRepaletizajeFrigorificoEx.php"><i class="ti-more"></i> Producto Terminado</a></li>
-              <li><a href="listarRepaletizajeEx.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Guía Por Recibir
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirPTFrigorifico.php"><i class="ti-more"></i> Producto Terminado</a></li>
+              <li><a href="registroRepaletizajePTFrigorifico.php"><i class="ti-more"></i> Producto Terminado</a></li>
+              <li><a href="listarRepaletizajePTFrigorifico.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -600,7 +599,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarDespachopt.php"><i class="ti-more"></i>Agrupado Despacho</a></li>
             </ul>
           </li>
-                -->
           <li class="treeview">
             <a href="#">Despacho Exportacion
               <span class="pull-left-container">
@@ -612,7 +610,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarDespachoEX.php"><i class="ti-more"></i>Agrupado Despacho</a></li>
             </ul>
           </li>
-          <!--
           <li class="treeview">
             <a href="#">Planificador Carga
               <span class="pull-left-container">
@@ -624,7 +621,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarPcdespacho.php"><i class="ti-more"></i>Agrupado PC</a></li>
             </ul>
           </li>
-                -->
           <li><a href="listarExiexportacionFrigorifico.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
           <li><a href="listarExiexportacionDespachadoFrigorifico.php"><i class="ti-more"></i>Despacho P. Terminado</a></li>
           <li><a href="registroCambiarFolioPT.php"><i class="ti-more"></i>Cambiar Folio P. Terminado</a></li>
@@ -641,7 +637,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         <ul class="treeview-menu">
           <li><a href="listarHEximateriaprima.php"><i class="ti-more"></i> Materia Prima</a></li>
           <li><a href="listarHExiexportacion.php"><i class="ti-more"></i> Producto Terminado</a></li>
-          <!--<li><a href="listarHExiindustrial.php"><i class="ti-more"></i>Producto Industrial</a></li>-->
+          <li><a href="listarHExiindustrial.php"><i class="ti-more"></i>Producto Industrial</a></li>
         </ul>
       </li>
 

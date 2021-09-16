@@ -7,7 +7,6 @@ include_once "../config/validarUsuario.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../controlador/PROVEEDOR_ADO.php';
-
 include_once '../controlador/CIUDAD_ADO.php';
 
 
@@ -16,7 +15,6 @@ include_once '../modelo/PROVEEDOR.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $PROVEEDOR_ADO =  new PROVEEDOR_ADO();
-
 $CIUDAD_ADO =  new CIUDAD_ADO();
 
 //INIICIALIZAR NOMBRE_PROVEEDOR
@@ -58,6 +56,7 @@ $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
+include_once "../config/reporteUrl.php";
 
 
 //OPERACIONES
@@ -547,66 +546,89 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <h4 class="box-title">Registros</h4>
                                     </div>
                                     <div class="box-body">
-
-
-
-                                        <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
-                                                <thead>
-                                                    <tr class="center">
-                                                        <th>Número</th>
-                                                        <th>Nombre</th>
-                                                        <th class="text-center">Operaciónes</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($ARRAYPROVEEDORS as $r) : ?>
-                                                        <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_PROVEEDOR']; ?>
-                                                                </a>
-                                                            </td>
-                                                            <td> <?php echo $r['NOMBRE_PROVEEDOR']; ?></td>
-                                                            <td class="text-center">
-                                                                <form method="post" id="form1">
-                                                                    <div class="list-icons d-inline-flex">
-                                                                        <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
-                                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROVEEDOR']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProveedor" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
-                                                                                <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
-                                                                                <?php } ?>
-                                                                                <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                        <div class="row">
+                                            <div class="col-md-10 col-10">
+                                            </div>
+                                            <div class="col-md-2 col-2">
+                                                <form method="post" id="form2">
+                                                    <div class="row">
+                                                        <div class="col-md-1 col-1">
+                                                            <div class="form-group">
+                                                                <label>Exportar</label>
+                                                                <br>
+                                                                <input type="hidden" class="form-control" placeholder="URLEXCEL" id="URLEXCEL" name="URLEXCEL" value="reporteProvedor" />
+                                                                <button type="submit" class="btn btn-rounded btn-success btn-outline" id="EXPORTAR" name="EXPORTAR" title="Exportar Excel">
+                                                                    <i class="fa fa-file-excel-o"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-11 col-11">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 col-12">
+                                                <div class="table-responsive">
+                                                    <table id="listar" class="table table-hover " style="width: 100%;">
+                                                        <thead>
+                                                            <tr class="center">
+                                                                <th>Número</th>
+                                                                <th>Nombre</th>
+                                                                <th class="text-center">Operaciónes</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php foreach ($ARRAYPROVEEDORS as $r) : ?>
+                                                                <tr class="center">
+                                                                    <td>
+                                                                        <a href="#" class="text-warning hover-warning">
+                                                                            <?php echo $r['NUMERO_PROVEEDOR']; ?>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td> <?php echo $r['NOMBRE_PROVEEDOR']; ?></td>
+                                                                    <td class="text-center">
+                                                                        <form method="post" id="form1">
+                                                                            <div class="list-icons d-inline-flex">
+                                                                                <div class="list-icons-item dropdown">
+                                                                                    <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
+                                                                                        <i class="glyphicon glyphicon-cog"></i>
+                                                                                    </a>
+                                                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROVEEDOR']; ?>" />
+                                                                                        <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProveedor" />
+                                                                                        <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
+                                                                                            <i class="ti-eye"></i>
+                                                                                        </button>Ver
+                                                                                        <br>
+                                                                                        <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                            <i class="ti-pencil-alt"></i>
+                                                                                        </button>Editar
+                                                                                        <br>
+                                                                                        <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
+                                                                                            <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                                <i class="ti-na "></i>
+                                                                                            </button>Desahabilitar
+                                                                                            <br>
+                                                                                        <?php } ?>
+                                                                                        <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
+                                                                                            <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                                <i class="ti-check "></i>
+                                                                                            </button>Habilitar
+                                                                                            <br>
+                                                                                        <?php } ?>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                </tbody>
-                                            </table>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

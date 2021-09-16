@@ -1139,7 +1139,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title> Registrar Instructivo Carga</title>
+    <title> Registro Instructivo Carga</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -1769,14 +1769,14 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Instructivo Carga</h3>
+                                <h3 class="page-title">Registro Instructivo Carga</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Logistica</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroICarga.php">Operaciones Instructivo Carga </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Operaciones Registro Instructivo Carga </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -2906,7 +2906,6 @@ if (isset($_POST)) {
                                         <h4 class="box-title">Different Width</h4>
                                         -->
                             </div>
-                            <hr>
                             <div class="row">
                                 <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
                                 </div>
@@ -2916,79 +2915,83 @@ if (isset($_POST)) {
                                     </div>
                                 </div>
                             </div>
-                            <label id="val_validacion" class="validacion center"> <?php echo  $MENSAJE; ?></label>
+                            <label id="val_validacion" class="validacion"> <?php echo  $MENSAJE; ?></label>
                             <div class="row">
-                                <div class="col-sm-10">
-                                    <div class="form-group">
-                                        <div class="table-responsive">
-                                            <table id="ingreso" class="table table-hover " style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center">Operaciónes</th>
-                                                        <th>Estandar </th>
-                                                        <th>Cantidad Envase </th>
-                                                        <th>Kilo Neto </th>
-                                                        <th>Kilo Bruto </th>
-                                                        <th>Calibre </th>
-                                                        <th>Precio US </th>
-                                                        <th>Total US </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php if ($ARRAYDCARGA) { ?>
-                                                        <?php foreach ($ARRAYDCARGA as $s) : ?>
-                                                            <tr class="center">
-                                                                <td>
-                                                                    <form method="post" id="form1">
-                                                                        <input type="hidden" class="form-control" placeholder="ID DRECEPCIONE" id="IDD" name="IDD" value="<?php echo $s['ID_DICARGA']; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroICarga" />
-                                                                        <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDicarga" />
-                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <?php if ($ESTADO == "0") { ?>
-                                                                                <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Instructivo Carga">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>
-                                                                            <?php } ?>
-                                                                            <?php if ($ESTADO == "1") { ?>
-                                                                                <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>
-                                                                                <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
-                                                                                    <i class="fa fa-fw fa-copy"></i>
-                                                                                </button>
-                                                                                <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
-                                                                                    <i class="ti-close"></i>
-                                                                                </button>
-                                                                            <?php } ?>
-                                                                        </div>
-                                                                    </form>
-                                                                </td>
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
-                                                                    echo $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
-                                                                    ?>
-                                                                </td>
-                                                                <td><?php echo $s['CANTIDAD_ENVASE_DICARGA']; ?></td>
-                                                                <td><?php echo $s['KILOS_NETO_DICARGA']; ?></td>
-                                                                <td><?php echo $s['KILOS_BRUTO_DICARGA']; ?></td>
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
-                                                                    echo $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                                    ?>
-                                                                </td>
-                                                                <td><?php echo $s['PRECIO_US_DICARGA']; ?></td>
-                                                                <td><?php echo $s['TOTAL_PRECIO_US_DICARGA']; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
+                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
+                                    <div class="table-responsive">
+                                        <table id="ingreso" class="table table-hover " style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Operaciónes</th>
+                                                    <th>Estandar </th>
+                                                    <th>Cantidad Envase </th>
+                                                    <th>Kilo Neto </th>
+                                                    <th>Kilo Bruto </th>
+                                                    <th>Calibre </th>
+                                                    <th>Precio US </th>
+                                                    <th>Total US </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($ARRAYDCARGA) { ?>
+                                                    <?php foreach ($ARRAYDCARGA as $s) : ?>
 
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                        <?php
+                                                        $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
+                                                        if ($ARRAYEEXPORTACION) {
+                                                            $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        } else {
+                                                            $NOMBREESTANTAR = "Sin Datos";
+                                                        }
+                                                        $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
+                                                        if ($ARRAYCALIBRE) {
+                                                            $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                        } else {
+                                                            $NOMBRECALIBRE = "Sin Datos";
+                                                        }
+                                                        ?>
+
+                                                        <tr class="center">
+                                                            <td>
+                                                                <form method="post" id="form1">
+                                                                    <input type="hidden" class="form-control" placeholder="ID DRECEPCIONE" id="IDD" name="IDD" value="<?php echo $s['ID_DICARGA']; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroICarga" />
+                                                                    <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDicarga" />
+                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                        <?php if ($ESTADO == "0") { ?>
+                                                                            <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Instructivo Carga">
+                                                                                <i class="ti-eye"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                        <?php if ($ESTADO == "1") { ?>
+                                                                            <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-pencil-alt"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
+                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Instructivo Carga" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                </form>
+                                                            </td>
+                                                            <td><?php echo $NOMBREESTANTAR; ?></td>
+                                                            <td><?php echo $s['CANTIDAD_ENVASE_DICARGA']; ?></td>
+                                                            <td><?php echo $s['KILOS_NETO_DICARGA']; ?></td>
+                                                            <td><?php echo $s['KILOS_BRUTO_DICARGA']; ?></td>
+                                                            <td><?php echo $NOMBRECALIBRE; ?></td>
+                                                            <td><?php echo $s['PRECIO_US_DICARGA']; ?></td>
+                                                            <td><?php echo $s['TOTAL_PRECIO_US_DICARGA']; ?></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php } ?>
+
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
@@ -3071,9 +3074,9 @@ if (isset($_POST)) {
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-1">
+                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
                                     <div class="form-group">
                                         <label>Carga Real</label>
                                     </div>
@@ -3081,61 +3084,62 @@ if (isset($_POST)) {
                             </div>
                             <label id="val_validacion" class="validacion center"> </label>
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label> </label>
-                                        <div class="table-responsive">
-                                            <table id="salida" class="table table-hover " style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Cantidad Envases </th>
-                                                        <th>Kilos Neto </th>
-                                                        <th>Fecha Embalado </th>
-                                                        <th>CSG Productor </th>
-                                                        <th>Nombre Productor </th>
-                                                        <th>Estandar </th>
-                                                        <th>Variedad </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php if ($ARRAYCONSOLIDADODESPACHO) { ?>
-                                                        <?php foreach ($ARRAYCONSOLIDADODESPACHO as $s) : ?>
-                                                            <tr class="center">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                    <div class="table-responsive">
+                                        <table id="salida" class="table table-hover " style="width: 100%;">
+                                            <thead>
+                                                <tr class="text-left">
+                                                    <th>Cantidad Envases </th>
+                                                    <th>Kilos Neto </th>
+                                                    <th>Fecha Embalado </th>
+                                                    <th>CSG Productor </th>
+                                                    <th>Nombre Productor </th>
+                                                    <th>Estandar </th>
+                                                    <th>Variedad </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($ARRAYCONSOLIDADODESPACHO) { ?>
+                                                    <?php foreach ($ARRAYCONSOLIDADODESPACHO as $s) : ?>
 
+                                                        <?php
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($s['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+                                                            $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $CSGPRODUCTOR = "Sin Datos";
+                                                            $NOMBREPRODUCTOR = "Sin Datos";
+                                                        }
+                                                        $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
+                                                        if ($ARRAYEEXPORTACION) {
+                                                            $NOMBRESTANDAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        } else {
+                                                            $NOMBRESTANDAR = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
+                                                        if ($ARRAYVERVESPECIESID) {
+                                                            $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                        } else {
+                                                            $NOMBREVARIEDAD = "Sin Datos";
+                                                        }
 
-                                                                <td><?php echo $s['TOTAL_ENVASE']; ?></td>
-                                                                <td><?php echo $s['TOTAL_NETO']; ?></td>
-                                                                <td><?php echo $s['FECHA_EMBALADO']; ?></td>
-
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($s['ID_PRODUCTOR']);
-                                                                    echo $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-                                                                    ?>
-                                                                </td>
-                                                                <td><?php echo $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR']; ?></td>
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
-                                                                    echo $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
-                                                                    ?>
-                                                                </td>
-                                                                <td>
-                                                                    <?php
-                                                                    $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($s['ID_PVESPECIES']);
-                                                                    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
-                                                                    echo $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                                    ?>
-                                                                </td>
-
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                        ?>
+                                                        <tr class="text-left">
+                                                            <td><?php echo $s['TOTAL_ENVASE']; ?></td>
+                                                            <td><?php echo $s['TOTAL_NETO']; ?></td>
+                                                            <td><?php echo $s['FECHA_EMBALADO']; ?></td>
+                                                            <td> <?php echo $CSGPRODUCTOR  ?> </td>
+                                                            <td> <?php echo $NOMBREPRODUCTOR  ?> </td>
+                                                            <td> <?php echo $NOMBRESTANDAR  ?> </td>
+                                                            <td> <?php echo $NOMBREVARIEDAD  ?> </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
+
                                 </div>
                             </div>
                             <!-- /.row -->
