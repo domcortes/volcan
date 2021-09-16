@@ -644,7 +644,12 @@ class EXIINDUSTRIAL_ADO
     public function listarExiindustrialEmpresaPlantaTemporadaDisponibleCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
-            $datos = $this->conexion->prepare("SELECT *,  DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
+            $datos = $this->conexion->prepare("SELECT *,  
+                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
+                                                        DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y ') AS 'RECEPCION',
+                                                        DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y ') AS 'PROCESO',
+                                                        DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y ') AS 'REEMBALAJE',
+                                                        DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y ') AS 'DESPACHO',
                                                         DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',      
                                                         DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',     
@@ -672,10 +677,16 @@ class EXIINDUSTRIAL_ADO
     public function listarExiindustrialEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
-            $datos = $this->conexion->prepare("SELECT *,  DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS', 
-                                                            DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',
-                                                            DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
-                                                            DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION'     
+            $datos = $this->conexion->prepare("SELECT *,  
+                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
+                                                        DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y ') AS 'RECEPCION',
+                                                        DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y ') AS 'PROCESO',
+                                                        DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y ') AS 'REEMBALAJE',
+                                                        DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y ') AS 'DESPACHO',
+                                                        DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',      
+                                                        DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',     
+                                                        IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO'    
                                         FROM fruta_exiindustrial 
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -697,12 +708,16 @@ class EXIINDUSTRIAL_ADO
     public function listarExiindustrialEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
-            $datos = $this->conexion->prepare("SELECT *, 
-                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                        DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
-                                                        DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',      
-                                                        DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',     
-                                                        FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL,0),2,'de_DE') AS 'NETO' 
+            $datos = $this->conexion->prepare("SELECT *,  
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
+                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y ') AS 'RECEPCION',
+                                                    DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y ') AS 'PROCESO',
+                                                    DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y ') AS 'REEMBALAJE',
+                                                    DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y ') AS 'DESPACHO',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',      
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',     
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL,0),2,'de_DE') AS 'NETO'    
                                         FROM fruta_exiindustrial 
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -843,7 +858,7 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
-    public function buscarPorReembalaje($IDREEMBALAJE)
+    public function buscarPorReembalajeIngresnado($IDREEMBALAJE)
     {
         try {
 

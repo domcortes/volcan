@@ -1629,6 +1629,26 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorReembalajeIngresando($IDREEMBALAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion
+                                            WHERE ID_REEMBALAJE= " . $IDREEMBALAJE . "
+                                            AND ESTADO = 1
+                                            AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     
 
     public function buscarPorReembalaje2($IDREEMBALAJE)

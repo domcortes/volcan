@@ -352,17 +352,15 @@ if (isset($_REQUEST['CERRAR'])) {
 
 
         $ARRAYEXIPRODUCTOTERMINADOTOMADO = $EXIEXPORTACION_ADO->buscarPorReembalaje($_REQUEST['IDP']);
-        $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorReembalaje($_REQUEST['IDP']);
-        $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorReembalaje($_REQUEST['IDP']);
+        $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorReembalajeIngresando($_REQUEST['IDP']);
+        $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorReembalajeIngresnado($_REQUEST['IDP']);
 
 
         foreach ($ARRAYEXIPRODUCTOTERMINADOTOMADO as $s) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->Reembalaje($EXIEXPORTACION);
+        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+        ///      $EXIEXPORTACION_ADO->Reembalaje($EXIEXPORTACION);
         endforeach;
-
-
         foreach ($ARRAYEXIEXPORTACION as $s) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -373,6 +371,7 @@ if (isset($_REQUEST['CERRAR'])) {
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $EXIINDUSTRIAL_ADO->vigente($EXIINDUSTRIAL);
         endforeach;
+
         //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
         if ($_SESSION['parametro1'] == "crear") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
