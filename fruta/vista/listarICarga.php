@@ -285,29 +285,28 @@ include_once "../config/datosUrLP.php";
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroICarga" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarICarga" />
                                                                                 <?php if ($r['ESTADO'] == "0") { ?>
-
                                                                                     <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                         <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                            <i class="ti-eye"></i>
+                                                                                            <i class="ti-eye"></i> Ver
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO'] == "1") { ?>
                                                                                     <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                         <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                            <i class="ti-pencil-alt"></i>
+                                                                                            <i class="ti-pencil-alt"></i> Informe
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                     <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                        <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
                                                                                     <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                        <i class="fa fa-file-pdf-o"></i> Carga Real
                                                                                     </button>
                                                                                 </span>
                                                                             </div>

@@ -376,21 +376,21 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </a>
         <ul class="treeview-menu">
           <li class="treeview">
-            <a href="#">Recepcion
+            <a href="#"><i class="ti-more"></i> Recepcion
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right ti-more"></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="treeview">
-                <a href="#">Materia Prima
+                <a href="#"><i class="ti-more"></i>Materia Prima
                   <span class="pull-left-container">
                     <i class=" fa fa-angle-right pull-right ti-more"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroRecepcionmp.php"><i class="ti-more"></i>Registro Recepción </a></li>
-                  <li><a href="listarRecepcionmp.php"><i class="ti-more"></i> Agrupado Recepción</a></li>
+                  <li><a href="registroRecepcionmp.php">Registro Recepción </a></li>
+                  <li><a href="listarRecepcionmp.php">Agrupado Recepción</a></li>
                 </ul>
               </li>
               <!--
@@ -507,14 +507,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </a>
         <ul class="treeview-menu">
           <li class="treeview">
-            <a href="#">Inst. Carga
+            <a href="#"><i class="ti-more"></i>Inst. Carga
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right ti-more"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroICarga.php"><i class="ti-more"></i> Registro Inst. Carga</a></li>
-              <li><a href="listarICarga.php"><i class="ti-more"></i> Agrupado Inst. Carga</a></li>
+              <li><a href="registroICarga.php">Registro Inst. Carga</a></li>
+              <li><a href="listarICarga.php">Agrupado Inst. Carga</a></li>
             </ul>
           </li>
           <!--

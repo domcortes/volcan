@@ -211,39 +211,42 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 <tbody>
                                                     <?php foreach ($ARRAYEXIMATERIAPRIMA as $r) : ?>
                                                         <?php
-                                                        if ($r['ESTADO'] == "0") {
-                                                            $ESTADO = "Eliminado";
+                                                        switch ($r['ESTADO']) {
+                                                            case '0':
+                                                                $ESTADO = "Eliminado";
+                                                            break;
+                                                            case '1':
+                                                                $ESTADO = "Ingresando";
+                                                            break;
+                                                            case '2':
+                                                                $ESTADO = "Disponible";
+                                                            break;
+                                                            case '3':
+                                                                $ESTADO = "En Proceso";
+                                                            break;
+                                                            case '4':
+                                                                $ESTADO = "Procesado";
+                                                            break;
+                                                            case '5':
+                                                                $ESTADO = "En Repaletizaje";
+                                                            break;
+                                                            case '6':
+                                                                $ESTADO = "Repaletizado";
+                                                            break;
+                                                            case '7':
+                                                                $ESTADO = "En Despacho";
+                                                            break;
+                                                            case '8':
+                                                                $ESTADO = "Despachado";
+                                                            break;
+                                                            case '9':
+                                                                $ESTADO = "En Transito";
+                                                            break;
+                                                            case '10':
+                                                                $ESTADO = "Rechazado";
+                                                            break;
                                                         }
-                                                        if ($r['ESTADO'] == "1") {
-                                                            $ESTADO = "Ingresando";
-                                                        }
-                                                        if ($r['ESTADO'] == "2") {
-                                                            $ESTADO = "Disponible";
-                                                        }
-                                                        if ($r['ESTADO'] == "3") {
-                                                            $ESTADO = "En Proceso";
-                                                        }
-                                                        if ($r['ESTADO'] == "4") {
-                                                            $ESTADO = "Procesado";
-                                                        }
-                                                        if ($r['ESTADO'] == "5") {
-                                                            $ESTADO = "En Repaletizaje";
-                                                        }
-                                                        if ($r['ESTADO'] == "6") {
-                                                            $ESTADO = "Repaletizado";
-                                                        }
-                                                        if ($r['ESTADO'] == "7") {
-                                                            $ESTADO = "En Despacho";
-                                                        }
-                                                        if ($r['ESTADO'] == "8") {
-                                                            $ESTADO = "Despachado";
-                                                        }
-                                                        if ($r['ESTADO'] == "9") {
-                                                            $ESTADO = "En Transito";
-                                                        }
-                                                        if ($r['ESTADO'] == "10") {
-                                                            $ESTADO = "Rechazado";
-                                                        }
+
                                                         $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
@@ -331,8 +334,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         ?>
                                                         <tr class="text-left">
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
-                                                            <td><?php echo $ESTADO; ?></td>
-                                                            <td><?php echo $r['COSECHA']; ?></td>
+                                                            <td><span class="badge badge-sm badge-primary"><?php echo $ESTADO; ?></span></td>
+                                                            <td style="font-size: 13px"><?php echo $r['COSECHA']; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
