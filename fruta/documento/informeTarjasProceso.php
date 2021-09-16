@@ -9,10 +9,9 @@ include_once '../controlador/DPEXPORTACION_ADO.php';
 include_once '../controlador/DPINDUSTRIAL_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/CALIBRE_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
@@ -29,9 +28,8 @@ $PROCESO_ADO =  new PROCESO_ADO();
 $TPROCESO_ADO =  new TPROCESO_ADO();
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$CALIBRE_ADO =  new CALIBRE_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
 
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
@@ -91,7 +89,7 @@ if (isset($_REQUEST['parametro']) ) {
 }
 
 
-$ARRAYPROCESO = $PROCESO_ADO->verProceso3($NUMEROPROCESO);
+$ARRAYPROCESO = $PROCESO_ADO->verProceso2($NUMEROPROCESO);
 
 $ARRAYDEXPORTACION=$DPEXPORTACION_ADO->buscarPorProceso2($NUMEROPROCESO);
 $ARRAYDEXPORTACIONTOTALES = $DPEXPORTACION_ADO->obtenerTotales2($NUMEROPROCESO);
@@ -321,10 +319,9 @@ $html='
 foreach ($ARRAYDEXPORTACION as $r) :
 
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);   
-    $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);  
+    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
     $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-    $ARRAYCALIBRE=$CALIBRE_ADO->verCalibre($r['ID_CALIBRE']);
+    $ARRAYCALIBRE=$TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
     if($r['EMBOLSADO']=="1"){
         $EMBOLSADO="SI";
     }
@@ -382,12 +379,12 @@ foreach ($ARRAYDEXPORTACION as $r) :
 
     $html=$html.' 
     <tr >
-        <td class="center"> '.$r['FECHA_EMBALADO'].'</td>
+        <td class="center"> '.$r['EMBALADO'].'</td>
         <td  class="center  ">'.$ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'].'</td>
         <td  class="center  ">'.$ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'].'</td>
         <td  class="center  ">'.$r['ENVASE'].'</td>
         <td  class="center ">'.$r['NETO'].'</td>
-        <td  class="center  ">'.$ARRAYCALIBRE[0]['NOMBRE_CALIBRE'].'</td>
+        <td  class="center  ">'.$ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'].'</td>
         <td  class="center  ">'.$EMBOLSADO.'</td>
         <td  class="center  ">'.$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'].'</td>
     </tr>
@@ -412,8 +409,7 @@ endforeach;
 foreach ($ARRAYDINDUSTRIAL as $r) : 
 
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-    $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);  
+    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
     $ARRAYEVEEXPORTACIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
 
 
@@ -464,7 +460,7 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
 
     $html=$html.' 
     <tr >
-        <td class="center"> '.$r['FECHA_EMBALADO'].'</td>
+        <td class="center"> '.$r['EMBALADO'].'</td>
         <td  class="center  ">'.$ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'].'</td>
         <td  class="center  ">'.$ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'].'</td>
         <td  class="center ">'.$r['NETO'].'</td>
@@ -511,8 +507,8 @@ $html=$html.'
 
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
-require_once '../api/mpdf/qrcode/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/qrcode/autoload.php';
 
 $PDF = new \Mpdf\Mpdf(['format'=>[150,100] ]);
 //$PDF = new \Mpdf\Mpdf();

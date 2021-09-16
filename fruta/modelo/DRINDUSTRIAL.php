@@ -9,21 +9,19 @@
         
         //ATRIBUTOS DE LA CLASE
         private	  $ID_DRINDUSTRIAL; 
-        private	  $FOLIO_DPINDUSTRIAL; 
-        private	  $FOLIO_AUX_DPINDUSTRIAL; 
-        private	  $NUMERO_LINEA; 
-        private   $FECHA_EMBALADO_DPINDUSTRIAL;
-        private   $CANTIDAD_ENVASE_DPINDUSTRIAL;
-        private   $KILOS_NETO_DPINDUSTRIAL;
-        private   $KILOS_BRUTO_DPINDUSTRIAL;
-        private   $ALIAS_FOLIO_DPINDUSTRIAL;
+        private	  $FOLIO_DRINDUSTRIAL; 
+        private   $FECHA_EMBALADO_DRINDUSTRIAL;
+        private   $KILOS_NETO_DRINDUSTRIAL;
         private   $ESTADO; 
         private   $ESTADO_REGISTRO; 
+        private   $INGRESO; 
+        private   $MODIFICACION; 
+        private   $ID_TMANEJO;
         private   $ID_FOLIO;
-        private   $ID_PVESPECIES;
+        private   $ID_VESPECIES;
         private   $ID_ESTANDAR;
-        private   $ID_PROCESO;
         private   $ID_PRODUCTOR;
+        private   $ID_REEMBALAJE;
         
         
         //FUNCIONES GET Y SET

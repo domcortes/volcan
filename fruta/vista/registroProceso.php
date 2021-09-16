@@ -1104,8 +1104,8 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                                                 <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroSelecionExistenciaMPProceso" />
                                                                 <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                                    } ?>>
+                                                                                                                                                                                                                                                                                    echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                                                                } ?>>
                                                                     <i class=" glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
@@ -1168,6 +1168,7 @@ if (isset($_POST)) {
                                             <table id="salida" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
+                                                        <th>P. Terminado/Industrial</th>
                                                         <th>Folio</th>
                                                         <th class="text-center">Operaciones</th>
                                                         <th>Fecha Embalado </th>
@@ -1221,6 +1222,7 @@ if (isset($_POST)) {
                                                             }
                                                             ?>
                                                             <tr class="text-left">
+                                                                <td>P. Terminado</td>
                                                                 <td><?php echo $r['FOLIO_DPEXPORTACION']; ?></td>
                                                                 <td class="text-center">
                                                                     <form method="post" id="form3" id="form3">
@@ -1275,6 +1277,7 @@ if (isset($_POST)) {
                                                             }
                                                             ?>
                                                             <tr class="text-left">
+                                                                <td>P. Industrial</td>
                                                                 <td><?php echo $r['FOLIO_DPINDUSTRIAL']; ?></td>
                                                                 <td class="text-center">
                                                                     <form method="post" id="form4" id="form4">

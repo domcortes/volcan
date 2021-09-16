@@ -13,7 +13,6 @@ include_once '../controlador/DPEXPORTACION_ADO.php';
 include_once '../controlador/DPINDUSTRIAL_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
@@ -31,7 +30,6 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 $TPROCESO_ADO =  new TPROCESO_ADO();
@@ -81,7 +79,7 @@ $TOTALDIFERENCIA="";
 $EMPRESA="";
 $EMPRESAURL="";
 
-
+$NOMBRE="";
 $html='';
 
 
@@ -127,7 +125,7 @@ if (isset($_REQUEST['parametro']) ) {
     $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYPROCESO = $PROCESO_ADO->verProceso3($IDOP);
+$ARRAYPROCESO = $PROCESO_ADO->verProceso2($IDOP);
 $ARRAYPROCESOTOTALES = $PROCESO_ADO->obtenerTotales($IDOP);
 $ARRAYEXISTENCIATOMADA=$EXIMATERIAPRIMA_ADO->buscarPorProceso2($IDOP);
 
@@ -138,28 +136,27 @@ $ARRAYDINDUSTRIAL=$DPINDUSTRIAL_ADO->buscarPorProceso2($IDOP);
 $ARRAYDINDUSTRIALTOTALES = $DPINDUSTRIAL_ADO->obtenerTotales2($IDOP);
 
 
-$TOTALSALIDA=$ARRAYPROCESOTOTALES[0]['TOTAL_SALIDA'];
+$TOTALSALIDA=$ARRAYPROCESOTOTALES[0]['SALIDA'];
 $PDEXPORTACION=$ARRAYPROCESO[0]['PDEXPORTACION_PROCESO'];
 $PDINDUSTRIAL=$ARRAYPROCESO[0]['PDINDUSTRIAL_PROCESO'];
 $PDTOTAL=$PDEXPORTACION+$PDINDUSTRIAL;
 
-$TOTALENVASEDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['TOTAL_ENVASE']; //TOTAL_DESHIDRATACION
-$TOTALNETODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['TOTAL_NETO'];
-$TOTALDESHIDRATACIONDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['TOTAL_DESHIDRATACION'];
-$TOTALBRUTODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['TOTAL_BRUTO'];
+$TOTALENVASEDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['ENVASE']; //TOTAL_DESHIDRATACION
+$TOTALNETODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['NETO'];
+$TOTALDESHIDRATACIONDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
+$TOTALBRUTODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['BRUTO'];
 
-$TOTALNETODINDUSTRIAL=$ARRAYDINDUSTRIALTOTALES[0]['TOTAL_NETO'];
-$ARRAYEXISTENCIATOMADATOTALES=$EXIMATERIAPRIMA_ADO->obtenerTotales2($IDOP);
+$TOTALNETODINDUSTRIAL=$ARRAYDINDUSTRIALTOTALES[0]['NETO'];
+$ARRAYEXISTENCIATOMADATOTALES=$EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($IDOP);
 
-$TOTALENVASE=$ARRAYEXISTENCIATOMADATOTALES[0]['TOTAL_ENVASE'];
-$TOTALNETO=$ARRAYEXISTENCIATOMADATOTALES[0]['TOTAL_NETO'];
-
-
-$TOTAL2=$TOTALNETO-$TOTALSALIDA;
+$TOTALENVASE=$ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
+$TOTALNETO=$ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
 
 
-$ARRAYVERPVESPECIES=$PVESPECIES_ADO->verPvespecies($ARRAYPROCESO[0]['ID_PVESPECIES']);
-$ARRAYVERVESPECIES=$VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIES[0]['ID_VESPECIES']);
+$TOTAL2=$TOTALNETOV-$TOTALSALIDAV;
+
+
+$ARRAYVERVESPECIES=$VESPECIES_ADO->verVespecies($ARRAYPROCESO[0]['ID_VESPECIES']);
 $NUMEROPROCESO=$ARRAYPROCESO[0]['NUMERO_PROCESO'];
 
 $VARIEDAD=$ARRAYVERVESPECIES[0]['NOMBRE_VESPECIES'];
@@ -323,14 +320,13 @@ $html=$html.'
         foreach ($ARRAYEXISTENCIATOMADA as $r) : 
 
             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);  
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
             $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);
         
 $html=$html.'    
             <tr>
                 <th class=" left">'.$r['FOLIO_AUXILIAR_EXIMATERIAPRIMA'].'</th>
-                <td class=" center">'.$r['FECHA'].'</td>
+                <td class=" center">'.$r['COSECHA'].'</td>
                 <td class=" center">'.$ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'].'</td>
                 <td class=" center">'.$r['ENVASE'].'</td>
                 <td class=" center">'.$r['NETO'].'</td>
@@ -384,8 +380,7 @@ $html=$html.'
         foreach ($ARRAYDEXPORTACION as $r) : 
     
             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);  
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
             $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
             if($r['EMBOLSADO']=="1"){
                 $EMBOLSADO="SI";
@@ -397,7 +392,7 @@ $html=$html.'
         $html=$html.'    
         <tr>
             <th class=" left"> '.$r['FOLIO_DPEXPORTACION'].'</th>
-            <td class=" center"> '.$r['FECHA_EMBALADO'].'</td>
+            <td class=" center"> '.$r['EMBALADO'].'</td>
             <td class=" center"> '.$ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'].'</td>
             <td class=" center">'.$r['ENVASE'].' </td>
             <td class=" center"> '.$r['NETO'].'</td>
@@ -447,14 +442,13 @@ $html=$html.'
         foreach ($ARRAYDINDUSTRIAL as $r) : 
     
             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);  
+            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
             $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
                  
         $html=$html.'    
         <tr>
             <th class=" left"> '.$r['FOLIO_DPINDUSTRIAL'].'</th>
-            <td class=" center"> '.$r['FECHA_EMBALADO'].'</td>
+            <td class=" center"> '.$r['EMBALADO'].'</td>
             <td class=" center"> '.$ARRAYEVEINDUSTRIALID[0]['NOMBRE_ESTANDAR'].'</td>
             <td class=" center"> '.$r['NETO'].'</td>
             <td class=" center "> '.$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'].' </td>
@@ -494,31 +488,13 @@ $html=$html.'
             <div class="address">TOTAL: '.$TOTAL2.'</div>
         </div>
       </div>
-      <br>
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-      </div>
-      <br>
-      <br>    
-              <table >      
-                <tr>
-                  <td class="color2 center" style="width: 30%;" > </td>
-                  <td class="color2  center" style="width: 10%;"> <hr> </td>
-                  <td class="color2 right" style="width: 30%;"> </td>
-                </tr>
-                <tr>
-                  <td class="color2 center" style="width: 30%;" > </td>
-                  <td class="color2  center" style="width: 10%;"> Firma Responsable <br> '.$NOMBRE.' </td>
-                  <td class="color2 center" style="width: 30%;"> </td>
-                </tr>    
-              </table>
-    </main>
+      <br>     
+    </main> 
     <footer>
       Informe generado por Departamento TI Fruticola Volcan
       <br>
       <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-      
+      <br>
     </footer>
   </body>
 </html>
@@ -547,7 +523,7 @@ $CREADOR = "USUARIO";
 $AUTOR = "USUARIO";
 $ASUNTO = "INFORME";
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format'=> 'letter']);
 
@@ -568,7 +544,18 @@ $PDF->SetHTMLHeader('
 
 $PDF->SetHTMLFooter('
 
-
+  <table >      
+    <tr>
+      <td class="color2 center" style="width: 30%;" > </td>
+      <td class="color2  center" style="width: 10%;"> <hr> </td>
+      <td class="color2 right" style="width: 30%;"> </td>
+    </tr>
+    <tr>
+      <td class="color2 center" style="width: 30%;" > </td>
+      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> '.$NOMBRE.' </td>
+      <td class="color2 center" style="width: 30%;"> </td>
+    </tr>    
+  </table>
     <table width="100%" >
         <tbody>
             <tr>

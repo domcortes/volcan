@@ -106,6 +106,7 @@ class REEMBALAJE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *, 
+                                                DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y') AS 'FECHA',
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' 
                                             FROM fruta_reembalaje WHERE ID_REEMBALAJE = '" . $IDREEMBALAJE . "';");
@@ -395,7 +396,7 @@ class REEMBALAJE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                             FORMAT(IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE)+SUM(KILOS_INDUSTRIAL_REEMBALAJE),0),2,'de_DE') AS 'TOTAL_SALIDA'                                                 
+                                             FORMAT(IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE)+SUM(KILOS_INDUSTRIAL_REEMBALAJE),0),2,'de_DE') AS 'SALIDA'                                                 
                                          FROM fruta_reembalaje 
                                          WHERE ID_REEMBALAJE = '" . $IDREEMBALAJE . "';");
             $datos->execute();

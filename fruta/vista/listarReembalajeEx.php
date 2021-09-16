@@ -56,7 +56,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $TOTALNETO = $ARRAYTOTALREEMBALAJE[0]['NETO'];
     $TOTALINDUSTRIAL = $ARRAYTOTALREEMBALAJE[0]['INDUSTRIAL'];
     $TOTALEXPORTACION = $ARRAYTOTALREEMBALAJE[0]['EXPORTACION'];
-} 
+}
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
 
@@ -122,6 +122,11 @@ include_once "../config/datosUrLP.php";
                 }
 
 
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
 
                 //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
                 function abrirVentana(url) {
