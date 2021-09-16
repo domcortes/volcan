@@ -611,7 +611,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Repaletizaje</h3>
+                                <h3 class="page-title">Registro Repaletizaje</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -620,7 +620,7 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Repaletizaje</li>
                                             <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Operaciónes Repaletizaje </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Operaciónes Registro Repaletizaje </a>
                                             </li>
                                         </ol>
                                     </nav>

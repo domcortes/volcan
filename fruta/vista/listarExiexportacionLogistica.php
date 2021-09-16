@@ -3,6 +3,7 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
+
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -13,10 +14,14 @@ include_once '../controlador/FOLIO_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../controlador/TPROCESO_ADO.php';
+include_once '../controlador/TREEMBALAJE_ADO.php';
 
 
 include_once '../controlador/RECEPCIONPT_ADO.php';
 include_once '../controlador/REPALETIZAJEEX_ADO.php';
+include_once '../controlador/PROCESO_ADO.php';
+include_once '../controlador/REEMBALAJE_ADO.php';
 include_once '../controlador/DESPACHOPT_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
 
@@ -34,16 +39,19 @@ $FOLIO_ADO =  new FOLIO_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+$TPROCESO_ADO =  new TPROCESO_ADO();
+$TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 
 
 $RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
 $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
 $DESPACHOPT_ADO =  new DESPACHOPT_ADO();
 $DESPACHOEX_ADO =  new DESPACHOEX_ADO();
+$PROCESO_ADO =  new PROCESO_ADO();
+$REEMBALAJE_ADO =  new REEMBALAJE_ADO();
+
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
-
-
 $TOTALNETO = "";
 $TOTALENVASE = "";
 
@@ -51,26 +59,26 @@ $TOTALENVASE = "";
 //INICIALIZAR ARREGLOS
 $ARRAYEXIEXPORTACION = "";
 $ARRAYTOTALEXIEXPORTACION = "";
-
-
 $ARRAYVEREEXPORTACIONID = "";
 $ARRAYVERPRODUCTORID = "";
 $ARRAYVERPVESPECIESID = "";
 $ARRAYVERVESPECIESID = "";
 $ARRAYVERESPECIESID = "";
 $ARRAYVERFOLIOID = "";
-$ARRAYTESTADOSAG = "";
-$ARRAYTMANEJO = "";
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
+$ARRAYVERRECEPCIONPT = "";
+
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaDisponibleFoliomanual2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+
+    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaDisponible2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYTOTALEXIEXPORTACION = $EXIEXPORTACION_ADO->obtenerTotalesEmpresaPlantaTemporadaDisponible2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+
+    $TOTALNETO = $ARRAYTOTALEXIEXPORTACION[0]['NETO'];
+    $TOTALENVASE = $ARRAYTOTALEXIEXPORTACION[0]['ENVASE'];
 }
-
-include_once "../config/datosUrLE.php";
-
 ?>
 
 
@@ -78,7 +86,7 @@ include_once "../config/datosUrLE.php";
 <html lang="es">
 
 <head>
-    <title>Cambiar Folio PT</title>
+    <title>Listar Producto Terminado</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -91,18 +99,11 @@ include_once "../config/datosUrLE.php";
                 function irPagina(url) {
                     location.href = "" + url;
                 }
-
                 //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
                 function abrirVentana(url) {
                     var opciones =
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
                     window.open(url, 'window', opciones);
-                }
-
-
-
-                function refrescar() {
-                    document.getElementById("form1").submit();
                 }
                 //FUNCION PARA OBTENER HORA Y FECHA
                 function mueveReloj() {
@@ -159,14 +160,14 @@ include_once "../config/datosUrLE.php";
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Cambiar Folio PT </h3>
+                                <h3 class="page-title">Producto Terminado </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Cambiar Folio PT </a>
+                                        <li class="breadcrumb-item" aria-current="page">Logistica</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Existencia Producto Terminado </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -197,18 +198,15 @@ include_once "../config/datosUrLE.php";
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
-                            <div class="box-body ">
+                            <div class="box-body">
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
                                             <table id="hexistencia" class="table table-hover " style="width: 300%;">
                                                 <thead>
                                                     <tr class="text-left">
-                                                        <th>Folio Original</th>
-                                                        <th>Folio Actual</th>
-                                                        <th class="text-center">Operaciónes</th>
+                                                        <th>Folio </th>
                                                         <th>Fecha Embalado </th>
-                                                        <th>Estado </th>
                                                         <th>Condición </th>
                                                         <th>Código Estandar </th>
                                                         <th>Envase/Estandar </th>
@@ -220,22 +218,25 @@ include_once "../config/datosUrLE.php";
                                                         <th>Kilos Neto</th>
                                                         <th>% Deshidratacion</th>
                                                         <th>Kilos Deshidratacion</th>
-                                                        <th>Días </th>
+                                                        <th>Kilos Bruto</th>
                                                         <th>Tipo Manejo</th>
-                                                        <th>Calibre </th>
-                                                        <th>Embalaje </th>
+                                                        <th>Tipo Calibre </th>
+                                                        <th>Tipo Embalaje </th>
                                                         <th>Stock</th>
                                                         <th>Número Recepción </th>
                                                         <th>Fecha Recepción </th>
                                                         <th>Tipo Recepción </th>
                                                         <th>Fecha Guía Recepción
                                                         <th>Número Guía Recepción </th>
-                                                        <th>Número Repaletizaje </th>
-                                                        <th>Fecha Repaletizaje </th>
-                                                        <th>Número Despacho </th>
-                                                        <th>Fecha Despacho </th>
-                                                        <th>Tipo Despacho </th>
-                                                        <th>Número Guía Despacho </th>
+
+                                                        <th>Número Proceso </th>
+                                                        <th>Fecha Proceso </th>
+                                                        <th>Tipo Proceso </th>
+                                                        <th>Número Reembalaje </th>
+                                                        <th>Fecha Reembalaje </th>
+                                                        <th>Tipo Reembalaje </th>
+
+                                                        <th>Días </th>
                                                         <th>Fecha Ingreso </th>
                                                         <th>Fecha Modificación </th>
                                                         <th>Empresa</th>
@@ -248,42 +249,7 @@ include_once "../config/datosUrLE.php";
 
 
                                                         <?php
-                                                        if ($r['ESTADO'] == "0") {
-                                                            $ESTADO = "Elimnado";
-                                                        }
-                                                        if ($r['ESTADO'] == "1") {
-                                                            $ESTADO = "Ingresando";
-                                                        }
-                                                        if ($r['ESTADO'] == "2") {
-                                                            $ESTADO = "Disponible";
-                                                        }
-                                                        if ($r['ESTADO'] == "3") {
-                                                            $ESTADO = "En Repaletizaje";
-                                                        }
-                                                        if ($r['ESTADO'] == "4") {
-                                                            $ESTADO = "Repaletizado";
-                                                        }
-                                                        if ($r['ESTADO'] == "5") {
-                                                            $ESTADO = "En Reembalaje";
-                                                        }
-                                                        if ($r['ESTADO'] == "6") {
-                                                            $ESTADO = "Reembalaje";
-                                                        }
-                                                        if ($r['ESTADO'] == "7") {
-                                                            $ESTADO = "En Despacho";
-                                                        }
-                                                        if ($r['ESTADO'] == "8") {
-                                                            $ESTADO = "Despachado";
-                                                        }
-                                                        if ($r['ESTADO'] == "9") {
-                                                            $ESTADO = "En Transito";
-                                                        }
-                                                        if ($r['ESTADO'] == "10") {
-                                                            $ESTADO = "En Inpeccion Sag";
-                                                        }
-                                                        if ($r['ESTADO'] == "11") {
-                                                            $ESTADO = "Rechazado";
-                                                        }
+
                                                         if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
                                                             $ESTADOSAG = "Sin Condición";
                                                         }
@@ -355,6 +321,28 @@ include_once "../config/datosUrLE.php";
                                                             $NUMERODESPACHO = "Sin Datos";
                                                             $NUMEROGUIADESPACHO = "Sin Datos";
                                                         }
+                                                        $ARRAYPROCESO = $PROCESO_ADO->verProceso($r['ID_PROCESO']);
+                                                        if ($ARRAYPROCESO) {
+                                                            $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
+                                                            $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
+                                                            if ($ARRAYTPROCESO) {
+                                                                $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
+                                                            }
+                                                        } else {
+                                                            $NUMEROPROCESO = "Sin datos";
+                                                            $TPROCESO = "Sin datos";
+                                                        }
+                                                        $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($r['ID_REEMBALAJE']);
+                                                        if ($ARRAYREEMBALAJE) {
+                                                            $NUMEROREEMBALEJE = $ARRAYREEMBALAJE[0]["ID_TREEMBALAJE"];
+                                                            $ARRAYTREEMBALAJE= $TREEMBALAJE_ADO->verTreembalaje($ARRAYREEMBALAJE[0]["ID_TREEMBALAJE"]);
+                                                            if ($ARRAYTREEMBALAJE) {
+                                                                $TREEMBALAJE = $ARRAYTREEMBALAJE[0]["NOMBRE_TREEMBALAJE"];
+                                                            }
+                                                        } else {
+                                                            $NUMEROREEMBALEJE = "Sin datos";
+                                                            $TREEMBALAJE = "Sin datos";
+                                                        }
                                                         $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYVERPRODUCTORID) {
 
@@ -422,33 +410,10 @@ include_once "../config/datosUrLE.php";
                                                             $NOMBRETEMPORADA = "Sin Datos";
                                                         }
                                                         ?>
+
                                                         <tr class="text-left">
-                                                            <td><?php echo $r['FOLIO_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
-                                                            <td class="text-center">
-                                                                <form method="post" id="form1">
-                                                                    <div class="list-icons d-inline-flex">
-                                                                        <div class="list-icons-item dropdown">
-                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </button>
-                                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                                <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
-                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroCambiarFolioD" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="registroCambiarFolioPT" />
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Cambiar Folio">
-                                                                                    <button type="submit" class="btn btn-warning btn-block " id="CAMBIARFOLIO" name="CAMBIARFOLIO">
-                                                                                        <i class="fa fa-exchange"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </td>
                                                             <td><?php echo $r['EMBALADO']; ?></td>
-                                                            <td><?php echo $ESTADO; ?></td>
                                                             <td><?php echo $ESTADOSAG; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
@@ -460,7 +425,7 @@ include_once "../config/datosUrLE.php";
                                                             <td><?php echo $r['NETO']; ?></td>
                                                             <td><?php echo $r['PORCENTAJE']; ?></td>
                                                             <td><?php echo $r['DESHIRATACION']; ?></td>
-                                                            <td><?php echo $r['DIAS']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
@@ -470,12 +435,15 @@ include_once "../config/datosUrLE.php";
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
-                                                            <td><?php echo $NUMEROREPALETIZAJE; ?></td>
-                                                            <td><?php echo $r['REPALETIZAJE']; ?></td>
-                                                            <td><?php echo $NUMERODESPACHO; ?></td>
-                                                            <td><?php echo $r['DESPACHO']; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
-                                                            <td><?php echo $NUMEROGUIADESPACHO; ?></td>
+
+                                                            <td><?php echo $NUMEROPROCESO; ?></td>
+                                                            <td><?php echo $r['PROCESO']; ?></td>
+                                                            <td><?php echo $TPROCESO; ?></td>
+                                                            <td><?php echo $NUMEROREEMBALEJE; ?></td>
+                                                            <td><?php echo $r['REEMBALAJE']; ?></td>
+                                                            <td><?php echo $TREEMBALAJE; ?></td>
+
+                                                            <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -490,6 +458,24 @@ include_once "../config/datosUrLE.php";
                                 </div>
                             </div>
                             <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-6 col-xs-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
+                                        <div class="form-group">
+                                            <label>Total Envase </label>
+                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
+                                        <div class="form-group">
+                                            <label>Total Neto </label>
+                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- /.box -->
@@ -498,11 +484,6 @@ include_once "../config/datosUrLE.php";
 
                 </div>
             </div>
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../config/footer.php"; ?>
                 <?php include_once "../config/menuExtra.php"; ?>

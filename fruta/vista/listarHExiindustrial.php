@@ -6,7 +6,6 @@ include_once "../config/validarUsuario.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-
 include_once '../controlador/EINDUSTRIAL_ADO.php';
 
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -14,6 +13,11 @@ include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/FOLIO_ADO.php';
 
+include_once '../controlador/TPROCESO_ADO.php';
+include_once '../controlador/TREEMBALAJE_ADO.php';
+
+include_once '../controlador/PROCESO_ADO.php';
+include_once '../controlador/REEMBALAJE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -27,6 +31,12 @@ $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 
+
+$TPROCESO_ADO =  new TPROCESO_ADO();
+$TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
+
+$PROCESO_ADO =  new PROCESO_ADO();
+$REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 
@@ -129,7 +139,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Existencia</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="listarHExiindustrial.php"> Listar Producto Industrial </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Producto Industrial </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -183,7 +193,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
                                                         <th>Kilos Neto</th>
+                                                        <th>Número Proceso </th>
+                                                        <th>Fecha Proceso </th>
+                                                        <th>Tipo Proceso </th>
+                                                        <th>Número Reembalaje </th>
+                                                        <th>Fecha Reembalaje </th>
+                                                        <th>Tipo Reembalaje </th>
                                                         <th>Dias </th>
+                                                        <th>Fecha Ingreso </th>
+                                                        <th>Fecha Modificación </th>
                                                         <th>Empresa</th>
                                                         <th>Planta</th>
                                                         <th>Temporada</th>
@@ -243,6 +261,31 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NOMBREVESPECIES = "Sin Datos";
                                                             $NOMBRESPECIES = "Sin Datos";
                                                         }
+
+                                                        $ARRAYPROCESO = $PROCESO_ADO->verProceso($r['ID_PROCESO']);
+                                                        if ($ARRAYPROCESO) {
+                                                            $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
+                                                            $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
+                                                            if ($ARRAYTPROCESO) {
+                                                                $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
+                                                            }
+                                                        } else {
+                                                            $NUMEROPROCESO = "Sin datos";
+                                                            $TPROCESO = "Sin datos";
+                                                        }
+                                                        $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($r['ID_REEMBALAJE']);
+                                                        if ($ARRAYREEMBALAJE) {
+                                                            $NUMEROREEMBALEJE = $ARRAYREEMBALAJE[0]["ID_TREEMBALAJE"];
+                                                            $ARRAYTREEMBALAJE = $TREEMBALAJE_ADO->verTreembalaje($ARRAYREEMBALAJE[0]["ID_TREEMBALAJE"]);
+                                                            if ($ARRAYTREEMBALAJE) {
+                                                                $TREEMBALAJE = $ARRAYTREEMBALAJE[0]["NOMBRE_TREEMBALAJE"];
+                                                            }
+                                                        } else {
+                                                            $NUMEROREEMBALEJE = "Sin datos";
+                                                            $TREEMBALAJE = "Sin datos";
+                                                        }
+
+
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                         if ($ARRAYEMPRESA) {
                                                             $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -276,7 +319,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
+                                                            <td><?php echo $NUMEROPROCESO; ?></td>
+                                                            <td><?php echo $r['PROCESO']; ?></td>
+                                                            <td><?php echo $TPROCESO; ?></td>
+                                                            <td><?php echo $NUMEROREEMBALEJE; ?></td>
+                                                            <td><?php echo $r['REEMBALAJE']; ?></td>
+                                                            <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
+                                                            <td><?php echo $r['INGRESO']; ?></td>
+                                                            <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -296,7 +347,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
                                                         <th>Kilos Neto</th>
+                                                        <th>Número Proceso </th>
+                                                        <th>Fecha Proceso </th>
+                                                        <th>Tipo Proceso </th>
+                                                        <th>Número Reembalaje </th>
+                                                        <th>Fecha Reembalaje </th>
+                                                        <th>Tipo Reembalaje </th>
                                                         <th>Dias </th>
+                                                        <th>Fecha Ingreso </th>
+                                                        <th>Fecha Modificación </th>
                                                         <th>Empresa</th>
                                                         <th>Planta</th>
                                                         <th>Temporada</th>

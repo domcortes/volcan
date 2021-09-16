@@ -352,17 +352,15 @@ if (isset($_REQUEST['CERRAR'])) {
 
 
         $ARRAYEXIPRODUCTOTERMINADOTOMADO = $EXIEXPORTACION_ADO->buscarPorReembalaje($_REQUEST['IDP']);
-        $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorReembalaje($_REQUEST['IDP']);
-        $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorReembalaje($_REQUEST['IDP']);
+        $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorReembalajeIngresando($_REQUEST['IDP']);
+        $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorReembalajeIngresnado($_REQUEST['IDP']);
 
 
         foreach ($ARRAYEXIPRODUCTOTERMINADOTOMADO as $s) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->Reembalaje($EXIEXPORTACION);
+        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+        ///      $EXIEXPORTACION_ADO->Reembalaje($EXIEXPORTACION);
         endforeach;
-
-
         foreach ($ARRAYEXIEXPORTACION as $s) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -373,6 +371,7 @@ if (isset($_REQUEST['CERRAR'])) {
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $EXIINDUSTRIAL_ADO->vigente($EXIINDUSTRIAL);
         endforeach;
+
         //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
         if ($_SESSION['parametro1'] == "crear") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -405,7 +404,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
     //OBTENCIONS DE TOTALES O EL RESUMEN DE LAS TABLAS
-    $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
+     $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
     $ARRAYEXISTENCIATOTALESREEMBALAJE2 = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
 
 
@@ -751,7 +750,7 @@ if (isset($_POST)) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Proceso</li>
+                                            <li class="breadcrumb-item" aria-current="page">Packing</li>
                                             <li class="breadcrumb-item" aria-current="page">Reembalaje</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Operaciones Registro Reembalaje </a>
                                             </li>

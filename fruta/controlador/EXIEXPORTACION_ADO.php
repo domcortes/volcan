@@ -1614,8 +1614,28 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion
-                                            WHERE ID_REEMBALAJE= " . $IDREEMBALAJE . "
+                                            WHERE ID_REEMBALAJE= '" . $IDREEMBALAJE . "'
                                             AND ESTADO BETWEEN 5 AND 6
+                                            AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorReembalajeIngresando($IDREEMBALAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion
+                                            WHERE ID_REEMBALAJE= '" . $IDREEMBALAJE . "'
+                                            AND ESTADO = 1
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -1644,7 +1664,7 @@ class EXIEXPORTACION_ADO
                                                         FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
                                                         IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
                                                 FROM fruta_exiexportacion
-                                                WHERE ID_REEMBALAJE= " . $IDREEMBALAJE . "
+                                                WHERE ID_REEMBALAJE= '" . $IDREEMBALAJE . "'
                                                 AND ESTADO BETWEEN 5 AND 6
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();

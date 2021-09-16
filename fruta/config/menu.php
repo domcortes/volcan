@@ -493,9 +493,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </li>
                 -->
           <!--
-            <li><a href="listarExiexportacion.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
             <li><a href="reimprimirTarjaPT.php"><i class="ti-more"></i>Reimprimir Tarja</a></li>
           -->
+          <li><a href="listarExiexportacion.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
           <li><a href="listarEximateriaprimaProceso.php"><i class="ti-more"></i>Existencia Materia Prima</a></li>
           <li><a href="listarExiindustrial.php"><i class="ti-more"></i>Existencia Industrial</a></li>
         </ul>
@@ -520,8 +520,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarICarga.php"><i class="ti-more"></i> Agrupado Inst. Carga</a></li>
             </ul>
           </li>
-          <!--
-          <li><a href="listarExiexportacionAComercial.php"><i class="ti-more"></i> Existencia P. Terminado</a></li>-->
+          <li><a href="listarExiexportacionLogistica.php"><i class="ti-more"></i> Existencia P. Terminado</a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -544,7 +543,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarInpsag.php"><i class="ti-more"></i>Agrupado Inapección </a></li>
             </ul>
           </li>
-          <!--<li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>-->
+          <li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
         </ul>
       </li>
       <li class="treeview">
