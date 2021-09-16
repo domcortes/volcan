@@ -941,13 +941,18 @@ if (isset($_POST)) {
                                             <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-save-alt"></i> Cerrar
                                             </button>
+
+                                        <?php } ?>
+                                    </div>
+                                    <div class="btn-group btn-block float-right col-3">
+                                        <?php if ($OP != ""): ?>
                                             <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i> Proceso
                                             </button>
                                             <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $IDOP; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i> Tarjas
                                             </button>
-                                        <?php } ?>
+                                        <?php endif ?>
                                     </div>
                                 </div>
                             </div>
@@ -1071,8 +1076,9 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                                                 <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroSelecionExistenciaMPProceso" />
                                                                 <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                                                    echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                                                } ?>>
+                                                                        echo "disabled style='background-color: #eeeeee;'";
+                                                                    } ?>
+                                                                >
                                                                     <i class=" glyphicon glyphicon-plus"></i>
                                                                 </button>
                                                             </div>
