@@ -336,7 +336,7 @@ include_once "../config/datosUrLP.php";
                                                                             <?php if ($ARRAYMGUIAPT) { ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
-                                                                                    <button type="submit" class="btn btn-primary btn-block " id="VERMOTIVOSRURLPT" name="VERMOTIVOSRURLPT">
+                                                                                    <button type="submit" class="btn btn-primary btn-block " id="VERMOTIVOSRURL" name="VERMOTIVOSRURL">
                                                                                         <i class="ti-eye"></i>
                                                                                     </button>
                                                                                 </span>
