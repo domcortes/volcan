@@ -2932,9 +2932,9 @@ class EXIEXPORTACION_ADO
         try {
             $query = "
                             UPDATE fruta_exiexportacion SET	
-                                    MODIFICACION = SYSDATE(), 		
-                                    FECHA_DESPACHO = ?, 		
-                                    ESTADO = 8
+                                    MODIFICACION = SYSDATE(), 	
+                                    ESTADO = 8,
+                                    FECHA_DESPACHO = ?
                             WHERE ID_EXIEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -2994,11 +2994,13 @@ class EXIEXPORTACION_ADO
             $query = "
                             UPDATE fruta_exiexportacion SET		
                                     MODIFICACION = SYSDATE(), 	
-                                    ESTADO = 9
+                                    ESTADO = 9, 	
+                                    FECHA_DESPACHO = ?
                             WHERE ID_EXIEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
+                        $EXIEXPORTACION->__GET('FECHA_DESPACHO').
                         $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
                     )
 

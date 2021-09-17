@@ -347,6 +347,7 @@ if (isset($_REQUEST['CERRAR'])) {
         foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
             if ($_REQUEST['TDESPACHOE'] == "1") {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+                $EXIEXPORTACION->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->enTransito($EXIEXPORTACION);
 
