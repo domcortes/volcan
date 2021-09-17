@@ -3,38 +3,29 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 
-include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
-
-
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 
+
+include_once '../controlador/DESPACHOMP_ADO.php';
+include_once '../controlador/MGUIAMP_ADO.php';
+
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
-$DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
+
+$DESPACHOMP_ADO =  new DESPACHOMP_ADO();
+$MGUIAMP_ADO =  new MGUIAMP_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -50,12 +41,13 @@ $PRODUCTOR = "";
 $NUMEROGUIA = "";
 
 //INICIALIZAR ARREGLOS
-$ARRAYDESPACHOMP = "";
-$ARRAYDESPACHOMPTOTALES = "";
+$ARRAYDESPACHOPT = "";
+$ARRAYDESPACHOPTTOTALES = "";
 $ARRAYVEREMPRESA = "";
 $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
+$ARRAYMGUIAPT = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -63,21 +55,17 @@ $ARRAYVERCONDUCTOR = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOMPTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPT = $DESPACHOMP_ADO->listarDespachompEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPTTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
-    $TOTALBRUTO = $ARRAYDESPACHOMPTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOMPTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOMPTOTALES[0]['ENVASE'];
-} else {
-
-    $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompCBX();
-    $ARRAYDESPACHOMPTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompCBX2();
-
-    $TOTALBRUTO = $ARRAYDESPACHOMPTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOMPTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOMPTOTALES[0]['ENVASE'];
+    $TOTALBRUTO = $ARRAYDESPACHOPTTOTALES[0]['BRUTO'];
+    $TOTALNETO = $ARRAYDESPACHOPTTOTALES[0]['NETO'];
+    $TOTALENVASE = $ARRAYDESPACHOPTTOTALES[0]['ENVASE'];
 }
+
+
+include_once "../config/validarDatosUrl.php";
+include_once "../config/datosUrLP.php";
 
 
 
@@ -90,7 +78,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Listar Despacho MP</title>
+    <title>Agrupado Despacho MP</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -151,6 +139,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     document.getElementById("form_reg_dato").submit();
                 }*/
 
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
                 //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
                 function abrirVentana(url) {
                     var opciones =
@@ -171,14 +163,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Despacho MP</h3>
+                            <h3 class="page-title">Despacho </h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                        <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Granel</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarDespachomp.php"> Listar Depacho MP </a>
+                                        <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                        <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
+                                        <li class="breadcrumb-item" aria-current="page">Despacho P. Terminado</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Despacho </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -212,108 +205,169 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
-                                                <tr>
-                                                    <th>Numero </th>
+                                                <tr class="text-left">
+                                                    <th>Número </th>
                                                     <th>Estado</th>
-                                                    <th>Operaciones</th>
-                                                    <th>Empresa</th>
+                                                    <th class="text-center">Operaciónes</th>
+                                                    <th>Estado Despacho</th>
+                                                    <th>Tipo Despacho</th>
                                                     <th>Fecha Despacho </th>
-                                                    <th>Numero Guia </th>
+                                                    <th>Número Guía </th>
                                                     <th>Cantidad Envase</th>
-                                                    <th>Total Kilos Neto</th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificacion</th>
+                                                    <th>Kilos Neto</th>
+                                                    <th>Kilos Bruto</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
-                                                    <th>Patente Camion </th>
+                                                    <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
+                                                    <th>Fecha Ingreso</th>
+                                                    <th>Fecha Modificación</th>
+                                                    <th>Empresa</th>
+                                                    <th>Planta</th>
+                                                    <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYDESPACHOMP as $r) : ?>
-                                                    <tr class="center">
+                                                <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
+                                                    <?php
+                                                    if ($r['ESTADO_DESPACHO'] == "1") {
+                                                        $ESTADODESPACHO = "Por Confirmar";
+                                                    }
+                                                    if ($r['ESTADO_DESPACHO'] == "2") {
+                                                        $ESTADODESPACHO = "Confirmado";
+                                                    }
+                                                    if ($r['ESTADO_DESPACHO'] == "3") {
+                                                        $ESTADODESPACHO = "Rechazado";
+                                                    }
+                                                    if ($r['ESTADO_DESPACHO'] == "4") {
+                                                        $ESTADODESPACHO = "Aprobado";
+                                                    }
+                                                    if ($r['TDESPACHO'] == "1") {
+                                                        $TDESPACHO = "Interplanta";
+                                                    }
+                                                    if ($r['TDESPACHO'] == "2") {
+                                                        $TDESPACHO = "Devolución Productor";
+                                                    }
+                                                    if ($r['TDESPACHO'] == "3") {
+                                                        $TDESPACHO = "Venta";
+                                                    }
+                                                    if ($r['TDESPACHO'] == "4") {
+                                                        $TDESPACHO = "Regalo";
+                                                    }
+                                                    if ($r['TDESPACHO'] == "5") {
+                                                        $TDESPACHO = "Planta Externa";
+                                                    }
+                                                    $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
+                                                    if ($ARRAYVERTRANSPORTE) {
+                                                        $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+                                                    } else {
+                                                        $NOMBRETRANSPORTE = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
+                                                    if ($ARRAYVERCONDUCTOR) {
+
+                                                        $NOMBRECONDUCTOR = $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+                                                    } else {
+                                                        $NOMBRECONDUCTOR = "Sin Datos";
+                                                    }
+
+                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                    if ($ARRAYEMPRESA) {
+                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    } else {
+                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                    }
+                                                    $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                    if ($ARRAYPLANTA) {
+                                                        $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+                                                    } else {
+                                                        $NOMBREPLANTA = "Sin Datos";
+                                                    }
+                                                    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    if ($ARRAYTEMPORADA) {
+                                                        $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    } else {
+                                                        $NOMBRETEMPORADA = "Sin Datos";
+                                                    }
+
+                                                    $ARRAYMGUIAPT = $MGUIAMP_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
+                                                    ?>
+                                                    <tr class="text-left">
+                                                        <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                         <td>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                <?php echo $r['NUMERO_DESPACHO']; ?>
-                                                            </a>
-                                                        </td>
-                                                        <td <?php if ($r['ESTADO'] == "0") {
-                                                                echo "style='background-color: #FF0000;'";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "style='background-color: #4AF575;'";
-                                                            }  ?>>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "0") {
-                                                                echo "Cerrado";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Abierto";
-                                                            }
-                                                            ?>
+                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                            <?php  }  ?>
+                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                            <?php  }  ?>
                                                         </td>
                                                         <td class="text-center">
                                                             <form method="post" id="form1">
                                                                 <div class="list-icons d-inline-flex">
                                                                     <div class="list-icons-item dropdown">
-                                                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
+                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                                        </button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
-
-
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-danger btn-outline mr-1" id="defecto" name="tarjas" Onclick="abrirVentana('../documento/informeDespachoMP.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button>Informe <br>
-                                                                            <div class="dropdown-divider"></div>
-
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <button type="button" class="btn btn-rounded btn-sm btn-warning btn-outline mr-1" id="defecto" name="editar" Onclick="irPagina('registroDespachomp.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&parametro1=editar'); ">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
+                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachomp" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachomp" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLMR" name="URLMR" value="listarDespachoMguiaMP" />
+                                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i>
+                                                                                    </button>
+                                                                                </span>
                                                                             <?php } ?>
-
-                                                                            <button type="button" class="btn btn-rounded btn-sm btn-info btn-outline mr-1" id="defecto" name="ver" Onclick="irPagina('registroDespachomp.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&parametro1=ver'); ">
-                                                                                <i class="ti-eye"></i>
-                                                                            </button>Ver
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <?php if ($ARRAYMGUIAPT) { ?>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
+                                                                                    <button type="submit" class="btn btn-primary btn-block " id="VERMOTIVOSRURLPT" name="VERMOTIVOSRURLPT">
+                                                                                        <i class="ti-eye"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoMP.php?parametro=<?php echo $r['ID_DESPACHO']; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                </button>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
-
-
                                                         </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                            echo $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA']
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['FECHA_DESPACHO']; ?></td>
-
+                                                        <td><?php echo $ESTADODESPACHO; ?></td>
+                                                        <td><?php echo $TDESPACHO; ?></td>
+                                                        <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
-                                                        <td><?php echo $r['CANTIDAD_ENVASE_DESPACHO']; ?></td>
-                                                        <td><?php echo $r['KILOS_NETO_DESPACHO']; ?></td>
-                                                        <td><?php echo $r['FECHA_INGRESO_DESPACHO']; ?></td>
-                                                        <td><?php echo $r['FECHA_MODIFICACION_DESPACHO']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
-                                                            echo $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
-                                                            echo $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $r['ENVASE']; ?></td>
+                                                        <td><?php echo $r['NETO']; ?></td>
+                                                        <td><?php echo $r['BRUTO']; ?></td>
+                                                        <td><?php echo $NOMBRETRANSPORTE; ?></td>
+                                                        <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
-
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                        <td><?php echo $NOMBREPLANTA; ?></td>
+                                                        <td><?php echo $NOMBRETEMPORADA; ?></td>
 
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -325,35 +379,36 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                         <div class="form-group">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Envase </label>
                                             <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Neto </label>
                                             <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
                                     </div>
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
+                                        <div class="form-group">
+                                            <label>Total Bruto </label>
+                                            <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
 
         <?php include_once "../config/footer.php"; ?>
         <?php include_once "../config/menuExtra.php"; ?>

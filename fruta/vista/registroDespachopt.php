@@ -3,11 +3,6 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -163,11 +158,12 @@ $ARRAYCONTEO = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-$ARRAYCONDUCTOR = $CONDUCTOR_ADO->listarConductorCBX();
-$ARRAYTRANSPORTITA = $TRANSPORTE_ADO->listarTransporteCBX();
+$ARRAYCONDUCTOR = $CONDUCTOR_ADO->listarConductorPorEmpresaCBX($EMPRESAS);
+$ARRAYTRANSPORTITA = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
 
-$ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorCBX();
-$ARRAYCOMPRADOR = $COMPRADOR_ADO->listarCompradorCBX();
+$ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
+$ARRAYCOMPRADOR = $COMPRADOR_ADO->listarCompradorPorEmpresaCBX($EMPRESAS);
+
 
 
 
@@ -809,6 +805,15 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TDESPACHO.style.borderColor = "#4AF575";
 
+                    if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                        document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                        document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                        return false
+                    }
+                    document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
+
+
                     if (NUMEROSELLODESPACHO == null || NUMEROSELLODESPACHO.length == 0 || /^\s+$/.test(NUMEROSELLODESPACHO)) {
                         document.form_reg_dato.NUMEROSELLODESPACHO.focus();
                         document.form_reg_dato.NUMEROSELLODESPACHO.style.borderColor = "#FF0000";
@@ -895,11 +900,9 @@ if (isset($_POST)) {
                     }
 
                     if (TDESPACHO == 3) {
-
                         COMPRADOR = document.getElementById("COMPRADOR").selectedIndex;
                         PRECIOPALLET = document.getElementById("PRECIOPALLET").value;
                         document.getElementById('val_comprador').innerHTML = "";
-                        document.getElementById('val_precio').innerHTML = "";
 
                         if (COMPRADOR == null || COMPRADOR == 0) {
                             document.form_reg_dato.COMPRADOR.focus();
@@ -908,8 +911,6 @@ if (isset($_POST)) {
                             return false
                         }
                         document.form_reg_dato.COMPRADOR.style.borderColor = "#4AF575";
-
-
                     }
 
                     if (TDESPACHO == 4) {
@@ -967,6 +968,11 @@ if (isset($_POST)) {
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
                     location.href = "" + url;
+                }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
                 }
 
                 //FUNCION PARA OBTENER HORA Y FECHA
@@ -1121,14 +1127,6 @@ if (isset($_POST)) {
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Número Guía </label>
-                                                <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
-                                                <label id="val_numeroguia" class="validacion"> </label>
-                                            </div>
-                                        </div>
                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Tipo Despacho </label>
@@ -1153,6 +1151,14 @@ if (isset($_POST)) {
 
                                                 </select>
                                                 <label id="val_tdespacho" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Número Guía </label>
+                                                <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
+                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <label id="val_numeroguia" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -1425,7 +1431,7 @@ if (isset($_POST)) {
                                 <div class="row">
                                     <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
                                         <div class="table-responsive">
-                                            <table id="detalle" class="table table-hover " style="width: 180%;">
+                                            <table id="detalle" class="table table-hover " style="width: 150%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th> N° Folio </th>

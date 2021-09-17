@@ -139,7 +139,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Granel</li>
+                                            <li class="breadcrumb-item" aria-current="page">Packing</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Producto Industrial </a>
                                             </li>
                                         </ol>
