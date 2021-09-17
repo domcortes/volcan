@@ -327,6 +327,7 @@ if (isset($_REQUEST['CERRAR'])) {
         foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
             if ($_REQUEST['TDESPACHOE'] == "1") {
                 $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
+                $EXIMATERIAPRIMA->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $EXIMATERIAPRIMA_ADO->enTransito($EXIMATERIAPRIMA);
             } else {

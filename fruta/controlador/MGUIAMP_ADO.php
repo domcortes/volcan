@@ -135,10 +135,12 @@ class MGUIAMP_ADO
                                                 ID_EMPRESA, 
                                                 ID_PLANTA, 
                                                 ID_TEMPORADA, 
-                                                FECHA_INGRESO_MGUIA, 
+                                                ID_USUARIOI, 
+                                                ID_USUARIOM, 
+                                                INGRESO, 
                                                 ESTADO_REGISTRO
                                      ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -151,7 +153,9 @@ class MGUIAMP_ADO
                         $MGUIAMP->__GET('ID_PLANTA2'),
                         $MGUIAMP->__GET('ID_EMPRESA'),
                         $MGUIAMP->__GET('ID_PLANTA'),
-                        $MGUIAMP->__GET('ID_TEMPORADA')
+                        $MGUIAMP->__GET('ID_TEMPORADA'),
+                        $MGUIAMP->__GET('ID_USUARIOI'),
+                        $MGUIAMP->__GET('ID_USUARIOM') 
 
                     )
 
@@ -189,7 +193,8 @@ class MGUIAMP_ADO
             ID_PLANTA2= ?,
             ID_EMPRESA= ?,
             ID_PLANTA= ?,
-            ID_TEMPORADA= ?            
+            ID_TEMPORADA= ?,
+            ID_USUARIOM= ?               
 		WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -202,6 +207,7 @@ class MGUIAMP_ADO
                         $MGUIAMP->__GET('ID_EMPRESA'),
                         $MGUIAMP->__GET('ID_PLANTA'),
                         $MGUIAMP->__GET('ID_TEMPORADA'),
+                        $MGUIAMP->__GET('ID_USUARIOM') ,
                         $MGUIAMP->__GET('ID_MGUIA')
 
                     )
@@ -254,6 +260,59 @@ class MGUIAMP_ADO
         }
     }
 
+
+
+    public function listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX($DESPACHO, $EMPRESA, $PLANTA, $TEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT *
+                                             FROM fruta_mguiamp 
+                                             WHERE ESTADO_REGISTRO = 1
+                                                AND ID_DESPACHO = '" . $DESPACHO . "' 
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                             ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX2($DESPACHO, $EMPRESA, $PLANTA, $TEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO'
+                                             FROM fruta_mguiamp 
+                                             WHERE ESTADO_REGISTRO = 1
+                                                AND ID_DESPACHO = '" . $DESPACHO . "' 
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                             ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
+    //OTRAS FUNCIONES
 
     public function obtenerNumero($DESPACHO, $EMPRESA, $PLANTAORIGEN, $PLANTADESTINO, $TEMPORADA){
         try{

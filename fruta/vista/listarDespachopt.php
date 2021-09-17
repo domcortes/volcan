@@ -342,7 +342,7 @@ include_once "../config/datosUrLP.php";
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <hr>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoPT.php?parametro=<?php echo $r['ID_DESPACHO']; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>

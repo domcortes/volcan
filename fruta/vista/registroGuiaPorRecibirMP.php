@@ -12,8 +12,13 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 
 
+include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/MGUIAMP_ADO.php';
+
+
+include_once '../modelo/EXIMATERIAPRIMA.php';
+include_once '../modelo/DESPACHOMP.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -28,8 +33,15 @@ $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
 
+$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $MGUIAMP_ADO =  new MGUIAMP_ADO();
+
+
+
+//INIICIALIZAR MODELO
+$DESPACHOMP =  new DESPACHOMP();
+$EXIMATERIAPRIMA =  new EXIMATERIAPRIMA();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -47,8 +59,8 @@ $DISABLEDFOLIO = "";
 $MENSAJEFOLIO = "";
 
 //INICIALIZAR ARREGLOS
-$ARRAYDESPACHOPT = "";
-$ARRAYDESPACHOPTTOTALES = "";
+$ARRAYDESPACHOMP = "";
+$ARRAYDESPACHOMPTOTALES = "";
 $ARRAYVEREMPRESA = "";
 $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
@@ -61,12 +73,12 @@ $ARRAYMGUIAPT = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYDESPACHOPT = $DESPACHOMP_ADO->listarDespachompEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOMPTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
-    $TOTALBRUTO = $ARRAYDESPACHOPTTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOPTTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOPTTOTALES[0]['ENVASE'];
+    $TOTALBRUTO = $ARRAYDESPACHOMPTOTALES[0]['BRUTO'];
+    $TOTALNETO = $ARRAYDESPACHOMPTOTALES[0]['NETO'];
+    $TOTALENVASE = $ARRAYDESPACHOMPTOTALES[0]['ENVASE'];
 }
 
 
@@ -79,6 +91,66 @@ if (empty($ARRAYFOLIO3)) {
     $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS MP </b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
 }
 
+
+//OPERACIONES
+if (isset($_REQUEST['APROBARURL'])) {
+
+    $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['ID']);
+    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+    $DESPACHOMP_ADO->cerrado($DESPACHOMP);
+
+    $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['ID']);
+    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+    $DESPACHOMP_ADO->Aprobado($DESPACHOMP);
+
+    $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespachoEnTransito($_REQUEST['ID']);
+    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+        $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
+        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+        $EXIMATERIAPRIMA_ADO->despachadoInterplanta($EXIMATERIAPRIMA);
+    endforeach;
+
+    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTmateriaprima($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+
+    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+        $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA',  $r['FOLIO_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('FOLIO_MANUAL', $r['FOLIO_MANUAL']);
+        $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $r['FECHA_COSECHA_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $r['CANTIDAD_ENVASE_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $r['KILOS_NETO_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $r['KILOS_BRUTO_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $r['KILOS_PROMEDIO_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA', $r['PESO_PALLET_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA', $r['ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA', $r['ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA']);
+        $EXIMATERIAPRIMA->__SET('GASIFICADO', $r['GASIFICADO']);
+        $EXIMATERIAPRIMA->__SET('INGRESO', $r['INGRESO']);
+        $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
+        $EXIMATERIAPRIMA->__SET('ID_FOLIO', $FOLIO);
+        $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
+        $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
+        $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
+        $EXIMATERIAPRIMA->__SET('ID_PLANTA2', $r['ID_PLANTA']);
+        $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', $_REQUEST['ID']);
+        $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $EMPRESAS);
+        $EXIMATERIAPRIMA->__SET('ID_PLANTA', $PLANTAS);
+        $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);
+        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+        $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaGuia($EXIMATERIAPRIMA);
+    endforeach;
+
+    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+}
+
+
+if (isset($_REQUEST['RECHAZARURL'])) {
+    $_SESSION["parametro"] = $_REQUEST['ID'];
+    $_SESSION["parametro1"] = "rechazar";
+    $_SESSION["urlO"] = $_REQUEST['URLO'];
+    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLM'] . ".php?op';</script>";
+}
 
 
 ?>
@@ -243,7 +315,7 @@ if (empty($ARRAYFOLIO3)) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
+                                                <?php foreach ($ARRAYDESPACHOMP as $r) : ?>
                                                     <?php
                                                     if ($r['ESTADO_DESPACHO'] == "1") {
                                                         $ESTADODESPACHO = "Por Confirmar";
@@ -332,12 +404,12 @@ if (empty($ARRAYFOLIO3)) {
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLM" name="URLM" value="registroGuiaPorRecibirMMP" />
 
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Aprobar">
-                                                                                <button type="submit" class="btn btn-success btn-block " id="APROBARURLPT" name="APROBARURLMP" <?php echo $DISABLEDFOLIO; ?>>
+                                                                                <button type="submit" class="btn btn-success btn-block " id="APROBARURL" name="APROBARURL" <?php echo $DISABLEDFOLIO; ?>>
                                                                                     <i class="fa fa-check"></i>
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Rechazar">
-                                                                                <button type="submit" class="btn btn-danger btn-block " id="RECHAZARURLPT" name="RECHAZARURLMP" <?php echo $DISABLEDFOLIO; ?>>
+                                                                                <button type="submit" class="btn btn-danger btn-block " id="RECHAZARURL" name="RECHAZARURL" <?php echo $DISABLEDFOLIO; ?>>
                                                                                     <i class="fa fa-close"></i>
                                                                                 </button>
                                                                             </span>
