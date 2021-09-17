@@ -70,9 +70,9 @@ $ARRAYTESTADOSAG = "";
 $ARRAYINPSAG = "";
 $ARRAYPAIS = "";
 $ARRAYUSUARIO = "";
-if (isset($_REQUEST['NOMBREUSUARIO'])) {
-  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
 }
 
@@ -94,6 +94,7 @@ $FECHAMODIFCACION = $ARRAYPCDESPACHO[0]['MODIFICACION'];
 $MOTIVO = $ARRAYPCDESPACHO[0]['MOTIVO_PCDESPACHO'];
 $TOTALENVASE = $ARRAYPCDESPACHO[0]['ENVASE'];
 $TOTALNETO = $ARRAYPCDESPACHO[0]['NETO'];
+$OBSERVACIONES = $ARRAYREPALETIZAJE[0]['MOTIVO_PCDESPACHO'];
 
 
 //$TOTALENVASEREPA=$ARRAYDREPALETIZAJETOTALES[0]['TOTAL_ENVASE'];
@@ -330,12 +331,14 @@ $html = $html . '
 
 
 $html = $html . '
-  <div id="notices">
-    <div>IMPORTANTE:</div>
-    <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-  </div>
-  <br>
-  <br>    
+<div id="details" class="clearfix">
+ 
+    <div id="client">
+            <div class="address"><b>Observaciones</b></div>
+            <div class="address">  ' . $OBSERVACIONES . ' </div>
+    </div>
+</div>
+  
 </main>
 <footer>
   Informe generado por Departamento TI Fruticola Volcan

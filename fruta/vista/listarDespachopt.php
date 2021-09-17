@@ -333,17 +333,17 @@ include_once "../config/datosUrLP.php";
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
-                                                                            <hr>
                                                                             <?php if ($ARRAYMGUIAPT) { ?>
+                                                                                <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
-                                                                                    <button type="submit" class="btn btn-primary btn-block " id="VERMOTIVOSRURLPT" name="VERMOTIVOSRURLPT">
+                                                                                    <button type="submit" class="btn btn-primary btn-block " id="VERMOTIVOSRURL" name="VERMOTIVOSRURL">
                                                                                         <i class="ti-eye"></i>
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <hr>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoPT.php?parametro=<?php echo $r['ID_DESPACHO']; ?>'); ">
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoPT.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>
                                                                             </span>

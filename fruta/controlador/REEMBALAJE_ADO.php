@@ -396,7 +396,8 @@ class REEMBALAJE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                             FORMAT(IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE)+SUM(KILOS_INDUSTRIAL_REEMBALAJE),0),2,'de_DE') AS 'SALIDA'                                                 
+                                             FORMAT(IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE)+SUM(KILOS_INDUSTRIAL_REEMBALAJE),0),2,'de_DE') AS 'SALIDA',   
+                                             IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE)+SUM(KILOS_INDUSTRIAL_REEMBALAJE),0) AS 'SALIDASF'                                                  
                                          FROM fruta_reembalaje 
                                          WHERE ID_REEMBALAJE = '" . $IDREEMBALAJE . "';");
             $datos->execute();

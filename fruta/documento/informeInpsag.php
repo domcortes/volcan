@@ -14,7 +14,6 @@ include_once '../controlador/INPSAG_ADO.php';
 include_once '../controlador/TINPSAG_ADO.php';
 
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/INPECTOR_ADO.php';
 include_once '../controlador/CONTRAPARTE_ADO.php';
@@ -37,7 +36,6 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
 $EEXPORTACION_ADO = new EEXPORTACION_ADO();
@@ -104,12 +102,12 @@ $ARRAYUSUARIO="";
 
 
 
-if(isset($_REQUEST['NOMBREUSUARIO'])){
-  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-  
 }
+
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
 }
@@ -118,9 +116,9 @@ $ARRAYINPSAGPT = $INPSAG_ADO->verInpsag2($IDOP);
 $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorSag2($IDOP);
 $ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesInspSag2($IDOP);
 
-$TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_ENVASE'];
-$TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_NETO'];
-$TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_BRUTO'];
+$TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['ENVASE'];
+$TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['NETO'];
+$TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['BRUTO'];
 
 
 
@@ -132,6 +130,7 @@ $ARRAYTINPSAG = $TINPSAG_ADO->verTinpsag($ARRAYINPSAGPT[0]['ID_TINPSAG']);
 $NOMBRETINPSAG = $ARRAYTINPSAG[0]['NOMBRE_TINPSAG'];
 $TESTADOSAG = $ARRAYINPSAGPT[0]['TESTADOSAG'];
 $CIF=$ARRAYINPSAGPT[0]['CIF_INPSAG'];
+$OBSERVACIONES=$ARRAYINPSAGPT[0]['OBSERVACION_INPSAG'];
 
 if ($TESTADOSAG== null || $TESTADOSAG == "0") {
   $NOMBRETESTADOSAG = "Sin Condición";
@@ -179,28 +178,13 @@ if($ARRAYPAIS){
 }
 
 
-/*
 
-$TOTALENVASE = $ARRAYINPSAGPT[0]['CANTIDAD_ENVASE_INPSAGPT'];
-$TOTALNETO = $ARRAYINPSAGPT[0]['KILOS_NETO_INPSAGPT'];
-$TOTALBRUTO = $ARRAYINPSAGPT[0]['KILOS_BRUTO_INPSAGPT'];
-
-
-*/
 
 $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYINPSAGPT[0]['ID_PLANTA']);
-$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYINPSAGPT[0]['ID_EMPRESA']);
 $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYINPSAGPT[0]['ID_TEMPORADA']);
+
 $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
 $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-
-$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-
-if ($EMPRESAURL == "") {
-  $EMPRESAURL = "img/empresa/no_disponible.png";
-}
-
 
 //OBTENCION DE LA FECHA
 date_default_timezone_set('America/Santiago');
@@ -298,7 +282,6 @@ $html = '
           <div class="date"><b>Fecha Inspección: </b>' . $FECHAINPSAG . ' </div>
           <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="address"><b> Planta: </b>' . $PLANTA . '</div>
-          <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
         </div>
 
         <div id="client">
@@ -339,8 +322,7 @@ $html = '
 
 foreach ($ARRAYEXIEXPORTACION as $d) :
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($d['ID_PRODUCTOR']);
-  $ARRAYPVESPECIES = $PVESPECIES_ADO->verPvespecies($d['ID_PVESPECIES']);
-  $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
+  $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($d['ID_VESPECIES']);
   $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($d['ID_ESTANDAR']);
   $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($d['ID_TMANEJO']);
   $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
@@ -361,7 +343,7 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
           
                       <tr >
                           <th class=" left">' . $d['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
-                          <td class=" center">' . $d['FECHA'] . '</td>
+                          <td class=" center">' . $d['EMBALADO'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '</td>
                           <td class="center">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
@@ -402,18 +384,12 @@ $html = $html . '
       </table>
       <div id="details" class="clearfix">
         <div id="client">
-          <div class="address"><b></b></div>
-          <div class="address"> </div>
+          <div class="address"><b>Observaciones</b></div>
+          <div class="address">'.$OBSERVACIONES.' </div>
           <div class="address"></div>
           <div class="address"></div>
           <div class="address"></div>
         </div>
-      </div>
-      <br>
-      <br> 
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
       </div>
 
     </main>
@@ -454,7 +430,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 

@@ -195,7 +195,87 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+    //REGISTRO DE UNA NUEVA FILA    
+    public function agregarEximateriaprimaGuia(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {
 
+            $query =
+                "INSERT INTO fruta_eximateriaprima ( 
+
+
+                                                           FOLIO_EXIMATERIAPRIMA,
+                                                           FOLIO_AUXILIAR_EXIMATERIAPRIMA,
+                                                           FOLIO_MANUAL,
+                                                           FECHA_COSECHA_EXIMATERIAPRIMA,
+                                                           CANTIDAD_ENVASE_EXIMATERIAPRIMA,
+
+                                                           KILOS_NETO_EXIMATERIAPRIMA,
+                                                           KILOS_BRUTO_EXIMATERIAPRIMA,
+                                                           KILOS_PROMEDIO_EXIMATERIAPRIMA,
+                                                           PESO_PALLET_EXIMATERIAPRIMA,
+                                                           ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA,
+
+                                                           ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA,
+                                                           GASIFICADO,
+                                                           INGRESO,
+                                                           ID_TMANEJO,
+                                                           ID_FOLIO,
+                                                           
+                                                           ID_ESTANDAR,
+                                                           ID_PRODUCTOR,
+                                                           ID_VESPECIES,
+                                                           ID_PLANTA2,
+                                                           ID_DESPACHO2,
+
+                                                           ID_EMPRESA, 
+                                                           ID_PLANTA, 
+                                                           ID_TEMPORADA,
+
+                                                           MODIFICACION,
+                                                           ESTADO,  
+                                                           ESTADO_REGISTRO
+                                                   ) VALUES
+              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+                        $EXIMATERIAPRIMA->__GET('FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_AUXILIAR_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_MANUAL'),
+                        $EXIMATERIAPRIMA->__GET('FECHA_COSECHA_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
+
+                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_PROMEDIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('PESO_PALLET_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA'),
+
+                        $EXIMATERIAPRIMA->__GET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('GASIFICADO'),
+                        $EXIMATERIAPRIMA->__GET('INGRESO'),
+                        $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
+                        $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
+                        $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
+                        $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA2'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO2'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_EMPRESA'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA'),
+                        $EXIMATERIAPRIMA->__GET('ID_TEMPORADA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //REGISTRO DE UNA NUEVA FILA    
 
 
@@ -275,7 +355,68 @@ class EXIMATERIAPRIMA_ADO
 
 
     ///FUNCIONES ESPECIALIZADAS
+    //VISUALIZAR
+    public function verExistenciaPorDespacho($IDDESPACHO)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_eximateriaprima 
+                                    WHERE ID_DESPACHO= '" . $IDDESPACHO . "'                                           
+                                    AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function verExistenciaPorDespachoEnTransito($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_eximateriaprima 
+                                    WHERE ID_DESPACHO= '" . $IDDESPACHO . "'                                           
+                                    AND ESTADO_REGISTRO = 1
+                                    AND ESTADO = 9;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function contarExistenciaPorDespachoPrecioNulo($IDDESPACHO)
+    {
+        try {
+            $datos = $this->conexion->prepare("SELECT 
+                                                    IFNULL(COUNT(ID_EXIMATERIAPRIMA),0)  AS 'CONTEO'
+                                                FROM fruta_eximateriaprima 
+                                                WHERE ID_DESPACHO= '" . $IDDESPACHO . "'                                           
+                                                    AND ESTADO_REGISTRO = 1
+                                                    AND PRECIO_PALLET IS  NULL
+                                        ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //LISTAS 
     //BUSCAR POR LA RECEPCION ASOCIADA A LA EXIMATERIAPRIMA
@@ -448,7 +589,51 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorDespacho($IDDESPACHO)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("  SELECT * 
+                                                FROM fruta_eximateriaprima 
+                                                WHERE ID_DESPACHO= '" . $IDDESPACHO . "'  
+                                                      AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorDespacho2($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("  SELECT * ,  
+                                                    IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0),0,'de_DE') AS 'BRUTO',
+                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3),5,'de_DE') AS 'PROMEDIO'
+                                                FROM fruta_eximateriaprima 
+                                                WHERE ID_DESPACHO= '" . $IDDESPACHO . "'  
+                                                      AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorRecepcionNumeroFolio($IDRECEPCION, $NUMEROFOLIO)
     {
         try {
@@ -503,7 +688,20 @@ class EXIMATERIAPRIMA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_eximateriaprima 
+            $datos = $this->conexion->prepare("SELECT * ,  
+                                                DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
+                                                IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
+                                                IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
+                                                IFNULL(DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y'),'Sin Datos') AS 'RECEPCION',
+                                                IFNULL(DATE_FORMAT(FECHA_REPALETIZAJE, '%d-%m-%Y'),'Sin Datos') AS 'REPALETIZAJE',
+                                                IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
+                                                FORMAT(IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0),0,'de_DE') AS 'ENVASE',
+                                                FORMAT(IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0),2,'de_DE') AS 'NETO',
+                                                FORMAT(IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0),0,'de_DE') AS 'BRUTO',
+                                                FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0),5,'de_DE') AS 'PROMEDIO',
+                                                FORMAT(IFNULL(PESO_PALLET_EXIMATERIAPRIMA,0),0,'de_DE') AS 'PALLET'
+                                            FROM fruta_eximateriaprima 
                                             WHERE  ESTADO = 2  
                                             AND ESTADO_REGISTRO = 1 
                                             AND ID_EMPRESA = '" . $EMPRESA . "'
@@ -613,47 +811,95 @@ class EXIMATERIAPRIMA_ADO
         }
     }
 
-    public function obtenerTotalesProceso($IDPROCESO){
-        try{            
-            $datos=$this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0) AS 'ENVASE', 
+    public function obtenerTotalesProceso($IDPROCESO)
+    {
+        try {
+            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0) AS 'ENVASE', 
                                                     IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0) AS 'NETO' 
                                              FROM fruta_eximateriaprima
-                                             WHERE ID_PROCESO = '".$IDPROCESO."' 
+                                             WHERE ID_PROCESO = '" . $IDPROCESO . "' 
                                              AND  ESTADO_REGISTRO= 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
     }
-    public function obtenerTotalesProceso2($IDPROCESO){
-        try{
-            
-            $datos=$this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0),0,'de_DE') AS 'ENVASE', 
-                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+    public function obtenerTotalesProceso2($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0),0,'de_DE') AS 'ENVASE', 
+                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' , 
+                                                     IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0) AS 'NETOSF' 
                                              FROM fruta_eximateriaprima
-                                             WHERE ID_PROCESO = '".$IDPROCESO."'
+                                             WHERE ID_PROCESO = '" . $IDPROCESO . "'
                                              AND  ESTADO_REGISTRO= 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            
+
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
-            
-            
+
+
             return $resultado;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
     }
+
+    public function obtenerTotalesDespacho($IDDESPACHO)
+    {
+        try {
+            $datos = $this->conexion->prepare("SELECT                                                     
+                                                    IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),2) AS 'NETO' ,
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIMATERIAPRIMA),2) AS 'BRUTO'                                              
+                                             FROM fruta_eximateriaprima
+                                             WHERE ID_PROCESO = '" . $IDDESPACHO . "' 
+                                             AND  ESTADO_REGISTRO= 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesDespacho2($IDDESPACHO)
+    {
+        try {
+            $datos = $this->conexion->prepare("SELECT 
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0),0,'de_DE')  AS 'ENVASE', 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE')  AS 'NETO' ,
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'BRUTO'
+                                             FROM fruta_eximateriaprima
+                                             WHERE ID_DESPACHO = '" . $IDDESPACHO . "' 
+                                             AND  ESTADO_REGISTRO= 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     //CAMBIOS DE ESTADO Y SELECION    
     //CAMBIO DE ESTADO DE REGISTRO DEL REGISTRO
@@ -680,6 +926,30 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+
+    public function actualizarSelecionarDespachoCambiarEstado(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {
+            $query = "
+            UPDATE fruta_eximateriaprima SET
+                MODIFICACION = SYSDATE(),
+                ESTADO = 7,     
+                ID_DESPACHO = ?          
+            WHERE ID_EXIMATERIAPRIMA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     //ACTUALIZAR ESTADO, ASOCIAR PROCESO, REGISTRO HISTORIAL PROCESO    
     public function actualizarDeselecionarProcesoCambiarEstado(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
     {
@@ -689,6 +959,27 @@ class EXIMATERIAPRIMA_ADO
                 MODIFICACION = SYSDATE(), 
                 ESTADO = 2,         
                 ID_PROCESO = null          
+            WHERE ID_EXIMATERIAPRIMA= ? ;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
+
+                    )
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function actualizarDeselecionarDespachoCambiarEstado(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {
+            $query = "
+            UPDATE fruta_eximateriaprima SET
+                MODIFICACION = SYSDATE(), 
+                ESTADO = 2,         
+                ID_DESPACHO = null          
             WHERE ID_EXIMATERIAPRIMA= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -942,9 +1233,30 @@ class EXIMATERIAPRIMA_ADO
         try {
             $query = "
                         UPDATE fruta_eximateriaprima SET
-                                MODIFICACION = SYSDATE(),				
+                                MODIFICACION = SYSDATE(),	
+                                FECHA_DESPACHO = ?,			
                                 ESTADO = 8
                         WHERE ID_EXIMATERIAPRIMA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIMATERIAPRIMA->__GET('FECHA_DESPACHO'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function despachadoInterplanta(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {
+            $query = "
+                            UPDATE fruta_eximateriaprima SET	
+                                    MODIFICACION = SYSDATE(), 		
+                                    ESTADO = 8
+                            WHERE ID_EXIMATERIAPRIMA= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -962,11 +1274,13 @@ class EXIMATERIAPRIMA_ADO
             $query = "
                         UPDATE fruta_eximateriaprima SET
                                 MODIFICACION = SYSDATE(),				
-                                ESTADO = 9
+                                ESTADO = 9	,			
+                                FECHA_DESPACHO = ?
                         WHERE ID_EXIMATERIAPRIMA= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
+                        $EXIMATERIAPRIMA->__GET('FECHA_DESPACHO'),
                         $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
                     )
 

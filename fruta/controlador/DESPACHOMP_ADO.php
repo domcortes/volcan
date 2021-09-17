@@ -76,164 +76,17 @@ class DESPACHOMP_ADO
             die($e->getMessage());
         }
     }
-    public function listarDespachompEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT * 
-                                            FROM fruta_despachomp                                                                           
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                            AND ID_PLANTA = '" . $PLANTA . "'
-                                            AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
 
 
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
-    public function obtenerTotalesDespachompCBX()
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0) AS 'ENVASE',   
-                                                     IFNULL(SUM(KILOS_NETO_DESPACHO),0) AS 'NETO',  
-                                                     IFNULL(SUM(KILOS_BRUTO_DESPACHO),0)  AS 'BRUTO'  
-                                            FROM fruta_despachomp ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    public function listarDespachompCBX2()
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT * ,DATE_FORMAT(FECHA_DESPACHO, '%Y-%m-%d') AS 'FECHA_GUIA',
-                                                       DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'FECHA_INGRESO',
-                                                       DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'FECHA_MODIFICACION',
-                                                       FORMAT(CANTIDAD_ENVASE_DESPACHO,0,'de_DE')  AS 'ENVASE',
-                                                       FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO',
-                                                       FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO',
-                                                       FORMAT(NUMERO_GUIA_DESPACHO,2,'de_DE')  AS 'GUIA'
-                                            FROM fruta_despachomp ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    public function obtenerTotalesDespachompCBX2()
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
-                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
-                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM fruta_despachomp 
-                                            
-                                            ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    public function obtenerTotalesDespachompEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
-                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
-                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM fruta_despachomp 
-                                                                                                                 
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                            AND ID_PLANTA = '" . $PLANTA . "'
-                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'
-                                            ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-
-    public function listarDespachompCBXMP()
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachomp WHERE ID_TDESPACHOMP = 1;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-    public function listarDespachompCBIQF()
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_despachomp  WHERE ID_TDESPACHOMP = 2;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
     public function verDespachomp($ID)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *,DATE_FORMAT(FECHA_DESPACHO, '%Y-%m-%d') AS 'FECHA_GUIA',
-                                             DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'FECHA_INGRESOR',
-                                             DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'FECHA_MODIFICACIONR' 
+            $datos = $this->conexion->prepare("SELECT *,DATE_FORMAT(FECHA_DESPACHO, '%Y-%m-%d') AS 'FECHA',
+                                             DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                             DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
                                              FROM fruta_despachomp
                                              WHERE ID_DESPACHO= '" . $ID . "';");
             $datos->execute();
@@ -296,18 +149,54 @@ class DESPACHOMP_ADO
     public function agregarDespachomp(DESPACHOMP $DESPACHOMP)
     {
         try {
-
+            if ($DESPACHOMP->__GET('ID_PLANTA2') == NULL) {
+                $DESPACHOMP->__SET('ID_PLANTA2', NULL);
+            }
+            if ($DESPACHOMP->__GET('ID_PLANTA3') == NULL) {
+                $DESPACHOMP->__SET('ID_PLANTA3', NULL);
+            }
+            if ($DESPACHOMP->__GET('ID_PRODUCTOR') == NULL) {
+                $DESPACHOMP->__SET('ID_PRODUCTOR', NULL);
+            }
+            if ($DESPACHOMP->__GET('ID_COMPRADOR') == NULL) {
+                $DESPACHOMP->__SET('ID_COMPRADOR', NULL);
+            }
             $query =
-                "INSERT INTO fruta_despachomp ( NUMERO_DESPACHO, FECHA_DESPACHO,  NUMERO_GUIA_DESPACHO, 
-                                            CANTIDAD_ENVASE_DESPACHO, KILOS_NETO_DESPACHO,KILOS_BRUTO_DESPACHO,   
-                                            PATENTE_CAMION,PATENTE_CARRO,OBSERVACION_DESPACHO, TDESPACHO, 
-                                            ID_PLANTA2, ID_PRODUCTOR, ID_COMPRADOR, 
-                                            ID_CONDUCTOR, ID_TRANSPORTE,  
-                                            ID_EMPRESA, ID_PLANTA, ID_TEMPORADA, 
-                                            INGRESO, MODIFICACION, 
-                                            ESTADO, ESTADO_DESPACHO,  ESTADO_REGISTRO)
+                "INSERT INTO fruta_despachomp ( 
+                                                NUMERO_DESPACHO, 
+                                                FECHA_DESPACHO, 
+                                                NUMERO_GUIA_DESPACHO, 
+
+                                                PATENTE_CAMION,
+                                                PATENTE_CARRO,
+                                                REGALO_DESPACHO,
+                                                TDESPACHO, 
+                                                OBSERVACION_DESPACHO, 
+                                                ID_PLANTA2, 
+
+                                                ID_PLANTA3, 
+                                                ID_PRODUCTOR, 
+                                                ID_COMPRADOR, 
+                                                ID_CONDUCTOR, 
+                                                ID_TRANSPORTE,  
+
+                                                ID_EMPRESA, 
+                                                ID_PLANTA, 
+                                                ID_TEMPORADA, 
+                                                ID_USUARIOI, 
+                                                ID_USUARIOM, 
+
+                                                CANTIDAD_ENVASE_DESPACHO, 
+                                                KILOS_NETO_DESPACHO,
+                                                KILOS_BRUTO_DESPACHO,   
+                                                INGRESO, 
+                                                MODIFICACION, 
+                                                ESTADO, 
+                                                ESTADO_DESPACHO,  
+                                                ESTADO_REGISTRO
+                                            )
              VALUES
-               ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(),  SYSDATE(), 1, 1, 1);";
+               ( ?, ?, ?,  ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   0, 0, 0,  SYSDATE(),  SYSDATE(), 1, 1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
@@ -315,23 +204,25 @@ class DESPACHOMP_ADO
                         $DESPACHOMP->__GET('NUMERO_DESPACHO'),
                         $DESPACHOMP->__GET('FECHA_DESPACHO'),
                         $DESPACHOMP->__GET('NUMERO_GUIA_DESPACHO'),
-                        $DESPACHOMP->__GET('CANTIDAD_ENVASE_DESPACHO'),
-                        $DESPACHOMP->__GET('KILOS_NETO_DESPACHO'),
-                        $DESPACHOMP->__GET('KILOS_BRUTO_DESPACHO'),
+
                         $DESPACHOMP->__GET('PATENTE_CAMION'),
                         $DESPACHOMP->__GET('PATENTE_CARRO'),
-                        $DESPACHOMP->__GET('OBSERVACION_DESPACHO'),
+                        $DESPACHOMP->__GET('REGALO_DESPACHO'),
                         $DESPACHOMP->__GET('TDESPACHO'),
-
+                        $DESPACHOMP->__GET('OBSERVACION_DESPACHO'),
                         $DESPACHOMP->__GET('ID_PLANTA2'),
+
+                        $DESPACHOMP->__GET('ID_PLANTA3'),
                         $DESPACHOMP->__GET('ID_PRODUCTOR'),
                         $DESPACHOMP->__GET('ID_COMPRADOR'),
-
                         $DESPACHOMP->__GET('ID_CONDUCTOR'),
                         $DESPACHOMP->__GET('ID_TRANSPORTE'),
+
                         $DESPACHOMP->__GET('ID_EMPRESA'),
                         $DESPACHOMP->__GET('ID_PLANTA'),
-                        $DESPACHOMP->__GET('ID_TEMPORADA')
+                        $DESPACHOMP->__GET('ID_TEMPORADA'),
+                        $DESPACHOMP->__GET('ID_USUARIOI'),
+                        $DESPACHOMP->__GET('ID_USUARIOM')
                     )
 
                 );
@@ -358,30 +249,41 @@ class DESPACHOMP_ADO
     public function actualizarDespachomp(DESPACHOMP $DESPACHOMP)
     {
         try {
+            if ($DESPACHOMP->__GET('ID_PLANTA2') == NULL) {
+                $DESPACHOMP->__SET('ID_PLANTA2', NULL);
+            }
+            if ($DESPACHOMP->__GET('ID_PLANTA3') == NULL) {
+                $DESPACHOMP->__SET('ID_PLANTA3', NULL);
+            }
+            if ($DESPACHOMP->__GET('ID_PRODUCTOR') == NULL) {
+                $DESPACHOMP->__SET('ID_PRODUCTOR', NULL);
+            }
+            if ($DESPACHOMP->__GET('ID_COMPRADOR') == NULL) {
+                $DESPACHOMP->__SET('ID_COMPRADOR', NULL);
+            }
             $query = "
-		UPDATE fruta_despachomp SET
-        FECHA_DESPACHO = ?,
-        NUMERO_GUIA_DESPACHO = ?,
-        CANTIDAD_ENVASE_DESPACHO = ?,
-        KILOS_NETO_DESPACHO = ?, 
-        KILOS_BRUTO_DESPACHO = ?, 
-        MODIFICACION = SYSDATE(),
-        PATENTE_CAMION = ?,
-        PATENTE_CARRO = ?,
-        OBSERVACION_DESPACHO = ?,
-        TDESPACHO = ?,
-
-        ID_PLANTA2 = ?,
-        ID_PRODUCTOR = ?,
-        ID_COMPRADOR = ?,
-
-        ID_CONDUCTOR = ?,
-        ID_TRANSPORTE = ?, 
-        ID_EMPRESA = ?,
-        ID_PLANTA = ?, 
-        ID_TEMPORADA = ?, 
-        ESTADO = 1
-		WHERE ID_DESPACHO= ?;";
+                UPDATE fruta_despachomp SET
+                        MODIFICACION = SYSDATE(),
+                        FECHA_DESPACHO = ?,
+                        NUMERO_GUIA_DESPACHO = ?,
+                        CANTIDAD_ENVASE_DESPACHO = ?,
+                        KILOS_NETO_DESPACHO = ?, 
+                        KILOS_BRUTO_DESPACHO = ?,           
+                        PATENTE_CAMION = ?,
+                        PATENTE_CARRO = ?,
+                        TDESPACHO = ?,
+                        OBSERVACION_DESPACHO = ?,
+                        ID_PLANTA2 = ?,
+                        ID_PLANTA3 = ?,
+                        ID_PRODUCTOR = ?,
+                        ID_COMPRADOR = ?,
+                        ID_CONDUCTOR = ?,
+                        ID_TRANSPORTE = ?, 
+                        ID_EMPRESA = ?,
+                        ID_PLANTA = ?, 
+                        ID_TEMPORADA = ?, 
+                        ID_USUARIOM = ? 
+                WHERE ID_DESPACHO= ?  ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -392,18 +294,18 @@ class DESPACHOMP_ADO
                         $DESPACHOMP->__GET('KILOS_BRUTO_DESPACHO'),
                         $DESPACHOMP->__GET('PATENTE_CAMION'),
                         $DESPACHOMP->__GET('PATENTE_CARRO'),
-                        $DESPACHOMP->__GET('OBSERVACION_DESPACHO'),
                         $DESPACHOMP->__GET('TDESPACHO'),
-
+                        $DESPACHOMP->__GET('OBSERVACION_DESPACHO'),
                         $DESPACHOMP->__GET('ID_PLANTA2'),
+                        $DESPACHOMP->__GET('ID_PLANTA3'),
                         $DESPACHOMP->__GET('ID_PRODUCTOR'),
                         $DESPACHOMP->__GET('ID_COMPRADOR'),
-
                         $DESPACHOMP->__GET('ID_CONDUCTOR'),
                         $DESPACHOMP->__GET('ID_TRANSPORTE'),
                         $DESPACHOMP->__GET('ID_EMPRESA'),
                         $DESPACHOMP->__GET('ID_PLANTA'),
                         $DESPACHOMP->__GET('ID_TEMPORADA'),
+                        $DESPACHOMP->__GET('ID_USUARIOM'),
                         $DESPACHOMP->__GET('ID_DESPACHO')
 
                     )
@@ -414,59 +316,9 @@ class DESPACHOMP_ADO
         }
     }
 
+//VISUALIZAR
 
 
-
-    //FUNCIONES ESPECIALIZADAS 
-
-    //ACTUALIZAR INFORMACION DE LA FILA
-    public function actualizarDespachoExistenciaExportacion(DESPACHOMP $DESPACHOMP)
-    {
-        try {
-            $query = "
-    UPDATE fruta_despachomp SET
-        CANTIDAD_ENVASE_DESPACHO= ?,
-        KILOS_NETO_DESPACHO= ?,
-        MODIFICACION = SYSDATE()        
-    WHERE ID_DESPACHO= ?;";
-            $this->conexion->prepare($query)
-                ->execute(
-                    array(
-                        $DESPACHOMP->__GET('CANTIDAD_ENVASE_DESPACHO'),
-                        $DESPACHOMP->__GET('KILOS_NETO_DESPACHO'),
-                        $DESPACHOMP->__GET('ID_DESPACHO')
-
-                    )
-
-                );
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    //ACTUALIZAR INFORMACION DE LA FILA
-    public function actualizarDespachoQuitarExistenciaExportacion(DESPACHOMP $DESPACHOMP)
-    {
-        try {
-            $query = "
-    UPDATE fruta_despachomp SET
-        CANTIDAD_ENVASE_DESPACHO= ?,
-        KILOS_NETO_DESPACHO= ?,
-        MODIFICACION = SYSDATE()        
-    WHERE ID_DESPACHO= ?;";
-            $this->conexion->prepare($query)
-                ->execute(
-                    array(
-                        $DESPACHOMP->__GET('CANTIDAD_ENVASE_PCDESPACHO'),
-                        $DESPACHOMP->__GET('KILOS_NETO_DESPACHO'),
-                        $DESPACHOMP->__GET('ID_DESPACHO')
-
-                    )
-
-                );
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
 
     //CAMBIO DE ESTADO DE REGISTRO DEL REGISTRO
@@ -556,51 +408,51 @@ class DESPACHOMP_ADO
      * 4=Aprobado
      */
 
-    public function  porConfirmar(DESPACHOPT $DESPACHOPT)
+    public function  porConfirmar(DESPACHOMP $DESPACHOMP)
     {
         try {
             $query = "
-                    UPDATE despachopt SET			
+                    UPDATE fruta_despachomp SET			
                             ESTADO_DESPACHO = 1
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DESPACHOPT->__GET('ID_DESPACHO')
+                        $DESPACHOMP->__GET('ID_DESPACHO')
                     )
                 );
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function  Confirmado(DESPACHOPT $DESPACHOPT)
+    public function  Confirmado(DESPACHOMP $DESPACHOMP)
     {
         try {
             $query = "
-                    UPDATE despachopt SET			
+                    UPDATE fruta_despachomp SET			
                             ESTADO_DESPACHO = 2
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DESPACHOPT->__GET('ID_DESPACHO')
+                        $DESPACHOMP->__GET('ID_DESPACHO')
                     )
                 );
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function  Rechazado(DESPACHOPT $DESPACHOPT)
+    public function  Rechazado(DESPACHOMP $DESPACHOMP)
     {
         try {
             $query = "
-                    UPDATE despachopt SET			
+                    UPDATE fruta_despachomp SET			
                             ESTADO_DESPACHO = 3
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DESPACHOPT->__GET('ID_DESPACHO')
+                        $DESPACHOMP->__GET('ID_DESPACHO')
                     )
                 );
         } catch (Exception $e) {
@@ -608,17 +460,17 @@ class DESPACHOMP_ADO
         }
     }
 
-    public function  Aprobado(DESPACHOPT $DESPACHOPT)
+    public function  Aprobado(DESPACHOMP $DESPACHOMP)
     {
         try {
             $query = "
-                    UPDATE despachopt SET			
+                    UPDATE fruta_despachomp SET			
                             ESTADO_DESPACHO = 4
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DESPACHOPT->__GET('ID_DESPACHO')
+                        $DESPACHOMP->__GET('ID_DESPACHO')
                     )
                 );
         } catch (Exception $e) {
@@ -626,46 +478,21 @@ class DESPACHOMP_ADO
         }
     }
 
-    //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
-    public function buscarDespachompID(
-        $FECHADESPACHOMP,
-        $NUMEROGUIADESPACHO,
-        $CANTIDADENVASEDESPACHO,
-        $KILOSNETODESPACHO,
-        $KILOSBRUTODESPACHO,
-        $CONDUCTOR,
-        $TRANSPORTE,
-        $EMPRESA,
-        $PLANTA,
-        $TEMPORADA
-    ) {
+    //LISTAR
+    public function listarDespachompEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
         try {
-            $datos = $this->conexion->prepare(" SELECT *
-                                            FROM fruta_despachomp
-                                            WHERE 
-                                                 FECHA_DESPACHO LIKE '" . $FECHADESPACHOMP . "' 
-                                                 AND NUMERO_GUIA_DESPACHO  = '" . $NUMEROGUIADESPACHO . "'  
-                                                 AND CANTIDAD_ENVASE_DESPACHO  = '" . $CANTIDADENVASEDESPACHO . "' 
-                                                 AND KILOS_NETO_DESPACHO  = '" . $KILOSNETODESPACHO . "' 
-                                                 AND KILOS_BRUTO_DESPACHO  = '" . $KILOSBRUTODESPACHO . "' 
 
-                                                 AND DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
-                                                 AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')
-                                                 
-                                                 AND ID_CONDUCTOR = '" . $CONDUCTOR . "'   
-                                                 AND ID_TRANSPORTE = '" . $TRANSPORTE . "' 
-                                                 
-                                                 AND ID_EMPRESA = '" . $EMPRESA . "'                                      
-                                                 AND ID_PLANTA = '" . $PLANTA . "'                                      
-                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "'
-                                                 ORDER BY ID_DESPACHO DESC
-                                                
-                                                 ; ");
+            $datos = $this->conexion->prepare("SELECT * 
+                                        FROM fruta_despachomp                                                                           
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
             //	print_r($resultado);
-            // var_dump($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
@@ -673,14 +500,48 @@ class DESPACHOMP_ADO
             die($e->getMessage());
         }
     }
-
-
-    //BUSCAR FECHA ACTUAL DEL SISTEMA
-    public function obtenerFecha()
+    public function listarDespachompEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA' , DATE_FORMAT(NOW( ), '%H:%i') AS 'HORA'   ;");
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FORMAT(CANTIDAD_ENVASE_DESPACHO,0,'de_DE')  AS 'ENVASE',
+                                                FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO',
+                                                FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO'
+                                        FROM fruta_despachomp                                                                           
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarDespachompEmpresaPlantaTemporadaInterplantaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FORMAT(CANTIDAD_ENVASE_DESPACHO,0,'de_DE')  AS 'ENVASE',
+                                                FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO',
+                                                FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO'
+                                        FROM fruta_despachomp                                                                           
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA2 = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -694,6 +555,38 @@ class DESPACHOMP_ADO
         }
     }
 
+    public function listarDespachompEmpresaPlantaTemporadaGuiaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FORMAT(CANTIDAD_ENVASE_DESPACHO,0,'de_DE')  AS 'ENVASE',
+                                                FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO',
+                                                FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO'
+                                        FROM fruta_despachomp                                                                           
+                                        WHERE   TDESPACHO = 1
+                                                AND ESTADO_DESPACHO = 2
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+    //BUSCAR
 
     public function buscarDespachompPorProductorGuiaEmpresaPlantaTemporada($NUMEROGUIA, $PRODUCTOR, $EMPRESA, $PLANTA, $TEMPORADA)
     {
@@ -720,11 +613,164 @@ class DESPACHOMP_ADO
         }
     }
 
-    //FILTROS LISTA
 
 
+    //TOTALES
+    public function obtenerTotalesDespachompCBX2($IDDESPACHO )
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'   
+                                        FROM fruta_despachomp 
+                                                                                                             
+                                        WHERE ID_DESPACHO = '" . $IDDESPACHO . "' 
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
 
 
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesDespachompEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'   
+                                        FROM fruta_despachomp 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesDespachompEmpresaPlantaTemporadaInterplantaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'   
+                                        FROM fruta_despachomp 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA2 = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesDespachompEmpresaPlantaTemporadaGuiaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'  
+                                        FROM fruta_despachomp                                                                                                              
+                                        WHERE   TDESPACHO = 1
+                                                AND ESTADO_DESPACHO = 2
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+    //OTRAS FUNCIONALIDADES
+
+    //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
+    public function obtenerId($FECHADESPACHOMP, $EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT *
+                                        FROM fruta_despachomp
+                                        WHERE 
+                                             FECHA_DESPACHO LIKE '" . $FECHADESPACHOMP . "'
+                                             AND DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
+                                             AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')   
+                                             AND ID_EMPRESA = '" . $EMPRESA . "'                                      
+                                             AND ID_PLANTA = '" . $PLANTA . "'                                      
+                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                             ORDER BY ID_DESPACHO DESC
+                                            
+                                             ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            // var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    //BUSCAR FECHA ACTUAL DEL SISTEMA
+    public function obtenerFecha()
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA' , DATE_FORMAT(NOW( ), '%H:%i') AS 'HORA'   ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function obtenerNumero($EMPRESA, $PLANTA, $TEMPORADA)
     {

@@ -2128,7 +2128,7 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO' , 
-                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETOS' 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETOSF' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_REEMBALAJE = '" . $IDREEMBALAJE . "' 
@@ -2932,9 +2932,9 @@ class EXIEXPORTACION_ADO
         try {
             $query = "
                             UPDATE fruta_exiexportacion SET	
-                                    MODIFICACION = SYSDATE(), 		
-                                    FECHA_DESPACHO = ?, 		
-                                    ESTADO = 8
+                                    MODIFICACION = SYSDATE(), 	
+                                    ESTADO = 8,
+                                    FECHA_DESPACHO = ?
                             WHERE ID_EXIEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -2994,11 +2994,13 @@ class EXIEXPORTACION_ADO
             $query = "
                             UPDATE fruta_exiexportacion SET		
                                     MODIFICACION = SYSDATE(), 	
-                                    ESTADO = 9
+                                    ESTADO = 9, 	
+                                    FECHA_DESPACHO = ?
                             WHERE ID_EXIEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
+                        $EXIEXPORTACION->__GET('FECHA_DESPACHO').
                         $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
                     )
 

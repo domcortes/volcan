@@ -151,6 +151,20 @@ class DESPACHOPT_ADO
     {
         try {
 
+            if ($DESPACHOPT->__GET('ID_PLANTA2') == NULL) {
+                $DESPACHOPT->__SET('ID_PLANTA2', NULL);
+            }
+            if ($DESPACHOPT->__GET('ID_PLANTA3') == NULL) {
+                $DESPACHOPT->__SET('ID_PLANTA3', NULL);
+            }
+            if ($DESPACHOPT->__GET('ID_PRODUCTOR') == NULL) {
+                $DESPACHOPT->__SET('ID_PRODUCTOR', NULL);
+            }
+            if ($DESPACHOPT->__GET('ID_COMPRADOR') == NULL) {
+                $DESPACHOPT->__SET('ID_COMPRADOR', NULL);
+            }
+
+
             $query =
                 "INSERT INTO fruta_despachopt (
                                                 NUMERO_DESPACHO, 
@@ -237,6 +251,20 @@ class DESPACHOPT_ADO
     public function actualizarDespachopt(DESPACHOPT $DESPACHOPT)
     {
         try {
+
+            if ($DESPACHOPT->__GET('ID_PLANTA2') == NULL) {
+                $DESPACHOPT->__SET('ID_PLANTA2', NULL);
+            }
+            if ($DESPACHOPT->__GET('ID_PLANTA3') == NULL) {
+                $DESPACHOPT->__SET('ID_PLANTA3', NULL);
+            }
+            if ($DESPACHOPT->__GET('ID_PRODUCTOR') == NULL) {
+                $DESPACHOPT->__SET('ID_PRODUCTOR', NULL);
+            }
+            if ($DESPACHOPT->__GET('ID_COMPRADOR') == NULL) {
+                $DESPACHOPT->__SET('ID_COMPRADOR', NULL);
+            }
+
             $query = "
 		UPDATE fruta_despachopt SET
 
@@ -367,8 +395,7 @@ class DESPACHOPT_ADO
                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i:%S') AS 'MODIFICACION',
                                                    FORMAT(CANTIDAD_ENVASE_DESPACHO,0,'de_DE')  AS 'ENVASE',
                                                    FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO',
-                                                   FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO',
-                                                   FORMAT(NUMERO_GUIA_DESPACHO,2,'de_DE')  AS 'GUIA'
+                                                   FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO'
                                         FROM fruta_despachopt ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -514,6 +541,8 @@ class DESPACHOPT_ADO
             die($e->getMessage());
         }
     }
+
+    
     //TOTALES
     public function obtenerTotalesDespachoptCBX2()
     {

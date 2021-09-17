@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
 include_once '../controlador/TUSUARIO_ADO.php';
@@ -44,221 +44,223 @@ $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
-$IDOP="";
-$NUMEROREEMBALAJE="";
-$VARIEDAD="";
-$FECHAREEMBALAJE="";
-$TIPOREEMBALAJE="";
-$TURNO="";
-$EMBOLSADO="";
+$IDOP = "";
+$NUMEROREEMBALAJE = "";
+$VARIEDAD = "";
+$FECHAREEMBALAJE = "";
+$TIPOREEMBALAJE = "";
+$TURNO = "";
+$EMBOLSADO = "";
 
-$PRODUCTOR="";
-$CSGPRODUCTOR="";
-$NOMBREPRODUCTOR="";
-$PLANTA="";
+$PRODUCTOR = "";
+$CSGPRODUCTOR = "";
+$NOMBREPRODUCTOR = "";
+$PLANTA = "";
 
-$TOTALENVASE="";
-$TOTALNETO="";
-$TOTALBRUTO=0;
+$TOTALENVASE = "";
+$TOTALNETO = "";
+$TOTALBRUTO = 0;
 
-$TOTALENVASEDEXPORTACION="";
-$TOTALNETODEXPORTACION="";
-$TOTALBRUTODEXPORTACION="";
-$TOTALDESHIDRATACIONDEXPORTACION="";
+$TOTALENVASEDEXPORTACION = "";
+$TOTALNETODEXPORTACION = "";
+$TOTALBRUTODEXPORTACION = "";
+$TOTALDESHIDRATACIONDEXPORTACION = "";
 
-$TOTALENVASEDINDUSTRIAL="";
-$TOTALNETODINDUSTRIAL="";
-$TOTALBRUTODINDUSTRIAL="";
+$TOTALENVASEDINDUSTRIAL = "";
+$TOTALNETODINDUSTRIAL = "";
+$TOTALBRUTODINDUSTRIAL = "";
 
-$PDEXPORTACION="";
-$PDINDUSTRIAL="";
-$PDTOTAL="";
+$PDEXPORTACION = "";
+$PDINDUSTRIAL = "";
+$PDTOTAL = "";
 
-$TOTALSALIDA="";
-$TOTAL2="";
-$TOTALDIFERENCIA="";
+$TOTALSALIDA = "";
+$TOTAL2 = "";
+$TOTALDIFERENCIA = "";
 
-$EMPRESA="";
-$EMPRESAURL="";
+$EMPRESA = "";
+$EMPRESAURL = "";
 
-$NOMBRE="";
-$html='';
+$NOMBRE = "";
+$html = '';
 
 
 //INICIALIZAR ARREGLOS
 
-$ARRAYVERTREEMBALAJE="";
-$ARRAYVERPVESPECIES="";
-$ARRAYVERVESPECIES="";
+$ARRAYVERTREEMBALAJE = "";
+$ARRAYVERPVESPECIES = "";
+$ARRAYVERVESPECIES = "";
 
-$ARRAYVESPECIES="";
-$ARRAYPVESPECIES="";
+$ARRAYVESPECIES = "";
+$ARRAYPVESPECIES = "";
 
-$ARRAYDEXPORTACION="";
-$ARRAYDEXPORTACION2="";
+$ARRAYDEXPORTACION = "";
+$ARRAYDEXPORTACION2 = "";
 $ARRAYDEXPORTACIONTOTALES = "";
 
-$ARRAYDINDUSTRIAL="";
-$ARRAYDINDUSTRIAL2="";
+$ARRAYDINDUSTRIAL = "";
+$ARRAYDINDUSTRIAL2 = "";
 $ARRAYDINDUSTRIALTOTALES = "";
 
 $ARRAYDREPALETIZAJETOTALES = "";
-$ARRAYEXISTENCIATOMADA="";
-$ARRAYEXISTENCIATOMADATOTALES="";
-$ARRAYEVEEXPORTACIONID="";
-$ARRAYEVERERECEPCIONID="";
+$ARRAYEXISTENCIATOMADA = "";
+$ARRAYEXISTENCIATOMADATOTALES = "";
+$ARRAYEVEEXPORTACIONID = "";
+$ARRAYEVERERECEPCIONID = "";
 $ARRAYEVEINDUSTRIALID;
 
-$ARRAYEMPRESA="";
-$ARRAYREEMBALAJE="";
-$ARRAYREEMBALAJETOTALES="";
-$ARRAYUSUARIO="";
+$ARRAYEMPRESA = "";
+$ARRAYREEMBALAJE = "";
+$ARRAYREEMBALAJETOTALES = "";
+$ARRAYUSUARIO = "";
 
-if(isset($_REQUEST['NOMBREUSUARIO'])){
-    $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-    $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
-    $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-    
-  }
-  
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
+  $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
+}
 
-if (isset($_REQUEST['parametro']) ) {
-    $IDOP = $_REQUEST['parametro'];
+
+if (isset($_REQUEST['parametro'])) {
+  $IDOP = $_REQUEST['parametro'];
 }
 
 $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($IDOP);
 $ARRAYREEMBALAJETOTALES = $REEMBALAJE_ADO->obtenerTotales($IDOP);
-$ARRAYEXISTENCIATOMADA=$EXIEXPORTACION_ADO->buscarPorReembalaje2($IDOP);
+$ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorReembalaje2($IDOP);
 
-$ARRAYDEXPORTACION=$DREXPORTACION_ADO->buscarPorReembalaje2($IDOP);
+$ARRAYDEXPORTACION = $DREXPORTACION_ADO->buscarPorReembalaje2($IDOP);
 $ARRAYDEXPORTACIONTOTALES = $DREXPORTACION_ADO->obtenerTotales2($IDOP);
 
-$ARRAYDINDUSTRIAL=$DRINDUSTRIAL_ADO->buscarPorReembalaje2($IDOP);
+$ARRAYDINDUSTRIAL = $DRINDUSTRIAL_ADO->buscarPorReembalaje2($IDOP);
 $ARRAYDINDUSTRIALTOTALES = $DRINDUSTRIAL_ADO->obtenerTotales2($IDOP);
 
-$PDEXPORTACION=$ARRAYREEMBALAJE[0]['PDEXPORTACION_REEMBALAJE'];
-$PDINDUSTRIAL=$ARRAYREEMBALAJE[0]['PDINDUSTRIAL_REEMBALAJE'];
-$NUMEROREEMBALAJE=$ARRAYREEMBALAJE[0]['NUMERO_REEMBALAJE'];
-$PDTOTAL=$PDEXPORTACION+$PDINDUSTRIAL;
+$PDEXPORTACION = $ARRAYREEMBALAJE[0]['PDEXPORTACION_REEMBALAJE'];
+$PDINDUSTRIAL = $ARRAYREEMBALAJE[0]['PDINDUSTRIAL_REEMBALAJE'];
+$NUMEROREEMBALAJE = $ARRAYREEMBALAJE[0]['NUMERO_REEMBALAJE'];
+$OBSERVACIONES = $ARRAYREEMBALAJE[0]['OBSERVACIONE_REEMBALAJE'];
+$PDTOTAL = $PDEXPORTACION + $PDINDUSTRIAL;
 
-$TOTALSALIDA=$ARRAYREEMBALAJETOTALES[0]['SALIDA'];
+$TOTALSALIDA = $ARRAYREEMBALAJETOTALES[0]['SALIDA'];
+$TOTALSALIDASF = $ARRAYREEMBALAJETOTALES[0]['SALIDASF'];
 
-$TOTALENVASEDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['ENVASE']; //TOTAL_DESHIDRATACION
-$TOTALNETODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['NETO'];
-$TOTALDESHIDRATACIONDEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
-$TOTALBRUTODEXPORTACION=$ARRAYDEXPORTACIONTOTALES[0]['BRUTO'];
+$TOTALENVASEDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['ENVASE']; //TOTAL_DESHIDRATACION
+$TOTALNETODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['NETO'];
+$TOTALDESHIDRATACIONDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
+$TOTALBRUTODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['BRUTO'];
 
-$TOTALNETODINDUSTRIAL=$ARRAYDINDUSTRIALTOTALES[0]['NETO'];
+$TOTALNETODINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETO'];
 //$TOTALBRUTODINDUSTRIAL=$ARRAYDINDUSTRIALTOTALES[0]['TOTAL_BRUTO'];
 
-$ARRAYEXISTENCIATOMADATOTALES=$EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
+$ARRAYEXISTENCIATOMADATOTALES = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
 
-$TOTALENVASE=$ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
-$TOTALNETO=$ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
+$TOTALENVASE = $ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
+$TOTALNETO = $ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
+$TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
 
-$TOTAL2=$TOTALNETO-$TOTALSALIDA;
+$TOTAL2 = $TOTALNETOSF - $TOTALSALIDASF;
 
-$ARRAYVERVESPECIES=$VESPECIES_ADO->verVespecies($ARRAYREEMBALAJE[0]['ID_VESPECIES']);
+$ARRAYVERVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYREEMBALAJE[0]['ID_VESPECIES']);
 
-$VARIEDAD=$ARRAYVERVESPECIES[0]['NOMBRE_VESPECIES'];
-$FECHAREEMBALAJE=$ARRAYREEMBALAJE[0]['FECHA'];
+$VARIEDAD = $ARRAYVERVESPECIES[0]['NOMBRE_VESPECIES'];
+$FECHAREEMBALAJE = $ARRAYREEMBALAJE[0]['FECHA'];
 
-$ARRAYTREEMBALAJE=$TREEMBALAJE_ADO->verTreembalaje($ARRAYREEMBALAJE[0]['ID_TREEMBALAJE']);
+$ARRAYTREEMBALAJE = $TREEMBALAJE_ADO->verTreembalaje($ARRAYREEMBALAJE[0]['ID_TREEMBALAJE']);
 
-$TIPOREEMBALAJE=$ARRAYTREEMBALAJE[0]['NOMBRE_TREEMBALAJE'];
-if($ARRAYREEMBALAJE[0]['TURNO']==1){
-    $TURNO="DIA";
+$TIPOREEMBALAJE = $ARRAYTREEMBALAJE[0]['NOMBRE_TREEMBALAJE'];
+if ($ARRAYREEMBALAJE[0]['TURNO'] == 1) {
+  $TURNO = "DIA";
 }
-if($ARRAYREEMBALAJE[0]['TURNO']==2){
-    $TURNO="NOCHE";
+if ($ARRAYREEMBALAJE[0]['TURNO'] == 2) {
+  $TURNO = "NOCHE";
 }
-$PRODUCTOR=$ARRAYREEMBALAJE[0]['ID_PRODUCTOR'];
+$PRODUCTOR = $ARRAYREEMBALAJE[0]['ID_PRODUCTOR'];
 
 
 
-$ARRAYPRODUCTOR=$PRODUCTOR_ADO->verProductor($PRODUCTOR);
-$NOMBREPRODUCTOR=$ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-$CSGPRODUCTOR=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+$ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+$NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+$CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
 
 
-$ARRAYPLANTA=$PLANTA_ADO->verPlanta($ARRAYREEMBALAJE[0]['ID_PLANTA']);
-$ARRAYEMPRESA=$EMPRESA_ADO->verEmpresa($ARRAYREEMBALAJE[0]['ID_EMPRESA']);
-$ARRAYTEMPORADA=$TEMPORADA_ADO->verTemporada($ARRAYREEMBALAJE[0]['ID_TEMPORADA']);
-$TEMPORADA =$ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-$PLANTA=$ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-$EMPRESA=$ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL=$ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYREEMBALAJE[0]['ID_PLANTA']);
+$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYREEMBALAJE[0]['ID_EMPRESA']);
+$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYREEMBALAJE[0]['ID_TEMPORADA']);
+$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
 
-if($EMPRESAURL==""){
-    $EMPRESAURL="img/empresa/no_disponible.png";
+if ($EMPRESAURL == "") {
+  $EMPRESAURL = "img/empresa/no_disponible.png";
 }
 
 //OBTENCION DE LA FECHA
 date_default_timezone_set('America/Santiago');
 //SE LE PASA LA FECHA ACTUAL A UN ARREGLO
-$ARRAYFECHADOCUMENTO =getdate();
+$ARRAYFECHADOCUMENTO = getdate();
 
 //SE OBTIENE INFORMACION RELACIONADA CON LA HORA
-$HORA="".$ARRAYFECHADOCUMENTO['hours'];
-$MINUTO="".$ARRAYFECHADOCUMENTO['minutes'];
-$SEGUNDO="".$ARRAYFECHADOCUMENTO['seconds'];
+$HORA = "" . $ARRAYFECHADOCUMENTO['hours'];
+$MINUTO = "" . $ARRAYFECHADOCUMENTO['minutes'];
+$SEGUNDO = "" . $ARRAYFECHADOCUMENTO['seconds'];
 //EN CASO DE VALORES MENOS A 2 LENGHT, SE LE CONCATENA UN 0
 if ($MINUTO < 10) {
-    $MINUTO = "0".$MINUTO;
+  $MINUTO = "0" . $MINUTO;
 }
 if ($SEGUNDO < 10) {
-    $SEGUNDO = "0".$SEGUNDO;
+  $SEGUNDO = "0" . $SEGUNDO;
 }
 
 // SE JUNTA LA INFORMAICON DE LA HORA Y SE LE DA UN FORMATO
-$HORAFINAL=$HORA."".$MINUTO."".$SEGUNDO;
-$HORAFINAL2=$HORA.":".$MINUTO.":".$SEGUNDO;
+$HORAFINAL = $HORA . "" . $MINUTO . "" . $SEGUNDO;
+$HORAFINAL2 = $HORA . ":" . $MINUTO . ":" . $SEGUNDO;
 
 //SE OBTIENE INFORMACION RELACIONADA CON LA FECHA
-$DIA="".$ARRAYFECHADOCUMENTO['mday'];
+$DIA = "" . $ARRAYFECHADOCUMENTO['mday'];
 
-$MES="".$ARRAYFECHADOCUMENTO['mon'];
-$ANO="".$ARRAYFECHADOCUMENTO['year'];
-$NOMBREMES="".$ARRAYFECHADOCUMENTO['month'];
-$NOMBREDIA="".$ARRAYFECHADOCUMENTO['weekday'];
+$MES = "" . $ARRAYFECHADOCUMENTO['mon'];
+$ANO = "" . $ARRAYFECHADOCUMENTO['year'];
+$NOMBREMES = "" . $ARRAYFECHADOCUMENTO['month'];
+$NOMBREDIA = "" . $ARRAYFECHADOCUMENTO['weekday'];
 //EN CASO DE VALORES MENOS A 2 LENGHT, SE LE CONCATENA UN 0
 if ($DIA < 10) {
-    $DIA = "0".$DIA;
+  $DIA = "0" . $DIA;
 }
 //PARA TRAUDCIR EL MES AL ESPAÑOL
-$MESESNOMBRES= array(
-    "January" => "Enero",
-    "February" => "Febrero",
-    "March" => "Marzo",
-    "April" => "Abril",
-    "May" => "Mayo",
-    "June" => "Junio",
-    "July" => "Julio",
-    "August" => "Agosto",
-    "September" => "Septiembre",
-    "October" => "Octubre",
-    "November" => "Noviembre",
-    "December" => "Diciembre"
-); 
+$MESESNOMBRES = array(
+  "January" => "Enero",
+  "February" => "Febrero",
+  "March" => "Marzo",
+  "April" => "Abril",
+  "May" => "Mayo",
+  "June" => "Junio",
+  "July" => "Julio",
+  "August" => "Agosto",
+  "September" => "Septiembre",
+  "October" => "Octubre",
+  "November" => "Noviembre",
+  "December" => "Diciembre"
+);
 //PARA TRAUDCIR EL DIA AL ESPAÑOL
-$DIASNOMBRES= array(
-    "Monday" => "Lunes",
-    "Tuesday" => "Martes",
-    "Wednesday" => "Miércoles",
-    "Thursday" => "Jueves",
-    "Friday" => "Viernes",
-    "Saturday" => "Sábado",
-    "Sunday" => "Domingo"
-); 
+$DIASNOMBRES = array(
+  "Monday" => "Lunes",
+  "Tuesday" => "Martes",
+  "Wednesday" => "Miércoles",
+  "Thursday" => "Jueves",
+  "Friday" => "Viernes",
+  "Saturday" => "Sábado",
+  "Sunday" => "Domingo"
+);
 
 $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
-$FECHANORMAL=$DIA."".$MES."".$ANO;
-$FECHANOMBRE=$NOMBREDIA.", ".$DIA." de ".$NOMBREMES." del ".$ANO;
+$FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
-$html='
+$html = '
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -286,23 +288,23 @@ $html='
       <div id="details" class="clearfix">
         
         <div id="invoice">
-          <div class="date"><b>Fecha Reembalaje: </b>'.$FECHAREEMBALAJE.' </div>
-          <div class="date"><b>Empresa: </b>'.$EMPRESA.'</div>
-          <div class="date"><b>Planta: </b>'.$PLANTA.'</div>
-          <div class="date"><b>Temporada: </b>'.$TEMPORADA.'</div>
+          <div class="date"><b>Fecha Reembalaje: </b>' . $FECHAREEMBALAJE . ' </div>
+          <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
+          <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
+          <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
         </div>
 
         <div id="client">
-          <div class="address"><b>Tipo Reembalaje: </b>'.$TIPOREEMBALAJE.'</div>
-          <div class="address"><b>Nombre Productor: </b>'.$NOMBREPRODUCTOR.'</div>
-          <div class="address"><b>CSG: </b>'.$CSGPRODUCTOR.'</div>
-          <div class="address"><b>Variedad: </b>'.$VARIEDAD.' </div>
+          <div class="address"><b>Tipo Reembalaje: </b>' . $TIPOREEMBALAJE . '</div>
+          <div class="address"><b>Nombre Productor: </b>' . $NOMBREPRODUCTOR . '</div>
+          <div class="address"><b>CSG: </b>' . $CSGPRODUCTOR . '</div>
+          <div class="address"><b>Variedad: </b>' . $VARIEDAD . ' </div>
         </div>
         
       </div>
      ';
-  
-$html=$html.'      
+
+$html = $html . '      
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
@@ -322,58 +324,58 @@ $html=$html.'
         </thead>
          <tbody>
         ';
-        foreach ($ARRAYEXISTENCIATOMADA as $r) : 
+foreach ($ARRAYEXISTENCIATOMADA as $r) :
 
-            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-            $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-            $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-            if($r['EMBOLSADO']=="1"){
-                $EMBOLSADO="SI";
-            }
-            if($r['EMBOLSADO']=="0"){
-                $EMBOLSADO="NO";
-            }
-$html=$html.'    
+  $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+  $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+  $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+  $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+  if ($r['EMBOLSADO'] == "1") {
+    $EMBOLSADO = "SI";
+  }
+  if ($r['EMBOLSADO'] == "0") {
+    $EMBOLSADO = "NO";
+  }
+  $html = $html . '    
             <tr>
-                <th class=" left">'.$r['FOLIO_AUXILIAR_EXIEXPORTACION'].'</th>
-                <td class=" center">'.$r['EMBALADO'].'</td>
-                <td class=" center">'.$ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'].'</td>
-                <td class=" center">'.$r['ENVASE'].'</td>
-                <td class=" center">'.$r['NETO'].'</td>
-                <td class=" center">'.$r['DESHIRATACION'].'</td>
-                <td class=" center">'.$EMBOLSADO.'</td>
-                <td class=" center">'.$TMANEJO.'</td>
-                <td class=" center ">'.$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'].' </td>
+                <th class=" left">' . $r['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
+                <td class=" center">' . $r['EMBALADO'] . '</td>
+                <td class=" center">' . $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'] . '</td>
+                <td class=" center">' . $r['ENVASE'] . '</td>
+                <td class=" center">' . $r['NETO'] . '</td>
+                <td class=" center">' . $r['DESHIRATACION'] . '</td>
+                <td class=" center">' . $EMBOLSADO . '</td>
+                <td class=" center">' . $TMANEJO . '</td>
+                <td class=" center ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
             </tr>
 ';
 
-        endforeach;
+endforeach;
 
-        $html=$html.'
+$html = $html . '
     
         <tr>
-            <th class=" left"></th>
-            <th class=" center"></th>
-            <th class=" center"></th>
-            <th class=" right">Sub Total</th>
-            <th class=" center">'.$TOTALENVASE.'</th>
-            <th class=" center">'.$TOTALNETO.'</th>
-            <th class=" center"></th>
-            <th class=" center "> </th>
-            <th class=" center "> </th>
+            <th class="color left"></th>
+            <th class="color center"></th>
+            <th class="color center"></th>
+            <th class="color right">Sub Total</th>
+            <th class="color center">' . $TOTALENVASE . '</th>
+            <th class="color center">' . $TOTALNETO . '</th>
+            <th class="color center"></th>
+            <th class="color center "> </th>
+            <th class="color center "> </th>
         </tr>
 ';
 
 
-        $html=$html.'
+$html = $html . '
         </tbody>
       </table>
       ';
 
 
-      $html=$html.'      
+$html = $html . '      
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
             <tr>
@@ -396,54 +398,54 @@ $html=$html.'
         </thead>
          <tbody>
         ';
-        foreach ($ARRAYDEXPORTACION as $r) : 
-    
-            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-            $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-            $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-            if($r['EMBOLSADO']=="1"){
-                $EMBOLSADO="SI";
-            }
-            if($r['EMBOLSADO']=="0"){
-                $EMBOLSADO="NO";
-            }
-        $html=$html.'    
+foreach ($ARRAYDEXPORTACION as $r) :
+
+  $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+  $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+  $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+  $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+  if ($r['EMBOLSADO'] == "1") {
+    $EMBOLSADO = "SI";
+  }
+  if ($r['EMBOLSADO'] == "0") {
+    $EMBOLSADO = "NO";
+  }
+  $html = $html . '    
         <tr>
-            <th class=" left"> '.$r['FOLIO_DREXPORTACION'].'</th>
-            <td class=" center"> '.$r['EMBALADO'].'</td>
-            <td class=" center"> '.$ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'].'</td>
-            <td class=" center">'.$r['ENVASE'].' </td>
-            <td class=" center"> '.$r['NETO'].'</td>
-            <td class=" center "> '.$r['DESHIDRATACION'].' </td>
-            <td class=" center "> '.$EMBOLSADO.' </td>
-            <td class=" center "> '.$TMANEJO.' </td>
-            <td class=" center "> '.$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'].' </td>
+            <th class=" left"> ' . $r['FOLIO_DREXPORTACION'] . '</th>
+            <td class=" center"> ' . $r['EMBALADO'] . '</td>
+            <td class=" center"> ' . $ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'] . '</td>
+            <td class=" center">' . $r['ENVASE'] . ' </td>
+            <td class=" center"> ' . $r['NETO'] . '</td>
+            <td class=" center "> ' . $r['DESHIDRATACION'] . ' </td>
+            <td class=" center "> ' . $EMBOLSADO . ' </td>
+            <td class=" center "> ' . $TMANEJO . ' </td>
+            <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         </tr>
         ';
-        
-    endforeach;
-            $html=$html.'    
+
+endforeach;
+$html = $html . '    
             <tr>
-                <th class=" left"> </th>
-                <th class=" center"> </th>
-                <th class=" center"> </th>
-                <th class=" right">Sub Total </th>
-                <th class=" center"> '.$TOTALENVASEDEXPORTACION.'</th>
-                <th class=" center">'.$TOTALNETODEXPORTACION.' </th>
-                <th class=" center "> '.$TOTALDESHIDRATACIONDEXPORTACION.' </th>
-                <th class=" center ">  </th>
-                <th class=" center ">  </th>
+                <th class="color left"> </th>
+                <th class="color center"> </th>
+                <th class="color center"> </th>
+                <th class="color right">Sub Total </th>
+                <th class="color center"> ' . $TOTALENVASEDEXPORTACION . '</th>
+                <th class="color center">' . $TOTALNETODEXPORTACION . ' </th>
+                <th class="color center "> ' . $TOTALDESHIDRATACIONDEXPORTACION . ' </th>
+                <th class="color center ">  </th>
+                <th class="color center ">  </th>
             </tr>
             ';
 
 
-        $html=$html.'
+$html = $html . '
         </tbody>
       </table>
       ';
-      $html=$html.'  
+$html = $html . '  
       <br>    
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
@@ -461,75 +463,62 @@ $html=$html.'
         </thead>
          <tbody>
         ';
-        foreach ($ARRAYDINDUSTRIAL as $r) : 
-    
-            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);    
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-            $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
-                 
-        $html=$html.'    
+foreach ($ARRAYDINDUSTRIAL as $r) :
+
+  $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+  $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
+
+  $html = $html . '    
         <tr>
-            <th class=" left"> '.$r['FOLIO_DRINDUSTRIAL'].'</th>
-            <td class=" center"> '.$r['EMBALADO'].'</td>
-            <td class=" center"> '.$ARRAYEVEINDUSTRIALID[0]['NOMBRE_ESTANDAR'].'</td>
-            <td class=" center"> '.$r['KILOS_NETO_DRINDUSTRIAL'].'</td>
-            <td class=" center "> '.$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'].' </td>
+            <th class=" left"> ' . $r['FOLIO_DRINDUSTRIAL'] . '</th>
+            <td class=" center"> ' . $r['EMBALADO'] . '</td>
+            <td class=" center"> ' . $ARRAYEVEINDUSTRIALID[0]['NOMBRE_ESTANDAR'] . '</td>
+            <td class=" center"> ' . $r['KILOS_NETO_DRINDUSTRIAL'] . '</td>
+            <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         </tr>
         ';
 
-        endforeach;
-        $html=$html.'    
+endforeach;
+$html = $html . '    
         <tr>
-            <th class=" left"> </th>
-            <th class=" center"> </th>
-            <th class=" right">Sub Total </th>
-            <th class=" center">'.$TOTALNETODINDUSTRIAL.' </th>
-            <th class=" center ">  </th>
+            <th class="color left"> </th>
+            <th class="color center"> </th>
+            <th class="color right">Sub Total </th>
+            <th class="color center">' . $TOTALNETODINDUSTRIAL . ' </th>
+            <th class="color center ">  </th>
         </tr>
         ';
 
-        $html=$html.'
+$html = $html . '
         </tbody>
       </table>
       ';
 
-$html=$html.'
+$html = $html . '
      
     </div>
-      <div id="details" >
-            
+      <div id="details" >            
         <div id="client">
           <div class="address"><b>PORCENTAJES: </b></div>
-          <div class="address">EXPORTACION:  '.$PDEXPORTACION.'</div>
-          <div class="address">INDUSTRIAL: '.$PDINDUSTRIAL.' </div>
-          <div class="address">TOTAL: '.$PDTOTAL.'</div>
+          <div class="address">EXPORTACION:  ' . $PDEXPORTACION . '</div>
+          <div class="address">INDUSTRIAL: ' . $PDINDUSTRIAL . ' </div>
+          <div class="address">TOTAL: ' . $PDTOTAL . '</div>
         </div>
         <div id="client">
             <div class="address"><b>DIFERENCIA: </b></div>
-            <div class="address">KILOS NETO INGRESO.:  '.$TOTALNETO.'</div>
-            <div class="address">KILOS NETO SALIDA: '.$TOTALSALIDA.' </div>
-            <div class="address">TOTAL: '.$TOTAL2.'</div>
+            <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
+            <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
+            <div class="address">TOTAL: ' . $TOTAL2 . '</div>
         </div>
-      </div>
-      <br>
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-      </div>
-      <br>
-      <br>    
-              <table >      
-                <tr>
-                  <td class="color2 center" style="width: 30%;" > </td>
-                  <td class="color2  center" style="width: 10%;"> <hr> </td>
-                  <td class="color2 right" style="width: 30%;"> </td>
-                </tr>
-                <tr>
-                  <td class="color2 center" style="width: 30%;" > </td>
-                  <td class="color2  center" style="width: 10%;"> Firma Responsable <br> '.$NOMBRE.' </td>
-                  <td class="color2 center" style="width: 30%;"> </td>
-                </tr>    
-              </table>
+      </div>      
+      <div id="details" >            
+        <div id="client">
+          <div class="address"><b>Observaciones: </b></div>
+          <div class="address">' . $OBSERVACIONES . '</div>
+        </div>
+      </div> 
+            
     </main>
     <footer>
       Informe generado por Departamento TI Fruticola Volcan
@@ -544,18 +533,18 @@ $html=$html.'
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO="InformeReembalaje_";
-$FECHADOCUMENTO = $FECHANORMAL."_".$HORAFINAL;
-$TIPODOCUMENTO="Informe";
-$FORMATO=".pdf";
-$NOMBREARCHIVOFINAL=$NOMBREARCHIVO.$FECHADOCUMENTO.$FORMATO;
+$NOMBREARCHIVO = "InformeReembalaje_";
+$FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
+$TIPODOCUMENTO = "Informe";
+$FORMATO = ".pdf";
+$NOMBREARCHIVOFINAL = $NOMBREARCHIVO . $FECHADOCUMENTO . $FORMATO;
 
 //CONFIGURACIOND DEL DOCUMENTO
-$TIPOPAPEL="LETTER";
-$ORIENTACION="P";
-$LENGUAJE="ES";
-$UNICODE="true";
-$ENCODING="UTF-8";
+$TIPOPAPEL = "LETTER";
+$ORIENTACION = "P";
+$LENGUAJE = "ES";
+$UNICODE = "true";
+$ENCODING = "UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
 $TIPOINFORME = "Informe Reembalaje";
@@ -566,16 +555,16 @@ $ASUNTO = "Informe";
 //API DE GENERACION DE PDF
 require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
-$PDF = new \Mpdf\Mpdf(['format'=> 'letter']);
+$PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
 //CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
     <table width="100%" >
         <tbody>
             <tr>
-            <th width="55%" class="left f10">'.$EMPRESA.'</th>
-            <td width="45%" class="right f10">'.$FECHANOMBRE.'</td>
-            <td width="10%" class="right f10">'.$HORAFINAL2.'</td>
+            <th width="55%" class="left f10">' . $EMPRESA . '</th>
+            <td width="45%" class="right f10">' . $FECHANOMBRE . '</td>
+            <td width="10%" class="right f10">' . $HORAFINAL2 . '</td>
             </tr>
         </tbody>
     </table>
@@ -584,7 +573,18 @@ $PDF->SetHTMLHeader('
 ');
 
 $PDF->SetHTMLFooter('
-
+<table width="100%" >
+    <tr>
+      <td class="color2 center" style="width: 30%;" > </td>
+      <td class="color2  center" style="width: 10%;"> <hr> </td>
+      <td class="color2 right" style="width: 30%;"> </td>
+    </tr>
+    <tr>
+      <td class="color2 center" style="width: 30%;" > </td>
+      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+      <td class="color2 center" style="width: 30%;"> </td>
+    </tr>    
+  </table>
 
     <table width="100%" >
         <tbody>
@@ -592,7 +592,7 @@ $PDF->SetHTMLFooter('
                 <td width="35%" class="left"><span>{PAGENO}/{nbpg}</span></td>
                 <td width="30%"  class="center f10">
                        
-                        '.$EMPRESA.'
+                        ' . $EMPRESA . '
                 </td>
                 <td width="35%"  class="right">{DATE j-m-Y}</td>
             </tr>
@@ -618,13 +618,10 @@ $stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo c
 $stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
 
 //ENLASAR CSS CON LA VISTA DEL PDF
-$PDF->WriteHTML($stylesheet, 1); 
-$PDF->WriteHTML($stylesheet2, 1); 
+$PDF->WriteHTML($stylesheet, 1);
+$PDF->WriteHTML($stylesheet2, 1);
 
 //GENERAR PDF
 $PDF->WriteHTML($html);
 //METODO DE SALIDA
 $PDF->Output($NOMBREARCHIVOFINAL, \Mpdf\Output\Destination::INLINE);
-
-
-?>

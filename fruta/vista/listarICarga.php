@@ -295,13 +295,13 @@ include_once "../config/datosUrLP.php";
                                                                                 <?php } ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
-                                                                                    <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i> Carga Real
+                                                                                    <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                             </div>

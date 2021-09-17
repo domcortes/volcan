@@ -47,7 +47,7 @@ class MGUIAIND_ADO {
     public function listarMguia(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_mguiaind` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiaind limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -66,7 +66,7 @@ class MGUIAIND_ADO {
     public function listarMguiaCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_mguiaind` ;	");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiaind ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -87,7 +87,7 @@ class MGUIAIND_ADO {
     public function verMguia($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_mguiaind` WHERE `ID_MGUIA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiaind WHERE ID_MGUIA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -109,9 +109,9 @@ class MGUIAIND_ADO {
             
             
             $query=
-            "INSERT INTO `fruta_mguiaind` ( `NUMERO_MGUIA`,`NUMERO_DESPACHO`, `NUMERO_GUIA`, `MOTIVO_MGUIA`, 
-                                     `ID_DESPACHO`, `ID_PLANTA2`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, 
-                                     `FECHA_INGRESO_MGUIA`, `ESTADO_REGISTRO`) VALUES
+            "INSERT INTO fruta_mguiaind ( NUMERO_MGUIA,NUMERO_DESPACHO, NUMERO_GUIA, MOTIVO_MGUIA, 
+                                     ID_DESPACHO, ID_PLANTA2, ID_EMPRESA, ID_PLANTA, ID_TEMPORADA, 
+                                     FECHA_INGRESO_MGUIA, ESTADO_REGISTRO) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
@@ -138,7 +138,7 @@ class MGUIAIND_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarMguia($id){
-        try{$sql="DELETE FROM `fruta_mguiaind` WHERE `ID_MGUIA`=".$id.";";
+        try{$sql="DELETE FROM fruta_mguiaind WHERE ID_MGUIA=".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -155,16 +155,16 @@ class MGUIAIND_ADO {
     public function actualizarMguia(MGUIAIND $MGUIAIND){
         try{
             $query = "
-		UPDATE `fruta_mguiaind` SET
-            `NUMERO_DESPACHO`= ?,
-            `NUMERO_GUIA`= ?,
-            `MOTIVO_MGUIA`= ?,
-            `ID_DESPACHO`= ?,
-            `ID_PLANTA2`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_PLANTA`= ?,
-            `ID_TEMPORADA`= ?            
-		WHERE `ID_MGUIA`= ?;";
+		UPDATE fruta_mguiaind SET
+            NUMERO_DESPACHO= ?,
+            NUMERO_GUIA= ?,
+            MOTIVO_MGUIA= ?,
+            ID_DESPACHO= ?,
+            ID_PLANTA2= ?,
+            ID_EMPRESA= ?,
+            ID_PLANTA= ?,
+            ID_TEMPORADA= ?            
+		WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -195,9 +195,9 @@ class MGUIAIND_ADO {
 
         try{
             $query = "
-    UPDATE `fruta_mguiaind` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_MGUIA`= ?;";
+    UPDATE fruta_mguiaind SET			
+            ESTADO_REGISTRO = 0
+    WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -215,9 +215,9 @@ class MGUIAIND_ADO {
     public function habilitar(MGUIAIND $MGUIAIND){
         try{
             $query = "
-    UPDATE `fruta_mguiaind` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_MGUIA`= ?;";
+    UPDATE fruta_mguiaind SET			
+            ESTADO_REGISTRO = 1
+    WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -235,8 +235,8 @@ class MGUIAIND_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT IFNULL(COUNT(NUMERO_MGUIA),0) AS 'NUMERO'
-                                             FROM `fruta_mguiaind` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+                                             FROM fruta_mguiaind 
+                                             WHERE ESTADO_REGISTRO = 1
                                             AND ID_DESPACHO = '" . $DESPACHO . "' 
                                             AND ID_PLANTA2= '" . $PLANTAORIGEN . "'
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 

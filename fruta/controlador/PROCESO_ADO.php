@@ -388,7 +388,8 @@ class PROCESO_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                                 FORMAT(IFNULL(SUM(KILOS_EXPORTACION_PROCESO)+SUM(KILOS_INDUSTRIAL_PROCESO),0),2,'de_DE') AS 'SALIDA'                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_EXPORTACION_PROCESO)+SUM(KILOS_INDUSTRIAL_PROCESO),0),2,'de_DE') AS 'SALIDA'   , 
+                                                 IFNULL(SUM(KILOS_EXPORTACION_PROCESO)+SUM(KILOS_INDUSTRIAL_PROCESO),0) AS 'SALIDASF'                                                  
                                              FROM fruta_proceso 
                                              WHERE ID_PROCESO = '" . $IDPROCESO . "';");
             $datos->execute();

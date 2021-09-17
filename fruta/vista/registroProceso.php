@@ -941,12 +941,11 @@ if (isset($_POST)) {
                                             <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-save-alt"></i> Cerrar
                                             </button>
-
                                         <?php } ?>
                                     </div>
                                     <div class="btn-group btn-block float-right col-3">
                                         <?php if ($OP != ""): ?>
-                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>'); ">
+                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i> Proceso
                                             </button>
                                             <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $IDOP; ?>'); ">

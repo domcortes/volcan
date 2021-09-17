@@ -100,12 +100,12 @@ $ARRAYCONDUCTOR = "";
 $ARRAYUSUARIO="";
 
 
-if(isset($_REQUEST['NOMBREUSUARIO'])){
-  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-  
 }
+
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
 }
@@ -125,6 +125,7 @@ $TOTALBRUTOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_BRUTO'];
 $NUMERORECEPCIONPT = $ARRAYRECEPCIONPT[0]['NUMERO_RECEPCION'];
 $FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA_RECEPCION'];
 $HORARECEPCIONPT = $ARRAYRECEPCIONPT[0]['HORA_RECEPCION'];
+$OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_RECEPCION'];
 
 $PLANTAORIGEN = $ARRAYRECEPCIONPT[0]['ID_PLANTA2'];
 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONPT[0]['ID_PLANTA2']);
@@ -434,12 +435,13 @@ $html = $html . '
           <div class="address">Patente Camión: ' . $PATENTECAMION . '</div>
           <div class="address">Patente Carro: ' . $PATENTECARRO . '</div>
         </div>
-      </div>
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-      </div>
+        
+        <div id="client">
+          <div class="address"><b>Observaciones</b></div>
+          <div class="address">  ' . $OBSERVACIONES . ' </div>
+        </div>
 
+      </div>
 
     </main>
     <footer>

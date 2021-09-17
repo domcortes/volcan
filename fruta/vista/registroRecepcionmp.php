@@ -1106,8 +1106,8 @@ if (isset($_POST)) {
                                     </div>
                                     <div class="btn-group btn-block col-4 float-right">
                                         <?php if ($OP !=""): ?>
-                                            <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i> PDF
+                                            <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Informe
                                             </button>
                                             <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i> Tarjas

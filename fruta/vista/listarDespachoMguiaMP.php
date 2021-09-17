@@ -7,13 +7,13 @@ include_once "../config/validarUsuario.php";
 
 
 include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/DESPACHOPT_ADO.php';
-include_once '../controlador/MGUIAPT_ADO.php';
+include_once '../controlador/DESPACHOMP_ADO.php';
+include_once '../controlador/MGUIAMP_ADO.php';
 
 
 include_once '../modelo/EXIEXPORTACION.php';
-include_once '../modelo/MGUIAPT.php';
-include_once '../modelo/DESPACHOPT.php';
+include_once '../modelo/MGUIAMP.php';
+include_once '../modelo/DESPACHOMP.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -23,8 +23,8 @@ $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
-$DESPACHOPT_ADO =  new DESPACHOPT_ADO();
-$MGUIAPT_ADO =  new MGUIAPT_ADO();
+$DESPACHOMP_ADO =  new DESPACHOMP_ADO();
+$MGUIAMP_ADO =  new MGUIAMP_ADO();
 $EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -32,7 +32,7 @@ $IDOP = "";
 $NODATOURL = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYMGUIAPT = "";
+$ARRAYMGUIAMP = "";
 $ARRAVERYPLANTA = "";
 
 
@@ -40,7 +40,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYMGUIAPT = $MGUIAPT_ADO->listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX2($IDP, $EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYMGUIAMP = $MGUIAMP_ADO->listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX2($IDP, $EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrlD.php";
 
@@ -178,7 +178,7 @@ include_once "../config/validarDatosUrlD.php";
                                     </div>
                                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
-                                            <button type="button" class="btn btn-block  btn-success" data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDespachopt.php'); ">
+                                            <button type="button" class="btn btn-block  btn-success" data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDESPACHOMP.php'); ">
                                                 <i class="ti-back-left "></i>
                                             </button>
                                         </div>
@@ -200,7 +200,7 @@ include_once "../config/validarDatosUrlD.php";
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYMGUIAPT as $r) : ?>
+                                                    <?php foreach ($ARRAYMGUIAMP as $r) : ?>
                                                         <?php
                                                         $ARRAVERYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
                                                         if ($ARRAVERYPLANTA) {
