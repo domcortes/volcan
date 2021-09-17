@@ -221,7 +221,7 @@ if (empty($ARRAYFOLIO2)) {
 //OPERACIONES
 
 //OPERACION EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
+if (isset($_REQUEST['GUARDAR'])) {
     $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
     $PROCESO->__SET('TURNO',  $_REQUEST['TURNOE']);
     $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESOE']);
@@ -935,7 +935,7 @@ if (isset($_POST)) {
                                             <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarProceso.php'); ">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-pencil-alt"></i> Editar
                                             </button>
                                             <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
