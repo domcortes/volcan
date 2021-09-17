@@ -285,7 +285,8 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
-                                                    }
+                                                    }                                                    
+                                                    $ARRAYMGUIAPT = $MGUIAPT_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
                                                     ?>
                                                     <tr class="text-left">
                                                         <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
@@ -308,7 +309,8 @@ include_once "../config/datosUrLP.php";
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachopt" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachopt" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcionptInterplanta" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLMR" name="URLMR" value="listarDespachoMguiaPT" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
