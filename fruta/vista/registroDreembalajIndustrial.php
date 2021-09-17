@@ -12,11 +12,14 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/REEMBALAJE_ADO.php';
 
+include_once '../controlador/DREXPORTACION_ADO.php';
 include_once '../controlador/DRINDUSTRIAL_ADO.php';
-include_once '../modelo/DRINDUSTRIAL.php';
-
+include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
+
+
 include_once '../modelo/EXIINDUSTRIAL.php';
+include_once '../modelo/DRINDUSTRIAL.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
@@ -27,8 +30,10 @@ $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 
+$DREXPORTACION_ADO =  new DREXPORTACION_ADO();
 $DRINDUSTRIAL_ADO =  new DRINDUSTRIAL_ADO();
 $EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
+$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 //INICIALIZAR MODELO
 $EXIINDUSTRIAL =  new EXIINDUSTRIAL();
 $DRINDUSTRIAL =  new DRINDUSTRIAL();
@@ -56,6 +61,12 @@ $ULTIMOFOLIO = "";
 
 $PRODUCTORDATOS = "";
 $NOMBREVESPECIES = "";
+
+$TOTALDESHIDRATACIONEXV = 0;
+$TOTALNETOINDV = 0;
+$TOTALDESHIDRATACIONEX = 0;
+$TOTALNETOIND = 0;
+$DIFERENCIAKILOSNETOEXPO = 0;
 
 $PRODUCTOR = "";
 $EMPRESA = "";
@@ -156,11 +167,11 @@ if (isset($_REQUEST['CREAR'])) {
     $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $EXIINDUSTRIAL_ADO->agregarExiindustrialReembalaje($EXIINDUSTRIAL);
-
+/*
     //REDIRECCIONAR A PAGINA registroProceso.php 
     $_SESSION["parametro"] =  $_REQUEST['IDP'];
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";*/
 }
 
 if (isset($_REQUEST['EDITAR'])) {
@@ -255,6 +266,21 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
+
+
+    $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDP);
+    $TOTALNETOE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['NETO'];
+    $ARRATDINDUSTRIALTOTALREEMBALAJE = $DRINDUSTRIAL_ADO->obtenerTotales($IDP);
+    $ARRATDINDUSTRIALTOTALREEMBALAJE2 = $DRINDUSTRIAL_ADO->obtenerTotales2($IDP);
+    $TOTALNETOIND = $ARRATDINDUSTRIALTOTALREEMBALAJE[0]['NETO'];
+    $TOTALNETOINDV = $ARRATDINDUSTRIALTOTALREEMBALAJE2[0]['NETO'];
+    $ARRAYDEXPORTACIONTOTALREEMBALAJE = $DREXPORTACION_ADO->obtenerTotales($IDP);
+    $ARRAYDEXPORTACIONTOTALREEMBALAJE2 = $DREXPORTACION_ADO->obtenerTotales2($IDP);
+    $TOTALDESHIDRATACIONEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['DESHIDRATACION'];
+    $TOTALDESHIDRATACIONEXV = $ARRAYDEXPORTACIONTOTALREEMBALAJE2[0]['DESHIDRATACION'];    
+    $DIFERENCIAKILOSNETOEXPO = round($TOTALNETOE - ($TOTALDESHIDRATACIONEX + $TOTALNETOIND), 2);
+
+
     $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje($IDP);
     foreach ($ARRAYREEMBALAJE as $r) :
 
@@ -658,6 +684,26 @@ if ($_POST) {
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label id="val_tmanejo" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
+                                            <div class="form-group">
+                                                <label>Kilos Exportacion</label>
+                                                <input type="text" class="form-control" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEXV; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
+                                            <div class="form-group">
+                                                <label>Kilos Industrial</label>
+                                                <input type="text" class="form-control" placeholder="TOTAL NETO" id="TOTALNETOINDV" name="TOTALNETOINDV" value="<?php echo $TOTALNETOINDV; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
+                                            <div class="form-group">
+                                                <label>Diferencia Kilos</label>
+                                                <input type="text" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
                                             </div>
                                         </div>
                                     </div>

@@ -12,8 +12,10 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 
+include_once '../controlador/DPEXPORTACION_ADO.php';
 include_once '../controlador/DPINDUSTRIAL_ADO.php';
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 
 include_once '../modelo/EXIINDUSTRIAL.php';
 include_once '../modelo/DPINDUSTRIAL.php';
@@ -28,8 +30,10 @@ $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 
+$DPEXPORTACION_ADO =  new DPEXPORTACION_ADO();
 $DPINDUSTRIAL_ADO =  new DPINDUSTRIAL_ADO();
 $EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
+$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 
 //INIICIALIZAR MODELO
 $EXIINDUSTRIAL =  new EXIINDUSTRIAL();
@@ -58,6 +62,12 @@ $ULTIMOFOLIO = "";
 
 $PRODUCTORDATOS = "";
 $NOMBREVESPECIES = "";
+
+$TOTALDESHIDRATACIONEXV = 0;
+$TOTALNETOINDV = 0;
+$TOTALDESHIDRATACIONEX = 0;
+$TOTALNETOIND = 0;
+$DIFERENCIAKILOSNETOEXPO = 0;
 
 $PRODUCTOR = "";
 $EMPRESA = "";
@@ -254,6 +264,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
+
+    $ARRAYEXISTENCIAMPTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso($IDP);
+    $TOTALNETOE = $ARRAYEXISTENCIAMPTOTAL[0]['NETO'];
+    $ARRATDINDUSTRIALTOTALPROCESO = $DPINDUSTRIAL_ADO->obtenerTotales($IDP);
+    $ARRATDINDUSTRIALTOTALPROCESO2 = $DPINDUSTRIAL_ADO->obtenerTotales2($IDP);
+    $TOTALNETOIND = $ARRATDINDUSTRIALTOTALPROCESO[0]['NETO'];
+    $TOTALNETOINDV = $ARRATDINDUSTRIALTOTALPROCESO2[0]['NETO'];
+    $ARRAYDEXPORTACIONTOTALPROCESO = $DPEXPORTACION_ADO->obtenerTotales($IDP);
+    $ARRAYDEXPORTACIONTOTALPROCES2 = $DPEXPORTACION_ADO->obtenerTotales2($IDP);
+    $TOTALDESHIDRATACIONEX = $ARRAYDEXPORTACIONTOTALPROCESO[0]['DESHIDRATACION'];
+    $TOTALDESHIDRATACIONEXV = $ARRAYDEXPORTACIONTOTALPROCES2[0]['DESHIDRATACION'];
+    $DIFERENCIAKILOSNETOEXPO = round($TOTALNETOE - ($TOTALDESHIDRATACIONEX + $TOTALNETOIND), 2);
+
     $ARRAYPROCESO = $PROCESO_ADO->verProceso($IDP);
     foreach ($ARRAYPROCESO as $r) :
 
@@ -640,7 +663,7 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Kilos Neto </label>
-                                                <input type="number" class="form-control" step="0.01"placeholder="Kilos Neto" id="KILOSNETO" name="KILOSNETO" value="<?php echo $KILOSNETO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" class="form-control" step="0.01" placeholder="Kilos Neto" id="KILOSNETO" name="KILOSNETO" value="<?php echo $KILOSNETO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_neto" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -661,6 +684,26 @@ if ($_POST) {
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label id="val_tmanejo" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
+                                            <div class="form-group">
+                                                <label>Kilos Exportacion</label>
+                                                <input type="text" class="form-control" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEXV; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
+                                            <div class="form-group">
+                                                <label>Kilos Industrial</label>
+                                                <input type="text" class="form-control" placeholder="TOTAL NETO" id="TOTALNETOINDV" name="TOTALNETOINDV" value="<?php echo $TOTALNETOINDV; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
+                                            <div class="form-group">
+                                                <label>Diferencia Kilos</label>
+                                                <input type="text" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
                                             </div>
                                         </div>
                                     </div>
