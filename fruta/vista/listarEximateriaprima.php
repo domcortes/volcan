@@ -178,6 +178,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio </th>
+                                                        <th>Estado </th>
                                                         <th>Fecha Cosecha </th>
                                                         <th>CSG Productor </th>
                                                         <th>Nombre Productor </th>
