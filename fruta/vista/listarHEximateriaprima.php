@@ -257,6 +257,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
                                                             $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $TIPORECEPCION = "Sin Datos";
                                                         }
                                                         $ARRATREPALETIZAJE = $REPALETIZAJEMP_ADO->verRepaletizaje2($r['ID_REPALETIZAJE']);
                                                         if ($ARRATREPALETIZAJE) {
@@ -393,41 +394,13 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                         <!-- /.box -->
-
                     </section>
                     <!-- /.content -->
-
                 </div>
             </div>
-
-
-
-
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../config/footer.php"; ?>
