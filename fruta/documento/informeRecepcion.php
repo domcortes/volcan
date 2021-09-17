@@ -92,11 +92,12 @@ $ARRAYCONDUCTOR = "";
 $ARRAYTMANEJO = "";
 $ARRAYUSUARIO = "";
 
-if (isset($_REQUEST['NOMBREUSUARIO'])) {
-  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
 }
+
 
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
@@ -121,6 +122,7 @@ if ($ARRAYRECEPCION) {
   $TOTALGUIA = $ARRAYRECEPCION[0]['TOTAL_KILOS_GUIA_RECEPCION'];
   $PATENTECAMION = $ARRAYRECEPCION[0]['PATENTE_CAMION'];
   $PATENTECARRO = $ARRAYRECEPCION[0]['PATENTE_CARRO'];
+  $OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_RECEPCION'];
 
 
   $NOMBRETIPO = $ARRAYRECEPCION[0]['TRECEPCION'];
@@ -402,13 +404,12 @@ $html = $html . '
           <div class="address">Patente Camion: ' . $PATENTECAMION . '</div>
           <div class="address">Patente Carro: ' . $PATENTE . '</div>
         </div>
-      </div>
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-      </div>
-      <br>
-      <br>    
+        
+        <div id="client">
+          <div class="address"><b>Observaciones</b></div>
+          <div class="address">  ' . $OBSERVACIONES . ' </div>
+        </div>
+      </div>  
           
       
     </main>

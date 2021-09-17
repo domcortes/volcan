@@ -8,7 +8,6 @@ include_once '../controlador/PLANTA_ADO.php';
 include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 
@@ -17,7 +16,7 @@ include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/COMPRADOR_ADO.php';
-include_once '../controlador/CALIBRE_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 
 include_once '../controlador/DESPACHOPT_ADO.php';
 include_once '../controlador/EXIEXPORTACION_ADO.php';
@@ -32,7 +31,6 @@ $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 
@@ -40,7 +38,7 @@ $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $COMPRADOR_ADO =  new COMPRADOR_ADO();
-$CALIBRE_ADO =  new CALIBRE_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
 
 
 $DESPACHOPT_ADO =  new DESPACHOPT_ADO();
@@ -97,12 +95,13 @@ $ARRAYCALIBRE="";
 $ARRAYVERPRODUCTORID = "";
 $ARRAYVERVESPECIESID = "";
 $ARRAYEVERERECEPCIONID = "";
-if(isset($_REQUEST['NOMBREUSUARIO'])){
-  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-  
 }
+
 
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
@@ -124,6 +123,7 @@ $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
 $PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
 $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
 $REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
+$OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
 
 
 $TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
@@ -373,13 +373,12 @@ $html .= '
 foreach ($ARRAYEXISTENCIATOMADA as $r) :
 
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-  $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
+  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
 
-  $ARRAYCALIBRE = $CALIBRE_ADO->verCalibre($r['ID_CALIBRE']);
+  $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
   if ($ARRAYCALIBRE) {
-    $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_CALIBRE'];
+    $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
   } else {
     $CALIBRE  = "Sin Calibre";
   }
@@ -388,7 +387,7 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
   $html = $html . '
         <tr>
             <th class=" left">' . $r['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
-            <td class=" left">' . $r['FECHA'] . '</td>
+            <td class=" left">' . $r['EMMBALADO'] . '</td>
             <td class=" left">' . $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'] . '</td>
             <td class=" left">' . $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'] . '</td>
             <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . ' </td>
@@ -445,10 +444,10 @@ $html = $html . '
       <div class="address">Patente Camión: ' . $PATENTECAMION . '</div>
       <div class="address">Patente Carro: ' . $PATENTECARRO . '</div>
     </div>
-  </div>
-  <div id="notices">
-    <div>IMPORTANTE:</div>
-    <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
+    <div id="client">
+      <div class="address"><b>Observaciones</b></div>
+      <div class="address">  ' . $OBSERVACIONES . ' </div>
+    </div>
   </div>
   
 </main>
@@ -486,7 +485,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 

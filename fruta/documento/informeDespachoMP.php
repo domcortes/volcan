@@ -8,7 +8,6 @@ include_once '../controlador/PLANTA_ADO.php';
 include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/ERECEPCION_ADO.php';
 
@@ -33,7 +32,6 @@ $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 
@@ -83,15 +81,17 @@ $ARRAYCOMPRADOR = "";
 $ARRAYVERPRODUCTORID = "";
 $ARRAYVERVESPECIESID = "";
 $ARRAYEVERERECEPCIONID = "";
-$ARRAYUSUARIO="";
+$ARRAYUSUARIO = "";
 
-if(isset($_REQUEST['NOMBREUSUARIO'])){
-    $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-    $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
-    $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-    
-  }
-  
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
+  $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
+}
+
+
+
+
 
 
 if (isset($_REQUEST['parametro'])) {
@@ -107,13 +107,14 @@ $ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPordespacho2($NUMERODESPACH
 
 
 $NUMERO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
-$FECHA = $ARRAYDESPACHO[0]['FECHA_DESPACHOR'];
+$FECHA = $ARRAYDESPACHO[0]['FECHA'];
 $FECHAINGRESO = $ARRAYDESPACHO[0]['INGRESO'];
 $FECHAMODIFCACION = $ARRAYDESPACHO[0]['MODIFICACION'];
 $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
 $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
 $PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
 $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
+$OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
 
 
 
@@ -324,14 +325,13 @@ $html .= '
 foreach ($ARRAYEXISTENCIATOMADA as $r) :
 
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-  $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
+  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);
 
   $html = $html . '
         <tr>
             <th class=" left">' . $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA'] . '</th>
-            <td class=" left">' . $r['FECHA'] . '</td>
+            <td class=" left">' . $r['COSECHA'] . '</td>
             <td class=" left">' . $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'] . '</td>
             <td class=" center">' . $r['ENVASE'] . '</td>
             <td class=" center">' . $r['NETO'] . '</td>
@@ -370,25 +370,12 @@ $html = $html . '
       <div class="address">Patente Camion: ' . $PATENTECAMION . '</div>
       <div class="address">Patente Carro: ' . $PATENTECARRO . '</div>
     </div>
+    <div id="client">
+      <div class="address"><b>Observaciones</b></div>
+      <div class="address">  ' . $OBSERVACIONES . ' </div>
+    </div>
   </div>
-  <div id="notices">
-    <div>IMPORTANTE:</div>
-    <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-  </div>
-  <br>
-  <br>    
-          <table >      
-            <tr>
-              <td class="color2 center" style="width: 30%;" > </td>
-              <td class="color2  center" style="width: 10%;"> <hr> </td>
-              <td class="color2 right" style="width: 30%;"> </td>
-            </tr>
-            <tr>
-              <td class="color2 center" style="width: 30%;" > </td>
-              <td class="color2  center" style="width: 10%;"> Firma Responsable <br> '.$NOMBRE.' </td>
-              <td class="color2 center" style="width: 30%;"> </td>
-            </tr>    
-          </table>
+  
 </main>
 <footer>
   Informe generado por Departamento TI Fruticola Volcan
@@ -424,7 +411,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
@@ -444,7 +431,18 @@ $PDF->SetHTMLHeader('
 ');
 
 $PDF->SetHTMLFooter('
-
+  <table width="100%" >
+      <tr>
+        <td class="color2 center" style="width: 30%;" > </td>
+        <td class="color2  center" style="width: 10%;"> <hr> </td>
+        <td class="color2 right" style="width: 30%;"> </td>
+      </tr>
+      <tr>
+        <td class="color2 center" style="width: 30%;" > </td>
+        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+        <td class="color2 center" style="width: 30%;"> </td>
+      </tr>    
+    </table>
 
     <table width="100%" >
         <tbody>

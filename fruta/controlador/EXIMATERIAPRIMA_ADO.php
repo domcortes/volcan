@@ -836,7 +836,8 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0),0,'de_DE') AS 'ENVASE', 
-                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' , 
+                                                     IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0) AS 'NETOSF' 
                                              FROM fruta_eximateriaprima
                                              WHERE ID_PROCESO = '" . $IDPROCESO . "'
                                              AND  ESTADO_REGISTRO= 1;");

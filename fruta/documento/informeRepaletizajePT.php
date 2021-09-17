@@ -9,13 +9,12 @@ include_once '../controlador/TEMPORADA_ADO.php';
 
 
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/CALIBRE_ADO.php';
-include_once '../controlador/EMBALAJE_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TEMBALAJE_ADO.php';
 
 
 include_once '../controlador/DREPALETIZAJEEX_ADO.php';
@@ -31,13 +30,12 @@ $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
-$CALIBRE_ADO =  new CALIBRE_ADO();
-$EMBALAJE_ADO =  new EMBALAJE_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
 
 $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
@@ -82,12 +80,13 @@ $ARRAYUSUARIO="";
 
 
 
-if (isset($_REQUEST['NOMBREUSUARIO'])) {
-    $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-    $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
-    $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-}
 
+if (isset($_REQUEST['usuario'])) {
+    $USUARIO = $_REQUEST['usuario'];
+    $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
+    $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
+  }
+  
 if (isset($_REQUEST['parametro'])) {
     $IDOP = $_REQUEST['parametro'];
 }
@@ -107,10 +106,11 @@ $MOTIVO = $ARRAYREPALETIZAJE[0]['MOTIVO_REPALETIZAJE'];
 $TOTALENVASE = $ARRAYREPALETIZAJE[0]['ENVASE'];
 $TOTALNETO = $ARRAYREPALETIZAJE[0]['NETO'];
 $NUMEROREPALETIZAJE = $ARRAYREPALETIZAJE[0]['NUMERO_REPALETIZAJE'];
+$OBSERVACIONES = $ARRAYREPALETIZAJE[0]['MOTIVO_REPALETIZAJE'];
 
 
-$TOTALENVASEREPA = $ARRAYDREPALETIZAJETOTALES[0]['TOTAL_ENVASE'];
-$TOTALNETOREPA = $ARRAYDREPALETIZAJETOTALES[0]['TOTAL_NETO'];
+$TOTALENVASEREPA = $ARRAYDREPALETIZAJETOTALES[0]['ENVASE'];
+$TOTALNETOREPA = $ARRAYDREPALETIZAJETOTALES[0]['NETO'];
 
 
 $TOTALE = $TOTALENVASEREPA - $TOTALENVASE;
@@ -264,25 +264,24 @@ $html = '
 foreach ($ARRAYEXISTENCIATOMADA as $r) :
 
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-    $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
+    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
     $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
     $ARRAYVERINPECCIONSAG = $INPSAG_ADO->verInpsag($r['ID_INPSAG']);
     $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-    $ARRAYCALIBRE = $CALIBRE_ADO->verCalibre($r['ID_CALIBRE']);
-    $ARRAYEMBALAJE = $EMBALAJE_ADO->verEmbalaje($r['ID_EMBALAJE']);
+    $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+    $ARRAYEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
     if ($ARRAYTMANEJO) {
         $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
     } else {
         $TMANEJO = "Sin Manejo";
     }
     if ($ARRAYCALIBRE) {
-        $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_CALIBRE'];
+        $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
     } else {
         $CALIBRE  = "Sin Calibre";
     }
     if ($ARRAYEMBALAJE) {
-        $EMBALAJE = $ARRAYEMBALAJE[0]['NOMBRE_EMBALAJE'];
+        $EMBALAJE = $ARRAYEMBALAJE[0]['NOMBRE_TEMBALAJE'];
     } else {
         $EMBALAJE = "Sin Embalaje";
     }
@@ -366,25 +365,24 @@ $html = $html . '
 foreach ($ARRAYDREPALETIZAJE as $r) :
 
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-    $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
+    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
     $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
 
     $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-    $ARRAYCALIBRE = $CALIBRE_ADO->verCalibre($r['ID_CALIBRE']);
-    $ARRAYEMBALAJE = $EMBALAJE_ADO->verEmbalaje($r['ID_EMBALAJE']);
+    $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+    $ARRAYEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
     if ($ARRAYTMANEJO) {
         $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
     } else {
         $TMANEJO = "Sin Manejo";
     }
     if ($ARRAYCALIBRE) {
-        $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_CALIBRE'];
+        $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
     } else {
         $CALIBRE  = "Sin Calibre";
     }
     if ($ARRAYEMBALAJE) {
-        $EMBALAJE = $ARRAYEMBALAJE[0]['NOMBRE_EMBALAJE'];
+        $EMBALAJE = $ARRAYEMBALAJE[0]['NOMBRE_TEMBALAJE'];
     } else {
         $EMBALAJE = "Sin Embalaje";
     }
@@ -397,7 +395,7 @@ foreach ($ARRAYDREPALETIZAJE as $r) :
     $html = $html . '
     <tr>
             <td class=" left">' . $r['FOLIO_NUEVO_DREPALETIZAJE'] . '</td>
-            <td class=" center">' . $r['FECHA'] . '</td>
+            <td class=" center">' . $r['EMBALADO'] . '</td>
             <td class=" center">' . $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'] . '</td>
             <td class=" center">' . $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'] . '</td>
             <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . ' </td>
@@ -460,26 +458,16 @@ $html = $html . '
 ';
 
 $html = $html . '
-  <div id="notices">
-    <div>IMPORTANTE:</div>
-    <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-  </div>
+<div id="details" class="clearfix">
+ 
+    <div id="client">
+            <div class="address"><b>Observaciones</b></div>
+            <div class="address">  ' . $OBSERVACIONES . ' </div>
+    </div>
+</div>
+
   
    
-<br>
-<br>    
-        <table >      
-          <tr>
-            <td class="color2 center" style="width: 30%;" > </td>
-            <td class="color2  center" style="width: 10%;"> <hr> </td>
-            <td class="color2 right" style="width: 30%;"> </td>
-          </tr>
-          <tr>
-            <td class="color2 center" style="width: 30%;" > </td>
-            <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
-            <td class="color2 center" style="width: 30%;"> </td>
-          </tr>    
-        </table>
 </main>
 <footer>
   Informe generado por Departamento TI Fruticola Volcan
@@ -515,7 +503,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
@@ -536,7 +524,18 @@ $PDF->SetHTMLHeader('
 
 $PDF->SetHTMLFooter('
 
-
+    <table >      
+        <tr>
+            <td class="color2 center" style="width: 30%;" > </td>
+            <td class="color2  center" style="width: 10%;"> <hr> </td>
+            <td class="color2 right" style="width: 30%;"> </td>
+        </tr>
+        <tr>
+            <td class="color2 center" style="width: 30%;" > </td>
+            <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+            <td class="color2 center" style="width: 30%;"> </td>
+        </tr>    
+    </table>
     <table width="100%" >
         <tbody>
             <tr>

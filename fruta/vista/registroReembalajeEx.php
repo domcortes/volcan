@@ -404,7 +404,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
     //OBTENCIONS DE TOTALES O EL RESUMEN DE LAS TABLAS
-     $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
+    $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
     $ARRAYEXISTENCIATOTALESREEMBALAJE2 = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
 
 
@@ -425,8 +425,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $TOTALNETOEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['NETO'];
     $TOTALBRUTOEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['BRUTO'];
     $TOTALDESHIDRATACIONEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['DESHIDRATACION'];
-
-
     $TOTALDESHIDRATACIONEXV = $ARRAYDEXPORTACIONTOTALREEMBALAJE2[0]['DESHIDRATACION'];
 
     if ($TOTALNETOEX != 0 && $TOTALNETOE != 0) {
@@ -977,7 +975,7 @@ if (isset($_POST)) {
                                             <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-save-alt"></i>
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeReembalajeEx.php?parametro=<?php echo $IDOP; ?>'); ">
+                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeReembalajeEx.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i>
                                             </button>
                                             <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasReembalajeEx.php?parametro=<?php echo $IDOP; ?>'); ">
