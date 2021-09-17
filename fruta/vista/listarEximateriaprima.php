@@ -256,6 +256,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
                                                             $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $TIPORECEPCION = "Sin Datos";
                                                         }
                                                         $ARRATREPALETIZAJE = $REPALETIZAJEMP_ADO->verRepaletizaje2($r['ID_REPALETIZAJE']);
                                                         if ($ARRATREPALETIZAJE) {
