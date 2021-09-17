@@ -40,7 +40,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYMGUIAPT = $MGUIAPT_ADO->listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX($IDP, $EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYMGUIAPT = $MGUIAPT_ADO->listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX2($IDP, $EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrlD.php";
 
