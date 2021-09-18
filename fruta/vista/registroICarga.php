@@ -1947,14 +1947,6 @@ if (isset($_POST)) {
                                                             <label id="val_exportadora" class="validacion"> </label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                        <div class="form-group">
-                                                            <br>
-                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Exportadora" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopExportadora.php' ); ">
-                                                                <i class="glyphicon glyphicon-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
                                                     <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                         <div class="form-group">
                                                             <label>Consignatario</label>
