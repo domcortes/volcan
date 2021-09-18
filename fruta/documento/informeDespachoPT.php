@@ -339,7 +339,7 @@ $html .= '
                 ';
 if ($TDESPACHO == "3") {
   $html .= '
-                      <th colspan="11" class="center">SELECCIÓN </th>
+                      <th colspan="12" class="center">SELECCIÓN </th>
                       ';
 } else {
   $html .= '
@@ -362,7 +362,8 @@ $html .= '
 ';
 if ($TDESPACHO == "3") {
   $html .= '
-                      <th class="color center">Precio</th>
+                      <th class="color center">Precio Por Envases</th>
+                      <th class="color center">Total Precio</th>
                       ';
 }
 $html .= '
@@ -387,7 +388,7 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
   $html = $html . '
         <tr>
             <th class=" left">' . $r['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
-            <td class=" left">' . $r['EMMBALADO'] . '</td>
+            <td class=" left">' . $r['EMBALADO'] . '</td>
             <td class=" left">' . $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'] . '</td>
             <td class=" left">' . $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'] . '</td>
             <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . ' </td>
@@ -400,6 +401,7 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
   if ($TDESPACHO == "3") {
     $html .= '
   <td class=" center">' . $r['PRECIO'] . '</td>
+  <td class=" center">' . $r['TOTAL_PRECIO'] . '</td>
                       ';
   }
   $html .= '
@@ -421,7 +423,8 @@ $html = $html . '
             ';
 if ($TDESPACHO == "3") {
   $html .= '
-  <th class="color center">' . $TOTALPRECIO . '</th>
+          <th class="color center">&nbsp;</th>
+          <th class="color center">' . $TOTALPRECIO . '</th>
                                 ';
 }
 $html .= '

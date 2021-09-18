@@ -1520,6 +1520,8 @@ class EXIEXPORTACION_ADO
                                                     FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
                                                     FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
                                                     FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                    FORMAT(IFNULL(PRECIO_PALLET,0),2,'de_DE') AS 'PRECIO',
+                                                    FORMAT(IFNULL(PRECIO_PALLET*CANTIDAD_ENVASE_EXIEXPORTACION,0),2,'de_DE') AS 'TOTAL_PRECIO',
                                                     IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
                                                 FROM fruta_exiexportacion 
                                                 WHERE ID_DESPACHO= '" . $IDDESEXPORTACION . "'   
@@ -2075,7 +2077,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
                                                     IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO' ,
                                                     IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'BRUTO'  ,
-                                                    IFNULL(SUM(PRECIO_PALLET),0) AS 'TOTAL_PRECIO' 
+                                                    IFNULL(SUM(PRECIO_PALLET*CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'TOTAL_PRECIO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                             ID_DESPACHO = '" . $IDDESPACHOMP . "' 
@@ -2310,7 +2312,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO' ,
                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO'  ,
-                                                    FORMAT(IFNULL(SUM(PRECIO_PALLET),0),2,'de_DE') AS 'TOTAL_PRECIO' 
+                                                    FORMAT(IFNULL(SUM(PRECIO_PALLET*CANTIDAD_ENVASE_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_PRECIO' 
                                             FROM fruta_exiexportacion
                                             WHERE 
                                             ID_DESPACHO = '" . $IDDESPACHOMP . "' 

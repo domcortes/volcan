@@ -125,6 +125,7 @@ $IDDESPACHO = "";
 $IDPRECIO = "";
 $CONTADOR = 0;
 $PRECIO = "";
+$TOTALPRECIO = "";
 
 //INICIALIZAR ARREGLOS
 
@@ -1432,20 +1433,23 @@ if (isset($_POST)) {
                                 <div class="row">
                                     <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
                                         <div class="table-responsive">
-                                            <table id="detalle" class="table table-hover " style="width: 150%;">
+                                            <table id="detalle" class="table table-hover " style="width: 190%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th> N° Folio </th>
                                                         <th>Condición </th>
                                                         <th class="text-center">Operaciónes</th>
                                                         <?php if ($TDESPACHO == "3") { ?>
-                                                            <th>Precio Pallet </th>
+                                                            <th>Precio Por Envases </th>
                                                         <?php } ?>
                                                         <th>Fecha Embalado </th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
                                                         <th>Variedad</th>
                                                         <th>Cantidad Envase</th>
+                                                        <?php if ($TDESPACHO == "3") { ?>
+                                                            <th>Total Precio</th>
+                                                        <?php } ?>
                                                         <th>Kilos Neto</th>
                                                         <th>% Deshidratacion</th>
                                                         <th>Kilos Deshidratacion</th>
@@ -1529,6 +1533,10 @@ if (isset($_POST)) {
                                                             } else {
                                                                 $NOMBRETEMBALAJE = "Sin Datos";
                                                             }
+                                                            if ($r['PRECIO_PALLET']) {
+                                                                $TOTALPRECIO = $r['PRECIO_PALLET'] * $r['CANTIDAD_ENVASE_EXIEXPORTACION'];
+                                                            }
+
                                                             ?>
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
@@ -1550,9 +1558,9 @@ if (isset($_POST)) {
                                                                             <input type="hidden" class="form-control" name="FOLIOEXIEXPORTACIONPRECIO[]" value="<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>" />
                                                                             <input type="hidden" class="form-control" name="IDEXIEXPORTACIONPRECIO[]" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                             <input type="hidden" class="form-control" name="IDPRECIO[]" value="<?php echo  $CONTADOR; ?>">
-                                                                            <input type="number" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0) {
-                                                                                                                                            echo "disabled";
-                                                                                                                                        } ?> value="<?php echo $r['PRECIO_PALLET']; ?>">
+                                                                            <input type="text" pattern="[0-9]+" placeholder="Solo Números" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0) {
+                                                                                                                                                                                    echo "disabled";
+                                                                                                                                                                                } ?> value="<?php echo $r['PRECIO_PALLET']; ?>">
                                                                         </div>
                                                                     </td>
                                                                 <?php } ?>
@@ -1561,6 +1569,9 @@ if (isset($_POST)) {
                                                                 <td><?php echo $NOMBREESTANDAR; ?></td>
                                                                 <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                                 <td><?php echo $r['ENVASE']; ?></td>
+                                                                <?php if ($TDESPACHO == "3") { ?>
+                                                                    <td><?php echo number_format($TOTALPRECIO, 2, ",", "."); ?></td>
+                                                                <?php } ?>
                                                                 <td><?php echo $r['NETO']; ?></td>
                                                                 <td><?php echo $r['PORCENTAJE']; ?></td>
                                                                 <td><?php echo $r['DESHIRATACION']; ?></td>
