@@ -108,7 +108,62 @@ class EXIINDUSTRIAL_ADO
         }
     }
 
+    //REGISTRO DE UNA NUEVA FILA    
+    public function agregarExiindustrialRecepcion(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        try {
+            $query =
+                "INSERT INTO fruta_exiindustrial (  
+                                                    FOLIO_EXIINDUSTRIAL,
+                                                    FOLIO_AUXILIAR_EXIINDUSTRIAL,
+                                                    FECHA_EMBALADO_EXIINDUSTRIAL,   
+                                                    KILOS_NETO_EXIINDUSTRIAL,       
+                                                    ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
+                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,        
+                                                    FECHA_RECEPCION,    
+                                                    ID_TMANEJO, 
+                                                    ID_FOLIO,
+                                                    ID_ESTANDAR,
+                                                    ID_PRODUCTOR,
+                                                    ID_VESPECIES,
+                                                    ID_EMPRESA, 
+                                                    ID_PLANTA, 
+                                                    ID_TEMPORADA,
+                                                    ID_RECEPCION,
+                                                    INGRESO,
+                                                    MODIFICACION,
+                                                    ESTADO,  
+                                                    ESTADO_REGISTRO
+                                                ) VALUES
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(),  1, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
 
+                        $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FECHA_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
+                        $EXIINDUSTRIAL->__GET('ID_FOLIO'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
+                        $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
+                        $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA'),
+                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA'),
+                        $EXIINDUSTRIAL->__GET('ID_RECEPCION')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     //REGISTRO DE UNA NUEVA FILA    
@@ -224,7 +279,66 @@ class EXIINDUSTRIAL_ADO
         }
     }
 
+    public function agregarExiindustrialGuia(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        try {
+            $query =
+                "INSERT INTO fruta_exiindustrial (  
+                                                    FOLIO_EXIINDUSTRIAL,
+                                                    FOLIO_AUXILIAR_EXIINDUSTRIAL,
+                                                    FECHA_EMBALADO_EXIINDUSTRIAL,   
+                                                    KILOS_NETO_EXIINDUSTRIAL,       
+                                                    ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
 
+                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,        
+                                                    INGRESO,    
+                                                    ID_TMANEJO, 
+                                                    ID_FOLIO,
+                                                    ID_ESTANDAR,
+
+                                                    ID_PRODUCTOR,
+                                                    ID_VESPECIES,
+                                                    ID_PLANTA2,
+                                                    ID_DESPACHO2,
+                                                    ID_EMPRESA, 
+
+                                                    ID_PLANTA, 
+                                                    ID_TEMPORADA,
+
+                                                    MODIFICACION,
+                                                    ESTADO,  
+                                                    ESTADO_REGISTRO
+                                                ) VALUES
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  SYSDATE(),  2, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+                        $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('INGRESO'),
+                        $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
+                        $EXIINDUSTRIAL->__GET('ID_FOLIO'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
+                        $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA2'),
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO2'),
+                        $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA'),
+                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarExiindustrial($id)
@@ -239,6 +353,47 @@ class EXIINDUSTRIAL_ADO
     }
 
 
+    //ACTUALIZAR INFORMACION DE LA FILA
+    public function actualizarExiindustrialRecepcion(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        try {
+            $query = "
+		UPDATE fruta_exiindustrial SET
+                MODIFICACION =  SYSDATE(),
+                FECHA_EMBALADO_EXIINDUSTRIAL = ?,
+                KILOS_NETO_EXIINDUSTRIAL = ?,
+                FECHA_RECEPCION = ?,
+                ID_TMANEJO = ?, 
+                ID_ESTANDAR = ?, 
+                ID_PRODUCTOR = ?,
+                ID_VESPECIES = ?,
+                ID_EMPRESA = ?,
+                ID_PLANTA = ?, 
+                ID_TEMPORADA = ? ,
+                ID_RECEPCION = ?           
+		WHERE ID_EXIINDUSTRIAL= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FECHA_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
+                        $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
+                        $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA'),
+                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA'),
+                        $EXIINDUSTRIAL->__GET('ID_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     //ACTUALIZAR INFORMACION DE LA FILA
@@ -348,6 +503,29 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
+    public function deshabilitarRecepcion(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+
+        try {
+            $query = "
+                UPDATE fruta_exiindustrial SET	
+                        MODIFICACION =  SYSDATE(),		
+                        ESTADO_REGISTRO = 0	,	
+                        ID_RECEPCION = ?
+                WHERE FOLIO_AUXILIAR_EXIINDUSTRIAL= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIINDUSTRIAL->__GET('ID_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function deshabilitarProceso(EXIINDUSTRIAL $EXIINDUSTRIAL)
     {
 
@@ -433,6 +611,27 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
+    public function eliminadoRecepcion(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        try {
+            $query = "
+                    UPDATE fruta_exiindustrial SET	
+                            MODIFICACION =  SYSDATE(),		
+                            ESTADO = 0	,	
+                            ID_RECEPCION = ?
+                    WHERE FOLIO_AUXILIAR_EXIINDUSTRIAL= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIINDUSTRIAL->__GET('ID_RECEPCION'),
+                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function eliminadoProceso(EXIINDUSTRIAL $EXIINDUSTRIAL)
     {
         try {
@@ -480,7 +679,8 @@ class EXIINDUSTRIAL_ADO
     {
         try {
             $query = "
-                        UPDATE fruta_exiindustrial SET			
+                        UPDATE fruta_exiindustrial SET	
+                                MODIFICACION = SYSDATE(),		
                                 ESTADO = 1
                         WHERE ID_EXIINDUSTRIAL= ?;";
             $this->conexion->prepare($query)
@@ -498,7 +698,8 @@ class EXIINDUSTRIAL_ADO
     {
         try {
             $query = "
-                        UPDATE fruta_exiindustrial SET			
+                        UPDATE fruta_exiindustrial SET	
+                                MODIFICACION = SYSDATE(),		
                                 ESTADO = 2
                         WHERE ID_EXIINDUSTRIAL= ?;";
             $this->conexion->prepare($query)
@@ -516,7 +717,8 @@ class EXIINDUSTRIAL_ADO
     {
         try {
             $query = "
-                        UPDATE fruta_exiindustrial SET			
+                        UPDATE fruta_exiindustrial SET	
+                                MODIFICACION = SYSDATE(),		
                                 ESTADO = 3
                         WHERE ID_EXIINDUSTRIAL= ?;";
             $this->conexion->prepare($query)
@@ -534,8 +736,31 @@ class EXIINDUSTRIAL_ADO
     {
         try {
             $query = "
-                        UPDATE fruta_exiindustrial SET			
-                                ESTADO = 4
+                        UPDATE fruta_exiindustrial SET	
+                                MODIFICACION = SYSDATE(),	
+                                ESTADO = 4	,	
+                                FECHA_DESPACHO = ?
+                        WHERE ID_EXIINDUSTRIAL= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIINDUSTRIAL->__GET('FECHA_DESPACHO'),
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function despachadoInterplanta(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        try {
+            $query = "
+                        UPDATE fruta_exiindustrial SET	
+                                MODIFICACION = SYSDATE(),	
+                                ESTADO = 4	
                         WHERE ID_EXIINDUSTRIAL= ?;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -552,12 +777,15 @@ class EXIINDUSTRIAL_ADO
     {
         try {
             $query = "
-                        UPDATE fruta_exiindustrial SET			
-                                ESTADO = 5
+                        UPDATE fruta_exiindustrial SET	
+                                MODIFICACION = SYSDATE(),		
+                                ESTADO = 5	,	
+                                FECHA_DESPACHO = ?
                         WHERE ID_EXIINDUSTRIAL= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
+                        $EXIINDUSTRIAL->__GET('FECHA_DESPACHO'),
                         $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
                     )
 
@@ -573,16 +801,15 @@ class EXIINDUSTRIAL_ADO
         try {
             $query = "
 		UPDATE fruta_exiindustrial SET
-            ESTADO = 3,           
             MODIFICACION = SYSDATE(),
+            ESTADO = 3,           
             ID_DESPACHO = ?          
-		WHERE ID_EXIINDUSTRIAL= ? AND FOLIO_AUXILIAR_EXIINDUSTRIAL= ?;";
+		WHERE ID_EXIINDUSTRIAL= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $EXIINDUSTRIAL->__GET('ID_DESPACHO'),
-                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL'),
-                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL')
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
 
                     )
 
@@ -600,16 +827,55 @@ class EXIINDUSTRIAL_ADO
             ESTADO = 2,          
             MODIFICACION = SYSDATE(), 
             ID_DESPACHO = null          
-		WHERE ID_EXIINDUSTRIAL= ? AND FOLIO_AUXILIAR_EXIINDUSTRIAL= ?;";
+		WHERE ID_EXIINDUSTRIAL= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL'),
-                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL')
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
 
                     )
 
                 );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    //
+    public function verExistenciaPorDespacho($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial 
+                                WHERE ID_DESPACHO= '" . $IDDESPACHO . "'                                           
+                                AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function verExistenciaPorDespachoEnTransito($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial 
+                                WHERE ID_DESPACHO= '" . $IDDESPACHO . "'                                           
+                                AND ESTADO_REGISTRO = 1
+                                AND ESTADO = 5;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -735,9 +1001,60 @@ class EXIINDUSTRIAL_ADO
         }
     }
 
+    public function buscarExiindustrialEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare("SELECT *,  
+                                                    DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
+                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y ') AS 'RECEPCION',
+                                                    DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y ') AS 'PROCESO',
+                                                    DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y ') AS 'REEMBALAJE',
+                                                    DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y ') AS 'DESPACHO',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',      
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',     
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL,0),2,'de_DE') AS 'NETO'    
+                                        FROM fruta_exiindustrial 
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_PLANTA = '" . $PLANTA . "'
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'	
+                                            AND ESTADO_REGISTRO = 1
+                                            AND ESTADO = 2");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
     //BUSCAR
 
+    public function buscarPorRecepcion($IDRECEPCION)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial 
+                                      WHERE ID_RECEPCION= '" . $IDRECEPCION . "'  
+                                      AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorDespacho($IDDESPACHOIND)
     {
         try {
@@ -763,7 +1080,7 @@ class EXIINDUSTRIAL_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'FECHA',
+                                                DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',
                                                 FORMAT(KILOS_NETO_EXIINDUSTRIAL,2,'de_DE') AS 'NETO'
                                         FROM fruta_exiindustrial 
                                         WHERE ID_DESPACHO= '" . $IDDESPACHOIND . "'   
@@ -802,6 +1119,26 @@ class EXIINDUSTRIAL_ADO
 
     //BUSCAR POR LA RECEPCION ASOCIADA A LA EXIINDUSTRIAL
     //BUSQUEDA POR NUMERO FOLIO ASOCIADO AL REGISTRO
+    public function buscarPorRecepcionNumeroFolio($IDRECEPCION, $FOLIOAUXILIAREXIINDUSTRIAL)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial WHERE ID_RECEPCION= '" . $IDRECEPCION . "'  AND FOLIO_AUXILIAR_EXIINDUSTRIAL = '" . $FOLIOAUXILIAREXIINDUSTRIAL . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
     public function buscarPorProcesoNumeroFolio($IDPROCESO, $FOLIOAUXILIAREXIINDUSTRIAL)
     {
         try {
@@ -882,7 +1219,7 @@ class EXIINDUSTRIAL_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'FECHA',
+                                                DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',
                                                 FORMAT(KILOS_NETO_EXIINDUSTRIAL,2,'de_DE') AS 'NETO'
                                              FROM fruta_exiindustrial 
                                              WHERE   FOLIO_AUXILIAR_EXIINDUSTRIAL LIKE '%" . $FOLIOAUXILIAREXIINDUSTRIAL . "%' 
@@ -910,7 +1247,7 @@ class EXIINDUSTRIAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y')  AS 'FECHA',
+            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y')  AS 'EMBALADO',
                                                   FORMAT(KILOS_NETO_EXIINDUSTRIAL,2,'de_DE') AS 'NETO'
                                              FROM fruta_exiindustrial
                                              WHERE   FOLIO_AUXILIAR_EXIINDUSTRIAL LIKE '" . $FOLIOAUXILIAREXIINDUSTRIAL . "'  ;");
@@ -1007,7 +1344,7 @@ class EXIINDUSTRIAL_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0) AS 'TOTAL_NETO' 
+                                                    IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0) AS 'NETO' 
                                              FROM fruta_exiindustrial
                                              WHERE 
                                               ID_DESPACHO = '" . $IDDESPACHOIND . "' 
@@ -1030,11 +1367,11 @@ class EXIINDUSTRIAL_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0),2,'de_DE') AS 'TOTAL_NETO' 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0),2,'de_DE') AS 'NETO' 
                                              FROM fruta_exiindustrial
                                              WHERE 
                                               ID_DESPACHO = '" . $IDDESPACHOIND . "' 
-                                             ANDESTADO BETWEEN 3 AND  5
+                                             AND ESTADO BETWEEN 3 AND  5
                                              AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -1058,7 +1395,8 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO',
                                                     IFNULL(MAX(FOLIO_EXIINDUSTRIAL),0) AS 'ULTIMOFOLIO2' 
                                                     FROM fruta_exiindustrial  
-                                                    WHERE  ID_FOLIO= '" . $IDFOLIO . "';");
+                                                    WHERE  ID_FOLIO= '" . $IDFOLIO . "'
+                                                           AND ESTADO_REGISTRO !=0  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
