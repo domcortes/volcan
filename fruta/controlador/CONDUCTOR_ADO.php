@@ -304,12 +304,13 @@ public function listarConductorPorEmpresaCBX($IDEMPRESA){
     
 }    
     
-public function obtenerNumero()
+public function obtenerNumero($IDEMPRESA)
 {
     try {
         $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_CONDUCTOR),0) AS 'NUMERO'
-                                            FROM `transporte_conductor`  ; ");
+                                            FROM `transporte_conductor` 
+                                            WHERE ID_EMPRESA = '".$IDEMPRESA."' ; ");
         $datos->execute();
         $resultado = $datos->fetchAll();
 

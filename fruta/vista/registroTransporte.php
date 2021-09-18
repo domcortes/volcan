@@ -58,10 +58,8 @@ include_once "../config/datosUrl.php";
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['GUARDAR'])) {
-    $ARRAYNUMERO = $TRANSPORTE_ADO->obtenerNumero();
+    $ARRAYNUMERO = $TRANSPORTE_ADO->obtenerNumero($EMPRESAS);
     $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
 
@@ -323,9 +321,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.EMAILTRANSPORTE.style.borderColor = "#4AF575";
-
-
-
 
                 }
 

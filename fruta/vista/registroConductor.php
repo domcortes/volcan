@@ -60,7 +60,7 @@ include_once "../config/datosUrl.php";
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['GUARDAR'])) {
 
-    $ARRAYNUMERO = $CONDUCTOR_ADO->obtenerNumero();
+    $ARRAYNUMERO = $CONDUCTOR_ADO->obtenerNumero($EMPRESAS);
     $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
 
@@ -418,8 +418,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>NOMBRE </label>
-                                                        <input type="text" class="form-control" placeholder="NOMBRE Conductor" id="NOMBRECONDUCTOR" name="NOMBRECONDUCTOR" value="<?php echo $NOMBRECONDUCTOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label>Nombre </label>
+                                                        <input type="text" class="form-control" placeholder="Nombre Conductor" id="NOMBRECONDUCTOR" name="NOMBRECONDUCTOR" value="<?php echo $NOMBRECONDUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
