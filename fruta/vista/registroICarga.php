@@ -2752,7 +2752,7 @@ if (isset($_POST)) {
                                                     <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                         <div class="form-group">
                                                             <br>
-                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cláusula Venta" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopCventa.php' ); ">
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cláusula Venta" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTflete.php' ); ">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>

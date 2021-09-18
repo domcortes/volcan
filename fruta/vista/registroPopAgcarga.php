@@ -3,11 +3,10 @@
 include_once "../config/validarUsuario.php";
 
 
+include_once "../config/validarUsuario.php";
+
+
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/CIUDAD_ADO.php';
 
@@ -16,10 +15,6 @@ include_once '../modelo/AGCARGA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $CIUDAD_ADO =  new CIUDAD_ADO();
 
@@ -27,13 +22,13 @@ $AGCARGA_ADO =  new AGCARGA_ADO();
 //INIICIALIZAR MODELO
 $AGCARGA =  new AGCARGA();
 
-
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $IDOP = "";
 $OP = "";
 $DISABLED = "";
 
 $RUTAGCARGA = "";
+$DVAGCARGA = "";
 $NOMBREAGCARGA = "";
 $DIRECCIONAGCARGA = "";
 $RAZONSOCIALAGCARGA = "";
@@ -65,9 +60,16 @@ $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
 
 if (isset($_REQUEST['GUARDAR'])) {
 
+
+    $ARRAYNUMERO = $AGCARGA_ADO->obtenerNumero($EMPRESAS);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $AGCARGA->__SET('NUMERO_AGCARGA', $NUMERO);
     $AGCARGA->__SET('RUT_AGCARGA', $_REQUEST['RUTAGCARGA']);
+    $AGCARGA->__SET('DV_AGCARGA', $_REQUEST['DVAGCARGA']);
     $AGCARGA->__SET('NOMBRE_AGCARGA', $_REQUEST['NOMBREAGCARGA']);
     $AGCARGA->__SET('RAZON_SOCIAL_AGCARGA', $_REQUEST['RAZONSOCIALAGCARGA']);
     $AGCARGA->__SET('GIRO_AGCARGA', $_REQUEST['GIROAGCARGA']);
@@ -76,7 +78,10 @@ if (isset($_REQUEST['GUARDAR'])) {
     $AGCARGA->__SET('CONTACTO_AGCARGA', $_REQUEST['CONTACTOAGCARGA']);
     $AGCARGA->__SET('TELEFONO_AGCARGA', $_REQUEST['TELEFONOAGCARGA']);
     $AGCARGA->__SET('EMAIL_AGCARGA', $_REQUEST['EMAILAGCARGA']);
-    $AGCARGA->__SET('CIUDAD', $_REQUEST['CIUDAD']);
+    $AGCARGA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $AGCARGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $AGCARGA->__SET('ID_USUARIOI', $IDUSUARIOS);
+    $AGCARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $AGCARGA_ADO->agregarAgcarga($AGCARGA);
     //REDIRECCIONAR A PAGINA registroAgcarga.php
@@ -108,10 +113,9 @@ if (isset($_REQUEST['GUARDAR'])) {
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
 
-
                 function validacion() {
-
                     RUTAGCARGA = document.getElementById("RUTAGCARGA").value;
+                    DVAGCARGA = document.getElementById("DVAGCARGA").value;
                     NOMBREAGCARGA = document.getElementById("NOMBREAGCARGA").value;
                     RAZONSOCIALAGCARGA = document.getElementById("RAZONSOCIALAGCARGA").value;
                     GIROAGCARGA = document.getElementById("GIROAGCARGA").value;
@@ -124,6 +128,7 @@ if (isset($_REQUEST['GUARDAR'])) {
 
 
                     document.getElementById('val_rut').innerHTML = "";
+                    document.getElementById('val_dv').innerHTML = "";
                     document.getElementById('val_nombre').innerHTML = "";
                     document.getElementById('val_rsocial').innerHTML = "";
                     document.getElementById('val_giro').innerHTML = "";
@@ -141,6 +146,15 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.RUTAGCARGA.style.borderColor = "#4AF575";
+
+                    if (DVAGCARGA == null || DVAGCARGA.length == 0 || /^\s+$/.test(DVAGCARGA)) {
+                        document.form_reg_dato.DVAGCARGA.focus();
+                        document.form_reg_dato.DVAGCARGA.style.borderColor = "#FF0000";
+                        document.getElementById('val_dv').innerHTML = "NO A INGRESADO DATO";
+                        return false;
+                    }
+                    document.form_reg_dato.DVAGCARGA.style.borderColor = "#4AF575";
+
 
                     if (NOMBREAGCARGA == null || NOMBREAGCARGA.length == 0 || /^\s+$/.test(NOMBREAGCARGA)) {
                         document.form_reg_dato.NOMBREAGCARGA.focus();
@@ -187,54 +201,53 @@ if (isset($_REQUEST['GUARDAR'])) {
                     }
                     document.form_reg_dato.DIRECCIONAGCARGA.style.borderColor = "#4AF575";
 
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
+                    /*
+                        if (CIUDAD == null || CIUDAD == 0) {
+                            document.form_reg_dato.CIUDAD.focus();
+                            document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
+                            document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
 
 
 
-                    if (CONTACTOAGCARGA == null || CONTACTOAGCARGA.length == 0 || /^\s+$/.test(CONTACTOAGCARGA)) {
-                        document.form_reg_dato.CONTACTOAGCARGA.focus();
-                        document.form_reg_dato.CONTACTOAGCARGA.style.borderColor = "#FF0000";
-                        document.getElementById('val_contacto').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CONTACTOAGCARGA.style.borderColor = "#4AF575";
+                        if (CONTACTOAGCARGA == null || CONTACTOAGCARGA.length == 0 || /^\s+$/.test(CONTACTOAGCARGA)) {
+                            document.form_reg_dato.CONTACTOAGCARGA.focus();
+                            document.form_reg_dato.CONTACTOAGCARGA.style.borderColor = "#FF0000";
+                            document.getElementById('val_contacto').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.CONTACTOAGCARGA.style.borderColor = "#4AF575";
 
 
-                    if (TELEFONOAGCARGA == null || TELEFONOAGCARGA == 0) {
-                        document.form_reg_dato.TELEFONOAGCARGA.focus();
-                        document.form_reg_dato.TELEFONOAGCARGA.style.borderColor = "#FF0000";
-                        document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.TELEFONOAGCARGA.style.borderColor = "#4AF575";
+                        if (TELEFONOAGCARGA == null || TELEFONOAGCARGA == 0) {
+                            document.form_reg_dato.TELEFONOAGCARGA.focus();
+                            document.form_reg_dato.TELEFONOAGCARGA.style.borderColor = "#FF0000";
+                            document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.TELEFONOAGCARGA.style.borderColor = "#4AF575";
 
 
-                    if (EMAILAGCARGA == null || EMAILAGCARGA.length == 0 || /^\s+$/.test(EMAILAGCARGA)) {
-                        document.form_reg_dato.EMAILAGCARGA.focus();
-                        document.form_reg_dato.EMAILAGCARGA.style.borderColor = "#FF0000";
-                        document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILAGCARGA.style.borderColor = "#4AF575";
+                        if (EMAILAGCARGA == null || EMAILAGCARGA.length == 0 || /^\s+$/.test(EMAILAGCARGA)) {
+                            document.form_reg_dato.EMAILAGCARGA.focus();
+                            document.form_reg_dato.EMAILAGCARGA.style.borderColor = "#FF0000";
+                            document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.EMAILAGCARGA.style.borderColor = "#4AF575";
 
 
-                    if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-                            .test(EMAILAGCARGA))) {
-                        document.form_reg_dato.EMAILAGCARGA.focus();
-                        document.form_reg_dato.EMAILAGCARGA.style.borderColor = "#ff0000";
-                        document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILAGCARGA.style.borderColor = "#4AF575";
-
-
-
+                        if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+                                .test(EMAILAGCARGA))) {
+                            document.form_reg_dato.EMAILAGCARGA.focus();
+                            document.form_reg_dato.EMAILAGCARGA.style.borderColor = "#ff0000";
+                            document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
+                            return false;
+                        }
+                        document.form_reg_dato.EMAILAGCARGA.style.borderColor = "#4AF575";
+                    */
 
 
 
@@ -265,13 +278,24 @@ if (isset($_REQUEST['GUARDAR'])) {
                     <!-- /.box-header -->
                     <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
                         <div class="box-body">
-
+                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
+                            </h4>
+                            <hr class="my-15">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Rut </label>
+                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                         <input type="text" class="form-control" placeholder="Rut Agente Carga" id="RUTAGCARGA" name="RUTAGCARGA" value="<?php echo $RUTAGCARGA; ?>" <?php echo $DISABLED; ?> />
                                         <label id="val_rut" class="validacion"> </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>DV </label>
+                                        <input type="text" class="form-control" placeholder="DV Agente Carga" id="DVAGCARGA" name="DVAGCARGA" value="<?php echo $DVAGCARGA; ?>" <?php echo $DISABLED; ?> />
+                                        <label id="val_dv" class="validacion"> </label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -334,8 +358,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                     </div>
                                 </div>
                             </div>
-
-
                             <label>Contacto </label>
                             <hr class="my-15">
                             <div class="row">
@@ -369,7 +391,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                             <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
                                 <i class="ti-trash"></i> Cancelar
                             </button>
-                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
+                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
                                 <i class="ti-save-alt"></i> Crear
                             </button>
                         </div>

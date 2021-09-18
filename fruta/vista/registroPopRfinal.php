@@ -3,22 +3,15 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/CIUDAD_ADO.php';
-
 include_once '../controlador/RFINAL_ADO.php';
+
 include_once '../modelo/RFINAL.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
+
 
 $CIUDAD_ADO =  new CIUDAD_ADO();
 
@@ -66,8 +59,14 @@ $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
 
 if (isset($_REQUEST['GUARDAR'])) {
 
+
+    $ARRAYNUMERO = $RFINAL_ADO->obtenerNumero($EMPRESAS);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $RFINAL->__SET('NUMERO_RFINAL', $NUMERO);
     $RFINAL->__SET('NOMBRE_RFINAL', $_REQUEST['NOMBRERFINAL']);
     $RFINAL->__SET('DIRECCION_RFINAL', $_REQUEST['DIRECCIONRFINAL']);
     $RFINAL->__SET('CONTACTO1_RFINAL', $_REQUEST['CONTACTORFINAL1']);
@@ -79,7 +78,10 @@ if (isset($_REQUEST['GUARDAR'])) {
     $RFINAL->__SET('CONTACTO3_RFINAL', $_REQUEST['CONTACTORFINAL3']);
     $RFINAL->__SET('CARGO3_RFINAL', $_REQUEST['CARGORFINAL3']);
     $RFINAL->__SET('EMAIL3_RFINAL', $_REQUEST['EMAILRFINAL3']);
-    $RFINAL->__SET('CIUDAD', $_REQUEST['CIUDAD']);
+    $RFINAL->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $RFINAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $RFINAL->__SET('ID_USUARIOI', $IDUSUARIOS);
+    $RFINAL->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $RFINAL_ADO->agregarRfinal($RFINAL);
     //REDIRECCIONAR A PAGINA registroRfinal.php
@@ -159,137 +161,136 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRECCIONRFINAL.style.borderColor = "#4AF575";
-
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
-
-                    if (CONTACTORFINAL1 == null || CONTACTORFINAL1.length == 0 || /^\s+$/.test(CONTACTORFINAL1)) {
-                        document.form_reg_dato.CONTACTORFINAL1.focus();
-                        document.form_reg_dato.CONTACTORFINAL1.style.borderColor = "#FF0000";
-                        document.getElementById('val_contacto1').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CONTACTORFINAL1.style.borderColor = "#4AF575";
+                    /*
+                       if (CIUDAD == null || CIUDAD == 0) {
+                           document.form_reg_dato.CIUDAD.focus();
+                           document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
+                           document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                           return false;
+                       }
+                       document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
 
 
-
-                    if (CARGORFINAL1 == null || CARGORFINAL1.length == 0 || /^\s+$/.test(CARGORFINAL1)) {
-                        document.form_reg_dato.CARGORFINAL1.focus();
-                        document.form_reg_dato.CARGORFINAL1.style.borderColor = "#FF0000";
-                        document.getElementById('val_cargo1').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CARGORFINAL1.style.borderColor = "#4AF575";
+                       if (CONTACTORFINAL1 == null || CONTACTORFINAL1.length == 0 || /^\s+$/.test(CONTACTORFINAL1)) {
+                           document.form_reg_dato.CONTACTORFINAL1.focus();
+                           document.form_reg_dato.CONTACTORFINAL1.style.borderColor = "#FF0000";
+                           document.getElementById('val_contacto1').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.CONTACTORFINAL1.style.borderColor = "#4AF575";
 
 
 
-                    if (EMAILRFINAL1 == null || EMAILRFINAL1.length == 0 || /^\s+$/.test(EMAILRFINAL1)) {
-                        document.form_reg_dato.EMAILRFINAL1.focus();
-                        document.form_reg_dato.EMAILRFINAL1.style.borderColor = "#FF0000";
-                        document.getElementById('val_email1').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILRFINAL1.style.borderColor = "#4AF575";
-
-
-                    if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-                            .test(EMAILRFINAL1))) {
-                        document.form_reg_dato.EMAILRFINAL1.focus();
-                        document.form_reg_dato.EMAILRFINAL1.style.borderColor = "#ff0000";
-                        document.getElementById('val_email1').innerHTML = "FORMATO DE CORREO INCORRECTO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILRFINAL1.style.borderColor = "#4AF575";
+                       if (CARGORFINAL1 == null || CARGORFINAL1.length == 0 || /^\s+$/.test(CARGORFINAL1)) {
+                           document.form_reg_dato.CARGORFINAL1.focus();
+                           document.form_reg_dato.CARGORFINAL1.style.borderColor = "#FF0000";
+                           document.getElementById('val_cargo1').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.CARGORFINAL1.style.borderColor = "#4AF575";
 
 
 
-                    if (CONTACTORFINAL2 == null || CONTACTORFINAL2.length == 0 || /^\s+$/.test(CONTACTORFINAL2)) {
-                        document.form_reg_dato.CONTACTORFINAL2.focus();
-                        document.form_reg_dato.CONTACTORFINAL2.style.borderColor = "#FF0000";
-                        document.getElementById('val_contacto2').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CONTACTORFINAL2.style.borderColor = "#4AF575";
+                       if (EMAILRFINAL1 == null || EMAILRFINAL1.length == 0 || /^\s+$/.test(EMAILRFINAL1)) {
+                           document.form_reg_dato.EMAILRFINAL1.focus();
+                           document.form_reg_dato.EMAILRFINAL1.style.borderColor = "#FF0000";
+                           document.getElementById('val_email1').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.EMAILRFINAL1.style.borderColor = "#4AF575";
+
+
+                       if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+                               .test(EMAILRFINAL1))) {
+                           document.form_reg_dato.EMAILRFINAL1.focus();
+                           document.form_reg_dato.EMAILRFINAL1.style.borderColor = "#ff0000";
+                           document.getElementById('val_email1').innerHTML = "FORMATO DE CORREO INCORRECTO";
+                           return false;
+                       }
+                       document.form_reg_dato.EMAILRFINAL1.style.borderColor = "#4AF575";
 
 
 
-                    if (CARGORFINAL2 == null || CARGORFINAL2.length == 0 || /^\s+$/.test(CARGORFINAL2)) {
-                        document.form_reg_dato.CARGORFINAL2.focus();
-                        document.form_reg_dato.CARGORFINAL2.style.borderColor = "#FF0000";
-                        document.getElementById('val_cargo2').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CARGORFINAL2.style.borderColor = "#4AF575";
+                       if (CONTACTORFINAL2 == null || CONTACTORFINAL2.length == 0 || /^\s+$/.test(CONTACTORFINAL2)) {
+                           document.form_reg_dato.CONTACTORFINAL2.focus();
+                           document.form_reg_dato.CONTACTORFINAL2.style.borderColor = "#FF0000";
+                           document.getElementById('val_contacto2').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.CONTACTORFINAL2.style.borderColor = "#4AF575";
 
 
 
-                    if (EMAILRFINAL2 == null || EMAILRFINAL2.length == 0 || /^\s+$/.test(EMAILRFINAL2)) {
-                        document.form_reg_dato.EMAILRFINAL2.focus();
-                        document.form_reg_dato.EMAILRFINAL2.style.borderColor = "#FF0000";
-                        document.getElementById('val_email2').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILRFINAL2.style.borderColor = "#4AF575";
-
-
-                    if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-                            .test(EMAILRFINAL2))) {
-                        document.form_reg_dato.EMAILRFINAL2.focus();
-                        document.form_reg_dato.EMAILRFINAL2.style.borderColor = "#ff0000";
-                        document.getElementById('val_email2').innerHTML = "FORMATO DE CORREO INCORRECTO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILRFINAL2.style.borderColor = "#4AF575";
-
-                    if (CONTACTORFINAL3 == null || CONTACTORFINAL3.length == 0 || /^\s+$/.test(CONTACTORFINAL3)) {
-                        document.form_reg_dato.CONTACTORFINAL3.focus();
-                        document.form_reg_dato.CONTACTORFINAL3.style.borderColor = "#FF0000";
-                        document.getElementById('val_contacto3').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CONTACTORFINAL3.style.borderColor = "#4AF575";
+                       if (CARGORFINAL2 == null || CARGORFINAL2.length == 0 || /^\s+$/.test(CARGORFINAL2)) {
+                           document.form_reg_dato.CARGORFINAL2.focus();
+                           document.form_reg_dato.CARGORFINAL2.style.borderColor = "#FF0000";
+                           document.getElementById('val_cargo2').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.CARGORFINAL2.style.borderColor = "#4AF575";
 
 
 
-                    if (CARGORFINAL3 == null || CARGORFINAL3.length == 0 || /^\s+$/.test(CARGORFINAL3)) {
-                        document.form_reg_dato.CARGORFINAL3.focus();
-                        document.form_reg_dato.CARGORFINAL3.style.borderColor = "#FF0000";
-                        document.getElementById('val_cargo3').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CARGORFINAL3.style.borderColor = "#4AF575";
+                       if (EMAILRFINAL2 == null || EMAILRFINAL2.length == 0 || /^\s+$/.test(EMAILRFINAL2)) {
+                           document.form_reg_dato.EMAILRFINAL2.focus();
+                           document.form_reg_dato.EMAILRFINAL2.style.borderColor = "#FF0000";
+                           document.getElementById('val_email2').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.EMAILRFINAL2.style.borderColor = "#4AF575";
+
+
+                       if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+                               .test(EMAILRFINAL2))) {
+                           document.form_reg_dato.EMAILRFINAL2.focus();
+                           document.form_reg_dato.EMAILRFINAL2.style.borderColor = "#ff0000";
+                           document.getElementById('val_email2').innerHTML = "FORMATO DE CORREO INCORRECTO";
+                           return false;
+                       }
+                       document.form_reg_dato.EMAILRFINAL2.style.borderColor = "#4AF575";
+
+                       if (CONTACTORFINAL3 == null || CONTACTORFINAL3.length == 0 || /^\s+$/.test(CONTACTORFINAL3)) {
+                           document.form_reg_dato.CONTACTORFINAL3.focus();
+                           document.form_reg_dato.CONTACTORFINAL3.style.borderColor = "#FF0000";
+                           document.getElementById('val_contacto3').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.CONTACTORFINAL3.style.borderColor = "#4AF575";
 
 
 
-                    if (EMAILRFINAL3 == null || EMAILRFINAL3.length == 0 || /^\s+$/.test(EMAILRFINAL3)) {
-                        document.form_reg_dato.EMAILRFINAL3.focus();
-                        document.form_reg_dato.EMAILRFINAL3.style.borderColor = "#FF0000";
-                        document.getElementById('val_email3').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILRFINAL3.style.borderColor = "#4AF575";
-
-
-                    if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-                            .test(EMAILRFINAL3))) {
-                        document.form_reg_dato.EMAILRFINAL3.focus();
-                        document.form_reg_dato.EMAILRFINAL3.style.borderColor = "#ff0000";
-                        document.getElementById('val_email3').innerHTML = "FORMATO DE CORREO INCORRECTO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILRFINAL3.style.borderColor = "#4AF575";
+                       if (CARGORFINAL3 == null || CARGORFINAL3.length == 0 || /^\s+$/.test(CARGORFINAL3)) {
+                           document.form_reg_dato.CARGORFINAL3.focus();
+                           document.form_reg_dato.CARGORFINAL3.style.borderColor = "#FF0000";
+                           document.getElementById('val_cargo3').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.CARGORFINAL3.style.borderColor = "#4AF575";
 
 
 
+                       if (EMAILRFINAL3 == null || EMAILRFINAL3.length == 0 || /^\s+$/.test(EMAILRFINAL3)) {
+                           document.form_reg_dato.EMAILRFINAL3.focus();
+                           document.form_reg_dato.EMAILRFINAL3.style.borderColor = "#FF0000";
+                           document.getElementById('val_email3').innerHTML = "NO A INGRESADO DATO";
+                           return false;
+                       }
+                       document.form_reg_dato.EMAILRFINAL3.style.borderColor = "#4AF575";
 
+
+                       if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+                               .test(EMAILRFINAL3))) {
+                           document.form_reg_dato.EMAILRFINAL3.focus();
+                           document.form_reg_dato.EMAILRFINAL3.style.borderColor = "#ff0000";
+                           document.getElementById('val_email3').innerHTML = "FORMATO DE CORREO INCORRECTO";
+                           return false;
+                       }
+                       document.form_reg_dato.EMAILRFINAL3.style.borderColor = "#4AF575";
+
+                       */
 
                 }
+
                 //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
                 function cerrar() {
                     window.opener.refrescar()
@@ -312,20 +313,22 @@ if (isset($_REQUEST['GUARDAR'])) {
                                 -->
                     </div>
                     <!-- /.box-header -->
-                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                    <form class="form" role="form" method="post" name="form_reg_dato" >
                         <div class="box-body">
-                         
+                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
+                            </h4>
+                            <hr class="my-15">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Nombre </label>
+                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                         <input type="text" class="form-control" placeholder="Nombre Rfinal" id="NOMBRERFINAL" name="NOMBRERFINAL" value="<?php echo $NOMBRERFINAL; ?>" <?php echo $DISABLED; ?> />
                                         <label id="val_nombre" class="validacion"> </label>
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -355,7 +358,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                     </div>
                                 </div>
                             </div>
-
                             <label>Contacto </label>
                             <hr class="my-15">
                             <div class="row">
@@ -439,7 +441,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                             <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
                                 <i class="ti-trash"></i> Cancelar
                             </button>
-                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
+                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
                                 <i class="ti-save-alt"></i> Crear
                             </button>
                         </div>

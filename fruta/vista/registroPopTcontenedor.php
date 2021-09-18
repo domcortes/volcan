@@ -4,10 +4,6 @@ include_once "../config/validarUsuario.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/TCONTENEDOR_ADO.php';
 include_once '../modelo/TCONTENEDOR.php';
@@ -15,14 +11,12 @@ include_once '../modelo/TCONTENEDOR.php';
 //INCIALIZAR LAS VARIBLES
 
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
+
 
 $TCONTENEDOR_ADO =  new TCONTENEDOR_ADO();
 //INIICIALIZAR MODELO
 $TCONTENEDOR =  new TCONTENEDOR();
+
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -50,9 +44,19 @@ $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->listarTcontenedorCBX();
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['GUARDAR'])) {
 
+
+
+    $ARRAYNUMERO = $TCONTENEDOR_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $TCONTENEDOR->__SET('NUMERO_TCONTENEDOR', $NUMERO);
     $TCONTENEDOR->__SET('NOMBRE_TCONTENEDOR', $_REQUEST['NOMBRETCONTENEDOR']);
+    $TCONTENEDOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $TCONTENEDOR->__SET('ID_USUARIOI', $IDUSUARIOS);
+    $TCONTENEDOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $TCONTENEDOR_ADO->agregarTcontenedor($TCONTENEDOR);
     //REDIRECCIONAR A PAGINA registroTfruta.php
@@ -125,10 +129,15 @@ if (isset($_REQUEST['GUARDAR'])) {
                                         -->
                         </div>
                         <!-- /.box-header -->
-                        <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                        <form class="form" role="form" method="post" name="form_reg_dato" >
                             <div class="box-body">
+                                <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
+                                </h4>
+                                <hr class="my-15">
                                 <div class="form-group">
                                     <label>Nombre </label>
+                                    <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                    <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                     <input type="text" class="form-control" placeholder="Nombre Tipo  Contenedor" id="NOMBRETCONTENEDOR" name="NOMBRETCONTENEDOR" value="<?php echo $NOMBRETCONTENEDOR; ?>" <?php echo $DISABLED; ?> />
                                     <label id="val_nombre" class="validacion"> </label>
                                 </div>
@@ -138,7 +147,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                                 <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
                                     <i class="ti-trash"></i> Cancelar
                                 </button>
-                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
+                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
                                     <i class="ti-save-alt"></i> Crear
                                 </button>
                             </div>

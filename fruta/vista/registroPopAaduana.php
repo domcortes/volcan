@@ -2,11 +2,8 @@
 
 include_once "../config/validarUsuario.php";
 
+
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 include_once '../controlador/CIUDAD_ADO.php';
 
@@ -15,17 +12,11 @@ include_once '../modelo/AADUANA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
-
 $CIUDAD_ADO =  new CIUDAD_ADO();
 
 $AADUANA_ADO =  new AADUANA_ADO();
 //INIICIALIZAR MODELO
 $AADUANA =  new AADUANA();
-
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $IDOP = "";
@@ -33,6 +24,7 @@ $OP = "";
 $DISABLED = "";
 
 $RUTAADUANA = "";
+$DVAADUANA = "";
 $NOMBREAADUANA = "";
 $DIRECCIONAADUANA = "";
 $RAZONSOCIALAADUANA = "";
@@ -63,9 +55,14 @@ $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
 
 if (isset($_REQUEST['GUARDAR'])) {
 
+    $ARRAYNUMERO = $AADUANA_ADO->obtenerNumero($EMPRESAS);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $AADUANA->__SET('NUMERO_AADUANA', $NUMERO);
     $AADUANA->__SET('RUT_AADUANA', $_REQUEST['RUTAADUANA']);
+    $AADUANA->__SET('DV_AADUANA', $_REQUEST['DVAADUANA']);
     $AADUANA->__SET('NOMBRE_AADUANA', $_REQUEST['NOMBREAADUANA']);
     $AADUANA->__SET('RAZON_SOCIAL_AADUANA', $_REQUEST['RAZONSOCIALAADUANA']);
     $AADUANA->__SET('GIRO_AADUANA', $_REQUEST['GIROAADUANA']);
@@ -73,7 +70,10 @@ if (isset($_REQUEST['GUARDAR'])) {
     $AADUANA->__SET('CONTACTO_AADUANA', $_REQUEST['CONTACTOAADUANA']);
     $AADUANA->__SET('TELEFONO_AADUANA', $_REQUEST['TELEFONOAADUANA']);
     $AADUANA->__SET('EMAIL_AADUANA', $_REQUEST['EMAILAADUANA']);
-    $AADUANA->__SET('CIUDAD', $_REQUEST['CIUDAD']);
+    $AADUANA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $AADUANA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $AADUANA->__SET('ID_USUARIOI', $IDUSUARIOS);
+    $AADUANA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $AADUANA_ADO->agregarAaduana($AADUANA);
     //REDIRECCIONAR A PAGINA registroAaduana.php
@@ -110,6 +110,7 @@ if (isset($_REQUEST['GUARDAR'])) {
 
 
                     RUTAADUANA = document.getElementById("RUTAADUANA").value;
+                    DVAADUANA = document.getElementById("DVAADUANA").value;
                     NOMBREAADUANA = document.getElementById("NOMBREAADUANA").value;
 
 
@@ -124,6 +125,7 @@ if (isset($_REQUEST['GUARDAR'])) {
 
 
                     document.getElementById('val_rut').innerHTML = "";
+                    document.getElementById('val_dv').innerHTML = "";
                     document.getElementById('val_nombre').innerHTML = "";
                     document.getElementById('val_rsocial').innerHTML = "";
                     document.getElementById('val_giro').innerHTML = "";
@@ -140,6 +142,14 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.RUTAADUANA.style.borderColor = "#4AF575";
+
+                    if (DVAADUANA == null || DVAADUANA.length == 0 || /^\s+$/.test(DVAADUANA)) {
+                        document.form_reg_dato.DVAADUANA.focus();
+                        document.form_reg_dato.DVAADUANA.style.borderColor = "#FF0000";
+                        document.getElementById('val_dv').innerHTML = "NO A INGRESADO DATO";
+                        return false;
+                    }
+                    document.form_reg_dato.DVAADUANA.style.borderColor = "#4AF575";
 
                     if (NOMBREAADUANA == null || NOMBREAADUANA.length == 0 || /^\s+$/.test(NOMBREAADUANA)) {
                         document.form_reg_dato.NOMBREAADUANA.focus();
@@ -174,60 +184,59 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.DIRECCIONAADUANA.style.borderColor = "#4AF575";
-
-                    if (CIUDAD == null || CIUDAD == 0) {
-                        document.form_reg_dato.CIUDAD.focus();
-                        document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-
-
-
-                    if (CONTACTOAADUANA == null || CONTACTOAADUANA.length == 0 || /^\s+$/.test(CONTACTOAADUANA)) {
-                        document.form_reg_dato.CONTACTOAADUANA.focus();
-                        document.form_reg_dato.CONTACTOAADUANA.style.borderColor = "#FF0000";
-                        document.getElementById('val_contacto').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CONTACTOAADUANA.style.borderColor = "#4AF575";
+                    /*
+                        if (CIUDAD == null || CIUDAD == 0) {
+                            document.form_reg_dato.CIUDAD.focus();
+                            document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
+                            document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
 
 
-                    if (TELEFONOAADUANA == null || TELEFONOAADUANA == 0) {
-                        document.form_reg_dato.TELEFONOAADUANA.focus();
-                        document.form_reg_dato.TELEFONOAADUANA.style.borderColor = "#FF0000";
-                        document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.TELEFONOAADUANA.style.borderColor = "#4AF575";
+
+                        if (CONTACTOAADUANA == null || CONTACTOAADUANA.length == 0 || /^\s+$/.test(CONTACTOAADUANA)) {
+                            document.form_reg_dato.CONTACTOAADUANA.focus();
+                            document.form_reg_dato.CONTACTOAADUANA.style.borderColor = "#FF0000";
+                            document.getElementById('val_contacto').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.CONTACTOAADUANA.style.borderColor = "#4AF575";
 
 
-                    if (EMAILAADUANA == null || EMAILAADUANA.length == 0 || /^\s+$/.test(EMAILAADUANA)) {
-                        document.form_reg_dato.EMAILAADUANA.focus();
-                        document.form_reg_dato.EMAILAADUANA.style.borderColor = "#FF0000";
-                        document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILAADUANA.style.borderColor = "#4AF575";
+                        if (TELEFONOAADUANA == null || TELEFONOAADUANA == 0) {
+                            document.form_reg_dato.TELEFONOAADUANA.focus();
+                            document.form_reg_dato.TELEFONOAADUANA.style.borderColor = "#FF0000";
+                            document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.TELEFONOAADUANA.style.borderColor = "#4AF575";
 
 
-                    if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-                            .test(EMAILAADUANA))) {
-                        document.form_reg_dato.EMAILAADUANA.focus();
-                        document.form_reg_dato.EMAILAADUANA.style.borderColor = "#ff0000";
-                        document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
-                        return false;
-                    }
-                    document.form_reg_dato.EMAILAADUANA.style.borderColor = "#4AF575";
+                        if (EMAILAADUANA == null || EMAILAADUANA.length == 0 || /^\s+$/.test(EMAILAADUANA)) {
+                            document.form_reg_dato.EMAILAADUANA.focus();
+                            document.form_reg_dato.EMAILAADUANA.style.borderColor = "#FF0000";
+                            document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.EMAILAADUANA.style.borderColor = "#4AF575";
 
+
+                        if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+                                .test(EMAILAADUANA))) {
+                            document.form_reg_dato.EMAILAADUANA.focus();
+                            document.form_reg_dato.EMAILAADUANA.style.borderColor = "#ff0000";
+                            document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
+                            return false;
+                        }
+                        document.form_reg_dato.EMAILAADUANA.style.borderColor = "#4AF575";
+                    */
 
 
 
 
 
                 }
-
 
                 //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
                 function cerrar() {
@@ -251,15 +260,26 @@ if (isset($_REQUEST['GUARDAR'])) {
                                 -->
                     </div>
                     <!-- /.box-header -->
-                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                    <form class="form" role="form" method="post" name="form_reg_dato">
                         <div class="box-body">
-
+                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
+                            </h4>
+                            <hr class="my-15">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Rut </label>
+                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                         <input type="text" class="form-control" placeholder="Rut Agente Aduana" id="RUTAADUANA" name="RUTAADUANA" value="<?php echo $RUTAADUANA; ?>" <?php echo $DISABLED; ?> />
                                         <label id="val_rut" class="validacion"> </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>DV </label>
+                                        <input type="text" class="form-control" placeholder="DV Agente Aduana" id="DVAADUANA" name="DVAADUANA" value="<?php echo $DVAADUANA; ?>" <?php echo $DISABLED; ?> />
+                                        <label id="val_dv" class="validacion"> </label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -286,9 +306,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                     </div>
                                 </div>
                             </div>
-
-
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -337,7 +354,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                         <label id="val_telefono" class="validacion"> </label>
                                     </div>
                                 </div>
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Email </label>
@@ -353,7 +369,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                             <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="cerrar();">
                                 <i class="ti-trash"></i> Cancelar
                             </button>
-                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
+                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
                                 <i class="ti-save-alt"></i> Crear
                             </button>
                         </div>

@@ -149,7 +149,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                     NOMBREPCARGA = document.getElementById("NOMBREPCARGA").value;
                     document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_notatf').innerHTML = "";
 
                     if (NOMBREPCARGA == null || NOMBREPCARGA.length == 0 || /^\s+$/.test(NOMBREPCARGA)) {
                         document.form_reg_dato.NOMBREPCARGA.focus();
