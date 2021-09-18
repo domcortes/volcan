@@ -279,7 +279,6 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                         </div>
                     </div>
                 </div>
-
                 <label id="val_mensaje" class="validacion"><?php echo $MENSAJEFOLIO; ?> </label>
                 <!-- Main content -->
                 <section class="content">

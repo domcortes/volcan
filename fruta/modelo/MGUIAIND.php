@@ -9,7 +9,8 @@ class  MGUIAIND {
     //ATRIBUTOS DE LA CLASE    
     private	  $ID_MGUIA; 
     private	  $NUMERO_MGUIA;
-    private	  $FECHA_INGRESO_MGUIA;
+    private	  $INGRESO;
+    private	  $NUMERO_DESPACHO;
     private	  $NUMERO_GUIA;
     private	  $MOTIVO_MGUIA;
     private	  $ESTADO_REGISTRO;

@@ -9,7 +9,6 @@ include_once '../controlador/TEMPORADA_ADO.php';
 
 
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
@@ -20,7 +19,6 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/COMPRADOR_ADO.php';
 
 include_once '../controlador/DESPACHOIND_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
 
 
@@ -35,7 +33,6 @@ $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
@@ -48,7 +45,6 @@ $COMPRADOR_ADO =  new COMPRADOR_ADO();
 
 
 $DESPACHOIND_ADO =  new DESPACHOIND_ADO();
-$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 $EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
 
 
@@ -71,13 +67,15 @@ $PATENTECARRO = "";
 $CONDUCTOR = "";
 $COMPRADOR = "";
 
-$TOTALENVASE = "";
+$TOTALPRECIO = "";
 $TOTALNETO = "";
+$TOTALNETOD = "";
+$TOTALDELTA = "";
 $NUMERO = "";
 
 $IDOP = "";
 $OP = "";
-
+$NOMBRE = "";
 //INICIALIZAR ARREGLOS
 $ARRAYEMPRESA = "";
 $ARRAYDESPACHO = "";
@@ -94,34 +92,37 @@ $ARRAYCOMPRADOR = "";
 $ARRAYVERPRODUCTORID = "";
 $ARRAYVERVESPECIESID = "";
 $ARRAYEVERERECEPCIONID = "";
-$ARRAYUSUARIO="";
+$ARRAYUSUARIO = "";
 
-if(isset($_REQUEST['NOMBREUSUARIO'])){
-  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-  
 }
+
+
 
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
   $NUMERODESPACHO = $IDOP;
 }
-$ARRAYDESPACHO = $DESPACHOIND_ADO->verDespachoind2($NUMERODESPACHO);
-$ARRAYDESPACHOTOTAL = $DESPACHOIND_ADO->obtenerTotalesDespachoindCBX2($IDOP);
+$ARRAYDESPACHO = $DESPACHOIND_ADO->verDespachomp2($NUMERODESPACHO);
+$ARRAYDESPACHOTOTAL = $DESPACHOIND_ADO->obtenerTotalesDespachompCBX2($IDOP);
 $TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
-
+$TOTALPRECIO = $ARRAYDESPACHOTOTAL[0]['PRECIO'];
 
 
 $ARRAYEXISTENCIATOMADA = $EXIINDUSTRIAL_ADO->buscarPorDespacho2($NUMERODESPACHO);
 $ARRAYDESPACHOTOTAL = $EXIINDUSTRIAL_ADO->obtenerTotalesDespacho2($IDOP);
 
-
+$TOTALNETOD= $ARRAYDESPACHOTOTAL[0]['NETOD'];
+$TOTALDELTA= $ARRAYDESPACHOTOTAL[0]['DELTA'];
 
 
 
 $NUMERO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
-$FECHA = $ARRAYDESPACHO[0]['FECHA_DESPACHOR'];
+$FECHA = $ARRAYDESPACHO[0]['FECHA'];
 $FECHAINGRESO = $ARRAYDESPACHO[0]['INGRESO'];
 $FECHAMODIFCACION = $ARRAYDESPACHO[0]['MODIFICACION'];
 $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
@@ -129,6 +130,7 @@ $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
 $PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
 $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
 $REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
+$OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
 
 
 
@@ -329,7 +331,17 @@ $html .= '
   <table border="0" cellspacing="0" cellpadding="0">
           <thead>
               <tr>
-                  <th colspan="8" class="center">SELECCION </th>
+                              ';
+if ($TDESPACHO == "3") {
+  $html .= '
+                      <th colspan="12" class="center">SELECCIÓN </th>
+                      ';
+} else {
+  $html .= '
+                      <th colspan="10" class="center">SELECCIÓN </th>
+                      ';
+}
+$html .= '
               </tr>
               <tr>
                   <th class="color left">Folio</th>
@@ -340,29 +352,48 @@ $html .= '
                   <th class="color center ">Productor </th>
                   <th class="color center ">Variedad </th>
                   <th class="color center">Kilos Neto</th>
-              </tr>
-          </thead>
-          <tbody>
-  ';
+';
+if ($TDESPACHO == "3") {
+  $html .= '
+                      <th class="color center">Kilos Despacho</th>
+                      <th class="color center">Delta Dif.</th>
+                      <th class="color center">Precio Por Kilo.</th>
+                      <th class="color center">Total Precio.</th>
+                      ';
+}
+$html .= '
+                </tr>
+            </thead>
+            <tbody>
+    ';
 foreach ($ARRAYEXISTENCIATOMADA as $r) :
 
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-  $ARRAYVERPVESPECIESID = $PVESPECIES_ADO->verPvespecies($r['ID_PVESPECIES']);
-  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($ARRAYVERPVESPECIESID[0]['ID_VESPECIES']);
+  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
 
   $html = $html . '
     <tr>
         <th class=" left">' . $r['FOLIO_AUXILIAR_EXIINDUSTRIAL'] . '</th>
-        <td class=" center">' . $r['FECHA'] . '</td>
+        <td class=" center">' . $r['EMBALADO'] . '</td>
         <td class=" center">' . $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'] . '</td>
         <td class=" center">' . $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'] . '</td>
         <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . ' </td>
         <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . ' </td>
         <td class=" center ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         <td class=" center">' . $r['NETO'] . '</td>
-    </tr>
-    ';
+            ';
+  if ($TDESPACHO == "3") {
+    $html .= '
+  <td class=" center">' . $r['NETOD'] . '</td>
+  <td class=" center">' . $r['DELTA'] . '</td>
+  <td class=" center">' . $r['KILOP'] . '</td>
+  <td class=" center">' . $r['PRECIO'] . '</td>
+                      ';
+  }
+  $html .= '
+        </tr>
+        ';
 endforeach;
 $html = $html . '
   <tr>
@@ -374,6 +405,10 @@ $html = $html . '
       <th class="color center">&nbsp;</th>
       <th class="color right">Sub Total</th>
       <th class="color center">' . $TOTALNETO . '</th>
+      <th class="color center">' . $TOTALNETOD . '</th>
+      <th class="color center">' . $TOTALDELTA . '</th>
+      <th class="color center"></th>
+      <th class="color center">' . $TOTALPRECIO . '</th>
   </tr>
 ';
 
@@ -390,25 +425,11 @@ $html = $html . '
       <div class="address">Patente Camion: ' . $PATENTECAMION . '</div>
       <div class="address">Patente Carro: ' . $PATENTECARRO . '</div>
     </div>
+    <div id="client">
+      <div class="address"><b>Observaciones</b></div>
+      <div class="address">  ' . $OBSERVACIONES . ' </div>
+    </div>
   </div>
-  <div id="notices">
-    <div>IMPORTANTE:</div>
-    <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-  </div>
-  <br>
-  <br>    
-          <table >      
-            <tr>
-              <td class="color2 center" style="width: 30%;" > </td>
-              <td class="color2  center" style="width: 10%;"> <hr> </td>
-              <td class="color2 right" style="width: 30%;"> </td>
-            </tr>
-            <tr>
-              <td class="color2 center" style="width: 30%;" > </td>
-              <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
-              <td class="color2 center" style="width: 30%;"> </td>
-            </tr>    
-          </table>
 
 </main>
 <footer>
@@ -445,7 +466,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
@@ -466,7 +487,18 @@ $PDF->SetHTMLHeader('
 
 $PDF->SetHTMLFooter('
 
-
+    <table width="100%" >   
+      <tr>
+        <td class="color2 center" style="width: 30%;" > </td>
+        <td class="color2  center" style="width: 10%;"> <hr> </td>
+        <td class="color2 right" style="width: 30%;"> </td>
+      </tr>
+      <tr>
+        <td class="color2 center" style="width: 30%;" > </td>
+        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+        <td class="color2 center" style="width: 30%;"> </td>
+      </tr>    
+    </table>
     <table width="100%" >
         <tbody>
             <tr>

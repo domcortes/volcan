@@ -362,9 +362,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/dashboard.svg" class="svg-icon" alt="">
           <span>Inicio</span>
         </a>
-
       </li>
-
       <li class="header">Modulo</li>
       <li class="treeview">
         <a href="#">
@@ -376,89 +374,85 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </a>
         <ul class="treeview-menu">
           <li class="treeview">
-            <a href="#"><i class="ti-more"></i> Recepcion
+            <a href="#">Recepcion
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li class="treeview">
-                <a href="#"><i class="ti-more"></i>Materia Prima
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroRecepcionmp.php"><i class="ti-more"></i>Registro Recepción </a></li>
-                  <li><a href="listarRecepcionmp.php"><i class="ti-more"></i>Agrupado Recepción</a></li>
-                  <li><a href="listarRecepcionmpInterplanta.php"><i class="ti-more"></i>Agrupado Interplanta</a></li>
-                </ul>
-              </li>
-              <!--
-              <li class="treeview">
-                <a href="#">Industrial
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="ti-more"></i>Registro Recepción </a></li>
-                  <li><a href="#"><i class="ti-more"></i>Agrupado Recepción</a></li>
-                  <li><a href="#"><i class="ti-more"></i>Agrupado Interplanta</a></li>
-                </ul>
-              </li>
-                -->
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Despacho
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right "></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#">Materia Prima
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroDespachomp.php"><i class="ti-more"></i>Registro Despacho </a></li>
-                  <li><a href="listarDespachomp.php"><i class="ti-more"></i> Agrupado Despacho</a></li>
+                  <li><a href="registroRecepcionmp.php">Registro Recepción <i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcionmp.php">Agrupado Recepción<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcionmpInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
                 </ul>
               </li>
-              <!--
               <li class="treeview">
                 <a href="#">Industrial
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="#"><i class="ti-more"></i>Registro Recepción </a></li>
-                  <li><a href="#"><i class="ti-more"></i> Agrupado Recepción</a></li>
+                  <li><a href="registroRecepcionind.php">Registro Recepción <i class="ti-more"></i></a> </li>
+                  <li><a href="listarRecepcionind.php">Agrupado Recepción<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcionindInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
                 </ul>
               </li>
-                -->
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">Despacho
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#">Materia Prima
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroDespachomp.php">Registro Despacho<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachomp.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Industrial
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroDespachoind.php">Registro Despacho<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachoind.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li class="treeview">
             <a href="#">Guia Por Recibir
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirMP.php"><i class="ti-more"></i> Materia Prima</a></li>
-              <!--<li><a href="registroGuiaPorRecibirPT.php"><i class="ti-more"></i> Producto Inudstrial</a></li>-->
+              <li><a href="registroGuiaPorRecibirMP.php">Materia Prima<i class="ti-more"></i> </a></li>
+              <li><a href="registroGuiaPorRecibirIND.php">Inudstrial<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <!--
           <li class="treeview">
             <a href="#">Repaletizaje
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -466,11 +460,10 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarRepaletizajeMpRecepcion.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
             </ul>
           </li>-->
-          <li><a href="listarEximateriaprima.php"><i class="ti-more"></i>Existencia Materia Prima</a></li>
-          <li><a href="listarExiindustrial.php"><i class="ti-more"></i>Existencia Industrial</a></li>
+          <li><a href="listarEximateriaprima.php">Existencia Materia Prima<i class="ti-more"></i></a></li>
+          <li><a href="listarExiindustrial.php">Existencia Industrial<i class="ti-more"></i></a></li>
         </ul>
       </li>
-
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms2.svg" class="svg-icon" alt="">
@@ -483,7 +476,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Proceso
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -494,7 +487,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Reembalaje
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -506,14 +499,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#"> Repaletizaje
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#"> Producto Terminado
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -527,7 +520,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li class="treeview">
                 <a href="#"> Materia Prima
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -554,9 +547,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </a>
         <ul class="treeview-menu">
           <li class="treeview">
-            <a href="#"><i class="ti-more"></i>Inst. Carga
+            <a href="#">Inst. Carga
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -579,7 +572,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Inapección SAG
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -602,7 +595,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Recepción P. Terminado
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -614,7 +607,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Guia Por Recibir
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -624,7 +617,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Repaletizaje
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -635,7 +628,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Despacho P. Terminado
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -646,7 +639,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Despacho Exportacion
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -657,7 +650,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Planificador Carga
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -697,7 +690,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Fruta
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -713,7 +706,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Ubicacion
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -725,7 +718,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li class="treeview">
                 <a href="#">Destino
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -737,7 +730,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li class="treeview">
                 <a href="#">Carga
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -753,14 +746,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Transporte
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#">Aereo
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -772,7 +765,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li class="treeview">
                 <a href="#">Maritimo
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -783,7 +776,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li class="treeview">
                 <a href="#">Terrestre
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -796,7 +789,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Estandares
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -809,7 +802,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Mercado
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
@@ -820,14 +813,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Instructivo
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#">Pago
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -851,14 +844,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Parametros
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#">Tipo
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -876,7 +869,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li class="treeview">
                 <a href="#">Folio
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -888,7 +881,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li class="treeview">
                 <a href="#">Control
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
