@@ -3,12 +3,12 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EXIEXPORTACION_ADO.php';
+include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/MGUIAMP_ADO.php';
 
 
-include_once '../modelo/EXIEXPORTACION.php';
+include_once '../modelo/EXIMATERIAPRIMA.php';
 include_once '../modelo/MGUIAMP.php';
 include_once '../modelo/DESPACHOMP.php';
 
@@ -16,12 +16,12 @@ include_once '../modelo/DESPACHOMP.php';
 //INICIALIZAR CONTROLADOR
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $MGUIAMP_ADO =  new MGUIAMP_ADO();
-$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
+$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 //INIICIALIZAR MODELO
 
 $MGUIAMP =  new MGUIAMP();
 $DESPACHOMP =  new DESPACHOMP();
-$EXIEXPORTACION =  new EXIEXPORTACION();
+$EXIMATERIAPRIMA =  new EXIMATERIAPRIMA();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -79,12 +79,12 @@ if (isset($_REQUEST['GUARDAR'])) {
     $DESPACHOMP_ADO->Rechazado($DESPACHOMP);
 
 
-    $ARRAYEXISENCIADESPACHOMP = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
+    $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
     foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
 
-        $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+        $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $EXIEXPORTACION_ADO->endespacho($EXIEXPORTACION);
+        $EXIMATERIAPRIMA_ADO->enDespacho($EXIMATERIAPRIMA);
     endforeach;
 
     //REDIRECCIONAR A PAGINA registroAerolinia.php
