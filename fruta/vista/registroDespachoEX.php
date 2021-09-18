@@ -999,6 +999,90 @@ if (isset($_POST)) {
                 }
             }
         }
+    } else {
+        if (isset($_REQUEST['EXPORTADORA'])) {
+            $EXPORTADORA = "" . $_REQUEST['EXPORTADORA'];
+        }
+        if (isset($_REQUEST['RFINAL'])) {
+            $RFINAL = "" . $_REQUEST['RFINAL'];
+        }
+        if (isset($_REQUEST['AGCARGA'])) {
+            $AGCARGA = "" . $_REQUEST['AGCARGA'];
+        }
+        if (isset($_REQUEST['DFINAL'])) {
+            $DFINAL = "" . $_REQUEST['DFINAL'];
+        }
+        if (isset($_REQUEST['PAIS'])) {
+            $PAIS = "" . $_REQUEST['PAIS'];
+        }
+        if (isset($_REQUEST['MERCADO'])) {
+            $MERCADO = "" . $_REQUEST['MERCADO'];
+        }
+        if (isset($_REQUEST['FECHAETD'])) {
+            $FECHAETD = "" . $_REQUEST['FECHAETD'];
+        }
+        if (isset($_REQUEST['FECHAETA'])) {
+            $FECHAETA = "" . $_REQUEST['FECHAETA'];
+        }
+        if (isset($_REQUEST['BOOKINGINSTRUCTIVO'])) {
+            $BOOKINGINSTRUCTIVO = "" . $_REQUEST['BOOKINGINSTRUCTIVO'];
+        }
+        if (isset($_REQUEST['TEMBARQUE'])) {
+            $TEMBARQUE = "" . $_REQUEST['TEMBARQUE'];
+            if ($TEMBARQUE) {
+                if ($TEMBARQUE == "1") {
+                    if (isset($_REQUEST['CRT'])) {
+                        $CRT = "" . $_REQUEST['CRT'];
+                    }
+                    if (isset($_REQUEST['TRANSPORTE2'])) {
+                        $TRANSPORTE2 = "" . $_REQUEST['TRANSPORTE2'];
+                    }
+                    if (isset($_REQUEST['LCARGA'])) {
+                        $LCARGA = "" . $_REQUEST['LCARGA'];
+                    }
+                    if (isset($_REQUEST['LDESTINO'])) {
+                        $LDESTINO = "" . $_REQUEST['LDESTINO'];
+                    }
+                }
+                if ($TEMBARQUE == "2") {
+                    if (isset($_REQUEST['LAEREA'])) {
+                        $LAEREA = "" . $_REQUEST['LAEREA'];
+                    }
+                    if (isset($_REQUEST['NAVE'])) {
+                        $NAVE = "" . $_REQUEST['NAVE'];
+                    }
+                    if (isset($_REQUEST['NVIAJE'])) {
+                        $NVIAJE = "" . $_REQUEST['NVIAJE'];
+                    }
+                    if (isset($_REQUEST['ACARGA'])) {
+                        $ACARGA = "" . $_REQUEST['ACARGA'];
+                    }
+                    if (isset($_REQUEST['ADESTINO'])) {
+                        $ADESTINO = "" . $_REQUEST['ADESTINO'];
+                    }
+                }
+                if ($TEMBARQUE == "3") {
+                    if (isset($_REQUEST['NAVIERA'])) {
+                        $NAVIERA = "" . $_REQUEST['NAVIERA'];
+                    }
+                    if (isset($_REQUEST['NAVE'])) {
+                        $NAVE = "" . $_REQUEST['NAVE'];
+                    }
+                    if (isset($_REQUEST['FECHASTACKING'])) {
+                        $FECHASTACKING = "" . $_REQUEST['FECHASTACKING'];
+                    }
+                    if (isset($_REQUEST['NVIAJE'])) {
+                        $NVIAJE = "" . $_REQUEST['NVIAJE'];
+                    }
+                    if (isset($_REQUEST['PCARGA'])) {
+                        $PCARGA = "" . $_REQUEST['PCARGA'];
+                    }
+                    if (isset($_REQUEST['PDESTINO'])) {
+                        $PDESTINO = "" . $_REQUEST['PDESTINO'];
+                    }
+                }
+            }
+        }
     }
     if (isset($_REQUEST['FECHAINGRESODESPACHOEX'])) {
         $FECHAINGRESODESPACHOEX = "" . $_REQUEST['FECHAINGRESODESPACHOEX'];
@@ -2027,14 +2111,6 @@ if (isset($_POST)) {
                                                                 <?php endforeach; ?>
                                                             </select>
                                                             <label id="val_exportadora" class="validacion"> </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
-                                                        <div class="form-group">
-                                                            <br>
-                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Exportadora" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopExportadora.php' ); ">
-                                                                <i class="glyphicon glyphicon-plus"></i>
-                                                            </button>
                                                         </div>
                                                     </div>
                                                     <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
