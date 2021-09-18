@@ -98,6 +98,7 @@ $ARRAYDINDUSTRIAL=$DPINDUSTRIAL_ADO->buscarPorProceso2($NUMEROPROCESO);
 $ARRAYDINDUSTRIALTOTALES = $DPINDUSTRIAL_ADO->obtenerTotales2($NUMEROPROCESO);
 
 $FECHAPROCESO=$ARRAYPROCESO[0]['FECHA_PROCESO'];
+$NUMEROPROCESO = $ARRAYPROCESO[0]['NUMERO_PROCESO'];
 
 $ARRAYTPROCESO=$TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]['ID_TPROCESO']);
 
@@ -428,7 +429,7 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
 		<div class="subtitulo2"></div>   
         <br>
 		<div class="info ">
-			<b> Numero Proceso : </b> '.$r['ID_PROCESO'].'
+			<b> Numero Proceso : </b> '.$NUMEROPROCESO.'
 		</div>	
 		<div class="info ">
 			<b> Estandar : </b>  '.$ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'].'
