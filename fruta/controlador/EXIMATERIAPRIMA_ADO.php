@@ -1208,7 +1208,7 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
-    public function despachando(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    public function enDespacho(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
     {
         try {
             $query = "

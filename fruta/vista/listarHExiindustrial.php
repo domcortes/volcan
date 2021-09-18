@@ -184,8 +184,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio </th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado</th>
-                                                        <th>Fecha Ingreso </th>
-                                                        <th>Fecha Modificacion </th>
                                                         <th>CSG Productor </th>
                                                         <th>Nombre Productor </th>
                                                         <th>Codigo Estandar </th>
@@ -310,8 +308,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $r['EMBALADO']; ?> </td>
                                                             <td><?php echo $ESTADO; ?> </td>
-                                                            <td><?php echo $r['INGRESO']; ?></td>
-                                                            <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
@@ -337,9 +333,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 <tfoot>
                                                     <tr class="text-left" id="filtro">
                                                         <th>Folio </th>
+                                                        <th>Fecha Embalado </th>
                                                         <th>Estado</th>
-                                                        <th>Fecha Ingreso </th>
-                                                        <th>Fecha Modificacion </th>
                                                         <th>CSG Productor </th>
                                                         <th>Nombre Productor </th>
                                                         <th>Codigo Estandar </th>
