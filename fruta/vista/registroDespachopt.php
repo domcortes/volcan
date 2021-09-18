@@ -390,7 +390,6 @@ if (isset($_REQUEST['QUITAR'])) {
     $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIEXPORTACION);
 }
 if (isset($_REQUEST['PRECIOS'])) {
-
     $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
     if (empty($ARRAYDDESPACHOMP2)) {
         $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
@@ -1558,9 +1557,9 @@ if (isset($_POST)) {
                                                                             <input type="hidden" class="form-control" name="FOLIOEXIEXPORTACIONPRECIO[]" value="<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>" />
                                                                             <input type="hidden" class="form-control" name="IDEXIEXPORTACIONPRECIO[]" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                             <input type="hidden" class="form-control" name="IDPRECIO[]" value="<?php echo  $CONTADOR; ?>">
-                                                                            <input type="text" pattern="[0-9]+" placeholder="Solo Números" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0) {
-                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                } ?> value="<?php echo $r['PRECIO_PALLET']; ?>">
+                                                                            <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" placeholder="0.00" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                echo "disabled";
+                                                                                                                                                                                            } ?> value="<?php echo $r['PRECIO_PALLET']; ?>">
                                                                         </div>
                                                                     </td>
                                                                 <?php } ?>
@@ -1608,7 +1607,6 @@ if (isset($_POST)) {
                                                         </div>
                                                     </td>
                                                 </tr>
-
                                                 <?php if ($TDESPACHO == "3") {
                                                     $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($IDDESPACHOMP);
                                                 ?>
