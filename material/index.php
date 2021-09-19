@@ -15,20 +15,13 @@
         <link rel="stylesheet" type="text/css" HREF="vista/css/reset.css"/>
 
       
-        <link rel="stylesheet" href="api/bootstrap/css/bootstrap.css"/>
-		<link rel="stylesheet" href="api/bootstrap/css/bootstrap.min.css"/>
-        <script src="api/bootstrap/js/jquery.js"></script>  
-        <script src="api/bootstrap/js/bootstrap.js"></script>	
+        <link rel="stylesheet" href="../api/bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" href="../api/bootstrap/css/bootstrap.min.css"/>
+        <script src="../api/bootstrap/js/jquery.js"></script>  
+        <script src="../api/bootstrap/js/bootstrap.js"></script>	
 
 </head>
 <body>
-
-
-
-
-
-
-
 
 
 <?php include_once "config/footer.php"; ?>  
