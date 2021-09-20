@@ -175,7 +175,7 @@ include_once "../config/datosUrLP.php";
                     <div class="box">
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 150%;">
                                             <thead>
@@ -309,7 +309,7 @@ include_once "../config/datosUrLP.php";
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 col-xs-8">
                                         <div class="form-group">
                                         </div>
                                     </div>
@@ -319,7 +319,7 @@ include_once "../config/datosUrLP.php";
                                             <input type="text" class="form-control" placeholder="Total Valor" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Valor Producto </label>
                                             <input type="text" class="form-control" placeholder="Total Valor" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTCALVALOR; ?>" disabled />

@@ -194,7 +194,7 @@ include_once "../config/datosUrLP.php";
                     <div class="box">
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 150%;">
                                             <thead>
@@ -353,18 +353,7 @@ include_once "../config/datosUrLP.php";
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-
-                                    </div>
-                                    <div class="col-sm-2">
-
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                         <!-- /.box -->

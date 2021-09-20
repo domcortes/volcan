@@ -24,6 +24,7 @@ $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
+$CONTADOR = 0;
 $EMPRESA = "";
 $PLANTA = "";
 $TEMPORADA = "";
@@ -168,34 +169,12 @@ include_once "../config/reporteUrl.php";
                     <div class="box">
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-10 col-10">
-                                </div>
-                                <div class="col-md-2 col-2">
-                                    <form method="post" id="form2">
-                                        <div class="row">
-                                            <div class="col-md-1 col-1">
-                                                <div class="form-group">
-                                                    <label>Exportar</label>
-                                                    <br>
-                                                    <input type="hidden" class="form-control" placeholder="URLEXCEL" id="URLEXCEL" name="URLEXCEL" value="reporteInventarioe" />
-                                                    <button type="submit" class="btn btn-rounded btn-success btn-outline" id="EXPORTAR" name="EXPORTAR" title="Exportar Excel">
-                                                        <i class="fa fa-file-excel-o"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-11 col-11">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
                                         <table id="existencia" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>Número Folio </th>
+                                                    <th>Número</th>
                                                     <th>Estado</th>
                                                     <th>Tipo Recepción</th>
                                                     <th>Código Producto</th>
@@ -209,10 +188,11 @@ include_once "../config/reporteUrl.php";
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYINVENTARIO as $r) : ?>
+                                                    <?php $CONTADOR = $CONTADOR + 1 ?>
                                                     <tr class="center">
                                                         <td>
                                                             <a href="#" class="text-warning hover-warning">
-                                                                <?php echo $r['FOLIO_INVENTARIO']; ?>
+                                                                <?php echo $CONTADOR; ?>
                                                             </a>
                                                         </td>
                                                         <td>
@@ -293,11 +273,11 @@ include_once "../config/reporteUrl.php";
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 col-xs-10">
                                         <div class="form-group">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Cantidad </label>
                                             <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
