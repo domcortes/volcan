@@ -1083,203 +1083,194 @@ if (isset($_POST)) {
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group btn-block col-6" role="group" aria-label="Acciones generales">
-                                        <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionmp.php');">
-                                                <i class="ti-trash"></i> Borrar
-                                            </button>
-                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Guardar
-                                            </button>
-                                        <?php } ?>
-                                        <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionmp.php'); ">
-                                                <i class="ti-back-left "></i> Volver
-                                            </button>
-                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i> Guardar
-                                            </button>
-                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Cerrar
-                                            </button>
-                                        <?php } ?>
-                                    </div>
-                                    <div class="btn-group btn-block col-4 float-right">
-                                        <?php if ($OP !=""): ?>
-                                            <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i> Informe
-                                            </button>
-                                            <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i> Tarjas
-                                            </button>
-                                        <?php endif ?>
+                                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
+                                        <div class="btn-group col-sm-4" role="group" aria-label="acciones">
+                                            <?php if ($OP == "") { ?>
+                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionmp.php');">
+                                                    <i class="ti-trash"></i> Borrar
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP != "") { ?>
+                                                <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionmp.php'); ">
+                                                    <i class="ti-back-left "></i> Volver
+                                                </button>
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                    <i class="ti-pencil-alt"></i> Guardar
+                                                </button>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Cerrar
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="btn-group col-sm-4">
+                                            <?php if ($OP !=""): ?>
+                                                <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Informe
+                                                </button>
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
+                                                </button>
+                                            <?php endif ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                        <div class="box">
-                            <div class="row">
-                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                </div>
-                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
-                                    <div class="form-group">
-                                        <label> </label>
+                        <div class="card">
+                            <div class="card-header">
+                                <form method="post" id="form2" name="form2">
+                                    <div class="form-row align-items-center">
+                                        <input type="hidden" class="form-control" placeholder="ID RECEPCIONMP" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                        <input type="hidden" class="form-control" placeholder="OP RECEPCIONMP" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                        <input type="hidden" class="form-control" placeholder="URL RECEPCIONMP" id="URLP" name="URLP" value="registroRecepcionmp" />
+                                        <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionmp" />
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?>
+                                                <?php echo $DISABLEDFOLIO; ?>
+                                                <?php if ($ESTADO == 0): ?>
+                                                    disabled style='background-color: #eeeeee;'
+                                                <?php endif ?>> Agregar Detalle
+                                            </button>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                </div>
+                                                <input type="hidden" name="CANTIDADENVASERECEPCION" id="CANTIDADENVASERECEPCION" value="<?php echo $CANTIDADENVASERECEPCION; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Envase" id="CANTIDADENVASERECEPCIONv" name="CANTIDADENVASERECEPCIONv" value="<?php echo $CANTIDADENVASERECEPCION2; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                </div>
+                                                <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                </div>
+                                                <input type="hidden" name="KILOSBRUTORECEPCION" id="KILOSBRUTORECEPCION" value="<?php echo $KILOSBRUTORECEPCION; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Bruto" id="KILOSBRUTORECEPCIONV" name="KILOSBRUTORECEPCIONV" value="<?php echo $KILOSBRUTORECEPCION2; ?>" disabled />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
-                            <label id="val_drecepcion" class="validacion "><?php echo $MENSAJE; ?> </label>
-                            <div class="row">
-                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
-                                    <div class=" table-responsive">
-                                        <table id="detalle" class="table table-hover " style="width: 100%;">
-                                            <thead>
-                                                <tr class="text-left">
-                                                    <th>Numero Linea</th>
-                                                    <th>Folio</th>
-                                                    <th class="text-center">Operaciones</th>
-                                                    <th>Fecha Cosecha </th>
-                                                    <th>Envase/Estandar</th>
-                                                    <th>Variedad</th>
-                                                    <th>Cantidad Envase</th>
-                                                    <th>Kilo Neto </th>
-                                                    <th>Kilo Promedio </th>
-                                                    <th>Kilo Bruto </th>
-                                                    <th>Gasificacion</th>
-                                                    <th>Tipo Manejo </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php if ($ARRAYDRECEPCION) { ?>
-                                                    <?php foreach ($ARRAYDRECEPCION as $s) : ?>
-                                                        <?php $CONTADOR = $CONTADOR + 1; ?>
-                                                        <?php
-                                                        $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
-                                                        if ($ARRAYVESPECIES) {
-                                                            $NOMBREVARIEDAD = $ARRAYVESPECIES[0]['NOMBRE_VESPECIES'];
-                                                        } else {
-                                                            $NOMBREVARIEDAD = "Sin Datos";
-                                                        }
-                                                        if ($s['GASIFICADO_DRECEPCION'] == "1") {
-                                                            $GASIFICADO = "SI";
-                                                        } else if ($s['GASIFICADO_DRECEPCION'] == "0") {
-                                                            $GASIFICADO = "NO";
-                                                        } else {
-                                                            $GASIFICADO = "Sin Datos";
-                                                        }
-                                                        $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
-                                                        if ($ARRAYTMANEJO) {
-                                                            $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                        } else {
-                                                            $NOMBRETMANEJO = "Sin Datos";
-                                                        }
-                                                        $ARRAYESTANDAR = $ERECEPCION_ADO->verEstandar($s['ID_ESTANDAR']);
-                                                        if ($ARRAYESTANDAR) {
-                                                            $NOMBREESTANDAR = $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
-                                                        } else {
-                                                            $NOMBREESTANDAR = "Sin Datos";
-                                                        }
-                                                        ?>
-                                                        <tr class="text-lef">
-                                                            <td><?php echo $CONTADOR ?></td>
-                                                            <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
-                                                            <td>
-                                                                <form method="post" id="form1">
-                                                                    <input type="hidden" class="form-control" placeholder="ID DRECEPCIONE" id="IDD" name="IDD" value="<?php echo $s['ID_DRECEPCION']; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionmp" />
-                                                                    <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionmp" />
-                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <?php if ($ESTADO == "0") { ?>
-                                                                            <button type="submit" class="btn btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
-                                                                                <i class="ti-eye"></i> Ver
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                        <?php if ($ESTADO == "1") { ?>
-                                                                            <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-pencil-alt"></i>
-                                                                            </button>
-                                                                            <button type="submit" class="btn btn-secondary btn-sm " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLED2; ?>>
-                                                                                <i class="fa fa-fw fa-copy"></i>
-                                                                            </button>
-                                                                            <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i>
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                    </div>
-                                                                </form>
-                                                            </td>
-                                                            <td><?php echo $s['FECHA_COSECHA_DRECEPCION']; ?></td>
-                                                            <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                            <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                            <td><?php echo $s['ENVASE']; ?></td>
-                                                            <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo $s['PROMEDIO'] ?></td>
-                                                            <td><?php echo $s['BRUTO']; ?></td>
-                                                            <td><?php echo $GASIFICADO; ?></td>
-                                                            <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
-                                    <table>
+
+                            <div class="card-body">
+                                <div class=" table-responsive">
+                                    <table id="detalle" class="table table-hover " style="width: 100%;">
+                                        <thead>
+                                            <tr class="text-left">
+                                                <th>Numero Linea</th>
+                                                <th>Folio</th>
+                                                <th class="text-center">Operaciones</th>
+                                                <th>Fecha Cosecha </th>
+                                                <th>Envase/Estandar</th>
+                                                <th>Variedad</th>
+                                                <th>Cantidad Envase</th>
+                                                <th>Kilo Neto </th>
+                                                <th>Kilo Promedio </th>
+                                                <th>Kilo Bruto </th>
+                                                <th>Gasificacion</th>
+                                                <th>Tipo Manejo </th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <form method="post" id="form2" name="form2">
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONMP" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="OP RECEPCIONMP" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="URL RECEPCIONMP" id="URLP" name="URLP" value="registroRecepcionmp" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionmp" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?>
-                                                                <?php echo $DISABLEDFOLIO; ?>
-                                                                <?php
-                                                                    if ($ESTADO == 0) {
-                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                    }
-                                                                ?>
-                                                            > Agregar Detalle
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th> Total Envase</th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="hidden" name="CANTIDADENVASERECEPCION" id="CANTIDADENVASERECEPCION" value="<?php echo $CANTIDADENVASERECEPCION; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="CANTIDADENVASERECEPCIONv" name="CANTIDADENVASERECEPCIONv" value="<?php echo $CANTIDADENVASERECEPCION2; ?>" disabled />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Total Neto </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Total Bruto </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="hidden" name="KILOSBRUTORECEPCION" id="KILOSBRUTORECEPCION" value="<?php echo $KILOSBRUTORECEPCION; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="KILOSBRUTORECEPCIONV" name="KILOSBRUTORECEPCIONV" value="<?php echo $KILOSBRUTORECEPCION2; ?>" disabled />
-                                                </td>
-                                            </tr>
+                                            <?php if ($ARRAYDRECEPCION) { ?>
+                                                <?php foreach ($ARRAYDRECEPCION as $s) : ?>
+                                                    <?php $CONTADOR = $CONTADOR + 1; ?>
+                                                    <?php
+                                                    $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
+                                                    if ($ARRAYVESPECIES) {
+                                                        $NOMBREVARIEDAD = $ARRAYVESPECIES[0]['NOMBRE_VESPECIES'];
+                                                    } else {
+                                                        $NOMBREVARIEDAD = "Sin Datos";
+                                                    }
+                                                    if ($s['GASIFICADO_DRECEPCION'] == "1") {
+                                                        $GASIFICADO = "SI";
+                                                    } else if ($s['GASIFICADO_DRECEPCION'] == "0") {
+                                                        $GASIFICADO = "NO";
+                                                    } else {
+                                                        $GASIFICADO = "Sin Datos";
+                                                    }
+                                                    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+                                                    if ($ARRAYTMANEJO) {
+                                                        $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                    } else {
+                                                        $NOMBRETMANEJO = "Sin Datos";
+                                                    }
+                                                    $ARRAYESTANDAR = $ERECEPCION_ADO->verEstandar($s['ID_ESTANDAR']);
+                                                    if ($ARRAYESTANDAR) {
+                                                        $NOMBREESTANDAR = $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
+                                                    } else {
+                                                        $NOMBREESTANDAR = "Sin Datos";
+                                                    }
+                                                    ?>
+                                                    <tr class="text-lef">
+                                                        <td><?php echo $CONTADOR ?></td>
+                                                        <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
+                                                        <td>
+                                                            <form method="post" id="form1">
+                                                                <input type="hidden" class="form-control" placeholder="ID DRECEPCIONE" id="IDD" name="IDD" value="<?php echo $s['ID_DRECEPCION']; ?>" />
+                                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                                <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                                <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionmp" />
+                                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionmp" />
+                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                    <?php if ($ESTADO == "0") { ?>
+                                                                        <button type="submit" class="btn btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
+                                                                            <i class="ti-eye"></i> Ver
+                                                                        </button>
+                                                                    <?php } ?>
+                                                                    <?php if ($ESTADO == "1") { ?>
+                                                                        <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <i class="ti-pencil-alt"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-secondary btn-sm " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <i class="fa fa-fw fa-copy"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <i class="ti-close"></i>
+                                                                        </button>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </form>
+                                                        </td>
+                                                        <td><?php echo $s['FECHA_COSECHA_DRECEPCION']; ?></td>
+                                                        <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                        <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                        <td><?php echo $s['ENVASE']; ?></td>
+                                                        <td><?php echo $s['NETO']; ?></td>
+                                                        <td><?php echo $s['PROMEDIO'] ?></td>
+                                                        <td><?php echo $s['BRUTO']; ?></td>
+                                                        <td><?php echo $GASIFICADO; ?></td>
+                                                        <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+
+                            <div class="card-footer">
+                                <label id="val_drecepcion" class="validacion "><?php echo $MENSAJE; ?> </label>
+                            </div>
+                        </div>
+
                         </div>
                         <!--.row -->
                     </section>
