@@ -318,7 +318,7 @@ class DRECEPCIONMP_ADO
                                                 FORMAT(KILOS_NETO_DRECEPCION, 2,'de_DE') AS 'NETO'
                                             FROM fruta_drecepcionmp
                                             WHERE  ID_RECEPCION = '".$IDRECEPCION."'
-                                                AND  ID_VESPECIES = '".$IDVESPECIES."'
+                                                AND ID_VESPECIES = '".$IDVESPECIES."'
                                                 AND ESTADO_REGISTRO = '1'");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -336,7 +336,7 @@ class DRECEPCIONMP_ADO
 
 
     
-    public function obtenerTotalPorRecepcionVariedad2($IDRECEPCION){
+    public function obtenerTotalPorRecepcionVariedad2($IDRECEPCION, $IDVESPECIES){
         try{
             
             $datos=$this->conexion->prepare("SELECT 
@@ -346,6 +346,7 @@ class DRECEPCIONMP_ADO
                                                 FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE')  AS 'BRUTO'  
                                             FROM fruta_drecepcionmp
                                             WHERE ID_RECEPCION = '".$IDRECEPCION."'
+                                                  AND ID_VESPECIES = '".$IDVESPECIES."'
                                                   AND ESTADO_REGISTRO = '1'
                                             GROUP BY ID_VESPECIES;
                                             ");
