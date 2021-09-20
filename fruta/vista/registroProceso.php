@@ -348,12 +348,7 @@ if (isset($_REQUEST['CERRAR'])) {
 }
 
 
-if (isset($_REQUEST['QUITAR'])) {
-    $IDQUITAR = $_REQUEST['IDQUITAR'];
-    $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $EXIMATERIAPRIMA_ADO->actualizarDeselecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
-}
+
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -945,7 +940,7 @@ if (isset($_POST)) {
                                     </div>
                                     <div class="btn-group btn-block float-right col-3">
                                         <?php if ($OP != ""): ?>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                            <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i> Proceso
                                             </button>
                                             <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $IDOP; ?>'); ">
@@ -1037,12 +1032,8 @@ if (isset($_POST)) {
                                                                 <td class="text-center">
                                                                     <form method="post" id="form1">
                                                                         <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
-                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                                } ?>>
-                                                                                <i class="ti-close"></i>
-                                                                            </button>
+                                                                        <div class="btn-group btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                            <button type="submit" class="btn btn-sm btn-danger " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP" <?php echo $DISABLED2;?> <?php if ($ESTADO == 0) {echo "disabled";} ?>><i class="ti-close"></i></button>
                                                                         </div>
                                                                     </form>
                                                                 </td>
@@ -1078,7 +1069,7 @@ if (isset($_POST)) {
                                                                         echo "disabled style='background-color: #eeeeee;'";
                                                                     } ?>
                                                                 >
-                                                                    <i class=" glyphicon glyphicon-plus"></i>
+                                                                    Seleccion Existencia
                                                                 </button>
                                                             </div>
                                                         </form>
@@ -1306,9 +1297,10 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                                                 <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDprocesoExportacion" />
                                                                 <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Producto Terminado" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                                            } ?>>
-                                                                    <i class=" glyphicon glyphicon-plus"></i>
+                                                                        echo "disabled style='background-color: #eeeeee;'";
+                                                                        } ?>
+                                                                    >
+                                                                    Agregar prod. Terminado
                                                                 </button>
                                                             </div>
                                                         </form>
@@ -1322,10 +1314,8 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                                                 <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDprocesoIndustrial" />
-                                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Producto Industrial" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                                            } ?>>
-                                                                    <i class=" glyphicon glyphicon-plus"></i>
+                                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Producto Industrial" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
+                                                                    Agregar prod. Industrial
                                                                 </button>
                                                             </div>
                                                         </form>
@@ -1419,6 +1409,24 @@ if (isset($_POST)) {
                         location.href ="registroProceso.php?op";
                     })
                 </script>';
+            }
+
+            if (isset($_REQUEST['QUITAR'])) {
+                $IDQUITAR = $_REQUEST['IDQUITAR'];
+                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $EXIMATERIAPRIMA_ADO->actualizarDeselecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
+                echo
+                    '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Folio eliminado"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroProceso.php?op";
+                            }
+                        });
+                    </script>';
             }
         ?>
 </body>

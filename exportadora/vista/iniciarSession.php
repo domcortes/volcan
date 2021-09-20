@@ -41,24 +41,7 @@ $ARRAYTEMPORADA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-if (isset($_REQUEST['ENTRAR'])) {
-    $NOMBRE = $_REQUEST['NOMBRE'];
-    $CONTRASENA = $_REQUEST['CONTRASENA'];
-    $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
 
-    if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
-
-        $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
-        $MENSAJE = "";
-    } else {
-        $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
-        $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
-        $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
-        $MENSAJE = "DATOS CORRECTOS ";
-        $MENSAJE2 = "";
-        header('Location: iniciarSessionSeleccion.php');
-    }
-}
 
 
 ?>
@@ -149,7 +132,11 @@ if (isset($_REQUEST['ENTRAR'])) {
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-12 text-center">
-                                        <button type="submit" class="btn btn-danger btn-rounded mt-10" id="ENTRAR" name="ENTRAR">ENTRAR</button>
+                                        <div class="btn-group">
+                                            <a href="/" class="btn btn-danger">VOLVER</a>
+                                            <button type="submit" class="btn btn-success" id="ENTRAR" name="ENTRAR">ENTRAR</button>
+                                        </div>
+
                                     </div>
                                     <!-- /.col -->
                                 </div>
@@ -159,11 +146,40 @@ if (isset($_REQUEST['ENTRAR'])) {
                 </div>
             </div>
         </div>
-        <?php //include_once "../config/footer.php";     
+        <?php //include_once "../config/footer.php";
         ?>
     </div>
 
     <?php include_once "../config/urlBaseLogin.php"; ?>
+    <?php
+        if (isset($_REQUEST['ENTRAR'])) {
+            $NOMBRE = $_REQUEST['NOMBRE'];
+            $CONTRASENA = $_REQUEST['CONTRASENA'];
+            $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
+
+            if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
+                echo
+                '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Error de acceso",
+                        text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "/exportadora/vista/iniciarSession.php";
+                        }
+                    })
+                </script>';
+            } else {
+                $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
+                $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
+                $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+                $MENSAJE = "DATOS CORRECTOS ";
+                $MENSAJE2 = "";
+                header('Location: iniciarSessionSeleccion.php');
+            }
+        }
+    ?>
 </body>
 
 </html>

@@ -75,31 +75,7 @@ $ARRAYHISOTIRALPROCESOVALIDAR = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
 
-if (isset($_REQUEST['AGREGAR'])) {
-
-    $IDPROCESO = $_REQUEST['IDP'];
-
-    if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
-
-        $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
-
-        //var_dump($SELECIONAREXISTENCIA);
-        foreach ($SELECIONAREXISTENCIA as $r) :
-            $IDEXISMATERIAPRIMA = $r;
-
-            $EXIMATERIAPRIMA->__SET('ID_PROCESO', $IDPROCESO);
-            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDEXISMATERIAPRIMA);
-            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIMATERIAPRIMA_ADO->actualizarSelecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
-        endforeach;
-
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-    }
-}
 
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -366,13 +342,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <!-- /.row -->
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i>
+                                        <div class="btn-group btn-rounded btn-block col-4" role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Cancelar
                                             </button>
 
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> Agregar
                                             </button>
                                         </div>
                                     </div>
@@ -390,6 +366,40 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['AGREGAR'])) {
+                $IDPROCESO = $_REQUEST['IDP'];
+                if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
+                    $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
+                    //var_dump($SELECIONAREXISTENCIA);
+                    foreach ($SELECIONAREXISTENCIA as $r) :
+                        $IDEXISMATERIAPRIMA = $r;
+                        $EXIMATERIAPRIMA->__SET('ID_PROCESO', $IDPROCESO);
+                        $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDEXISMATERIAPRIMA);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $EXIMATERIAPRIMA_ADO->actualizarSelecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
+                    endforeach;
+
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+
+                    echo
+                    "<script>
+                        Swal.fire({
+                            icon:'info',
+                            title:'Folios agregados al proceso'
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href ='".$_REQUEST['URLO'].".php?op';
+                            }
+                        });
+                    </script>";
+
+                    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                }
+            }
+        ?>
 </body>
 
 </html>
