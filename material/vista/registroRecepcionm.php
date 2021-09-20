@@ -1239,7 +1239,7 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                     </div>
-                                <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
+                                    <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
                                 </div>
                                 <!-- /.row -->
                                 <!-- /.box-body -->
@@ -1311,15 +1311,15 @@ if (isset($_POST)) {
                                                         }
                                                         $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
                                                         if ($ARRAYPRODUCTO) {
-                                                            $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                            $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
                                                         } else {
-                                                            $NOMBREPRODUCTO= "Sin Dato";
+                                                            $NOMBREPRODUCTO = "Sin Dato";
                                                         }
                                                         $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
                                                         if ($ARRAYTUMEDIDA) {
-                                                            $NOMBRETUMEDIDA= $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                            $NOMBRETUMEDIDA = $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
                                                         } else {
-                                                            $NOMBRETUMEDIDA= "Sin Dato";
+                                                            $NOMBRETUMEDIDA = "Sin Dato";
                                                         }
 
                                                         ?>
@@ -1332,12 +1332,12 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionm" />
                                                                     <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionm" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <?php if ($s['ESTADO']  == "0") { ?>
+                                                                        <?php if ($ESTADO  == "0") { ?>
                                                                             <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
                                                                                 <i class="ti-eye"></i>
                                                                             </button>
                                                                         <?php } ?>
-                                                                        <?php if ($s['ESTADO']  == "1") { ?>
+                                                                        <?php if ($ESTADO  == "1") { ?>
                                                                             <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
                                                                                 <i class="ti-pencil-alt"></i>
                                                                             </button>
@@ -1369,15 +1369,15 @@ if (isset($_POST)) {
                                                         }
                                                         $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
                                                         if ($ARRAYPRODUCTO) {
-                                                            $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                            $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
                                                         } else {
-                                                            $NOMBREPRODUCTO= "Sin Dato";
+                                                            $NOMBREPRODUCTO = "Sin Dato";
                                                         }
                                                         $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
                                                         if ($ARRAYTUMEDIDA) {
-                                                            $NOMBRETUMEDIDA= $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                            $NOMBRETUMEDIDA = $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
                                                         } else {
-                                                            $NOMBRETUMEDIDA= "Sin Dato";
+                                                            $NOMBRETUMEDIDA = "Sin Dato";
                                                         }
                                                         ?>
                                                         <tr>
@@ -1389,12 +1389,12 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionm" />
                                                                     <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionmDocompra" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <?php if ($s['ESTADO']  == "0") { ?>
+                                                                        <?php if ($ESTADO  == "0") { ?>
                                                                             <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
                                                                                 <i class="ti-eye"></i>
                                                                             </button>
                                                                         <?php } ?>
-                                                                        <?php if ($s['ESTADO']  == "1") { ?>
+                                                                        <?php if ($ESTADO  == "1") { ?>
                                                                             <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
                                                                                 <i class="ti-pencil-alt"></i>
                                                                             </button>
@@ -1440,7 +1440,7 @@ if (isset($_POST)) {
                                             <button type="submit" class=" btn btn-block btn-success " data-toggle="tooltip" title="Seleccionar Detalle OC" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php if ($ESTADO == 0) {
                                                                                                                                                                                                             echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                         } ?> <?php if ($TRECEPCION != 1) {
-                                                                                                                                                                                                                    echo "disabled";
+                                                                                                                                                                                                                    echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                 } ?> <?php if ($SNOCOMPRA != "on") {
                                                                                                                                                                                                                             echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                         } ?>>
