@@ -67,7 +67,6 @@ if (isset($_REQUEST['GUARDAR'])) {
     $CONDUCTOR->__SET('DV_CONDUCTOR', $_REQUEST['DVCONDUCTOR']);
     $CONDUCTOR->__SET('NOMBRE_CONDUCTOR', $_REQUEST['NOMBRECONDUCTOR']);
     $CONDUCTOR->__SET('TELEFONO_CONDUCTOR', $_REQUEST['TELEFONOCONDUCTOR']);
-    $CONDUCTOR->__SET('EMAIL_CONDUCTOR', $_REQUEST['EMAILCONDUCTOR']);
     $CONDUCTOR->__SET('NOTA_CONDUCTOR', $_REQUEST['NOTACONDUCTOR']);
     $CONDUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $CONDUCTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
@@ -111,7 +110,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     DVCONDUCTOR = document.getElementById("DVCONDUCTOR").value;
                     NOMBRECONDUCTOR = document.getElementById("NOMBRECONDUCTOR").value;
                     TELEFONOCONDUCTOR = document.getElementById("TELEFONOCONDUCTOR").value;
-                    EMAILCONDUCTOR = document.getElementById("EMAILCONDUCTOR").value;
                     NOTACONDUCTOR = document.getElementById("NOTACONDUCTOR").value;
 
 
@@ -120,7 +118,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                     document.getElementById('val_rut').innerHTML = "";
                     document.getElementById('val_dv').innerHTML = "";
                     document.getElementById('val_telefono').innerHTML = "";
-                    document.getElementById('val_email').innerHTML = "";
                     document.getElementById('val_nota').innerHTML = "";
 
 
@@ -171,14 +168,6 @@ if (isset($_REQUEST['GUARDAR'])) {
 
 
 
-                                        if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-                                                .test(EMAILCONDUCTOR))) {
-                                            document.form_reg_dato.EMAILCONDUCTOR.focus();
-                                            document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#ff0000";
-                                            document.getElementById('val_email').innerHTML = "FORMATO DE CORREO INCORRECTO";
-                                            return false;
-                                        }
-                                        document.form_reg_dato.EMAILCONDUCTOR.style.borderColor = "#4AF575";
                     */
 
                     /*
@@ -255,13 +244,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                         <label>Telefono </label>
                                         <input type="number" class="form-control" placeholder="Telefono Conductor" id="TELEFONOCONDUCTOR" name="TELEFONOCONDUCTOR" value="<?php echo $TELEFONOCONDUCTOR; ?>" <?php echo $DISABLED; ?> />
                                         <label id="val_telefono" class="validacion"> </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Email </label>
-                                        <input type="text" class="form-control" placeholder="Email Conductor" id="EMAILCONDUCTOR" name="EMAILCONDUCTOR" value="<?php echo $EMAILCONDUCTOR; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_email" class="validacion"> </label>
                                     </div>
                                 </div>
                             </div>
