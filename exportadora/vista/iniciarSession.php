@@ -174,12 +174,22 @@ $ARRAYTEMPORADA = "";
                 $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
                 $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
                 $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
-                $MENSAJE = "DATOS CORRECTOS ";
-                $MENSAJE2 = "";
-                header('Location: iniciarSessionSeleccion.php');
+                //$MENSAJE = "DATOS CORRECTOS ";
+                //$MENSAJE2 = "";
+                echo
+                '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Datos Correctos",
+                        text:"Los datos ingresados son correctos."
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "iniciarSessionSeleccion.php";
+                        }
+                    })
+                </script>';
             }
         }
     ?>
 </body>
-
 </html>

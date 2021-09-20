@@ -2,7 +2,7 @@
 
 session_start();
 if (isset($_SESSION["NOMBRE_USUARIO"])) {
-    header('Location: iniciarSessionSeleccion.php');
+     header('Location: iniciarSessionSeleccion.php');
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
@@ -102,7 +102,7 @@ $ARRAYTEMPORADA = "";
                                 <h2 class="text-white">INICIO SESSION</h2>
                                 <p class="text-white-50 mb-0">USUARIO</p>
                             </div>
-                            <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">
+                            <form class="form" role="form" method="post" name="form_reg_dato">
                                 <div class="p-30">
                                     <div class="form-group">
                                         <div class="input-group mb-3">
@@ -147,15 +147,14 @@ $ARRAYTEMPORADA = "";
     </div>
 
     <?php
-        //include_once "../config/urlBaseLogin.php";
-        if (isset($_REQUEST['ENTRAR'])) {
-            $NOMBRE = $_REQUEST['NOMBRE'];
-            $CONTRASENA = $_REQUEST['CONTRASENA'];
-            $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
-
-            if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
-                echo
-                '<script>
+    //include_once "../config/urlBaseLogin.php";
+    if (isset($_REQUEST['ENTRAR'])) {
+        $NOMBRE = $_REQUEST['NOMBRE'];
+        $CONTRASENA = $_REQUEST['CONTRASENA'];
+        $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
+        if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
+            echo
+            '<script>
                     Swal.fire({
                         icon:"warning",
                         title:"Error de acceso",
@@ -166,18 +165,28 @@ $ARRAYTEMPORADA = "";
                         }
                     })
                 </script>';
-                // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
-                // $MENSAJE = "";
-            } else {
-                $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
-                $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
-                $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
-                $MENSAJE = "DATOS CORRECTOS ";
-                $MENSAJE2 = "";
-                header('Location: iniciarSessionSeleccion.php');
-            }
+            // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
+            // $MENSAJE = "";
+        } else {
+            $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
+            $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
+            $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+            //$MENSAJE = "DATOS CORRECTOS ";
+            //$MENSAJE2 = "";
+            echo
+            '<script>
+                Swal.fire({
+                    icon:"success",
+                    title:"Datos Correctos",
+                    text:"Los datos ingresados son correctos."
+                }).then((result)=>{
+                    if(result.value){
+                        location.href = "iniciarSessionSeleccion.php";
+                    }
+                })
+            </script>';
         }
+    }
     ?>
 </body>
-
 </html>
