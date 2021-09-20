@@ -133,7 +133,7 @@ include_once "../config/datosUrLP.php";
                 function refrescar() {
                     document.getElementById("form_reg_dato").submit();
                 }*/
-                function abrirPestana(url) {             
+                function abrirPestana(url) {
                     var win = window.open(url, '_blank');
                     win.focus();
                 }
@@ -204,110 +204,111 @@ include_once "../config/datosUrLP.php";
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYRECEPCION as $r) : ?>
+                                                    <?php
+                                                    if ($r['TRECEPCION'] == "1") {
+                                                        $TRECEPCION = "Desde Proveedor";
+                                                    } else if ($r['TRECEPCION'] == "2") {
+                                                        $TRECEPCION = "Desde Productor";
+                                                    } else if ($r['TRECEPCION'] == "3") {
+                                                        $TRECEPCION = "Planta Externa";
+                                                    } else if ($r['TRECEPCION'] == "4") {
+                                                        $TRECEPCION = "Inter Externa";
+                                                    } else {
+                                                        $TRECEPCION = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($r['ID_TDOCUMENTO']);
+                                                    if ($ARRAYVERTDOCUMENTO) {
+                                                        $TDOCUMENTO = $ARRAYVERTDOCUMENTO[0]['NOMBRE_TDOCUMENTO'];
+                                                    } else {
+                                                        $TDOCUMENTO = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
+                                                    if ($ARRAYVERBODEGA) {
+                                                        $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
+                                                    } else {
+                                                        $NOMBREBODEGA = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
+                                                    if ($ARRAYVERTRANSPORTE) {
+                                                        $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+                                                    } else {
+                                                        $NOMBRETRANSPORTE = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
+                                                    if ($ARRAYVERCONDUCTOR) {
+                                                        $NOMBRECONDUCTOR= $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+                                                    } else {
+                                                        $NOMBRECONDUCTOR = "Sin Datos";
+                                                    }
+
+                                                    ?>
                                                     <tr class="center">
                                                         <td>
                                                             <a href="#" class="text-warning hover-warning">
                                                                 <?php echo $r['NUMERO_RECEPCION']; ?>
                                                             </a>
                                                         </td>
-                                                        <td <?php if ($r['ESTADO'] == "0") {
-                                                                echo "style='background-color: #FF0000;'";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "style='background-color: #4AF575;'";
-                                                            }  ?>>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "0") {
-                                                                echo "Cerrado";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Abierto";
-                                                            }
-                                                            ?>
+                                                        <td>
+                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                            <?php  }  ?>
+                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                            <?php  }  ?>
                                                         </td>
                                                         <td class="text-center">
                                                             <form method="post" id="form1">
                                                                 <div class="list-icons d-inline-flex">
                                                                     <div class="list-icons-item dropdown">
-                                                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
+                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                             <i class="glyphicon glyphicon-cog"></i>
-                                                                        </a>
+                                                                        </button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_RECEPCION']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRecepcionm" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcionm" />
-                                                                            <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL" <?php if ($r['ESTADO'] == "1") {
-                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                } ?>>
-                                                                                <i class="ti-eye"></i>
-                                                                            </button>Ver
-                                                                            <br>
-                                                                            <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL" <?php if ($r['ESTADO'] == "0") {
-                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                        } ?>>
-                                                                                <i class="ti-pencil-alt"></i>
-                                                                            </button>Editar
-                                                                            <br>
-                                                                            <button type="button" class="btn btn-rounded  btn-danger btn-outline btn-sm" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcionm.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&NOMBREUSUARIO=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button>Informe
-                                                                            <br>
-                                                                            <button type="button" class="btn btn-rounded  btn-danger btn-outline btn-sm" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
-                                                                                <i class="fa fa-file-pdf-o"></i>
-                                                                            </button>Tarjas
+                                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcionm.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
+                                                                                </button>
+                                                                            </span>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
+                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
+                                                                                </button>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
                                                         </td>
-                                                        <td><?php echo $r['FECHAF']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            if ($r['TRECEPCION'] == "1") {
-                                                                echo "Desde Proveedor";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "2") {
-                                                                echo "Desde Productor";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "3") {
-                                                                echo "Planta Externa";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "4") {
-                                                                echo "Inter Externa";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($r['ID_TDOCUMENTO']);
-                                                            echo $ARRAYVERTDOCUMENTO[0]['NOMBRE_TDOCUMENTO'];
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $TRECEPCION; ?></td>
+                                                        <td><?php echo $TDOCUMENTO; ?></td>
                                                         <td><?php echo $r['NUMERO_DOCUMENTO_RECEPCION']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
-                                                            echo $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
-                                                            echo $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
-                                                            echo $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $NOMBREBODEGA; ?></td>
+                                                        <td><?php echo $NOMBRETRANSPORTE; ?></td>
+                                                        <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
-                                                        <td><?php echo $r['INGRESOF']; ?></td>
-                                                        <td><?php echo $r['MODIFICACIONF']; ?></td>
-
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

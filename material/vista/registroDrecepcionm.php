@@ -235,6 +235,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             }
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
+        //$DIFERENCIA = $CANTIDAD - $TOTALCANTIDADTARJA;
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
     if ($OP == "editar") {
@@ -261,6 +262,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             }
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
+        $DIFERENCIA = $CANTIDAD - $TOTALCANTIDADTARJA;
     }    //ver =  OBTENCION DE DATOS PARA LA VISUALIZACION DEL REGISTRO
     if ($OP == "ver") {
         $DISABLED = "disabled";
@@ -280,6 +282,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             }
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
+        $DIFERENCIA = $CANTIDAD - $TOTALCANTIDADTARJA;
     }
     if ($OP == "eliminar") {
         $DISABLED = "disabled";
@@ -306,9 +309,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             }
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
+        $DIFERENCIA = $CANTIDAD - $TOTALCANTIDADTARJA;
     }
-
-    $DIFERENCIA = $CANTIDAD - $TOTALCANTIDADTARJA;
 }
 if (isset($_POST)) {
     if (isset($_REQUEST['CANTIDAD'])) {
@@ -426,7 +428,7 @@ if (isset($_POST)) {
                     <!-- Main content -->
                     <section class="content">
 
-                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" onsubmit="return validacion()">
+                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
                                 <div class="box-header with-border">
                                     <!--
@@ -435,39 +437,43 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-sm-2 col-12">
-                                            <label>Producto</label>
-                                            <input type="hidden" class="form-control" placeholder="ID DRECEPCIONM" id="IDD" name="IDD" value="<?php echo $IDOP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONM" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONM" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONM" id="URLP" name="URLP" value="<?php echo $URLP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="URL DTRECEPCIONE" id="URLT" name="URLT" value="registroDtrecepcionm" />
-                                            <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Producto</label>
+                                                <input type="hidden" class="form-control" placeholder="ID DRECEPCIONM" id="IDD" name="IDD" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONM" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONM" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONM" id="URLP" name="URLP" value="<?php echo $URLP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL DTRECEPCIONE" id="URLT" name="URLT" value="registroDtrecepcionm" />
+                                                <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
 
-                                            <input type="hidden" class="form-control" placeholder="PRODUCTOE" id="PRODUCTOE" name="PRODUCTOE" value="<?php echo $PRODUCTO; ?>" />
-                                            <select class="form-control select2" id="PRODUCTO" name="PRODUCTO" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED2; ?>>
-                                                <option></option>
-                                                <?php foreach ($ARRAYPRODUCTO as $r) : ?>
-                                                    <?php if ($ARRAYPRODUCTO) {    ?>
-                                                        <option value="<?php echo $r['ID_PRODUCTO']; ?>" <?php if ($PRODUCTO == $r['ID_PRODUCTO']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_PRODUCTO'] ?> </option>
-                                                    <?php } else { ?>
-                                                        <option>No Hay Datos Registrados </option>
-                                                    <?php } ?>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <label id="val_producto" class="validacion"> </label>
+                                                <input type="hidden" class="form-control" placeholder="PRODUCTOE" id="PRODUCTOE" name="PRODUCTOE" value="<?php echo $PRODUCTO; ?>" />
+                                                <select class="form-control select2" id="PRODUCTO" name="PRODUCTO" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED2; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYPRODUCTO as $r) : ?>
+                                                        <?php if ($ARRAYPRODUCTO) {    ?>
+                                                            <option value="<?php echo $r['ID_PRODUCTO']; ?>" <?php if ($PRODUCTO == $r['ID_PRODUCTO']) {
+                                                                                                                    echo "selected";
+                                                                                                                } ?>> <?php echo $r['NOMBRE_PRODUCTO'] ?> </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_producto" class="validacion"> </label>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Unidad Medida</label>
-                                            <input type="hidden" class="form-control" placeholder="TUMEDIDA" id="TUMEDIDA" name="TUMEDIDA" value="<?php echo $TUMEDIDA; ?>" />
-                                            <input type="text" class="form-control" placeholder="Unidad Medida" id="TUMEDIDAV" name="TUMEDIDAV" value="<?php echo $TUMEDIDAV; ?>" disabled />
-                                            <label id="val_tumedida" class="validacion"> </label>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Unidad Medida</label>
+                                                <input type="hidden" class="form-control" placeholder="TUMEDIDA" id="TUMEDIDA" name="TUMEDIDA" value="<?php echo $TUMEDIDA; ?>" />
+                                                <input type="text" class="form-control" placeholder="Unidad Medida" id="TUMEDIDAV" name="TUMEDIDAV" value="<?php echo $TUMEDIDAV; ?>" disabled />
+                                                <label id="val_tumedida" class="validacion"> </label>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Valor Unitario </label>
                                                 <input type="hidden" class="form-control" placeholder="VALORUNITARIO" id="VALORUNITARIO" name="VALORUNITARIO" value="<?php echo $VALORUNITARIO; ?>" />
@@ -475,17 +481,15 @@ if (isset($_POST)) {
                                                 <label id="val_vu" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Producto</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
-                                                <input type="text" class="form-control" placeholder="Canitdad Producto" id="CANTIDAD" name="CANTIDAD" value="<?php echo $CANTIDAD; ?>" <?php echo $DISABLEDE;  ?> <?php echo $DISABLED; ?> />
+                                                <input type="text" class="form-control" placeholder="Canitdad Producto" id="CANTIDAD" name="CANTIDAD" value="<?php echo $CANTIDAD; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Tarjada</label>
                                                 <input type="hidden" class="form-control" placeholder="TOTALCANTIDADTARJA" id="TOTALCANTIDADTARJA" name="TOTALCANTIDADTARJA" value="<?php echo $TOTALCANTIDADTARJA; ?>" />
@@ -493,7 +497,7 @@ if (isset($_POST)) {
                                                 <label id="val_cantidadi" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Restante</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADRESTANTE" id="CANTIDADRESTANTE" name="CANTIDADRESTANTE" value="<?php echo $CANTIDADRESTANTE; ?>" />
@@ -504,7 +508,7 @@ if (isset($_POST)) {
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Descripción </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="DESCRIPCIONE" name="DESCRIPCIONE" value="<?php echo $DESCRIPCION; ?>" />
@@ -513,98 +517,43 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                     </div>
+                                    <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
                                 </div>
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
-                                    <table class="table ">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <?php if ($ESTADO == 0) { ?>
-                                                        <?php if ($OP == "crear") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                                                <i class="ti-back-left "></i> Volver
-                                                            </button>
-                                                        <?php } ?>
-                                                        <?php if ($OP == "") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                                                <i class="ti-back-left "></i> Volver
-                                                            </button>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                    <?php if ($ESTADO != 0) { ?>
-                                                        <?php if ($OP == "crear") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                                                <i class="ti-back-left "></i> Volver
-                                                            </button>
-                                                        <?php } ?>
-                                                        <?php if ($OP == "") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                                                <i class="ti-back-left "></i> Volver
-                                                            </button>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                                            <i class="ti-back-left "></i> Volver
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                                            <i class="ti-back-left "></i> Volver
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "eliminar") { ?>
-                                                        <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                                            <i class="ti-back-left "></i> Volver
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "eliminar") { ?>
-                                                        <button type=" " class="btn btn-rounded btn-danger btn-outline " name="ELIMINAR" value="ELIMINAR" <?php echo $DISABLEDE;  ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                        } ?>>
-                                                            <i class="ti-back-left "></i> Eliminar
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                            <i class="ti-save-alt"></i> Agregar
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "crear") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="CREAR" value="CREAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> Agregar
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php echo $DISABLEDE;  ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                        } ?>>
-                                                            <i class="ti-save-alt"></i> Guardar
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php echo $DISABLEDE;  ?> <?php echo $DISABLED; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                } ?>>
-                                                            <i class="ti-save-alt"></i> Guardar
-                                                        </button>
-                                                    <?php }   ?>
-                                                </td>
-                                                <td>
-                                                    <?php if ($OP != "") {  ?>
-                                                        <button type="button" class="btn btn-rounded  btn-info btn-outline " id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDP; ?>'); ">
-                                                            <i class="fa fa-file-pdf-o"></i>Tarjas
-                                                        </button>
-                                                    <?php } ?>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="btn-group  col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
+                                            <i class="ti-back-left "></i> Volver
+                                        </button>
+                                        <?php if ($OP == "") { ?>
+                                            <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Agregar
+                                            </button>
+                                        <?php } ?>
+                                        <?php if ($OP != "") { ?>
+                                            <?php if ($OP == "crear") { ?>
+                                                <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Duplicar
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP == "editar") { ?>
+                                                <button type="submit" class="btn  btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Editar
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP == "eliminar") { ?>
+                                                <button type="submit" class="btn  btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                    <i class="ti-trash"></i> Eliminar
+                                                </button>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="btn-group col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 col-xs-12 float-right " role="group" aria-label="Informes">
+                                        <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarjas" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                            <i class="fa fa-file-pdf-o"></i> Tarja
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -616,11 +565,11 @@ if (isset($_POST)) {
                                         -->
                             </div>
                             <div class="row">
-                                <div class="col-sm-10">
+                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
                                     <div class=" table-responsive">
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
-                                                <tr>
+                                                <tr class="text-left">
                                                     <th>
                                                         <a href="#" class="text-warning hover-warning">
                                                             Folio
@@ -635,45 +584,43 @@ if (isset($_POST)) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 <?php if ($ARRAYDTRECEPCION) { ?>
                                                     <?php foreach ($ARRAYDTRECEPCION as $s) : ?>
-                                                        <tr>
+                                                        <tr class="text-left">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $s['FOLIO_TARJA']; ?>
                                                                 </a>
                                                             </td>
+
                                                             <td class="text-center">
                                                                 <form method="post" id="form1" name="form1">
                                                                     <input type="hidden" class="form-control" placeholder="ID TARJAM" id="IDT" name="IDT" value="<?php echo $s['ID_TARJA']; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="ID DRECEPCIONM" id="IDD" name="IDD" value="<?php echo $IDOP; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="OP RECEPCIONM" id="OPD" name="OPD" value="<?php echo $OPP; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="OP DRECEPCIONM" id="OPD" name="OPD" value="<?php echo $OP; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionm" />
                                                                     <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionm" />
                                                                     <input type="hidden" class="form-control" placeholder="URL DTRECEPCIONE" id="URLT" name="URLT" value="registroDtrecepcionm" />
-                                                                    <button type="submit" class="btn btn-rounded btn-info btn-sm  btn-outline " id="VERDURL" name="VERDURL" title="Ver" <?php if ($s['ESTADO'] == "1") {
-                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                        } ?>>
-                                                                        <i class="ti-eye"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-warning btn-outline " id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED; ?> <?php if ($s['ESTADO'] == "0") {
-                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                } ?>>
-                                                                        <i class="ti-pencil-alt"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-secondary btn-outline " id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED; ?> <?php if ($s['ESTADO'] == "0") {
-                                                                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                                                                        } ?>>
-                                                                        <i class="fa fa-fw fa-copy"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-danger btn-outline " id="ELIMINARDURL" name="ELIMINARDURL" title="eliminar" <?php echo $DISABLED; ?> <?php if ($s['ESTADO'] == "0") {
-                                                                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                                                                    } ?>>
-                                                                        <i class="ti-close"></i>
-                                                                    </button>
+                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                        <?php if ($s['ESTADO']  == "0") { ?>
+                                                                            <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                <i class="ti-eye"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                        <?php if ($s['ESTADO']  == "1") { ?>
+                                                                            <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED; ?>>
+                                                                                <i class="ti-pencil-alt"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-secondary btn-sm " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED; ?>>
+                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED; ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                    </div>
                                                                 </form>
                                                             </td>
                                                             <td><?php echo $s['CANTIDADC']; ?></td>
@@ -720,21 +667,19 @@ if (isset($_POST)) {
                                 <div class="col-sm-2">
                                     <form method="post" id="form2" name="form2">
                                         <div class="form-group">
-                                            <label>Agregar Tarja</label>
-                                            <br>
                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="ID DRECEPCIONM" id="IDD" name="IDD" value="<?php echo $IDOP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="OP RECEPCIONM" id="OPD" name="OPD" value="<?php echo $OPP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="OP DRECEPCIONM" id="OPD" name="OPD" value="<?php echo $OP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionm" />
                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionm" />
                                             <input type="hidden" class="form-control" placeholder="URL DTRECEPCIONE" id="URLT" name="URLT" value="registroDtrecepcionm" />
-                                            <button type="submit" class=" btn btn-block btn-success btn-outline" title="Agregar Tarja" id="CREARDURL" name="CREARDURL" <?php if ($ESTADO == 0) {
-                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                        } ?> <?php if ($DIFERENCIA == 0) {
-                                                                                                                                                                                    echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                } ?>>
-                                                <i class=" glyphicon glyphicon-plus"></i>
+                                            <button type="submit" class=" btn btn-block btn-success " data-toggle="tooltip" title="Agregar Tarja" id="CREARDURL" name="CREARDURL" <?php if ($ESTADO == 0) {
+                                                                                                                                                                                        echo "disabled";
+                                                                                                                                                                                    } ?> <?php if ($DIFERENCIA == 0) {
+                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                            } ?>>
+                                                Agregar Tarja
                                             </button>
                                         </div>
                                     </form>

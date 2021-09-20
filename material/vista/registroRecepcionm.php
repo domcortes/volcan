@@ -214,7 +214,7 @@ if (isset($_REQUEST['CREAR'])) {
             $SNOCOMPRAR = "1";
             $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRA']);
             $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
-        }else {
+        } else {
             $SNOCOMPRAR = "0";
             $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
         }
@@ -950,7 +950,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número Recepción</label>
                                                 <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
@@ -974,7 +974,7 @@ if (isset($_POST)) {
                                                 <label id="val_id" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Tipo Recepción</label>
                                                 <input type="hidden" class="form-control" placeholder="Tipo Recepción" id="TRECEPCIONE" name="TRECEPCIONE" value="<?php echo $TRECEPCION; ?>" />
@@ -993,13 +993,12 @@ if (isset($_POST)) {
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <?php if ($TRECEPCION == "") { ?>
-                                            <div class="col-sm-4 col-12">
+                                        <?php if ($TRECEPCION != "1") { ?>
+                                            <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "1") { ?>
-                                            <div class="col-sm-2 col-12">
-
+                                            <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Con OC</label>
                                                     <br>
@@ -1010,7 +1009,7 @@ if (isset($_POST)) {
                                                     <label for="SNOCOMPRA"></label>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2 col-12">
+                                            <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Orden Compra</label>
                                                     <input type="hidden" class="form-control" placeholder="OCOMPRAE" id="OCOMPRAE" name="OCOMPRAE" value="<?php echo $OCOMPRA; ?>" />
@@ -1033,17 +1032,8 @@ if (isset($_POST)) {
                                                     <label id="val_ocompra" class="validacion"> </label>
                                                 </div>
                                             </div>
-
                                         <?php } ?>
-                                        <?php if ($TRECEPCION == "2") { ?>
-                                            <div class="col-sm-4 col-12">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if ($TRECEPCION == "3") { ?>
-                                            <div class="col-sm-4 col-12">
-                                            </div>
-                                        <?php } ?>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Ingreso</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Ingreso" id="FECHAINGRESOE" name="FECHAINGRESOE" value="<?php echo $FECHAINGRESO; ?>" />
@@ -1051,7 +1041,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechai" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Modificación</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Modificación" id="FECHAMODIFCIACIONE" name="FECHAMODIFCIACIONE" value="<?php echo $FECHAMODIFCIACION; ?>" />
@@ -1061,7 +1051,7 @@ if (isset($_POST)) {
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Recepción</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Recepción" id="FECHARECEPCIONE" name="FECHARECEPCIONE" value="<?php echo $FECHARECEPCION; ?>" />
@@ -1070,13 +1060,9 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                         <?php if ($TRECEPCION == "") { ?>
-                                            <div class="col-sm-4 col-12">
-                                                <div class="form-group">
-                                                </div>
-                                            </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "1") { ?>
-                                            <div class="col-sm-2 col-12">
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Proveedor</label>
                                                     <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
@@ -1101,7 +1087,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "2") { ?>
-                                            <div class="col-sm-2 col-12">
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Productor</label>
                                                     <input type="hidden" class="form-control" placeholder="Productor" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -1124,7 +1110,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "3") { ?>
-                                            <div class="col-sm-2 col-12">
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Planta Origen</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTA2E" id="PLANTA2E" name="PLANTA2E" value="<?php echo $PLANTA2; ?>" />
@@ -1146,7 +1132,7 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         <?php } ?>
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Bodega Destino</label>
                                             <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
                                             <select class="form-control select2" id="BODEGA" name="BODEGA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
@@ -1163,7 +1149,7 @@ if (isset($_POST)) {
                                             </select>
                                             <label id="val_bodega" class="validacion"> </label>
                                         </div>
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Tipo Documento</label>
                                             <input type="hidden" class="form-control" placeholder="TDOCUMENTOE" id="TDOCUMENTOE" name="TDOCUMENTOE" value="<?php echo $TDOCUMENTO; ?>" />
                                             <select class="form-control select2" id="TDOCUMENTO" name="TDOCUMENTO" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
@@ -1180,7 +1166,7 @@ if (isset($_POST)) {
                                             </select>
                                             <label id="val_tdocumento" class="validacion"> </label>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número Documento</label>
                                                 <input type="hidden" class="form-control" placeholder="NUMERODOCUMENTOE" id="NUMERODOCUMENTOE" name="NUMERODOCUMENTOE" value="<?php echo $NUMERODOCUMENTO; ?>" />
@@ -1188,10 +1174,7 @@ if (isset($_POST)) {
                                                 <label id="val_numerod" class="validacion"> </label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Transporte</label>
                                             <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
                                             <select class="form-control select2" id="TRANSPORTE" name="TRANSPORTE" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
@@ -1208,7 +1191,7 @@ if (isset($_POST)) {
                                             </select>
                                             <label id="val_transporte" class="validacion"> </label>
                                         </div>
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Conductor</label>
                                                 <input type="hidden" class="form-control" placeholder="CONDUCTORE" id="CONDUCTORE" name="CONDUCTORE" value="<?php echo $CONDUCTOR; ?>" />
@@ -1229,7 +1212,7 @@ if (isset($_POST)) {
                                                 <label id="val_conductor" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Patente Camión</label>
                                                 <input type="hidden" class="form-control" placeholder="PATENTECAMIONE" id="PATENTECAMIONE" name="PATENTECAMIONE" value="<?php echo $PATENTECAMION; ?>" />
@@ -1237,7 +1220,7 @@ if (isset($_POST)) {
                                                 <label id="val_patentecamion" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Patente Carro</label>
                                                 <input type="hidden" class="form-control" placeholder="PATENTECARROE" id="PATENTECARROE" name="PATENTECARROE" value="<?php echo $PATENTECARRO; ?>" />
@@ -1247,7 +1230,7 @@ if (isset($_POST)) {
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
@@ -1256,80 +1239,42 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                     </div>
+                                <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
                                 </div>
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
-                                    <table class="table ">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <?php if ($OP == "") { ?>
-                                                        <button type="button" class="btn btn-rounded btn-warning btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionm.php');">
-                                                            <i class="ti-trash"></i> CANCELAR
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                            <i class="ti-save-alt"></i> CREAR
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="button" class="btn btn-rounded  btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarRecepcionm.php'); ">
-                                                            <i class="ti-back-left "></i> VOLVER
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="button" class="btn btn-rounded  btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarRecepcionm.php'); ">
-                                                            <i class="ti-back-left "></i> VOLVER
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                    } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php echo $DISABLED; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                    } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "crear") { ?>
-                                                        <button type="button" class="btn btn-rounded  btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarRecepcionm.php'); ">
-                                                            <i class="ti-back-left "></i> VOLVER
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP != "") {  ?>
-                                                        <button type="button" class="btn btn-rounded  btn-info btn-outline " id="defecto" name="tarjas" title="Informe" Onclick="abrirPestana('../documento/informeRecepcionm.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                            <i class="fa fa-file-pdf-o"></i>INFORME
-                                                        </button>
-                                                        <button type="button" class="btn btn-rounded  btn-info btn-outline " id="defecto" name="tarjas" title="Tarja" Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                            <i class="fa fa-file-pdf-o"></i>TARJA
-                                                        </button>
-                                                    <?php } ?>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="btn-group   col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                        <?php if ($OP == "") { ?>
+                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionm.php');">
+                                                <i class="ti-trash"></i> Borrar
+                                            </button>
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Guardar
+                                            </button>
+                                        <?php } ?>
+                                        <?php if ($OP != "") { ?>
+                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionm.php'); ">
+                                                <i class="ti-back-left "></i> Volver
+                                            </button>
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-pencil-alt"></i> Guardar
+                                            </button>
+                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Cerrar
+                                            </button>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="btn-group   col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 float-right" role="group" aria-label="Informes">
+                                        <?php if ($OP != "") { ?>
+                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcionm.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Informe
+                                            </button>
+                                            <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarjas" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Tarja
+                                            </button>
+                                        <?php } ?>
+                                    </div>
                                 </div>
                             </div>
                             <!--.row -->
@@ -1342,7 +1287,7 @@ if (isset($_POST)) {
                                         -->
                             </div>
                             <div class="row">
-                                <div class="col-sm-10">
+                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
                                     <div class=" table-responsive">
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -1364,6 +1309,19 @@ if (isset($_POST)) {
                                                         if ($ARRAYDTRECEPCIONTOTALES2) {
                                                             $TOTALTARJADR = $ARRAYDTRECEPCIONTOTALES2[0]["CANTIDAD"];
                                                         }
+                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                        if ($ARRAYPRODUCTO) {
+                                                            $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                        } else {
+                                                            $NOMBREPRODUCTO= "Sin Dato";
+                                                        }
+                                                        $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
+                                                        if ($ARRAYTUMEDIDA) {
+                                                            $NOMBRETUMEDIDA= $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                        } else {
+                                                            $NOMBRETUMEDIDA= "Sin Dato";
+                                                        }
+
                                                         ?>
                                                         <tr>
                                                             <td class="text-center">
@@ -1373,48 +1331,28 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionm" />
                                                                     <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionm" />
-                                                                    <button type="submit" class="btn btn-rounded btn-info btn-sm  btn-outline " id="VERDURL" name="VERDURL" title="Ver" <?php if ($s['ESTADO']  == "1") {
-                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                        } ?>>
-                                                                        <i class="ti-eye"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-warning btn-outline " id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?> <?php if ($s['ESTADO']  == "0") {
-                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                } ?>>
-                                                                        <i class="ti-pencil-alt"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-secondary btn-outline " id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?> <?php if ($s['ESTADO']  == "0") {
-                                                                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                                                                        } ?>>
-                                                                        <i class="fa fa-fw fa-copy"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-danger btn-outline " id="ELIMINARDURL" name="ELIMINARDURL" title="eliminar" <?php echo $DISABLED2; ?> <?php if ($s['ESTADO']  == "0") {
-                                                                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                                                                    } ?>>
-                                                                        <i class="ti-close"></i>
-                                                                    </button>
+                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                        <?php if ($s['ESTADO']  == "0") { ?>
+                                                                            <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                <i class="ti-eye"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                        <?php if ($s['ESTADO']  == "1") { ?>
+                                                                            <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-pencil-alt"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-secondary btn-sm " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                    </div>
                                                                 </form>
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
-                                                                if ($ARRAYPRODUCTO) {
-                                                                    echo $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                                } else {
-                                                                    echo "Sin Dato";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
-                                                                if ($ARRAYTUMEDIDA) {
-                                                                    echo $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
-                                                                } else {
-                                                                    echo "Sin Dato";
-                                                                }
-                                                                ?>
-                                                            </td>
+                                                            <td><?php echo $NOMBREPRODUCTO; ?></td>
+                                                            <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $s['CANTIDAD']; ?></td>
                                                             <td><?php echo $s['VALOR_UNITARIO']; ?></td>
                                                             <td><?php echo $TOTALTARJADR; ?></td>
@@ -1429,6 +1367,18 @@ if (isset($_POST)) {
                                                         if ($ARRAYDTRECEPCIONTOTALES2) {
                                                             $TOTALTARJADR = $ARRAYDTRECEPCIONTOTALES2[0]["CANTIDAD"];
                                                         }
+                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                        if ($ARRAYPRODUCTO) {
+                                                            $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                        } else {
+                                                            $NOMBREPRODUCTO= "Sin Dato";
+                                                        }
+                                                        $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
+                                                        if ($ARRAYTUMEDIDA) {
+                                                            $NOMBRETUMEDIDA= $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                        } else {
+                                                            $NOMBRETUMEDIDA= "Sin Dato";
+                                                        }
                                                         ?>
                                                         <tr>
                                                             <td class="text-center">
@@ -1438,43 +1388,25 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionm" />
                                                                     <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionmDocompra" />
-                                                                    <button type="submit" class="btn btn-rounded btn-info btn-sm  btn-outline " id="VERDURL" name="VERDURL" title="Ver" <?php if ($s['ESTADO']  == "1") {
-                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                        } ?>>
-                                                                        <i class="ti-eye"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-warning btn-outline " id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?> <?php if ($s['ESTADO']  == "0") {
-                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                } ?>>
-                                                                        <i class="ti-pencil-alt"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-danger btn-outline " id="ELIMINARDURL" name="ELIMINARDURL" title="eliminar" <?php echo $DISABLED2; ?> <?php if ($s['ESTADO']  == "0") {
-                                                                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                                                                    } ?>>
-                                                                        <i class="ti-close"></i>
-                                                                    </button>
+                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                        <?php if ($s['ESTADO']  == "0") { ?>
+                                                                            <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                <i class="ti-eye"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                        <?php if ($s['ESTADO']  == "1") { ?>
+                                                                            <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-pencil-alt"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                    </div>
                                                                 </form>
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
-                                                                if ($ARRAYPRODUCTO) {
-                                                                    echo $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                                } else {
-                                                                    echo "Sin Dato";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
-                                                                if ($ARRAYTUMEDIDA) {
-                                                                    echo $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
-                                                                } else {
-                                                                    echo "Sin Dato";
-                                                                }
-                                                                ?>
-                                                            </td>
+                                                            <td><?php echo $NOMBREPRODUCTO; ?></td>
+                                                            <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $s['CANTIDAD']; ?></td>
                                                             <td><?php echo $s['VALOR_UNITARIO']; ?></td>
                                                             <td><?php echo $TOTALTARJADR; ?></td>
@@ -1485,38 +1417,34 @@ if (isset($_POST)) {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
                                     <form method="post" id="form2" name="form2">
                                         <div class="form-group">
-                                            <label>Agregar Detalle</label>
-                                            <br>
                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionm" />
                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionm" />
-                                            <button type="submit" class=" btn btn-block btn-success btn-outline" title="Agregar Detalle" id="CREARDURL" name="CREARDURL" <?php if ($ESTADO == 0) {
-                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                            } ?>>
-                                                <i class=" glyphicon glyphicon-plus"></i>
+                                            <button type="submit" class=" btn btn-block btn-success" data-toggle="tooltip" title="Agregar Detalle" id="CREARDURL" name="CREARDURL" <?php if ($ESTADO == 0) {
+                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                    } ?>>
+                                                Agregar Detalle
                                             </button>
                                         </div>
                                     </form>
                                     <form method="post" id="form3" name="form3">
                                         <div class="form-group">
-                                            <label>Seleccionar Detalle OC</label>
-                                            <br>
                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroRecepcionm" />
                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroSelecionarDocompraM" />
-                                            <button type="submit" class=" btn btn-block btn-success btn-outline" title="Agregar Detalle" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'" ;
-                                                                                                                                                                                    } ?> <?php if ($TRECEPCION != 1) {
-                                                                                                                                                                                                echo "disabled";
-                                                                                                                                                                                            } ?> <?php if ($SNOCOMPRA != "on") {
-                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                    } ?>>
-                                                <i class=" glyphicon glyphicon-plus"></i>
+                                            <button type="submit" class=" btn btn-block btn-success " data-toggle="tooltip" title="Seleccionar Detalle OC" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                        } ?> <?php if ($TRECEPCION != 1) {
+                                                                                                                                                                                                                    echo "disabled";
+                                                                                                                                                                                                                } ?> <?php if ($SNOCOMPRA != "on") {
+                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                        } ?>>
+                                                Seleccionar Detalle OC
                                             </button>
                                         </div>
                                     </form>
