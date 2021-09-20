@@ -161,7 +161,7 @@ $ARRAYTEMPORADA = "";
                         text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
                     }).then((result)=>{
                         if(result.value){
-                            location.href = "/material/vista/iniciarSession.php";
+                            location.href = "iniciarSession.php";
                         }
                     })
                 </script>';
