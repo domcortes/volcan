@@ -10,13 +10,11 @@ include_once '../controlador/FOLIO_ADO.php';
 include_once '../controlador/OCOMPRA_ADO.php';
 include_once '../controlador/DOCOMPRA_ADO.php';
 include_once '../controlador/RECEPCIONE_ADO.php';
-include_once '../controlador/DRECEPCIONE_ADO.php';
 include_once '../controlador/INVENTARIOE_ADO.php';
 
 
 include_once '../modelo/DOCOMPRA.php';
 include_once '../modelo/INVENTARIOE.php';
-include_once '../modelo/DRECEPCIONE.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -28,14 +26,12 @@ $FOLIO_ADO =  new FOLIO_ADO();
 $OCOMPRA_ADO =  new OCOMPRA_ADO();
 $DOCOMPRA_ADO =  new DOCOMPRA_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
-$DRECEPCIONE_ADO =  new DRECEPCIONE_ADO();
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 
 
 //INIICIALIZAR MODELO
 $DOCOMPRA =  new DOCOMPRA();
 $INVENTARIOE =  new INVENTARIOE();
-$DRECEPCIONE =  new DRECEPCIONE();
 
 //INCIALIZAR VARIABLES
 

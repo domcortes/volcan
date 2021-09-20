@@ -10,10 +10,8 @@ include_once '../controlador/FOLIO_ADO.php';
 
 include_once '../controlador/INVENTARIOE_ADO.php';
 include_once '../controlador/RECEPCIONE_ADO.php';
-include_once '../controlador/DRECEPCIONE_ADO.php';
 
 include_once '../modelo/INVENTARIOE.php';
-include_once '../modelo/DRECEPCIONE.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -25,11 +23,9 @@ $FOLIO_ADO =  new FOLIO_ADO();
 
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
-$DRECEPCIONE_ADO =  new DRECEPCIONE_ADO();
 
 //INIICIALIZAR MODELO
 $INVENTARIOE =  new INVENTARIOE();
-$DRECEPCIONE =  new DRECEPCIONE();
 
 //INICIALIZACION VARIABLES
 $NUMEROFOLIO = "";
