@@ -1,4 +1,4 @@
-<?php 
+<?php
 //include_once "../../config/indicadorEconomico.php";
 ?>
 <header class="main-header">
@@ -95,25 +95,20 @@
         </li>
 
 
-        <li class="btn-group nav-item">
-          <div class="search-bx ml-10">
-            <div class="input-group">
-            </div>
-          </div>
-        </li>
 
-        <li class="btn-group nav-item">
-          <div class="search-bx ml-10">
-            <div class="input-group">
-              
-            </div>
-          </div>
-        </li>
+
+
       </ul>
     </div>
 
     <div class="navbar-custom-menu r-side">
       <ul class="nav navbar-nav">
+        <li class="dropdown notifications-menu">
+          <br>
+          <?php echo $EURO; ?>
+          <br>
+          <?php echo $DOLAR; ?>
+        </li>
         <!-- Notifications -->
         <li class="dropdown notifications-menu">
           <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="Notifications">
@@ -179,7 +174,6 @@
             </li>
           </ul>
         </li>
-
         <!-- User Account-->
         <li class="dropdown user user-menu">
           <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="User">
@@ -252,9 +246,6 @@
             </li>
           </ul>
         </li>
-
-
-
         <?php //include_once "../../config/menuExtra.php"; 
         ?>
         <!-- Control Sidebar Toggle Button -->
@@ -484,7 +475,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="#"> Registro Despacho<i class="ti-more"></i></a></li>
               <li><a href="#">Agrupado Despacho</a></li>
             </ul>
-          </li>          
+          </li>
           <li><a href="listarInventariomDespacho.php">Inventario Materiales<i class="ti-more"></i></a></li>
           <li><a href="listarInventarioeDespacho.php">Inventario Envases<i class="ti-more"></i></a></li>
         </ul>
