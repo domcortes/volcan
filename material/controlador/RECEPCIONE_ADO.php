@@ -501,9 +501,9 @@ class RECEPCIONE_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACIONF',
-                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHAF',
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
+                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
                                                 FORMAT(IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0),0,'de_DE') AS 'CANTIDAD' 
                                              FROM `material_recepcione`
                                                 WHERE ESTADO_REGISTRO = 1 
