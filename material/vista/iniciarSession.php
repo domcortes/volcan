@@ -54,41 +54,40 @@ $ARRAYTEMPORADA = "";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+    <?php include_once "../config/urlHead.php"; ?>
+    <!- FUNCIONES BASES -!>
+    <script type="text/javascript">
+        function validacion() {
 
-        <!- FUNCIONES BASES -!>
-            <script type="text/javascript">
-                function validacion() {
-
-                    NOMBRE = document.getElementById("NOMBRE").value;
-                    CONTRASENA = document.getElementById("CONTRASENA").value;
-
-
-
-                    document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_contrasena').innerHTML = "";
+            NOMBRE = document.getElementById("NOMBRE").value;
+            CONTRASENA = document.getElementById("CONTRASENA").value;
 
 
 
+            document.getElementById('val_nombre').innerHTML = "";
+            document.getElementById('val_contrasena').innerHTML = "";
 
-                    if (NOMBRE == null || NOMBRE.length == 0 || /^\s+$/.test(NOMBRE)) {
-                        document.form_reg_dato.NOMBRE.focus();
-                        document.form_reg_dato.NOMBRE.style.borderColor = "#FF0000";
-                        document.getElementById('val_nombre').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.NOMBRE.style.borderColor = "#4AF575";
 
-                    if (CONTRASENA == null || CONTRASENA.length == 0 || /^\s+$/.test(CONTRASENA)) {
-                        document.form_reg_dato.CONTRASENA.focus();
-                        document.form_reg_dato.CONTRASENA.style.borderColor = "#FF0000";
-                        document.getElementById('val_contrasena').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CONTRASENA.style.borderColor = "#4AF575";
 
-                }
-            </script>
+
+            if (NOMBRE == null || NOMBRE.length == 0 || /^\s+$/.test(NOMBRE)) {
+                document.form_reg_dato.NOMBRE.focus();
+                document.form_reg_dato.NOMBRE.style.borderColor = "#FF0000";
+                document.getElementById('val_nombre').innerHTML = "NO A INGRESADO DATO";
+                return false;
+            }
+            document.form_reg_dato.NOMBRE.style.borderColor = "#4AF575";
+
+            if (CONTRASENA == null || CONTRASENA.length == 0 || /^\s+$/.test(CONTRASENA)) {
+                document.form_reg_dato.CONTRASENA.focus();
+                document.form_reg_dato.CONTRASENA.style.borderColor = "#FF0000";
+                document.getElementById('val_contrasena').innerHTML = "NO A INGRESADO DATO";
+                return false;
+            }
+            document.form_reg_dato.CONTRASENA.style.borderColor = "#4AF575";
+
+        }
+    </script>
 
 </head>
 
