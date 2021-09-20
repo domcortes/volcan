@@ -175,14 +175,23 @@ $ARRAYTEMPORADA = "";
             //$MENSAJE2 = "";
             echo
             '<script>
-                Swal.fire({
-                    icon:"success",
-                    title:"Datos Correctos",
-                    text:"Los datos ingresados son correctos."
-                }).then((result)=>{
-                    if(result.value){
-                        location.href = "iniciarSessionSeleccion.php";
+                const Toast = Swal.mixin({
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
                     }
+                });
+
+                Toast.fire({
+                    icon: "success",
+                    title: "Credenciales correctas",
+                    text:"cargando modulo selector"
+                }).then((result)=>{
+                        location.href = "iniciarSessionSeleccion.php";
                 })
             </script>';
         }
