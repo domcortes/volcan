@@ -174,7 +174,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
                                             <table id="existencia" class="table table-hover " style="width: 100%;">
                                                 <thead>
@@ -316,12 +316,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-sm-10">
+                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 col-xs-10">
                                         <div class="form-group">
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-2">
+                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total Neto </label>
                                             <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
