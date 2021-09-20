@@ -148,35 +148,27 @@ class DRECEPCIONE_ADO
         try {
             $query =
                 "INSERT INTO `material_drecepcione` (   
-                                                        `FOLIO_DRECEPCION`,
-                                                        `ALIAS_DINAMICO_DRECEPCION`,
-                                                        `ALIAS_ESTATICO_DRECEPCION`,
                                                         `CANTIDAD_DRECEPCION`,
                                                         `VALOR_UNITARIO_DRECEPCION`,   
                                                         `DESCRIPCION_DRECEPCION`,                                     
                                                         `ID_RECEPCION`,
                                                         `ID_PRODUCTO`,
                                                         `ID_TUMEDIDA`,
-                                                        `ID_FOLIO`,
                                                         `INGRESO`,
                                                         `MODIFICACION`,     
                                                         `ESTADO`,
                                                         `ESTADO_REGISTRO`
                                                     ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1, 1);";
+	       	( ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DRECEPCIONE->__GET('FOLIO_DRECEPCION'),
-                        $DRECEPCIONE->__GET('ALIAS_DINAMICO_DRECEPCION'),
-                        $DRECEPCIONE->__GET('ALIAS_ESTATICO_DRECEPCION'),
                         $DRECEPCIONE->__GET('CANTIDAD_DRECEPCION'),
                         $DRECEPCIONE->__GET('VALOR_UNITARIO_DRECEPCION'),
                         $DRECEPCIONE->__GET('DESCRIPCION_DRECEPCION'),
                         $DRECEPCIONE->__GET('ID_RECEPCION'),
                         $DRECEPCIONE->__GET('ID_PRODUCTO'),
-                        $DRECEPCIONE->__GET('ID_TUMEDIDA'),
-                        $DRECEPCIONE->__GET('ID_FOLIO')
+                        $DRECEPCIONE->__GET('ID_TUMEDIDA')
                     )
 
                 );
@@ -195,14 +187,13 @@ class DRECEPCIONE_ADO
                                                         `ID_RECEPCION`,
                                                         `ID_PRODUCTO`,
                                                         `ID_TUMEDIDA`,
-                                                        `ID_FOLIO`,
                                                         `ID_DOCOMPRA`,
                                                         `INGRESO`,
                                                         `MODIFICACION`,     
                                                         `ESTADO`,
                                                         `ESTADO_REGISTRO`
                                                     ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1, 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -212,7 +203,6 @@ class DRECEPCIONE_ADO
                         $DRECEPCIONE->__GET('ID_RECEPCION'),
                         $DRECEPCIONE->__GET('ID_PRODUCTO'),
                         $DRECEPCIONE->__GET('ID_TUMEDIDA'),
-                        $DRECEPCIONE->__GET('ID_FOLIO'),
                         $DRECEPCIONE->__GET('ID_DOCOMPRA')
                     )
 
@@ -239,8 +229,6 @@ class DRECEPCIONE_ADO
             $query = "
 		UPDATE `material_drecepcione` SET
             `MODIFICACION`= SYSDATE(),
-            `FOLIO_DRECEPCION`= ?,
-            `ALIAS_DINAMICO_DRECEPCION`= ?,
             `ALIAS_ESTATICO_DRECEPCION`= ?,
             `CANTIDAD_DRECEPCION`= ?,
             `VALOR_UNITARIO_DRECEPCION`= ?,
@@ -248,22 +236,17 @@ class DRECEPCIONE_ADO
             `ID_RECEPCION`= ?,
             `ID_PRODUCTO`= ?,
             `ID_TUMEDIDA`= ?,
-            `ID_FOLIO` = ?,   
             `ID_DOCOMPRA` = ? 
 		WHERE `ID_DRECEPCION`= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DRECEPCIONE->__GET('FOLIO_DRECEPCION'),
-                        $DRECEPCIONE->__GET('ALIAS_DINAMICO_DRECEPCION'),
-                        $DRECEPCIONE->__GET('ALIAS_ESTATICO_DRECEPCION'),
                         $DRECEPCIONE->__GET('CANTIDAD_DRECEPCION'),
                         $DRECEPCIONE->__GET('VALOR_UNITARIO_DRECEPCION'),
                         $DRECEPCIONE->__GET('DESCRIPCION_DRECEPCION'),
                         $DRECEPCIONE->__GET('ID_RECEPCION'),
                         $DRECEPCIONE->__GET('ID_PRODUCTO'),
                         $DRECEPCIONE->__GET('ID_TUMEDIDA'),
-                        $DRECEPCIONE->__GET('ID_FOLIO'),
                         $DRECEPCIONE->__GET('ID_DOCOMPRA'),
                         $DRECEPCIONE->__GET('ID_DRECEPCION')
 
@@ -286,8 +269,7 @@ class DRECEPCIONE_ADO
             `DESCRIPCION_DRECEPCION`= ?,
             `ID_RECEPCION`= ?,
             `ID_PRODUCTO`= ?,
-            `ID_TUMEDIDA`= ?,
-            `ID_FOLIO`= ?      
+            `ID_TUMEDIDA`= ? 
 		WHERE `ID_DRECEPCION`= ?;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -298,7 +280,6 @@ class DRECEPCIONE_ADO
                         $DRECEPCIONE->__GET('ID_RECEPCION'),
                         $DRECEPCIONE->__GET('ID_PRODUCTO'),
                         $DRECEPCIONE->__GET('ID_TUMEDIDA'),
-                        $DRECEPCIONE->__GET('ID_FOLIO'),
                         $DRECEPCIONE->__GET('ID_DRECEPCION')
 
                     )
@@ -421,6 +402,30 @@ class DRECEPCIONE_ADO
 
 
     //LISTAS
+
+    public function listarDrecepcionPorRecepcionProductoTumedida2CBX($IDRECEPCION, $IDPRODUCTO, $IDTUMEDIDA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,                                              
+                                                FORMAT(IFNULL(`VALOR_UNITARIO_DRECEPCION`,0),5,'de_DE') AS 'VALOR_UNITARIO' 
+                                             FROM `material_drecepcione`
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ID_RECEPCION = '" . $IDRECEPCION . "'  
+                                                AND ID_PRODUCTO = '" . $IDPRODUCTO . "'
+                                                AND ID_TUMEDIDA = '" . $IDTUMEDIDA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function listarDrecepcionPorDocompraCBX($IDRECEPCION, $IDDOCOMPRA)
     {
@@ -590,27 +595,7 @@ class DRECEPCIONE_ADO
             die($e->getMessage());
         }
     }
-    public function listarDrecepcionPorRecepcionProductoTumedida2CBX($IDRECEPCION, $IDPRODUCTO, $IDTUMEDIDA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT * ,                                              
-                                                FORMAT(IFNULL(`VALOR_UNITARIO_DRECEPCION`,0),5,'de_DE') AS 'VALOR_UNITARIO' 
-                                             FROM `material_drecepcione`
-                                                WHERE ESTADO_REGISTRO = 1 
-                                                AND ID_RECEPCION = '" . $IDRECEPCION . "'  
-                                                AND ID_PRODUCTO = '" . $IDPRODUCTO . "'
-                                                AND ID_TUMEDIDA = '" . $IDTUMEDIDA . "';	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
 
 
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
+
 }

@@ -18,6 +18,7 @@ include_once '../controlador/TDOCUMENTO_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 
+include_once '../controlador/INVENTARIOE_ADO.php';
 include_once '../controlador/RECEPCIONE_ADO.php';
 include_once '../controlador/DRECEPCIONE_ADO.php';
 
@@ -41,6 +42,7 @@ $TDOCUMENTO_ADO =  new TDOCUMENTO_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 
+$INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 $DRECEPCIONE_ADO =  new DRECEPCIONE_ADO();
 
@@ -77,11 +79,12 @@ $ARRAYTDOCUMENTO = "";
 $ARRAYCONDUCTOR = "";
 $ARRAYTRANSPORTE = "";
 
-if (isset($_REQUEST['NOMBREUSUARIO'])) {
-  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
 }
+
 
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
@@ -90,8 +93,8 @@ if (isset($_REQUEST['parametro'])) {
 
 $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($IDOP);
 if ($ARRAYRECEPCION) {
-  $ARRAYDRECEPCION = $DRECEPCIONE_ADO->listarDrecepcionPorRecepcion2CBX($IDOP);
-  $ARRAYDRECEPCIONTOTAL = $DRECEPCIONE_ADO->obtenerTotalesDrecepcionPorRecepcion2CBX($IDOP);
+  $ARRAYDRECEPCION = $INVENTARIOE_ADO->listarInventarioPorRecepcion2CBX($IDOP);
+  $ARRAYDRECEPCIONTOTAL = $INVENTARIOE_ADO->obtenerTotalesInventarioPorRecepcion2CBX($IDOP);
 
   $TOTALCANTIDAD = $ARRAYDRECEPCIONTOTAL[0]["CANTIDAD"];
 
@@ -101,6 +104,7 @@ if ($ARRAYRECEPCION) {
   $TIPORECEPCION = $ARRAYRECEPCION[0]["TRECEPCION"];
   $PATENTECAMION = $ARRAYRECEPCION[0]["PATENTE_CAMION"];
   $PATENTECARRO = $ARRAYRECEPCION[0]["PATENTE_CARRO"];
+  $OBSERVACIONES = $ARRAYRECEPCION[0]['OBSERVACION_RECEPCION'];
 
   if ($TIPORECEPCION == "1") {
     $NOMBRETRECEPCION = "Desde Proveedor";
@@ -312,7 +316,7 @@ foreach ($ARRAYDRECEPCION as $d) :
                           <th class="left">' . $NOMBREPRODUCTO . '</th>
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>
-                          <td class="left">$ ' . $d['VALOR_UNITARIO'] . '</td>
+                          <td class="left">$ ' . $d['VALOR'] . '</td>
                       </tr>
               ';
 
@@ -343,11 +347,12 @@ $html = $html . '
           <div class="address">PATENTE CAMIÓN: ' . $PATENTECAMION . '</div>
           <div class="address">PATENTE CARRO: ' . $PATENTECARRO . '</div>
         </div>
+        
+        <div id="client">
+          <div class="address"><b>Observaciones</b></div>
+          <div class="address">  ' . $OBSERVACIONES . ' </div>
+        </div>
       </div>
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-      </div> 
     </main>
     <footer>
       Informe generado por Departamento TI Fruticola Volcan

@@ -8,9 +8,6 @@ class DRECEPCIONE {
     
     //ATRIBUTOS DE LA CLASE
     private	  $ID_DRECEPCION;
-    private	  $FOLIO_DRECEPCION; 
-    private	  $ALIAS_DINAMICO_DRECEPCION; 
-    private	  $ALIAS_ESTATICO_DRECEPCION; 
     private	  $CANTIDAD_DRECEPCION; 
     private	  $VALOR_UNITARIO_DRECEPCION; 
     private	  $DESCRIPCION_DRECEPCION; 
@@ -21,7 +18,6 @@ class DRECEPCIONE {
     private   $ID_RECEPCION;
     private   $ID_PRODUCTO;
     private   $ID_TUMEDIDA;
-    private   $ID_FOLIO;
     private   $ID_DOCOMPRA;
     
     

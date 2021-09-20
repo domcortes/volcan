@@ -98,28 +98,23 @@ if (isset($_REQUEST['AGREGAR'])) {
 
 
             foreach ($ARRAYDOCOMPRA as $s) :
-
-                $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTenvase($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-                $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-   
-
-                $DRECEPCIONE->__SET('CANTIDAD_DRECEPCION', 0);
-                $DRECEPCIONE->__SET('VALOR_UNITARIO_DRECEPCION', $s['VALOR_UNITARIO_DOCOMPRA']);
-                $DRECEPCIONE->__SET('DESCRIPCION_DRECEPCION', $s['DESCRIPCION_DOCOMPRA']);
-                $DRECEPCIONE->__SET('ID_PRODUCTO', $s['ID_PRODUCTO']);
-                $DRECEPCIONE->__SET('ID_TUMEDIDA', $s['ID_TUMEDIDA']);
-                $DRECEPCIONE->__SET('ID_FOLIO', $FOLIO);
-                $DRECEPCIONE->__SET('ID_RECEPCION', $IDP);
-                $DRECEPCIONE->__SET('ID_DOCOMPRA', $s['ID_DOCOMPRA']);
-                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $DRECEPCIONE_ADO->agregarDrecepcionDocompra($DRECEPCIONE);
-
-
+                $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
+                $INVENTARIOE->__SET('VALOR_UNITARIO',  $s['VALOR_UNITARIO_DOCOMPRA']);
+                $INVENTARIOE->__SET('VALOR_TOTAL', $VALORTOTAL);
+                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                $INVENTARIOE->__SET('ID_PRODUCTO', $s['ID_PRODUCTO']);
+                $INVENTARIOE->__SET('ID_TUMEDIDA', $s['ID_TUMEDIDA']);
+                $INVENTARIOE->__SET('ID_PLANTA2',  $_REQUEST['PLANTA2']);
+                $INVENTARIOE->__SET('ID_PROVEEDOR',  $_REQUEST['PROVEEDOR']);
+                $INVENTARIOE->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTOR']);
+                $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $INVENTARIOE->__SET('ID_DOCOMPRA',  $s['ID_DOCOMPRA']);
+                $INVENTARIOE_ADO->agregarInventarioRecepcionDocompra($INVENTARIOE);
             endforeach;
-
-
         endforeach;
-
         $_SESSION["parametro"] =  $_REQUEST['IDP'];
         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
         echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
@@ -131,10 +126,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLP = $_SESSION['urlO'];
+
     $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion($IDP);
-    if ($ARRAYRECEPCION) {
-        $SELECIONARDOCOMPRA = $DOCOMPRA_ADO->listarDocompraPorOcompraCBX($ARRAYRECEPCION[0]["ID_OCOMPRA"]);
-    }
+    foreach ($ARRAYRECEPCION as $r) :
+        $PRODUCTOR = $r["ID_PRODUCTOR"];
+        $PROVEEDOR = $r["ID_PROVEEDOR"];
+        $PLANTA2 = $r["ID_PLANTA2"];
+        $BODEGA = $r["ID_BODEGA"];
+        $TRECEPCION = $r["TRECEPCION"];
+        $SELECIONARDOCOMPRA = $DOCOMPRA_ADO->listarDocompraPorOcompraCBX($r["ID_OCOMPRA"]);
+    endforeach;
 }
 
 ?>
@@ -231,6 +232,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                             <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                             <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                             <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
+
+                                            <input type="hidden" class="form-control" placeholder="ID PRODUCTOR" id="PRODUCTOR" name="PRODUCTOR" value="<?php echo $PRODUCTOR; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="ID PLANTA2" id="PLANTA2" name="PLANTA2" value="<?php echo $PLANTA2; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="ID BODEGA" id="BODEGA" name="BODEGA" value="<?php echo $BODEGA; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="ID PROVEEDOR" id="PROVEEDOR" name="PROVEEDOR" value="<?php echo $PROVEEDOR; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="ID TRECEPCION" id="TRECEPCION" name="TRECEPCION" value="<?php echo $TRECEPCION; ?>" />
+
                                         </div>
                                     </div>
 
@@ -243,7 +251,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                         <tr>
                                                             <th>Número</th>
                                                             <th>Selección</th>
-                                                            <th>Cantidad Ingresada</th>
                                                             <th>Cantidad </th>
                                                             <th>Valor Unitario </th>
                                                             <th>Código Producto</th>
@@ -254,11 +261,25 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                     <tbody>
                                                         <?php foreach ($SELECIONARDOCOMPRA as $r) : ?>
                                                             <?php
-                                                            $ARRAYDRECEPCION = $DRECEPCIONE_ADO->listarDrecepcionPorDocompraCBX($IDP, $r['ID_DOCOMPRA']);
+                                                            $ARRAYDRECEPCION = $INVENTARIOE_ADO->listarInventarioPorRecepcionDocompraCBX($IDP, $r['ID_DOCOMPRA']);
                                                             if ($ARRAYDRECEPCION) {
                                                                 $SINO = "1";
                                                             } else {
                                                                 $SINO = "0";
+                                                            }
+                                                            $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
+                                                            if ($ARRAYPRODUCTO) {
+                                                                $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                                $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                            } else {
+                                                                $CODIGOPRODUCTO = "Sin Dato";
+                                                                $NOMBREPRODUCTO = "Sin Dato";
+                                                            }
+                                                            $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
+                                                            if ($ARRAYTUMEDIDA) {
+                                                                $NOMBRETUMEDIDA = $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                            } else {
+                                                                $NOMBRETUMEDIDA = "Sin Dato";
                                                             }
                                                             ?>
                                                             <?php if ($SINO == "0") {  ?>
@@ -271,42 +292,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                     </td>
                                                                     <td class="text-center">
                                                                         <div class="form-group">
-
                                                                             <input type="hidden" class="form-control" name="SELECIONARDOCOMPRAID[<?php echo $r['ID_DOCOMPRA']; ?>]" value="<?php echo  $r['ID_DOCOMPRA']; ?>">
                                                                             <input type="checkbox" name="SELECIONARDOCOMPRA[]" id="SELECIONARDOCOMPRA<?php echo $r['ID_DOCOMPRA']; ?>" value="<?php echo $r['ID_DOCOMPRA']; ?>">
                                                                             <label for="SELECIONARDOCOMPRA<?php echo $r['ID_DOCOMPRA']; ?>"> Seleccionar</label>
                                                                         </div>
                                                                     </td>
-                                                                    <td><?php echo $r['CANTIDAD_INGRESADA_DOCOMPRA']; ?></td>
                                                                     <td><?php echo $r['CANTIDAD_DOCOMPRA']; ?></td>
                                                                     <td><?php echo $r['VALOR_UNITARIO_DOCOMPRA']; ?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
-                                                                        if ($ARRAYPRODUCTO) {
-                                                                            echo $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
-                                                                        } else {
-                                                                            echo "Sin Dato";
-                                                                        }
-                                                                        ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if ($ARRAYPRODUCTO) {
-                                                                            echo $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                                        } else {
-                                                                            echo "Sin Dato";
-                                                                        } ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php
-                                                                        $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
-                                                                        if ($ARRAYTUMEDIDA) {
-                                                                            echo $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
-                                                                        } else {
-                                                                            echo "Sin Dato";
-                                                                        }
-                                                                        ?>
+                                                                    <td><?php echo $CODIGOPRODUCTO; ?></td>
+                                                                    <td><?php echo $NOMBREPRODUCTO; ?></td>
+                                                                    <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                                     </td>
                                                                 </tr>
                                                             <?php } ?>
@@ -321,19 +316,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                            <i class="ti-back-left "></i> Volver
-                                        </button>
-                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                            <i class="ti-save-alt"></i> AGREGAR
-                                        </button>
+                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
+                                                <i class="ti-back-left "></i>
+                                            </button>
 
+                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-
-
                         <!--.row -->
                     </section>
 
