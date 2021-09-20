@@ -128,7 +128,11 @@ $ARRAYTEMPORADA = "";
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-12 text-center">
-                                        <button type="submit" class="btn btn-success mt-10" id="ENTRAR" name="ENTRAR">ENTRAR</button>
+                                        <div class="btn-group">
+                                            <a href="/" class="btn btn-danger"> VOLVER</a>
+                                            <button type="submit" class="btn btn-success" id="ENTRAR" name="ENTRAR">ENTRAR</button>
+                                        </div>
+
                                     </div>
                                     <!-- /.col -->
                                 </div>
