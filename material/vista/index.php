@@ -2,12 +2,6 @@
 include_once "../config/validarUsuario.php";
 
 
-if (isset($_SESSION["DOLAR"]) && isset($_SESSION["EURO"])) {
-  
-} else {
-    include_once "../config/indicadorEconomico.php";
-}
-
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
