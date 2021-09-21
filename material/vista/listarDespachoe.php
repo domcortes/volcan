@@ -227,31 +227,41 @@ include_once "../config/datosUrLP.php";
                                                     <?php
                                                     if ($r['ESTADO_DESPACHO'] == "1") {
                                                         $ESTADODESPACHO = "Por Confirmar";
-                                                    }
-                                                    if ($r['ESTADO_DESPACHO'] == "2") {
+                                                    } else  if ($r['ESTADO_DESPACHO'] == "2") {
                                                         $ESTADODESPACHO = "Confirmado";
-                                                    }
+                                                    } else
                                                     if ($r['ESTADO_DESPACHO'] == "3") {
                                                         $ESTADODESPACHO = "Rechazado";
-                                                    }
+                                                    } else
                                                     if ($r['ESTADO_DESPACHO'] == "4") {
                                                         $ESTADODESPACHO = "Aprobado";
+                                                    } else {
+                                                        $ESTADODESPACHO = "Sin Datos";
                                                     }
                                                     if ($r['TDESPACHO'] == "1") {
-                                                        $TDESPACHO = "Interplanta";
-                                                    }
+                                                        $TDESPACHO = " A Sub Bodega";
+                                                    } else
                                                     if ($r['TDESPACHO'] == "2") {
-                                                        $TDESPACHO = "Devolución Productor";
-                                                    }
+                                                        $TDESPACHO = "Interplanta";
+                                                    } else
                                                     if ($r['TDESPACHO'] == "3") {
-                                                        $TDESPACHO = "Venta";
-                                                    }
+                                                        $TDESPACHO = "Devolución a Productor";
+                                                    } else
                                                     if ($r['TDESPACHO'] == "4") {
-                                                        $TDESPACHO = "Regalo";
-                                                    }
+                                                        $TDESPACHO = "Devolución a Proveedor";
+                                                    } else
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                    } else
+                                                    if ($r['TDESPACHO'] == "6") {
+                                                        $TDESPACHO = "Venta";
+                                                    } else
+                                                    if ($r['TDESPACHO'] == "7") {
+                                                        $TDESPACHO = "Regalo";
+                                                    } else {
+                                                        $TDESPACHO = "Sin Datos";
                                                     }
+
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];

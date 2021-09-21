@@ -12,6 +12,10 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/PROVEEDOR_ADO.php';
 include_once '../controlador/CLIENTE_ADO.php';
 
+include_once '../controlador/PRODUCTO_ADO.php';
+include_once '../controlador/TCONTENEDOR_ADO.php';
+include_once '../controlador/TUMEDIDA_ADO.php';
+
 include_once '../controlador/INVENTARIOM_ADO.php';
 include_once '../controlador/DESPACHOM_ADO.php';
 
@@ -29,6 +33,11 @@ $BODEGA_ADO = new BODEGA_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $PROVEEDOR_ADO = new PROVEEDOR_ADO();
 $CLIENTE_ADO = new CLIENTE_ADO();
+
+$PRODUCTO_ADO = new PRODUCTO_ADO();
+$TCONTENEDOR_ADO = new TCONTENEDOR_ADO();
+$TUMEDIDA_ADO = new TUMEDIDA_ADO();
+
 
 $INVENTARIOM_ADO = new INVENTARIOM_ADO();
 $DESPACHOM_ADO = new DESPACHOM_ADO();
@@ -66,6 +75,7 @@ $PROVEEDOR = "";
 $PLANTA3 = "";
 $CLIENTE = "";
 
+$CONTADOR = 0;
 $ESTADO = "";
 
 $TOTALCANTIDAD = 0;
@@ -225,21 +235,22 @@ if (isset($_REQUEST['EDITAR'])) {
     $DESPACHOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
     $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
     $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+    $DESPACHOM_ADO->actualizarDespachom($DESPACHOM);
 }
 //OPERACION PARA CERRAR LA DESPACHOM
 if (isset($_REQUEST['CERRAR'])) {
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    /*  
-    $ARRAYDDESPACHOM2 = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
+
+    $ARRAYDDESPACHOM2 = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
     if (empty($ARRAYDDESPACHOM2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
+        $MENSAJE = "TIENE  QUE HABER AL MENOS UNA SELECCION DE INVENTARIO DE MATERIALES";
         $SINO = "1";
     } else {
         $MENSAJE = "";
         $SINO = "0";
     }
-    */
     if ($SINO == "0") {
         $DESPACHOM->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
         $DESPACHOM->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
@@ -280,51 +291,48 @@ if (isset($_REQUEST['CERRAR'])) {
         $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
         $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        //$DESPACHOM_ADO->actualizarDespachom($DESPACHOM);
+        $DESPACHOM_ADO->actualizarDespachom($DESPACHOM);
 
         $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        // $DESPACHOM_ADO->cerrado($DESPACHOM);
+        $DESPACHOM_ADO->cerrado($DESPACHOM);
 
         $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        // $DESPACHOM_ADO->Confirmado($DESPACHOM);
-        /*  
-        $ARRAYEXISENCIADESPACHOM = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
+        $DESPACHOM_ADO->Confirmado($DESPACHOM);
+
+        $ARRAYEXISENCIADESPACHOM = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
         foreach ($ARRAYEXISENCIADESPACHOM as $r) :
-            if ($_REQUEST['TDESPACHOE'] == "1") {
-                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
-                $EXIMATERIAPRIMA->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+            if ($_REQUEST['TDESPACHOE'] == "2") {
+                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIMATERIAPRIMA_ADO->enTransito($EXIMATERIAPRIMA);
+                $INVENTARIOM_ADO->enTransito($INVENTARIOM);
             } else {
-                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
-                $EXIMATERIAPRIMA->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIMATERIAPRIMA_ADO->despachado($EXIMATERIAPRIMA);
+                $INVENTARIOM_ADO->despachado($INVENTARIOM);
             }
-        endforeach;*/
-        //REDIRECCIONAR A PAGINA registroDESPACHOM.php 
+        endforeach;
+        //REDIRECCIONAR A PAGINA registroDespachom.php 
         //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        /*
+
         if ($_SESSION['parametro1'] == "crear") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
             $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroDESPACHOM.php?op';</script>";
+            echo "<script type='text/javascript'> location.href ='registroDespachom.php?op';</script>";
         }
         if ($_SESSION['parametro1'] == "editar") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
             $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroDESPACHOM.php?op';</script>";
+            echo "<script type='text/javascript'> location.href ='registroDespachom.php?op';</script>";
         }
-        */
     }
 }
-if (isset($_REQUEST['QUITAR'])) {    
+if (isset($_REQUEST['QUITAR'])) {
     $IDQUITAR = $_REQUEST['IDQUITAR'];
     $INVENTARIOM->__SET('ID_INVENTARIO', $IDQUITAR);
     // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    //$INVENTARIOM_ADO->actualizarDeselecionarDespachoCambiarEstado($INVENTARIOM);    
+    $INVENTARIOM_ADO->actualizarDeselecionarDespachoCambiarEstado($INVENTARIOM);
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -333,20 +341,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
-    
- //   $ARRAYTOMADO = $EXIMATERIAPRIMA_ADO->buscarPorDespacho2($IDOP);
-/*
-    $ARRAYDESPACHOTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho($IDOP);
-    $ARRAYDESPACHOTOTAL2 = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho2($IDOP);
+
+    $ARRAYTOMADO = $INVENTARIOM_ADO->buscarPorDespacho2($IDOP);
+
+    $ARRAYDESPACHOTOTAL = $INVENTARIOM_ADO->obtenerTotalesInventarioPorDespachoCBX($IDOP);
+    $ARRAYDESPACHOTOTAL2 = $INVENTARIOM_ADO->obtenerTotalesInventarioPorDespacho2CBX($IDOP);
+    $TOTALCANTIDAD = $ARRAYDESPACHOTOTAL[0]['CANTIDAD'];
+    $TOTALCANTIDADV = $ARRAYDESPACHOTOTAL2[0]['CANTIDAD'];
 
 
-    $TOTALENVASEV = $ARRAYDESPACHOTOTAL2[0]['ENVASE'];
-    $TOTALNETOV = $ARRAYDESPACHOTOTAL2[0]['NETO'];
-    $TOTALBRUTOV = $ARRAYDESPACHOTOTAL2[0]['BRUTO'];
-
-    $TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
-    $TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
-    $TOTALBRUTO = $ARRAYDESPACHOTOTAL[0]['BRUTO'];*/
 
     //FUNCION PARA LA OBTENCION DE LOS TOTALES DEL DETALLE ASOCIADO A DESPACHOM
 
@@ -908,7 +911,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";
+            <?php include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -999,9 +1002,11 @@ if (isset($_POST)) {
                                                     <option value="3" <?php if ($TDESPACHO == "3") {
                                                                             echo "selected";
                                                                         } ?>> Devolución a Productor</option>
+
                                                     <option value="4" <?php if ($TDESPACHO == "4") {
                                                                             echo "selected";
                                                                         } ?>> Devolución a Proveedor</option>
+
                                                     <option value="5" <?php if ($TDESPACHO == "5") {
                                                                             echo "selected";
                                                                         } ?>> Planta Externa</option>
@@ -1357,59 +1362,59 @@ if (isset($_POST)) {
                                 </div>
                             </div>
                             <label id="val_dproceso" class="validacion "><?php echo $MENSAJE; ?> </label>
-                            <form method="post" id="form1">
-                                <div class="row">
-                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
-                                        <div class="table-responsive">
-                                            <table id="detalle" class="table table-hover " style="width: 150%;">
-                                                <thead>
-                                                    <tr class="text-left">
-                                                        <th> N° Folio </th>
-                                                        <th class="text-center">Operaciónes</th>
-                                                        <th>Código Producto </th>
-                                                        <th>Producto </th>
-                                                        <th>Tipo Contenedor</th>
-                                                        <th>Unidad Medida</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Valor Unitario</th>
-                                                        <th>Bodega</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php if ($ARRAYTOMADO) { ?>
-                                                        <?php foreach ($ARRAYTOMADO as $r) : ?>
-                                                            <?php
-                                                            $CONTADOR = $CONTADOR + 1;
-                                                            $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
-                                                            if ($ARRAYVERBODEGA) {
-                                                                $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
-                                                            } else {
-                                                                $NOMBREBODEGA = "Sin Datos";
-                                                            }
-                                                            $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
-                                                            if ($ARRAYVERPRODUCTO) {
-                                                                $CODIGOPRODUCTO = $ARRAYVERPRODUCTO[0]['CODIGO_PRODUCTO'];
-                                                                $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                            } else {
-                                                                $CODIGOPRODUCTO = "Sin Datos";
-                                                                $NOMBREPRODUCTO = "Sin Datos";
-                                                            }
-                                                            $ARRAYTVERCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
-                                                            if ($ARRAYTVERCONTENEDOR) {
-                                                                $NOMBRETCONTENEDOR = $ARRAYTVERCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
-                                                            } else {
-                                                                $NOMBRETCONTENEDOR = "Sin Datos";
-                                                            }
-                                                            $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
-                                                            if ($ARRAYVERTUMEDIDA) {
-                                                                $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
-                                                            } else {
-                                                                $NOMBRETUMEDIDA = "Sin Datos";
-                                                            }
-                                                            ?>
-                                                            <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_INVENTARIO']; ?> </td>
-                                                                <td class="text-center">
+                            <div class="row">
+                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
+                                    <div class="table-responsive">
+                                        <table id="detalle" class="table table-hover " style="width: 100%;">
+                                            <thead>
+                                                <tr class="text-left">
+                                                    <th> N° Folio </th>
+                                                    <th class="text-center">Operaciónes</th>
+                                                    <th>Código Producto </th>
+                                                    <th>Producto </th>
+                                                    <th>Tipo Contenedor</th>
+                                                    <th>Unidad Medida</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Valor Unitario</th>
+                                                    <th>Bodega</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($ARRAYTOMADO) { ?>
+                                                    <?php foreach ($ARRAYTOMADO as $r) : ?>
+                                                        <?php
+                                                        $CONTADOR = $CONTADOR + 1;
+                                                        $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
+                                                        if ($ARRAYVERBODEGA) {
+                                                            $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
+                                                        } else {
+                                                            $NOMBREBODEGA = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
+                                                        if ($ARRAYVERPRODUCTO) {
+                                                            $CODIGOPRODUCTO = $ARRAYVERPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                            $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                        } else {
+                                                            $CODIGOPRODUCTO = "Sin Datos";
+                                                            $NOMBREPRODUCTO = "Sin Datos";
+                                                        }
+                                                        $ARRAYTVERCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
+                                                        if ($ARRAYTVERCONTENEDOR) {
+                                                            $NOMBRETCONTENEDOR = $ARRAYTVERCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
+                                                        } else {
+                                                            $NOMBRETCONTENEDOR = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
+                                                        if ($ARRAYVERTUMEDIDA) {
+                                                            $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                        } else {
+                                                            $NOMBRETUMEDIDA = "Sin Datos";
+                                                        }
+                                                        ?>
+                                                        <tr class="text-left">
+                                                            <td><?php echo $r['FOLIO_INVENTARIO']; ?> </td>
+                                                            <td class="text-center">
+                                                                <form method="post" id="form1">
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_INVENTARIO']; ?>" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Inventario Materiales" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
@@ -1418,26 +1423,28 @@ if (isset($_POST)) {
                                                                             <i class="ti-close"></i>
                                                                         </button>
                                                                     </div>
-                                                                </td>
-                                                                <td><?php echo $CODIGOPRODUCTO; ?></td>
-                                                                <td><?php echo $NOMBREPRODUCTO; ?></td>
-                                                                <td><?php echo $NOMBRETCONTENEDOR; ?></td>
-                                                                <td><?php echo $NOMBRETUMEDIDA; ?></td>
-                                                                <td><?php echo $r['CANTIDAD']; ?></td>
-                                                                <td><?php echo $r['VALOR']; ?></td>
-                                                                <td><?php echo $NOMBREBODEGA; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                                </form>
+                                                            </td>
+                                                            <td><?php echo $CODIGOPRODUCTO; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTO; ?></td>
+                                                            <td><?php echo $NOMBRETCONTENEDOR; ?></td>
+                                                            <td><?php echo $NOMBRETUMEDIDA; ?></td>
+                                                            <td><?php echo $r['CANTIDAD']; ?></td>
+                                                            <td><?php echo $r['VALOR']; ?></td>
+                                                            <td><?php echo $NOMBREBODEGA; ?></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td class=" center">
+                                </div>
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class=" center">
+                                                    <form method="post" id="form1">
                                                         <div class="form-group">
                                                             <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
@@ -1449,25 +1456,25 @@ if (isset($_POST)) {
                                                                 <i class=" glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Total Cantidad</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" id="TOTALCANTIDAD" name="TOTALCANTIDAD" value="<?php echo $TOTALCANTIDAD; ?>" />
-                                                            <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALCANTIDADV" name="TOTALCANTIDADV" value="<?php echo $TOTALCANTIDADV; ?>" disabled />
-                                                        </div>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total Cantidad</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="hidden" class="form-control" id="TOTALCANTIDAD" name="TOTALCANTIDAD" value="<?php echo $TOTALCANTIDAD; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALCANTIDADV" name="TOTALCANTIDADV" value="<?php echo $TOTALCANTIDADV; ?>" disabled />
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </section>
                     <!-- /.content -->
