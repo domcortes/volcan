@@ -390,6 +390,19 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarRecepcione.php"> Agrupado Recepción<i class="ti-more"></i></a></li>
             </ul>
           </li>
+          
+          <li class="treeview">
+            <a href="#">Guía Por Recibir
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="#">Materiales <i class="ti-more"></i></a></li>
+              <li><a href="#">Envases<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
+
           <li><a href="listarInventariomRecepcion.php">Inventario Materiales<i class="ti-more"></i></a></li>
           <li><a href="listarInventarioeRecepcion.php">Inventario Envases<i class="ti-more"></i></a></li>
         </ul>
@@ -463,8 +476,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroDespachom.php">Registro Despacho<i class="ti-more"></i></a></li>
               <li><a href="listarDespachom.php">Agrupado Despacho<i class="ti-more"></i></a></li>
             </ul>
-          </li>
-          <!--
+          </li>          
           <li class="treeview">
             <a href="#">Envases
               <span class="pull-left-container">
@@ -472,11 +484,10 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroDespachoe.php"> Registro Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></a></li>
+              <li><a href="registroDespachoe.php">Registro Despacho<i class="ti-more"></i></a></li>
+              <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
             </ul>
-          </li>
-                -->
+          </li>             
           <li><a href="listarInventariomDespacho.php">Inventario Materiales<i class="ti-more"></i></a></li>
           <li><a href="listarInventarioeDespacho.php">Inventario Envases<i class="ti-more"></i></a></li>
         </ul>
