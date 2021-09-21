@@ -471,8 +471,8 @@ class INVENTARIOM_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACIONF',
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
                                                 FORMAT(IFNULL(`CANTIDAD_INVENTARIO`,0),0,'de_DE') AS 'CANTIDAD', 
                                                 FORMAT(IFNULL(`VALOR_UNITARIO`,0),0,'de_DE') AS 'VALOR'  
                                              FROM `material_inventariom` ;	");
@@ -514,8 +514,8 @@ class INVENTARIOM_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACIONF',
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
                                                 FORMAT(IFNULL(`CANTIDAD_INVENTARIO`,0),0,'de_DE') AS 'CANTIDAD', 
                                                 FORMAT(IFNULL(`VALOR_UNITARIO`,0),0,'de_DE') AS 'VALOR' 
                                              FROM `material_inventariom`
@@ -563,18 +563,43 @@ class INVENTARIOM_ADO {
         }
         
     }
-    public function listarInventarioPorEmpresaPlantaTemporada2CBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+    public function listarInventarioPorEmpresaPlantaTemporadaDisponible2CBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACIONF',
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
                                                 FORMAT(IFNULL(`CANTIDAD_INVENTARIO`,0),0,'de_DE') AS 'CANTIDAD', 
-                                                FORMAT(IFNULL(`VALOR_UNITARIO`,0),0,'de_DE') AS 'VALOR'   
+                                                FORMAT(IFNULL(`VALOR_UNITARIO`,0),3,'de_DE') AS 'VALOR'   
                                              FROM `material_inventariom`
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ESTADO = 2
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                AND ID_PLANTA = '".$IDPLANTA."'
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarInventarioPorEmpresaPlantaTemporada2CBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                FORMAT(IFNULL(`CANTIDAD_INVENTARIO`,0),0,'de_DE') AS 'CANTIDAD', 
+                                                FORMAT(IFNULL(`VALOR_UNITARIO`,0),3,'de_DE') AS 'VALOR'   
+                                             FROM `material_inventariom`
+                                                WHERE ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
@@ -699,7 +724,7 @@ class INVENTARIOM_ADO {
         }
         
     }
-    public function obtenerTotalesInventarioPorEmpresaPlantaTemporada2CBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+    public function obtenerTotalesInventarioPorEmpresaPlantaTemporadaDisponible2CBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
             $datos=$this->conexion->prepare("SELECT 
@@ -708,6 +733,28 @@ class INVENTARIOM_ADO {
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ESTADO = 2
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                AND ID_PLANTA = '".$IDPLANTA."'
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function obtenerTotalesInventarioPorEmpresaPlantaTemporada2CBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                FORMAT(IFNULL(SUM(`CANTIDAD_INVENTARIO`),0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM `material_inventariom`
+                                                WHERE ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();

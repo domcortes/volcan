@@ -415,11 +415,11 @@ class DOCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACIONF',
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
                                                 FORMAT(IFNULL(`CANTIDAD_DOCOMPRA`,0),0,'de_DE') AS 'CANTIDAD', 
-                                                FORMAT(IFNULL(`VALOR_UNITARIO_DOCOMPRA`,0),4,'de_DE') AS 'VALOR_UNITARIO' ,
-                                                FORMAT(IFNULL(`VALOR_UNITARIO_DOCOMPRA` * `CANTIDAD_DOCOMPRA`,0),2,'de_DE') AS 'VALOR_TOTAL' 
+                                                FORMAT(IFNULL(`VALOR_UNITARIO_DOCOMPRA`,0),4,'de_DE') AS 'VALOR' ,
+                                                FORMAT(IFNULL(`VALOR_UNITARIO_DOCOMPRA` * `CANTIDAD_DOCOMPRA`,0),2,'de_DE') AS 'TOTAL' 
                                              FROM `material_docompra`
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_OCOMPRA = '".$IDOCOMPRA."'  ;	");

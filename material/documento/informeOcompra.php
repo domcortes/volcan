@@ -67,6 +67,12 @@ $ARRAYCIUDAD = "";
 $ARRAYCOMUNA = "";
 $NOMBRECOMUNA = "";
 
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
+  $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
+}
+
 
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
@@ -347,10 +353,6 @@ $html = $html . '
           <div class="address"> ' . $NOMBRERESPONSABLE . ' </div>
         </div>
       </div>
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-      </div> 
     </main>
     <footer>
       Informe generado por Departamento TI Fruticola Volcan
@@ -429,19 +431,19 @@ $PDF->SetHTMLFooter('
       </tr>
       <tr>
         <td class="color2 center" style="" > </td>
-        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRERESPONSABLE . ' </td>
         <td class="color2 center" style=""> </td>
         
         <td class="color2 center" style="" > </td>
-        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style=""> Firma  <br>  </td>
         <td class="color2 center" style=""> </td>
         
         <td class="color2 center" style="" > </td>
-        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style=""> Firma  <br>  </td>
         <td class="color2 center" style=""> </td>
         
         <td class="color2 center" style="" > </td>
-        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style=""> Firma  <br> </td>
         <td class="color2 center" style=""> </td>
       </tr>    
     </table>

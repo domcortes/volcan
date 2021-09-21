@@ -198,7 +198,7 @@ if (isset($_REQUEST['EDITAR'])) {
         //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
         $FOLIO_ADO->actualizarFolio($FOLIO);
         //REDIRECCIONAR A PAGINA registroFolio.php
-     //   echo "<script type='text/javascript'> location.href ='registroFolio.php';</script>";
+        //   echo "<script type='text/javascript'> location.href ='registroFolio.php';</script>";
     }
 }
 
@@ -443,9 +443,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
                                             </h4>
                                             <hr class="my-15">
-
-
-
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -465,11 +462,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                                     echo "selected";
                                                                                 } ?>>
                                                                 Materiales
-                                                            </option>
-                                                            <option value="2" <?php if ($TFOLIO == 2) {
-                                                                                    echo "selected";
-                                                                                } ?>>
-                                                                Envases
                                                             </option>
                                                         </select>
                                                         <label id="val_tfolio" class="validacion"> </label>

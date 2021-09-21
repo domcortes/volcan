@@ -15,6 +15,7 @@ if (isset($_REQUEST['VERDURL'])) {
     $_SESSION["parametro1"] = $_REQUEST['OPP'];
     $_SESSION["urlO"] = $_REQUEST['URLP'];
     $_SESSION["dparametro"] = $_REQUEST['IDD'];
+    $_SESSION["dparametro1"] = $_REQUEST['OPD'];
     $_SESSION["durlO"] = $_REQUEST['URLD'];
     $_SESSION["dtparametro"] = $_REQUEST['IDT'];
     $_SESSION["dtparametro1"] = "ver";

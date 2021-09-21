@@ -103,8 +103,7 @@
 
     <div class="navbar-custom-menu r-side">
       <ul class="nav navbar-nav">
-        <li class="dropdown notifications-menu">
-          <br>
+        <li class="dropdown notifications-menu">         
           <?php echo $EURO; ?>
           <br>
           <?php echo $DOLAR; ?>

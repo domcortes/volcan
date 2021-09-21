@@ -48,7 +48,7 @@ class OCOMPRA_ADO {
     public function listarOcompra(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -66,7 +66,7 @@ class OCOMPRA_ADO {
     public function listarOcompraCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -84,7 +84,7 @@ class OCOMPRA_ADO {
     public function listarOcompra2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -104,7 +104,7 @@ class OCOMPRA_ADO {
     public function verOcompra($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra` WHERE `ID_OCOMPRA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra WHERE ID_OCOMPRA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -126,8 +126,8 @@ class OCOMPRA_ADO {
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                 DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHA' 
-                                            FROM `material_ocompra` 
-                                                WHERE `ID_OCOMPRA`= '".$ID."';");
+                                            FROM material_ocompra 
+                                                WHERE ID_OCOMPRA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -150,28 +150,28 @@ class OCOMPRA_ADO {
             
          
             $query=
-            "INSERT INTO `material_ocompra` (  
-                                                `NUMERO_OCOMPRA`,
-                                                `NUMEROI_OCOMPRA`,
-                                                `FECHA_OCOMPRA`,
-                                                `TCAMBIO_OCOMPRA`,
-                                                `OBSERVACIONES_OCOMPRA`,                                                
-                                                `ID_EMPRESA`,
-                                                `ID_PLANTA`,
-                                                `ID_TEMPORADA`,
-                                                `ID_RESPONSABLE`,
-                                                `ID_PROVEEDOR`,
-                                                `ID_FPAGO`,
-                                                `ID_TMONEDA`,
-                                                `ID_USUARIOI`,
-                                                `ID_USUARIOM`,
-                                                `INGRESO`,
-                                                `MODIFICACION`,
-                                                `TOTAL_CANTIDAD_OCOMPRA`,
-                                                `TOTAL_VALOR_OCOMPRA`,
-                                                `ESTADO`,
-                                                `ESTADO_OCOMPRA`,
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO material_ocompra (  
+                                                NUMERO_OCOMPRA,
+                                                NUMEROI_OCOMPRA,
+                                                FECHA_OCOMPRA,
+                                                TCAMBIO_OCOMPRA,
+                                                OBSERVACIONES_OCOMPRA,                                                
+                                                ID_EMPRESA,
+                                                ID_PLANTA,
+                                                ID_TEMPORADA,
+                                                ID_RESPONSABLE,
+                                                ID_PROVEEDOR,
+                                                ID_FPAGO,
+                                                ID_TMONEDA,
+                                                ID_USUARIOI,
+                                                ID_USUARIOM,
+                                                INGRESO,
+                                                MODIFICACION,
+                                                TOTAL_CANTIDAD_OCOMPRA,
+                                                TOTAL_VALOR_OCOMPRA,
+                                                ESTADO,
+                                                ESTADO_OCOMPRA,
+                                                ESTADO_REGISTRO
                                             ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 0, 0, 1, 1, 1);";
             $this->conexion->prepare($query)
@@ -202,7 +202,7 @@ class OCOMPRA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarOcompra($id){
-        try{$sql="DELETE FROM `material_ocompra` WHERE `ID_OCOMPRA`=".$id.";";
+        try{$sql="DELETE FROM material_ocompra WHERE ID_OCOMPRA=".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -216,23 +216,23 @@ class OCOMPRA_ADO {
         try{
       
             $query = "
-		UPDATE `material_ocompra` SET
-            `MODIFICACION`= SYSDATE(),
-            `NUMEROI_OCOMPRA`= ?,
-            `FECHA_OCOMPRA`= ?,
-            `TCAMBIO_OCOMPRA`= ?,
-            `OBSERVACIONES_OCOMPRA`= ?,
-            `TOTAL_CANTIDAD_OCOMPRA`= ?,
-            `TOTAL_VALOR_OCOMPRA`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_PLANTA`= ?,
-            `ID_TEMPORADA`= ?,
-            `ID_RESPONSABLE`= ?,
-            `ID_PROVEEDOR`= ?,
-            `ID_FPAGO`= ?,
-            `ID_TMONEDA`= ?,
-            `ID_USUARIOM`  = ?       
-		WHERE `ID_OCOMPRA`= ?;";
+		UPDATE material_ocompra SET
+            MODIFICACION= SYSDATE(),
+            NUMEROI_OCOMPRA= ?,
+            FECHA_OCOMPRA= ?,
+            TCAMBIO_OCOMPRA= ?,
+            OBSERVACIONES_OCOMPRA= ?,
+            TOTAL_CANTIDAD_OCOMPRA= ?,
+            TOTAL_VALOR_OCOMPRA= ?,
+            ID_EMPRESA= ?,
+            ID_PLANTA= ?,
+            ID_TEMPORADA= ?,
+            ID_RESPONSABLE= ?,
+            ID_PROVEEDOR= ?,
+            ID_FPAGO= ?,
+            ID_TMONEDA= ?,
+            ID_USUARIOM  = ?       
+		WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(     
@@ -271,10 +271,10 @@ class OCOMPRA_ADO {
 
         try{
             $query = "
-    UPDATE `material_ocompra` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO` = 0
-    WHERE `ID_OCOMPRA`= ?;";
+    UPDATE material_ocompra SET			
+            MODIFICACION= SYSDATE(),		
+            ESTADO = 0
+    WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -292,10 +292,10 @@ class OCOMPRA_ADO {
     public function abierto(OCOMPRA $OCOMPRA){
         try{
             $query = "
-    UPDATE `material_ocompra` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO` = 1
-    WHERE `ID_OCOMPRA`= ?;";
+    UPDATE material_ocompra SET				
+            MODIFICACION= SYSDATE(),	
+            ESTADO = 1
+    WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -316,10 +316,10 @@ class OCOMPRA_ADO {
 
         try{
             $query = "
-    UPDATE `material_ocompra` SET			
-            `MODIFICACION`= SYSDATE(),		
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_OCOMPRA`= ?;";
+    UPDATE material_ocompra SET			
+            MODIFICACION= SYSDATE(),		
+            ESTADO_REGISTRO = 0
+    WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -337,10 +337,10 @@ class OCOMPRA_ADO {
     public function habilitar(OCOMPRA $OCOMPRA){
         try{
             $query = "
-    UPDATE `material_ocompra` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_OCOMPRA`= ?;";
+    UPDATE material_ocompra SET				
+            MODIFICACION= SYSDATE(),	
+            ESTADO_REGISTRO = 1
+    WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -359,11 +359,11 @@ class OCOMPRA_ADO {
     public function creado(OCOMPRA $OCOMPRA){
         try{
             $query = "
-                    UPDATE `material_ocompra` SET				
-                            `MODIFICACION`= SYSDATE(),	
-                            `ID_USUARIOM`  = ? ,
-                            `ESTADO_OCOMPRA` = 1
-                    WHERE `ID_OCOMPRA`= ?;";
+                    UPDATE material_ocompra SET				
+                            MODIFICACION= SYSDATE(),	
+                            ID_USUARIOM  = ? ,
+                            ESTADO_OCOMPRA = 1
+                    WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                     array(                    
@@ -381,11 +381,11 @@ class OCOMPRA_ADO {
     public function confirmado(OCOMPRA $OCOMPRA){
         try{
             $query = "
-                    UPDATE `material_ocompra` SET				
-                            `MODIFICACION`= SYSDATE(),	
-                            `ID_USUARIOM`  = ? ,
-                            `ESTADO_OCOMPRA` = 2
-                    WHERE `ID_OCOMPRA`= ?;";
+                    UPDATE material_ocompra SET				
+                            MODIFICACION= SYSDATE(),	
+                            ID_USUARIOM  = ? ,
+                            ESTADO_OCOMPRA = 2
+                    WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                     array(           
@@ -403,11 +403,11 @@ class OCOMPRA_ADO {
     public function rechazado(OCOMPRA $OCOMPRA){
         try{
             $query = "
-                    UPDATE `material_ocompra` SET				
-                            `MODIFICACION`= SYSDATE(),	
-                            `ID_USUARIOM`  = ? ,
-                            `ESTADO_OCOMPRA` = 3
-                    WHERE `ID_OCOMPRA`= ?;";
+                    UPDATE material_ocompra SET				
+                            MODIFICACION= SYSDATE(),	
+                            ID_USUARIOM  = ? ,
+                            ESTADO_OCOMPRA = 3
+                    WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                     array(             
@@ -424,11 +424,11 @@ class OCOMPRA_ADO {
     public function aprobado(OCOMPRA $OCOMPRA){
         try{
             $query = "
-                    UPDATE `material_ocompra` SET				
-                            `MODIFICACION`= SYSDATE(),	
-                            `ID_USUARIOM`  = ? ,
-                            `ESTADO_OCOMPRA` = 4
-                    WHERE `ID_OCOMPRA`= ?;";
+                    UPDATE material_ocompra SET				
+                            MODIFICACION= SYSDATE(),	
+                            ID_USUARIOM  = ? ,
+                            ESTADO_OCOMPRA = 4
+                    WHERE ID_OCOMPRA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                     array(           
@@ -449,7 +449,7 @@ class OCOMPRA_ADO {
 
 
             $datos = $this->conexion->prepare(" SELECT *
-                                            FROM `material_ocompra`
+                                            FROM material_ocompra
                                             WHERE 
                                                  FECHA_OCOMPRA LIKE '" . $FECHAOCOMPRA . "'
                                                  AND OBSERVACIONES_OCOMPRA LIKE '" . $OBSERVACIONESOCOMPRA . "'  
@@ -499,7 +499,7 @@ class OCOMPRA_ADO {
     {
         try {
             $datos = $this->conexion->prepare(" SELECT  IFNULL(COUNT(NUMERO_OCOMPRA),0) AS 'NUMERO'
-                                                FROM `material_ocompra`
+                                                FROM material_ocompra
                                                 WHERE  
                                                     ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "'     
@@ -521,7 +521,7 @@ class OCOMPRA_ADO {
     public function listarOcompraPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra`
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 
                                              AND ID_PLANTA = '".$IDPLANTA."'
@@ -542,7 +542,7 @@ class OCOMPRA_ADO {
     public function listarOcompraPorAprobadoEmpresaTemporadaCBX($IDEMPRESA, $IDTEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra`
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 
                                              AND ID_TEMPORADA = '".$IDTEMPORADA."' 
@@ -566,12 +566,12 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACIONF',
-                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHAF',
-                                                FORMAT(IFNULL(`TOTAL_CANTIDAD_OCOMPRA`,0),0,'de_DE') AS 'CANTIDAD',
-                                                FORMAT(IFNULL(`TOTAL_VALOR_OCOMPRA`,0),2,'de_DE') AS 'TOTAL_VALOR'
-                                             FROM `material_ocompra`
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
+                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHA',
+                                                FORMAT(IFNULL(TOTAL_CANTIDAD_OCOMPRA,0),0,'de_DE') AS 'CANTIDAD',
+                                                FORMAT(IFNULL(TOTAL_VALOR_OCOMPRA,0),2,'de_DE') AS 'TOTAL_VALOR'
+                                             FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
@@ -592,7 +592,7 @@ class OCOMPRA_ADO {
     public function listarOcompraPorAprobadoEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra`
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 
                                              AND ID_PLANTA = '".$IDPLANTA."'
@@ -616,12 +616,12 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACIONF',
-                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHAF',
-                                                FORMAT(IFNULL(`TOTAL_CANTIDAD_OCOMPRA`,0),0,'de_DE') AS 'CANTIDAD',
-                                                FORMAT(IFNULL(`TOTAL_VALOR_OCOMPRA`,0),2,'de_DE') AS 'TOTAL_VALOR'
-                                             FROM `material_ocompra`
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
+                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHA',
+                                                FORMAT(IFNULL(TOTAL_CANTIDAD_OCOMPRA,0),0,'de_DE') AS 'CANTIDAD',
+                                                FORMAT(IFNULL(TOTAL_VALOR_OCOMPRA,0),2,'de_DE') AS 'TOTAL_VALOR'
+                                             FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
@@ -643,7 +643,7 @@ class OCOMPRA_ADO {
     public function listarOcompraPorConfirmadoEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra`
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 
                                              AND ID_TEMPORADA = '".$IDTEMPORADA."'  
@@ -666,12 +666,12 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACIONF',
-                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHAF',
-                                                FORMAT(IFNULL(`TOTAL_CANTIDAD_OCOMPRA`,0),0,'de_DE') AS 'CANTIDAD',
-                                                FORMAT(IFNULL(`TOTAL_VALOR_OCOMPRA`,0),2,'de_DE') AS 'TOTAL_VALOR'
-                                             FROM `material_ocompra`
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
+                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHA',
+                                                FORMAT(IFNULL(TOTAL_CANTIDAD_OCOMPRA,0),0,'de_DE') AS 'CANTIDAD',
+                                                FORMAT(IFNULL(TOTAL_VALOR_OCOMPRA,0),2,'de_DE') AS 'TOTAL_VALOR'
+                                             FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'
@@ -692,7 +692,7 @@ class OCOMPRA_ADO {
     public function listarOcompraPorConfirmadoEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_ocompra`
+            $datos=$this->conexion->prepare("SELECT * FROM material_ocompra
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 
                                              AND ID_PLANTA = '".$IDPLANTA."'
@@ -715,12 +715,12 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACIONF',
-                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHAF',
-                                                FORMAT(IFNULL(`TOTAL_CANTIDAD_OCOMPRA`,0),0,'de_DE') AS 'CANTIDAD',
-                                                FORMAT(IFNULL(`TOTAL_VALOR_OCOMPRA`,0),2,'de_DE') AS 'TOTAL_VALOR'
-                                             FROM `material_ocompra`
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
+                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHA',
+                                                FORMAT(IFNULL(TOTAL_CANTIDAD_OCOMPRA,0),0,'de_DE') AS 'CANTIDAD',
+                                                FORMAT(IFNULL(TOTAL_VALOR_OCOMPRA,0),2,'de_DE') AS 'TOTAL_VALOR'
+                                             FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
@@ -747,9 +747,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                                IFNULL(SUM(`TOTAL_CANTIDAD_OCOMPRA`),0) AS 'CANTIDAD',
-                                                IFNULL(SUM(`TOTAL_VALOR_OCOMPRA`),0) AS 'VALOR_TOTAL'
-                                            FROM `material_ocompra`
+                                                IFNULL(SUM(TOTAL_CANTIDAD_OCOMPRA),0) AS 'CANTIDAD',
+                                                IFNULL(SUM(TOTAL_VALOR_OCOMPRA),0) AS 'VALOR_TOTAL'
+                                            FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
@@ -772,9 +772,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`TOTAL_CANTIDAD_OCOMPRA`),0),0,'de_DE') AS 'CANTIDAD',
-                                                FORMAT(IFNULL(SUM(`TOTAL_VALOR_OCOMPRA`),0),2,'de_DE') AS 'VALOR_TOTAL'
-                                             FROM `material_ocompra`
+                                                FORMAT(IFNULL(SUM(TOTAL_CANTIDAD_OCOMPRA),0),0,'de_DE') AS 'CANTIDAD',
+                                                FORMAT(IFNULL(SUM(TOTAL_VALOR_OCOMPRA),0),2,'de_DE') AS 'VALOR_TOTAL'
+                                             FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
@@ -797,9 +797,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                                IFNULL(SUM(`TOTAL_CANTIDAD_OCOMPRA`),0) AS 'CANTIDAD',
-                                                IFNULL(SUM(`TOTAL_VALOR_OCOMPRA`),0) AS 'VALOR_TOTAL'
-                                            FROM `material_ocompra`
+                                                IFNULL(SUM(TOTAL_CANTIDAD_OCOMPRA),0) AS 'CANTIDAD',
+                                                IFNULL(SUM(TOTAL_VALOR_OCOMPRA),0) AS 'VALOR_TOTAL'
+                                            FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
@@ -821,9 +821,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`TOTAL_CANTIDAD_OCOMPRA`),0),0,'de_DE') AS 'CANTIDAD',
-                                                FORMAT(IFNULL(SUM(`TOTAL_VALOR_OCOMPRA`),0),2,'de_DE') AS 'VALOR_TOTAL'
-                                             FROM `material_ocompra`
+                                                FORMAT(IFNULL(SUM(TOTAL_CANTIDAD_OCOMPRA),0),0,'de_DE') AS 'CANTIDAD',
+                                                FORMAT(IFNULL(SUM(TOTAL_VALOR_OCOMPRA),0),2,'de_DE') AS 'VALOR_TOTAL'
+                                             FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
@@ -847,9 +847,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                                IFNULL(SUM(`TOTAL_CANTIDAD_OCOMPRA`),0) AS 'CANTIDAD',
-                                                IFNULL(SUM(`TOTAL_VALOR_OCOMPRA`),0) AS 'VALOR_TOTAL'
-                                            FROM `material_ocompra`
+                                                IFNULL(SUM(TOTAL_CANTIDAD_OCOMPRA),0) AS 'CANTIDAD',
+                                                IFNULL(SUM(TOTAL_VALOR_OCOMPRA),0) AS 'VALOR_TOTAL'
+                                            FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
@@ -870,9 +870,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * 
-                                                IFNULL(SUM(`TOTAL_CANTIDAD_OCOMPRA`),0) AS 'CANTIDAD',
-                                                IFNULL(SUM(`TOTAL_VALOR_OCOMPRA`),0) AS 'VALOR_TOTAL'
-                                            FROM `material_ocompra`
+                                                IFNULL(SUM(TOTAL_CANTIDAD_OCOMPRA),0) AS 'CANTIDAD',
+                                                IFNULL(SUM(TOTAL_VALOR_OCOMPRA),0) AS 'VALOR_TOTAL'
+                                            FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
@@ -894,9 +894,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`TOTAL_CANTIDAD_OCOMPRA`),0),0,'de_DE') AS 'CANTIDAD' ,
-                                                FORMAT(IFNULL(SUM(`TOTAL_VALOR_OCOMPRA`),0),2,'de_DE') AS 'VALOR_TOTAL'
-                                             FROM `material_ocompra`
+                                                FORMAT(IFNULL(SUM(TOTAL_CANTIDAD_OCOMPRA),0),0,'de_DE') AS 'CANTIDAD' ,
+                                                FORMAT(IFNULL(SUM(TOTAL_VALOR_OCOMPRA),0),2,'de_DE') AS 'VALOR_TOTAL'
+                                             FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."' 
@@ -918,9 +918,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(`TOTAL_CANTIDAD_OCOMPRA`),0),0,'de_DE') AS 'CANTIDAD' ,
-                                                FORMAT(IFNULL(SUM(`TOTAL_VALOR_OCOMPRA`),0),2,'de_DE') AS 'VALOR_TOTAL'
-                                             FROM `material_ocompra`
+                                                FORMAT(IFNULL(SUM(TOTAL_CANTIDAD_OCOMPRA),0),0,'de_DE') AS 'CANTIDAD' ,
+                                                FORMAT(IFNULL(SUM(TOTAL_VALOR_OCOMPRA),0),2,'de_DE') AS 'VALOR_TOTAL'
+                                             FROM material_ocompra
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'

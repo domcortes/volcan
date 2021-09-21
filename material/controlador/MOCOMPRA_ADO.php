@@ -47,7 +47,7 @@ class MOCOMPRA_ADO {
     public function listarMcompra(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_mocompra` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM material_mocompra limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -66,7 +66,7 @@ class MOCOMPRA_ADO {
     public function listarMcompraCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_mocompra` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM material_mocompra WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -84,8 +84,8 @@ class MOCOMPRA_ADO {
     public function listarMcompraPorOcompraCBX($IDOCOMPRA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_mocompra` 
-                                            WHERE `ESTADO_REGISTRO` = 1
+            $datos=$this->conexion->prepare("SELECT * FROM material_mocompra 
+                                            WHERE ESTADO_REGISTRO = 1
                                             AND ID_OCOMPRA = '" . $IDOCOMPRA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -105,7 +105,7 @@ class MOCOMPRA_ADO {
     public function listarMcompraCBX2(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_mocompra` WHERE `ESTADO_REGISTRO`= 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM material_mocompra WHERE ESTADO_REGISTRO= 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -125,7 +125,7 @@ class MOCOMPRA_ADO {
     public function verMcompra($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_mocompra` WHERE `ID_MGUIA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM material_mocompra WHERE ID_MGUIA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -147,19 +147,19 @@ class MOCOMPRA_ADO {
             
             
             $query=
-            "INSERT INTO `material_mocompra` ( 
-                                                `NUMERO_MOCOMPRA`,
-                                                `NUMERO_OCOMPRA`, 
-                                                `NUMEROI_OCOMPRA`, 
-                                                `MOTIVO_MOCOMPRA`, 
-                                                `ID_OCOMPRA`,
-                                                `ID_EMPRESA`, 
-                                                `ID_PLANTA`, 
-                                                `ID_TEMPORADA`, 
-                                                `ID_USUARIOI`, 
-                                                `ID_USUARIOM`, 
-                                                `FECHA_INGRESO_MOCOMPRA`, 
-                                                `ESTADO_REGISTRO`
+            "INSERT INTO material_mocompra ( 
+                                                NUMERO_MOCOMPRA,
+                                                NUMERO_OCOMPRA, 
+                                                NUMEROI_OCOMPRA, 
+                                                MOTIVO_MOCOMPRA, 
+                                                ID_OCOMPRA,
+                                                ID_EMPRESA, 
+                                                ID_PLANTA, 
+                                                ID_TEMPORADA, 
+                                                ID_USUARIOI, 
+                                                ID_USUARIOM, 
+                                                FECHA_INGRESO_MOCOMPRA, 
+                                                ESTADO_REGISTRO
                                             ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), 1);";
             $this->conexion->prepare($query)
@@ -188,7 +188,7 @@ class MOCOMPRA_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarMcompra($id){
-        try{$sql="DELETE FROM `material_mocompra` WHERE `ID_MGUIA`=".$id.";";
+        try{$sql="DELETE FROM material_mocompra WHERE ID_MGUIA=".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -205,16 +205,16 @@ class MOCOMPRA_ADO {
     public function actualizarMcompra(MOCOMPRA $MOCOMPRA){
         try{
             $query = "
-		UPDATE `material_mocompra` SET
-            `NUMERO_OCOMPRA`= ?,
-            `NUMEROI_OCOMPRA`= ?,
-            `MOTIVO_MGUIA`= ?,
-            `ID_OCOMPRA`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_PLANTA`= ?,
-            `ID_TEMPORADA`= ?,
-            `ID_USUARIOM`= ?            
-		WHERE `ID_MGUIA`= ?;";
+		UPDATE material_mocompra SET
+            NUMERO_OCOMPRA= ?,
+            NUMEROI_OCOMPRA= ?,
+            MOTIVO_MGUIA= ?,
+            ID_OCOMPRA= ?,
+            ID_EMPRESA= ?,
+            ID_PLANTA= ?,
+            ID_TEMPORADA= ?,
+            ID_USUARIOM= ?            
+		WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -245,9 +245,9 @@ class MOCOMPRA_ADO {
 
         try{
             $query = "
-    UPDATE `material_mocompra` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_MGUIA`= ?;";
+    UPDATE material_mocompra SET			
+            ESTADO_REGISTRO = 0
+    WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -265,9 +265,9 @@ class MOCOMPRA_ADO {
     public function habilitar(MOCOMPRA $MOCOMPRA){
         try{
             $query = "
-    UPDATE `material_mocompra` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_MGUIA`= ?;";
+    UPDATE material_mocompra SET			
+            ESTADO_REGISTRO = 1
+    WHERE ID_MGUIA= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -286,8 +286,8 @@ class MOCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *
-                                             FROM `material_mocompra` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+                                             FROM material_mocompra 
+                                             WHERE ESTADO_REGISTRO = 1
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'
@@ -309,12 +309,33 @@ class MOCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *
-                                             FROM `material_mocompra` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+                                             FROM material_mocompra 
+                                             WHERE ESTADO_REGISTRO = 1
                                             AND ID_OCOMPRA = '" . $IDOCOMPRA . "' 
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                             ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarMcompraOcompraCBX($IDOCOMPRA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT *
+                                             FROM material_mocompra 
+                                             WHERE ESTADO_REGISTRO = 1
+                                            AND ID_OCOMPRA = '" . $IDOCOMPRA . "' 
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -334,8 +355,8 @@ class MOCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT IFNULL(COUNT(NUMERO_MOCOMPRA),0) AS 'NUMERO'
-                                             FROM `material_mocompra` 
-                                             WHERE `ESTADO_REGISTRO` = 1
+                                             FROM material_mocompra 
+                                             WHERE ESTADO_REGISTRO = 1
                                                 AND ID_OCOMPRA = '" . $IDOCOMPRA . "' 
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
@@ -358,4 +379,3 @@ class MOCOMPRA_ADO {
 
 
 }
-?>

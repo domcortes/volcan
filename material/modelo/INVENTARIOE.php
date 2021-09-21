@@ -8,10 +8,6 @@ class INVENTARIOE {
     
     //ATRIBUTOS DE LA CLASE
     private	  $ID_INVENTARIO;
-    private	  $FOLIO_INVENTARIO; 
-    private	  $FOLIO_AUXILIAR_INVENTARIO; 
-    private	  $ALIAS_DINAMICO_FOLIO; 
-    private	  $ALIAS_ESTATICO_FOLIO; 
     private	  $TRECEPCION; 
     private	  $VALOR_UNITARIO; 
     private	  $CANTIDAD_INVENTARIO; 
@@ -20,19 +16,18 @@ class INVENTARIOE {
     private   $ESTADO; 
     private   $ESTADO_REGISTRO; 
     private   $INGRESO;
-    private   $MODIFICACION;
+    private   $MODIFICACION;    
     private   $ID_EMPRESA;
     private   $ID_PLANTA;
     private   $ID_TEMPORADA;
     private   $ID_BODEGA;
-    private   $ID_FOLIO;
     private   $ID_PRODUCTO;
     private   $ID_TUMEDIDA;
     private   $ID_RECEPCION;
     private   $ID_PLANTA2;
     private   $ID_PLANTA3;
     private   $ID_PROVEEDOR;
-    private   $ID_OCOMPRA;
+    private   $ID_DOCOMPRA;
     private   $ID_PRODUCTOR;
     private   $ID_DESOPACHO;
     
