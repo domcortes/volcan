@@ -32,7 +32,7 @@ $FNOMBRE = "";
 $NOMBREPLANTA = "";
 $ESTADO = "";
 
-
+$CONTADOR=0;
 
 $NOMBRE = "";
 $MENSAJE = "";
@@ -51,8 +51,8 @@ $ARRAYEMPRESA = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYBODEGA = $BODEGA_ADO->listarBodegaCBX();
-$ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
+$ARRAYBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaCBX($EMPRESAS);
+$ARRAYPLANTA = $PLANTA_ADO->listarPlantaPropiaCBX();
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
@@ -396,17 +396,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Numero </th>
                                                         <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYBODEGA as $r) : ?>
+                                                    <?php foreach ($ARRAYBODEGA as $r) : ?> 
+                                                        <?php $CONTADOR=$CONTADOR+1; ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_BODEGA']; ?>
+                                                                    <?php echo $CONTADOR; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_BODEGA']; ?></td>

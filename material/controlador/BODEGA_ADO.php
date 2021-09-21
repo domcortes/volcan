@@ -231,51 +231,49 @@ class BODEGA_ADO
     }
 
 
-//FUNCIONES ESPECIALIZADAS 
+    //FUNCIONES ESPECIALIZADAS 
     //CAMBIO DE ESTADO DE LA FILA
     //CAMBIO A DESACTIVADO
-    public function deshabilitar(BODEGA $BODEGA){
+    public function deshabilitar(BODEGA $BODEGA)
+    {
 
-        try{
+        try {
             $query = "
 		UPDATE `principal_bodega` SET					
             `MODIFICACION`= SYSDATE(),
             `ESTADO_REGISTRO` = 0
 		WHERE `ID_BODEGA`= ?;";
             $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $BODEGA->__GET('ID_BODEGA')                    
-                )
-                
+                ->execute(
+                    array(
+                        $BODEGA->__GET('ID_BODEGA')
+                    )
+
                 );
-            
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
     }
     //CAMBIO A ACTIVADO
-    public function habilitar(BODEGA $BODEGA){
+    public function habilitar(BODEGA $BODEGA)
+    {
 
-        try{
+        try {
             $query = "
 		UPDATE `principal_bodega` SET				
             `MODIFICACION`= SYSDATE(),	
             `ESTADO_REGISTRO` = 1
 		WHERE `ID_BODEGA`= ?;";
             $this->conexion->prepare($query)
-            ->execute(
-                array(                 
-                    $BODEGA->__GET('ID_BODEGA')                    
-                )
-                
+                ->execute(
+                    array(
+                        $BODEGA->__GET('ID_BODEGA')
+                    )
+
                 );
-            
-        }catch(Exception $e){
+        } catch (Exception $e) {
             die($e->getMessage());
         }
-        
     }
     public function listarBodegaPorEmpresaCBX($IDEMPRESA)
     {
@@ -285,7 +283,7 @@ class BODEGA_ADO
                                                 * 
                                              FROM `principal_bodega` 
                                              WHERE `ESTADO_REGISTRO` = 1 
-                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
+                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -298,5 +296,26 @@ class BODEGA_ADO
             die($e->getMessage());
         }
     }
+    public function listarBodegaPorEmpresaPlantaCBX($IDEMPRESA, $IDPLANTA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT 
+                                                * 
+                                             FROM `principal_bodega` 
+                                             WHERE `ESTADO_REGISTRO` = 1 
+                                             AND ID_EMPRESA = '" . $IDEMPRESA . "'
+                                             AND ID_PLANTA = '" . $IDPLANTA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }
