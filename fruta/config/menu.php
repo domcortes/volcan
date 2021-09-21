@@ -795,8 +795,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroErecepcion.php"><i class="ti-more"></i>Granel</a></li>
               <li><a href="registroEexportacion.php"><i class="ti-more"></i>Exportacion</a></li>
+              <li><a href="registroEcomercial.php"><i class="ti-more"></i> Expo. Comercial</a></li>
               <li><a href="registroEindustrial.php"><i class="ti-more"></i>Industrial</a></li>
-              <li><a href="registroEcomercial.php"><i class="ti-more"></i> Comercial</a></li>
             </ul>
           </li>
           <li class="treeview">
