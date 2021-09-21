@@ -163,11 +163,6 @@ include_once "../config/datosUrlD.php";
 
 //VALIDACION DE FOLIO BASE
 
-$ARRAYFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTMateriales($EMPRESAS, $PLANTAS, $TEMPORADAS);
-if (empty($ARRAYFOLIO)) {
-    $DISABLEDFOLIO = "disabled";
-    $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS ENVASES </b> , PARA OCUPAR LA <b>  FUNCIONALIDAD </b>.  FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
-}
 
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
@@ -855,8 +850,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";
-            ?>
+            <?php include_once "../config/menu.php";   ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
@@ -880,7 +874,6 @@ if (isset($_POST)) {
                             <?php include_once "../config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
-                    <label id="val_mensaje" class="validacion"><?php echo $MENSAJEFOLIO; ?> </label>
                     <!-- Main content -->
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
@@ -1187,7 +1180,6 @@ if (isset($_POST)) {
                                 </div>
                                 <!-- /.row -->
                                 <!-- /.box-body -->
-
                                 <div class="box-footer">
                                     <div class="btn-group   col-xxl-4 col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
@@ -1349,7 +1341,7 @@ if (isset($_POST)) {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
                                     <form method="post" id="form2" name="form2">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
