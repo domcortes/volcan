@@ -10,8 +10,7 @@ include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 
-include_once '../controlador/DPEXPORTACION_ADO.php';
-include_once '../controlador/DPINDUSTRIAL_ADO.php';
+include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
@@ -21,6 +20,8 @@ $TPROCESO_ADO =  new TPROCESO_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
+
+$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 
 
@@ -29,9 +30,11 @@ $PROCESO_ADO =  new PROCESO_ADO();
 
 $TOTALENVASE = "";
 $TOTALNETO = "";
+$TOTALNETOENTRADA = "";
 $TOTALINDUSTRIAL = "";
 $TOTALEXPORTACION = "";
 $TURNO = "";
+$NETOENTRADA="";
 
 
 //INICIALIZAR ARREGLOS
@@ -44,6 +47,8 @@ $ARRAYVESPECIES = "";
 
 $ARRAYPROCESO = "";
 $ARRAYTOTALPROCESO = "";
+$ARRAYTOTALPROCESOENTRADA = "";
+$ARRAYEXISMATERIPRIMAPROCESO = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
@@ -53,9 +58,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
     $ARRAYPROCESO = $PROCESO_ADO->listarProcesoEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYTOTALPROCESO = $PROCESO_ADO->obtenerTotalesEmpresaPlantaTemporadaLista($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYTOTALPROCESOENTRADA = $EXIMATERIAPRIMA_ADO->obtenerTotalProcesoEmpresaPlantaTemporada($EMPRESAS, $PLANTAS, $TEMPORADAS);  
+
+    $TOTALNETOENTRADA = $ARRAYTOTALPROCESOENTRADA[0]['NETO'];
     $TOTALNETO = $ARRAYTOTALPROCESO[0]['NETO'];
     $TOTALINDUSTRIAL = $ARRAYTOTALPROCESO[0]['INDUSTRIAL'];
     $TOTALEXPORTACION = $ARRAYTOTALPROCESO[0]['EXPORTACION'];
+
+
+
 }
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
@@ -201,6 +212,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Turno </th>
                                                     <th>Especie</th>
                                                     <th>Variedad</th>
+                                                    <th>K. Neto Entrada</th>
                                                     <th>K. Neto Salida</th>
                                                     <th>K. Exportacion </th>
                                                     <th>K. Industrial</th>
@@ -217,6 +229,11 @@ include_once "../config/datosUrLP.php";
                                                 <?php foreach ($ARRAYPROCESO as $r) : ?>
 
                                                     <?php
+
+                                                    $ARRAYEXISMATERIPRIMAPROCESO = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($r['ID_PROCESO']);
+                                                    if ($ARRAYEXISMATERIPRIMAPROCESO) {
+                                                        $NETOENTRADA = $ARRAYEXISMATERIPRIMAPROCESO[0]['NETO'];
+                                                    }
 
                                                     $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
                                                     if ($ARRAYVERVESPECIESID) {
@@ -335,6 +352,7 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $TURNO; ?> </td>
                                                         <td><?php echo $NOMBRESPECIES; ?></td>
                                                         <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                        <td><?php echo $NETOENTRADA; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
                                                         <td><?php echo $r['EXPORTACION']; ?></td>
                                                         <td><?php echo $r['INDUSTRIAL']; ?></td>
@@ -361,8 +379,8 @@ include_once "../config/datosUrLP.php";
                                 </div>
                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                     <div class="form-group">
-                                        <label>Total Neto </label>
-                                        <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                        <label>Total Materia Prima </label>
+                                        <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOENTRADA; ?>" disabled />
                                     </div>
                                 </div>
                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">

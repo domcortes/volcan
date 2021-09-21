@@ -853,7 +853,30 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+    public function obtenerTotalProcesoEmpresaPlantaTemporada($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT 
+                                                         FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                             FROM fruta_eximateriaprima
+                                             WHERE ESTADO_REGISTRO= 1
+                                             AND ID_EMPRESA = '" . $EMPRESA . "'
+                                             AND ID_PLANTA = '" . $PLANTA . "'
+                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                             AND ID_PROCESO IS NOT NULL ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function obtenerTotalesDespacho($IDDESPACHO)
     {
         try {
