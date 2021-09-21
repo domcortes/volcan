@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-09-2021 a las 05:08:47
+-- Tiempo de generación: 21-09-2021 a las 15:28:13
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -3196,6 +3196,18 @@ CREATE TABLE `material_despachom` (
   `ID_USUARIOM` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `material_despachom`
+--
+
+INSERT INTO `material_despachom` (`ID_DESPACHO`, `NUMERO_DESPACHO`, `FECHA_DESPACHO`, `NUMERO_DOCUMENTO`, `CANTIDAD_DESPACHO`, `PATENTE_CAMION`, `PATENTE_CARRO`, `TDESPACHO`, `OBSERVACIONES`, `REGALO_DESPACHO`, `INGRESO`, `MODIFICACION`, `ESTADO`, `ESTADO_DESPACHO`, `ESTADO_REGISTRO`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_TDOCUMENTO`, `ID_TRANSPORTE`, `ID_CONDUCTOR`, `ID_RESPONSABLE`, `ID_BODEGA`, `ID_PLANTA2`, `ID_BODEGA2`, `ID_PRODUCTOR`, `ID_PROVEEDOR`, `ID_PLANTA3`, `ID_CLIENTE`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, 1, '2021-09-21', '11', 0, '11', '', 1, '', NULL, '2021-09-21 09:58:38', '2021-09-21 09:58:38', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(2, 2, '2021-09-21', '11', 0, '11', '', 2, '', NULL, '2021-09-21 10:00:04', '2021-09-21 10:00:04', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, 1, 1),
+(3, 3, '2021-09-21', '11', 0, '11', '', 3, '', NULL, '2021-09-21 10:00:38', '2021-09-21 10:00:38', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1),
+(4, 4, '2021-09-21', '11', 0, '11', '', 4, '', NULL, '2021-09-21 10:00:47', '2021-09-21 10:00:47', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
+(5, 5, '2021-09-21', '11', 0, '11', '', 6, '', NULL, '2021-09-21 10:02:27', '2021-09-21 10:02:27', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1),
+(6, 6, '2021-09-21', '11', 0, '11', '', 5, '', NULL, '2021-09-21 10:02:32', '2021-09-21 10:02:32', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -4969,7 +4981,8 @@ CREATE TABLE `principal_bodega` (
 --
 
 INSERT INTO `principal_bodega` (`ID_BODEGA`, `NOMBRE_BODEGA`, `NOMBRE_CONTACTO_BODEGA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_PLANTA`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'Prueba', '-', 1, '2021-07-30', '2021-08-16', 1, 1, 1, 1);
+(1, 'Prueba Planta', '-', 1, '2021-07-30', '2021-09-21', 1, 1, 1, 1),
+(2, 'Prueba el alamo', 'Prueba', 1, '2021-09-21', '2021-09-21', 2, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -7997,6 +8010,12 @@ ALTER TABLE `material_despachoe`
   MODIFY `ID_DESPACHO` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `material_despachom`
+--
+ALTER TABLE `material_despachom`
+  MODIFY `ID_DESPACHO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT de la tabla `material_dficha`
 --
 ALTER TABLE `material_dficha`
@@ -8132,7 +8151,7 @@ ALTER TABLE `material_tumedida`
 -- AUTO_INCREMENT de la tabla `principal_bodega`
 --
 ALTER TABLE `principal_bodega`
-  MODIFY `ID_BODEGA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_BODEGA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `principal_empresa`
