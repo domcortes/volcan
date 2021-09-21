@@ -282,6 +282,7 @@ if ($PLANTAORIGEN != "") {
                       ';
 } else {
   $html .= '
+            <div class="address"><b> CSG:  </b>' . $CSGPRODUCTOR . '</div>
             <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>
             ';
 }
