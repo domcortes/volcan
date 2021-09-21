@@ -202,7 +202,13 @@ include_once "../config/reporteUrl.php";
                                                     } else if ($r['ESTADO'] == "1") {
                                                         $ESTADO = "Ingresando";
                                                     } else if ($r['ESTADO'] == "2") {
-                                                        $ESTADO = "Vigente";
+                                                        $ESTADO = "Disponible";
+                                                    } else if ($r['ESTADO'] == "3") {
+                                                        $ESTADO = "En Despacho";
+                                                    } else if ($r['ESTADO'] == "4") {
+                                                        $ESTADO = "Despachado";
+                                                    } else if ($r['ESTADO'] == "5") {
+                                                        $ESTADO = "En Transito";
                                                     } else {
                                                         $$ESTADO = "Sin Datos";
                                                     }
