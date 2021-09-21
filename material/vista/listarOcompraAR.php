@@ -10,6 +10,7 @@ include_once '../controlador/FPAGO_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
 
 include_once '../controlador/OCOMPRA_ADO.php';
+include_once '../controlador/MOCOMPRA_ADO.php';
 
 include_once '../modelo/OCOMPRA.php';
 
@@ -22,6 +23,7 @@ $FPAGO_ADO =  new FPAGO_ADO();
 $TMONEDA_ADO =  new TMONEDA_ADO();
 
 $OCOMPRA_ADO =  new OCOMPRA_ADO();
+$MOCOMPRA_ADO =  new MOCOMPRA_ADO();
 
 
 //INIICIALIZAR MODELO
@@ -199,6 +201,49 @@ include_once "../config/datosUrLP.php";
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYOCOMPRA as $r) : ?>
+
+                                                    <?php
+                                                    if ($r['ESTADO_OCOMPRA'] == "1") {
+                                                        $ESTADOOCOMPRA = "Creado";
+                                                    } else 
+                                                            if ($r['ESTADO_OCOMPRA'] == "2") {
+                                                        $ESTADOOCOMPRA = "Pendiente Aprobación";
+                                                    } else 
+                                                            if ($r['ESTADO_OCOMPRA'] == "3") {
+                                                        $ESTADOOCOMPRA = "Rechazado";
+                                                    } else
+                                                            if ($r['ESTADO_OCOMPRA'] == "4") {
+                                                        $ESTADOOCOMPRA = "Aprobado";
+                                                    } else {
+                                                        $ESTADOOCOMPRA = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r['ID_PROVEEDOR']);
+                                                    if ($ARRAYVERPROVEEDOR) {
+                                                        $NOMBREPROVEEDOR= $ARRAYVERPROVEEDOR[0]['NOMBRE_PROVEEDOR'];
+                                                    }else{
+                                                        $NOMBREPROVEEDOR="Sin Datos";
+                                                    }
+                                                    $ARRAYVERFPAGO = $FPAGO_ADO->verFpago($r['ID_FPAGO']);
+                                                    if ($ARRAYVERFPAGO) {
+                                                        $NOMBREFPAGO = $ARRAYVERFPAGO[0]['NOMBRE_FPAGO'];
+                                                    }else{
+                                                        $NOMBREFPAGO="Sin Datos";
+                                                    }
+                                                    $ARRAYVERTMONEDA = $TMONEDA_ADO->verTmoneda($r['ID_TMONEDA']);
+                                                    if ($ARRAYVERTMONEDA) {
+                                                        $NOMBRETMONEDA= $ARRAYVERTMONEDA[0]['NOMBRE_TMONEDA'];
+                                                    }else{
+                                                        $NOMBRETMONEDA="Sin Datos";
+                                                    }
+                                                    $ARRAYVERREPONSBALE = $RESPONSABLE_ADO->verResponsable($r['ID_RESPONSABLE']);
+                                                    if ($ARRAYVERREPONSBALE) {
+                                                        $NOMBRERESPONSABLE= $ARRAYVERREPONSBALE[0]['NOMBRE_RESPONSABLE'];
+                                                    }else{
+                                                        $NOMBRERESPONSABLE="Sin Datos";
+                                                    }
+                                                    $ARRAYMOCOMPRA=$MOCOMPRA_ADO->listarMcompraOcompraCBX($r['ID_OCOMPRA']);
+                                                    ?>
+
                                                     <tr class="text-center">
                                                         <td>
                                                             <a href="#" class="text-warning hover-warning">
@@ -210,95 +255,55 @@ include_once "../config/datosUrLP.php";
                                                                 <?php echo $r['NUMEROI_OCOMPRA']; ?>
                                                             </a>
                                                         </td>
-                                                        <td <?php if ($r['ESTADO'] == "0") {
-                                                                echo "style='background-color: #FF0000;'";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "style='background-color: #4AF575;'";
-                                                            }  ?>>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "0") {
-                                                                echo "Cerrado";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Abierto";
-                                                            }
-                                                            ?>
+                                                        <td>
+                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                            <?php  }  ?>
+                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                            <?php  }  ?>
                                                         </td>
                                                         <td class="text-center">
-                                                            <form method="post" id="form1">
+                                                            <form method="post" id="form1" name="form1">
                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_OCOMPRA']; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroOcompraAR" />
                                                                 <input type="hidden" class="form-control" placeholder="URLO" id="URLO" name="URLO" value="listarOcompraAR" />
                                                                 <input type="hidden" class="form-control" placeholder="URLO" id="URLA" name="URLA" value="listarOcompraAR" />
                                                                 <input type="hidden" class="form-control" placeholder="URLM" id="URLM" name="URLM" value="registroMocompra" />
                                                                 <input type="hidden" class="form-control" placeholder="URLMV" id="URLMV" name="URLMV" value="listarMocompra" />
-                                                                <button type="button" class="btn btn-rounded  btn-danger btn-outline btn-sm" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeOcompra.php?parametro=<?php echo $r['ID_OCOMPRA']; ?>'); ">
-                                                                    <i class="fa fa-file-pdf-o"></i>
-                                                                </button>
-                                                                <button type="submit" class="btn btn-rounded btn-outline-success btn-sm " id="APROBARURL" name="APROBARURL" title="Aprobar" <?php if ($r['ESTADO_OCOMPRA'] != "2") {
-                                                                                                                                                                                                echo "disabled";
-                                                                                                                                                                                            } ?>>
-                                                                    <i class="fa fa-check"></i>
-                                                                </button>
-                                                                <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm " id="RECHAZARURL" name="RECHAZARURL" title="Rechazar" <?php if ($r['ESTADO_OCOMPRA'] != "2") {
-                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                } ?>>
-                                                                    <i class="fa fa-close"></i>
-                                                                </button>
-                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="Ver Motivos" <?php if ($r['ESTADO_OCOMPRA'] != "3") {
-                                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                                        } ?>>
-                                                                    <i class="ti-eye"></i>
-                                                                </button>
+                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                    <button type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeOcompra.php?parametro=<?php echo $r['ID_OCOMPRA']; ?>'); ">
+                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                    </button>
+
+                                                                    <?php if ($r['ESTADO_OCOMPRA'] == "2") { ?>
+                                                                        <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" id="APROBARURL" name="APROBARURL" title="Aprobar">
+                                                                            <i class="fa fa-check"></i>
+                                                                        </button>
+
+                                                                        <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" id="RECHAZARURL" name="RECHAZARURL" title="Rechazar">
+                                                                            <i class="fa fa-close"></i>
+                                                                        </button>
+                                                                    <?php } ?>
+                                                                    <?php if ($ARRAYMOCOMPRA) { ?>
+                                                                        <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="Ver Motivos">
+                                                                            <i class="ti-eye"></i>
+                                                                        </button>
+                                                                    <?php } ?>
+                                                                </div>
                                                             </form>
                                                         </td>
-                                                        <td>
-                                                            <?php
-                                                            if ($r['ESTADO_OCOMPRA'] == "1") {
-                                                                echo "Creado";
-                                                            }
-                                                            if ($r['ESTADO_OCOMPRA'] == "2") {
-                                                                echo "Pendiente Aprobación";
-                                                            }
-                                                            if ($r['ESTADO_OCOMPRA'] == "3") {
-                                                                echo "Rechazado";
-                                                            }
-                                                            if ($r['ESTADO_OCOMPRA'] == "4") {
-                                                                echo "Aprobado";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['FECHAF']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r['ID_PROVEEDOR']);
-                                                            echo $ARRAYVERPROVEEDOR[0]['NOMBRE_PROVEEDOR'];
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $ESTADOOCOMPRA; ?></td>
+                                                        <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $NOMBREPROVEEDOR; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
                                                         <td><?php echo $r['TOTAL_VALOR']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERFPAGO = $FPAGO_ADO->verFpago($r['ID_FPAGO']);
-                                                            echo $ARRAYVERFPAGO[0]['NOMBRE_FPAGO'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTMONEDA = $TMONEDA_ADO->verTmoneda($r['ID_TMONEDA']);
-                                                            echo $ARRAYVERTMONEDA[0]['NOMBRE_TMONEDA'];
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $NOMBREFPAGO; ?></td>
+                                                        <td><?php echo $NOMBRETMONEDA; ?></td>
                                                         <td><?php echo $r['TCAMBIO_OCOMPRA']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERREPONSBALE = $RESPONSABLE_ADO->verResponsable($r['ID_RESPONSABLE']);
-                                                            echo $ARRAYVERREPONSBALE[0]['NOMBRE_RESPONSABLE'];
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['INGRESOF']; ?></td>
-                                                        <td><?php echo $r['MODIFICACIONF']; ?></td>
+                                                        <td><?php echo $NOMBRERESPONSABLE; ?></td>
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
 
                                                     </tr>
                                                 <?php endforeach; ?>

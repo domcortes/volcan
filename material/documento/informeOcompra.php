@@ -431,19 +431,19 @@ $PDF->SetHTMLFooter('
       </tr>
       <tr>
         <td class="color2 center" style="" > </td>
-        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRERESPONSABLE . ' </td>
         <td class="color2 center" style=""> </td>
         
         <td class="color2 center" style="" > </td>
-        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style=""> Firma  <br>  </td>
         <td class="color2 center" style=""> </td>
         
         <td class="color2 center" style="" > </td>
-        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style=""> Firma  <br>  </td>
         <td class="color2 center" style=""> </td>
         
         <td class="color2 center" style="" > </td>
-        <td class="color2  center" style=""> Firma  <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style=""> Firma  <br> </td>
         <td class="color2 center" style=""> </td>
       </tr>    
     </table>
