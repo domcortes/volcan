@@ -145,25 +145,29 @@ class EEXPORTACION_ADO
 
             $query =
                 "INSERT INTO `estandar_eexportacion` (  `CODIGO_ESTANDAR`, 
-                                                    `NOMBRE_ESTANDAR`, 
-                                                    `CANTIDAD_ENVASE_ESTANDAR`,
-                                                    `PESO_NETO_ESTANDAR`,
-                                                    `PESO_BRUTO_ESTANDAR`,
-                                                    `PESO_PALLET_ESTANDAR`,
-                                                    `PESO_ENVASE_ESTANDAR`,
-                                                    `PDESHIDRATACION_ESTANDAR`,
-                                                    `EMBOLSADO`,
-                                                    `STOCK`,
-                                                    `ID_ESPECIES`,
-                                                    `ID_TETIQUETA`,
-                                                    `ID_TEMBALAJE` ,
-                                                    `ID_ECOMERCIAL`,
-                                                    `ID_EMPRESA`, 
-                                                    `ID_USUARIOI`, 
-                                                    `ID_USUARIOM`, 
-                                                    `TFRUTA_ESTANDAR`, 
-                                                    `ESTADO_REGISTRO`) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  2, 1);";
+                                                        `NOMBRE_ESTANDAR`, 
+                                                        `CANTIDAD_ENVASE_ESTANDAR`,
+                                                        `PESO_NETO_ESTANDAR`,
+                                                        `PESO_BRUTO_ESTANDAR`,
+
+                                                        `PESO_PALLET_ESTANDAR`,
+                                                        `PESO_ENVASE_ESTANDAR`,
+                                                        `PDESHIDRATACION_ESTANDAR`,
+                                                        `EMBOLSADO`,
+                                                        `STOCK`,
+
+                                                        `ID_ESPECIES`,
+                                                        `ID_TETIQUETA`,
+                                                        `ID_TEMBALAJE` ,
+                                                        `ID_ECOMERCIAL`,
+                                                        `ID_EMPRESA`, 
+                                                        
+                                                        `ID_USUARIOI`, 
+                                                        `ID_USUARIOM`, 
+
+                                                        `TFRUTA_ESTANDAR`, 
+                                                        `ESTADO_REGISTRO`) VALUES
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -181,7 +185,8 @@ class EEXPORTACION_ADO
                         $EEXPORTACION->__GET('ID_TETIQUETA'),
                         $EEXPORTACION->__GET('ID_TEMBALAJE'),
                         $EEXPORTACION->__GET('ID_ECOMERCIAL'),
-                        $EEXPORTACION->__GET('ID_MERCADO'),
+                        $EEXPORTACION->__GET('ID_EMPRESA'),
+
                         $EEXPORTACION->__GET('ID_USUARIOI'),
                         $EEXPORTACION->__GET('ID_USUARIOM')
                     )
