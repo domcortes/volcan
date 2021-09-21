@@ -354,27 +354,31 @@ include_once "../config/datosUrLP.php";
                             </div>
                         </div>
                         <div class="box-footer">
-                            <div class="row">
-                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                    <div class="form-group">
+                            <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Materia Prima</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOENTRADA; ?>" disabled />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                    <div class="form-group">
-                                        <label>Total Neto </label>
-                                        <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Exportacion</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                    <div class="form-group">
-                                        <label>Total Exportacion </label>
-                                        <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                    <div class="form-group">
-                                        <label>Total Industrial </label>
-                                        <input type="text" class="form-control" placeholder="Total Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Industrial</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
