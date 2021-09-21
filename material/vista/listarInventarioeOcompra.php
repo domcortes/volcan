@@ -7,7 +7,7 @@ include_once "../config/validarUsuario.php";
 include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/PRODUCTO_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/DRECEPCIONE_ADO.php';
+include_once '../controlador/RECEPCIONE_ADO.php';
 
 include_once '../controlador/INVENTARIOE_ADO.php';
 
@@ -17,8 +17,8 @@ include_once '../controlador/INVENTARIOE_ADO.php';
 $BODEGA_ADO =  new BODEGA_ADO();
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
-$DRECEPCIONE_ADO =  new DRECEPCIONE_ADO();
 
+$RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 
 
@@ -50,8 +50,8 @@ $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarInventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYINVENTARIOTOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIOTOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYINVENTARIOTOTALES[0]['CANTIDAD'];
 }
 include_once "../config/validarDatosUrl.php";
@@ -154,7 +154,7 @@ include_once "../config/reporteUrl.php";
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Administración</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarInventarioeOcompra.php"> Inventario Envases </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Inventario Envases </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -174,96 +174,72 @@ include_once "../config/reporteUrl.php";
                                         <table id="existencia" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>Número</th>
-                                                    <th>Estado</th>
-                                                    <th>Tipo Recepción</th>
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
                                                     <th>Total Cantidad</th>
                                                     <th>Valor Unitario</th>
+                                                    <th>Bodega</th>
+                                                    <th>Número Recepción</th>
+                                                    <th>Fecha Recepción</th>
+                                                    <th>Tipo Recepción</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYINVENTARIO as $r) : ?>
-                                                    <?php $CONTADOR = $CONTADOR + 1 ?>
-                                                    <tr class="center">
-                                                        <td>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                <?php echo $CONTADOR; ?>
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Ingresando";
-                                                            }
-                                                            if ($r['ESTADO'] == "2") {
-                                                                echo "Vigente";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            if ($r['TRECEPCION'] == "1") {
-                                                                echo "Desde Proveedor";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "2") {
-                                                                echo "Desde Productor";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "3") {
-                                                                echo "Planta Externa";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "4") {
-                                                                echo "Inter Externa";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
-                                                            if ($ARRAYVERPRODUCTO) {
-                                                                echo $ARRAYVERPRODUCTO[0]['CODIGO_PRODUCTO'];
-                                                            } else {
-                                                                echo "Sin Producto";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            if ($ARRAYVERPRODUCTO) {
-                                                                echo $ARRAYVERPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                            } else {
-                                                                echo "Sin Producto";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
-                                                            if ($ARRAYVERTUMEDIDA) {
-                                                                echo $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
-                                                            } else {
-                                                                echo "Sin Unidad Medida";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['CANTIDAD']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYDRECEPCION = $DRECEPCIONE_ADO->listarDrecepcionPorRecepcionProductoTumedida2CBX($r['ID_RECEPCION'], $r['ID_PRODUCTO'], $r['ID_TUMEDIDA']);
-                                                            if ($ARRAYDRECEPCION) {
-                                                                echo $ARRAYDRECEPCION[0]["VALOR_UNITARIO"];
-                                                            } else {
-                                                                echo "Sin Datos";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['INGRESOF']; ?></td>
-                                                        <td><?php echo $r['MODIFICACIONF']; ?></td>
+                                                    <?php
 
+                                                    $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
+                                                    if ($ARRAYVERBODEGA) {
+                                                        $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
+                                                    } else {
+                                                        $NOMBREBODEGA = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
+                                                    if ($ARRAYVERPRODUCTO) {
+                                                        $CODIGOPRODUCTO = $ARRAYVERPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                        $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                    } else {
+                                                        $CODIGOPRODUCTO = "Sin Datos";
+                                                        $NOMBREPRODUCTO = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
+                                                    if ($ARRAYVERTUMEDIDA) {
+                                                        $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                    } else {
+                                                        $NOMBRETUMEDIDA = "Sin Datos";
+                                                    }
+                                                    $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($r['ID_RECEPCION']);
+                                                    if ($ARRAYRECEPCION) {
+                                                        $NUMERORECEPCION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
+                                                        $FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA_RECEPCION'];
+                                                        if ($ARRAYRECEPCION[0]['TRECEPCION'] == "1") {
+                                                            $TRECEPCION = "Desde Proveedor";
+                                                        } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "2") {
+                                                            $TRECEPCION = "Desde Productor";
+                                                        } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "3") {
+                                                            $TRECEPCION = "Planta Externa";
+                                                        }
+                                                    } else {
+                                                        $NUMERORECEPCION = "Sin Datos";
+                                                        $FECHARECEPCION = "Sin Datos";
+                                                        $TRECEPCION = "Sin Datos";
+                                                    }
+                                                    ?>
+                                                    <tr class="center">
+                                                        <td><?php echo $CODIGOPRODUCTO; ?></td>
+                                                        <td><?php echo $NOMBREPRODUCTO; ?></td>
+                                                        <td><?php echo $NOMBRETUMEDIDA; ?></td>
+                                                        <td><?php echo $r['CANTIDAD']; ?></td>
+                                                        <td><?php echo $r['VALOR']; ?></td>
+                                                        <td><?php echo $NOMBREBODEGA; ?></td>
+                                                        <td><?php echo $NUMERORECEPCION; ?></td>
+                                                        <td><?php echo $FECHARECEPCION; ?></td>
+                                                        <td><?php echo $TRECEPCION; ?></td>
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
