@@ -885,7 +885,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número Recepción</label>
                                                 <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
@@ -909,7 +909,7 @@ if (isset($_POST)) {
                                                 <label id="val_id" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Tipo Recepción</label>
                                                 <input type="hidden" class="form-control" placeholder="Tipo Recepción" id="TRECEPCIONE" name="TRECEPCIONE" value="<?php echo $TRECEPCION; ?>" />
@@ -929,11 +929,11 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                         <?php if ($TRECEPCION != "1") { ?>
-                                            <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "1") { ?>
-                                            <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Con OC</label>
                                                     <br>
@@ -944,7 +944,7 @@ if (isset($_POST)) {
                                                     <label for="SNOCOMPRA"></label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Orden Compra</label>
                                                     <input type="hidden" class="form-control" placeholder="OCOMPRAE" id="OCOMPRAE" name="OCOMPRAE" value="<?php echo $OCOMPRA; ?>" />
@@ -969,7 +969,7 @@ if (isset($_POST)) {
                                             </div>
 
                                         <?php } ?>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Ingreso</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Ingreso" id="FECHAINGRESOE" name="FECHAINGRESOE" value="<?php echo $FECHAINGRESO; ?>" />
@@ -977,7 +977,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechai" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Modificación</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Modificación" id="FECHAMODIFCIACIONE" name="FECHAMODIFCIACIONE" value="<?php echo $FECHAMODIFCIACION; ?>" />
@@ -987,7 +987,7 @@ if (isset($_POST)) {
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Recepción</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Recepción" id="FECHARECEPCIONE" name="FECHARECEPCIONE" value="<?php echo $FECHARECEPCION; ?>" />
