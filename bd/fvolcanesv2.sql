@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-09-2021 a las 21:20:07
+-- Tiempo de generación: 21-09-2021 a las 23:13:51
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -3260,7 +3260,7 @@ CREATE TABLE `material_despachom` (
 --
 
 INSERT INTO `material_despachom` (`ID_DESPACHO`, `NUMERO_DESPACHO`, `FECHA_DESPACHO`, `NUMERO_DOCUMENTO`, `CANTIDAD_DESPACHO`, `PATENTE_CAMION`, `PATENTE_CARRO`, `TDESPACHO`, `OBSERVACIONES`, `REGALO_DESPACHO`, `INGRESO`, `MODIFICACION`, `ESTADO`, `ESTADO_DESPACHO`, `ESTADO_REGISTRO`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_TDOCUMENTO`, `ID_TRANSPORTE`, `ID_CONDUCTOR`, `ID_RESPONSABLE`, `ID_BODEGA`, `ID_PLANTA2`, `ID_BODEGA2`, `ID_PRODUCTOR`, `ID_PROVEEDOR`, `ID_PLANTA3`, `ID_CLIENTE`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '2021-09-21', '11', 0, '11', '', 1, '', NULL, '2021-09-21 09:58:38', '2021-09-21 15:57:09', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(1, 1, '2021-09-21', '11', 1000, '11', '', 1, '', NULL, '2021-09-21 09:58:38', '2021-09-21 17:42:31', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
 (2, 2, '2021-09-21', '11', 1000, '11', '', 2, '', NULL, '2021-09-21 10:00:04', '2021-09-21 12:37:13', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, 1, 1),
 (3, 3, '2021-09-21', '11', 1000, '11', '', 3, '', NULL, '2021-09-21 10:00:38', '2021-09-21 12:38:30', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1),
 (4, 4, '2021-09-21', '11', 500, '11', '', 4, '', NULL, '2021-09-21 10:00:47', '2021-09-21 12:39:10', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
@@ -4089,9 +4089,55 @@ INSERT INTO `material_inventariom` (`ID_INVENTARIO`, `FOLIO_INVENTARIO`, `FOLIO_
 (513, 11120513, NULL, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120513', '11120513', 1, '0.00000', 500, NULL, NULL, '2021-09-20 16:56:32', '2021-09-21 12:38:30', 4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, NULL, NULL, 3),
 (514, 11120514, NULL, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120514', '11120514', 1, '0.00000', 500, NULL, NULL, '2021-09-20 16:56:32', '2021-09-21 12:37:13', 5, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, NULL, NULL, 2),
 (515, 11120515, NULL, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120515', '11120515', 1, '0.00000', 500, NULL, NULL, '2021-09-20 16:56:32', '2021-09-21 12:37:13', 5, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, NULL, NULL, 2),
-(516, 11120516, NULL, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120516', '11120516', 1, '0.00000', 500, NULL, NULL, '2021-09-20 16:56:32', '2021-09-21 15:46:23', 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, NULL, NULL, NULL),
-(517, 11120517, NULL, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120517', '11120517', 1, '0.00000', 500, NULL, NULL, '2021-09-20 16:56:32', '2021-09-21 15:49:22', 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, NULL, NULL, NULL),
+(516, 11120516, NULL, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120516', '11120516', 1, '0.00000', 500, NULL, NULL, '2021-09-20 16:56:32', '2021-09-21 17:42:31', 4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, NULL, NULL, 1),
+(517, 11120517, NULL, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120517', '11120517', 1, '0.00000', 500, NULL, NULL, '2021-09-20 16:56:32', '2021-09-21 17:42:31', 4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, NULL, NULL, 1),
 (518, 11120516, NULL, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120516', '11120516', 1, '0.00000', 500, NULL, NULL, '2021-09-21 15:26:19', '2021-09-21 15:46:23', 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `material_mguiae`
+--
+
+CREATE TABLE `material_mguiae` (
+  `ID_MGUIA` bigint(20) NOT NULL,
+  `NUMERO_MGUIA` int(11) DEFAULT NULL,
+  `INGRESO` datetime DEFAULT NULL,
+  `NUMERO_DESPACHO` int(11) DEFAULT NULL,
+  `NUMERO_GUIA` int(11) DEFAULT NULL,
+  `MOTIVO_MGUIA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESTADO_REGISTRO` int(11) DEFAULT NULL,
+  `ID_DESPACHO` bigint(20) NOT NULL,
+  `ID_PLANTA2` bigint(20) NOT NULL,
+  `ID_EMPRESA` bigint(20) NOT NULL,
+  `ID_PLANTA` bigint(20) NOT NULL,
+  `ID_TEMPORADA` bigint(20) NOT NULL,
+  `ID_USUARIOI` bigint(20) NOT NULL,
+  `ID_USUARIOM` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `material_mguiam`
+--
+
+CREATE TABLE `material_mguiam` (
+  `ID_MGUIA` bigint(20) NOT NULL,
+  `NUMERO_DOCUMENTO` int(11) DEFAULT NULL,
+  `INGRESO` datetime DEFAULT NULL,
+  `NUMERO_DESPACHO` int(11) DEFAULT NULL,
+  `NUMERO_GUIA` int(11) DEFAULT NULL,
+  `MOTIVO_MGUIA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESTADO_REGISTRO` int(11) DEFAULT NULL,
+  `ID_DESPACHO` bigint(20) NOT NULL,
+  `ID_PLANTA2` bigint(20) NOT NULL,
+  `ID_EMPRESA` bigint(20) NOT NULL,
+  `ID_PLANTA` bigint(20) NOT NULL,
+  `ID_TEMPORADA` bigint(20) NOT NULL,
+  `ID_USUARIOI` bigint(20) NOT NULL,
+  `ID_USUARIOM` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -7272,6 +7318,32 @@ ALTER TABLE `material_inventariom`
   ADD KEY `fk_material_inventariom_material_ocompra_idx` (`ID_OCOMPRA`);
 
 --
+-- Indices de la tabla `material_mguiae`
+--
+ALTER TABLE `material_mguiae`
+  ADD PRIMARY KEY (`ID_MGUIA`),
+  ADD KEY `fk_material_mguiae_material_despachoe_idx` (`ID_DESPACHO`),
+  ADD KEY `fk_material_mguiae_principal_planta2_idx` (`ID_PLANTA2`),
+  ADD KEY `fk_material_mguiae_principal_empresa_idx` (`ID_EMPRESA`),
+  ADD KEY `fk_material_mguiae_principal_planta_idx` (`ID_PLANTA`),
+  ADD KEY `fk_material_mguiae_principal_temporada_idx` (`ID_TEMPORADA`),
+  ADD KEY `fk_material_mguiae_usuario_usuarioi_idx` (`ID_USUARIOI`),
+  ADD KEY `fk_material_mguiae_usuario_usuarioim_idx` (`ID_USUARIOM`);
+
+--
+-- Indices de la tabla `material_mguiam`
+--
+ALTER TABLE `material_mguiam`
+  ADD PRIMARY KEY (`ID_MGUIA`),
+  ADD KEY `fk_material_mguiam_material_despahom_idx` (`ID_DESPACHO`),
+  ADD KEY `fk_material_mguiam_principal_planta2_idx` (`ID_PLANTA2`),
+  ADD KEY `fk_material_mguiam_principal_empresa_idx` (`ID_EMPRESA`),
+  ADD KEY `fk_material_mguiam_principal_planta_idx` (`ID_PLANTA`),
+  ADD KEY `fk_material_mguiam_principal_temporada_idx` (`ID_TEMPORADA`),
+  ADD KEY `fk_material_mguiam_usuario_usuarioi_idx` (`ID_USUARIOI`),
+  ADD KEY `fk_material_mguiam_usuario_usuariom_idx` (`ID_USUARIOM`);
+
+--
 -- Indices de la tabla `material_mocompra`
 --
 ALTER TABLE `material_mocompra`
@@ -8131,6 +8203,18 @@ ALTER TABLE `material_inventarioe`
 --
 ALTER TABLE `material_inventariom`
   MODIFY `ID_INVENTARIO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=519;
+
+--
+-- AUTO_INCREMENT de la tabla `material_mguiae`
+--
+ALTER TABLE `material_mguiae`
+  MODIFY `ID_MGUIA` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `material_mguiam`
+--
+ALTER TABLE `material_mguiam`
+  MODIFY `ID_MGUIA` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `material_mocompra`
@@ -9335,6 +9419,30 @@ ALTER TABLE `material_inventariom`
   ADD CONSTRAINT `fk_material_inventariom_principal_planta2` FOREIGN KEY (`ID_PLANTA2`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventariom_principal_planta3` FOREIGN KEY (`ID_PLANTA3`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventariom_principal_temporada` FOREIGN KEY (`ID_TEMPORADA`) REFERENCES `principal_temporada` (`ID_TEMPORADA`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `material_mguiae`
+--
+ALTER TABLE `material_mguiae`
+  ADD CONSTRAINT `fk_material_mguiae_material_despachoe` FOREIGN KEY (`ID_DESPACHO`) REFERENCES `material_despachoe` (`ID_DESPACHO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiae_principal_empresa` FOREIGN KEY (`ID_EMPRESA`) REFERENCES `principal_empresa` (`ID_EMPRESA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiae_principal_planta` FOREIGN KEY (`ID_PLANTA`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiae_principal_planta2` FOREIGN KEY (`ID_PLANTA2`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiae_principal_temporada` FOREIGN KEY (`ID_TEMPORADA`) REFERENCES `principal_temporada` (`ID_TEMPORADA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiae_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiae_usuario_usuarioim` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `material_mguiam`
+--
+ALTER TABLE `material_mguiam`
+  ADD CONSTRAINT `fk_material_mguiam_material_despahom` FOREIGN KEY (`ID_DESPACHO`) REFERENCES `material_despachom` (`ID_DESPACHO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiam_principal_empresa` FOREIGN KEY (`ID_EMPRESA`) REFERENCES `principal_empresa` (`ID_EMPRESA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiam_principal_planta` FOREIGN KEY (`ID_PLANTA`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiam_principal_planta2` FOREIGN KEY (`ID_PLANTA2`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiam_principal_temporada` FOREIGN KEY (`ID_TEMPORADA`) REFERENCES `principal_temporada` (`ID_TEMPORADA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiam_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_mguiam_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `material_mocompra`
