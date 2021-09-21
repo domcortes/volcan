@@ -941,8 +941,8 @@ if (isset($_POST)) {
                                                             <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $s['CANTIDAD']; ?></td>
-                                                            <td><?php echo $s['VALOR_UNITARIO']; ?></td>
-                                                            <td><?php echo $s['VALOR_TOTAL'] ?></td>
+                                                            <td><?php echo $s['VALOR']; ?></td>
+                                                            <td><?php echo $s['TOTAL'] ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php } ?>

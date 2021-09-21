@@ -169,12 +169,12 @@ include_once "../config/reporteUrl.php";
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Estado</th>
-                                                    <th>Bodega</th>
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
                                                     <th>Total Cantidad</th>
                                                     <th>Valor Unitario</th>
+                                                    <th>Bodega</th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción</th>
                                                     <th>Tipo Recepción</th>
@@ -256,12 +256,12 @@ include_once "../config/reporteUrl.php";
 
                                                     <tr class="center">
                                                         <td><?php echo $ESTADO; ?></td>
-                                                        <td><?php echo $NOMBREBODEGA; ?></td>
                                                         <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
                                                         <td><?php echo $r['VALOR']; ?></td>
+                                                        <td><?php echo $NOMBREBODEGA; ?></td>
                                                         <td><?php echo $NUMERORECEPCION; ?></td>
                                                         <td><?php echo $FECHARECEPCION; ?></td>
                                                         <td><?php echo $TRECEPCION; ?></td>
@@ -276,12 +276,12 @@ include_once "../config/reporteUrl.php";
                                             <tfoot>
                                                 <tr id="filtro" class="text-left">
                                                     <th>Estado</th>
-                                                    <th>Bodega</th>
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
                                                     <th>Total Cantidad</th>
                                                     <th>Valor Unitario</th>
+                                                    <th>Bodega</th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción</th>
                                                     <th>Tipo Recepción</th>

@@ -8,9 +8,8 @@ include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/PRODUCTO_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
 include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/DRECEPCIONM_ADO.php';
 
-
+include_once '../controlador/RECEPCIONM_ADO.php';
 include_once '../controlador/INVENTARIOM_ADO.php';
 
 
@@ -20,8 +19,8 @@ $BODEGA_ADO =  new BODEGA_ADO();
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
 $TCONTENEDOR_ADO =  new TCONTENEDOR_ADO();
-$DRECEPCIONM_ADO =  new DRECEPCIONM_ADO();
 
+$RECEPCIONM_ADO =  new RECEPCIONM_ADO();
 $INVENTARIOM_ADO =  new INVENTARIOM_ADO();
 
 
@@ -52,8 +51,8 @@ $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarInventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYINVENTARIOTOTALES = $INVENTARIOM_ADO->obtenerTotalesInventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIOTOTALES = $INVENTARIOM_ADO->obtenerTotalesInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYINVENTARIOTOTALES[0]['CANTIDAD'];
 }
 include_once "../config/validarDatosUrl.php";
@@ -173,119 +172,105 @@ include_once "../config/reporteUrl.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="existencia" class="table table-hover " style="width: 100%;">
+                                        <table id="hexistencia" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>Número Folio </th>
-                                                    <th>Estado</th>
-                                                    <th>Tipo Recepción</th>
+                                                    <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Tipo Contenedor</th>
                                                     <th>Unidad Medida</th>
-                                                    <th>Total Unitario</th>
+                                                    <th>Total Cantidad</th>
                                                     <th>Valor Unitario</th>
                                                     <th>Bodega</th>
+                                                    <th>Número Recepción</th>
+                                                    <th>Fecha Recepción</th>
+                                                    <th>Tipo Recepción</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYINVENTARIO as $r) : ?>
+                                                    <?php
+                                              
+                                                    $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
+                                                    if ($ARRAYVERBODEGA) {
+                                                        $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
+                                                    } else {
+                                                        $NOMBREBODEGA = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
+                                                    if ($ARRAYVERPRODUCTO) {
+                                                        $CODIGOPRODUCTO = $ARRAYVERPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                        $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                    } else {
+                                                        $CODIGOPRODUCTO = "Sin Datos";
+                                                        $NOMBREPRODUCTO = "Sin Datos";
+                                                    }
+                                                    $ARRAYTVERCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
+                                                    if ($ARRAYTVERCONTENEDOR) {
+                                                        $NOMBRETCONTENEDOR = $ARRAYTVERCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
+                                                    } else {
+                                                        $NOMBRETCONTENEDOR= "Sin Datos";
+                                                    }
+                                                    $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
+                                                    if ($ARRAYVERTUMEDIDA) {
+                                                        $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                    } else {
+                                                        $NOMBRETUMEDIDA = "Sin Datos";
+                                                    }
+                                                    $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion2($r['ID_RECEPCION']);
+                                                    if ($ARRAYRECEPCION) {
+                                                        $NUMERORECEPCION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
+                                                        $FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA_RECEPCION'];
+                                                        if ($ARRAYRECEPCION[0]['TRECEPCION'] == "1") {
+                                                            $TRECEPCION = "Desde Proveedor";
+                                                        } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "2") {
+                                                            $TRECEPCION = "Desde Productor";
+                                                        } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "3") {
+                                                            $TRECEPCION = "Planta Externa";
+                                                        }
+                                                    } else {
+                                                        $NUMERORECEPCION = "Sin Datos";
+                                                        $FECHARECEPCION = "Sin Datos";
+                                                        $TRECEPCION = "Sin Datos";
+                                                    }
+                                          
+
+                                                    ?>
                                                     <tr class="center">
                                                         <td>
                                                             <a href="#" class="text-warning hover-warning">
                                                                 <?php echo $r['FOLIO_INVENTARIO']; ?>
                                                             </a>
                                                         </td>
-                                                        <td>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Ingresando";
-                                                            }
-                                                            if ($r['ESTADO'] == "2") {
-                                                                echo "Vigente";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            if ($r['TRECEPCION'] == "1") {
-                                                                echo "Desde Proveedor";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "2") {
-                                                                echo "Desde Productor";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "3") {
-                                                                echo "Planta Externa";
-                                                            }
-                                                            if ($r['TRECEPCION'] == "4") {
-                                                                echo "Inter Externa";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($r['ID_PRODUCTO']);
-                                                            if ($ARRAYVERPRODUCTO) {
-                                                                echo $ARRAYVERPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                            } else {
-                                                                echo "Sin Producto";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYTVERCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
-                                                            if ($ARRAYTVERCONTENEDOR) {
-                                                                echo $ARRAYTVERCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
-                                                            } else {
-                                                                echo "Sin Producto";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
-                                                            if ($ARRAYVERTUMEDIDA) {
-                                                                echo $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
-                                                            } else {
-                                                                echo "Sin Unidad Medida";
-                                                            }
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $CODIGOPRODUCTO; ?></td>
+                                                        <td><?php echo $NOMBREPRODUCTO; ?></td>
+                                                        <td><?php echo $NOMBRETCONTENEDOR; ?></td>
+                                                        <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYDRECEPCION = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcionProductoTumedida2CBX($r['ID_RECEPCION'], $r['ID_PRODUCTO'], $r['ID_TUMEDIDA']);
-                                                            if ($ARRAYDRECEPCION) {
-                                                                echo $ARRAYDRECEPCION[0]["VALOR_UNITARIO"];
-                                                            } else {
-                                                                echo "Sin Datos";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
-                                                            echo $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r['INGRESOF']; ?></td>
-                                                        <td><?php echo $r['MODIFICACIONF']; ?></td>
+                                                        <td><?php echo $r['VALOR']; ?></td>
+                                                        <td><?php echo $NOMBREBODEGA; ?></td>
+                                                        <td><?php echo $NUMERORECEPCION; ?></td>
+                                                        <td><?php echo $FECHARECEPCION; ?></td>
+                                                        <td><?php echo $TRECEPCION; ?></td>
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
-                                            </tbody>
+                                            </tbody>                                           
                                         </table>
                                     </div>
                                 </div>
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 col-xs-10">
+                                    <div class="col-xxl-9 col-xl-8 col-lg-7 col-md-6 col-sm-6 col-4 col-xs-4">
                                         <div class="form-group">
                                         </div>
                                     </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
+                                    <div class="col-xxl-3 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-8 col-xs-8">
                                         <div class="form-group">
                                             <label>Total Cantidad </label>
                                             <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
