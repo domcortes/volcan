@@ -215,8 +215,8 @@ class ERECEPCION_ADO {
                     $ERECEPCION->__GET('PESO_ENVASE_ESTANDAR')  ,
                     $ERECEPCION->__GET('PESO_PALLET_ESTANDAR')  ,
                     $ERECEPCION->__GET('ID_ESPECIES')   ,
-                    $ERECEPCION->__GET('ID_ESTANDAR')      , 
-                    $ERECEPCION->__GET('ID_USUARIOM')                      
+                    $ERECEPCION->__GET('ID_USUARIOM'),    
+                    $ERECEPCION->__GET('ID_ESTANDAR'),              
                 )
                 
                 );
