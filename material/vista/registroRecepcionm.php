@@ -941,7 +941,7 @@ if (isset($_POST)) {
                     <label id="val_mensaje" class="validacion"><?php echo $MENSAJEFOLIO; ?> </label>
                     <!-- Main content -->
                     <section class="content">
-                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" onsubmit="return validacion()">
+                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" >
                             <div class="box">
                                 <div class="box-header with-border">
                                     <!--
