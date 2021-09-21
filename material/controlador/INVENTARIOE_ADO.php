@@ -201,7 +201,7 @@ class INVENTARIOE_ADO
             die($e->getMessage());
         }
     }
-    
+
     public function agregarInventarioRecepcionDocompra(INVENTARIOE $INVENTARIOE)
     {
         try {
@@ -338,6 +338,52 @@ class INVENTARIOE_ADO
 
     //FUNCIONES ESPECIALIZADAS 
 
+    public function actualizarSelecionarDespachoCambiarEstado(INVENTARIOE $INVENTARIOE)
+    {
+        try {
+            $query = "
+		UPDATE material_inventarioe SET
+            MODIFICACION = SYSDATE(),
+            ESTADO = 3,           
+            ID_DESPACHO = ?          
+		WHERE ID_INVENTARIO= ? ;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $INVENTARIOE->__GET('ID_DESPACHO'),
+                        $INVENTARIOE->__GET('ID_INVENTARIO')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    //ACTUALIZAR ESTADO, ASOCIAR PROCESO, REGISTRO HISTORIAL PROCESO
+    public function actualizarDeselecionarDespachoCambiarEstado(INVENTARIOE $INVENTARIOE)
+    {
+        try {
+            $query = "
+		UPDATE material_inventarioe SET
+            ESTADO = 2,          
+            MODIFICACION = SYSDATE(), 
+            ID_DESPACHO = null        
+		WHERE ID_INVENTARIO= ? ;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $INVENTARIOE->__GET('ID_INVENTARIO')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
     //CAMBIO DE ESTADO 
     //CAMBIO A CERRADO
     public function eliminado(INVENTARIOE $INVENTARIOE)
@@ -416,6 +462,63 @@ class INVENTARIOE_ADO
             die($e->getMessage());
         }
     }
+    public function enDespacho(INVENTARIOE $INVENTARIOE)
+    {
+        try {
+            $query = "
+                UPDATE material_inventarioe SET				
+                        MODIFICACION= SYSDATE(),	
+                        ESTADO = 3
+                WHERE ID_INVENTARIO= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $INVENTARIOE->__GET('ID_INVENTARIO')
+                    )
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function despachado(INVENTARIOE $INVENTARIOE)
+    {
+        try {
+            $query = "
+                UPDATE material_inventarioe SET				
+                        MODIFICACION= SYSDATE(),	
+                        ESTADO = 4
+                WHERE ID_INVENTARIO= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $INVENTARIOE->__GET('ID_INVENTARIO')
+                    )
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function enTransito(INVENTARIOE $INVENTARIOE)
+    {
+        try {
+            $query = "
+                UPDATE material_inventarioe SET				
+                        MODIFICACION= SYSDATE(),	
+                        ESTADO = 5
+                WHERE ID_INVENTARIO= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $INVENTARIOE->__GET('ID_INVENTARIO')
+                    )
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     //CAMBIO DE ESTADO DE REGISTRO DEL REGISTRO
     //CAMBIO A DESACTIVADO
     public function deshabilitar(INVENTARIOE $INVENTARIOE)
@@ -820,7 +923,7 @@ class INVENTARIOE_ADO
             die($e->getMessage());
         }
     }
-    
+
 
 
     public function obtenerTotalesInventarioPorEmpresaPlantaTemporadaCBX($IDEMPRESA, $IDPLANTA, $IDTEMPORADA)
@@ -893,6 +996,49 @@ class INVENTARIOE_ADO
             die($e->getMessage());
         }
     }
+
+    public function obtenerTotalesInventarioPorDespachoCBX($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                IFNULL(SUM(CANTIDAD_INVENTARIO),0) AS 'CANTIDAD'
+                                            FROM material_inventarioe
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ID_DESPACHO = '" . $IDDESPACHO . "'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesInventarioPorDespacho2CBX($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                FORMAT(IFNULL(SUM(CANTIDAD_INVENTARIO),0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM material_inventarioe
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ID_DESPACHO = '" . $IDDESPACHO . "'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //otros
     public function obtenerFolio($IDFOLIO)
     {
@@ -941,6 +1087,54 @@ class INVENTARIOE_ADO
             die($e->getMessage());
         }
     }
+
+    public function buscarPorDespacho($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 
+                                                    * 
+                                                FROM material_inventarioe 
+                                                    WHERE ID_DESPACHO= '" . $IDDESPACHO . "' 
+                                                    AND ESTADO_REGISTRO = 1
+                                                    ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorDespacho2($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 
+                                                    *, 
+                                                    FORMAT(IFNULL(CANTIDAD_INVENTARIO,0),0,'de_DE') AS 'CANTIDAD' ,
+                                                    FORMAT(IFNULL(VALOR_UNITARIO,0),3,'de_DE') AS 'VALOR'
+                                                FROM material_inventarioe 
+                                                    WHERE ID_DESPACHO= '" . $IDDESPACHO . "' 
+                                                    AND ESTADO_REGISTRO = 1
+                                                    ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function buscarPorRecepcionFolio($IDRECEPCION, $FOLIOINVENTARIO)
     {
         try {
