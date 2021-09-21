@@ -109,13 +109,12 @@ $ARRAYPROVEEDOR = "";
 $ARRAYCLIENTE = "";
 $ARRAYRESPONSABLE = "";
 $ARRAYRESPONSABLEUSUARIO = "";
-$ARRAYVALIDAREXISTENICA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->listarTdocumentoPorEmpresaCBX($EMPRESAS);
 $ARRAYTRANSPORTITA = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
 $ARRAYCONDUCTOR = $CONDUCTOR_ADO->listarConductorPorEmpresaCBX($EMPRESAS);
-$ARRAYBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaCBX($EMPRESAS, $PLANTAS);
+$ARRAYBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaCBX($EMPRESAS);
 $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYPROVEEDOR = $PROVEEDOR_ADO->listarProveedorPorEmpresaCBX($EMPRESAS);
@@ -304,36 +303,7 @@ if (isset($_REQUEST['CERRAR'])) {
 
         $ARRAYEXISENCIADESPACHOM = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
         foreach ($ARRAYEXISENCIADESPACHOM as $r) :
-
-            if ($_REQUEST['TDESPACHOE'] == "1") {
-                $ARRAYVALIDAREXISTENICA = $INVENTARIOM_ADO->buscarPorDespachoFolio($_REQUEST['IDP'], $r['FOLIO_INVENTARIO']);
-                if (empty($ARRAYVALIDAREXISTENICA)) {
-                    $INVENTARIOM->__SET('FOLIO_INVENTARIO', $r['FOLIO_INVENTARIO']);
-                    $INVENTARIOM->__SET('FOLIO_AUXILIAR_INVENTARIO', $r['FOLIO_AUXILIAR_INVENTARIO']);
-                    $INVENTARIOM->__SET('ALIAS_DINAMICO_FOLIO', $r['ALIAS_DINAMICO_FOLIO']);
-                    $INVENTARIOM->__SET('ALIAS_ESTATICO_FOLIO', $r['ALIAS_ESTATICO_FOLIO']);
-                    $INVENTARIOM->__SET('TRECEPCION', $r['TRECEPCION']);
-                    $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $r['CANTIDAD_INVENTARIO']);
-                    $INVENTARIOM->__SET('VALOR_UNITARIO', $r['VALOR_UNITARIO']);
-                    $INVENTARIOM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
-                    $INVENTARIOM->__SET('ID_FOLIO', $r['ID_FOLIO']);
-                    $INVENTARIOM->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
-                    $INVENTARIOM->__SET('ID_TCONTENEDOR', $r['ID_TCONTENEDOR']);
-                    $INVENTARIOM->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
-                    $INVENTARIOM->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
-                    $INVENTARIOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-                    $INVENTARIOM->__SET('ID_PLANTA2', $r['ID_PLANTA2']);
-                    $INVENTARIOM->__SET('ID_PROVEEDOR', $r['ID_PROVEEDOR']);
-                    $INVENTARIOM->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
-                    $INVENTARIOM->__SET('ID_EMPRESA', $r['ID_EMPRESA']);
-                    $INVENTARIOM->__SET('ID_PLANTA', $r['ID_PLANTA']);
-                    $INVENTARIOM->__SET('ID_TEMPORADA', $r['ID_TEMPORADA']);
-                    // $INVENTARIOM_ADO->agregarInventarioBodega($INVENTARIOM);
-                }
-                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $INVENTARIOM_ADO->despachado($INVENTARIOM);
-            } else if ($_REQUEST['TDESPACHOE'] == "2") {
+            if ($_REQUEST['TDESPACHOE'] == "2") {
                 $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $INVENTARIOM_ADO->enTransito($INVENTARIOM);
@@ -344,7 +314,8 @@ if (isset($_REQUEST['CERRAR'])) {
             }
         endforeach;
         //REDIRECCIONAR A PAGINA registroDespachom.php 
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        
+        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+
         if ($_SESSION['parametro1'] == "crear") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
             $_SESSION["parametro1"] = "ver";
@@ -359,24 +330,9 @@ if (isset($_REQUEST['CERRAR'])) {
 }
 if (isset($_REQUEST['QUITAR'])) {
     $IDQUITAR = $_REQUEST['IDQUITAR'];
-    $IDFOLIO = $_REQUEST['IDFOLIO'];
-    $IDTDESPACHO = $_REQUEST['TDESPACHO'];
     $INVENTARIOM->__SET('ID_INVENTARIO', $IDQUITAR);
-    $INVENTARIOM_ADO->actualizarDeselecionarDespachoCambiarEstado($INVENTARIOM);
     // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    if ($IDTDESPACHO == "1") {
-        $ARRAYVALIDAREXISTENICA = $INVENTARIOM_ADO->buscarPorDespachoFolio($_REQUEST['IDP'], $IDFOLIO);
-        if ($ARRAYVALIDAREXISTENICA) {
-            foreach ($ARRAYVALIDAREXISTENICA as $r) :
-                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $INVENTARIOM_ADO->deshabilitar($INVENTARIOM);
-                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $INVENTARIOM_ADO->eliminado($INVENTARIOM);
-            endforeach;
-        }
-    }
+    $INVENTARIOM_ADO->actualizarDeselecionarDespachoCambiarEstado($INVENTARIOM);
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -387,10 +343,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
     $ARRAYTOMADO = $INVENTARIOM_ADO->buscarPorDespacho2($IDOP);
+
     $ARRAYDESPACHOTOTAL = $INVENTARIOM_ADO->obtenerTotalesInventarioPorDespachoCBX($IDOP);
     $ARRAYDESPACHOTOTAL2 = $INVENTARIOM_ADO->obtenerTotalesInventarioPorDespacho2CBX($IDOP);
     $TOTALCANTIDAD = $ARRAYDESPACHOTOTAL[0]['CANTIDAD'];
     $TOTALCANTIDADV = $ARRAYDESPACHOTOTAL2[0]['CANTIDAD'];
+
+
 
     //FUNCION PARA LA OBTENCION DE LOS TOTALES DEL DETALLE ASOCIADO A DESPACHOM
 
@@ -952,7 +911,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";
+            <?php include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -1456,9 +1415,6 @@ if (isset($_POST)) {
                                                             <td><?php echo $r['FOLIO_INVENTARIO']; ?> </td>
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
-                                                                    <input type="hidden" class="form-control" id="IDFOLIO" name="IDFOLIO" value="<?php echo $r['FOLIO_INVENTARIO']; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="TDESPACHO" id="TDESPACHO" name="TDESPACHO" value="<?php echo $TDESPACHO; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_INVENTARIO']; ?>" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Inventario Materiales" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
@@ -1494,10 +1450,10 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachom" />
                                                             <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionInventarioMDespachom" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Inventario " id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
                                                                                                                                                                                                                                                 echo "disabled style='background-color: #eeeeee;'";
                                                                                                                                                                                                                                             } ?>>
-                                                                Seleccion Inventario
+                                                                <i class=" glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
                                                     </form>
