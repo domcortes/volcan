@@ -104,7 +104,11 @@ class RECEPCIONE_ADO {
     public function verRecepcion($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_recepcione` WHERE `ID_RECEPCION`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * , 
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
+                                            FROM `material_recepcione` 
+                                            WHERE `ID_RECEPCION`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             
@@ -123,8 +127,9 @@ class RECEPCIONE_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * , 
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' ,
+                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA' 
                                             FROM `material_recepcione` 
                                                 WHERE `ID_RECEPCION`= '".$ID."';");
             $datos->execute();

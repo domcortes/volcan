@@ -381,7 +381,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         $DISABLEDMENU = "disabled";
         $DISABLEDSTYLE = "style='background-color: #eeeeee;'";
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
-        $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($IDOP);
+        $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion($IDOP);
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYRECEPCION as $r) :
             $IDRECEPCION = $IDOP;
@@ -431,7 +431,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         $DISABLED2 = "";
         $DISABLEDMENU = "disabled";
         $DISABLEDSTYLE = "style='background-color: #eeeeee;'";
-        $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($IDOP);
+        $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYRECEPCION as $r) :
@@ -483,7 +483,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //ALMACENAR INFORMACION EN ARREGLO
         //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
         //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-        $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($IDOP);
+        $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion($IDOP);
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYRECEPCION as $r) :
