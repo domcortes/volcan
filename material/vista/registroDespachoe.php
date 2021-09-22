@@ -107,6 +107,7 @@ $ARRAYPROVEEDOR = "";
 $ARRAYCLIENTE = "";
 $ARRAYRESPONSABLE = "";
 $ARRAYRESPONSABLEUSUARIO = "";
+$ARRAYVALIDARINGRESO = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->listarTdocumentoPorEmpresaCBX($EMPRESAS);
@@ -293,27 +294,48 @@ if (isset($_REQUEST['CERRAR'])) {
 
         $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //   $DESPACHOE_ADO->cerrado($DESPACHOE);
+        $DESPACHOE_ADO->cerrado($DESPACHOE);
 
         $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        //  $DESPACHOE_ADO->Confirmado($DESPACHOE);
+        $DESPACHOE_ADO->Confirmado($DESPACHOE);
 
-        $ARRAYEXISENCIADESPACHOE = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['IDP']);
-        foreach ($ARRAYEXISENCIADESPACHOE as $r) :
-            if ($_REQUEST['TDESPACHOE'] == "2") {
-                $INVENTARIOE->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                //   $INVENTARIOE_ADO->enTransito($INVENTARIOE);
-            } else {
-                $INVENTARIOE->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                //    $INVENTARIOE_ADO->despachado($INVENTARIOE);
-            }
-        endforeach;
+        if ($_REQUEST['TDESPACHOE'] == "1") {
+            $ARRAYEXISENCIADESPACHOM = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['IDP']);
+            foreach ($ARRAYEXISENCIADESPACHOM as $r) :
+                $ARRAYVALIDARINGRESO = $INVENTARIOE_ADO->buscarPorDespachoIngresoBodega($_REQUEST['IDP'], $r['INGRESO'], $r['ID_BODEGA']);
+                if (empty($ARRAYVALIDARINGRESO)) {
+                    $INVENTARIOE->__SET('INGRESO', $r['INGRESO']);
+                    $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r['CANTIDAD_SALIDA']);
+                    $INVENTARIOE->__SET('ID_BODEGA2',  $r['ID_BODEGA']);
+                    $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
+                    $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
+                    $INVENTARIOE->__SET('ID_EMPRESA', $r['ID_EMPRESA']);
+                    $INVENTARIOE->__SET('ID_PLANTA', $r['ID_PLANTA']);
+                    $INVENTARIOE->__SET('ID_TEMPORADA', $r['ID_TEMPORADA']);
+                    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGAE']);
+                    $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    $INVENTARIOE_ADO->agregarInventarioBodega($INVENTARIOE);
+                } else {
+                    $INVENTARIOE->__SET('INGRESO', $r['INGRESO']);
+                    $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r['CANTIDAD_SALIDA']);
+                    $INVENTARIOE->__SET('ID_BODEGA2',  $r['ID_BODEGA']);
+                    $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
+                    $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
+                    $INVENTARIOE->__SET('ID_EMPRESA', $r['ID_EMPRESA']);
+                    $INVENTARIOE->__SET('ID_PLANTA', $r['ID_PLANTA']);
+                    $INVENTARIOE->__SET('ID_TEMPORADA', $r['ID_TEMPORADA']);
+                    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGAE']);
+                    $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    $INVENTARIOE->__SET('ID_INVENTARIO', $ARRAYVALIDARINGRESO[0]["ID_INVENTARIO"]);
+                    $INVENTARIOE_ADO->actualizarInventarioBodega($INVENTARIOE);
+                }
+            endforeach;
+        }
+
         //REDIRECCIONAR A PAGINA registroDespachoe.php 
         //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        /*
+        
         if ($_SESSION['parametro1'] == "crear") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
             $_SESSION["parametro1"] = "ver";
@@ -323,15 +345,10 @@ if (isset($_REQUEST['CERRAR'])) {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
             $_SESSION["parametro1"] = "ver";
             echo "<script type='text/javascript'> location.href ='registroDespachoe.php?op';</script>";
-        }*/
+        }
     }
 }
-if (isset($_REQUEST['QUITAR'])) {
-    $IDQUITAR = $_REQUEST['IDQUITAR'];
-    $INVENTARIOE->__SET('ID_INVENTARIO', $IDQUITAR);
-    // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $INVENTARIOE_ADO->actualizarDeselecionarDespachoCambiarEstado($INVENTARIOE);
-}
+
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -908,7 +925,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";
+            <?php include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -923,7 +940,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Despacho</li>
-                                            <li class="breadcrumb-item" aria-current="page">Depsacho Materiales </li>
+                                            <li class="breadcrumb-item" aria-current="page">Depsacho Envases </li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciónes Registro Despacho </a>
                                             </li>
                                         </ol>
@@ -1364,13 +1381,11 @@ if (isset($_POST)) {
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
-                                                    <th> N° Folio </th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Código Producto </th>
                                                     <th>Producto </th>
                                                     <th>Unidad Medida</th>
                                                     <th>Cantidad</th>
-                                                    <th>Valor Unitario</th>
                                                     <th>Bodega</th>
                                                 </tr>
                                             </thead>
@@ -1401,16 +1416,30 @@ if (isset($_POST)) {
                                                         }
                                                         ?>
                                                         <tr class="text-left">
-                                                            <td><?php echo $r['FOLIO_INVENTARIO']; ?> </td>
                                                             <td class="text-center">
-                                                                <form method="post" id="form1">
-                                                                    <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_INVENTARIO']; ?>" />
+                                                                <form method="post" id="form1" name="form1">
+                                                                    <input type="hidden" class="form-control" placeholder="ID INVENTARIOE" id="IDD" name="IDD" value="<?php echo $r['ID_INVENTARIO']; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoe" />
+                                                                    <input type="hidden" class="form-control" placeholder="URL INVENTARIOE" id="URLD" name="URLD" value="registroDdespachoe" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Inventario Materiales" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                                                                                    } ?>>
-                                                                            <i class="ti-close"></i>
-                                                                        </button>
+                                                                        <?php if ($ESTADO  == "0") { ?>
+                                                                            <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                <i class="ti-eye"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                        <?php if ($ESTADO  == "1") { ?>
+                                                                            <button type="submit" class="btn btn-warning  " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-pencil-alt"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-secondary " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        <?php } ?>
                                                                     </div>
                                                                 </form>
                                                             </td>
@@ -1418,7 +1447,6 @@ if (isset($_POST)) {
                                                             <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $r['CANTIDAD']; ?></td>
-                                                            <td><?php echo $r['VALOR']; ?></td>
                                                             <td><?php echo $NOMBREBODEGA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -1437,11 +1465,11 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoe" />
-                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionInventarioMDespachoe" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                            } ?>>
-                                                                <i class=" glyphicon glyphicon-plus"></i>
+                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroDdespachoe" />
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                        } ?>>
+                                                                Agregar Detalle
                                                             </button>
                                                         </div>
                                                     </form>
@@ -1457,7 +1485,6 @@ if (isset($_POST)) {
                                                         <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALCANTIDADV" name="TOTALCANTIDADV" value="<?php echo $TOTALCANTIDADV; ?>" disabled />
                                                     </div>
                                                 </td>
-                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>

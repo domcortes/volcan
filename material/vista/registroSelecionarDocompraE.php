@@ -94,23 +94,22 @@ if (isset($_REQUEST['AGREGAR'])) {
 
 
             foreach ($ARRAYDOCOMPRA as $s) :
+
+
                 $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
                 $INVENTARIOE->__SET('VALOR_UNITARIO',  $s['VALOR_UNITARIO_DOCOMPRA']);
-                $INVENTARIOE->__SET('VALOR_TOTAL', $VALORTOTAL);
                 $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                 $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                 $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
                 $INVENTARIOE->__SET('ID_PRODUCTO', $s['ID_PRODUCTO']);
                 $INVENTARIOE->__SET('ID_TUMEDIDA', $s['ID_TUMEDIDA']);
-                $INVENTARIOE->__SET('ID_PLANTA2',  $_REQUEST['PLANTA2']);
-                $INVENTARIOE->__SET('ID_PROVEEDOR',  $_REQUEST['PROVEEDOR']);
-                $INVENTARIOE->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTOR']);
                 $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 $INVENTARIOE->__SET('ID_DOCOMPRA',  $s['ID_DOCOMPRA']);
                 $INVENTARIOE_ADO->agregarInventarioRecepcionDocompra($INVENTARIOE);
             endforeach;
         endforeach;
+        
         $_SESSION["parametro"] =  $_REQUEST['IDP'];
         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
         echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";

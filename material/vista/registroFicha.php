@@ -263,14 +263,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_FICHA'];
             $OBSERVACION = "" . $r['OBSERVACIONES_FICHA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
-            if ($ARRAYESTANDAR) {
-                $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-                $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-                $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-                $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-                $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-                $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $ENVASEESTANDAR = $ARRAYVERESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+                $TETIQUETA = $ARRAYVERESTANDAR[0]["ID_TETIQUETA"];
+                $TEMBALAJE = $ARRAYVERESTANDAR[0]["ID_TEMBALAJE"];
+                $ESPECIES = $ARRAYVERESTANDAR[0]["ID_ESPECIES"];
+                $ESTANDARCOMERCIAL = $ARRAYVERESTANDAR[0]["ID_ECOMERCIAL"];
                 $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
@@ -286,7 +286,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 if ($ARRAYESPECIES) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
                 }
-                if ($ARRAYESTANDARCOMERCIAL) {
+                if ($ARRAYVERESTANDARCOMERCIAL) {
                     $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
                 }
             }
@@ -318,14 +318,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_FICHA'];
             $OBSERVACION = "" . $r['OBSERVACIONES_FICHA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
-            if ($ARRAYESTANDAR) {
-                $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-                $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-                $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-                $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-                $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-                $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $ENVASEESTANDAR = $ARRAYVERESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+                $TETIQUETA = $ARRAYVERESTANDAR[0]["ID_TETIQUETA"];
+                $TEMBALAJE = $ARRAYVERESTANDAR[0]["ID_TEMBALAJE"];
+                $ESPECIES = $ARRAYVERESTANDAR[0]["ID_ESPECIES"];
+                $ESTANDARCOMERCIAL = $ARRAYVERESTANDAR[0]["ID_ECOMERCIAL"];
                 $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
@@ -373,14 +373,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_FICHA'];
             $OBSERVACION = "" . $r['OBSERVACIONES_FICHA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
-            if ($ARRAYESTANDAR) {
-                $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-                $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-                $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-                $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-                $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-                $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $ENVASEESTANDAR = $ARRAYVERESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+                $TETIQUETA = $ARRAYVERESTANDAR[0]["ID_TETIQUETA"];
+                $TEMBALAJE = $ARRAYVERESTANDAR[0]["ID_TEMBALAJE"];
+                $ESPECIES = $ARRAYVERESTANDAR[0]["ID_ESPECIES"];
+                $ESTANDARCOMERCIAL = $ARRAYVERESTANDAR[0]["ID_ECOMERCIAL"];
                 $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
@@ -413,14 +413,14 @@ if (isset($_POST)) {
 
     if (isset($_REQUEST['ESTANDAR'])) {
         $ESTANDAR = "" . $_REQUEST['ESTANDAR'];
-        $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
-        if ($ARRAYESTANDAR) {
-            $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-            $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-            $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-            $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-            $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-            $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+        $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+        if ($ARRAYVERESTANDAR) {
+            $ENVASEESTANDAR = $ARRAYVERESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+            $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+            $TETIQUETA = $ARRAYVERESTANDAR[0]["ID_TETIQUETA"];
+            $TEMBALAJE = $ARRAYVERESTANDAR[0]["ID_TEMBALAJE"];
+            $ESPECIES = $ARRAYVERESTANDAR[0]["ID_ESPECIES"];
+            $ESTANDARCOMERCIAL = $ARRAYVERESTANDAR[0]["ID_ECOMERCIAL"];
             $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
             $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
             $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
@@ -758,16 +758,12 @@ if (isset($_POST)) {
                                             <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Ficha" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeFicha.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i> Ficha
                                             </button>
-
                                         <?php } ?>
                                     </div>
                                 </div>
                             </div>
-
                             <!-- /.row -->
-
                             <!--.row -->
-
                         </form>
                         <div class="box">
                             <div class="box-header with-border">

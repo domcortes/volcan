@@ -17,11 +17,10 @@ include_once '../controlador/PROVEEDOR_ADO.php';
 include_once '../controlador/CLIENTE_ADO.php';
 
 include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
 
-include_once '../controlador/INVENTARIOM_ADO.php';
-include_once '../controlador/DESPACHOM_ADO.php';
+include_once '../controlador/INVENTARIOE_ADO.php';
+include_once '../controlador/DESPACHOE_ADO.php';
 
 
 
@@ -45,12 +44,11 @@ $PROVEEDOR_ADO = new PROVEEDOR_ADO();
 $CLIENTE_ADO = new CLIENTE_ADO();
 
 $PRODUCTO_ADO = new PRODUCTO_ADO();
-$TCONTENEDOR_ADO = new TCONTENEDOR_ADO();
 $TUMEDIDA_ADO = new TUMEDIDA_ADO();
 
 
-$INVENTARIOM_ADO = new INVENTARIOM_ADO();
-$DESPACHOM_ADO = new DESPACHOM_ADO();
+$INVENTARIOE_ADO = new INVENTARIOE_ADO();
+$DESPACHOE_ADO = new DESPACHOE_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $NUMERORECEPCION = "";
@@ -99,10 +97,10 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 
-$ARRAYRECEPCION = $DESPACHOM_ADO->verDespachom2($IDOP);
+$ARRAYRECEPCION = $DESPACHOE_ADO->verDespachoe2($IDOP);
 if ($ARRAYRECEPCION) {
-  $ARRAYDRECEPCION = $INVENTARIOM_ADO->buscarPorDespacho2($IDOP);
-  $ARRAYDRECEPCIONTOTAL = $INVENTARIOM_ADO->obtenerTotalesInventarioPorDespacho2CBX($IDOP);
+  $ARRAYDRECEPCION = $INVENTARIOE_ADO->buscarPorDespacho2($IDOP);
+  $ARRAYDRECEPCIONTOTAL = $INVENTARIOE_ADO->obtenerTotalesInventarioPorDespacho2CBX($IDOP);
 
 
   $TOTALCANTIDAD = $ARRAYDRECEPCIONTOTAL[0]["CANTIDAD"];
@@ -131,7 +129,7 @@ if ($ARRAYRECEPCION) {
   if ($TDESPACHO == "3") {
     $NOMBRETDESPACHO = "Devolución a Productor";
     $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
-    $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
+    $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
   } else
   if ($TDESPACHO == "4") {
     $NOMBRETDESPACHO = "Devolución a Proveedor";
@@ -144,13 +142,13 @@ if ($ARRAYRECEPCION) {
     $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
   } else
   if ($TDESPACHO == "6") {
-    $NOMBRETDESPACHO = "Venta";    
+    $NOMBRETDESPACHO = "Venta";
     $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($ARRAYRECEPCION[0]["ID_CLIENTE"]);
     $NOMBREORIGEN = $ARRAYVERCLIENTE[0]["NOMBRE_CLIENTE"];
   } else
   if ($TDESPACHO == "7") {
     $NOMBRETDESPACHO = "Regalo";
-    $REGALO== $ARRAYRECEPCION[0]['REGALO_DESPACHO'];
+    $REGALO == $ARRAYRECEPCION[0]['REGALO_DESPACHO'];
   } else {
     $NOMBRETDESPACHO = "Sin Datos";
   }
@@ -343,21 +341,20 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="7" class="center">DETALLE DE DESPACHO.</th>
+            <th colspan="5" class="center">DETALLE DE DESPACHO.</th>
           </tr>
           <tr>
             <th class="color left">Bodega Origen</th>
             <th class="color left">Codigo Producto</th>
             <th class="color left">Producto</th>
-            <th class="color left">Tipo Contenedor</th>
             <th class="color left">Unidad Medida</th>
             <th class="color left">Cantidad</th>
-            <th class="color left">Valor Unitario</th>
           </tr>
         </thead>
          <tbody>
         ';
 foreach ($ARRAYDRECEPCION as $d) :
+
   $ARRAYVERBODEGAD = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]["ID_BODEGA"]);
   if ($ARRAYVERBODEGAD) {
     $NOMBREBODEGAD = $ARRAYVERBODEGAD[0]["NOMBRE_BODEGA"];
@@ -372,20 +369,14 @@ foreach ($ARRAYDRECEPCION as $d) :
   if ($ARRAYVERTUMEDIDA) {
     $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
   }
-  $ARRAYTCONTENDOR = $TCONTENEDOR_ADO->verTcontenedor($d['ID_TCONTENEDOR']);
-  if ($ARRAYTCONTENDOR) {
-    $NOMBRETCONETEDOR = $ARRAYTCONTENDOR[0]["NOMBRE_TCONTENEDOR"];
-  }
   $html = $html . '
           
                       <tr >
                           <th class="left">' . $NOMBREBODEGAD . '</th>
                           <th class="left">' . $CODIGOPRODUCTO . '</th>
                           <th class="left">' . $NOMBREPRODUCTO . '</th>
-                          <td class="left">' . $NOMBRETCONETEDOR . '</td>
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>
-                          <td class="left">$ ' . $d['VALOR_UNITARIO'] . '</td>
                       </tr>
               ';
 
@@ -395,11 +386,9 @@ $html = $html . '
               
                   <tr class="bt">
                       <th class="color left">&nbsp;</th>
-                      <th class="color left">&nbsp;</th>
-                      <th class="color left">&nbsp;</th>
-                      <th class="color left">&nbsp;</th>
                       <th class="color right">SUB TOTAL</th>
                       <th class="color left"> ' . $TOTALCANTIDAD . '</th>
+                      <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
                   </tr>
               ';

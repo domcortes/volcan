@@ -10,9 +10,8 @@ class INVENTARIOE {
     private	  $ID_INVENTARIO;
     private	  $TRECEPCION; 
     private	  $VALOR_UNITARIO; 
-    private	  $CANTIDAD_INVENTARIO; 
-    private	  $FECHA_RECEPCION; 
-    private	  $FECHA_DESPACHO; 
+    private	  $CANTIDAD_ENTRADA; 
+    private	  $CANTIDAD_SALIDA; 
     private   $ESTADO; 
     private   $ESTADO_REGISTRO; 
     private   $INGRESO;
@@ -24,12 +23,9 @@ class INVENTARIOE {
     private   $ID_PRODUCTO;
     private   $ID_TUMEDIDA;
     private   $ID_RECEPCION;
+    private   $ID_DESPACHO;
     private   $ID_PLANTA2;
-    private   $ID_PLANTA3;
-    private   $ID_PROVEEDOR;
     private   $ID_DOCOMPRA;
-    private   $ID_PRODUCTOR;
-    private   $ID_DESOPACHO;
     
     
     //FUNCIONES GET Y SET

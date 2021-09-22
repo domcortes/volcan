@@ -1133,21 +1133,23 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <label>Bodega Destino</label>
-                                            <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
-                                            <select class="form-control select2" id="BODEGA" name="BODEGA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
-                                                <option></option>
-                                                <?php foreach ($ARRAYBODEGA as $r) : ?>
-                                                    <?php if ($ARRAYBODEGA) {    ?>
-                                                        <option value="<?php echo $r['ID_BODEGA']; ?>" <?php if ($BODEGA == $r['ID_BODEGA']) {
-                                                                                                            echo "selected";
-                                                                                                        } ?>> <?php echo $r['NOMBRE_BODEGA'] ?> </option>
-                                                    <?php } else { ?>
-                                                        <option>No Hay Datos Registrados </option>
-                                                    <?php } ?>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <label id="val_bodega" class="validacion"> </label>
+                                            <div class="form-group">
+                                                <label>Bodega Destino</label>
+                                                <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
+                                                <select class="form-control select2" id="BODEGA" name="BODEGA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYBODEGA as $r) : ?>
+                                                        <?php if ($ARRAYBODEGA) {    ?>
+                                                            <option value="<?php echo $r['ID_BODEGA']; ?>" <?php if ($BODEGA == $r['ID_BODEGA']) {
+                                                                                                                echo "selected";
+                                                                                                            } ?>> <?php echo $r['NOMBRE_BODEGA'] ?> </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_bodega" class="validacion"> </label>
+                                            </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Tipo Documento</label>
@@ -1175,21 +1177,23 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <label>Transporte</label>
-                                            <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
-                                            <select class="form-control select2" id="TRANSPORTE" name="TRANSPORTE" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
-                                                <option></option>
-                                                <?php foreach ($ARRAYTRANSPORTE as $r) : ?>
-                                                    <?php if ($ARRAYTRANSPORTE) {    ?>
-                                                        <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
-                                                    <?php } else { ?>
-                                                        <option>No Hay Datos Registrados </option>
-                                                    <?php } ?>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <label id="val_transporte" class="validacion"> </label>
+                                            <div class="form-group">
+                                                <label>Transporte</label>
+                                                <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
+                                                <select class="form-control select2" id="TRANSPORTE" name="TRANSPORTE" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYTRANSPORTE as $r) : ?>
+                                                        <?php if ($ARRAYTRANSPORTE) {    ?>
+                                                            <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {
+                                                                                                                    echo "selected";
+                                                                                                                } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_transporte" class="validacion"> </label>
+                                            </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
@@ -1293,6 +1297,7 @@ if (isset($_POST)) {
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">Operaciónes</th>
+                                                    <th>Codigo Producto </th>
                                                     <th>Producto </th>
                                                     <th>Unidad Medida</th>
                                                     <th>Cantidad</th>
@@ -1311,8 +1316,10 @@ if (isset($_POST)) {
                                                         }
                                                         $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
                                                         if ($ARRAYPRODUCTO) {
+                                                            $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
                                                             $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
                                                         } else {
+                                                            $CODIGOPRODUCTO = "Sin Dato";
                                                             $NOMBREPRODUCTO = "Sin Dato";
                                                         }
                                                         $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
@@ -1351,6 +1358,7 @@ if (isset($_POST)) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $s['CANTIDAD']; ?></td>
@@ -1369,8 +1377,10 @@ if (isset($_POST)) {
                                                         }
                                                         $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
                                                         if ($ARRAYPRODUCTO) {
+                                                            $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
                                                             $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
                                                         } else {
+                                                            $CODIGOPRODUCTO = "Sin Dato";
                                                             $NOMBREPRODUCTO = "Sin Dato";
                                                         }
                                                         $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
@@ -1405,6 +1415,7 @@ if (isset($_POST)) {
                                                                     </div>
                                                                 </form>
                                                             </td>
+                                                            <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $s['CANTIDAD']; ?></td>

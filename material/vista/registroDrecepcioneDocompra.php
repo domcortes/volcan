@@ -102,23 +102,20 @@ include_once "../config/validarDatosUrlD.php";
 //OPERACION DE REGISTRO DE FILA
 
 if (isset($_REQUEST['EDITAR'])) {
-    $VALORTOTAL = $_REQUEST['CANTIDADE'] * $_REQUEST['VALORUNITARIO'];
+    $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
     $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
-    $INVENTARIOE->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
+    $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
     $INVENTARIOE->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-    $INVENTARIOE->__SET('VALOR_TOTAL', $VALORTOTAL);
     $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
     $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
     $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
     $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTOE']);
     $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $INVENTARIOE->__SET('ID_PLANTA2',  $_REQUEST['PLANTA2']);
-    $INVENTARIOE->__SET('ID_PROVEEDOR',  $_REQUEST['PROVEEDOR']);
-    $INVENTARIOE->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTOR']);
     $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
     $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
     $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
+    
     $_SESSION["parametro"] =  $_REQUEST['IDP'];
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
     echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
@@ -140,9 +137,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
     $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion($IDP);
     foreach ($ARRAYRECEPCION as $r) :
-        $PRODUCTOR = $r["ID_PRODUCTOR"];
-        $PROVEEDOR = $r["ID_PROVEEDOR"];
-        $PLANTA2 = $r["ID_PLANTA2"];
         $BODEGA = $r["ID_BODEGA"];
         $TRECEPCION = $r["TRECEPCION"];
 
@@ -172,7 +166,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $DISABLEDSTYLE2 = "";
         $ARRAYDRECEPCION = $INVENTARIOE_ADO->verInventario($IDOP);
         foreach ($ARRAYDRECEPCION as $r) :
-            $CANTIDAD = "" . $r['CANTIDAD_INVENTARIO'];
+            $CANTIDAD = "" . $r['CANTIDAD_ENTRADA'];
             $VALORUNITARIO = "" . $r['VALOR_UNITARIO'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
             $TUMEDIDA = "" . $r['ID_TUMEDIDA'];
@@ -191,7 +185,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $DISABLEDSTYLE2 = "style='background-color: #eeeeee;'";
         $ARRAYDRECEPCION = $INVENTARIOE_ADO->verInventario($IDOP);
         foreach ($ARRAYDRECEPCION as $r) :
-            $CANTIDAD = "" . $r['CANTIDAD_INVENTARIO'];
+            $CANTIDAD = "" . $r['CANTIDAD_ENTRADA'];
             $VALORUNITARIO = "" . $r['VALOR_UNITARIO'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
             $TUMEDIDA = "" . $r['ID_TUMEDIDA'];
@@ -208,7 +202,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $DISABLEDSTYLE2 = "style='background-color: #eeeeee;'";
         $ARRAYDRECEPCION = $INVENTARIOE_ADO->verInventario($IDOP);
         foreach ($ARRAYDRECEPCION as $r) :
-            $CANTIDAD = "" . $r['CANTIDAD_INVENTARIO'];
+            $CANTIDAD = "" . $r['CANTIDAD_ENTRADA'];
             $VALORUNITARIO = "" . $r['VALOR_UNITARIO'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
             $TUMEDIDA = "" . $r['ID_TUMEDIDA'];
@@ -226,7 +220,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $MENSAJE = "ESTA SEGURO DE ELIMINAR EL REGISTRO, PARA CONFIRMAR PRESIONE ELIMINAR";
         $ARRAYDRECEPCION = $INVENTARIOE_ADO->verInventario($IDOP);
         foreach ($ARRAYDRECEPCION as $r) :
-            $CANTIDAD = "" . $r['CANTIDAD_INVENTARIO'];
+            $CANTIDAD = "" . $r['CANTIDAD_ENTRADA'];
             $VALORUNITARIO = "" . $r['VALOR_UNITARIO'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
             $TUMEDIDA = "" . $r['ID_TUMEDIDA'];
@@ -371,10 +365,7 @@ if (isset($_POST)) {
                                     <div class="row">
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <input type="hidden" class="form-control" placeholder="ID PRODUCTOR" id="PRODUCTOR" name="PRODUCTOR" value="<?php echo $PRODUCTOR; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="ID PLANTA2" id="PLANTA2" name="PLANTA2" value="<?php echo $PLANTA2; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID BODEGA" id="BODEGA" name="BODEGA" value="<?php echo $BODEGA; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="ID PROVEEDOR" id="PROVEEDOR" name="PROVEEDOR" value="<?php echo $PROVEEDOR; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID TRECEPCION" id="TRECEPCION" name="TRECEPCION" value="<?php echo $TRECEPCION; ?>" />
 
 
