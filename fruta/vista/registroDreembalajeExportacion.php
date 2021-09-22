@@ -141,125 +141,9 @@ include_once "../config/validarDatosUrlD.php";
 
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-    if (isset($_REQUEST['FOLIOMANUAL'])) {
-        $FOLIOMANUAL = $_REQUEST['FOLIOMANUAL'];
-    }
-    if ($FOLIOMANUAL == "on") {
-        $NUMEROFOLIODEXPORTACION = $_REQUEST['NUMEROFOLIODEXPORTACION'];
-        $FOLIOMANUALR = "1";
-        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
-        if ($ARRAYFOLIOPOEXPO) {
-            $SINO = "1";
-            $MENSAJE = "EL FOLIO INGRESADO, YA EXISTE";
-        } else {
-            $SINO = "0";
-            $MENSAJE = "";
-        }
-    }
-    if ($FOLIOMANUAL != "on") {
-        $FOLIOMANUALR = "0";
-        $SINO = "0";
-        $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolio($FOLIO);
-        if ($ARRAYULTIMOFOLIO) {
-            if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
-                $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-            } else {
-                $FOLIOEXPORTACION = $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
-            }
-        } else {
-            $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-        }
-        $NUMEROFOLIODEXPORTACION = $FOLIOEXPORTACION + 1;
-        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
 
-        while (count($ARRAYFOLIOPOEXPO) == 1) {
-            $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
-            if (count($ARRAYFOLIOPOEXPO) == 1) {
-                $NUMEROFOLIODEXPORTACION += 1;
-            }
-        };
-    }
-    $FOLIOALIASESTACTICO = $NUMEROFOLIODEXPORTACION + 1;
-    $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-        "_TIPO_FOLIO:PRODUCTO TERMINADO_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODEXPORTACION;
 
-    $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['ESTANDAR']);
-    if ($ARRAYVERESTANDAR) {
-        $CANTIDADENVASE = $_REQUEST['CANTIDADENVASE'];
-        $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
-        $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
 
-        $EMBOLSADO = $ARRAYVERESTANDAR[0]['EMBOLSADO'];
-        $TEMBALAJE = $ARRAYVERESTANDAR[0]['ID_TEMBALAJE'];
-        $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
-        $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
-        $KILOSNETODRECEPCION = $CANTIDADENVASE * $PESONETOEESTANDAR;
-        $KILOSDESHIDRATACION = $KILOSNETODRECEPCION * (1 + ($PDESHIDRATACIONEESTANDAR / 100));
-        $KILOSBRUTORECEPCION = (($CANTIDADENVASE * $PESOENVASEESTANDAR) + $KILOSDESHIDRATACION) + $PESOPALLETEESTANDAR;
-    }
-
-    if ($SINO == "0") {
-        $DREXPORTACION->__SET('FOLIO_DREXPORTACION', $NUMEROFOLIODEXPORTACION);
-        $DREXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-        $DREXPORTACION->__SET('FECHA_EMBALADO_DREXPORTACION', $_REQUEST['FECHAEMBALADO']);
-        $DREXPORTACION->__SET('CANTIDAD_ENVASE_DREXPORTACION', $_REQUEST['CANTIDADENVASE']);
-
-        $DREXPORTACION->__SET('KILOS_NETO_DREXPORTACION', $KILOSNETODRECEPCION);
-        $DREXPORTACION->__SET('PDESHIDRATACION_DREXPORTACION', $PDESHIDRATACIONEESTANDAR);
-        $DREXPORTACION->__SET('KILOS_DESHIDRATACION_DREXPORTACION', $KILOSDESHIDRATACION);
-        $DREXPORTACION->__SET('KILOS_BRUTO_DREXPORTACION', $KILOSBRUTORECEPCION);
-
-        $DREXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
-        $DREXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
-        $DREXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-        $DREXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
-        $DREXPORTACION->__SET('ID_FOLIO', $FOLIO);
-        $DREXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-        $DREXPORTACION->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
-        $DREXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        $DREXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $DREXPORTACION_ADO->agregarDrexportacion($DREXPORTACION);
-
-        $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $NUMEROFOLIODEXPORTACION);
-        $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODEXPORTACION);
-        $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-        $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADO']);
-        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASE']);
-
-        $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
-        $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHIDRATACIONEESTANDAR);
-        $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACION);
-        $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
-
-        $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $FOLIOALIASDIANAMICO);
-        $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $FOLIOALIASESTACTICO);
-        $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $_REQUEST['FECHAREEMBALAJE']);
-        $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
-        $EXIEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
-        $EXIEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
-        $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-        $EXIEXPORTACION->__SET('ID_FOLIO',  $FOLIO);
-        $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-        $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-        $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $EXIEXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIEXPORTACION_ADO->agregarExiexportacionReembalaje($EXIEXPORTACION);
-
-        //REDIRECCIONAR A PAGINA registroProceso.php 
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-    }
-}
 if (isset($_REQUEST['EDITAR'])) {
 
     $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['ESTANDAR']);
@@ -963,54 +847,34 @@ if ($_POST) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Kilos Exportacion</label>
-                                                <input type="text" class="form-control" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEXV; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Kilos Industrial</label>
-                                                <input type="text" class="form-control" placeholder="TOTAL NETO" id="TOTALNETOINDV" name="TOTALNETOINDV" value="<?php echo $TOTALNETOINDV; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Diferencia Kilos</label>
-                                                <input type="text" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
                                     <label id=" val_mensaje" class="validacion"><?php echo $MENSAJEELIMINAR; ?> </label>
                                     <!-- /.row -->
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                            <i class="ti-back-left "></i>
+                                        <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                            <i class="ti-back-left "></i> Cancelar
                                         </button>
                                         <?php if ($OP == "") { ?>
-                                            <button type="submit" class="btn btn-rounded btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Crear
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
                                             <?php if ($OP == "crear") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i>
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Crear
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i>
+                                                <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Editar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "eliminar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
-                                                    <i class="ti-trash"></i>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                    <i class="ti-trash"></i> Eliminar
                                                 </button>
                                             <?php } ?>
                                         <?php } ?>
@@ -1028,6 +892,159 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: true,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'info',
+                title: 'Informacion de reembalaje',
+                html:"Kilo Exportacion: <?php echo $TOTALDESHIDRATACIONEXV; ?> <br> Kg. Industrial: <?php echo $TOTALNETOINDV;?> <br> Diferencia Kg.: <?php echo $DIFERENCIAKILOSNETOEXPO;?>"
+            })
+        </script>
+
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+                $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+                if (isset($_REQUEST['FOLIOMANUAL'])) {
+                    $FOLIOMANUAL = $_REQUEST['FOLIOMANUAL'];
+                }
+                if ($FOLIOMANUAL == "on") {
+                    $NUMEROFOLIODEXPORTACION = $_REQUEST['NUMEROFOLIODEXPORTACION'];
+                    $FOLIOMANUALR = "1";
+                    $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
+                    if ($ARRAYFOLIOPOEXPO) {
+                        $SINO = "1";
+                        $MENSAJE = "EL FOLIO INGRESADO, YA EXISTE";
+                    } else {
+                        $SINO = "0";
+                        $MENSAJE = "";
+                    }
+                }
+                if ($FOLIOMANUAL != "on") {
+                    $FOLIOMANUALR = "0";
+                    $SINO = "0";
+                    $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolio($FOLIO);
+                    if ($ARRAYULTIMOFOLIO) {
+                        if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
+                            $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                        } else {
+                            $FOLIOEXPORTACION = $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
+                        }
+                    } else {
+                        $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                    }
+                    $NUMEROFOLIODEXPORTACION = $FOLIOEXPORTACION + 1;
+                    $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
+
+                    while (count($ARRAYFOLIOPOEXPO) == 1) {
+                        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
+                        if (count($ARRAYFOLIOPOEXPO) == 1) {
+                            $NUMEROFOLIODEXPORTACION += 1;
+                        }
+                    };
+                }
+                $FOLIOALIASESTACTICO = $NUMEROFOLIODEXPORTACION + 1;
+                $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                    "_TIPO_FOLIO:PRODUCTO TERMINADO_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODEXPORTACION;
+
+                $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['ESTANDAR']);
+                if ($ARRAYVERESTANDAR) {
+                    $CANTIDADENVASE = $_REQUEST['CANTIDADENVASE'];
+                    $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                    $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+
+                    $EMBOLSADO = $ARRAYVERESTANDAR[0]['EMBOLSADO'];
+                    $TEMBALAJE = $ARRAYVERESTANDAR[0]['ID_TEMBALAJE'];
+                    $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                    $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                    $KILOSNETODRECEPCION = $CANTIDADENVASE * $PESONETOEESTANDAR;
+                    $KILOSDESHIDRATACION = $KILOSNETODRECEPCION * (1 + ($PDESHIDRATACIONEESTANDAR / 100));
+                    $KILOSBRUTORECEPCION = (($CANTIDADENVASE * $PESOENVASEESTANDAR) + $KILOSDESHIDRATACION) + $PESOPALLETEESTANDAR;
+                }
+
+                if ($SINO == "0") {
+                    $DREXPORTACION->__SET('FOLIO_DREXPORTACION', $NUMEROFOLIODEXPORTACION);
+                    $DREXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                    $DREXPORTACION->__SET('FECHA_EMBALADO_DREXPORTACION', $_REQUEST['FECHAEMBALADO']);
+                    $DREXPORTACION->__SET('CANTIDAD_ENVASE_DREXPORTACION', $_REQUEST['CANTIDADENVASE']);
+
+                    $DREXPORTACION->__SET('KILOS_NETO_DREXPORTACION', $KILOSNETODRECEPCION);
+                    $DREXPORTACION->__SET('PDESHIDRATACION_DREXPORTACION', $PDESHIDRATACIONEESTANDAR);
+                    $DREXPORTACION->__SET('KILOS_DESHIDRATACION_DREXPORTACION', $KILOSDESHIDRATACION);
+                    $DREXPORTACION->__SET('KILOS_BRUTO_DREXPORTACION', $KILOSBRUTORECEPCION);
+
+                    $DREXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+                    $DREXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
+                    $DREXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                    $DREXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
+                    $DREXPORTACION->__SET('ID_FOLIO', $FOLIO);
+                    $DREXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                    $DREXPORTACION->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
+                    $DREXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $DREXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $DREXPORTACION_ADO->agregarDrexportacion($DREXPORTACION);
+
+                    $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $NUMEROFOLIODEXPORTACION);
+                    $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODEXPORTACION);
+                    $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                    $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADO']);
+                    $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASE']);
+
+                    $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
+                    $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHIDRATACIONEESTANDAR);
+                    $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACION);
+                    $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
+
+                    $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $FOLIOALIASDIANAMICO);
+                    $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $FOLIOALIASESTACTICO);
+                    $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $_REQUEST['FECHAREEMBALAJE']);
+                    $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+                    $EXIEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
+                    $EXIEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
+                    $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                    $EXIEXPORTACION->__SET('ID_FOLIO',  $FOLIO);
+                    $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                    $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $EXIEXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $EXIEXPORTACION_ADO->agregarExiexportacionReembalaje($EXIEXPORTACION);
+
+                    //REDIRECCIONAR A PAGINA registroProceso.php
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo
+                    '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Detalle agregado",
+                            text:"Se ha agregado el detalle correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                            location.href ="'. $_REQUEST['URLO'] .'.php?op";
+                            }
+                        })
+                    </script>';
+                }
+            }
+        ?>
 </body>
 
 </html>
