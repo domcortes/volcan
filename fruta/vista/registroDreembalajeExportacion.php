@@ -740,9 +740,13 @@ if ($_POST) {
                                                 <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
 
                                                 <input type="hidden" id="NUMEROFOLIODEXPORTACIONE" name="NUMEROFOLIODEXPORTACIONE" value="<?php echo $NUMEROFOLIODEXPORTACION; ?>" />
-                                                <input type="number" class="form-control" placeholder="Numero Folio " id="NUMEROFOLIODEXPORTACION" name="NUMEROFOLIODEXPORTACION" <?php echo $DISABLED2; ?> <?php echo $DISABLEDSTYLE2; ?> <?php if ($FOLIOMANUAL != "on") {
-                                                                                                                                                                                                                                                echo "required disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                            } ?> value="<?php echo $NUMEROFOLIODEXPORTACION; ?>" />
+                                                <input type="number" class="form-control" placeholder="Numero Folio " id="NUMEROFOLIODEXPORTACION" name="NUMEROFOLIODEXPORTACION"
+                                                    <?php echo $DISABLED2; ?>
+                                                    <?php echo $DISABLEDSTYLE2; ?>
+                                                    <?php if ($FOLIOMANUAL != "on") {
+                                                        echo "required disabled style='background-color: #eeeeee;'";
+                                                    } ?>
+                                                    value="<?php echo $NUMEROFOLIODEXPORTACION; ?>" />
                                                 <label id="val_folio" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                             </div>
                                         </div>
