@@ -126,7 +126,7 @@ include_once "../config/datosUrLP.php";
                 function refrescar() {
                     document.getElementById("form_reg_dato").submit();
                 }*/
-        
+
                 //FUNCION PARA ABRIR UNA NUEVA PESTAÑA 
                 function abrirPestana(url) {
                     var win = window.open(url, '_blank');
@@ -207,7 +207,6 @@ include_once "../config/datosUrLP.php";
                                                     <th>Especies </th>
                                                     <th>Tipo Etiqueta </th>
                                                     <th>Tipo Embalaje </th>
-                                                    <th>Mercado </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                     <th>Empresa </th>
@@ -216,135 +215,121 @@ include_once "../config/datosUrLP.php";
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYFICHA as $r) : ?>
+                                                    <?php
+                                                    $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                    if ($ARRAYESTANDAR) {
+                                                        $NOMBRESTANDAR = $ARRAYESTANDAR[0]["CODIGO_ESTANDAR"] . ":" . $ARRAYESTANDAR[0]["NOMBRE_ESTANDAR"];
+                                                        $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+                                                        $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+                                                        $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
+                                                        $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
+                                                        $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
+                                                        $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+                                                        $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
+                                                        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
+                                                        $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
+                                                        $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+
+                                                        if ($ARRAYTETIQUETA) {
+                                                            $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
+                                                        } else {
+                                                            $NOMBRETETIQUETA = "Sin Datos";
+                                                        }
+                                                        if ($ARRAYTEMBALAJE) {
+                                                            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]["NOMBRE_TEMBALAJE"];
+                                                        } else {
+                                                            $NOMBRETEMBALAJE = "Sin Datos";
+                                                        }
+                                                        if ($ARRAYMERCADO) {
+                                                            $NOMBREMERCADO = $ARRAYMERCADO[0]["NOMBRE_MERCADO"];
+                                                        } else {
+                                                            $NOMBREMERCADO = "Sin Datos";
+                                                        }
+                                                        if ($ARRAYESPECIES) {
+                                                            $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
+                                                        } else {
+                                                            $NOMBREESPECIES = "Sin Datos";
+                                                        }
+                                                        if ($ARRAYESTANDARCOMERCIAL) {
+                                                            $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["CODIGO_ECOMERCIAL"] . ":" . $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                                                        } else {
+                                                            $NOMBREESTANDARCOMERCIAL = "Sin Datos";
+                                                        }
+                                                    } else {
+                                                        $NOMBRESTANDAR = "Sin Datos";
+                                                    }
+
+                                                    $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                    if ($ARRAYVEREMPRESA) {
+                                                        $NOMBREEMPRESA = $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    } else {
+                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    if ($ARRAYVERTEMPORADA) {
+                                                        $NOMBRETEMPORADA = $ARRAYVERTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    } else {
+                                                        $NOMBRETEMPORADA = "Sin Datos";
+                                                    }
+                                                    ?>
                                                     <tr>
+                                                        <td> <?php echo $r['NUMERO_FICHA']; ?> </td>
                                                         <td>
-                                                            <a href="#" class="text-warning hover-warning">
-                                                                <?php echo $r['NUMERO_FICHA']; ?>
-                                                            </a>
+                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
+                                                            <?php  }  ?>
+                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
+                                                            <?php  }  ?>
                                                         </td>
-                                                        <td class="text-center" <?php if ($r['ESTADO'] == "0") {
-                                                                                    echo "style='background-color: #FF0000;'";
-                                                                                }
-                                                                                if ($r['ESTADO'] == "1") {
-                                                                                    echo "style='background-color: #4AF575;'";
-                                                                                }  ?>>
-                                                            <?php
-                                                            if ($r['ESTADO'] == "0") {
-                                                                echo "Cerrado";
-                                                            }
-                                                            if ($r['ESTADO'] == "1") {
-                                                                echo "Abierto";
-                                                            }
-                                                            ?>
-                                                        </td>
+
+                                                        
                                                         <td class="text-center">
-                                                            <div class="list-icons d-inline-flex">
-                                                                <div class="list-icons-item dropdown">
-                                                                    <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                        <i class="glyphicon glyphicon-cog"></i>
-                                                                    </a>
-                                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                                        <form method="post" id="form1">
+                                                            <form method="post" id="form1">
+                                                                <div class="list-icons d-inline-flex">
+                                                                    <div class="list-icons-item dropdown">
+                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                                        </button>
+                                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_FICHA']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroFicha" />
                                                                             <input type="hidden" class="form-control" placeholder="URLO" id="URLO" name="URLO" value="listarFicha" />
-                                                                            <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL" <?php if ($r['ESTADO'] == "1") {
-                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                } ?>>
-                                                                                <i class="ti-eye"></i>
-                                                                            </button>Ver
-                                                                            <br>
-                                                                            <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL" <?php if ($r['ESTADO'] == "0") {
-                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                        } ?>>
-                                                                                <i class="ti-pencil-alt"></i>
-                                                                            </button>Editar
-                                                                        </form>
-                                                                        <button type="button" class="btn btn-rounded  btn-danger btn-outline btn-sm" id="defecto" name="informe" title="Ficha" Onclick="abrirPestana('../documento/informeFicha.php?parametro=<?php echo $r['ID_FICHA']; ?>'); ">
-                                                                            <i class="fa fa-file-pdf-o"></i>
-                                                                        </button>Ficha 
+                                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeFicha.php?parametro=<?php echo $r['ID_FICHA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </form>
                                                         </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                            if ($ARRAYESTANDAR) {
-                                                                echo $ARRAYESTANDAR[0]['CODIGO_ESTANDAR'] . ":" . $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
-                                                                $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-                                                                $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-                                                                $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-                                                                $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-                                                                $MERCADO = $ARRAYESTANDAR[0]["ID_MERCADO"];
-                                                                $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-                                                                $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
-                                                                $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
-                                                                $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
-                                                                $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
-                                                                $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-                                                                $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
-
-                                                                if ($ARRAYTETIQUETA) {
-                                                                    $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
-                                                                } else {
-                                                                    $NOMBRETETIQUETA = "Sin Datos";
-                                                                }
-                                                                if ($ARRAYTEMBALAJE) {
-                                                                    $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]["NOMBRE_TEMBALAJE"];
-                                                                } else {
-                                                                    $NOMBRETEMBALAJE = "Sin Datos";
-                                                                }
-                                                                if ($ARRAYMERCADO) {
-                                                                    $NOMBREMERCADO = $ARRAYMERCADO[0]["NOMBRE_MERCADO"];
-                                                                } else {
-                                                                    $NOMBREMERCADO = "Sin Datos";
-                                                                }
-                                                                if ($ARRAYESPECIES) {
-                                                                    $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
-                                                                } else {
-                                                                    $NOMBREESPECIES = "Sin Datos";
-                                                                }
-                                                                if ($ARRAYESTANDARCOMERCIAL) {
-                                                                    $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["CODIGO_ECOMERCIAL"] . ":" . $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
-                                                                } else {
-                                                                    $NOMBREESTANDARCOMERCIAL = "Sin Datos";
-                                                                }
-                                                            } else {
-                                                                echo "Sin Datos";
-                                                            }
-
-
-                                                            ?>
-                                                        </td>
+                                                        <td> <?php echo $NOMBRESTANDAR; ?></td>
                                                         <td> <?php echo $NOMBREESTANDARCOMERCIAL; ?></td>
                                                         <td> <?php echo $NOMBREESPECIES; ?></td>
                                                         <td> <?php echo $NOMBRETETIQUETA; ?>
                                                         <td> <?php echo $NOMBRETEMBALAJE; ?>
-                                                        <td> <?php echo $NOMBREMERCADO; ?>
-                                                        <td><?php echo $r['INGRESOF']; ?></td>
-                                                        <td><?php echo $r['MODIFICACIONF']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                            if ($ARRAYVEREMPRESA) {
-                                                                echo $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA'];
-                                                            } else {
-                                                                echo "Sin Datos";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
-                                                            if ($ARRAYVERTEMPORADA) {
-                                                                echo $ARRAYVERTEMPORADA[0]['NOMBRE_TEMPORADA'];
-                                                            } else {
-                                                                echo "Sin Datos";
-                                                            }
-                                                            ?>
-                                                        </td>
-
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td> <?php echo $NOMBRETEMPORADA; ?>
+                                                        <td> <?php echo $NOMBRETEMPORADA; ?>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -352,11 +337,13 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-footer">
-                               
-                            </div>
+
                         </div>
-                        <!-- /.box -->
+                        <div class="box-footer">
+
+                        </div>
+                    </div>
+                    <!-- /.box -->
 
                 </section>
                 <!-- /.content -->

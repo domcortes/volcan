@@ -471,185 +471,150 @@ if (isset($_POST)) {
                                         -->
                                 </div>
                                 <div class="box-body ">
-                                    <div class="row">
-                                        <div class="col-sm-4 col-12">
-                                            <label>Producto</label>
-                                            <input type="hidden" class="form-control" placeholder="ID DFICHA" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID FICHA" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
+                                    <div class="row">  
+                                        <div class=" col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Producto</label>
+                                                <input type="hidden" class="form-control" placeholder="ID DFICHA" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID FICHA" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
 
-                                            <input type="hidden" class="form-control" placeholder="PRODUCTOE" id="PRODUCTOE" name="PRODUCTOE" value="<?php echo $PRODUCTO; ?>" />
-                                            <select class="form-control select2" id="PRODUCTO" name="PRODUCTO" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?>>
-                                                <option></option>
-                                                <?php foreach ($ARRAYPRODUCTO as $r) : ?>
-                                                    <?php if ($ARRAYPRODUCTO) {    ?>
-                                                        <option value="<?php echo $r['ID_PRODUCTO']; ?>" <?php if ($PRODUCTO == $r['ID_PRODUCTO']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_PRODUCTO'] ?> </option>
-                                                    <?php } else { ?>
-                                                        <option>No Hay Datos Registrados </option>
-                                                    <?php } ?>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <label id="val_producto" class="validacion"> </label>
+                                                <input type="hidden" class="form-control" placeholder="PRODUCTOE" id="PRODUCTOE" name="PRODUCTOE" value="<?php echo $PRODUCTO; ?>" />
+                                                <select class="form-control select2" id="PRODUCTO" name="PRODUCTO" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYPRODUCTO as $r) : ?>
+                                                        <?php if ($ARRAYPRODUCTO) {    ?>
+                                                            <option value="<?php echo $r['ID_PRODUCTO']; ?>" <?php if ($PRODUCTO == $r['ID_PRODUCTO']) {
+                                                                                                                    echo "selected";
+                                                                                                                } ?>> <?php echo $r['NOMBRE_PRODUCTO'] ?> </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_producto" class="validacion"> </label>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Familia</label>
-                                            <input type="hidden" class="form-control" placeholder="FAMILIA" id="FAMILIA" name="FAMILIA" value="<?php echo $FAMILIA; ?>" />
-                                            <input type="text" class="form-control" placeholder="Familia" id="FAMILIAV" name="FAMILIAV" value="<?php echo $FAMILIAV; ?>" disabled />
-                                            <label id="val_familia" class="validacion"> </label>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Familia</label>
+                                                <input type="hidden" class="form-control" placeholder="FAMILIA" id="FAMILIA" name="FAMILIA" value="<?php echo $FAMILIA; ?>" />
+                                                <input type="text" class="form-control" placeholder="Familia" id="FAMILIAV" name="FAMILIAV" value="<?php echo $FAMILIAV; ?>" disabled />
+                                                <label id="val_familia" class="validacion"> </label>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Sub Familia</label>
-                                            <input type="hidden" class="form-control" placeholder="SUBFAMILIA" id="SUBFAMILIA" name="PRODUCTOE" value="<?php echo $SUBFAMILIA; ?>" />
-                                            <input type="text" class="form-control" placeholder="Sub Familia" id="SUBFAMILIAV" name="SUBFAMILIAV" value="<?php echo $SUBFAMILIAV; ?>" disabled />
-                                            <label id="val_subfamilia" class="validacion"> </label>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Sub Familia</label>
+                                                <input type="hidden" class="form-control" placeholder="SUBFAMILIA" id="SUBFAMILIA" name="PRODUCTOE" value="<?php echo $SUBFAMILIA; ?>" />
+                                                <input type="text" class="form-control" placeholder="Sub Familia" id="SUBFAMILIAV" name="SUBFAMILIAV" value="<?php echo $SUBFAMILIAV; ?>" disabled />
+                                                <label id="val_subfamilia" class="validacion"> </label>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Unidad Medida </label>
-                                            <input type="hidden" class="form-control" placeholder="TUMEDIDA" id="TUMEDIDA" name="TUMEDIDA" value="<?php echo $TUMEDIDA; ?>" />
-                                            <input type="text" class="form-control" placeholder="Unidad Medida" id="TUMEDIDAV" name="TUMEDIDAV" value="<?php echo $TUMEDIDAV; ?>" disabled />
-                                            <label id="val_umedida" class="validacion"> </label>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Unidad Medida </label>
+                                                <input type="hidden" class="form-control" placeholder="TUMEDIDA" id="TUMEDIDA" name="TUMEDIDA" value="<?php echo $TUMEDIDA; ?>" />
+                                                <input type="text" class="form-control" placeholder="Unidad Medida" id="TUMEDIDAV" name="TUMEDIDAV" value="<?php echo $TUMEDIDAV; ?>" disabled />
+                                                <label id="val_umedida" class="validacion"> </label>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Factor Consumo </label>
-                                            <input type="hidden" class="form-control" placeholder="FACTORCONSUMOE" id="FACTORCONSUMOE" name="FACTORCONSUMOE" value="<?php echo $FACTORCONSUMO; ?>" />
-                                            <input type="number" step="0.01" class="form-control" placeholder="Factor Consumo" onchange="this.form.submit()" id="FACTORCONSUMO" name="FACTORCONSUMO" value="<?php echo $FACTORCONSUMO; ?>"  <?php echo $DISABLED; ?>/>
-                                            <label id="val_fconsumo" class="validacion"> </label>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Factor Consumo </label>
+                                                <input type="hidden" class="form-control" placeholder="FACTORCONSUMOE" id="FACTORCONSUMOE" name="FACTORCONSUMOE" value="<?php echo $FACTORCONSUMO; ?>" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Factor Consumo" onchange="this.form.submit()" id="FACTORCONSUMO" name="FACTORCONSUMO" value="<?php echo $FACTORCONSUMO; ?>" <?php echo $DISABLED; ?> />
+                                                <label id="val_fconsumo" class="validacion"> </label>
+                                            </div>
                                         </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Consumo Por Envase </label>
+                                                <input type="hidden" class="form-control" placeholder="CONSUMOPORENVASE" id="CONSUMOPORENVASE" name="CONSUMOPORENVASE" value="<?php echo $CONSUMOPORENVASE; ?>" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Envase" id="CONSUMOPORENVASEV" name="CONSUMOPORENVASEV" value="<?php echo $CONSUMOPORENVASE; ?>" disabled />
+                                                <label id="val_consumocaja" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Envase Estandar</label>
+                                                <input type="hidden" class="form-control" placeholder="ENVASEESTANDAR" id="ENVASEESTANDAR" name="ENVASEESTANDAR" value="<?php echo $ENVASEESTANDAR; ?>" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Envase Estandar" id="ENVASEESTANDARV" name="ENVASEESTANDARV" value="<?php echo $ENVASEESTANDAR; ?>" disabled />
+                                                <label id="val_envaseestandar" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Consumo Por Pallet </label>
+                                                <input type="hidden" class="form-control" placeholder="CONSUMOPORPALLET" id="CONSUMOPORPALLET" name="CONSUMOPORPALLET" value="<?php echo $CONSUMOPORPALLET; ?>" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Pallet" id="CONSUMOPORPALLETV" name="CONSUMOPORPALLETV" value="<?php echo $CONSUMOPORPALLET; ?>" disabled />
+                                                <label id="val_consumopallet" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Pallet Por Carga </label>
+                                                <input type="hidden" class="form-control" placeholder="PALLETCARGAE" id="PALLETCARGAE" name="PALLETCARGAE" value="<?php echo $PALLETCARGA; ?>" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Factor Consumo" onchange="this.form.submit()" id="PALLETCARGA" name="PALLETCARGA" value="<?php echo $PALLETCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                <label id="val_palletcarga" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Consumo Por Contenedor </label>
+                                                <input type="hidden" class="form-control" placeholder="CONSUMOPORPALLET" id="CONSUMOCONTENEDOR" name="CONSUMOCONTENEDOR" value="<?php echo $CONSUMOCONTENEDOR; ?>" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Pallet" id="CONSUMOCONTENEDORV" name="CONSUMOCONTENEDORV" value="<?php echo $CONSUMOCONTENEDOR; ?>" disabled />
+                                                <label id="val_consumocontenedor" class="validacion"> </label>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-2 col-12">
-                                            <label>Consumo Por Envase </label>
-                                            <input type="hidden" class="form-control" placeholder="CONSUMOPORENVASE" id="CONSUMOPORENVASE" name="CONSUMOPORENVASE" value="<?php echo $CONSUMOPORENVASE; ?>" />
-                                            <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Envase" id="CONSUMOPORENVASEV" name="CONSUMOPORENVASEV" value="<?php echo $CONSUMOPORENVASE; ?>" disabled />
-                                            <label id="val_consumocaja" class="validacion"> </label>
-                                        </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Envase Estandar</label>
-                                            <input type="hidden" class="form-control" placeholder="ENVASEESTANDAR" id="ENVASEESTANDAR" name="ENVASEESTANDAR" value="<?php echo $ENVASEESTANDAR; ?>" />
-                                            <input type="number" step="0.01" class="form-control" placeholder="Envase Estandar" id="ENVASEESTANDARV" name="ENVASEESTANDARV" value="<?php echo $ENVASEESTANDAR; ?>" disabled />
-                                            <label id="val_envaseestandar" class="validacion"> </label>
-                                        </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Consumo Por Pallet </label>
-                                            <input type="hidden" class="form-control" placeholder="CONSUMOPORPALLET" id="CONSUMOPORPALLET" name="CONSUMOPORPALLET" value="<?php echo $CONSUMOPORPALLET; ?>" />
-                                            <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Pallet" id="CONSUMOPORPALLETV" name="CONSUMOPORPALLETV" value="<?php echo $CONSUMOPORPALLET; ?>" disabled />
-                                            <label id="val_consumopallet" class="validacion"> </label>
-                                        </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Pallet Por Carga </label>
-                                            <input type="hidden" class="form-control" placeholder="PALLETCARGAE" id="PALLETCARGAE" name="PALLETCARGAE" value="<?php echo $PALLETCARGA; ?>" />
-                                            <input type="number" step="0.01" class="form-control" placeholder="Factor Consumo" onchange="this.form.submit()" id="PALLETCARGA" name="PALLETCARGA" value="<?php echo $PALLETCARGA; ?>" <?php echo $DISABLED; ?> />
-                                            <label id="val_palletcarga" class="validacion"> </label>
-                                        </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Consumo Por Contenedor </label>
-                                            <input type="hidden" class="form-control" placeholder="CONSUMOPORPALLET" id="CONSUMOCONTENEDOR" name="CONSUMOCONTENEDOR" value="<?php echo $CONSUMOCONTENEDOR; ?>" />
-                                            <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Pallet" id="CONSUMOCONTENEDORV" name="CONSUMOCONTENEDORV" value="<?php echo $CONSUMOCONTENEDOR; ?>" disabled />
-                                            <label id="val_consumocontenedor" class="validacion"> </label>
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Requerimientos Especiales </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="DESCRIPCIONE" name="DESCRIPCIONE" value="<?php echo $DESCRIPCION; ?>" />
-                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciones u Otro" id="DESCRIPCION" name="DESCRIPCION" <?php echo $DISABLED; ?> ><?php echo $DESCRIPCION; ?></textarea>
+                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciones u Otro" id="DESCRIPCION" name="DESCRIPCION" <?php echo $DISABLED; ?>><?php echo $DESCRIPCION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>
                                     </div>
+                                    <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
                                 </div>
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
-                                    <table class="table ">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <?php if ($ESTADO == 0) { ?>
-                                                        <?php if ($OP == "crear") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                                <i class="ti-back-left "></i> Volver
-                                                            </button>
-                                                        <?php } ?>
-                                                        <?php if ($OP == "") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                                <i class="ti-back-left "></i> Volver
-                                                            </button>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                    <?php if ($ESTADO != 0) { ?>
-                                                        <?php if ($OP == "crear") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                                <i class="ti-back-left "></i> Volver
-                                                            </button>
-                                                        <?php } ?>
-                                                        <?php if ($OP == "") { ?>
-                                                            <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                                <i class="ti-back-left "></i> Volver
-                                                            </button>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                            <i class="ti-back-left "></i> Volver
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                            <i class="ti-back-left "></i> Volver
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "eliminar") { ?>
-                                                        <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                            <i class="ti-back-left "></i> Volver
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "eliminar") { ?>
-                                                        <button type=" " class="btn btn-rounded btn-danger btn-outline " name="ELIMINAR" value="ELIMINAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-back-left "></i> Eliminar
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                            <i class="ti-save-alt"></i> Agregar
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "crear") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="CREAR" value="CREAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> Agregar
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> Guardar
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                    } ?>>
-                                                            <i class="ti-save-alt"></i> Guardar
-                                                        </button>
-                                                    <?php }   ?>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="btn-group  col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                            <i class="ti-back-left "></i> Volver
+                                        </button>
+                                        <?php if ($OP == "") { ?>
+                                            <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Agregar
+                                            </button>
+                                        <?php } ?>
+                                        <?php if ($OP != "") { ?>
+                                            <?php if ($OP == "crear") { ?>
+                                                <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Duplicar
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP == "editar") { ?>
+                                                <button type="submit" class="btn  btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Editar
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP == "eliminar") { ?>
+                                                <button type="submit" class="btn  btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                    <i class="ti-trash"></i> Eliminar
+                                                </button>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </div>
                                 </div>
                             </div>
                         </form>

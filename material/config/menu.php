@@ -407,8 +407,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarInventariomRecepcion.php">Inventario Materiales<i class="ti-more"></i></a></li>
           <li><a href="listarInventarioeRecepcion.php">Inventario Envases<i class="ti-more"></i></a></li>
         </ul>
-      </li>
-      <!--
+      </li>    
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/reports.svg" class="svg-icon" alt="">
@@ -429,10 +428,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarFicha.php"> Agrupado Ficha</a></li>
             </ul>
           </li>
-          <li><a href="#">Inventario Materiales</a></li>
-          <li><a href="#">Inventario Envases</a></li>
         </ul>
-      </li>-->
+      </li>
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/invoice.svg" class="svg-icon" alt="">
