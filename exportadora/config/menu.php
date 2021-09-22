@@ -111,6 +111,11 @@
       <ul class="nav navbar-nav">
         <!-- Notifications -->
         <li class="dropdown notifications-menu">
+          <?php echo $EURO; ?>
+          <br>
+          <?php echo $DOLAR; ?>
+        </li>
+        <li class="dropdown notifications-menu">
           <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="Notifications">
             <img src="../../api/cryptioadmin10/html/images/svg-icon/notifications.svg" class="img-fluid svg-icon" alt="">
           </a>
@@ -128,7 +133,6 @@
                 </div>
               </div>
             </li>
-
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu sm-scrol">
@@ -378,15 +382,15 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Ejemplo
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#"><i class="ti-more"></i>Registro Ejemplo </a></li>
-              <li><a href="#"><i class="ti-more"></i> Agrupado Ejemplo</a></li>
+              <li><a href="#">Registro Ejemplo <i class="ti-more"></i></a></li>
+              <li><a href="#"> Agrupado Ejemplo<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="#"><i class="ti-more"></i>Ejemplo</a></li>
+          <li><a href="#">Ejemplo<i class="ti-more"></i></a></li>
         </ul>
       </li>  
       <li class="treeview">
@@ -401,12 +405,12 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Ficha Consumo
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroFicha.php"><i class="ti-more"></i>Registro Ficha </a></li>
-              <li><a href="listarFicha.php"><i class="ti-more"></i> Agrupado Ficha</a></li>
+              <li><a href="registroFicha.php">Registro Ficha <i class="ti-more"></i></a></li>
+              <li><a href="listarFicha.php"> Agrupado Ficha<i class="ti-more"></i></a></li>
             </ul>
           </li>
         </ul>
@@ -423,12 +427,12 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Inst. Carga
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroICarga.php"><i class="ti-more"></i> Registro Inst. Carga</a></li>
-              <li><a href="listarICarga.php"><i class="ti-more"></i> Agrupado Inst. Carga</a></li>
+              <li><a href="registroICarga.php"> Registro Inst. Carga<i class="ti-more"></i></a></li>
+              <li><a href="listarICarga.php"> Agrupado Inst. Carga<i class="ti-more"></i></a></li>
             </ul>
           </li>
         </ul>
@@ -442,10 +446,10 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="ti-more"></i> Existencia P. Terminado</a></li>
-          <li><a href="#"><i class="ti-more"></i> Detallado Despacho</a></li>
-          <li><a href="#"><i class="ti-more"></i> Agrupado Despacho PT</a></li>
-          <li><a href="#"><i class="ti-more"></i> Agrupado Despacho <br> Exportacion</a></li>
+          <li><a href="#"> Existencia P. Terminado <i class="ti-more"></i></a></li>
+          <li><a href="#"> Detallado Despacho <i class="ti-more"></i></a></li>
+          <li><a href="#"> Agrupado Despacho PT <i class="ti-more"></i></a></li>
+          <li><a href="#"> Agrupado Despacho Exportacion <i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="header">Configuraciones</li>
@@ -461,186 +465,184 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li class="treeview">
             <a href="#">Fruta
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroEspecies.php"><i class="ti-more"></i>Especies</a></li>
-              <li><a href="registroTetiqueta.php"><i class="ti-more"></i>Etiqueta</a></li>
-              <li><a href="registroTembalaje.php"><i class="ti-more"></i>Embalaje</a></li>
-              <li><a href="registroTcalibre.php"><i class="ti-more"></i>Calibre</a></li>
+              <li><a href="registroEspecies.php">Especies<i class="ti-more"></i></a></li>
+              <li><a href="registroTetiqueta.php">Etiqueta<i class="ti-more"></i></a></li>
+              <li><a href="registroTembalaje.php">Embalaje<i class="ti-more"></i></a></li>
+              <li><a href="registroTcalibre.php">Calibre<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
             <a href="#">Ubicacion
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroCiudad.php"><i class="ti-more"></i>Ciudad</a></li>
-              <li><a href="registroComuna.php"><i class="ti-more"></i>Comuna</a></li>
-              <li><a href="registroProvincia.php"><i class="ti-more"></i>Provincia</a></li>
-              <li><a href="registroRegion.php"><i class="ti-more"></i>Region</a></li>
-              <li><a href="registroPais.php"><i class="ti-more"></i>Pais</a></li>
+              <li><a href="registroCiudad.php">Ciudad<i class="ti-more"></i></a></li>
+              <li><a href="registroComuna.php">Comuna<i class="ti-more"></i></a></li>
+              <li><a href="registroProvincia.php">Provincia<i class="ti-more"></i></a></li>
+              <li><a href="registroRegion.php">Region<i class="ti-more"></i></a></li>
+              <li><a href="registroPais.php">Pais<i class="ti-more"></i></a></li>
               <li class="treeview">
                 <a href="#">Destino
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroLdestino.php"><i class="ti-more"></i>Lugar Destino</a></li>
-                  <li><a href="registroPdestino.php"><i class="ti-more"></i>Puerto Destino </a></li>
-                  <li><a href="registroAdestino.php"><i class="ti-more"></i>Aeropuerto Destino </a></li>
+                  <li><a href="registroLdestino.php">Lugar Destino<i class="ti-more"></i></a></li>
+                  <li><a href="registroPdestino.php">Puerto Destino<i class="ti-more"></i> </a></li>
+                  <li><a href="registroAdestino.php">Aeropuerto Destino <i class="ti-more"></i></a></li>
                 </ul>
               </li>
               <li class="treeview">
                 <a href="#">Carga
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroLcarga.php"><i class="ti-more"></i>Lugar Carga</a></li>
-                  <li><a href="registroPcarga.php"><i class="ti-more"></i>Puerto Carga </a></li>
-                  <li><a href="registroAcarga.php"><i class="ti-more"></i>Aeropuerto Carga </a></li>
+                  <li><a href="registroLcarga.php">Lugar Carga<i class="ti-more"></i></a></li>
+                  <li><a href="registroPcarga.php">Puerto Carga<i class="ti-more"></i> </a></li>
+                  <li><a href="registroAcarga.php">Aeropuerto Carga <i class="ti-more"></i></a></li>
                 </ul>
               </li>
-              <li><a href="registroDfinal.php"><i class="ti-more"></i>Destino Final </a></li>
+              <li><a href="registroDfinal.php">Destino Final <i class="ti-more"></i></a></li>
             </ul>
-
           </li>
           <li class="treeview">
             <a href="#">Transporte
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#">Aereo
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroLaerea.php"><i class="ti-more"></i>Linea Area</a></li>
-                  <li><a href="registroAerolinia.php"><i class="ti-more"></i>Aerolinia</a></li>
-                  <li><a href="registroAeronave.php"><i class="ti-more"></i>Aeronave</a></li>
+                  <li><a href="registroLaerea.php">Linea Area<i class="ti-more"></i></a></li>
+                  <li><a href="registroAerolinia.php">Aerolinia<i class="ti-more"></i></a></li>
+                  <li><a href="registroAeronave.php">Aeronave<i class="ti-more"></i></a></li>
                 </ul>
               </li>
               <li class="treeview">
                 <a href="#">Maritimo
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroNaviera.php"><i class="ti-more"></i>Naviera</a></li>
-                  <li><a href="registroNave.php"><i class="ti-more"></i>Nave</a></li>
+                  <li><a href="registroNaviera.php">Naviera<i class="ti-more"></i></a></li>
+                  <li><a href="registroNave.php">Nave<i class="ti-more"></i></a></li>
                 </ul>
               </li>
               <li class="treeview">
                 <a href="#">Terrestre
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroTransporte.php"><i class="ti-more"></i>Transporte</a></li>
+                  <li><a href="registroTransporte.php">Transporte<i class="ti-more"></i></a></li>
                 </ul>
               </li>
-              <li><a href="registroConductor.php"><i class="ti-more"></i>Conductor</a></li>
+              <li><a href="registroConductor.php">Conductor<i class="ti-more"></i></a></li>
 
             </ul>
           </li>
           <li class="treeview">
             <a href="#">Estandares
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroEexportacion.php"><i class="ti-more"></i>Exportacion</a></li>
-              <li><a href="registroEcomercial.php"><i class="ti-more"></i> Comercial</a></li>
+              <li><a href="registroEexportacion.php">Exportacion<i class="ti-more"></i></a></li>
+              <li><a href="registroEcomercial.php">Expo. Comercial<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
             <a href="#">Mercado
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroMercado.php"><i class="ti-more"></i>Mercado</a></li>
-              <li><a href="registroRmercado.php"><i class="ti-more"></i>Restrinccion Mercado</a></li>
+              <li><a href="registroMercado.php">Mercado<i class="ti-more"></i></a></li>
+              <li><a href="registroRmercado.php">Restrinccion Mercado<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
             <a href="#">Instructivo
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-
               <li class="treeview">
                 <a href="#">Pago
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroFpago.php"><i class="ti-more"></i>Formato Pago</a></li>
-                  <li><a href="registroCventa.php"><i class="ti-more"></i>Clausaula Venta </a></li>
-                  <li><a href="registroMventa.php"><i class="ti-more"></i>Modalidad Venta </a></li>
+                  <li><a href="registroFpago.php">Formato Pago<i class="ti-more"></i></a></li>
+                  <li><a href="registroCventa.php">Clausaula Venta <i class="ti-more"></i></a></li>
+                  <li><a href="registroMventa.php">Modalidad Venta <i class="ti-more"></i></a></li>
                 </ul>
               </li>
-              <li><a href="registroConsignatorio.php"><i class="ti-more"></i>Consignatorio</a></li>
-              <li><a href="registroNotificador.php"><i class="ti-more"></i>Notificador </a></li>
-              <li><a href="registroBroker.php"><i class="ti-more"></i>Broker </a></li>
-              <li><a href="registroRfinal.php"><i class="ti-more"></i>Recibidor Final </a></li>
-              <li><a href="registroAaduana.php"><i class="ti-more"></i>Agente Aduana </a></li>
-              <li><a href="registroAgcarga.php"><i class="ti-more"></i>Agente Carga </a></li>
-              <li><a href="registroSeguro.php"><i class="ti-more"></i>Seguro </a></li>
+              <li><a href="registroConsignatorio.php">Consignatorio<i class="ti-more"></i></a></li>
+              <li><a href="registroNotificador.php">Notificador <i class="ti-more"></i></a></li>
+              <li><a href="registroBroker.php">Broker </a></li>
+              <li><a href="registroRfinal.php">Recibidor Final <i class="ti-more"></i></a></li>
+              <li><a href="registroAaduana.php">Agente Aduana <i class="ti-more"></i></a></li>
+              <li><a href="registroAgcarga.php">Agente Carga <i class="ti-more"></i></a></li>
+              <li><a href="registroSeguro.php">Seguro <i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
             <a href="#">Parametros
               <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right ti-more"></i>
+                <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#">Control
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroEau.php"><i class="ti-more"></i>Empresa Usuario</a></li>
+                  <li><a href="registroEau.php">Empresa Usuario<i class="ti-more"></i></a></li>
                 </ul>
               </li>
               <li class="treeview">
                 <a href="#">Tipo
                   <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right ti-more"></i>
+                    <i class=" fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="registroTflete.php"><i class="ti-more"></i>Tipo Flete</a></li>
-                  <li><a href="registroTmoneda.php"><i class="ti-more"></i>Tipo Moneda</a></li>
-                  <li><a href="registroTcontenedor.php"><i class="ti-more"></i>Tipo Contenedor</a></li>
-                  <li><a href="registroTservicio.php"><i class="ti-more"></i>Tipo Servicio</a></li>
+                  <li><a href="registroTflete.php">Tipo Flete<i class="ti-more"></i></a></li>
+                  <li><a href="registroTmoneda.php">Tipo Moneda<i class="ti-more"></i></a></li>
+                  <li><a href="registroTcontenedor.php">Tipo Contenedor<i class="ti-more"></i></a></li>
+                  <li><a href="registroTservicio.php">Tipo Servicio<i class="ti-more"></i></a></li>
                 </ul>
               </li>
-              <li><a href="registroAtmosfera.php"><i class="ti-more"></i>Atmosfera</a></li>
-              <li><a href="registroExportadora.php"><i class="ti-more"></i>Exportadora</a></li>
-              <li><a href="registroEmpresa.php"><i class="ti-more"></i>Empresa</a></li>
-              <li><a href="registroPlanta.php"><i class="ti-more"></i>Planta</a></li>
-              <li><a href="registroBodega.php"><i class="ti-more"></i>Bodega</a></li>
+              <li><a href="registroAtmosfera.php">Atmosfera<i class="ti-more"></i></a></li>
+              <li><a href="registroExportadora.php">Exportadora<i class="ti-more"></i></a></li>
+              <li><a href="registroEmpresa.php">Empresa<i class="ti-more"></i></a></li>
+              <li><a href="registroPlanta.php">Planta<i class="ti-more"></i></a></li>
+              <li><a href="registroBodega.php">Bodega<<i class="ti-more"></i>/a></li>
             </ul>
           </li>
         </ul>
@@ -654,10 +656,10 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="registroTusuario.php"><i class="ti-more"></i>Tipo Usuario</a></li>
-          <li><a href="registroUsuario.php"><i class="ti-more"></i>Usuario</a></li>
-          <li><a href="registroPtusuario.php"><i class="ti-more"></i>Privilegio Tipo Usuario</a></li>
-          <li><a href="listarAusuario.php"><i class="ti-more"></i>Actividad Usuario</a></li>
+          <li><a href="registroTusuario.php">Tipo Usuario<i class="ti-more"></i></a></li>
+          <li><a href="registroUsuario.php">Usuario<i class="ti-more"></i></a></li>
+          <li><a href="registroPtusuario.php">Privilegio Tipo Usuario<i class="ti-more"></i></a></li>
+          <li><a href="listarAusuario.php">Actividad Usuario<i class="ti-more"></i></a></li>
         </ul>
       </li>
     </ul>

@@ -263,15 +263,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_FICHA'];
             $OBSERVACION = "" . $r['OBSERVACIONES_FICHA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
-            if ($ARRAYESTANDAR) {
-                $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-                $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-                $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-                $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-                $MERCADO = $ARRAYESTANDAR[0]["ID_MERCADO"];
-                $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-                $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $ENVASEESTANDAR = $ARRAYVERESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+                $TETIQUETA = $ARRAYVERESTANDAR[0]["ID_TETIQUETA"];
+                $TEMBALAJE = $ARRAYVERESTANDAR[0]["ID_TEMBALAJE"];
+                $ESPECIES = $ARRAYVERESTANDAR[0]["ID_ESPECIES"];
+                $ESTANDARCOMERCIAL = $ARRAYVERESTANDAR[0]["ID_ECOMERCIAL"];
                 $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
@@ -284,13 +283,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 if ($ARRAYTEMBALAJE) {
                     $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]["NOMBRE_TEMBALAJE"];
                 }
-                if ($ARRAYMERCADO) {
-                    $NOMBREMERCADO = $ARRAYMERCADO[0]["NOMBRE_MERCADO"];
-                }
                 if ($ARRAYESPECIES) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
                 }
-                if ($ARRAYESTANDARCOMERCIAL) {
+                if ($ARRAYVERESTANDARCOMERCIAL) {
                     $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
                 }
             }
@@ -322,15 +318,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_FICHA'];
             $OBSERVACION = "" . $r['OBSERVACIONES_FICHA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
-            if ($ARRAYESTANDAR) {
-                $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-                $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-                $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-                $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-                $MERCADO = $ARRAYESTANDAR[0]["ID_MERCADO"];
-                $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-                $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $ENVASEESTANDAR = $ARRAYVERESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+                $TETIQUETA = $ARRAYVERESTANDAR[0]["ID_TETIQUETA"];
+                $TEMBALAJE = $ARRAYVERESTANDAR[0]["ID_TEMBALAJE"];
+                $ESPECIES = $ARRAYVERESTANDAR[0]["ID_ESPECIES"];
+                $ESTANDARCOMERCIAL = $ARRAYVERESTANDAR[0]["ID_ECOMERCIAL"];
                 $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
@@ -342,9 +337,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 }
                 if ($ARRAYTEMBALAJE) {
                     $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]["NOMBRE_TEMBALAJE"];
-                }
-                if ($ARRAYMERCADO) {
-                    $NOMBREMERCADO = $ARRAYMERCADO[0]["NOMBRE_MERCADO"];
                 }
                 if ($ARRAYESPECIES) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
@@ -381,15 +373,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_FICHA'];
             $OBSERVACION = "" . $r['OBSERVACIONES_FICHA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
-            if ($ARRAYESTANDAR) {
-                $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-                $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-                $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-                $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-                $MERCADO = $ARRAYESTANDAR[0]["ID_MERCADO"];
-                $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-                $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $ENVASEESTANDAR = $ARRAYVERESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+                $TETIQUETA = $ARRAYVERESTANDAR[0]["ID_TETIQUETA"];
+                $TEMBALAJE = $ARRAYVERESTANDAR[0]["ID_TEMBALAJE"];
+                $ESPECIES = $ARRAYVERESTANDAR[0]["ID_ESPECIES"];
+                $ESTANDARCOMERCIAL = $ARRAYVERESTANDAR[0]["ID_ECOMERCIAL"];
                 $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
@@ -401,9 +392,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 }
                 if ($ARRAYTEMBALAJE) {
                     $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]["NOMBRE_TEMBALAJE"];
-                }
-                if ($ARRAYMERCADO) {
-                    $NOMBREMERCADO = $ARRAYMERCADO[0]["NOMBRE_MERCADO"];
                 }
                 if ($ARRAYESPECIES) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
@@ -425,18 +413,16 @@ if (isset($_POST)) {
 
     if (isset($_REQUEST['ESTANDAR'])) {
         $ESTANDAR = "" . $_REQUEST['ESTANDAR'];
-        $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
-        if ($ARRAYESTANDAR) {
-            $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-            $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-            $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-            $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-            $MERCADO = $ARRAYESTANDAR[0]["ID_MERCADO"];
-            $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-            $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
+        $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+        if ($ARRAYVERESTANDAR) {
+            $ENVASEESTANDAR = $ARRAYVERESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
+            $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+            $TETIQUETA = $ARRAYVERESTANDAR[0]["ID_TETIQUETA"];
+            $TEMBALAJE = $ARRAYVERESTANDAR[0]["ID_TEMBALAJE"];
+            $ESPECIES = $ARRAYVERESTANDAR[0]["ID_ESPECIES"];
+            $ESTANDARCOMERCIAL = $ARRAYVERESTANDAR[0]["ID_ECOMERCIAL"];
             $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
             $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
-            $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
             $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
             $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
@@ -445,9 +431,6 @@ if (isset($_POST)) {
             }
             if ($ARRAYTEMBALAJE) {
                 $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]["NOMBRE_TEMBALAJE"];
-            }
-            if ($ARRAYMERCADO) {
-                $NOMBREMERCADO = $ARRAYMERCADO[0]["NOMBRE_MERCADO"];
             }
             if ($ARRAYESPECIES) {
                 $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
@@ -626,7 +609,7 @@ if (isset($_POST)) {
                     </div>
                     <!-- Main content -->
                     <section class="content">
-                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" onsubmit="return validacion()">
+                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
                                 <div class="box-header with-border">
                                     <!--
@@ -635,7 +618,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Número Ficha</label>
 
@@ -655,18 +638,12 @@ if (isset($_POST)) {
                                                 <label id="val_id" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-6 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                             </div>
                                         </div>
-                                        <div class="col-sm-1">
-                                            <div class="form-group">
 
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3 col-12">
-                                        </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Ingreso</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Ingreso" id="FECHAINGRESOE" name="FECHAINGRESOE" value="<?php echo $FECHAINGRESO; ?>" />
@@ -674,7 +651,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechai" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Modificación</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Modificación" id="FECHAMODIFCIACIONE" name="FECHAMODIFCIACIONE" value="<?php echo $FECHAMODIFCIACION; ?>" />
@@ -684,7 +661,7 @@ if (isset($_POST)) {
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-4 col-12">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <label>Estandar Exportación</label>
                                             <input type="hidden" class="form-control" placeholder="ESTANDARE" id="ESTANDARE" name="ESTANDARE" value="<?php echo $ESTANDAR; ?>" />
                                             <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
@@ -701,7 +678,7 @@ if (isset($_POST)) {
                                             </select>
                                             <label id="val_estandar" class="validacion"> </label>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Envase</label>
                                                 <input type="hidden" class="form-control" placeholder="Cantidad Envase" id="ENVASEESTANDAR" name="ENVASEESTANDAR" value="<?php echo $ENVASEESTANDAR; ?>" />
@@ -709,7 +686,7 @@ if (isset($_POST)) {
                                                 <label id="val_envase" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Peso Envase</label>
                                                 <input type="hidden" class="form-control" placeholder="Peso Envase" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR; ?>" />
@@ -717,41 +694,33 @@ if (isset($_POST)) {
                                                 <label id="val_pesoenvase" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Especies </label>
                                             <input type="hidden" class="form-control" placeholder="ESPECIES" id="ESPECIES" name="ESPECIES" value="<?php echo $ESPECIES; ?>" />
                                             <input type="text" class="form-control" placeholder="Especies" id="ESPECIESV" name="ESPECIESV" value="<?php echo $NOMBREESPECIES; ?>" disabled />
                                             <label id="val_especies" class="validacion"> </label>
                                         </div>
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Estandar Comercial</label>
                                             <input type="hidden" class="form-control" placeholder="ESTANDARCOMERCIAL" id="ESTANDARCOMERCIAL" name="ESTANDARCOMERCIAL" value="<?php echo $ESTANDARCOMERCIAL; ?>" />
                                             <input type="text" class="form-control" placeholder="Estandar Comercial" id="ESTANDARCOMERCIALV" name="ESTANDARCOMERCIALV" value="<?php echo $NOMBREESTANDARCOMERCIAL; ?>" disabled />
                                             <label id="val_estandarcomercial" class="validacion"> </label>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Tipo Etiqueta</label>
                                             <input type="hidden" class="form-control" placeholder="TETIQUETA" id="TETIQUETA" name="TETIQUETA" value="<?php echo $TETIQUETA; ?>" />
                                             <input type="text" class="form-control" placeholder="Tipo Etiqueta" id="TETIQUETAV" name="TETIQUETAV" value="<?php echo $NOMBRETEMBALAJE; ?>" disabled />
                                             <label id="val_tetiqueta" class="validacion"> </label>
                                         </div>
-                                        <div class="col-sm-2 col-12">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Tipo Embalaje</label>
                                             <input type="hidden" class="form-control" placeholder="TEMBALAJE" id="TEMBALAJE" name="TEMBALAJE" value="<?php echo $TEMBALAJE; ?>" />
                                             <input type="text" class="form-control" placeholder="Tipo Etiqueta" id="TEMBALAJEV" name="TEMBALAJEV" value="<?php echo $NOMBRETEMBALAJE; ?>" disabled />
                                             <label id="val_tembalaje" class="validacion"> </label>
                                         </div>
-                                        <div class="col-sm-2 col-12">
-                                            <label>Mercado </label>
-                                            <input type="hidden" class="form-control" placeholder="MERCADO" id="MERCADO" name="MERCADO" value="<?php echo $MERCADO; ?>" />
-                                            <input type="text" class="form-control" placeholder="Mercado" id="MERCADOV" name="MERCADOV" value="<?php echo $NOMBREMERCADO; ?>" disabled />
-                                            <label id="val_mercado" class="validacion"> </label>
-                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
@@ -761,80 +730,40 @@ if (isset($_POST)) {
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <label id="val_drecepcion" class="validacion center"><?php echo $MENSAJE; ?> </label>
-                                    <table class="table ">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <?php if ($OP == "") { ?>
-                                                        <button type="button" class="btn btn-rounded btn-warning btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFicha.php');">
-                                                            <i class="ti-trash"></i> CANCELAR
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                            <i class="ti-save-alt"></i> CREAR
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "editar") { ?>
-                                                        <button type="button" class="btn btn-rounded  btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarFicha.php'); ">
-                                                            <i class="ti-back-left "></i> VOLVER
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "ver") { ?>
-                                                        <button type="button" class="btn btn-rounded  btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarFicha.php'); ">
-                                                            <i class="ti-back-left "></i> VOLVER
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                    } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php echo $DISABLED; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                    } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php } ?>
-                                                    <?php if ($OP == "crear") { ?>
-                                                        <button type="button" class="btn btn-rounded  btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarFicha.php'); ">
-                                                            <i class="ti-back-left "></i> VOLVER
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> GUARDAR
-                                                        </button>
-                                                        <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="CERRAR" value="CERRAR" <?php if ($ESTADO == 0) {
-                                                                                                                                                                echo "disabled";
-                                                                                                                                                            } ?>>
-                                                            <i class="ti-save-alt"></i> CERRAR
-                                                        </button>
-                                                    <?php }   ?>
-                                                    <?php if ($OP != "") {  ?>
-                                                        <button type="button" class="btn btn-rounded  btn-info btn-outline " id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeFicha.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                            <i class="fa fa-file-pdf-o"></i>Ficha
-                                                        </button>
-                                                    <?php } ?>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="btn-group   col-xxl-4 col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                        <?php if ($OP == "") { ?>
+                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFicha.php');">
+                                                <i class="ti-trash"></i> Borrar
+                                            </button>
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Guardar
+                                            </button>
+                                        <?php } ?>
+                                        <?php if ($OP != "") { ?>
+                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarFicha.php'); ">
+                                                <i class="ti-back-left "></i> Volver
+                                            </button>
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <i class="ti-pencil-alt"></i> Guardar
+                                            </button>
+                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Cerrar
+                                            </button>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="btn-group   col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-xs-12 float-right" role="group" aria-label="Informes">
+                                        <?php if ($OP != "") { ?>
+                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Ficha" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeFicha.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Ficha
+                                            </button>
+                                        <?php } ?>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- /.row -->
                             <!--.row -->
-
                         </form>
                         <div class="box">
                             <div class="box-header with-border">
@@ -843,7 +772,16 @@ if (isset($_POST)) {
                                         -->
                             </div>
                             <div class="row">
-                                <div class="col-sm-10">
+                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
+                                </div>
+                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
+                                    <div class="form-group">
+                                        <label> </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
                                     <div class=" table-responsive">
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -873,6 +811,7 @@ if (isset($_POST)) {
                                                                     <?php echo $CONTADOR;  ?>
                                                                 </a>
                                                             </td>
+                                                            
                                                             <td class="text-center">
                                                                 <form method="post" id="form1" name="form1">
                                                                     <input type="hidden" class="form-control" placeholder="ID DFICHA" id="IDD" name="IDD" value="<?php echo $s['ID_DFICHA']; ?>" />
@@ -880,26 +819,24 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLP" name="URLP" value="registroFicha" />
                                                                     <input type="hidden" class="form-control" placeholder="URL DFICHA" id="URLD" name="URLD" value="registroDficha" />
-                                                                    <button type="submit" class="btn btn-rounded btn-info btn-sm  btn-outline " id="VERDURL" name="VERDURL" title="Ver" <?php if ($ESTADO == "1") {
-                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                        } ?>>
-                                                                        <i class="ti-eye"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-warning btn-outline " id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?> <?php if ($ESTADO == "0") {
-                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                } ?>>
-                                                                        <i class="ti-pencil-alt"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-secondary btn-outline " id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?> <?php if ($ESTADO == "0") {
-                                                                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                                                                        } ?>>
-                                                                        <i class="fa fa-fw fa-copy"></i>
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-rounded btn-sm  btn-danger btn-outline " id="ELIMINARDURL" name="ELIMINARDURL" title="eliminar" <?php echo $DISABLED2; ?> <?php if ($ESTADO == "0") {
-                                                                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                                                                    } ?>>
-                                                                        <i class="ti-close"></i>
-                                                                    </button>
+                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                        <?php if ($ESTADO  == "0") { ?>
+                                                                            <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                <i class="ti-eye"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                        <?php if ($ESTADO  == "1") { ?>
+                                                                            <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-pencil-alt"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-secondary btn-sm " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                    </div>
                                                                 </form>
                                                             </td>
                                                             <td>
@@ -946,19 +883,17 @@ if (isset($_POST)) {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
                                     <form method="post" id="form2" name="form2">
                                         <div class="form-group">
-                                            <label>Agregar Detalle</label>
-                                            <br>
                                             <input type="hidden" class="form-control" placeholder="ID FICHA" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLP" name="URLP" value="registroFicha" />
                                             <input type="hidden" class="form-control" placeholder="URL DFICHA" id="URLD" name="URLD" value="registroDficha" />
-                                            <button type="submit" class=" btn btn-block btn-success btn-outline" title="Agregar Detalle" id="CREARDURL" name="CREARDURL" <?php if ($ESTADO == 0) {
-                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                            } ?> >
-                                                <i class=" glyphicon glyphicon-plus"></i>
+                                            <button type="submit" class=" btn btn-block btn-success " ata-toggle="tooltip" title="Agregar Detalle" id="CREARDURL" name="CREARDURL" <?php if ($ESTADO == 0) {
+                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                    } ?>>
+                                                Agregar Detalle
                                             </button>
                                         </div>
                                     </form>

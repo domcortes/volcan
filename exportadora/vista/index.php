@@ -2,18 +2,8 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
 
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -87,22 +77,55 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
             </script>
 
 </head>
-
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../config/menu.php";
+        ?>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <div class="container-full">
 
-
-
-
-
-            <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-auto">
+                            <h3 class="page-title">Inicio</h3>
+                            <div class="d-inline-block align-items-center">
+                                <nav>
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="right-title">
+                            <div class="d-flex mt-10 justify-content-end">
+                                <div class="d-lg-flex mr-20 ml-10 d-none">
+                                    <div class="chart-text mr-10">
+                                        <h6 class="mb-0"><small></small></h6>
+                                        <div id="Dolar" class="mt-0 text-primary" style="font-size:12px;"></div>
+                                    </div>
+                                </div>
+                                <div class="d-lg-flex mr-20 ml-10 d-none">
+                                    <div class="chart-text mr-10">
+                                        <h6 class="mb-0"><small></small></h6>
+                                        <div id="Euro" class="mt-0 text-danger" style="font-size:12px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="content">
+                </section>
+            </div>
+        </div>
+        <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
+            <?php include_once "../config/footer.php"; ?>
+            <?php include_once "../config/menuExtra.php"; ?>
     </div>
-    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../config/urlBase.php"; ?>
 </body>
 
 </html>

@@ -199,8 +199,8 @@ class ECOMERCIAL_ADO {
                     $ECOMERCIAL->__GET('DESCRIPCION_ECOMERCIAL'),
                     $ECOMERCIAL->__GET('PESO_NETO_ECOMERCIAL'),
                     $ECOMERCIAL->__GET('PESO_BRUTO_ECOMERCIAL'),
-                    $ECOMERCIAL->__GET('ID_ECOMERCIAL'),
-                    $ECOMERCIAL->__GET('ID_USUARIOM')
+                    $ECOMERCIAL->__GET('ID_USUARIOM'),
+                    $ECOMERCIAL->__GET('ID_ECOMERCIAL')
                     
                 )
                 

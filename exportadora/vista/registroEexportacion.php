@@ -738,7 +738,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_ESTANDAR']; ?>
+                                                                    <?php echo $r['CODIGO_ESTANDAR']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>
