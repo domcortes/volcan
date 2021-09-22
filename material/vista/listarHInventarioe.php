@@ -7,6 +7,7 @@ include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/PRODUCTO_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
 
+include_once '../controlador/DESPACHOE_ADO.php';
 include_once '../controlador/RECEPCIONE_ADO.php';
 include_once '../controlador/INVENTARIOE_ADO.php';
 
@@ -17,6 +18,7 @@ $BODEGA_ADO =  new BODEGA_ADO();
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
 
+$DESPACHOE_ADO =  new DESPACHOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 
@@ -48,7 +50,7 @@ $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarInventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarHinventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrl.php";
 include_once "../config/reporteUrl.php";
@@ -168,18 +170,18 @@ include_once "../config/reporteUrl.php";
                                         <table id="hexistencia" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
-                                                    <th>Estado</th>
+                                                    <th>Bodega</th>
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
-                                                    <th>Total Cantidad</th>
-                                                    <th>Valor Unitario</th>
-                                                    <th>Bodega</th>
+                                                    <th>Entrada</th>
+                                                    <th>Salida</th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción</th>
                                                     <th>Tipo Recepción</th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
+                                                    <th>Número Despacho</th>
+                                                    <th>Fecha Despacho</th>
+                                                    <th>Tipo Despacho</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -190,21 +192,7 @@ include_once "../config/reporteUrl.php";
 
                                                     <?php
 
-                                                    if ($r['ESTADO'] == "0") {
-                                                        $ESTADO = "Eliminado";
-                                                    } else if ($r['ESTADO'] == "1") {
-                                                        $ESTADO = "Ingresando";
-                                                    } else if ($r['ESTADO'] == "2") {
-                                                        $ESTADO = "Disponible";
-                                                    } else if ($r['ESTADO'] == "3") {
-                                                        $ESTADO = "En Despacho";
-                                                    } else if ($r['ESTADO'] == "4") {
-                                                        $ESTADO = "Despachado";
-                                                    } else if ($r['ESTADO'] == "5") {
-                                                        $ESTADO = "En Transito";
-                                                    } else {
-                                                        $$ESTADO = "Sin Datos";
-                                                    }
+
                                                     $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
                                                     if ($ARRAYVERBODEGA) {
                                                         $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
@@ -241,6 +229,39 @@ include_once "../config/reporteUrl.php";
                                                         $FECHARECEPCION = "Sin Datos";
                                                         $TRECEPCION = "Sin Datos";
                                                     }
+                                                    $ARRAYDESPACHO = $DESPACHOE_ADO->verDespachoe($r['ID_DESPACHO']);
+                                                    if ($ARRAYDESPACHO) {
+                                                        $NUMERODESPACHO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
+                                                        $FECHADESPACHO = $ARRAYDESPACHO[0]['FECHA_DESPACHO'];
+                                                        $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
+                                                        if ($TDESPACHO == "1") {
+                                                            $NOMBRETDESPACHO = " A Sub Bodega";
+                                                        } else
+                                                          if ($TDESPACHO == "2") {
+                                                            $NOMBRETDESPACHO = "Interplanta";
+                                                        } else
+                                                          if ($TDESPACHO == "3") {
+                                                            $NOMBRETDESPACHO = "Devolución a Productor";
+                                                        } else
+                                                          if ($TDESPACHO == "4") {
+                                                            $NOMBRETDESPACHO = "Devolución a Proveedor";
+                                                        } else
+                                                          if ($TDESPACHO == "5") {
+                                                            $NOMBRETDESPACHO = "Planta Externa";
+                                                        } else
+                                                          if ($TDESPACHO == "6") {
+                                                            $NOMBRETDESPACHO = "Venta";
+                                                        } else
+                                                          if ($TDESPACHO == "7") {
+                                                            $NOMBRETDESPACHO = "Regalo";
+                                                        } else {
+                                                            $NOMBRETDESPACHO = "Sin Datos";
+                                                        }
+                                                    } else {
+                                                        $NUMERODESPACHO = "Sin Datos";
+                                                        $FECHADESPACHO = "Sin Datos";
+                                                        $TDESPACHO = "Sin Datos";
+                                                    }
                                                     $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYVEREMPRESA) {
                                                         $NOMBREEMPRESA = $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA'];
@@ -262,18 +283,18 @@ include_once "../config/reporteUrl.php";
                                                     ?>
 
                                                     <tr class="center">
-                                                        <td><?php echo $ESTADO; ?></td>
+                                                        <td><?php echo $NOMBREBODEGA; ?></td>
                                                         <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBRETUMEDIDA; ?></td>
-                                                        <td><?php echo $r['CANTIDAD']; ?></td>
-                                                        <td><?php echo $r['VALOR']; ?></td>
-                                                        <td><?php echo $NOMBREBODEGA; ?></td>
+                                                        <td><?php echo $r['ENTRADA']; ?></td>
+                                                        <td><?php echo $r['SALIDA']; ?></td>
                                                         <td><?php echo $NUMERORECEPCION; ?></td>
                                                         <td><?php echo $FECHARECEPCION; ?></td>
                                                         <td><?php echo $TRECEPCION; ?></td>
-                                                        <td><?php echo $r['INGRESO']; ?></td>
-                                                        <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $NUMERODESPACHO; ?></td>
+                                                        <td><?php echo $FECHADESPACHO; ?></td>
+                                                        <td><?php echo $NOMBRETDESPACHO; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -282,18 +303,18 @@ include_once "../config/reporteUrl.php";
                                             </tbody>
                                             <tfoot>
                                                 <tr id="filtro" class="text-left">
-                                                    <th>Estado</th>
+                                                    <th>Bodega</th>
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
-                                                    <th>Total Cantidad</th>
-                                                    <th>Valor Unitario</th>
-                                                    <th>Bodega</th>
+                                                    <th>Entrada</th>
+                                                    <th>Salida</th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción</th>
                                                     <th>Tipo Recepción</th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
+                                                    <th>Número Despacho</th>
+                                                    <th>Fecha Despacho</th>
+                                                    <th>Tipo Despacho</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>

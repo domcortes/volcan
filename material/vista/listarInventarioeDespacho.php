@@ -30,6 +30,8 @@ $PLANTA = "";
 $TEMPORADA = "";
 
 $TOTALCANTIDAD = "";
+$TOTALENTRADA = "";
+$TOTALSALIDA = "";
 $TOTCALVALOR = "";
 
 $FECHADESDE = "";
@@ -50,9 +52,11 @@ $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYINVENTARIOTOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarInventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIOTOTALES = $INVENTARIOE_ADO->obtenerTotalInventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYINVENTARIOTOTALES[0]['CANTIDAD'];
+    $TOTALENTRADA = $ARRAYINVENTARIOTOTALES[0]['ENTRADA'];
+    $TOTALSALIDA = $ARRAYINVENTARIOTOTALES[0]['SALIDA'];
 }
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
@@ -174,17 +178,13 @@ include_once "../config/reporteUrl.php";
                                         <table id="existencia" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
+                                                    <th>Bodega</th>
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
-                                                    <th>Total Cantidad</th>
-                                                    <th>Valor Unitario</th>
-                                                    <th>Bodega</th>
-                                                    <th>Número Recepción</th>
-                                                    <th>Fecha Recepción</th>
-                                                    <th>Tipo Recepción</th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
+                                                    <th>Entrada</th>
+                                                    <th>Salida</th>
+                                                    <th>Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -211,35 +211,15 @@ include_once "../config/reporteUrl.php";
                                                     } else {
                                                         $NOMBRETUMEDIDA = "Sin Datos";
                                                     }
-                                                    $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($r['ID_RECEPCION']);
-                                                    if ($ARRAYRECEPCION) {
-                                                        $NUMERORECEPCION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
-                                                        $FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA_RECEPCION'];
-                                                        if ($ARRAYRECEPCION[0]['TRECEPCION'] == "1") {
-                                                            $TRECEPCION = "Desde Proveedor";
-                                                        } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "2") {
-                                                            $TRECEPCION = "Desde Productor";
-                                                        } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "3") {
-                                                            $TRECEPCION = "Planta Externa";
-                                                        }
-                                                    } else {
-                                                        $NUMERORECEPCION = "Sin Datos";
-                                                        $FECHARECEPCION = "Sin Datos";
-                                                        $TRECEPCION = "Sin Datos";
-                                                    }
                                                     ?>
                                                     <tr class="center">
+                                                        <td><?php echo $NOMBREBODEGA; ?></td>
                                                         <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBRETUMEDIDA; ?></td>
+                                                        <td><?php echo $r['ENTRADA']; ?></td>
+                                                        <td><?php echo $r['SALIDA']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
-                                                        <td><?php echo $r['VALOR']; ?></td>
-                                                        <td><?php echo $NOMBREBODEGA; ?></td>
-                                                        <td><?php echo $NUMERORECEPCION; ?></td>
-                                                        <td><?php echo $FECHARECEPCION; ?></td>
-                                                        <td><?php echo $TRECEPCION; ?></td>
-                                                        <td><?php echo $r['INGRESO']; ?></td>
-                                                        <td><?php echo $r['MODIFICACION']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -249,14 +229,26 @@ include_once "../config/reporteUrl.php";
                             </div>
                             <div class="box-footer">
                                 <div class="row">
-                                    <div class="col-xxl-9 col-xl-8 col-lg-7 col-md-6 col-sm-6 col-4 col-xs-4">
+                                    <div class="col-xxl-6 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="form-group">
                                         </div>
                                     </div>
-                                    <div class="col-xxl-3 col-xl-4 col-lg-5 col-md-6 col-sm-6 col-8 col-xs-8">
+                                    <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4 col-xs-4">
                                         <div class="form-group">
-                                            <label>Total Cantidad </label>
-                                            <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
+                                            <label>Entrada </label>
+                                            <input type="text" class="form-control" placeholder="Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENTRADA; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4 col-xs-4">
+                                        <div class="form-group">
+                                            <label>Salida </label>
+                                            <input type="text" class="form-control" placeholder="Salida" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALSALIDA; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4 col-xs-4">
+                                        <div class="form-group">
+                                            <label>Total </label>
+                                            <input type="text" class="form-control" placeholder="Total" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
