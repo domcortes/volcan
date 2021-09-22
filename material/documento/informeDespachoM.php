@@ -7,45 +7,50 @@ include_once '../controlador/PLANTA_ADO.php';
 include_once '../controlador/TEMPORADA_ADO.php';
 
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/TDOCUMENTO_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../controlador/RESPONSABLE_ADO.php';
+include_once '../controlador/BODEGA_ADO.php';
+include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../controlador/PROVEEDOR_ADO.php';
+include_once '../controlador/CLIENTE_ADO.php';
 
-include_once '../controlador/RECEPCIONM_ADO.php';
-include_once '../controlador/DRECEPCIONM_ADO.php';
-include_once '../controlador/TARJAM_ADO.php';
+include_once '../controlador/PRODUCTO_ADO.php';
+include_once '../controlador/TCONTENEDOR_ADO.php';
+include_once '../controlador/TUMEDIDA_ADO.php';
+
+include_once '../controlador/INVENTARIOM_ADO.php';
+include_once '../controlador/DESPACHOM_ADO.php';
+
 
 
 //INCIALIZAR LAS VARIBLES
-
 //INICIALIZAR CONTROLADOR
+
 $USUARIO_ADO = new USUARIO_ADO();
 $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
-$PRODUCTO_ADO =  new PRODUCTO_ADO();
-$TCONTENEDOR_ADO =  new TCONTENEDOR_ADO();
-$TUMEDIDA_ADO =  new TUMEDIDA_ADO();
-$FOLIO_ADO =  new FOLIO_ADO();
-$PROVEEDOR_ADO =  new PROVEEDOR_ADO();
-$PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$BODEGA_ADO =  new BODEGA_ADO();
-$TDOCUMENTO_ADO =  new TDOCUMENTO_ADO();
-$TRANSPORTE_ADO =  new TRANSPORTE_ADO();
-$CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 
-$RECEPCIONM_ADO =  new RECEPCIONM_ADO();
-$DRECEPCIONM_ADO =  new DRECEPCIONM_ADO();
-$TARJAM_ADO =  new TARJAM_ADO();
 
+$TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
+$TRANSPORTE_ADO = new TRANSPORTE_ADO();
+$CONDUCTOR_ADO = new CONDUCTOR_ADO();
+$RESPONSABLE_ADO = new RESPONSABLE_ADO();
+$BODEGA_ADO = new BODEGA_ADO();
+$PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$PROVEEDOR_ADO = new PROVEEDOR_ADO();
+$CLIENTE_ADO = new CLIENTE_ADO();
+
+$PRODUCTO_ADO = new PRODUCTO_ADO();
+$TCONTENEDOR_ADO = new TCONTENEDOR_ADO();
+$TUMEDIDA_ADO = new TUMEDIDA_ADO();
+
+
+$INVENTARIOM_ADO = new INVENTARIOM_ADO();
+$DESPACHOM_ADO = new DESPACHOM_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $NUMERORECEPCION = "";
@@ -94,47 +99,64 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 
-$ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion2($IDOP);
+$ARRAYRECEPCION = $DESPACHOM_ADO->verDespachom2($IDOP);
 if ($ARRAYRECEPCION) {
-  $ARRAYDRECEPCION = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcion2CBX($IDOP);
-  $ARRAYDRECEPCIONTOTAL = $DRECEPCIONM_ADO->obtenerTotalesDrecepcionPorRecepcion2CBX($IDOP);
-  $ARRAYTARJAM = $TARJAM_ADO->verTarja($IDOP);
-  if ($ARRAYTARJAM) {
-    $ARRAYTCONTENDOR = $TCONTENEDOR_ADO->verTcontenedor($ARRAYTARJAM[0]["ID_TCONTENEDOR"]);
-    if ($ARRAYTCONTENDOR) {
-      $NOMBRETCONETEDOR = $ARRAYTCONTENDOR[0]["NOMBRE_TCONTENEDOR"];
-    }
-  }
+  $ARRAYDRECEPCION = $INVENTARIOM_ADO->buscarPorDespacho2($IDOP);
+  $ARRAYDRECEPCIONTOTAL = $INVENTARIOM_ADO->obtenerTotalesInventarioPorDespacho2CBX($IDOP);
+
 
   $TOTALCANTIDAD = $ARRAYDRECEPCIONTOTAL[0]["CANTIDAD"];
 
-  $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
+  $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_DESPACHO"];
   $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
-  $NUMERODOCUMENTO = $ARRAYRECEPCION[0]["NUMERO_DOCUMENTO_RECEPCION"];
-  $TIPORECEPCION = $ARRAYRECEPCION[0]["TRECEPCION"];
+  $NUMERODOCUMENTO = $ARRAYRECEPCION[0]["NUMERO_DOCUMENTO"];
+  $TDESPACHO = $ARRAYRECEPCION[0]["TDESPACHO"];
   $PATENTECAMION = $ARRAYRECEPCION[0]["PATENTE_CAMION"];
   $PATENTECARRO = $ARRAYRECEPCION[0]["PATENTE_CARRO"];
-  $OBSERVACIONES = $ARRAYRECEPCION[0]['OBSERVACION_RECEPCION'];
+  $OBSERVACIONES = $ARRAYRECEPCION[0]['OBSERVACIONES'];
 
-  if ($TIPORECEPCION == "1") {
-    $NOMBRETRECEPCION = "Desde Proveedor";
+
+  if ($TDESPACHO == "1") {
+    $NOMBRETDESPACHO = " A Sub Bodega";
+    $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]["ID_BODEGA"]);
+    $NOMBREBODEGA = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+  } else
+  if ($TDESPACHO == "2") {
+    $NOMBRETDESPACHO = "Interplanta";
+    $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]["ID_PLANTA2"]);
+    $NOMBREORIGEN = $ARRAYPLANTAINTERNA[0]["NOMBRE_PLANTA"];
+    $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]["ID_BODEGA2"]);
+    $NOMBREBODEGA = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+  } else
+  if ($TDESPACHO == "3") {
+    $NOMBRETDESPACHO = "Devolución a Productor";
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
+    $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
+  } else
+  if ($TDESPACHO == "4") {
+    $NOMBRETDESPACHO = "Devolución a Proveedor";
     $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($ARRAYRECEPCION[0]["ID_PROVEEDOR"]);
     $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+  } else
+  if ($TDESPACHO == "5") {
+    $NOMBRETDESPACHO = "Planta Externa";
+    $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]["ID_PLANTA3"]);
+    $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+  } else
+  if ($TDESPACHO == "6") {
+    $NOMBRETDESPACHO = "Venta";    
+    $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($ARRAYRECEPCION[0]["ID_CLIENTE"]);
+    $NOMBREORIGEN = $ARRAYVERCLIENTE[0]["NOMBRE_CLIENTE"];
+  } else
+  if ($TDESPACHO == "7") {
+    $NOMBRETDESPACHO = "Regalo";
+    $REGALO== $ARRAYRECEPCION[0]['REGALO_DESPACHO'];
+  } else {
+    $NOMBRETDESPACHO = "Sin Datos";
   }
-  if ($TIPORECEPCION == "2") {
-    $NOMBRETRECEPCION = "Desde Productor";
-    $ARRAYPRODUCTOR = $PRODUCTO_ADO->verProducto($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
-    $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
-  }
-  if ($TIPORECEPCION == "3") {
-    $NOMBRETRECEPCION = "Desde Planta Externa";
-    $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]["ID_PLANTA2"]);
-    $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA2"];
-  }
-  $ARRAYBODEGA = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]["ID_BODEGA"]);
-  if ($ARRAYBODEGA) {
-    $NOMBREBODEGA = $ARRAYBODEGA[0]["NOMBRE_BODEGA"];
-  }
+
+
+
   $ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($ARRAYRECEPCION[0]["ID_TDOCUMENTO"]);
   if ($ARRAYTDOCUMENTO) {
     $NOMBRETDOCUMENTO = $ARRAYTDOCUMENTO[0]["NOMBRE_TDOCUMENTO"];
@@ -236,7 +258,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Recepcion</title>
+    <title>Informe Despacho</title>
   </head>
   <body>
     <header class="clearfix">
@@ -252,47 +274,68 @@ $html = '
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
-        INFORME RECEPCION MATERIALES
+        INFORME DESPACHO MATERIALES
         <br>
-        <b> Numero Recepción: ' . $NUMERORECEPCION . '</b>
+        <b> Numero Despacho: ' . $NUMERORECEPCION . '</b>
       </h2>
       <div id="details" class="clearfix">
         
         <div id="invoice">
-          <div class="date"><b>Fecha Recepcion: </b>' . $FECHARECEPCION . ' </div>
+          <div class="date"><b>Fecha Despacho: </b>' . $FECHARECEPCION . ' </div>
           <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
           <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
         </div>
 
         <div id="client">
-          <div class="address"><b>Tipo Recepción: </b>' . $NOMBRETRECEPCION . '</div>
+          <div class="address"><b>Tipo Despacho: </b>' . $NOMBRETDESPACHO . '</div>
           <div class="address"><b>Tipo Documento: </b>' . $NOMBRETDOCUMENTO . ' </div>
           <div class="address"><b>Numero Documento: </b>' . $NUMERODOCUMENTO . ' </div>
 
           
 ';
 
-if ($TIPORECEPCION == "1") {
+if ($TDESPACHO == "1") {
   $html = $html . ' 
-  <div class="address"><b>Nombre Proveedor: </b>' . $NOMBREORIGEN . '</div>
+  <div class="address"><b> Bodega Destino : </b> ' . $NOMBREBODEGA . ' </div>
   ';
 }
-if ($TIPORECEPCION == "2") {
+if ($TDESPACHO == "2") {
   $html = $html . ' 
-<div class="address"><b>Nombre Productor: </b>' . $NOMBREORIGEN . '</div>
-';
+  <div class="address"><b> Planta Destino : </b> ' . $NOMBREORIGEN . ' </div>
+  <div class="address"><b> Bodega Destino : </b> ' . $NOMBREBODEGA . ' </div>
+  ';
 }
-if ($TIPORECEPCION == "3") {
+if ($TDESPACHO == "3") {
   $html = $html . ' 
-<div class="address"><b>Nombre Planta Externa: </b>' . $NOMBREORIGEN . '</div>
-';
+  <div class="address"><b> Productor Destino : </b> ' . $NOMBREORIGEN . ' </div>
+  ';
 }
+if ($TDESPACHO == "4") {
+  $html = $html . ' 
+  <div class="address"><b> Proveedor Destino : </b> ' . $NOMBREORIGEN . ' </div>
+  ';
+}
+if ($TDESPACHO == "5") {
+  $html = $html . ' 
+  <div class="address"><b> Externa Destino : </b> ' . $NOMBREORIGEN . ' </div>
+  ';
+}
+if ($TDESPACHO == "6") {
+  $html = $html . ' 
+  <div class="address"><b> Cliente Destino : </b> ' . $NOMBREORIGEN . ' </div>
+  ';
+}
+if ($TDESPACHO == "7") {
+  $html = $html . ' 
+  <div class="address"><b> Regalo  : </b> ' . $NOMBREORIGEN . ' </div>
+  ';
+}
+
 
 
 
 $html = $html . '
-          <div class="address"><b>Bodega Destino: </b>' . $NOMBREBODEGA . '</div>
 
         </div>
         
@@ -300,7 +343,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="5" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="5" class="center">DETALLE DE DESPACHO.</th>
           </tr>
           <tr>
             <th class="color left">Producto</th>
@@ -320,6 +363,10 @@ foreach ($ARRAYDRECEPCION as $d) :
   $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($d['ID_TUMEDIDA']);
   if ($ARRAYVERTUMEDIDA) {
     $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+  }
+  $ARRAYTCONTENDOR = $TCONTENEDOR_ADO->verTcontenedor($d['ID_TCONTENEDOR']);
+  if ($ARRAYTCONTENDOR) {
+    $NOMBRETCONETEDOR = $ARRAYTCONTENDOR[0]["NOMBRE_TCONTENEDOR"];
   }
   $html = $html . '
           
@@ -384,7 +431,7 @@ $html = $html . '
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO = "InformeRecepionMateriales_";
+$NOMBREARCHIVO = "InformeDespachoMateriales_";
 $FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
 $TIPODOCUMENTO = "Informe";
 $FORMATO = ".pdf";
@@ -398,7 +445,7 @@ $UNICODE = "true";
 $ENCODING = "UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "Informe Recepcion Materiales";
+$TIPOINFORME = "Informe Despacho Materiales";
 $CREADOR = "Usuario";
 $AUTOR = "Usuario";
 $ASUNTO = "Informe";

@@ -339,13 +339,12 @@ $html = $html . '
       </table>
       <div id="details" class="clearfix">
         <div id="client">
-          <div class="address"><b>INFORMACION DE TRANSPORTE</b></div>
-          <div class="address">EMPRESA TRANSPORTE:  ' . $NOMBRETRANSPORTE . ' </div>
-          <div class="address">CONDUCTOR: ' . $NOMBRECONDUCTOR . '</div>
-          <div class="address">PATENTE CAMIÓN: ' . $PATENTECAMION . '</div>
-          <div class="address">PATENTE CARRO: ' . $PATENTECARRO . '</div>
-        </div>
-        
+          <div class="address"><b>Información de Transporte</b></div>
+          <div class="address">Empresa Transporte:  ' . $NOMBRETRANSPORTE . ' </div>
+          <div class="address">Conductor: ' . $NOMBRECONDUCTOR . '</div>
+          <div class="address">Patente Camión: ' . $PATENTECAMION . '</div>
+          <div class="address">Patente Carro: ' . $PATENTECARRO . '</div> 
+        </div>        
         <div id="client">
           <div class="address"><b>Observaciones</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
