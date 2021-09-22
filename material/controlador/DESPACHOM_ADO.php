@@ -373,9 +373,10 @@ class DESPACHOM_ADO
 
         try {
             $query = "
-    UPDATE material_despachom SET			
-            ESTADO_REGISTRO = 0
-    WHERE ID_DESPACHO= ?;";
+                UPDATE material_despachom SET		
+                        MODIFICACION = SYSDATE(),	
+                        ESTADO_REGISTRO = 0
+                WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -392,9 +393,10 @@ class DESPACHOM_ADO
     {
         try {
             $query = "
-    UPDATE material_despachom SET			
-            ESTADO_REGISTRO = 1
-    WHERE ID_DESPACHO= ?;";
+                UPDATE material_despachom SET		
+                        MODIFICACION = SYSDATE(),	
+                        ESTADO_REGISTRO = 1
+                WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -413,7 +415,8 @@ class DESPACHOM_ADO
     {
         try {
             $query = "
-                    UPDATE material_despachom SET			
+                    UPDATE material_despachom SET	
+                            MODIFICACION = SYSDATE(),		
                             ESTADO = 1
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
@@ -431,7 +434,8 @@ class DESPACHOM_ADO
     {
         try {
             $query = "
-                    UPDATE material_despachom SET			
+                    UPDATE material_despachom SET	
+                            MODIFICACION = SYSDATE(),		
                             ESTADO = 0
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
@@ -457,7 +461,8 @@ class DESPACHOM_ADO
     {
         try {
             $query = "
-                    UPDATE material_despachom SET			
+                    UPDATE material_despachom SET	
+                            MODIFICACION = SYSDATE(),		
                             ESTADO_DESPACHO = 1
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
@@ -474,7 +479,8 @@ class DESPACHOM_ADO
     {
         try {
             $query = "
-                    UPDATE material_despachom SET			
+                    UPDATE material_despachom SET	
+                            MODIFICACION = SYSDATE(),		
                             ESTADO_DESPACHO = 2
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
@@ -491,7 +497,8 @@ class DESPACHOM_ADO
     {
         try {
             $query = "
-                    UPDATE material_despachom SET			
+                    UPDATE material_despachom SET	
+                            MODIFICACION = SYSDATE(),		
                             ESTADO_DESPACHO = 3
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
@@ -509,7 +516,8 @@ class DESPACHOM_ADO
     {
         try {
             $query = "
-                    UPDATE material_despachom SET			
+                    UPDATE material_despachom SET	
+                            MODIFICACION = SYSDATE(),		
                             ESTADO_DESPACHO = 4
                     WHERE ID_DESPACHO= ?;";
             $this->conexion->prepare($query)
@@ -606,7 +614,7 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 FORMAT(CANTIDAD_DESPACHO,0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE   TDESPACHO = 1
+                                        WHERE   TDESPACHO = 2
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'
@@ -734,7 +742,7 @@ class DESPACHOM_ADO
             $datos = $this->conexion->prepare("SELECT  
                                                     FORMAT(IFNULL(SUM(CANTIDAD_DESPACHO),0),0,'de_DE') AS 'CANTIDAD' 
                                         FROM material_despachom                                                                                                              
-                                        WHERE   TDESPACHO = 1
+                                        WHERE   TDESPACHO = 2
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'
