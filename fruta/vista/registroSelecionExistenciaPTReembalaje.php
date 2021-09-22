@@ -92,32 +92,7 @@ $ARRAYREPALETIZAJE="";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
 
-if (isset($_REQUEST['AGREGAR'])) {
-    $IDREEMBALAJE = $_REQUEST['IDP'];
-    if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
-        $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
-        $SINO = "0";
-    } else {
-        $SINO = "1";
-        $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
-    }
-    if ($SINO == "0") {
-        foreach ($SELECIONAREXISTENCIA as $r) :
-
-            $IDEXIEXPORTACION = $r;
-            $EXIEXPORTACION->__SET('ID_REEMBALAJE', $IDREEMBALAJE);
-            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACION);
-            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->actualizarSelecionarReembalajeCambiarEstado($EXIEXPORTACION);
-        endforeach;
-        
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-    }
-}
 
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -131,6 +106,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     endforeach;
     $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaProductorVariedad($EMPRESAS, $PLANTAS, $TEMPORADAS, $VESPECIES, $PRODUCTOR);
 }
+
 include_once "../config/validarDatosUrlD.php";
 
 
@@ -205,7 +181,7 @@ include_once "../config/validarDatosUrlD.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";  ?>
+            <?php include_once "../config/menu.php";  ?>
 
             <div class="content-wrapper">
                 <div class="container-full">
@@ -250,15 +226,13 @@ include_once "../config/validarDatosUrlD.php";
                         </div>
                     </div>
                     <section class="content">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                        <div class="card">
+                            <div class="card-header bg-info">
+                                <h4 class="card-title">Seleccion de Existencias</h4>
                             </div>
 
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                                <div class="box-body ">
+                                <div class="card-body ">
                                     <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                     <input type="hidden" class="form-control" placeholder="OP REPALETIZAJE" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
                                     <input type="hidden" class="form-control" placeholder="URL REPALETIZAJE" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
@@ -267,142 +241,127 @@ include_once "../config/validarDatosUrlD.php";
                                     <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
                                     <label id="val_validato" class="validacion"> <?php echo $MENSAJE; ?> </label>
-                                    <div class="row">
-                                        <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                        </div>
-                                        <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
-                                            <div class="form-group">
-                                                <label> </label>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div clas="row">
-                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                            <div class="table-responsive">
-                                                <table id="selecionExistencia" class="table table-hover " style="width: 100%;">
-                                                    <thead>
+                                        <div class="table-responsive">
+                                            <table id="selecionExistencia" class="table table-hover " style="width: 100%;">
+                                                <thead>
+                                                    <tr class="text-left">
+                                                        <th>Folio </th>
+                                                        <th>Condición </th>
+                                                        <th>Selección</th>
+                                                        <th>Fecha Embalado </th>
+                                                        <th>Código Estandar </th>
+                                                        <th>Envase/Estandar </th>
+                                                        <th>CSG</th>
+                                                        <th>Productor</th>
+                                                        <th>Variedad</th>
+                                                        <th>Cantidad Envase </th>
+                                                        <th>Kilo Neto </th>
+                                                        <th>Tipo Manejo</th>
+                                                        <th>Tipo Calibre</th>
+                                                        <th>Tipo Embalaje</th>
+                                                        <th>Stock</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($ARRAYEXIEXPORTACION as $r) : ?>
+                                                        <?php
+                                                        if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                            $ESTADOSAG = "Sin Condición";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "1") {
+                                                            $ESTADOSAG =  "En Inspección";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "2") {
+                                                            $ESTADOSAG =  "Aprobado Origen";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "3") {
+                                                            $ESTADOSAG =  "Aprobado USLA";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "4") {
+                                                            $ESTADOSAG =  "Fumigado";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "5") {
+                                                            $ESTADOSAG =  "Rechazado";
+                                                        }
+                                                        $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYVERPRODUCTORID) {
+
+                                                            $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                            $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $CSGPRODUCTOR = "Sin Datos";
+                                                            $NOMBREPRODUCTOR = "Sin Datos";
+                                                        }
+                                                        $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                        if ($ARRAYEVERERECEPCIONID) {
+                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                        } else {
+                                                            $CODIGOESTANDAR = "Sin Datos";
+                                                            $NOMBREESTANDAR = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                        if ($ARRAYVERVESPECIESID) {
+                                                            $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                        } else {
+                                                            $NOMBREVESPECIES = "Sin Datos";
+                                                        }
+                                                        $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                        if ($ARRAYTMANEJO) {
+                                                            $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                        } else {
+                                                            $NOMBRETMANEJO = "Sin Datos";
+                                                        }
+                                                        $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                        if ($ARRAYTCALIBRE) {
+                                                            $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                        } else {
+                                                            $NOMBRETCALIBRE = "Sin Datos";
+                                                        }
+                                                        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                        if ($ARRAYTEMBALAJE) {
+                                                            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                        } else {
+                                                            $NOMBRETEMBALAJE = "Sin Datos";
+                                                        }
+                                                        ?>
                                                         <tr class="text-left">
-                                                            <th>Folio </th>
-                                                            <th>Condición </th>
-                                                            <th>Selección</th>
-                                                            <th>Fecha Embalado </th>
-                                                            <th>Código Estandar </th>
-                                                            <th>Envase/Estandar </th>
-                                                            <th>CSG</th>
-                                                            <th>Productor</th>
-                                                            <th>Variedad</th>
-                                                            <th>Cantidad Envase </th>
-                                                            <th>Kilo Neto </th>
-                                                            <th>Tipo Manejo</th>
-                                                            <th>Tipo Calibre</th>
-                                                            <th>Tipo Embalaje</th>
-                                                            <th>Stock</th>
+                                                            <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                            <td><?php echo $ESTADOSAG; ?></td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_EXIEXPORTACION']; ?>" value="<?php echo $r['ID_EXIEXPORTACION']; ?>">
+                                                                    <label for="SELECIONAREXISTENCIA<?php echo $r['ID_EXIEXPORTACION']; ?>"> Seleccionar</label>
+                                                                </div>
+                                                            </td>
+                                                            <td><?php echo $r['EMBALADO']; ?></td>
+                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                            <td><?php echo $r['ENVASE']; ?></td>
+                                                            <td><?php echo $r['NETO']; ?></td>
+                                                            <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                            <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                            <td><?php echo $r['STOCKR']; ?></td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php foreach ($ARRAYEXIEXPORTACION as $r) : ?>
-                                                            <?php
-                                                            if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
-                                                                $ESTADOSAG = "Sin Condición";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "1") {
-                                                                $ESTADOSAG =  "En Inspección";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "2") {
-                                                                $ESTADOSAG =  "Aprobado Origen";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "3") {
-                                                                $ESTADOSAG =  "Aprobado USLA";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "4") {
-                                                                $ESTADOSAG =  "Fumigado";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "5") {
-                                                                $ESTADOSAG =  "Rechazado";
-                                                            }
-                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                            if ($ARRAYVERPRODUCTORID) {
-
-                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                            } else {
-                                                                $CSGPRODUCTOR = "Sin Datos";
-                                                                $NOMBREPRODUCTOR = "Sin Datos";
-                                                            }
-                                                            $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                            if ($ARRAYEVERERECEPCIONID) {
-                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                            } else {
-                                                                $CODIGOESTANDAR = "Sin Datos";
-                                                                $NOMBREESTANDAR = "Sin Datos";
-                                                            }
-                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                            if ($ARRAYVERVESPECIESID) {
-                                                                $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                            } else {
-                                                                $NOMBREVESPECIES = "Sin Datos";
-                                                            }
-                                                            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                            if ($ARRAYTMANEJO) {
-                                                                $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                            } else {
-                                                                $NOMBRETMANEJO = "Sin Datos";
-                                                            }
-                                                            $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-                                                            if ($ARRAYTCALIBRE) {
-                                                                $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                            } else {
-                                                                $NOMBRETCALIBRE = "Sin Datos";
-                                                            }
-                                                            $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
-                                                            if ($ARRAYTEMBALAJE) {
-                                                                $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
-                                                            } else {
-                                                                $NOMBRETEMBALAJE = "Sin Datos";
-                                                            }
-                                                            ?>
-                                                            <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
-                                                                <td><?php echo $ESTADOSAG; ?></td>
-                                                                <td>
-                                                                    <div class="form-group">
-                                                                        <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_EXIEXPORTACION']; ?>" value="<?php echo $r['ID_EXIEXPORTACION']; ?>">
-                                                                        <label for="SELECIONAREXISTENCIA<?php echo $r['ID_EXIEXPORTACION']; ?>"> Seleccionar</label>
-                                                                    </div>
-                                                                </td>
-                                                                <td><?php echo $r['EMBALADO']; ?></td>
-                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBREVESPECIES; ?></td>
-                                                                <td><?php echo $r['ENVASE']; ?></td>
-                                                                <td><?php echo $r['NETO']; ?></td>
-                                                                <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                                <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                                <td><?php echo $NOMBRETEMBALAJE; ?></td>
-                                                                <td><?php echo $r['STOCKR']; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-
-                                                </table>
-                                            </div>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <!-- /.row -->
-
-
                                     <!-- /.box-body -->
-                                    <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i>
+                                    <div class="card-footer">
+                                        <div class="btn-group col-6" role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> Agregar items
                                             </button>
                                         </div>
                                     </div>
@@ -421,6 +380,48 @@ include_once "../config/validarDatosUrlD.php";
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['AGREGAR'])) {
+                $IDREEMBALAJE = $_REQUEST['IDP'];
+                if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
+                    $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
+                    $SINO = "0";
+                } else {
+                    $SINO = "1";
+                    $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
+                }
+                if ($SINO == "0") {
+                    foreach ($SELECIONAREXISTENCIA as $r) :
+
+                        $IDEXIEXPORTACION = $r;
+                        $EXIEXPORTACION->__SET('ID_REEMBALAJE', $IDREEMBALAJE);
+                        $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACION);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $EXIEXPORTACION_ADO->actualizarSelecionarReembalajeCambiarEstado($EXIEXPORTACION);
+                    endforeach;
+
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+
+                    echo
+                    '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Existencia(s) agregadas",
+                            text:"La(s) existencia(s) seleccionada(s) fueron agregadas correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href ="'.$_REQUEST['URLO'].'.php?op";
+                            }
+                        })
+                    </script>';
+                    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                }
+            }
+        ?>
 </body>
 
 </html>

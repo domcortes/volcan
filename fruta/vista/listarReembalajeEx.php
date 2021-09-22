@@ -304,29 +304,28 @@ include_once "../config/datosUrLP.php";
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroReembalajeEx" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarReembalajeEx" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
-
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
+                                                                                        <i class="ti-eye"></i> Ver
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($r['ESTADO'] == "1") { ?>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                     <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
+                                                                                        <i class="ti-pencil-alt"></i> Editar
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
                                                                                 <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
                                                                                 </button>
                                                                             </span>
                                                                         </div>
@@ -356,30 +355,33 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="box-footer">
-                            <div class="row">
-                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                    <div class="form-group">
+                            <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Neto</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                    <div class="form-group">
-                                        <label>Total Neto </label>
-                                        <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Exportacion</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                    <div class="form-group">
-                                        <label>Total Exportacion </label>
-                                        <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                    <div class="form-group">
-                                        <label>Total Industrial </label>
-                                        <input type="text" class="form-control" placeholder="Total Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Industrial</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
