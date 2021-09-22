@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2021 a las 15:01:50
+-- Tiempo de generación: 22-09-2021 a las 21:22:22
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -3207,13 +3207,13 @@ CREATE TABLE `material_despachoe` (
 --
 
 INSERT INTO `material_despachoe` (`ID_DESPACHO`, `NUMERO_DESPACHO`, `FECHA_DESPACHO`, `NUMERO_DOCUMENTO`, `CANTIDAD_DESPACHO`, `PATENTE_CAMION`, `PATENTE_CARRO`, `TDESPACHO`, `OBSERVACIONES`, `REGALO_DESPACHO`, `INGRESO`, `MODIFICACION`, `ESTADO`, `ESTADO_DESPACHO`, `ESTADO_REGISTRO`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_TDOCUMENTO`, `ID_TRANSPORTE`, `ID_CONDUCTOR`, `ID_RESPONSABLE`, `ID_BODEGA`, `ID_PLANTA2`, `ID_BODEGA2`, `ID_PRODUCTOR`, `ID_PROVEEDOR`, `ID_PLANTA3`, `ID_CLIENTE`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '2021-09-21', '11', 0, '0', '', 1, '', NULL, '2021-09-21 14:00:50', '2021-09-21 14:10:40', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
-(2, 2, '2021-09-21', '11', 0, 'ss', '', 2, '', NULL, '2021-09-21 14:01:45', '2021-09-21 14:01:45', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, 1, 1),
-(3, 3, '2021-09-21', '11', 0, '11', '', 3, '', NULL, '2021-09-21 14:01:59', '2021-09-21 14:01:59', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1),
-(4, 4, '2021-09-21', '11', 0, '111', '', 4, '', NULL, '2021-09-21 14:02:13', '2021-09-21 14:02:13', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
-(5, 5, '2021-09-21', '11', 0, '111', '', 5, '', NULL, '2021-09-21 14:02:29', '2021-09-21 14:02:29', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 3, NULL, 1, 1),
-(6, 6, '2021-09-21', '11', 0, '11', '', 6, '', NULL, '2021-09-21 14:02:42', '2021-09-21 14:02:42', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1),
-(7, 7, '2021-09-21', '11', 0, '11', '', 7, '', '11', '2021-09-21 14:03:03', '2021-09-21 14:03:03', 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+(1, 1, '2021-09-21', '11', 100, '0', '', 1, '', NULL, '2021-09-21 14:00:50', '2021-09-22 16:18:19', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(2, 2, '2021-09-21', '11', 500, 'ss', '', 2, '', NULL, '2021-09-21 14:01:45', '2021-09-22 16:18:57', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, 1, 1),
+(3, 3, '2021-09-21', '11', 100, '11', '', 3, '', NULL, '2021-09-21 14:01:59', '2021-09-22 16:19:58', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1),
+(4, 4, '2021-09-21', '11', 100, '111', '', 4, '', NULL, '2021-09-21 14:02:13', '2021-09-22 16:20:15', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
+(5, 5, '2021-09-21', '11', 50, '111', '', 5, '', NULL, '2021-09-21 14:02:29', '2021-09-22 16:20:29', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 3, NULL, 1, 1),
+(6, 6, '2021-09-21', '11', 50, '11', '', 6, '', NULL, '2021-09-21 14:02:42', '2021-09-22 16:20:42', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1),
+(7, 7, '2021-09-21', '11', 50, '11', '', 7, '', '11', '2021-09-21 14:03:03', '2021-09-22 16:20:56', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3494,9 +3494,8 @@ CREATE TABLE `material_inventarioe` (
   `ID_INVENTARIO` bigint(20) NOT NULL,
   `TRECEPCION` int(11) DEFAULT NULL,
   `VALOR_UNITARIO` decimal(11,5) DEFAULT NULL,
-  `CANTIDAD_INVENTARIO` int(11) DEFAULT NULL,
-  `FECHA_RECEPCION` date DEFAULT NULL,
-  `FECHA_DESPACHO` date DEFAULT NULL,
+  `CANTIDAD_ENTRADA` int(11) DEFAULT NULL,
+  `CANTIDAD_SALIDA` int(11) DEFAULT NULL,
   `ESTADO` int(11) DEFAULT NULL,
   `ESTADO_REGISTRO` int(11) DEFAULT NULL,
   `INGRESO` datetime DEFAULT NULL,
@@ -3508,11 +3507,9 @@ CREATE TABLE `material_inventarioe` (
   `ID_PRODUCTO` bigint(20) NOT NULL,
   `ID_TUMEDIDA` bigint(20) NOT NULL,
   `ID_RECEPCION` bigint(20) DEFAULT NULL,
-  `ID_PLANTA2` bigint(20) DEFAULT NULL,
-  `ID_PLANTA3` bigint(20) DEFAULT NULL,
-  `ID_PROVEEDOR` bigint(20) DEFAULT NULL,
-  `ID_PRODUCTOR` bigint(20) DEFAULT NULL,
   `ID_DESPACHO` bigint(20) DEFAULT NULL,
+  `ID_BODEGA2` bigint(20) DEFAULT NULL,
+  `ID_PLANTA2` bigint(20) DEFAULT NULL,
   `ID_DOCOMPRA` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -3520,13 +3517,24 @@ CREATE TABLE `material_inventarioe` (
 -- Volcado de datos para la tabla `material_inventarioe`
 --
 
-INSERT INTO `material_inventarioe` (`ID_INVENTARIO`, `TRECEPCION`, `VALOR_UNITARIO`, `CANTIDAD_INVENTARIO`, `FECHA_RECEPCION`, `FECHA_DESPACHO`, `ESTADO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_BODEGA`, `ID_PRODUCTO`, `ID_TUMEDIDA`, `ID_RECEPCION`, `ID_PLANTA2`, `ID_PLANTA3`, `ID_PROVEEDOR`, `ID_PRODUCTOR`, `ID_DESPACHO`, `ID_DOCOMPRA`) VALUES
-(1, 1, '0.00000', 1000, NULL, NULL, 2, 1, '2021-09-20 19:35:01', '2021-09-20 20:03:20', 1, 1, 2, 1, 1, 1, 1, NULL, NULL, 1, NULL, NULL, NULL),
-(2, 1, '0.00000', 1000, NULL, NULL, 0, 0, '2021-09-20 20:01:23', '2021-09-20 20:02:13', 1, 1, 2, 1, 1, 1, 1, NULL, NULL, 1, NULL, NULL, NULL),
-(3, 1, '0.00000', 1000, NULL, NULL, 0, 0, '2021-09-20 20:02:34', '2021-09-20 20:02:40', 1, 1, 2, 1, 1, 1, 1, NULL, NULL, 1, NULL, NULL, NULL),
-(4, 1, '0.00000', 500, NULL, NULL, 2, 1, '2021-09-20 20:04:40', '2021-09-20 20:34:24', 1, 1, 2, 1, 2, 1, 2, NULL, NULL, 1, NULL, NULL, NULL),
-(5, 1, '15.03000', 500, NULL, NULL, 0, 0, '2021-09-20 20:29:26', '2021-09-20 20:32:29', 1, 1, 2, 1, 2, 1, 2, NULL, NULL, 1, NULL, NULL, 5),
-(6, 1, '15.03000', 500, NULL, NULL, 2, 1, '2021-09-20 20:32:34', '2021-09-20 20:34:24', 1, 1, 2, 1, 2, 1, 2, NULL, NULL, 1, NULL, NULL, 5);
+INSERT INTO `material_inventarioe` (`ID_INVENTARIO`, `TRECEPCION`, `VALOR_UNITARIO`, `CANTIDAD_ENTRADA`, `CANTIDAD_SALIDA`, `ESTADO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_BODEGA`, `ID_PRODUCTO`, `ID_TUMEDIDA`, `ID_RECEPCION`, `ID_DESPACHO`, `ID_BODEGA2`, `ID_PLANTA2`, `ID_DOCOMPRA`) VALUES
+(1, 3, '0.00000', 200, 0, 1, 1, '2021-09-22 13:41:40', '2021-09-22 13:46:24', 1, 1, 2, 1, 2, 1, 1, NULL, NULL, NULL, NULL),
+(2, 3, '0.00000', 200, 0, 1, 1, '2021-09-22 13:41:48', '2021-09-22 13:46:24', 1, 1, 2, 1, 2, 1, 1, NULL, NULL, NULL, NULL),
+(3, 3, '0.00000', 200, 0, 0, 0, '2021-09-22 13:42:14', '2021-09-22 13:43:07', 1, 1, 2, 1, 2, 1, 1, NULL, NULL, NULL, NULL),
+(4, 3, '0.00000', 200, 0, 1, 1, '2021-09-22 13:46:19', '2021-09-22 13:46:24', 1, 1, 2, 1, 2, 1, 1, NULL, NULL, NULL, NULL),
+(5, 1, '15.03000', 100, 0, 1, 1, '2021-09-22 13:50:31', '2021-09-22 13:51:09', 1, 1, 2, 1, 2, 1, 2, NULL, NULL, NULL, 5),
+(14, NULL, NULL, 0, 100, 1, 1, '2021-09-22 16:07:29', '2021-09-22 16:17:17', 1, 1, 2, 1, 2, 1, NULL, 1, NULL, NULL, NULL),
+(16, NULL, NULL, 100, 0, 0, 0, '2021-09-22 16:07:29', '2021-09-22 16:15:20', 1, 1, 2, 1, 2, 1, NULL, 1, 1, NULL, NULL),
+(17, NULL, NULL, 100, 0, 0, 0, '2021-09-22 16:07:29', '2021-09-22 16:16:09', 1, 1, 2, 1, 2, 1, NULL, 1, 1, NULL, NULL),
+(18, NULL, NULL, 100, 0, 1, 1, '2021-09-22 16:07:29', '2021-09-22 16:18:19', 1, 1, 2, 1, 2, 1, NULL, 1, 1, NULL, NULL),
+(19, NULL, NULL, 0, 100, 0, 0, '2021-09-22 16:16:49', '2021-09-22 16:16:54', 1, 1, 2, 1, 2, 1, NULL, 1, NULL, NULL, NULL),
+(20, NULL, NULL, 100, 0, 0, 0, '2021-09-22 16:16:49', '2021-09-22 16:16:54', 1, 1, 2, 1, 2, 1, NULL, 1, 1, NULL, NULL),
+(21, NULL, NULL, 0, 500, 1, 1, '2021-09-22 16:18:55', '2021-09-22 16:18:55', 1, 1, 2, 1, 2, 1, NULL, 2, NULL, NULL, NULL),
+(22, NULL, NULL, 0, 100, 1, 1, '2021-09-22 16:19:57', '2021-09-22 16:19:57', 1, 1, 2, 1, 2, 1, NULL, 3, NULL, NULL, NULL),
+(23, NULL, NULL, 0, 100, 1, 1, '2021-09-22 16:20:13', '2021-09-22 16:20:13', 1, 1, 2, 1, 2, 1, NULL, 4, NULL, NULL, NULL),
+(24, NULL, NULL, 0, 50, 1, 1, '2021-09-22 16:20:28', '2021-09-22 16:20:28', 1, 1, 2, 1, 1, 1, NULL, 5, NULL, NULL, NULL),
+(25, NULL, NULL, 0, 50, 1, 1, '2021-09-22 16:20:40', '2021-09-22 16:20:40', 1, 1, 2, 1, 2, 1, NULL, 6, NULL, NULL, NULL),
+(26, NULL, NULL, 0, 50, 1, 1, '2021-09-22 16:20:54', '2021-09-22 16:20:54', 1, 1, 2, 1, 2, 1, NULL, 7, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4322,8 +4330,8 @@ CREATE TABLE `material_recepcione` (
 --
 
 INSERT INTO `material_recepcione` (`ID_RECEPCION`, `NUMERO_RECEPCION`, `FECHA_RECEPCION`, `TRECEPCION`, `SNOCOMPRA`, `NUMERO_DOCUMENTO_RECEPCION`, `PATENTE_CAMION`, `PATENTE_CARRO`, `TOTAL_CANTIDAD_RECEPCION`, `OBSERVACIONES_RECEPCION`, `ESTADO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_BODEGA`, `ID_TDOCUMENTO`, `ID_TRANSPORTE`, `ID_CONDUCTOR`, `ID_PROVEEDOR`, `ID_OCOMPRA`, `ID_PLANTA2`, `ID_PRODUCTOR`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '2021-09-20', 1, 0, '11', '1', '', 1000, '', 0, 1, '2021-09-20 18:30:15', '2021-09-20 20:03:20', 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, 1, 1),
-(2, 2, '2021-09-20', 1, 1, '111', '1111', '', 1000, '', 0, 1, '2021-09-20 20:04:29', '2021-09-20 20:34:24', 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, 1);
+(1, 1, '2021-09-22', 3, NULL, '1515', 'PPPP', '', 600, '', 0, 1, '2021-09-22 13:10:43', '2021-09-22 13:46:24', 1, 1, 2, 1, 1, 1, 1, NULL, NULL, 3, NULL, 1, 1),
+(2, 2, '2021-09-22', 1, 1, '151', 'pp', '', 100, '', 0, 1, '2021-09-22 13:50:20', '2021-09-22 13:52:42', 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -7299,14 +7307,12 @@ ALTER TABLE `material_inventarioe`
   ADD KEY `fk_material_inventarioe_principal_temporada_idx` (`ID_TEMPORADA`),
   ADD KEY `fk_material_inventarioe_principal_bodega_idx` (`ID_BODEGA`),
   ADD KEY `fk_material_inventarioe_principal_planta2_idx` (`ID_PLANTA2`),
-  ADD KEY `fk_material_inventarioe_principal_planta3_idx` (`ID_PLANTA3`),
   ADD KEY `fk_material_inventarioe_materiales_producto_idx` (`ID_PRODUCTO`),
   ADD KEY `fk_material_inventarioe_materiales_tumedida_idx` (`ID_TUMEDIDA`),
-  ADD KEY `fk_material_inventarioe_materiales_proveedor_idx` (`ID_PROVEEDOR`),
-  ADD KEY `fk_material_inventarioe_fruta_productor_idx` (`ID_PRODUCTOR`),
   ADD KEY `fk_material_inventarioe_materiales_despachoe_idx` (`ID_DESPACHO`),
   ADD KEY `fk_material_inventarioe_materiales_recepcione_idx` (`ID_RECEPCION`),
-  ADD KEY `fk_material_inventarioe_material_docompra_idx` (`ID_DOCOMPRA`);
+  ADD KEY `fk_material_inventarioe_material_docompra_idx` (`ID_DOCOMPRA`),
+  ADD KEY `fk_material_inventarioe_principal_bodega2_idx` (`ID_BODEGA2`);
 
 --
 -- Indices de la tabla `material_inventariom`
@@ -8208,7 +8214,7 @@ ALTER TABLE `material_fpago`
 -- AUTO_INCREMENT de la tabla `material_inventarioe`
 --
 ALTER TABLE `material_inventarioe`
-  MODIFY `ID_INVENTARIO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_INVENTARIO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `material_inventariom`
@@ -9398,18 +9404,16 @@ ALTER TABLE `material_fpago`
 -- Filtros para la tabla `material_inventarioe`
 --
 ALTER TABLE `material_inventarioe`
-  ADD CONSTRAINT `fk_material_inventarioe_fruta_productor` FOREIGN KEY (`ID_PRODUCTOR`) REFERENCES `fruta_productor` (`ID_PRODUCTOR`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_material_docompra` FOREIGN KEY (`ID_DOCOMPRA`) REFERENCES `material_docompra` (`ID_DOCOMPRA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_materiales_despachoe` FOREIGN KEY (`ID_DESPACHO`) REFERENCES `material_despachoe` (`ID_DESPACHO`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_materiales_producto` FOREIGN KEY (`ID_PRODUCTO`) REFERENCES `material_producto` (`ID_PRODUCTO`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_material_inventarioe_materiales_proveedor` FOREIGN KEY (`ID_PROVEEDOR`) REFERENCES `material_proveedor` (`ID_PROVEEDOR`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_materiales_recepcione` FOREIGN KEY (`ID_RECEPCION`) REFERENCES `material_recepcione` (`ID_RECEPCION`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_materiales_tumedida` FOREIGN KEY (`ID_TUMEDIDA`) REFERENCES `material_tumedida` (`ID_TUMEDIDA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_principal_bodega` FOREIGN KEY (`ID_BODEGA`) REFERENCES `principal_bodega` (`ID_BODEGA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_material_inventarioe_principal_bodega2` FOREIGN KEY (`ID_BODEGA2`) REFERENCES `principal_bodega` (`ID_BODEGA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_principal_empresa` FOREIGN KEY (`ID_EMPRESA`) REFERENCES `principal_empresa` (`ID_EMPRESA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_principal_planta` FOREIGN KEY (`ID_PLANTA`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_principal_planta2` FOREIGN KEY (`ID_PLANTA2`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_material_inventarioe_principal_planta3` FOREIGN KEY (`ID_PLANTA3`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_inventarioe_principal_temporada` FOREIGN KEY (`ID_TEMPORADA`) REFERENCES `principal_temporada` (`ID_TEMPORADA`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
