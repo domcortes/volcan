@@ -603,7 +603,7 @@ if ($_POST) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6  ">
+                                        <div class="col-2">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID DINDUSTRIAL" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
@@ -618,14 +618,14 @@ if ($_POST) {
                                                 <input type="text" class="form-control" id="NUMEROFOLIODINDUSTRIALV" name="NUMEROFOLIODINDUSTRIALV" value="<?php echo $NUMEROFOLIODINDUSTRIAL; ?>" disabled style="background-color: #eeeeee;" />
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-2">
                                             <div class="form-group">
                                                 <label>Fecha Embalado </label>
                                                 <input type="date" class="form-control" placeholder="Fecha Embalado" id="FECHAEMBALADODINDUSTRIAL" name="FECHAEMBALADODINDUSTRIAL" value="<?php echo $FECHAEMBALADODINDUSTRIAL; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_fechaembalado" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <label>Productor </label>
                                                 <input type="hidden" class="form-control" placeholder="ID PRODUCTOR" id="PRODUCTOR" name="PRODUCTOR" value="<?php echo $PRODUCTOR; ?>" />
@@ -634,7 +634,7 @@ if ($_POST) {
                                                 <label id="val_productor" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <label>Variedad</label>
                                                 <input type="hidden" class="form-control" placeholder="ID VESPECIES" id="VESPECIES" name="VESPECIES" value="<?php echo $VESPECIES; ?>" />
@@ -642,7 +642,7 @@ if ($_POST) {
                                                 <label id="val_vespecies" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <label>Estandar </label>
                                                 <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
@@ -660,14 +660,14 @@ if ($_POST) {
                                                 <label id="val_estandar" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <label>Kilos Neto </label>
                                                 <input type="number" class="form-control" step="0.01" placeholder="Kilos Neto" id="KILOSNETO" name="KILOSNETO" value="<?php echo $KILOSNETO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_neto" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <label>Tipo Manejo</label><br>
                                                 <select class="form-control select2" id="TMANEJO" name="TMANEJO" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -687,54 +687,34 @@ if ($_POST) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Kilos Exportacion</label>
-                                                <input type="text" class="form-control" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEXV; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Kilos Industrial</label>
-                                                <input type="text" class="form-control" placeholder="TOTAL NETO" id="TOTALNETOINDV" name="TOTALNETOINDV" value="<?php echo $TOTALNETOINDV; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Diferencia Kilos</label>
-                                                <input type="text" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
                                     <label id=" val_mensaje" class="validacion"><?php echo $MENSAJEELIMINAR; ?> </label>
                                     <!-- /.row -->
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                            <i class="ti-back-left "></i>
+                                    <div class="btn-group col-6">
+                                        <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                            <i class="ti-back-left "></i> Volver
                                         </button>
                                         <?php if ($OP == "") { ?>
-                                            <button type="submit" class="btn btn-rounded btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Crear
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
                                             <?php if ($OP == "crear") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i>
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Crear
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i>
+                                                <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Editar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "eliminar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
-                                                    <i class="ti-trash"></i>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                    <i class="ti-trash"></i> Eliminar
                                                 </button>
                                             <?php } ?>
                                         <?php } ?>
@@ -753,6 +733,27 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            echo
+            '<script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    showConfirmButton:true
+                })
+
+                Toast.fire({
+                  icon: "info",
+                  title: "Cuadratura de proceso",
+                  html:"Kg. Exportacion: '.$TOTALDESHIDRATACIONEXV.'<br> Kg. Industrial: '.$TOTALNETOINDV.'<br>Diferencia Kg: '.$DIFERENCIAKILOSNETOEXPO.'"
+                })
+            </script>';
+        ?>
+
+
+
+
 </body>
 
 
