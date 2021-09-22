@@ -399,7 +399,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </a>
             <ul class="treeview-menu">
               <li><a href="#">Materiales <i class="ti-more"></i></a></li>
-              <li><a href="#">Envases<i class="ti-more"></i></a></li>
+              <!--<li><a href="#">Envases<i class="ti-more"></i></a></li>-->
             </ul>
           </li>
 
