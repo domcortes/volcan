@@ -749,10 +749,8 @@ if (isset($_POST)) {
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                                <div class="card-header">
+                                    <h4 class="card-title">Encabezado de Proceso</h4>
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -981,50 +979,6 @@ if (isset($_POST)) {
                                         <div class="col-auto">
                                             <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>Seleccion Existencia</button>
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Envase</div>
-                                                </div>
-                                                <!-- inicio input -->
-                                                <input type="hidden" class="form-control" placeholder="TOTAL ENVASE" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASEE; ?>" />
-                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEEV" name="TOTALENVASEEV" value="<?php echo $TOTALENVASEEV; ?>" disabled />
-                                                <!-- /termino input -->
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Neto</div>
-                                                </div>
-                                                <!-- inicio input -->
-                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETOE; ?>" />
-                                                <input type="text" class="form-control" placeholder="Total Neto " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
-                                                <!-- /termino input -->
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">% Exportacion</div>
-                                                </div>
-                                                <!-- inicio input -->
-                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOEX" name="PEXPORTACIONEXPOEX" value="<?php echo $PEXPORTACIONEXPOEX; ?>" />
-                                                <input type="text" class="form-control" placeholder="% Exportacion" id="PEXPORTACIONEXPOEXV" name="PEXPORTACIONEXPOEXV" value="<?php echo $PEXPORTACIONEXPOEX; ?>" disabled />
-                                                <!-- /termino input -->
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">% Industrial</div>
-                                                </div>
-                                                <!-- inicio input -->
-                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOINDU" name="PEXPORTACIONEXPOINDU" value="<?php echo $PEXPORTACIONEXPOINDU; ?>" />
-                                                <input type="text" class="form-control" placeholder="% Industrial" id="PEXPORTACIONEXPOINDUV" name="PEXPORTACIONEXPOINDUV" value="<?php echo $PEXPORTACIONEXPOINDU; ?>" disabled />
-                                                <!-- /termino input -->
-                                            </div>
-                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -1124,244 +1078,296 @@ if (isset($_POST)) {
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <label id="val_dproceso" class="validacion"><?php echo $MENSAJEEXISTENCIA; ?> </label>
-                                <label id="val_dproceso" class="validacion"><?php echo $MENSAJEPORCENTAJE; ?> </label>
-                            </div>
-                        </div>
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h4 class="box-title">Salida / Detalle Proceso </h4>
-                            </div>
-                            <div class="box-body ">
-                                <label id="val_dproceso" class="validacion "><?php echo $MENSAJEEXPORTACION; ?> </label>
-                                <label id="val_dproceso" class="validacion "><?php echo $MENSAJEINDUSTRIAL; ?> </label>
-                                <label id="val_dproceso" class="validacion center"><?php echo $MENSAJEDIFERENCIA; ?> </label>
-                                <div class="row">
-                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
-                                        <div class="table-responsive">
-                                            <table id="salida" class="table table-hover " style="width: 100%;">
-                                                <thead>
-                                                    <tr class="text-left">
-                                                        <th>P. Terminado/Industrial</th>
-                                                        <th>Folio</th>
-                                                        <th class="text-center">Operaciones</th>
-                                                        <th>Fecha Embalado </th>
-                                                        <th>Envase/Estandar</th>
-                                                        <th>Variedad</th>
-                                                        <th>Cantidad Envase</th>
-                                                        <th>Kilo Neto </th>
-                                                        <th>% Deshidratación </th>
-                                                        <th>Kilo Con Deshidratación </th>
-                                                        <th>Kilo Bruto </th>
-                                                        <th>Embolsado </th>
-                                                        <th>Tipo Manejo </th>
-                                                        <th>Tipo Calibre </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php if ($ARRAYDEXPORTACIONPORPROCESO) { ?>
-                                                        <?php foreach ($ARRAYDEXPORTACIONPORPROCESO as $r) : ?>
-
-                                                            <?php
-                                                            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                            if ($ARRAYVESPECIES) {
-                                                                $NOMBREVARIEDAD = $ARRAYVESPECIES[0]['NOMBRE_VESPECIES'];
-                                                            } else {
-                                                                $NOMBREVARIEDAD = "Sin Datos";
-                                                            }
-                                                            $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-                                                            if ($ARRAYTCALIBRE) {
-                                                                $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                            } else {
-                                                                $NOMBRETCALIBRE = "Sin Datos";
-                                                            }
-                                                            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                            if ($ARRAYTMANEJO) {
-                                                                $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                            } else {
-                                                                $NOMBRETMANEJO = "Sin Datos";
-                                                            }
-                                                            $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                            if ($ARRAYESTANDAR) {
-                                                                $NOMBREESTANDAR = $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
-                                                            } else {
-                                                                $NOMBREESTANDAR = "Sin Datos";
-                                                            }
-                                                            if ($r['EMBOLSADO'] == "0") {
-                                                                $EMBOLSADO = "NO";
-                                                            } else if ($r['EMBOLSADO'] == "1") {
-                                                                $EMBOLSADO =  "SI";
-                                                            } else {
-                                                                $EMBOLSADO = "Sin Datos";
-                                                            }
-                                                            ?>
-                                                            <tr class="text-left">
-                                                                <td>P. Terminado</td>
-                                                                <td><?php echo $r['FOLIO_DPEXPORTACION']; ?></td>
-                                                                <td class="text-center">
-                                                                    <form method="post" id="form3" id="form3">
-                                                                        <input type="hidden" class="form-control" placeholder="ID DPEXPORTACION" id="IDD" name="IDD" value="<?php echo $r['ID_DPEXPORTACION']; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
-                                                                        <input type="hidden" class="form-control" placeholder="URL DPEXPORTACION" id="URLD" name="URLD" value="registroDprocesoExportacion" />
-                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <?php if ($ESTADO == "0") { ?>
-                                                                                <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>
-                                                                            <?php } ?>
-                                                                            <?php if ($ESTADO == "1") { ?>
-                                                                                <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>
-                                                                                <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                    <i class="fa fa-fw fa-copy"></i>
-                                                                                </button>
-                                                                                <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                    <i class="ti-close"></i>
-                                                                                </button>
-                                                                            <?php } ?>
-                                                                        </div>
-                                                                    </form>
-                                                                </td>
-                                                                <td><?php echo $r['EMBALADO']; ?></td>
-                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                                <td><?php echo $r['ENVASE']; ?></td>
-                                                                <td><?php echo $r['NETO']; ?></td>
-                                                                <td><?php echo $r['PORCENTAJE']; ?></td>
-                                                                <td><?php echo $r['DESHIDRATACION']; ?></td>
-                                                                <td><?php echo $r['BRUTO']; ?></td>
-                                                                <td><?php echo $EMBOLSADO; ?></td>
-                                                                <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                                <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-                                                    <?php if ($ARRATDINDUSTRIALPORPROCESO) { ?>
-                                                        <?php foreach ($ARRATDINDUSTRIALPORPROCESO as $r) : ?>
-
-                                                            <?php
-                                                            $ARRAYVEREINDUTRIAL = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                            if ($ARRAYVEREINDUTRIAL) {
-                                                                $NOMBREESTANDARI = $ARRAYVEREINDUTRIAL[0]['NOMBRE_ESTANDAR'];
-                                                            } else {
-                                                                $NOMBREESTANDARI = "Sin Datos";
-                                                            }
-                                                            ?>
-                                                            <tr class="text-left">
-                                                                <td>P. Industrial</td>
-                                                                <td><?php echo $r['FOLIO_DPINDUSTRIAL']; ?></td>
-                                                                <td class="text-center">
-                                                                    <form method="post" id="form4" id="form4">
-                                                                        <input type="hidden" class="form-control" placeholder="ID DPINDUSTRIAL" id="IDD" name="IDD" value="<?php echo $r['ID_DPINDUSTRIAL']; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
-                                                                        <input type="hidden" class="form-control" placeholder="URL DPINDUSTRIAL" id="URLD" name="URLD" value="registroDprocesoIndustrial" />
-                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <?php if ($ESTADO == "0") { ?>
-                                                                                <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>
-                                                                            <?php } ?>
-                                                                            <?php if ($ESTADO == "1") { ?>
-                                                                                <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>
-                                                                                <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                    <i class="fa fa-fw fa-copy"></i>
-                                                                                </button>
-                                                                                <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                    <i class="ti-close"></i>
-                                                                                </button>
-                                                                            <?php } ?>
-                                                                        </div>
-                                                                    </form>
-                                                                </td>
-                                                                <td><?php echo $r['FECHA_EMBALADO_DPINDUSTRIAL']; ?></td>
-                                                                <td> <?php echo $NOMBREESTANDARI; ?> </td>
-                                                                <td>-</td>
-                                                                <td>-</td>
-                                                                <td><?php echo $r['KILOS_NETO_DPINDUSTRIAL']; ?></td>
-                                                                <td>-</td>
-                                                                <td>-</td>
-                                                                <td>-</td>
-                                                                <td>-</td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                </div>
+                                                <!-- inicio input -->
+                                                <input type="hidden" class="form-control" placeholder="TOTAL ENVASE" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASEE; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="Total Envase" id="TOTALENVASEEV" name="TOTALENVASEEV" value="<?php echo $TOTALENVASEEV; ?>" disabled />
+                                                <!-- /termino input -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                </div>
+                                                <!-- inicio input -->
+                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETOE; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="Total Neto " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
+                                                <!-- /termino input -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">% Exportacion</div>
+                                                </div>
+                                                <!-- inicio input -->
+                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOEX" name="PEXPORTACIONEXPOEX" value="<?php echo $PEXPORTACIONEXPOEX; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="% Exportacion" id="PEXPORTACIONEXPOEXV" name="PEXPORTACIONEXPOEXV" value="<?php echo $PEXPORTACIONEXPOEX; ?>" disabled />
+                                                <!-- /termino input -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">% Industrial</div>
+                                                </div>
+                                                <!-- inicio input -->
+                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOINDU" name="PEXPORTACIONEXPOINDU" value="<?php echo $PEXPORTACIONEXPOINDU; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="% Industrial" id="PEXPORTACIONEXPOINDUV" name="PEXPORTACIONEXPOINDUV" value="<?php echo $PEXPORTACIONEXPOINDU; ?>" disabled />
+                                                <!-- /termino input -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label id="val_dproceso" class="validacion"><?php echo $MENSAJEEXISTENCIA; ?> </label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label id="val_dproceso" class="validacion"><?php echo $MENSAJEPORCENTAJE; ?> </label>
                                         </div>
                                     </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <form method="post" id="form5" name="form5">
-                                                            <div class="form-group">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Salida / Detalle Proceso </h4>
+                            </div>
+                            <div class="card-header">
+                                <div class="form-row align-items-center">
+                                    <div class="btn-group">
+                                        <form method="post" id="form5" name="form5">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
+                                                <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDprocesoExportacion" />
+                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Producto Terminado" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
+                                                echo "disabled style='background-color: #eeeeee;'";} ?>>Agregar prod. Terminado</button>
+                                            </div>
+                                        </form>
+                                        <form method="post" id="form6" name="form6">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
+                                                <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDprocesoIndustrial" />
+                                                <button type="submit" class="btn btn-secondary btn-block" data-toggle="tooltip" title="Agregar Producto Industrial" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>Agregar prod. Industrial</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="salida" class="table table-hover " style="width: 100%;">
+                                        <thead>
+                                            <tr class="text-left">
+                                                <th>P. Terminado/Industrial</th>
+                                                <th>Folio</th>
+                                                <th class="text-center">Operaciones</th>
+                                                <th>Fecha Embalado </th>
+                                                <th>Envase/Estandar</th>
+                                                <th>Variedad</th>
+                                                <th>Cantidad Envase</th>
+                                                <th>Kilo Neto </th>
+                                                <th>% Deshidratación </th>
+                                                <th>Kilo Con Deshidratación </th>
+                                                <th>Kilo Bruto </th>
+                                                <th>Embolsado </th>
+                                                <th>Tipo Manejo </th>
+                                                <th>Tipo Calibre </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if ($ARRAYDEXPORTACIONPORPROCESO) { ?>
+                                                <?php foreach ($ARRAYDEXPORTACIONPORPROCESO as $r) : ?>
+
+                                                    <?php
+                                                    $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                    if ($ARRAYVESPECIES) {
+                                                        $NOMBREVARIEDAD = $ARRAYVESPECIES[0]['NOMBRE_VESPECIES'];
+                                                    } else {
+                                                        $NOMBREVARIEDAD = "Sin Datos";
+                                                    }
+                                                    $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                    if ($ARRAYTCALIBRE) {
+                                                        $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                    } else {
+                                                        $NOMBRETCALIBRE = "Sin Datos";
+                                                    }
+                                                    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                    if ($ARRAYTMANEJO) {
+                                                        $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                    } else {
+                                                        $NOMBRETMANEJO = "Sin Datos";
+                                                    }
+                                                    $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                    if ($ARRAYESTANDAR) {
+                                                        $NOMBREESTANDAR = $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
+                                                    } else {
+                                                        $NOMBREESTANDAR = "Sin Datos";
+                                                    }
+                                                    if ($r['EMBOLSADO'] == "0") {
+                                                        $EMBOLSADO = "NO";
+                                                    } else if ($r['EMBOLSADO'] == "1") {
+                                                        $EMBOLSADO =  "SI";
+                                                    } else {
+                                                        $EMBOLSADO = "Sin Datos";
+                                                    }
+                                                    ?>
+                                                    <tr class="text-left">
+                                                        <td>P. Terminado</td>
+                                                        <td><?php echo $r['FOLIO_DPEXPORTACION']; ?></td>
+                                                        <td class="text-center">
+                                                            <form method="post" id="form3" id="form3">
+                                                                <input type="hidden" class="form-control" placeholder="ID DPEXPORTACION" id="IDD" name="IDD" value="<?php echo $r['ID_DPEXPORTACION']; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
-                                                                <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDprocesoExportacion" />
-                                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Producto Terminado" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                        } ?>
-                                                                    >
-                                                                    Agregar prod. Terminado
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <form method="post" id="form6" name="form6">
-                                                            <div class="form-group">
+                                                                <input type="hidden" class="form-control" placeholder="URL DPEXPORTACION" id="URLD" name="URLD" value="registroDprocesoExportacion" />
+                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                    <?php if ($ESTADO == "0") { ?>
+                                                                        <button type="submit" class="btn  btn-info  btn-sm" id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
+                                                                            <i class="ti-eye"></i>
+                                                                        </button>
+                                                                    <?php } ?>
+                                                                    <?php if ($ESTADO == "1") { ?>
+                                                                        <button type="submit" class="btn btn-warning btn-sm" id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
+                                                                            <i class="ti-pencil-alt"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn   btn-secondary btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
+                                                                            <i class="fa fa-fw fa-copy"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
+                                                                            <i class="ti-close"></i>
+                                                                        </button>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </form>
+                                                        </td>
+                                                        <td><?php echo $r['EMBALADO']; ?></td>
+                                                        <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                        <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                        <td><?php echo $r['ENVASE']; ?></td>
+                                                        <td><?php echo $r['NETO']; ?></td>
+                                                        <td><?php echo $r['PORCENTAJE']; ?></td>
+                                                        <td><?php echo $r['DESHIDRATACION']; ?></td>
+                                                        <td><?php echo $r['BRUTO']; ?></td>
+                                                        <td><?php echo $EMBOLSADO; ?></td>
+                                                        <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                        <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php } ?>
+                                            <?php if ($ARRATDINDUSTRIALPORPROCESO) { ?>
+                                                <?php foreach ($ARRATDINDUSTRIALPORPROCESO as $r) : ?>
+
+                                                    <?php
+                                                    $ARRAYVEREINDUTRIAL = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                    if ($ARRAYVEREINDUTRIAL) {
+                                                        $NOMBREESTANDARI = $ARRAYVEREINDUTRIAL[0]['NOMBRE_ESTANDAR'];
+                                                    } else {
+                                                        $NOMBREESTANDARI = "Sin Datos";
+                                                    }
+                                                    ?>
+                                                    <tr class="text-left">
+                                                        <td>P. Industrial</td>
+                                                        <td><?php echo $r['FOLIO_DPINDUSTRIAL']; ?></td>
+                                                        <td class="text-center">
+                                                            <form method="post" id="form4" id="form4">
+                                                                <input type="hidden" class="form-control" placeholder="ID DPINDUSTRIAL" id="IDD" name="IDD" value="<?php echo $r['ID_DPINDUSTRIAL']; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
-                                                                <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDprocesoIndustrial" />
-                                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Producto Industrial" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
-                                                                    Agregar prod. Industrial
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kilos Exportacion</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input type="hidden" class="form-control" id="TOTALDESHIDRATACIONEX" name="TOTALDESHIDRATACIONEX" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" />
-                                                        <input type="text" class="form-control" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEXV; ?>" disabled />
-
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kilos Industrial</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input type="hidden" class="form-control" id="TOTALNETOIND" name="TOTALNETOIND" value="<?php echo $TOTALNETOIND; ?>" />
-                                                        <input type="text" class="form-control" placeholder="TOTAL NETO" id="TOTALNETOINDV" name="TOTALNETOINDV" value="<?php echo $TOTALNETOINDV; ?>" disabled />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Diferencia Kilos</td>
-                                                </tr>
-                                                <tr>
-                                                    <td> <input type="hidden" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEX" name="DIFERENCIAKILOSNETOEX" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" />
-                                                        <input type="text" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
-
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                                <input type="hidden" class="form-control" placeholder="URL DPINDUSTRIAL" id="URLD" name="URLD" value="registroDprocesoIndustrial" />
+                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                    <?php if ($ESTADO == "0") { ?>
+                                                                        <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
+                                                                            <i class="ti-eye"></i>
+                                                                        </button>
+                                                                    <?php } ?>
+                                                                    <?php if ($ESTADO == "1") { ?>
+                                                                        <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
+                                                                            <i class="ti-pencil-alt"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
+                                                                            <i class="fa fa-fw fa-copy"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
+                                                                            <i class="ti-close"></i>
+                                                                        </button>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </form>
+                                                        </td>
+                                                        <td><?php echo $r['FECHA_EMBALADO_DPINDUSTRIAL']; ?></td>
+                                                        <td> <?php echo $NOMBREESTANDARI; ?> </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td><?php echo $r['KILOS_NETO_DPINDUSTRIAL']; ?></td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        Kilos Exportacion
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALDESHIDRATACIONEX" name="TOTALDESHIDRATACIONEX" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEXV; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        Kilos Industrial
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALNETOIND" name="TOTALNETOIND" value="<?php echo $TOTALNETOIND; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="TOTAL NETO" id="TOTALNETOINDV" name="TOTALNETOINDV" value="<?php echo $TOTALNETOINDV; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        Diferencia Kilos
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEX" name="DIFERENCIAKILOSNETOEX" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJEEXPORTACION; ?> </label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJEINDUSTRIAL; ?> </label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label id="val_dproceso" class="validacion center"><?php echo $MENSAJEDIFERENCIA; ?> </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
