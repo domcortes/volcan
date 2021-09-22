@@ -328,7 +328,7 @@ if (isset($_REQUEST['CERRAR'])) {
                     $INVENTARIOM->__SET('ID_EMPRESA', $r['ID_EMPRESA']);
                     $INVENTARIOM->__SET('ID_PLANTA', $r['ID_PLANTA']);
                     $INVENTARIOM->__SET('ID_TEMPORADA', $r['ID_TEMPORADA']);
-                    // $INVENTARIOM_ADO->agregarInventarioBodega($INVENTARIOM);
+                    $INVENTARIOM_ADO->agregarInventarioBodega($INVENTARIOM);
                 }
                 $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

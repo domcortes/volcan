@@ -302,7 +302,86 @@ class INVENTARIOM_ADO {
     }   
     
 
+    public function agregarInventarioGuia(INVENTARIOM $INVENTARIOM){
+        try{      
+            if($INVENTARIOM->__GET('ID_PROVEEDOR')==NULL){
+                $INVENTARIOM->__SET('ID_PROVEEDOR', NULL);
+            }
+            if($INVENTARIOM->__GET('ID_PLANTA2')==NULL){
+                $INVENTARIOM->__SET('ID_PLANTA2', NULL);
+            }
+            if($INVENTARIOM->__GET('ID_PLANTA3')==NULL){
+                $INVENTARIOM->__SET('ID_PLANTA3', NULL);
+            }
+            if($INVENTARIOM->__GET('ID_PRODUCTOR')==NULL){
+                $INVENTARIOM->__SET('ID_PRODUCTOR', NULL);
+            }
+            $query=
+                "INSERT INTO material_inventariom (   
+                                                        FOLIO_INVENTARIO,
+                                                        FOLIO_AUXILIAR_INVENTARIO,
+                                                        ALIAS_DINAMICO_FOLIO,
+                                                        ALIAS_ESTATICO_FOLIO,
+                                                        TRECEPCION,
 
+                                                        VALOR_UNITARIO,   
+                                                        CANTIDAD_INVENTARIO, 
+                                                        ID_EMPRESA,
+                                                        ID_PLANTA,
+                                                        ID_TEMPORADA,
+
+                                                        ID_BODEGA,
+                                                        ID_FOLIO,
+                                                        ID_PRODUCTO,
+                                                        ID_TCONTENEDOR,
+                                                        ID_TUMEDIDA,
+
+                                                        ID_PLANTA2,
+                                                        ID_PLANTA3,
+                                                        ID_PROVEEDOR,
+
+                                                        ID_PRODUCTOR,
+                                                        INGRESO,
+                                                        MODIFICACION,     
+                                                        ESTADO,
+                                                        ESTADO_REGISTRO
+                                                    ) VALUES
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,    SYSDATE() , SYSDATE(),  2, 1);";
+            $this->conexion->prepare($query)
+            ->execute(
+                array(                 
+                    $INVENTARIOM->__GET('FOLIO_INVENTARIO') , 
+                    $INVENTARIOM->__GET('FOLIO_AUXILIAR_INVENTARIO') ,  
+                    $INVENTARIOM->__GET('ALIAS_DINAMICO_FOLIO') ,    
+                    $INVENTARIOM->__GET('ALIAS_ESTATICO_FOLIO') ,    
+                    $INVENTARIOM->__GET('TRECEPCION') ,  
+
+                    $INVENTARIOM->__GET('VALOR_UNITARIO') ,   
+                    $INVENTARIOM->__GET('CANTIDAD_INVENTARIO') ,
+                    $INVENTARIOM->__GET('ID_EMPRESA') ,  
+                    $INVENTARIOM->__GET('ID_PLANTA') ,  
+                    $INVENTARIOM->__GET('ID_TEMPORADA') ,  
+
+                    $INVENTARIOM->__GET('ID_BODEGA') ,     
+                    $INVENTARIOM->__GET('ID_FOLIO') ,     
+                    $INVENTARIOM->__GET('ID_PRODUCTO') ,     
+                    $INVENTARIOM->__GET('ID_TCONTENEDOR') ,     
+                    $INVENTARIOM->__GET('ID_TUMEDIDA') ,   
+   
+                    $INVENTARIOM->__GET('ID_PLANTA2') ,     
+                    $INVENTARIOM->__GET('ID_PLANTA3') ,     
+                    $INVENTARIOM->__GET('ID_PROVEEDOR') ,
+
+                    $INVENTARIOM->__GET('ID_PRODUCTOR')      
+                )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }   
+    
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarInventario($id){
         try{$sql="DELETE FROM material_inventariom WHERE ID_INVENTARIO=".$id.";";
@@ -621,7 +700,9 @@ class INVENTARIOM_ADO {
         }
         
     }
-    
+
+
+
     public function enTransito(INVENTARIOM $INVENTARIOM){
         try{
             $query = "
@@ -1152,6 +1233,31 @@ class INVENTARIOM_ADO {
             die($e->getMessage());
         }
     }
+    public function buscarPorDespachoEnTransito($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 
+                                                    * 
+                                                FROM material_inventariom 
+                                                    WHERE ID_DESPACHO= '" . $IDDESPACHO . "' 
+                                                    AND ESTADO_REGISTRO = 1
+                                                    AND ESTADO =  5
+                                                    ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
     public function buscarPorDespacho2($IDDESPACHO)
     {
         try {

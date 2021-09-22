@@ -50,8 +50,8 @@ $ARRAYMGUIAMP = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaInterplantaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaPlantaTemporadaInterplantaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
 }
 
@@ -162,9 +162,9 @@ include_once "../config/datosUrLP.php";
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                        <li class="breadcrumb-item" aria-current="page">Despacho P. Terminado</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Despacho </a>
+                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                        <li class="breadcrumb-item" aria-current="page">Recepción Materiales</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado InterPlanta </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -238,7 +238,6 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $ESTADODESPACHO = "Sin Datos";
                                                     }
-
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
                                                     } else
@@ -316,25 +315,10 @@ include_once "../config/datosUrLP.php";
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachom" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachom" />
-                                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoe" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoe" />                                                                     
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoM.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoE.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>
                                                                             </span>

@@ -578,11 +578,11 @@ class DESPACHOE_ADO
                                                 DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
-                                                FORMAT(CANTIDAD_DESPACHO,0,'de_DE')  AS 'CANTIDAD''
+                                                FORMAT(CANTIDAD_DESPACHO,0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
-                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 

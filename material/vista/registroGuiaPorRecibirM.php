@@ -11,9 +11,12 @@ include_once '../controlador/CONDUCTOR_ADO.php';
 
 
 
+include_once '../controlador/INVENTARIOM_ADO.php';
 include_once '../controlador/MGUIAM_ADO.php';
 include_once '../controlador/DESPACHOM_ADO.php';
 
+include_once '../modelo/INVENTARIOM.php';
+include_once '../modelo/DESPACHOM.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
@@ -22,10 +25,13 @@ $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
 
+$INVENTARIOM_ADO =  new INVENTARIOM_ADO();
 $MGUIAM_ADO =  new MGUIAM_ADO();
 $DESPACHOM_ADO =  new DESPACHOM_ADO();
 
 
+$INVENTARIOM =  new INVENTARIOM();
+$DESPACHOM =  new DESPACHOM();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 
@@ -45,7 +51,7 @@ $ARRAYVEREMPRESA = "";
 $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
-$ARRAYMGUIAMP = "";
+$ARRAYMGUIAM = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -53,8 +59,8 @@ $ARRAYMGUIAMP = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
 }
 
@@ -63,9 +69,56 @@ include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
 
 
+if (isset($_REQUEST['APROBARURL'])) {
+
+    $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['ID']);
+    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+    $DESPACHOM_ADO->cerrado($DESPACHOM);
 
 
+    $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['ID']);
+    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+    $DESPACHOM_ADO->Aprobado($DESPACHOM);
 
+    $ARRAYEXISENCIADESPACHOMP = $INVENTARIOM_ADO->buscarPorDespachoEnTransito($_REQUEST['ID']);
+    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+        $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
+        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+        $INVENTARIOM_ADO->despachado($INVENTARIOM);
+    endforeach;
+
+    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+        $INVENTARIOM->__SET('FOLIO_INVENTARIO', $r['FOLIO_INVENTARIO']);
+        $INVENTARIOM->__SET('FOLIO_AUXILIAR_INVENTARIO', $r['FOLIO_AUXILIAR_INVENTARIO']);
+        $INVENTARIOM->__SET('ALIAS_DINAMICO_FOLIO', $r['ALIAS_DINAMICO_FOLIO']);
+        $INVENTARIOM->__SET('ALIAS_ESTATICO_FOLIO', $r['ALIAS_ESTATICO_FOLIO']);
+        $INVENTARIOM->__SET('TRECEPCION', $r['TRECEPCION']);
+        $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $r['CANTIDAD_INVENTARIO']);
+        $INVENTARIOM->__SET('VALOR_UNITARIO', $r['VALOR_UNITARIO']);
+        $INVENTARIOM->__SET('ID_BODEGA',  $r['ID_BODEGA']);
+        $INVENTARIOM->__SET('ID_FOLIO', $r['ID_FOLIO']);
+        $INVENTARIOM->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
+        $INVENTARIOM->__SET('ID_TCONTENEDOR', $r['ID_TCONTENEDOR']);
+        $INVENTARIOM->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
+        $INVENTARIOM->__SET('ID_PLANTA2', $r['ID_PLANTA']);
+        $INVENTARIOM->__SET('ID_PROVEEDOR', $r['ID_PROVEEDOR']);
+        $INVENTARIOM->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
+        $INVENTARIOM->__SET('ID_EMPRESA', $EMPRESAS);
+        $INVENTARIOM->__SET('ID_PLANTA', $PLANTAS);
+        $INVENTARIOM->__SET('ID_TEMPORADA', $TEMPORADAS);
+     //   $INVENTARIOM_ADO->agregarInventarioGuia($INVENTARIOM);
+    endforeach;
+
+    //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+}
+
+if (isset($_REQUEST['RECHAZARURL'])) {
+
+    $_SESSION["parametro"] = $_REQUEST['ID'];
+    $_SESSION["parametro1"] = "";
+    $_SESSION["urlO"] = $_REQUEST['URLO'];
+    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLM'] . ".php?op';</script>";
+}
 ?>
 
 
@@ -73,7 +126,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Agrupado Despacho MP</title>
+    <title>Guia Por Recibir Materiales </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -149,7 +202,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php";
+        <?php //include_once "../config/menu.php";
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -159,15 +212,15 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Despacho </h3>
+                            <h3 class="page-title">Materiales </h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                        <li class="breadcrumb-item" aria-current="page">Despacho P. Terminado</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Despacho </a>
+                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                        <li class="breadcrumb-item" aria-current="page">Guía Por Recibir</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Materiales </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -241,7 +294,6 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $ESTADODESPACHO = "Sin Datos";
                                                     }
-
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
                                                     } else
@@ -265,7 +317,6 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $TDESPACHO = "Sin Datos";
                                                     }
-
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
@@ -298,7 +349,6 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
-                                                    $ARRAYMGUIAM = $MGUIAM_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
                                                     ?>
                                                     <tr class="text-left">
                                                         <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
@@ -321,36 +371,24 @@ include_once "../config/datosUrLP.php";
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachom" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachom" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLMR" name="URLMR" value="listarDespachoMguiaM" />
-                                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($ARRAYMGUIAM) { ?>
-                                                                                <hr>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
-                                                                                    <button type="submit" class="btn btn-info btn-block"id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="registroGuiaPorRecibirM" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLM" name="URLM" value="registroGuiaPorRecibirMM" />
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoM.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>
                                                                             </span>
+                                                                            <?php if ($r['ESTADO_DESPACHO'] == "2") { ?>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" title="Operaciones">
+                                                                                    <button type="submit" class="btn btn-success " data-toggle="tooltip" id="APROBARURL" name="APROBARURL" title="Aprobar">
+                                                                                        <i class="fa fa-check"></i>
+                                                                                    </button>
+                                                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" id="RECHAZARURL" name="RECHAZARURL" title="Rechazar">
+                                                                                        <i class="fa fa-close"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
