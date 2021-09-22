@@ -570,14 +570,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </a>
         <ul class="treeview-menu">
           <li class="treeview">
-            <a href="#">Inapección SAG
+            <a href="#">Inspección SAG
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroInpsag.php"><i class="ti-more"></i>Registro Inapección </a></li>
-              <li><a href="listarInpsag.php"><i class="ti-more"></i>Agrupado Inapección </a></li>
+              <li><a href="registroInpsag.php"><i class="ti-more"></i>Registro Inspección </a></li>
+              <li><a href="listarInpsag.php"><i class="ti-more"></i>Agrupado Inspección </a></li>
             </ul>
           </li>
           <li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
