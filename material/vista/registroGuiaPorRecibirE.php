@@ -10,9 +10,12 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 
 
+include_once '../controlador/INVENTARIOE_ADO.php';
+include_once '../controlador/DESPACHOE_ADO.php';
 
-include_once '../controlador/MGUIAM_ADO.php';
-include_once '../controlador/DESPACHOM_ADO.php';
+
+include_once '../modelo/INVENTARIOE.php';
+include_once '../modelo/DESPACHOE.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -22,9 +25,11 @@ $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
 
-$MGUIAM_ADO =  new MGUIAM_ADO();
-$DESPACHOM_ADO =  new DESPACHOM_ADO();
+$INVENTARIOE_ADO =  new INVENTARIOE_ADO();
+$DESPACHOE_ADO =  new DESPACHOE_ADO();
 
+$INVENTARIOE =  new INVENTARIOE();
+$DESPACHOE =  new DESPACHOE();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -53,17 +58,49 @@ $ARRAYMGUIAMP = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPT = $DESPACHOE_ADO->listarDespachoeEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPTTOTALES = $DESPACHOE_ADO->obtenerTotalesDespachoeEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
 }
 
 
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
+if (isset($_REQUEST['APROBARURL'])) {
 
+    $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['ID']);
+    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+    $DESPACHOE_ADO->cerrado($DESPACHOE);
 
+    $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['ID']);
+    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+    $DESPACHOE_ADO->Aprobado($DESPACHOE);
 
+    $ARRAYEXISENCIADESPACHOEP = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['ID']);
+
+    foreach ($ARRAYEXISENCIADESPACHOEP as $r) :
+        $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r['CANTIDAD_ENTRADA']);
+        $INVENTARIOE->__SET('CANTIDAD_SALIDA', $r['CANTIDAD_SALIDA']);
+        $INVENTARIOE->__SET('ID_BODEGA',  $r['ID_BODEGA']);
+        $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
+        $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
+        $INVENTARIOE->__SET('ID_PLANTA2', $r['ID_PLANTA']);
+        $INVENTARIOE->__SET('ID_EMPRESA', $EMPRESAS);
+        $INVENTARIOE->__SET('ID_PLANTA', $PLANTAS);
+        $INVENTARIOE->__SET('ID_TEMPORADA', $TEMPORADAS);
+        $INVENTARIOE_ADO->agregarInventarioGuia($INVENTARIOE);
+    endforeach;
+
+    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+}
+
+if (isset($_REQUEST['RECHAZARURL'])) {
+
+    $_SESSION["parametro"] = $_REQUEST['ID'];
+    $_SESSION["parametro1"] = "";
+    $_SESSION["urlO"] = $_REQUEST['URLO'];
+    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLM'] . ".php?op';</script>";
+}
 
 
 ?>
@@ -241,7 +278,6 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $ESTADODESPACHO = "Sin Datos";
                                                     }
-
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
                                                     } else
@@ -298,7 +334,6 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
-                                                    $ARRAYMGUIAM = $MGUIAM_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
                                                     ?>
                                                     <tr class="text-left">
                                                         <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
@@ -320,37 +355,25 @@ include_once "../config/datosUrLP.php";
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachom" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachom" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLMR" name="URLMR" value="listarDespachoMguiaM" />
-                                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($ARRAYMGUIAM) { ?>
-                                                                                <hr>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
-                                                                                    <button type="submit" class="btn btn-primary btn-block"id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoe" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="registroGuiaPorRecibirE" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLM" name="URLM" value="registroGuiaPorRecibirME" />
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoM.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoE.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>
                                                                             </span>
+                                                                            <?php if ($r['ESTADO_DESPACHO'] == "2") { ?>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" title="Operaciones">
+                                                                                    <button type="submit" class="btn btn-success " data-toggle="tooltip" id="APROBARURL" name="APROBARURL" title="Aprobar">
+                                                                                        <i class="fa fa-check"></i>
+                                                                                    </button>
+                                                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" id="RECHAZARURL" name="RECHAZARURL" title="Rechazar">
+                                                                                        <i class="fa fa-close"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>

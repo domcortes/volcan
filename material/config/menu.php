@@ -389,6 +389,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroRecepcione.php">Registro Recepción<i class="ti-more"></i></a></li>
               <li><a href="listarRecepcione.php"> Agrupado Recepción<i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcioneInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
             </ul>
           </li>
 
@@ -400,7 +401,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </a>
             <ul class="treeview-menu">
               <li><a href="registroGuiaPorRecibirM.php">Materiales <i class="ti-more"></i></a></li>
-              <!--<li><a href="#">Envases<i class="ti-more"></i></a></li>-->
+              <li><a href="registroGuiaPorRecibirE.php">Envases<i class="ti-more"></i></a></li>
             </ul>
           </li>
 

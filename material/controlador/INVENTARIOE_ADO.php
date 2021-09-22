@@ -322,6 +322,53 @@ class INVENTARIOE_ADO
             die($e->getMessage());
         }
     }
+    public function agregarInventarioGuia(INVENTARIOE $INVENTARIOE)
+    {
+        try {
+
+            $query =
+                "INSERT INTO material_inventarioe (   
+                                                        CANTIDAD_ENTRADA,     
+                                                        CANTIDAD_SALIDA,  
+                                                        ID_BODEGA,
+                                                        ID_PRODUCTO,
+
+                                                        ID_TUMEDIDA,
+                                                        ID_PLANTA2,
+                                                        ID_EMPRESA,
+                                                        ID_PLANTA,
+
+                                                        ID_TEMPORADA,                                               
+
+                                                        INGRESO,   
+                                                        MODIFICACION,     
+                                                        ESTADO,
+                                                        ESTADO_REGISTRO
+                                                    ) VALUES
+	       	( ?, ?, ?, ?,    ?, ?, ?, ?,   ?,   SYSDATE(),  SYSDATE(),  1, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(                      
+
+                        $INVENTARIOE->__GET('CANTIDAD_ENTRADA'),
+                        $INVENTARIOE->__GET('CANTIDAD_SALIDA'),
+                        $INVENTARIOE->__GET('ID_BODEGA'),
+                        $INVENTARIOE->__GET('ID_PRODUCTO'),
+
+                        $INVENTARIOE->__GET('ID_TUMEDIDA'),
+                        $INVENTARIOE->__GET('ID_PLANTA2'),
+                        $INVENTARIOE->__GET('ID_EMPRESA'),
+                        $INVENTARIOE->__GET('ID_PLANTA'),
+
+                        $INVENTARIOE->__GET('ID_TEMPORADA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
 
     //ELIMINAR FILA, NO SE UTILIZA

@@ -109,7 +109,7 @@ if (isset($_REQUEST['APROBARURL'])) {
      //   $INVENTARIOM_ADO->agregarInventarioGuia($INVENTARIOM);
     endforeach;
 
-    //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
 }
 
 if (isset($_REQUEST['RECHAZARURL'])) {

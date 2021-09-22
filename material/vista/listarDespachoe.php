@@ -10,6 +10,7 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 
 
+include_once '../controlador/MGUIAE_ADO.php';
 include_once '../controlador/DESPACHOE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
@@ -20,6 +21,7 @@ $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
 
+$MGUIAE_ADO =  new MGUIAE_ADO();
 $DESPACHOE_ADO =  new DESPACHOE_ADO();
 
 
@@ -294,6 +296,7 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
+                                                    $ARRAYMGUIAM = $MGUIAE_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
                                                     ?>
                                                     <tr class="text-left">
                                                         <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
@@ -317,6 +320,7 @@ include_once "../config/datosUrLP.php";
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoe" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoe" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLMR" name="URLMR" value="listarDespachoMguiaE" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
@@ -328,6 +332,14 @@ include_once "../config/datosUrLP.php";
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                     <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
                                                                                         <i class="ti-pencil-alt"></i>
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <?php if ($ARRAYMGUIAM) { ?>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
+                                                                                    <button type="submit" class="btn btn-primary btn-block" id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="">
+                                                                                        <i class="ti-eye"></i>
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>

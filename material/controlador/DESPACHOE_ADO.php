@@ -606,7 +606,7 @@ class DESPACHOE_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 FORMAT(CANTIDAD_DESPACHO,0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
-                                        WHERE   TDESPACHO = 1
+                                        WHERE   TDESPACHO = 2
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'
@@ -734,7 +734,7 @@ class DESPACHOE_ADO
             $datos = $this->conexion->prepare("SELECT  
                                                     FORMAT(IFNULL(SUM(CANTIDAD_DESPACHO),0),0,'de_DE') AS 'CANTIDAD' 
                                         FROM material_despachoe                                                                                                              
-                                        WHERE   TDESPACHO = 1
+                                        WHERE   TDESPACHO = 2
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'
