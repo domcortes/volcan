@@ -363,10 +363,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
             <tr>
-            <th colspan="8" class="center">SALIDA.</th>
+            <th colspan="9" class="center">SALIDA.</th>
             </tr>
           <tr>
-            <th colspan="8" class="center">PRODUCTO TERMINADO.</th>
+            <th colspan="9" class="center">PRODUCTO TERMINADO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -375,6 +375,7 @@ $html = $html . '
             <th class="color center">Cant. Envase</th>
             <th class="color center">Kilos Neto</th>
             <th class="color center">Kilos Con Deshidratacion</th>
+            <th class="color center">%</th>
             <th class="color center">Embolsado</th>
             <th class="color center ">Variedad </th>
           </tr>
@@ -401,6 +402,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
             <td class=" center">' . $r['ENVASE'] . ' </td>
             <td class=" center"> ' . $r['NETO'] . '</td>
             <td class=" center "> ' . $r['DESHIDRATACION'] . ' </td>
+            <td class=" center"> ' . number_format(($r['KILOS_DESHIDRATACION_DPEXPORTACION']/$TOTALSALIDASF)*100,2, ",",".") . '%</td>
             <td class=" center "> ' . $EMBOLSADO . ' </td>
             <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         </tr>
@@ -415,6 +417,7 @@ $html = $html . '
                 <th class="color center"> ' . $TOTALENVASEDEXPORTACION . '</th>
                 <th class="color center">' . $TOTALNETODEXPORTACION . ' </th>
                 <th class="color center "> ' . $TOTALDESHIDRATACIONDEXPORTACION . ' </th>
+                <th class="color center "> ' . $PDEXPORTACION . '% </th>
                 <th class="color center ">  </th>
                 <th class="color center ">  </th>
             </tr>
@@ -431,13 +434,14 @@ $html = $html . '
         <thead>
            
           <tr>
-            <th colspan="5" class="center">PRODUCTO INDUSTRIAL.</th>
+            <th colspan="6" class="center">PRODUCTO INDUSTRIAL.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
             <th class="color center">Fecha Embalado</th>
             <th class="color center">Envase/Estandar</th>
             <th class="color center">Kilos Neto</th>
+            <th class="color center">%</th>
             <th class="color center ">Variedad </th>
           </tr>
         </thead>
@@ -455,6 +459,7 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
             <td class=" center"> ' . $r['EMBALADO'] . '</td>
             <td class=" center"> ' . $ARRAYEVEINDUSTRIALID[0]['NOMBRE_ESTANDAR'] . '</td>
             <td class=" center"> ' . $r['NETO'] . '</td>
+            <td class=" center"> ' . number_format(($r['KILOS_NETO_DPINDUSTRIAL']/$TOTALSALIDASF)*100,2,",",".") . '%</td>
             <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         </tr>
         ';
@@ -466,6 +471,7 @@ $html = $html . '
             <th class="color center"> </th>
             <th class="color right">Sub Total </th>
             <th class="color center">' . $TOTALNETODINDUSTRIAL . ' </th>
+            <th class="color center "> ' . $PDINDUSTRIAL . '% </th>
             <th class="color center ">  </th>
         </tr>
         ';
@@ -481,15 +487,15 @@ $html = $html . '
       <div id="details" >            
         <div id="client">
           <div class="address"><b>PORCENTAJES: </b></div>
-          <div class="address">EXPORTACION:  ' . $PDEXPORTACION . '</div>
-          <div class="address">INDUSTRIAL: ' . $PDINDUSTRIAL . ' </div>
-          <div class="address">TOTAL: ' . $PDTOTAL . '</div>
+          <div class="address">EXPORTACION:  ' . $PDEXPORTACION . '%</div>
+          <div class="address">INDUSTRIAL: ' . $PDINDUSTRIAL . '% </div>
+          <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
         </div>
         <div id="client">
             <div class="address"><b>DIFERENCIA: </b></div>
             <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
             <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
-            <div class="address">TOTAL: ' . $TOTAL2 . '</div>
+            <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
         </div>
       </div>   
       <div id="details" >            
