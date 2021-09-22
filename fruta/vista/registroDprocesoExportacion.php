@@ -948,10 +948,7 @@ if ($_POST) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYTMANEJO as $r) : ?>
                                                         <?php if ($ARRAYTMANEJO) {    ?>
-                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TMANEJO'];  ?>
-                                                            </option>
+                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) {echo "selected"; } ?>> <?php echo $r['NOMBRE_TMANEJO'];  ?></option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
                                                         <?php } ?>
@@ -961,26 +958,7 @@ if ($_POST) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Kilos Exportacion</label>
-                                                <input type="text" class="form-control" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEXV; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Kilos Industrial</label>
-                                                <input type="text" class="form-control" placeholder="TOTAL NETO" id="TOTALNETOINDV" name="TOTALNETOINDV" value="<?php echo $TOTALNETOINDV; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4 col-xs-4 ">
-                                            <div class="form-group">
-                                                <label>Diferencia Kilos</label>
-                                                <input type="text" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <label id=" val_mensaje" class="validacion"><?php echo $MENSAJEELIMINAR; ?> </label>
                                     <!-- /.row -->
                                 </div>
@@ -1026,6 +1004,24 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+
+        <?php
+            echo
+            '<script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    showConfirmButton:true
+                })
+
+                Toast.fire({
+                  icon: "info",
+                  title: "Cuadratura de proceso",
+                  html:"Kg. Exportacion: '.$TOTALDESHIDRATACIONEXV.'<br> Kg. Industrial: '.$TOTALNETOINDV.'<br>Diferencia Kg: '.$DIFERENCIAKILOSNETOEXPO.'"
+                })
+            </script>';
+        ?>
 </body>
 
 </html>
