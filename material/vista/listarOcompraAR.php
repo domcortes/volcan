@@ -62,7 +62,20 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
 
+if (isset($_REQUEST['APROBARURL'])) { 
+    $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['ID']);
+    $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
+    $OCOMPRA_ADO->aprobado($OCOMPRA);
+    $_SESSION["urlO"] = $_REQUEST['URLO'];
+    echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLA'].".php?op';</script>";
+}
 
+if (isset($_REQUEST['RECHAZARURL'])) {
+    $_SESSION["parametro"] = $_REQUEST['ID'];
+    $_SESSION["parametro1"] = "";    
+    $_SESSION["urlO"] = $_REQUEST['URLO'];
+    echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLM'].".php?op';</script>";
+}
 
 ?>
 
@@ -275,7 +288,6 @@ include_once "../config/datosUrLP.php";
                                                                     <button type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeOcompra.php?parametro=<?php echo $r['ID_OCOMPRA']; ?>'); ">
                                                                         <i class="fa fa-file-pdf-o"></i>
                                                                     </button>
-
                                                                     <?php if ($r['ESTADO_OCOMPRA'] == "2") { ?>
                                                                         <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" id="APROBARURL" name="APROBARURL" title="Aprobar">
                                                                             <i class="fa fa-check"></i>
