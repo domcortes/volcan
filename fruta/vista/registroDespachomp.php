@@ -1148,7 +1148,7 @@ if (isset($_POST)) {
                                                             <?php if ($ARRAYPRODUCTOR) {    ?>
                                                                 <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
                                                                                                                         echo "selected";
-                                                                                                                    } ?>> <?php echo $r['NOMBRE_PRODUCTOR'] ?> </option>
+                                                                                                                    } ?>> <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?> </option>
                                                             <?php } else { ?>
                                                                 <option>No Hay Datos Registrados </option>
                                                             <?php } ?>
