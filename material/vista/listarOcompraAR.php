@@ -283,7 +283,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                                                 <input type="hidden" class="form-control" placeholder="URLO" id="URLO" name="URLO" value="listarOcompraAR" />
                                                                 <input type="hidden" class="form-control" placeholder="URLO" id="URLA" name="URLA" value="listarOcompraAR" />
                                                                 <input type="hidden" class="form-control" placeholder="URLM" id="URLM" name="URLM" value="registroMocompra" />
-                                                                <input type="hidden" class="form-control" placeholder="URLMV" id="URLMV" name="URLMV" value="listarMocompra" />
+                                                                <input type="hidden" class="form-control" placeholder="URLMR" id="URLMR" name="URLMR" value="listarMocompra" />
                                                                 <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                     <button type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeOcompra.php?parametro=<?php echo $r['ID_OCOMPRA']; ?>'); ">
                                                                         <i class="fa fa-file-pdf-o"></i>
