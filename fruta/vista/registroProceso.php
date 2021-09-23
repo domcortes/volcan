@@ -969,6 +969,9 @@ if (isset($_POST)) {
 
 
                         <div class="card">
+                            <div class="card-header bg-success">
+                                <h4 class="card-title">Detalles de Existencia</h4>
+                            </div>
                             <div class="card-header">
                                 <form method="post" id="form2" name="form2">
                                     <div class="form-row align-items-center">
@@ -1136,7 +1139,7 @@ if (isset($_POST)) {
                         </div>
 
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header bg-info">
                                 <h4 class="card-title">Salida / Detalle Proceso </h4>
                             </div>
                             <div class="card-header">
