@@ -117,8 +117,8 @@ $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
 $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
 $PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
 $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
+$REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
 $OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
-
 
 
 if ($TDESPACHO == "1") {
@@ -127,12 +127,16 @@ if ($TDESPACHO == "1") {
 if ($TDESPACHO == "2") {
   $TDESPACHON = "Devolución Productor";
 }
-
 if ($TDESPACHO == "3") {
   $TDESPACHON = "Venta";
 }
+if ($TDESPACHO == "4") {
+  $TDESPACHON = "Regalo";
+}
 
-
+if ($TDESPACHO == "5") {
+  $TDESPACHON = "Planta Externa";
+}
 
 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA2']);
 if ($ARRAYPLANTA2) {
@@ -141,6 +145,12 @@ if ($ARRAYPLANTA2) {
   $PLANTA2 = "";
 }
 
+$ARRAYPLANTA3= $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA3']);
+if ($ARRAYPLANTA3) {
+  $PLANTA3 = $ARRAYPLANTA3[0]['NOMBRE_PLANTA'];
+} else {
+  $PLANTA3 = "";
+}
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]['ID_PRODUCTOR']);
 if ($ARRAYPRODUCTOR) {
   $PRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
@@ -300,6 +310,17 @@ if ($TDESPACHO == "3") {
   $html .= '
       <div class="address"><b> Nombre Comprador:  </b>' . $COMPRADOR . '</div>
       ';
+}
+
+if ($TDESPACHO == "4") {
+  $html .= '
+            <div class="address"><b>Regalo Para:  </b>' . $REGALO . '</div>
+            ';
+}
+if ($TDESPACHO == "5") {
+  $html .= '
+            <div class="address"><b>Planta Destino:  </b>' . $PLANTA3 . '</div>
+            ';
 }
 
 $html .= '

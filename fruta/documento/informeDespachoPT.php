@@ -143,7 +143,7 @@ if ($TDESPACHO == "4") {
   $TDESPACHON = "Regalo";
 }
 
-if ($TDESPACHO == "4") {
+if ($TDESPACHO == "5") {
   $TDESPACHON = "Planta Externa";
 }
 
