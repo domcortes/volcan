@@ -246,11 +246,20 @@ include_once "../config/reporteUrl.php";
                                                         } else if ($TOPERACION == "2") {
                                                             $NOMBREOPERACION = "Desde Productor";
                                                             $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
-                                                            $DESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                            $ORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
                                                         } else if ($TOPERACION == "3") {
                                                             $NOMBREOPERACION = "Desde Planta Externa";
                                                             $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]["ID_PLANTA2"]);
-                                                            $DESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                            $ORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                        } else if ($TOPERACION == "3") {
+                                                            $NOMBREOPERACION = "Desde Planta Externa";
+                                                            $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]["ID_PLANTA2"]);
+                                                            $ORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                        } else if ($TOPERACION == "4") {
+                                                            $NOMBREOPERACION = "Inventario Inicial";
+                                                            $ORIGEN="";
+                                                        }else{
+                                                            $NOMBREOPERACION = "Sin Datos";
                                                         }
                                                     } else if ($ARRAYDESPACHO) {
                                                         $NUMERODOCUMENTO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
