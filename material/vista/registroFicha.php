@@ -275,7 +275,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
                 $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-                $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+                $ARRAYVERESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
                 if ($ARRAYTETIQUETA) {
                     $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
@@ -287,7 +287,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
                 }
                 if ($ARRAYVERESTANDARCOMERCIAL) {
-                    $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                    $NOMBREESTANDARCOMERCIAL = $ARRAYVERESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
                 }
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
@@ -330,7 +330,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
                 $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-                $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+                $ARRAYVERESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
                 if ($ARRAYTETIQUETA) {
                     $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
@@ -342,7 +342,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
                 }
                 if ($ARRAYESTANDARCOMERCIAL) {
-                    $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                    $NOMBREESTANDARCOMERCIAL = $ARRAYVERESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
                 }
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
@@ -385,7 +385,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
                 $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-                $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+                $ARRAYVERESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
                 if ($ARRAYTETIQUETA) {
                     $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
@@ -397,7 +397,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
                 }
                 if ($ARRAYESTANDARCOMERCIAL) {
-                    $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                    $NOMBREESTANDARCOMERCIAL = $ARRAYVERESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
                 }
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
@@ -424,7 +424,7 @@ if (isset($_POST)) {
             $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
             $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
             $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-            $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+            $ARRAYVERESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
             if ($ARRAYTETIQUETA) {
                 $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
@@ -435,8 +435,8 @@ if (isset($_POST)) {
             if ($ARRAYESPECIES) {
                 $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
             }
-            if ($ARRAYESTANDARCOMERCIAL) {
-                $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+            if ($ARRAYVERESTANDARCOMERCIAL) {
+                $NOMBREESTANDARCOMERCIAL = $ARRAYVERESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
             }
         }
     }
