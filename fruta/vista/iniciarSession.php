@@ -1,5 +1,12 @@
 <?php
 
+require_once '../../vendor/autoload.php';
+$detect = new Mobile_Detect;
+
+// Any mobile device (phones or tablets).
+
+
+
 session_start();
 if (isset($_SESSION["NOMBRE_USUARIO"])) {
      header('Location: iniciarSessionSeleccion.php');
@@ -145,6 +152,54 @@ $ARRAYTEMPORADA = "";
         <?php //include_once "../config/footer.php";     
         ?>
     </div>
+    <!-- deteccion celular -->
+    <?php if ($detect->isMobile() && $detect->isiOS() ): ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'info',
+                title: 'Celular iPhone detectado',
+                html:"Hemos detectado que estas desde un iPhone 📱<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
+                showConfirmButton:true,
+                confirmButtonText:"Vale! 😉"
+            })
+        </script>
+    <?php endif ?>
+
+    <!-- deteccion Android -->
+    <?php if ($detect->isMobile() && $detect->isAndroidOS()): ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'info',
+                title: 'Celular Android detectado',
+                html:"Hemos detectado que estas desde un telefono Android 🤖<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
+                showConfirmButton:true,
+                confirmButtonText:"Vale! 😉"
+            })
+        </script>
+    <?php endif ?>
+
 
     <?php
     //include_once "../config/urlBaseLogin.php";
