@@ -19,6 +19,7 @@ include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -36,6 +37,7 @@ $TPROCESO_ADO =  new TPROCESO_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
 
 $DPEXPORTACION_ADO =  new DPEXPORTACION_ADO();
 $DPINDUSTRIAL_ADO =  new DPINDUSTRIAL_ADO();
@@ -363,10 +365,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
             <tr>
-            <th colspan="9" class="center">SALIDA.</th>
+            <th colspan="10" class="center">SALIDA.</th>
             </tr>
           <tr>
-            <th colspan="9" class="center">PRODUCTO TERMINADO.</th>
+            <th colspan="10" class="center">PRODUCTO TERMINADO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -377,6 +379,7 @@ $html = $html . '
             <th class="color center">Kilos Con Deshidratacion</th>
             <th class="color center">%</th>
             <th class="color center">Embolsado</th>
+            <th class="color center">Calibre</th>
             <th class="color center ">Variedad </th>
           </tr>
         </thead>
@@ -386,7 +389,13 @@ foreach ($ARRAYDEXPORTACION as $r) :
 
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-  $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+  $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);   
+  $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+  if ($ARRAYTCALIBRE) {
+      $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+  } else {
+      $NOMBRETCALIBRE = "Sin Datos";
+  }
   if ($r['EMBOLSADO'] == "1") {
     $EMBOLSADO = "SI";
   }
@@ -404,6 +413,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
             <td class=" center "> ' . $r['DESHIDRATACION'] . ' </td>
             <td class=" center"> ' . number_format(($r['KILOS_DESHIDRATACION_DPEXPORTACION']/$TOTALSALIDASF)*100,2, ",",".") . '%</td>
             <td class=" center "> ' . $EMBOLSADO . ' </td>
+            <td class=" center "> ' . $NOMBRETCALIBRE . ' </td>
             <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         </tr>
         ';
@@ -418,6 +428,7 @@ $html = $html . '
                 <th class="color center">' . $TOTALNETODEXPORTACION . ' </th>
                 <th class="color center "> ' . $TOTALDESHIDRATACIONDEXPORTACION . ' </th>
                 <th class="color center "> ' . $PDEXPORTACION . '% </th>
+                <th class="color center ">  </th>
                 <th class="color center ">  </th>
                 <th class="color center ">  </th>
             </tr>

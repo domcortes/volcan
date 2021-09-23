@@ -1316,6 +1316,8 @@ if (isset($_POST)) {
                                                         <td>-</td>
                                                         <td>-</td>
                                                         <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php } ?>
