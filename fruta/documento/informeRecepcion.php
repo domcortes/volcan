@@ -124,6 +124,10 @@ if ($ARRAYRECEPCION) {
   $PATENTECARRO = $ARRAYRECEPCION[0]['PATENTE_CARRO'];
   $OBSERVACIONES = $ARRAYRECEPCION[0]['OBSERVACION_RECEPCION'];
 
+  $IDUSUARIOI = $ARRAYRECEPCION[0]['ID_USUARIOI'];  
+  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+  $NOMBRERESPONSABLE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
+
 
   $NOMBRETIPO = $ARRAYRECEPCION[0]['TRECEPCION'];
   if ($NOMBRETIPO == "1") {
@@ -415,9 +419,10 @@ $html = $html . '
       
     </main>
     <footer>
-      Informe generado por Departamento TI Fruticola Volcan
+      Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
       <br>
-      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+      Impreso Por: <b>' . $NOMBRE . '</b>
+      
       
     </footer>
   </body>
@@ -479,7 +484,7 @@ $PDF->SetHTMLFooter('
     </tr>
     <tr>
       <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
       <td class="color2 center" style="width: 30%;"> </td>
     </tr>    
   </table>

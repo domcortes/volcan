@@ -179,6 +179,10 @@ if ($ARRAYREEMBALAJE[0]['TURNO'] == 2) {
 $PRODUCTOR = $ARRAYREEMBALAJE[0]['ID_PRODUCTOR'];
 
 
+$IDUSUARIOI = $ARRAYREEMBALAJE[0]['ID_USUARIOI'];  
+$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+$NOMBRERESPONSABLE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
+
 
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
 $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
@@ -298,8 +302,8 @@ $html = '
 
         <div id="client">
           <div class="address"><b>Tipo Reembalaje: </b>' . $TIPOREEMBALAJE . '</div>
-          <div class="address"><b>Nombre Productor: </b>' . $NOMBREPRODUCTOR . '</div>
           <div class="address"><b>CSG: </b>' . $CSGPRODUCTOR . '</div>
+          <div class="address"><b>Nombre Productor: </b>' . $NOMBREPRODUCTOR . '</div>
           <div class="address"><b>Variedad: </b>' . $VARIEDAD . ' </div>
         </div>
         
@@ -546,9 +550,10 @@ $html = $html . '
             
     </main>
     <footer>
-      Informe generado por Departamento TI Fruticola Volcan
-      <br>
-      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+    Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+    <br>
+    Impreso Por: <b>' . $NOMBRE . '</b>
+    
       
     </footer>
   </body>
@@ -606,7 +611,7 @@ $PDF->SetHTMLFooter('
     </tr>
     <tr>
       <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
       <td class="color2 center" style="width: 30%;"> </td>
     </tr>    
   </table>

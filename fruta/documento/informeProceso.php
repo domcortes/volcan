@@ -161,6 +161,10 @@ $TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
 
 $TOTAL2 = $TOTALNETOSF - $TOTALSALIDASF;
 
+$IDUSUARIOI = $ARRAYPROCESO[0]['ID_USUARIOI'];  
+$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+$NOMBRERESPONSABLE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
+
 
 $ARRAYVERVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPROCESO[0]['ID_VESPECIES']);
 $NUMEROPROCESO = $ARRAYPROCESO[0]['NUMERO_PROCESO'];
@@ -298,8 +302,8 @@ $html = '
 
         <div id="client">
           <div class="address"><b>Tipo Proceso: </b>' . $TIPOPROCESO . '</div>
-          <div class="address"><b>Nombre Productor: </b>' . $NOMBREPRODUCTOR . '</div>
           <div class="address"><b>CSG: </b>' . $CSGPRODUCTOR . '</div>
+          <div class="address"><b>Nombre Productor: </b>' . $NOMBREPRODUCTOR . '</div>
           <div class="address"><b>Variedad: </b>' . $VARIEDAD . ' </div>
         </div>
         
@@ -517,10 +521,9 @@ $html = $html . '
       </div>  
     </main> 
     <footer>
-      Informe generado por Departamento TI Fruticola Volcan
-      <br>
-      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-      <br>
+    Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+    <br>
+    Impreso Por: <b>' . $NOMBRE . '</b>
     </footer>
   </body>
 </html>
@@ -578,7 +581,7 @@ $PDF->SetHTMLFooter('
     </tr>
     <tr>
       <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
       <td class="color2 center" style="width: 30%;"> </td>
     </tr>    
   </table>

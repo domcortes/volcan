@@ -249,16 +249,13 @@ $html='
 $html=$html.'
         </tbody>
       </table>
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-      </div>
 
     </main>
     <footer>
-      Informe generado por Departamento TI Fruticola Volcan
-      <br>
-      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>      
+    Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+    <br>
+    Impreso Por: <b>' . $NOMBRE . '</b>
+     
     </footer>
   </body>
 </html>

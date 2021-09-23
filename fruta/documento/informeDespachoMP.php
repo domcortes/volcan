@@ -120,6 +120,9 @@ $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
 $REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
 $OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
 
+$IDUSUARIOI = $ARRAYDESPACHO[0]['ID_USUARIOI'];  
+$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+$NOMBRERESPONSABLE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
 
 if ($TDESPACHO == "1") {
   $TDESPACHON = "Interplanta";
@@ -153,8 +156,10 @@ if ($ARRAYPLANTA3) {
 }
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]['ID_PRODUCTOR']);
 if ($ARRAYPRODUCTOR) {
+  $CODIGOPRODUCTOR = $ARRAYPRODUCTOR[0]['CODGIGO_PRODUCTOR'];
   $PRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
 } else {
+  $CODIGOPRODUCTOR = "";
   $PRODUCTOR = "";
 }
 $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]['ID_COMPRADOR']);
@@ -400,10 +405,10 @@ $html = $html . '
   
 </main>
 <footer>
-  Informe generado por Departamento TI Fruticola Volcan
-  <br>
-  <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-  
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+<br>
+Impreso Por: <b>' . $NOMBRE . '</b>
+
 </footer>
 </body>
 </html>
@@ -461,7 +466,7 @@ $PDF->SetHTMLFooter('
       </tr>
       <tr>
         <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
         <td class="color2 center" style="width: 30%;"> </td>
       </tr>    
     </table>
