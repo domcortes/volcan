@@ -737,6 +737,9 @@ if ($_POST) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIINDUSTRIAL_ADO->agregarExiindustrialReembalaje($EXIINDUSTRIAL);
 
+                //REDIRECCIONAR A PAGINA registroReembalaje.php
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo
                 '<script>
                     Swal.fire({
@@ -747,15 +750,10 @@ if ($_POST) {
                         confirmButtonText:"OK"
                     }).then((result)=>{
                         if(result.value){
-                            location.href ="/fruta/vista/registroReembalajeEx.php?op";
+                            location.href ="'.$_REQUEST['URLO'].'.php?op";
                         }
                     })
                 </script>';
-            /*
-                //REDIRECCIONAR A PAGINA registroProceso.php
-                $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";*/
             }
         ?>
 </body>

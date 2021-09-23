@@ -272,11 +272,7 @@ if (isset($_REQUEST['CERRAR'])) {
     if ($_REQUEST['TOTALDESHIDRATACIONEX'] >  $_REQUEST['TOTALNETO']) {
         $SINO = "1";
         $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR AL LO INGRESADO";
-    } else {
-        $SINO = "0";
-        $MENSAJEDIFERENCIA = "";
-    }
-    if ($_REQUEST['PEXPORTACIONEXPO'] < 100) {
+    }else   if ($_REQUEST['PEXPORTACIONEXPO'] < 100) {
         $SINO = "1";
         $MENSAJEPORCENTAJE = "LA SUMA DE LOS % TIENE QUE SER 100";
     } else {
