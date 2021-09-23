@@ -302,6 +302,7 @@ $html = $html . '
 foreach ($ARRAYDRECEPCION as $d) :
   $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($d['ID_PRODUCTO']);
   if ($ARRAYVERPRODUCTO) {
+    $CODIGOPRODUCTO = $ARRAYVERPRODUCTO[0]["CODIGO_PRODUCTO"];
     $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]["NOMBRE_PRODUCTO"];
   }
   $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($d['ID_TUMEDIDA']);
@@ -311,6 +312,7 @@ foreach ($ARRAYDRECEPCION as $d) :
   $html = $html . '
           
                       <tr >
+                          <th class="left">' . $CODIGOPRODUCTO . '</th>
                           <th class="left">' . $NOMBREPRODUCTO . '</th>
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>
@@ -323,6 +325,7 @@ endforeach;
 $html = $html . '
               
                   <tr class="bt">
+                      <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
                       <th class="color right">SUB TOTAL</th>
                       <th class="color left"> ' . $TOTALCANTIDAD . '</th>

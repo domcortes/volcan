@@ -223,7 +223,7 @@ $(function () {
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
-        'searching': false, //buscador
+        'searching': true, //buscador
         'ordering': true,
         'info': true,
         'autoWidth': false,

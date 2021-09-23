@@ -358,7 +358,7 @@ $html = $html . '
          <tbody>
         ';
 foreach ($ARRAYDRECEPCION as $d) :
-  $ARRAYVERBODEGAD = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]["ID_BODEGA"]);
+  $ARRAYVERBODEGAD = $BODEGA_ADO->verBodega($d["ID_BODEGA"]);
   if ($ARRAYVERBODEGAD) {
     $NOMBREBODEGAD = $ARRAYVERBODEGAD[0]["NOMBRE_BODEGA"];
   }
@@ -379,9 +379,9 @@ foreach ($ARRAYDRECEPCION as $d) :
   $html = $html . '
           
                       <tr >
-                          <th class="left">' . $NOMBREBODEGAD . '</th>
-                          <th class="left">' . $CODIGOPRODUCTO . '</th>
-                          <th class="left">' . $NOMBREPRODUCTO . '</th>
+                          <td class="left">' . $NOMBREBODEGAD . '</td>
+                          <td class="left">' . $CODIGOPRODUCTO . '</td>
+                          <td class="left">' . $NOMBREPRODUCTO . '</td>
                           <td class="left">' . $NOMBRETCONETEDOR . '</td>
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>

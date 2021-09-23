@@ -300,9 +300,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="5" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="6" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
+            <th class="color left">Codigo Producto</th>
             <th class="color left">Producto</th>
             <th class="color left">Tipo Contenedor</th>
             <th class="color left">Unidad Medida</th>
@@ -315,6 +316,7 @@ $html = $html . '
 foreach ($ARRAYDRECEPCION as $d) :
   $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($d['ID_PRODUCTO']);
   if ($ARRAYVERPRODUCTO) {
+    $CODIGOPRODUCTO = $ARRAYVERPRODUCTO[0]["CODIGO_PRODUCTO"];
     $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]["NOMBRE_PRODUCTO"];
   }
   $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($d['ID_TUMEDIDA']);
@@ -324,6 +326,7 @@ foreach ($ARRAYDRECEPCION as $d) :
   $html = $html . '
           
                       <tr >
+                          <th class="left">' . $CODIGOPRODUCTO . '</th>
                           <th class="left">' . $NOMBREPRODUCTO . '</th>
                           <td class="left">' . $NOMBRETCONETEDOR . '</td>
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
@@ -337,6 +340,7 @@ endforeach;
 $html = $html . '
               
                   <tr class="bt">
+                      <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
                       <th class="color right">SUB TOTAL</th>
