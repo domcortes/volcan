@@ -154,7 +154,6 @@ if ($ARRAYRECEPCION) {
   }
 
 
-
   $ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($ARRAYRECEPCION[0]["ID_TDOCUMENTO"]);
   if ($ARRAYTDOCUMENTO) {
     $NOMBRETDOCUMENTO = $ARRAYTDOCUMENTO[0]["NOMBRE_TDOCUMENTO"];
@@ -355,7 +354,7 @@ $html = $html . '
         ';
 foreach ($ARRAYDRECEPCION as $d) :
 
-  $ARRAYVERBODEGAD = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]["ID_BODEGA"]);
+  $ARRAYVERBODEGAD = $BODEGA_ADO->verBodega($d["ID_BODEGA"]);
   if ($ARRAYVERBODEGAD) {
     $NOMBREBODEGAD = $ARRAYVERBODEGAD[0]["NOMBRE_BODEGA"];
   }
@@ -372,9 +371,9 @@ foreach ($ARRAYDRECEPCION as $d) :
   $html = $html . '
           
                       <tr >
-                          <th class="left">' . $NOMBREBODEGAD . '</th>
-                          <th class="left">' . $CODIGOPRODUCTO . '</th>
-                          <th class="left">' . $NOMBREPRODUCTO . '</th>
+                          <td class="left">' . $NOMBREBODEGAD . '</td>
+                          <td class="left">' . $CODIGOPRODUCTO . '</td>
+                          <td class="left">' . $NOMBREPRODUCTO . '</td>
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>
                       </tr>

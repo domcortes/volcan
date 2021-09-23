@@ -248,6 +248,10 @@ include_once "../config/reporteUrl.php";
                                                             $TRECEPCION = "Desde Productor";
                                                         } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "3") {
                                                             $TRECEPCION = "Planta Externa";
+                                                        } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "4") {
+                                                            $TRECEPCION = "Inventario Inicial";
+                                                        } else {
+                                                            $TRECEPCION = "Sin Datos";
                                                         }
                                                     } else {
                                                         $NUMERORECEPCION = "Sin Datos";

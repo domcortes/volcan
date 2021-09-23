@@ -989,6 +989,9 @@ if (isset($_POST)) {
                                                     <option value="3" <?php if ($TRECEPCION == "3") {
                                                                             echo "selected";
                                                                         } ?>> Planta Externa </option>
+                                                    <option value="4" <?php if ($TRECEPCION == "4") {
+                                                                            echo "selected";
+                                                                        } ?>> Inventario Inicial</option>
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -1131,6 +1134,8 @@ if (isset($_POST)) {
                                                     <label id="val_planta2" class="validacion"> </label>
                                                 </div>
                                             </div>
+                                        <?php } ?>                                        
+                                        <?php if ($TRECEPCION == "4") { ?>
                                         <?php } ?>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">

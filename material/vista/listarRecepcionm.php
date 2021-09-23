@@ -212,7 +212,7 @@ include_once "../config/datosUrLP.php";
                                                     } else if ($r['TRECEPCION'] == "3") {
                                                         $TRECEPCION = "Planta Externa";
                                                     } else if ($r['TRECEPCION'] == "4") {
-                                                        $TRECEPCION = "Inter Externa";
+                                                        $TRECEPCION = "Inventario Inicial";
                                                     } else {
                                                         $TRECEPCION = "Sin Datos";
                                                     }

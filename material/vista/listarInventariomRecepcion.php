@@ -195,7 +195,7 @@ include_once "../config/reporteUrl.php";
                                             <tbody>
                                                 <?php foreach ($ARRAYINVENTARIO as $r) : ?>
                                                     <?php
-                                              
+
                                                     $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
                                                     if ($ARRAYVERBODEGA) {
                                                         $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
@@ -214,7 +214,7 @@ include_once "../config/reporteUrl.php";
                                                     if ($ARRAYTVERCONTENEDOR) {
                                                         $NOMBRETCONTENEDOR = $ARRAYTVERCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
                                                     } else {
-                                                        $NOMBRETCONTENEDOR= "Sin Datos";
+                                                        $NOMBRETCONTENEDOR = "Sin Datos";
                                                     }
                                                     $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
                                                     if ($ARRAYVERTUMEDIDA) {
@@ -232,13 +232,17 @@ include_once "../config/reporteUrl.php";
                                                             $TRECEPCION = "Desde Productor";
                                                         } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "3") {
                                                             $TRECEPCION = "Planta Externa";
+                                                        } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "4") {
+                                                            $TRECEPCION = "Inventario Inicial";
+                                                        } else {
+                                                            $TRECEPCION = "Sin Datos";
                                                         }
                                                     } else {
                                                         $NUMERORECEPCION = "Sin Datos";
                                                         $FECHARECEPCION = "Sin Datos";
                                                         $TRECEPCION = "Sin Datos";
                                                     }
-                                          
+
 
                                                     ?>
                                                     <tr class="center">
@@ -261,7 +265,7 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
-                                            </tbody>                                           
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>

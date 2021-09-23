@@ -103,6 +103,7 @@ if (isset($_REQUEST['CREAR'])) {
     $_SESSION["parametro"] =  $_REQUEST['IDP'];
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
     echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    
 }
 if (isset($_REQUEST['EDITAR'])) {
 
@@ -316,7 +317,7 @@ if (isset($_POST)) {
         }
     }
     if (isset($_REQUEST['FACTORCONSUMO'])) {
-        $FACTORCONSUMO = "" . $_REQUEST['FACTORCONSUMO'];
+        $FACTORCONSUMO =  $_REQUEST['FACTORCONSUMO'];
         $CONSUMOPORENVASE = $FACTORCONSUMO * 1;
         $CONSUMOPORPALLET = $CONSUMOPORENVASE * $ENVASEESTANDAR;
     }
@@ -324,7 +325,7 @@ if (isset($_POST)) {
         $ENVASEESTANDAR = "" . $_REQUEST['ENVASEESTANDAR'];
     }
     if (isset($_REQUEST['PALLETCARGA'])) {
-        $PALLETCARGA = "" . $_REQUEST['PALLETCARGA'];
+        $PALLETCARGA = $_REQUEST['PALLETCARGA'];
         $CONSUMOCONTENEDOR = $CONSUMOPORPALLET * $PALLETCARGA;
     }
 }
