@@ -241,7 +241,7 @@ include_once "../config/reporteUrl.php";
                                                     $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                     if ($ARRAYRECEPCION) {
                                                         $NUMERORECEPCION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
-                                                        $FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA_RECEPCION'];
+                                                        $FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA'];
                                                         if ($ARRAYRECEPCION[0]['TRECEPCION'] == "1") {
                                                             $TRECEPCION = "Desde Proveedor";
                                                         } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "2") {

@@ -216,7 +216,7 @@ include_once "../config/reporteUrl.php";
                                                     $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                     if ($ARRAYRECEPCION) {
                                                         $NUMERORECEPCION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
-                                                        $FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA_RECEPCION'];
+                                                        $FECHARECEPCION = $ARRAYRECEPCION[0]['FECHA'];
                                                         if ($ARRAYRECEPCION[0]['TRECEPCION'] == "1") {
                                                             $TRECEPCION = "Desde Proveedor";
                                                         } else if ($ARRAYRECEPCION[0]['TRECEPCION'] == "2") {
@@ -229,10 +229,10 @@ include_once "../config/reporteUrl.php";
                                                         $FECHARECEPCION = "Sin Datos";
                                                         $TRECEPCION = "Sin Datos";
                                                     }
-                                                    $ARRAYDESPACHO = $DESPACHOE_ADO->verDespachoe($r['ID_DESPACHO']);
+                                                    $ARRAYDESPACHO = $DESPACHOE_ADO->verDespachoe2($r['ID_DESPACHO']);
                                                     if ($ARRAYDESPACHO) {
                                                         $NUMERODESPACHO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
-                                                        $FECHADESPACHO = $ARRAYDESPACHO[0]['FECHA_DESPACHO'];
+                                                        $FECHADESPACHO = $ARRAYDESPACHO[0]['FECHA'];
                                                         $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
                                                         if ($TDESPACHO == "1") {
                                                             $NOMBRETDESPACHO = " A Sub Bodega";
@@ -260,7 +260,7 @@ include_once "../config/reporteUrl.php";
                                                     } else {
                                                         $NUMERODESPACHO = "Sin Datos";
                                                         $FECHADESPACHO = "Sin Datos";
-                                                        $TDESPACHO = "Sin Datos";
+                                                        $NOMBRETDESPACHO = "Sin Datos";
                                                     }
                                                     $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYVEREMPRESA) {
