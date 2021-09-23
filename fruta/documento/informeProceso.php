@@ -513,12 +513,18 @@ $html = $html . '
             <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
         </div>
       </div>   
-      <div id="details" >            
+      <div id="details" class="clearfix" >            
         <div id="client">
           <div class="address"><b>Observaciones: </b></div>
           <div class="address">' . $OBSERVACIONES . '</div>
         </div>
+          <div id="invoice">
+            <div class="date"><b><hr></b></div>
+            <div class="date center">  Firma Responsable</div>
+            <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
+        </div>
       </div>  
+
     </main> 
     <footer>
     Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
@@ -573,18 +579,7 @@ $PDF->SetHTMLHeader('
 
 $PDF->SetHTMLFooter('
 
-  <table >      
-    <tr>
-      <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> <hr> </td>
-      <td class="color2 right" style="width: 30%;"> </td>
-    </tr>
-    <tr>
-      <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
-      <td class="color2 center" style="width: 30%;"> </td>
-    </tr>    
-  </table>
+
     <table width="100%" >
         <tbody>
             <tr>
