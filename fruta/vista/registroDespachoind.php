@@ -6,7 +6,7 @@ include_once "../config/validarUsuario.php";
 
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../controlador/EINDUSTRIAL_ADO.php';
 
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
@@ -42,7 +42,7 @@ $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
-$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
+$EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
@@ -1410,7 +1410,7 @@ if (isset($_POST)) {
                                                         } else {
                                                             $NOMBREVARIEDAD = "Sin Datos";
                                                         }
-                                                        $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                        $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
                                                         if ($ARRAYEVERERECEPCIONID) {
                                                             $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
