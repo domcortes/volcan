@@ -19,6 +19,7 @@ include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -36,6 +37,7 @@ $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
 
 $DREXPORTACION_ADO =  new DREXPORTACION_ADO();
 $DRINDUSTRIAL_ADO =  new DRINDUSTRIAL_ADO();
@@ -308,7 +310,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="9" class="center">INGRESO.</th>
+            <th colspan="10" class="center">INGRESO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -317,9 +319,10 @@ $html = $html . '
             <th class="color center">Cant. Envase</th>
             <th class="color center">Kilos Neto</th>
             <th class="color center">Kilos Con Deshidratacion</th>
-            <th class="color center">Embolsado</th>
             <th class="color center ">Variedad </th>
-            <th class="color center">Tipo Manejo</th>       
+            <th class="color center">Embolsado</th>
+            <th class="color center">Tipo Manejo</th>     
+            <th class="color center">Calibre</th>       
           </tr>
         </thead>
          <tbody>
@@ -331,6 +334,14 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
   $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
   $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
   $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+ 
+  $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+  if ($ARRAYTCALIBRE) {
+    $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+  } else {
+    $NOMBRETCALIBRE = "Sin Datos";
+  }
+
   if ($r['EMBOLSADO'] == "1") {
     $EMBOLSADO = "SI";
   }
@@ -345,9 +356,10 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
                 <td class=" center">' . $r['ENVASE'] . '</td>
                 <td class=" center">' . $r['NETO'] . '</td>
                 <td class=" center">' . $r['DESHIRATACION'] . '</td>
+                <td class=" center ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
                 <td class=" center">' . $EMBOLSADO . '</td>
                 <td class=" center">' . $TMANEJO . '</td>
-                <td class=" center ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
+                <td class=" center">' . $NOMBRETCALIBRE . '</td>
             </tr>
 ';
 
@@ -356,7 +368,6 @@ endforeach;
 $html = $html . '
     
         <tr>
-            <th class="color left"></th>
             <th class="color center"></th>
             <th class="color center"></th>
             <th class="color right">Sub Total</th>
@@ -365,6 +376,8 @@ $html = $html . '
             <th class="color center"></th>
             <th class="color center "> </th>
             <th class="color center "> </th>
+            <th class="color center "> </th>
+            <th class="color left"></th>
         </tr>
 ';
 
@@ -379,10 +392,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
             <tr>
-            <th colspan="9" class="center">SALIDA.</th>
+            <th colspan="10" class="center">SALIDA.</th>
             </tr>
           <tr>
-            <th colspan="9" class="center">PRODUCTO TERMINADO.</th>
+            <th colspan="10" class="center">PRODUCTO TERMINADO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -391,9 +404,10 @@ $html = $html . '
             <th class="color center">Cant. Envase</th>
             <th class="color center">Kilos Neto</th>
             <th class="color center">Kilos Con Deshidratacion</th>
-            <th class="color center">Embolsado</th>
             <th class="color center ">Variedad </th>
-            <th class="color center">Tipo Manejo</th>       
+            <th class="color center">Embolsado</th>
+            <th class="color center">Tipo Manejo</th>     
+            <th class="color center">Calibre</th>          
           </tr>
         </thead>
          <tbody>
@@ -405,6 +419,15 @@ foreach ($ARRAYDEXPORTACION as $r) :
   $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
   $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
   $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+
+  $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+  if ($ARRAYTCALIBRE) {
+    $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+  } else {
+    $NOMBRETCALIBRE = "Sin Datos";
+  }
+
+
   if ($r['EMBOLSADO'] == "1") {
     $EMBOLSADO = "SI";
   }
@@ -419,16 +442,16 @@ foreach ($ARRAYDEXPORTACION as $r) :
             <td class=" center">' . $r['ENVASE'] . ' </td>
             <td class=" center"> ' . $r['NETO'] . '</td>
             <td class=" center "> ' . $r['DESHIDRATACION'] . ' </td>
+            <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
             <td class=" center "> ' . $EMBOLSADO . ' </td>
             <td class=" center "> ' . $TMANEJO . ' </td>
-            <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
+            <td class=" center">' . $NOMBRETCALIBRE . '</td>
         </tr>
         ';
 
 endforeach;
 $html = $html . '    
             <tr>
-                <th class="color left"> </th>
                 <th class="color center"> </th>
                 <th class="color center"> </th>
                 <th class="color right">Sub Total </th>
@@ -437,6 +460,8 @@ $html = $html . '
                 <th class="color center "> ' . $TOTALDESHIDRATACIONDEXPORTACION . ' </th>
                 <th class="color center ">  </th>
                 <th class="color center ">  </th>
+                <th class="color left"></th>
+                <th class="color left"></th>
             </tr>
             ';
 
