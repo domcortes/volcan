@@ -99,11 +99,14 @@ if (isset($_REQUEST['parametro'])) {
   $NUMERODESPACHO = $IDOP;
 }
 $ARRAYDESPACHO = $DESPACHOMP_ADO->verDespachomp2($NUMERODESPACHO);
-$ARRAYDESPACHOTOTAL = $DESPACHOMP_ADO->obtenerTotalesDespachompCBX2($IDOP);
+
+//$ARRAYDESPACHOTOTAL = $DESPACHOMP_ADO->obtenerTotalesDespachompCBX2($IDOP);
 
 
 $ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPordespacho2($NUMERODESPACHO);
-
+$ARRAYDESPACHOTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho2($IDOP);
+$TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
+$TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
 
 
 $NUMERO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
@@ -114,9 +117,12 @@ $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
 $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
 $PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
 $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
+$REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
 $OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
 
-
+$IDUSUARIOI = $ARRAYDESPACHO[0]['ID_USUARIOI'];  
+$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+$NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
 
 if ($TDESPACHO == "1") {
   $TDESPACHON = "Interplanta";
@@ -124,14 +130,16 @@ if ($TDESPACHO == "1") {
 if ($TDESPACHO == "2") {
   $TDESPACHON = "Devolución Productor";
 }
-
 if ($TDESPACHO == "3") {
   $TDESPACHON = "Venta";
 }
+if ($TDESPACHO == "4") {
+  $TDESPACHON = "Regalo";
+}
 
-
-$TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
-$TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
+if ($TDESPACHO == "5") {
+  $TDESPACHON = "Planta Externa";
+}
 
 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA2']);
 if ($ARRAYPLANTA2) {
@@ -140,10 +148,18 @@ if ($ARRAYPLANTA2) {
   $PLANTA2 = "";
 }
 
+$ARRAYPLANTA3= $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA3']);
+if ($ARRAYPLANTA3) {
+  $PLANTA3 = $ARRAYPLANTA3[0]['NOMBRE_PLANTA'];
+} else {
+  $PLANTA3 = "";
+}
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]['ID_PRODUCTOR']);
 if ($ARRAYPRODUCTOR) {
+  $CODIGOPRODUCTOR = $ARRAYPRODUCTOR[0]['CODGIGO_PRODUCTOR'];
   $PRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
 } else {
+  $CODIGOPRODUCTOR = "";
   $PRODUCTOR = "";
 }
 $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]['ID_COMPRADOR']);
@@ -291,7 +307,7 @@ if ($TDESPACHO == "1") {
 }
 if ($TDESPACHO == "2") {
   $html .= '
-      <div class="address"><b> Nombre Productor:  </b>' . $COMPRADOR . '</div>
+      <div class="address"><b> Nombre Productor:  </b>' . $PRODUCTOR . '</div>
       ';
 }
 
@@ -299,6 +315,17 @@ if ($TDESPACHO == "3") {
   $html .= '
       <div class="address"><b> Nombre Comprador:  </b>' . $COMPRADOR . '</div>
       ';
+}
+
+if ($TDESPACHO == "4") {
+  $html .= '
+            <div class="address"><b>Regalo Para:  </b>' . $REGALO . '</div>
+            ';
+}
+if ($TDESPACHO == "5") {
+  $html .= '
+            <div class="address"><b>Planta Destino:  </b>' . $PLANTA3 . '</div>
+            ';
 }
 
 $html .= '
@@ -378,10 +405,10 @@ $html = $html . '
   
 </main>
 <footer>
-  Informe generado por Departamento TI Fruticola Volcan
-  <br>
-  <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-  
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+<br>
+Impreso Por: <b>' . $NOMBRE . '</b>
+
 </footer>
 </body>
 </html>
@@ -439,7 +466,7 @@ $PDF->SetHTMLFooter('
       </tr>
       <tr>
         <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
         <td class="color2 center" style="width: 30%;"> </td>
       </tr>    
     </table>

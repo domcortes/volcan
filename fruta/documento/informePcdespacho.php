@@ -94,7 +94,12 @@ $FECHAMODIFCACION = $ARRAYPCDESPACHO[0]['MODIFICACION'];
 $MOTIVO = $ARRAYPCDESPACHO[0]['MOTIVO_PCDESPACHO'];
 $TOTALENVASE = $ARRAYPCDESPACHO[0]['ENVASE'];
 $TOTALNETO = $ARRAYPCDESPACHO[0]['NETO'];
-$OBSERVACIONES = $ARRAYREPALETIZAJE[0]['MOTIVO_PCDESPACHO'];
+$OBSERVACIONES = $ARRAYPCDESPACHO[0]['MOTIVO_PCDESPACHO'];
+
+$IDUSUARIOI = $ARRAYPCDESPACHO[0]['ID_USUARIOI'];  
+$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+$NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
+
 
 
 //$TOTALENVASEREPA=$ARRAYDREPALETIZAJETOTALES[0]['TOTAL_ENVASE'];
@@ -341,10 +346,10 @@ $html = $html . '
   
 </main>
 <footer>
-  Informe generado por Departamento TI Fruticola Volcan
-  <br>
-  <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-  
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+<br>
+Impreso Por: <b>' . $NOMBRE . '</b>
+
 </footer>
 </body>
 </html>
@@ -402,7 +407,7 @@ $PDF->SetHTMLFooter('
     </tr>
     <tr>
       <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
+      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
       <td class="color2 center" style="width: 30%;"> </td>
     </tr>    
   </table>

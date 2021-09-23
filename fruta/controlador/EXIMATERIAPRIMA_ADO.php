@@ -486,6 +486,43 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+    public function listarEximateriaprimaEmpresaPlantaTemporada($EMPRESA,  $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,  
+                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
+                                                    IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
+                                                    IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
+                                                    IFNULL(DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y'),'Sin Datos') AS 'RECEPCION',
+                                                    IFNULL(DATE_FORMAT(FECHA_REPALETIZAJE, '%d-%m-%Y'),'Sin Datos') AS 'REPALETIZAJE',
+                                                    IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
+                                                    IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0) AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0) AS 'BRUTO',
+                                                    IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0) AS 'PROMEDIO',
+                                                    IFNULL(PESO_PALLET_EXIMATERIAPRIMA,0) AS 'PALLET'
+                                                    FROM fruta_eximateriaprima
+                                                    WHERE
+                                                        ID_EMPRESA = '" . $EMPRESA . "' 
+                                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
     public function listarEximateriaprimaEmpresaPlantaTemporada2($EMPRESA,  $PLANTA, $TEMPORADA)
     {
         try {
@@ -882,10 +919,10 @@ class EXIMATERIAPRIMA_ADO
         try {
             $datos = $this->conexion->prepare("SELECT                                                     
                                                     IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0) AS 'ENVASE', 
-                                                    IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),2) AS 'NETO' ,
-                                                    IFNULL(SUM(KILOS_BRUTO_EXIMATERIAPRIMA),2) AS 'BRUTO'                                              
+                                                    IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0) AS 'NETO' ,
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIMATERIAPRIMA),0) AS 'BRUTO'                                              
                                              FROM fruta_eximateriaprima
-                                             WHERE ID_PROCESO = '" . $IDDESPACHO . "' 
+                                             WHERE ID_DESPACHO = '" . $IDDESPACHO . "' 
                                              AND  ESTADO_REGISTRO= 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();

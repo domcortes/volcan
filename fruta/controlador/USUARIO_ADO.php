@@ -139,7 +139,7 @@ class USUARIO_ADO {
     public function ObtenerNombreCompleto($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT  IFNULL(CONCAT(`PNOMBRE_USUARIO`,' ', `SNOMBRE_USUARIO`,' ', `PAPELLIDO_USUARIO`,' ', `SAPELLIDO_USUARIO`),'') AS 'NOMBRE_COMPLETO'
+            $datos=$this->conexion->prepare("SELECT  LOWER(IFNULL(CONCAT(`PNOMBRE_USUARIO`,' ', `SNOMBRE_USUARIO`,' ', `PAPELLIDO_USUARIO`,' ', `SAPELLIDO_USUARIO`),'')) AS 'NOMBRE_COMPLETO'
                                             FROM `usuario_usuario` 
                                             WHERE `ID_USUARIO` = '".$ID."';");
             $datos->execute();

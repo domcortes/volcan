@@ -50,8 +50,7 @@ $ARRAYVERFOLIOID = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->listarEximateriaprimaEmpresaPlantaTemporada2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYEXIMATERIAPRIMATOTALES = $EXIMATERIAPRIMA_ADO->obtenerTotalesEmpresaPlantaTemporadaDisponible2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->listarEximateriaprimaEmpresaPlantaTemporada($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 
 ?>
@@ -176,30 +175,31 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
                                                         <th>Folio Actual</th>
+                                                        <th>Tipo Recepción</th>
                                                         <th>Estado</th>
+                                                        <th>Ingreso </th>
                                                         <th>Fecha Cosecha </th>
+                                                        <th>Fecha Guía Recepción</th>
+                                                        <th>Fecha Recepción</th>
+                                                        <th>Número Recepción</th>
+                                                        <th>Número Guia Recepción</th>
                                                         <th>CSG Productor </th>
                                                         <th>Nombre Productor </th>
-                                                        <th>Código Estandar </th>
-                                                        <th>Envase/Estandar </th>
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
+                                                        <th>Código Estandar </th>
+                                                        <th>Envase/Estandar </th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilo Neto</th>
                                                         <th>Kilo Promedio </th>
                                                         <th>Kilo Bruto </th>
-                                                        <th>Número Recepción</th>
-                                                        <th>Fecha Recepción</th>
-                                                        <th>Tipo Recepción</th>
-                                                        <th>Fecha Guía Recepción</th>
-                                                        <th>Número Guia Recepción</th>
                                                         <th>Número Repaletizaje</th>
                                                         <th>Fecha Repaletizaje</th>
+                                                        <th>Tipo Despacho</th>
                                                         <th>Número Despacho</th>
                                                         <th>Fecha Despacho</th>
                                                         <th>Número Guia Despacho</th>
                                                         <th>Dias </th>
-                                                        <th>Ingreso </th>
                                                         <th>Modificación </th>
                                                         <th>Empresa</th>
                                                         <th>Planta</th>
@@ -269,9 +269,27 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         if ($ARRAYDESPACHO) {
                                                             $NUMERODESPACHO = $ARRAYDESPACHO[0]["NUMERO_DESPACHO"];
                                                             $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
+                                                            $TDESPACHO = $ARRAYDESPACHO[0]["TDESPACHO"];
+                                                            if ($TDESPACHO == "1") {
+                                                                $NOMBRETDESPACHO = "Interplanta";
+                                                            }
+                                                            if ($TDESPACHO == "2") {
+                                                                $NOMBRETDESPACHO = "Devolución Productor";
+                                                            }
+                                                            if ($TDESPACHO == "3") {
+                                                                $NOMBRETDESPACHO = "Venta";
+                                                            }
+                                                            if ($TDESPACHO == "4") {
+                                                                $NOMBRETDESPACHO = "Regalo";
+                                                            }
+
+                                                            if ($TDESPACHO == "5") {
+                                                                $NOMBRETDESPACHO = "Planta Externa";
+                                                            }
                                                         } else {
                                                             $NUMERODESPACHO = "Sin Datos";
                                                             $NUMEROGUIADESPACHO = "Sin Datos";
+                                                            $NOMBRETDESPACHO = "Sin Datos";
                                                         }
                                                         $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYVERPRODUCTORID) {
@@ -325,30 +343,31 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <tr class="text-left">
                                                             <td><?php echo $r['FOLIO_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
+                                                            <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $ESTADO; ?></td>
+                                                            <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['COSECHA']; ?></td>
+                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>
+                                                            <td><?php echo $r['RECEPCION']; ?></td>
+                                                            <td><?php echo $NUMEROGUIARECEPCION; ?></td>
+                                                            <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                            <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
                                                             <td><?php echo $r['PROMEDIO']; ?></td>
-                                                            <td><?php echo $r['BRUTO']; ?></td>
-                                                            <td><?php echo $NUMERORECEPCION; ?></td>
-                                                            <td><?php echo $r['RECEPCION']; ?></td>
-                                                            <td><?php echo $TIPORECEPCION; ?></td>
-                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>
-                                                            <td><?php echo $NUMEROGUIARECEPCION; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>       
                                                             <td><?php echo $NUMEROREPALETIZAJE; ?></td>
                                                             <td><?php echo $r['REPALETIZAJE']; ?></td>
+                                                            <td><?php echo $NOMBRETDESPACHO; ?></td>
                                                             <td><?php echo $NUMERODESPACHO; ?></td>
                                                             <td><?php echo $r['DESPACHO']; ?></td>
                                                             <td><?php echo $NUMEROGUIADESPACHO; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
-                                                            <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
@@ -360,30 +379,31 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     <tr class="text-left" id="filtro">
                                                         <th>Folio Original</th>
                                                         <th>Folio Actual</th>
+                                                        <th>Tipo Recepción</th>
                                                         <th>Estado</th>
+                                                        <th>Ingreso </th>
                                                         <th>Fecha Cosecha </th>
+                                                        <th>Fecha Guía Recepción</th>
+                                                        <th>Fecha Recepción</th>
+                                                        <th>Número Recepción</th>
+                                                        <th>Número Guia Recepción</th>
                                                         <th>CSG Productor </th>
                                                         <th>Nombre Productor </th>
-                                                        <th>Código Estandar </th>
-                                                        <th>Envase/Estandar </th>
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
+                                                        <th>Código Estandar </th>
+                                                        <th>Envase/Estandar </th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilo Neto</th>
                                                         <th>Kilo Promedio </th>
                                                         <th>Kilo Bruto </th>
-                                                        <th>Número Recepción</th>
-                                                        <th>Fecha Recepción</th>
-                                                        <th>Tipo Recepción</th>
-                                                        <th>Fecha Guía Recepción</th>
-                                                        <th>Número Guia Recepción</th>
                                                         <th>Número Repaletizaje</th>
                                                         <th>Fecha Repaletizaje</th>
+                                                        <th>Tipo Despacho</th>
                                                         <th>Número Despacho</th>
                                                         <th>Fecha Despacho</th>
                                                         <th>Número Guia Despacho</th>
                                                         <th>Dias </th>
-                                                        <th>Ingreso </th>
                                                         <th>Modificación </th>
                                                         <th>Empresa</th>
                                                         <th>Planta</th>
