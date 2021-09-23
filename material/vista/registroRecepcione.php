@@ -919,6 +919,9 @@ if (isset($_POST)) {
                                                     <option value="3" <?php if ($TRECEPCION == "3") {
                                                                             echo "selected";
                                                                         } ?>> Planta Externa </option>
+                                                    <option value="4" <?php if ($TRECEPCION == "4") {
+                                                                            echo "selected";
+                                                                        } ?>> Inventario Inicial</option>
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -1244,14 +1247,14 @@ if (isset($_POST)) {
                                                         <?php $CONTADOR = $CONTADOR + 1 ?>
 
                                                         <?php
-                                                          $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
-                                                          if ($ARRAYPRODUCTO) {
-                                                              $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
-                                                              $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                          } else {
-                                                              $CODIGOPRODUCTO = "Sin Dato";
-                                                              $NOMBREPRODUCTO = "Sin Dato";
-                                                          }
+                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                        if ($ARRAYPRODUCTO) {
+                                                            $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                            $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                        } else {
+                                                            $CODIGOPRODUCTO = "Sin Dato";
+                                                            $NOMBREPRODUCTO = "Sin Dato";
+                                                        }
                                                         $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
                                                         if ($ARRAYTUMEDIDA) {
                                                             $NOMBRETUMEDIDA = $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
