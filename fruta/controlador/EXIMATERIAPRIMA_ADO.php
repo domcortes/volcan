@@ -882,10 +882,10 @@ class EXIMATERIAPRIMA_ADO
         try {
             $datos = $this->conexion->prepare("SELECT                                                     
                                                     IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0) AS 'ENVASE', 
-                                                    IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),2) AS 'NETO' ,
-                                                    IFNULL(SUM(KILOS_BRUTO_EXIMATERIAPRIMA),2) AS 'BRUTO'                                              
+                                                    IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0) AS 'NETO' ,
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIMATERIAPRIMA),0) AS 'BRUTO'                                              
                                              FROM fruta_eximateriaprima
-                                             WHERE ID_PROCESO = '" . $IDDESPACHO . "' 
+                                             WHERE ID_DESPACHO = '" . $IDDESPACHO . "' 
                                              AND  ESTADO_REGISTRO= 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();

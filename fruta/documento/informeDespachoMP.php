@@ -99,11 +99,14 @@ if (isset($_REQUEST['parametro'])) {
   $NUMERODESPACHO = $IDOP;
 }
 $ARRAYDESPACHO = $DESPACHOMP_ADO->verDespachomp2($NUMERODESPACHO);
-$ARRAYDESPACHOTOTAL = $DESPACHOMP_ADO->obtenerTotalesDespachompCBX2($IDOP);
+
+//$ARRAYDESPACHOTOTAL = $DESPACHOMP_ADO->obtenerTotalesDespachompCBX2($IDOP);
 
 
 $ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPordespacho2($NUMERODESPACHO);
-
+$ARRAYDESPACHOTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho2($IDOP);
+$TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
+$TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
 
 
 $NUMERO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
@@ -130,8 +133,6 @@ if ($TDESPACHO == "3") {
 }
 
 
-$TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
-$TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
 
 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA2']);
 if ($ARRAYPLANTA2) {
@@ -291,7 +292,7 @@ if ($TDESPACHO == "1") {
 }
 if ($TDESPACHO == "2") {
   $html .= '
-      <div class="address"><b> Nombre Productor:  </b>' . $COMPRADOR . '</div>
+      <div class="address"><b> Nombre Productor:  </b>' . $PRODUCTOR . '</div>
       ';
 }
 
