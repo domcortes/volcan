@@ -6,7 +6,7 @@ include_once "../config/validarUsuario.php";
 
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../controlador/ERECEPCION_ADO.php';
 
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
@@ -42,7 +42,7 @@ $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
-$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
+$ERECEPCION_ADO =  new ERECEPCION_ADO();
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
@@ -922,7 +922,8 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Granel</li>
-                                            <li class="breadcrumb-item" aria-current="page">Depsacho Materia Prima</li>
+                                            <li class="breadcrumb-item" aria-current="page">Despacho</li>
+                                            <li class="breadcrumb-item" aria-current="page">Materia Prima</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciónes Registro Despacho </a>
                                             </li>
                                         </ol>
@@ -1321,7 +1322,7 @@ if (isset($_POST)) {
                                                             } else {
                                                                 $NOMBREVARIEDAD = "Sin Datos";
                                                             }
-                                                            $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                            $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);
                                                             if ($ARRAYEVERERECEPCIONID) {
                                                                 $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
                                                                 $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
