@@ -183,6 +183,7 @@ include_once "../config/reporteUrl.php";
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
+
                                                     <th>Tipo Movimiento</th>
                                                     <th>Número Documento</th>
                                                     <th>Fecha Movimiento</th>
@@ -191,6 +192,7 @@ include_once "../config/reporteUrl.php";
                                                     <th>Patente Camión</th>
                                                     <th>Origen </th>
                                                     <th>Destino </th>
+
                                                     <th>Entrada</th>
                                                     <th>Salida</th>
                                                     <th>Empresa</th>
@@ -224,7 +226,15 @@ include_once "../config/reporteUrl.php";
                                                         $TOPERACION = $ARRAYRECEPCION[0]['TRECEPCION'];
                                                         $TRANSPORTE = $ARRAYRECEPCION[0]['ID_TRANSPORTE'];
                                                         $CONDUCTOR = $ARRAYRECEPCION[0]['ID_CONDUCTOR'];
-                                                        $PATENTECAMION = $ARRAYRECEPCION[0]['PATENTE_CAMION'];
+                                                        $PATENTECAMION = $ARRAYRECEPCION[0]['PATENTE_CAMION'];                                                        
+                                                        $ARRAYVERTRANPORTE = $TRANSPORTE_ADO->verTransporte($TRANSPORTE);
+                                                        if ($ARRAYVERTRANPORTE) {
+                                                            $NOMBRETRASPORTE = $ARRAYVERTRANPORTE[0]["NOMBRE_TRANSPORTE"];
+                                                        }
+                                                        $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($CONDUCTOR);
+                                                        if ($ARRAYVERCONDUCTOR) {
+                                                            $NOMBRECONDUCTOR = $ARRAYVERCONDUCTOR[0]["NOMBRE_CONDUCTOR"];
+                                                        }
                                                         $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]['ID_BODEGA']);
                                                         if ($ARRAYVERBODEGA) {
                                                             $DESTINO = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
@@ -330,14 +340,13 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBRETUMEDIDA; ?></td>
+
                                                         <td><?php echo $NOMBREOPERACION; ?></td>
                                                         <td><?php echo $NUMERODOCUMENTO; ?></td>
                                                         <td><?php echo $FECHAOPERACION; ?></td>
-
                                                         <td><?php echo $NOMBRETRASPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $PATENTECAMION; ?></td>
-
                                                         <td><?php echo $ORIGEN; ?></td>
                                                         <td><?php echo $DESTINO; ?></td>
 
