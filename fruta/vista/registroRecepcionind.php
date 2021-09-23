@@ -176,35 +176,7 @@ if (empty($ARRAYFOLIO3)) {
     $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS INDUSTRIAL </b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
 }
 //OPERACION EDICION DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $RECEPCIONIND->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-    $RECEPCIONIND->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
-    $RECEPCIONIND->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-    $RECEPCIONIND->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
-    $RECEPCIONIND->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
-    $RECEPCIONIND->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
-    $RECEPCIONIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-    $RECEPCIONIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-    $RECEPCIONIND->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
-    $RECEPCIONIND->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
-    if ($_REQUEST['TRECEPCIONE'] == "1") {
-        $RECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-    }
-    if ($_REQUEST['TRECEPCIONE'] == "2") {
-        $RECEPCIONIND->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-    }
-    $RECEPCIONIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-    $RECEPCIONIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-    $RECEPCIONIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-    $RECEPCIONIND->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-    $RECEPCIONIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-    $RECEPCIONIND->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $RECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $RECEPCIONIND_ADO->actualizarRecepcion($RECEPCIONIND);
-}
+
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -1023,9 +995,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPLANTA2 as $r) : ?>
                                                             <?php if ($ARRAYPLANTA2) {    ?>
-                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA2 == $r['ID_PLANTA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA2 == $r['ID_PLANTA']) { echo "selected"; } ?>>
                                                                     <?php echo $r['NOMBRE_PLANTA'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -1097,7 +1067,7 @@ if (isset($_POST)) {
                                     </div>
                                     <div class="btn-group btn-block col-4 float-right">
                                         <?php if ($OP != "") : ?>
-                                            <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcionInd.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcionInd.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i> Informe
                                             </button>
                                             <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcionInd.php?parametro=<?php echo $IDOP; ?>'); ">
@@ -1108,19 +1078,26 @@ if (isset($_POST)) {
                                 </div>
                             </div>
                         </form>
-                        <div class="box">
-                            <div class="row">
-                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
+
+                        <?php if (isset($_GET['op'])): ?>
+                            <div class="card">
+                                <div class="card-header bg-success">
+                                    <h4 class="card-title">Detalle de recepcion</h4>
                                 </div>
-                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
-                                    <div class="form-group">
-                                        <label> </label>
-                                    </div>
+                                <div class="card-header">
+                                    <form method="post" id="form2" name="form2">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONIND" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="OP RECEPCIONIND" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="URL RECEPCION" id="URLP" name="URLP" value="registroRecepcionind" />
+                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCION" id="URLD" name="URLD" value="registroDrecepcionind" />
+                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>
+                                                <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; }?>> Agregar Detalle
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                            <label id="val_drecepcion" class="validacion "><?php echo $MENSAJE; ?> </label>
-                            <div class="row">
-                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
+                                <div class="card-body">
                                     <div class=" table-responsive">
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -1201,42 +1178,25 @@ if (isset($_POST)) {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <form method="post" id="form2" name="form2">
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONIND" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="OP RECEPCIONIND" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="URL RECEPCION" id="URLP" name="URLP" value="registroRecepcionind" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCION" id="URLD" name="URLD" value="registroDrecepcionind" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php
-                                                                                                                                                                                                                                                                    if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                    ?>> Agregar Detalle
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Total Neto </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="card-footer">
+                                    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                        <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                            <div class="col-auto">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Neto</div>
+                                                        <!-- input -->
+                                                        <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
+                                                        <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
+                                                        <!-- /input -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--.row -->
+                        <?php endif ?>
                     </section>
                     <!-- /.content -->
 
@@ -1459,6 +1419,46 @@ if (isset($_POST)) {
                     </script>';
                 }
             }
+        }
+
+        if (isset($_REQUEST['GUARDAR'])) {
+            //UTILIZACION METODOS SET DEL MODELO
+            //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+            $RECEPCIONIND->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+            $RECEPCIONIND->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
+            $RECEPCIONIND->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
+            $RECEPCIONIND->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+            $RECEPCIONIND->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
+            $RECEPCIONIND->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
+            $RECEPCIONIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+            $RECEPCIONIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+            $RECEPCIONIND->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
+            $RECEPCIONIND->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
+            if ($_REQUEST['TRECEPCIONE'] == "1") {
+                $RECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+            }
+            if ($_REQUEST['TRECEPCIONE'] == "2") {
+                $RECEPCIONIND->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+            }
+            $RECEPCIONIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+            $RECEPCIONIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+            $RECEPCIONIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+            $RECEPCIONIND->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+            $RECEPCIONIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+            $RECEPCIONIND->__SET('ID_USUARIOM', $IDUSUARIOS);
+            $RECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $RECEPCIONIND_ADO->actualizarRecepcion($RECEPCIONIND);
+            echo
+                '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro guardado",
+                        text:"Se ha guardado el registro correctamente"
+                    }).then((result)=>{
+                        location.href = "/fruta/vista/registroRecepcionind.php?op";
+                    })
+                </script>';
         }
 
         ?>
