@@ -353,11 +353,11 @@ $html .= '
                               ';
 if ($TDESPACHO == "3") {
   $html .= '
-                      <th colspan="12" class="center">SELECCIÓN </th>
+                      <th colspan="10" class="center">SELECCIÓN </th>
                       ';
 } else {
   $html .= '
-                      <th colspan="10" class="center">SELECCIÓN </th>
+                      <th colspan="8" class="center">SELECCIÓN </th>
                       ';
 }
 $html .= '
@@ -370,12 +370,16 @@ $html .= '
                   <th class="color center ">CSG </th>
                   <th class="color center ">Productor </th>
                   <th class="color center ">Variedad </th>
-                  <th class="color center">Kilos Neto</th>
 ';
+if ($TDESPACHO != "3") {
+  $html .= '
+                     <th class="color center">Kilos Neto</th>
+                      ';
+}
+
 if ($TDESPACHO == "3") {
   $html .= '
                       <th class="color center">Kilos Despacho</th>
-                      <th class="color center">Delta Dif.</th>
                       <th class="color center">Precio Por Kilo.</th>
                       <th class="color center">Total Precio.</th>
                       ';
@@ -400,20 +404,27 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
         <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . ' </td>
         <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . ' </td>
         <td class=" center ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
-        <td class=" center">' . $r['NETO'] . '</td>
             ';
-  if ($TDESPACHO == "3") {
+if ($TDESPACHO != "3") {
     $html .= '
-  <td class=" center">' . $r['NETOD'] . '</td>
-  <td class=" center">' . $r['DELTA'] . '</td>
-  <td class=" center">' . $r['KILOP'] . '</td>
-  <td class=" center">' . $r['PRECIO'] . '</td>
+    <td class=" center">' . $r['NETO'] . '</td>
                       ';
   }
+
+  if ($TDESPACHO == "3") {
+    $html .= '
+    <td class=" center">' . $r['NETOD'] . '</td>
+    <td class=" center">' . $r['KILOP'] . '</td>
+    <td class=" center">' . $r['PRECIO'] . '</td>
+                      ';
+  }
+
+
   $html .= '
         </tr>
         ';
 endforeach;
+
 $html = $html . '
   <tr>
       <th class="color center">&nbsp;</th>
@@ -423,13 +434,31 @@ $html = $html . '
       <th class="color center">&nbsp;</th>
       <th class="color center">&nbsp;</th>
       <th class="color right">Sub Total</th>
-      <th class="color center">' . $TOTALNETO . '</th>
-      <th class="color center">' . $TOTALNETOD . '</th>
-      <th class="color center">' . $TOTALDELTA . '</th>
-      <th class="color center"></th>
-      <th class="color center">' . $TOTALPRECIO . '</th>
-  </tr>
+  
 ';
+
+if ($TDESPACHO != "3") {
+  $html .= '  
+  <th class="color center">' . $TOTALNETO . '</th>
+  ';  
+
+}
+
+if ($TDESPACHO == "3") {
+  $html .= '  
+    <th class="color center">' . $TOTALNETOD . '</th>
+    <th class="color center"></th>
+    <th class="color center">' . $TOTALPRECIO . '</th>
+  ';  
+
+}
+
+$html .= '
+</tr>
+';
+
+
+
 
 $html = $html . '
   </tbody>
