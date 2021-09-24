@@ -303,7 +303,7 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
                 <img src="../vista/img/logo.png" width="100px" height="30px"/>
              </b>
              <br>
-            <b> PRODUCTO TERMINADO : </b> <b class="center f30">  ' . $r['FOLIO_NUEVO_DREPALETIZAJE'] . ' </b>	
+            <b> PRODUCTO TERMINADO : </b> <b class="center f14">  ' . $r['FOLIO_NUEVO_DREPALETIZAJE'] . ' </b>	
 		</div>				
 		<div class="subtitulo2"></div>  
 		<br> 
@@ -332,12 +332,12 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
   ';
 
 	$html = $html . '   
-  <table border="0" cellspacing="0" cellpadding="0" >
+  <table border="0" cellspacing="0" cellpadding="0"  >
     <thead>   
 	  <tr>
             <th colspan="8" class="center color2"></th>
       </tr>
-      <tr>
+      <tr style="font-size:8px;">
         <th class=" center">Fecha Embalado</th>
         <th class=" center ">CSG </th>
         <th class=" center ">Nombre Productor </th>
@@ -367,6 +367,7 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
         <td  class="center  ">' . $ARRAYVESPECIES[0]['NOMBRE_VESPECIES'] . '</td>
     </tr>
     ';
+
 
 	endforeach;
 
