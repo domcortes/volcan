@@ -339,6 +339,67 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
+    public function agregarExiindustrialDespacho(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        try {
+            $query =
+                "INSERT INTO fruta_exiindustrial (  
+                                                    FOLIO_EXIINDUSTRIAL,
+                                                    FOLIO_AUXILIAR_EXIINDUSTRIAL,
+                                                    FECHA_EMBALADO_EXIINDUSTRIAL,   
+                                                    KILOS_NETO_EXIINDUSTRIAL,       
+                                                    ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
+
+                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,        
+                                                    INGRESO,    
+                                                    ID_TMANEJO, 
+                                                    ID_FOLIO,
+                                                    ID_ESTANDAR,
+
+                                                    ID_PRODUCTOR,
+                                                    ID_VESPECIES,
+                                                    ID_DESPACHO2,
+                                                    ID_EMPRESA, 
+                                                    ID_PLANTA, 
+
+                                                    ID_TEMPORADA,
+
+                                                    MODIFICACION,
+                                                    ESTADO,  
+                                                    ESTADO_REGISTRO
+                                                ) VALUES
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?,  SYSDATE(),  2, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+                        $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
+
+                        $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('INGRESO'),
+                        $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
+                        $EXIINDUSTRIAL->__GET('ID_FOLIO'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+
+                        $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
+                        $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO2'),
+                        $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
+                        $EXIINDUSTRIAL->__GET('ID_PLANTA'),
+
+                        $EXIINDUSTRIAL->__GET('ID_TEMPORADA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarExiindustrial($id)
@@ -809,6 +870,31 @@ class EXIINDUSTRIAL_ADO
                     array(
                         $EXIINDUSTRIAL->__GET('ID_DESPACHO'),
                         $EXIINDUSTRIAL->__GET('NETO_DESPACHO'),
+                        $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function actualizarSelecionarDespachoNeto(EXIINDUSTRIAL $EXIINDUSTRIAL)
+    {
+        try {
+            $query = "
+		UPDATE fruta_exiindustrial SET
+            MODIFICACION = SYSDATE(),     
+            ESTADO = 3,           
+            ID_DESPACHO = ? ,       
+            KILOS_NETO_EXIINDUSTRIAL = ?          
+		WHERE ID_EXIINDUSTRIAL= ? ;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIINDUSTRIAL->__GET('ID_DESPACHO'),
+                        $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
 
                     )
@@ -1291,6 +1377,29 @@ class EXIINDUSTRIAL_ADO
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorFolioRepaletizaje($FOLIOAUXILIAREXIEXPORTACION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * 
+                                                FROM fruta_exiindustrial 
+                                                WHERE  
+                                                     FOLIO_AUXILIAR_EXIINDUSTRIAL LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                                    AND ESTADO_REGISTRO =  1 
+                                                    AND ESTADO != 0  
+                                                    GROUP BY `FOLIO_AUXILIAR_EXIINDUSTRIAL` ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;

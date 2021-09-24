@@ -181,7 +181,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <table id="hexistencia" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
-                                                        <th>Folio </th>
+                                                        <th>Folio Original</th>
+                                                        <th>Folio Actual</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado</th>
                                                         <th>CSG Productor </th>
@@ -305,6 +306,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         ?>
 
                                                         <tr class="text-left">
+                                                            <td><?php echo $r['FOLIO_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $r['EMBALADO']; ?> </td>
                                                             <td><?php echo $ESTADO; ?> </td>
@@ -332,7 +334,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="text-left" id="filtro">
-                                                        <th>Folio </th>
+                                                        <th>Folio Original</th>
+                                                        <th>Folio Actual</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado</th>
                                                         <th>CSG Productor </th>

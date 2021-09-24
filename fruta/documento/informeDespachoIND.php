@@ -379,7 +379,7 @@ if ($TDESPACHO != "3") {
 
 if ($TDESPACHO == "3") {
   $html .= '
-                      <th class="color center">Kilos Despacho</th>
+                      <th class="color center">Kilos Neto</th>
                       <th class="color center">Precio Por Kilo.</th>
                       <th class="color center">Total Precio.</th>
                       ';
@@ -405,20 +405,18 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
         <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . ' </td>
         <td class=" center ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
             ';
-if ($TDESPACHO != "3") {
-    $html .= '
-    <td class=" center">' . $r['NETO'] . '</td>
-                      ';
-  }
-
-  if ($TDESPACHO == "3") {
-    $html .= '
-    <td class=" center">' . $r['NETOD'] . '</td>
-    <td class=" center">' . $r['KILOP'] . '</td>
-    <td class=" center">' . $r['PRECIO'] . '</td>
-                      ';
-  }
-
+  if ($TDESPACHO != "3") {
+      $html .= '
+      <td class=" center">' . $r['NETO'] . '</td>
+                        ';
+    }
+    if ($TDESPACHO == "3") {
+      $html .= '
+      <td class=" center">' . $r['NETO'] . '</td>
+      <td class=" center">' . $r['KILOP'] . '</td>
+      <td class=" center">' . $r['PRECIO'] . '</td>
+                        ';
+    }
 
   $html .= '
         </tr>
