@@ -208,10 +208,13 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
                                                         <th>Condición </th>
+
                                                         <th>Código Estandar </th>
                                                         <th>Envase/Estandar </th>
+
                                                         <th>CSG Productor </th>
                                                         <th>Nombre Productor </th>
+
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
                                                         <th>Cantidad Envase</th>
@@ -459,10 +462,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['EMBALADO']; ?></td>
                                                             <td><?php echo $ESTADO; ?></td>
                                                             <td><?php echo $ESTADOSAG; ?></td>
-                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>   
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
