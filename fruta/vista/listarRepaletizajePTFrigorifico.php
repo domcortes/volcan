@@ -314,6 +314,10 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <?php 
+                                                                $FOLIONUEVO="";
+                                                                $FOLIOORIGINAL="";                                                            
+                                                            ?>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
