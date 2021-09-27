@@ -1242,7 +1242,7 @@ class EXIEXPORTACION_ADO
                                                     FOLIO_AUXILIAR_EXIEXPORTACION LIKE '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                                     AND ESTADO_REGISTRO =  1 
                                                     AND ESTADO != 0  
-                                                    GROUP BY `FOLIO_AUXILIAR_EXIEXPORTACION` ;");
+                                                    GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -1434,33 +1434,7 @@ class EXIEXPORTACION_ADO
         }
     }
 
-    public function buscarPorSag2($IDINPSAG)
-    {
-        try {
 
-            $datos = $this->conexion->prepare(" SELECT * ,           
-                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
-                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
-                                                    FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
-                                                    FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
-                                                    FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
-                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
-                                                    IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
-                                                FROM fruta_exiexportacion 
-                                                WHERE ID_INPSAG= '" . $IDINPSAG . "'                                               
-                                                AND ESTADO_REGISTRO = 1;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
 
     public function buscarPorRepaletizaje($IDREPALETIZAJE)
@@ -1490,18 +1464,18 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                                FROM `fruta_exiexportacion`
-                                                WHERE `FOLIO_AUXILIAR_EXIEXPORTACION`= '" . $FOLIOAUX . "'
-                                                    AND `CANTIDAD_ENVASE_EXIEXPORTACION`= '" . $CANTIDAD . "'
-                                                    AND `ID_TMANEJO`= '" . $TMANEJO . "'  
-                                                    AND `ID_TCALIBRE`= '" . $TCALIBRE . "'  
-                                                    AND `ID_TEMBALAJE`= '" . $TEMBALAJE . "'  
-                                                    AND `ID_VESPECIES`= '" . $VARIEDAD . "'
-                                                    AND `ID_PRODUCTOR`= '" . $PRODUCTOR . "'   
-                                                    AND `ID_ESTANDAR`= '" . $ESTANDAR . "'   
-                                                    AND `ID_FOLIO`= '" . $FOLIO . "'  
-                                                    AND `FECHA_EMBALADO_EXIEXPORTACION`= '" . $FECHAEMBALADO . "'   
-                                                    AND `ID_REPALETIZAJE`= '" . $IDREPALETIZAJE . "'  
+                                                FROM fruta_exiexportacion
+                                                WHERE FOLIO_AUXILIAR_EXIEXPORTACION= '" . $FOLIOAUX . "'
+                                                    AND CANTIDAD_ENVASE_EXIEXPORTACION= '" . $CANTIDAD . "'
+                                                    AND ID_TMANEJO= '" . $TMANEJO . "'  
+                                                    AND ID_TCALIBRE= '" . $TCALIBRE . "'  
+                                                    AND ID_TEMBALAJE= '" . $TEMBALAJE . "'  
+                                                    AND ID_VESPECIES= '" . $VARIEDAD . "'
+                                                    AND ID_PRODUCTOR= '" . $PRODUCTOR . "'   
+                                                    AND ID_ESTANDAR= '" . $ESTANDAR . "'   
+                                                    AND ID_FOLIO= '" . $FOLIO . "'  
+                                                    AND FECHA_EMBALADO_EXIEXPORTACION= '" . $FECHAEMBALADO . "'   
+                                                    AND ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "'  
                                                     ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -1548,10 +1522,10 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                                FROM `fruta_exiexportacion` 
-                                                WHERE `ID_REPALETIZAJE`= '" . $IDREPALETIZAJE . "' 
-                                                    AND  `ESTADO` = 1  
-                                                    AND `ESTADO_REGISTRO` = 1;");
+                                                FROM fruta_exiexportacion 
+                                                WHERE ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "' 
+                                                    AND  ESTADO = 1  
+                                                    AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -1570,10 +1544,10 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                                FROM `fruta_exiexportacion` 
-                                                WHERE `ID_REPALETIZAJE`= '" . $IDREPALETIZAJE . "'   
-                                                AND `ESTADO` BETWEEN 3  AND 4 
-                                                GROUP BY `FOLIO_AUXILIAR_EXIEXPORTACION`
+                                                FROM fruta_exiexportacion 
+                                                WHERE ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "'   
+                                                AND ESTADO BETWEEN 3  AND 4 
+                                                GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION
                                                 
                                                 ;");
             $datos->execute();
@@ -1989,12 +1963,12 @@ class EXIEXPORTACION_ADO
                                                         FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
                                                         FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
                                                         IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR' 
-                                                FROM `fruta_exiexportacion` 
-                                                WHERE  `ESTADO` = 2  
-                                                    AND `ID_EMPRESA` = '" . $EMPRESA . "'
-                                                    AND `ID_PLANTA` = '" . $PLANTA . "'
-                                                    AND `ID_TEMPORADA` = '" . $TEMPORADA . "'                                                      
-                                                    AND `ESTADO_REGISTRO` = 1 
+                                                FROM fruta_exiexportacion 
+                                                WHERE  ESTADO = 2  
+                                                    AND ID_EMPRESA = '" . $EMPRESA . "'
+                                                    AND ID_PLANTA = '" . $PLANTA . "'
+                                                    AND ID_TEMPORADA = '" . $TEMPORADA . "'                                                      
+                                                    AND ESTADO_REGISTRO = 1 
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -2029,14 +2003,14 @@ class EXIEXPORTACION_ADO
                                                         FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
                                                         FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
                                                         IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR' 
-                                                FROM `fruta_exiexportacion` 
-                                                WHERE  `ESTADO` = 2  
+                                                FROM fruta_exiexportacion 
+                                                WHERE  ESTADO = 2  
                                                     AND ID_PRODUCTOR = '" . $PRODUCTOR . "'
                                                     AND ID_VESPECIES = '" . $VESPECIES . "'
-                                                    AND `ID_EMPRESA` = '" . $EMPRESA . "'
-                                                    AND `ID_PLANTA` = '" . $PLANTA . "'
-                                                    AND `ID_TEMPORADA` = '" . $TEMPORADA . "'                                                      
-                                                    AND `ESTADO_REGISTRO` = 1 
+                                                    AND ID_EMPRESA = '" . $EMPRESA . "'
+                                                    AND ID_PLANTA = '" . $PLANTA . "'
+                                                    AND ID_TEMPORADA = '" . $TEMPORADA . "'                                                      
+                                                    AND ESTADO_REGISTRO = 1 
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -2337,7 +2311,7 @@ class EXIEXPORTACION_ADO
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_INPSAG = '" . $IDINPSAG . "' 
-                                            AND ESTADO_REGISTRO = 1;");
+                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -3377,4 +3351,431 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+
+
+
+
+
+    //PACKING LIST INSPECION SAG
+
+    public function buscarPorSagFolio($IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion 
+                                            WHERE ID_INPSAG= '" . $IDINPSAG . "'                                         
+                                            AND ESTADO_REGISTRO = 1
+                                            GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarPorSag2($IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * ,           
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                    FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO',
+                                                    IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
+                                                FROM fruta_exiexportacion 
+                                                WHERE ID_INPSAG= '" . $IDINPSAG . "'                                               
+                                                AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorSag2AgrupadoFolio($IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,           
+                                                DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE')
+                                            FROM fruta_exiexportacion 
+                                            WHERE ID_INPSAG = '" . $IDINPSAG . "'                                          
+                                            AND ESTADO_REGISTRO = 1
+                                            GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarExistenciaBolsaInspeccion2($IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,           
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'DESHIRATACION',
+                                                    FORMAT(IFNULL(PDESHIDRATACION_EXIEXPORTACION,0),2,'de_DE') AS 'PORCENTAJE',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE')
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            GROUP BY 
+                                            ID_PRODUCTOR
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarPorFolio2ActivoInspeccion2($FOLIOAUXILIAREXIEXPORTACION, $IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y')  AS 'FECHA',
+                                                DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y')  AS 'EMBALADO',
+                                                FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE',
+                                                FORMAT(IFNULL(KILOS_NETO_EXIEXPORTACION,0),2,'de_DE') AS 'NETO',
+                                                FORMAT(IFNULL(KILOS_BRUTO_EXIEXPORTACION,0),2,'de_DE') AS 'BRUTO'
+                                            FROM fruta_exiexportacion
+                                            WHERE   
+                                            FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                            AND ESTADO_REGISTRO = 1 
+                                            AND ID_INPSAG= '" . $IDINPSAG . "' ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarExistenciaBolsaInspeccion2DiferenciadoProductor($IDINPSAG, $IDPRODUCTOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'                                           
+                                            GROUP BY 
+                                            ID_PRODUCTOR
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarExistenciaBolsaInspeccion2ProductorDiferenciadoProductorEstandar($IDINPSAG, $IDPRODUCTOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'                                           
+                                            GROUP BY 
+                                            ID_PRODUCTOR, ID_ESTANDAR
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarExistenciaBolsaInspeccion2ProductorEstandarDiferenciadoProductorEstandar($IDINPSAG, $IDPRODUCTOR, $IDESTANDAR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'  
+                                            AND ID_ESTANDAR = '" . $IDESTANDAR . "'                                          
+                                            GROUP BY 
+                                            ID_PRODUCTOR, ID_ESTANDAR
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarExistenciaBolsaInspeccion2ProductorEstandarDiferenciadoProductorEstandarVariedad($IDINPSAG, $IDPRODUCTOR, $IDESTANDAR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'  
+                                            AND ID_ESTANDAR = '" . $IDESTANDAR . "'                                          
+                                            GROUP BY 
+                                            ID_PRODUCTOR, ID_ESTANDAR, ID_VESPECIES
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarExistenciaBolsaInspeccion2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDINPSAG, $IDPRODUCTOR, $IDESTANDAR, $IDPVESPECIES)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'  
+                                            AND ID_ESTANDAR = '" . $IDESTANDAR . "'   
+                                            AND ID_VESPECIES = '" . $IDPVESPECIES . "'                                          
+                                            GROUP BY 
+                                            ID_PRODUCTOR, ID_ESTANDAR, ID_VESPECIES
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesExistenciaBolsaInspeccion2($IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                        FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
+                                                        FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE')  AS 'NETO' ,
+                                                        FORMAT(IFNULL(SUM(KILOS_DESHIRATACION_EXIEXPORTACION),0),2,'de_DE')  AS 'DESHIRATACION' ,
+                                                        FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE')  AS 'BRUTO' 
+                                                FROM 
+                                                    fruta_exiexportacion 
+                                                WHERE
+                                                    ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                                AND ESTADO_REGISTRO = 1  
+                                                
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesFolio2ActivoInspeccion2($FOLIOAUXILIAREXIEXPORTACION,$IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO'
+                                            FROM fruta_exiexportacion
+                                            WHERE 
+                                            FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                            AND ESTADO_REGISTRO = 1    
+                                            AND ID_INPSAG= '" . $IDINPSAG . "'            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesExistenciaBolsaInspeccionDiferenciadoProductor2($IDINPSAG, $IDPRODUCTOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'                                      
+                                            GROUP BY 
+                                            ID_PRODUCTOR
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesExistenciaBolsaInspeccion2ProductorEstandarDiferenciadoProductorEstandar($IDINPSAG, $IDPRODUCTOR, $IDESTANDAR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'    
+                                            AND ID_ESTANDAR = '" . $IDESTANDAR . "'                                     
+                                            GROUP BY 
+                                            ID_PRODUCTOR, ID_ESTANDAR
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesExistenciaBolsaInspeccion2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDINPSAG, $IDPRODUCTOR, $IDESTANDAR,  $IDPVESPECIES)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_INPSAG= '" . $IDINPSAG . "'                                                                                  
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'    
+                                            AND ID_ESTANDAR = '" . $IDESTANDAR . "'   
+                                            AND ID_VESPECIES = '" . $IDPVESPECIES . "'                                    
+                                            GROUP BY 
+                                            ID_PRODUCTOR, ID_ESTANDAR, ID_VESPECIES
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
 }

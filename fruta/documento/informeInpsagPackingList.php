@@ -13,7 +13,6 @@ include_once '../controlador/INPSAG_ADO.php';
 include_once '../controlador/TINPSAG_ADO.php';
 
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/INPECTOR_ADO.php';
 include_once '../controlador/CONTRAPARTE_ADO.php';
@@ -22,7 +21,7 @@ include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/PROVINCIA_ADO.php';
 include_once '../controlador/COMUNA_ADO.php';
 include_once '../controlador/CIUDAD_ADO.php';
-include_once '../controlador/CALIBRE_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 
 
 
@@ -40,7 +39,6 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PVESPECIES_ADO =  new PVESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
 $EEXPORTACION_ADO = new EEXPORTACION_ADO();
@@ -54,7 +52,7 @@ $TMANEJO_ADO =  new TMANEJO_ADO();
 $PROVINCIA_ADO =  new PROVINCIA_ADO();
 $COMUNA_ADO =  new COMUNA_ADO();
 $CIUDAD_ADO =  new CIUDAD_ADO();
-$CALIBRE_ADO =  new CALIBRE_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -147,13 +145,15 @@ $ARRAYTMANEJO = "";
 $ARRAYUSUARIO="";
 $ARRAYCALIBRE="";
 
-
-if(isset($_REQUEST['NOMBREUSUARIO'])){
-  $NOMBREUSUARIO = $_REQUEST['NOMBREUSUARIO'];
-  $ARRAYUSUARIO=$USUARIO_ADO->ObtenerNombreCompleto($NOMBREUSUARIO);
+if (isset($_REQUEST['usuario'])) {
+  $USUARIO = $_REQUEST['usuario'];
+  $ARRAYUSUARIO = $USUARIO_ADO->ObtenerNombreCompleto($USUARIO);
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
-  
 }
+
+
+
+
 
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
@@ -162,9 +162,9 @@ if (isset($_REQUEST['parametro'])) {
 $ARRAYINPSAGPT = $INPSAG_ADO->verInpsag2($IDOP);
 $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorSag2AgrupadoFolio($IDOP);
 $ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesInspSag2($IDOP);
-$TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_ENVASE'];
-$TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_NETO'];
-$TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['TOTAL_BRUTO'];
+$TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['ENVASE'];
+$TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['NETO'];
+$TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['BRUTO'];
 
 $ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2($IDOP);
 $ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaInspeccion2($IDOP);
@@ -226,13 +226,15 @@ if ($ARRAYPAIS) {
 
 
 $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYINPSAGPT[0]['ID_PLANTA']);
-$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYINPSAGPT[0]['ID_EMPRESA']);
+//$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYINPSAGPT[0]['ID_EMPRESA']);
+//$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+//$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+
+
 $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYINPSAGPT[0]['ID_TEMPORADA']);
 $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
 $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
 
-$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
 
 if ($EMPRESAURL == "") {
   $EMPRESAURL = "img/empresa/no_disponible.png";
@@ -389,7 +391,7 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
 
   foreach ($ARRAYEXIEXPORTACION2 as $d) :
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($d['ID_PRODUCTOR']);
-    $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID[0]["CIUDAD"]);
+    $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID[0]["ID_CIUDAD"]);
     $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
     $COMUNAPRODUCTOR = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
     $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);    
@@ -400,7 +402,7 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
       $CSPPLANTA2=$ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
       $NOMBREPLANTA2=$ARRAYPLANTA2[0]["NOMBRE_PLANTA"];
   
-      $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYPLANTA2[0]["CIUDAD"]);
+      $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYPLANTA2[0]["ID_CIUDAD"]);
       $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
       $COMUNAPLANTA2 = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
       $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);    
@@ -409,8 +411,7 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
     }
 
 
-    $ARRAYPVESPECIES = $PVESPECIES_ADO->verPvespecies($d['ID_PVESPECIES']);
-    $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
+    $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($d['ID_VESPECIES']);
     $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($d['ID_ESTANDAR']);
     $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($d['ID_TMANEJO']);
     $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
@@ -427,9 +428,9 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
       $EMBOLSADO = "NO";
     }
 
-    $ARRAYCALIBRE = $CALIBRE_ADO->verCalibre($d['ID_CALIBRE']);
+    $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($d['ID_TCALIBRE']);
     if ($ARRAYCALIBRE) {
-      $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_CALIBRE'];
+      $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
     } else {
       $CALIBRE  = "Sin Calibre";
     }
@@ -550,7 +551,7 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
     foreach ($ARRAYEXIEXPORTACIONBOLSA2 as $c) :
 
       $ARRAYEXIEXPORTACIONPRODUCTORESTANDAR = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
-      $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaInspeccion2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
+    $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaInspeccion2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
       $TOTALENVASEESTANDAR = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL[0]['ENVASE'];
 
 
@@ -559,17 +560,16 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
         $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]["CODIGO_ESTANDAR"];
         $NOMBREESTANDAR = $ARRAYEEXPORTACION[0]["NOMBRE_ESTANDAR"];
 
-        $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2ProductorEstandarDiferenciadoProductorEstandarVariedad($IDOP, $d['ID_PRODUCTOR'], $d['ID_ESTANDAR']);
+       $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2ProductorEstandarDiferenciadoProductorEstandarVariedad($IDOP, $d['ID_PRODUCTOR'], $d['ID_ESTANDAR']);
         foreach ($ARRAYEXIEXPORTACIONBOLSA3 as $e) :
 
-          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_PVESPECIES']);
-          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaInspeccion2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_PVESPECIES']);
+          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_VESPECIES']);
+          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaInspeccion2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_VESPECIES']);
           $TOTALENVASEVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['ENVASE'];
 
           foreach ($ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD as $f) :
 
-            $ARRAYPVESPECIES = $PVESPECIES_ADO->verPvespecies($f['ID_PVESPECIES']);
-            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPVESPECIES[0]['ID_VESPECIES']);
+            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($f['ID_VESPECIES']);
             $NOMBREVARIEDAD = $ARRAYVESPECIES[0]["NOMBRE_VESPECIES"];
 
             $html = $html . '              
@@ -640,25 +640,12 @@ $html = $html . '
       ';
 
 $html = $html . '
-      <div id="details" class="clearfix">
-        <div id="client">
-          <div class="address"><b></b></div>
-          <div class="address"> </div>
-          <div class="address"></div>
-          <div class="address"></div>
-          <div class="address"></div>
-        </div>
-      </div>
-      <div id="notices">
-        <div>IMPORTANTE:</div>
-        <div class="notice">Este informe muestra información del momento en que fue generado, si tiene algun inconveniente por favor contactar a <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>.</div>
-      </div>
 
     </main>
     <footer>
-      Informe generado por Departamento TI Fruticola Volcan
+      Informe generado por Departamento TI Fruticola Volcan  <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
       <br>
-      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
+      Impreso Por: <b>' . $NOMBRE . '</b>
       
     </footer>
   </body>
@@ -692,7 +679,7 @@ $AUTOR = "Usuario";
 $ASUNTO = "Informe";
 
 //API DE GENERACION DE PDF
-require_once '../api/mpdf/mpdf/autoload.php';
+require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter-L']);
 
@@ -713,18 +700,8 @@ $PDF->SetHTMLHeader('
 
 $PDF->SetHTMLFooter('
 
-<table width="100%" >      
-    <tr>
-        <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> <hr> </td>
-        <td class="color2 right" style="width: 30%;"> </td>
-    </tr>
-    <tr>
-        <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> Firma Contraparte O Despachador Autorizado <br> '.$NOMBRECONTRAPARTE.' </td>
-        <td class="color2 center" style="width: 30%;"> </td>
-    </tr>    
-</table>
+
+
     <table width="100%" >
         <tbody>
             <tr>

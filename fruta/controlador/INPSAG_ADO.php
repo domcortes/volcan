@@ -138,7 +138,7 @@ class INPSAG_ADO
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
                                             FROM fruta_inpsag
-                                            WHERE ID_INPSAG= '" . $ID . "';");
+                                            WHERE ID_INPSAG = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
