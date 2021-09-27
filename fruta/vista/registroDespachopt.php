@@ -1022,7 +1022,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php //include_once "../config/menu.php";
+            <?php include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -1532,16 +1532,18 @@ if (isset($_POST)) {
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>
-                                                                <td class="text-center">
-                                                                    <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                echo "disabled";
-                                                                                                                                                                                                                                            } ?>>
-                                                                            <i class="ti-close"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
+                                                                <form method="post" id="form2">
+                                                                    <td class="text-center">
+                                                                        <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
+                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                    echo "disabled";
+                                                                                                                                                                                                                                                } ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </td>
+                                                                </form>
                                                                 <?php if ($TDESPACHO == "3") { ?>
                                                                     <td>
                                                                         <div class="form-group">
@@ -1587,35 +1589,39 @@ if (isset($_POST)) {
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <td class=" center">
-                                                    <div class="form-group">
-                                                        <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                        <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                        <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachopt" />
-                                                        <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTDespachoPt" />
-                                                        <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                        } ?>>
-                                                            <i class=" glyphicon glyphicon-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
+                                                <form method="post" id="form3">
+                                                    <td class=" center">
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachopt" />
+                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTDespachoPt" />
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                            } ?>>
+                                                                <i class=" glyphicon glyphicon-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </form>
                                             </tr>
                                             <?php if ($TDESPACHO == "3") {
                                                 $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($IDDESPACHOMP);
                                             ?>
                                                 <tr>
-                                                    <td class=" center">
-                                                        <div class="form-group">
-                                                            <button type="submit" form="form1" class="btn btn-primary btn-block" data-toggle="tooltip" title="Agregar Precios" name="PRECIOS" value="PRECIOS" <?php echo $DISABLED2; ?> <?php if (empty($ARRAYDDESPACHOMP2)) {
-                                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                        } ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                    echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                } ?>>
-                                                                <i class="glyphicon glyphicon-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
+                                                    <form method="post">
+                                                        <td class=" center">
+                                                            <div class="form-group">
+                                                                <button type="submit" form="form1" class="btn btn-primary btn-block" data-toggle="tooltip" title="Agregar Precios" name="PRECIOS" value="PRECIOS" <?php echo $DISABLED2; ?> <?php if (empty($ARRAYDDESPACHOMP2)) {
+                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                            } ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                                    } ?>>
+                                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </form>
                                                 </tr>
                                             <?php }   ?>
                                             <tr>
