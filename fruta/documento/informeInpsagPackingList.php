@@ -335,7 +335,6 @@ $html = '
         
         <div id="invoice">
           <div class="date"><b>Fecha Inspección: </b>' . $FECHAINPSAG . ' </div>
-          <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
           <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
         </div>
