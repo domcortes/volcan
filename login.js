@@ -1,32 +1,39 @@
-$(function() {
-	$(".btn").click(function() {
-		$(".form-signin").toggleClass("form-signin-left");
-		$(".form-signup").toggleClass("form-signup-left");
-		$(".frame").toggleClass("frame-long");
-		$(".signup-inactive").toggleClass("signup-active");
-		$(".signin-active").toggleClass("signin-inactive");
-		$(".forgot").toggleClass("forgot-left");
-		$(this).removeClass("idle").addClass("active");
+
+$('#inicio_sesion_fruta').toggle();
+$('#inicio_sesion_materiales').toggle();
+$('#inicio_sesion_exportadora').toggle();
+$('#btn_volver').toggle();
+
+// mostrar y ocultar botones y formularios al volver
+	$('#btn_volver').on('click', function(){
+		$('#btn_volver').fadeOut(1000);
+		$('#presentacion').html('Inicio Sesion');
+		$('#inicio_sesion_materiales').hide();
+		$('#inicio_sesion_exportadora').hide();
+		$('#inicio_sesion_fruta').hide();
+		$('#selector_botones').fadeIn(3000);
+	})
+// fin de mostrar y ocultar botones y formularios al volver
+
+// mostar formulario
+	$('#btn_fruta').on('click', function(){
+		$('#selector_botones').fadeOut("fast");
+		$('#btn_volver').fadeIn(3000);
+		$('#inicio_sesion_fruta').fadeIn(3000);
+		$('#presentacion').html('Inicio Sesion Fruta');
 	});
+// fin de mostrar formulario
+
+$('#btn_material').on('click', function(){
+	$('#selector_botones').fadeOut("fast");
+	$('#btn_volver').fadeIn(3000);
+	$('#inicio_sesion_materiales').fadeIn(3000);
+	$('#presentacion').html('Inicio Sesion Materiales');
 });
 
-$(function() {
-	$(".btn-signup").click(function() {
-		$(".nav").toggleClass("nav-up");
-		$(".form-signup-left").toggleClass("form-signup-down");
-		$(".success").toggleClass("success-left");
-		$(".frame").toggleClass("frame-short");
-	});
-});
-
-$(function() {
-	$(".btn-signin").click(function() {
-		$(".btn-animate").toggleClass("btn-animate-grow");
-		$(".welcome").toggleClass("welcome-left");
-		$(".cover-photo").toggleClass("cover-photo-down");
-		$(".frame").toggleClass("frame-short");
-		$(".profile-photo").toggleClass("profile-photo-down");
-		$(".btn-goback").toggleClass("btn-goback-up");
-		$(".forgot").toggleClass("forgot-fade");
-	});
+$('#btn_exportadora').on('click', function(){
+	$('#selector_botones').fadeOut("fast");
+	$('#btn_volver').fadeIn(3000);
+	$('#inicio_sesion_exportadora').fadeIn(3000);
+	$('#presentacion').html('Inicio Sesion Exportadora');
 });
