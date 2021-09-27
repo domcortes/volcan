@@ -1231,7 +1231,7 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                                                 <input type="hidden" class="form-control" placeholder="URL DPEXPORTACION" id="URLD" name="URLD" value="registroDprocesoExportacion" />
-                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                <div class="btn-group btn-block" role="group" aria-label="Operaciones Detalle">
                                                                     <?php if ($ESTADO == "0") { ?>
                                                                         <button type="submit" class="btn  btn-info  btn-sm" id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
                                                                             <i class="ti-eye"></i>
@@ -1241,7 +1241,7 @@ if (isset($_POST)) {
                                                                         <button type="submit" class="btn btn-warning btn-sm" id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
                                                                             <i class="ti-pencil-alt"></i>
                                                                         </button>
-                                                                        <button type="submit" class="btn   btn-secondary btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
+                                                                        <button type="submit" class="btn btn-secondary btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
                                                                             <i class="fa fa-fw fa-copy"></i>
                                                                         </button>
                                                                         <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
@@ -1288,18 +1288,18 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="URL DPINDUSTRIAL" id="URLD" name="URLD" value="registroDprocesoIndustrial" />
                                                                 <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                     <?php if ($ESTADO == "0") { ?>
-                                                                        <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
+                                                                        <button type="submit" class="btn btn-sm btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
                                                                             <i class="ti-eye"></i>
                                                                         </button>
                                                                     <?php } ?>
                                                                     <?php if ($ESTADO == "1") { ?>
-                                                                        <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
+                                                                        <button type="submit" class="btn  btn-sm   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
                                                                             <i class="ti-pencil-alt"></i>
                                                                         </button>
-                                                                        <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
+                                                                        <button type="submit" class="btn btn-sm  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
                                                                             <i class="fa fa-fw fa-copy"></i>
                                                                         </button>
-                                                                        <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
+                                                                        <button type="submit" class="btn btn-sm   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
                                                                             <i class="ti-close"></i>
                                                                         </button>
                                                                     <?php } ?>
