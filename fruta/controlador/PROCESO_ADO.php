@@ -377,6 +377,34 @@ class PROCESO_ADO
             die($e->getMessage());
         }
     }
+    public function listarProcesoEmpresaPlantaTemporadaCerradoCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,  
+                                                    FORMAT(IFNULL(KILOS_EXPORTACION_PROCESO,0),2,'de_DE') AS 'EXPORTACION'   ,                                                 
+                                                    FORMAT(IFNULL(KILOS_INDUSTRIAL_PROCESO,0),2,'de_DE') AS 'INDUSTRIAL'    ,                                                 
+                                                    FORMAT(IFNULL(KILOS_NETO_PROCESO,0),2,'de_DE') AS 'NETO',
+                                                    DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y') AS 'FECHA', 
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                                FROM fruta_proceso                                                        
+                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                                AND ESTADO = 0;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
