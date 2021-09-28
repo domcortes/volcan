@@ -1288,18 +1288,18 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="URL DPINDUSTRIAL" id="URLD" name="URLD" value="registroDprocesoIndustrial" />
                                                                 <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                     <?php if ($ESTADO == "0") { ?>
-                                                                        <button type="submit" class="btn btn-sm btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
+                                                                        <button type="submit" class="btn btn-sm btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" tsitle="Ver Detalle ">
                                                                             <i class="ti-eye"></i>
                                                                         </button>
                                                                     <?php } ?>
                                                                     <?php if ($ESTADO == "1") { ?>
-                                                                        <button type="submit" class="btn  btn-sm   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
+                                                                        <button type="submit" class="btn  btn-sm   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="stooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
                                                                             <i class="ti-pencil-alt"></i>
                                                                         </button>
-                                                                        <button type="submit" class="btn btn-sm  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
+                                                                        <button type="submit" class="btn btn-sm  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-togsgle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
                                                                             <i class="fa fa-fw fa-copy"></i>
                                                                         </button>
-                                                                        <button type="submit" class="btn btn-sm   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
+                                                                        <button type="submit" class="btn btn-sm   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-togglse="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
                                                                             <i class="ti-close"></i>
                                                                         </button>
                                                                     <?php } ?>

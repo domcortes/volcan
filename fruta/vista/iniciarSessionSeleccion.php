@@ -46,7 +46,7 @@ if (isset($_REQUEST['ENTRAR'])) {
 }
 if (isset($_REQUEST['SALIR'])) {
      session_destroy();
-     header('Location: iniciarSession.php');
+     header('Location: /');
 }
 
 ?>

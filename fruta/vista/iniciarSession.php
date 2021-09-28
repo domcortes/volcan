@@ -5,8 +5,6 @@ $detect = new Mobile_Detect;
 
 // Any mobile device (phones or tablets).
 
-
-
 session_start();
 if (isset($_SESSION["NOMBRE_USUARIO"])) {
      header('Location: iniciarSessionSeleccion.php');
