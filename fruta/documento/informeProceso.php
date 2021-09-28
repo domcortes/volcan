@@ -63,6 +63,9 @@ $NOMBREPRODUCTOR = "";
 $TOTALENVASE = "";
 $TOTALNETO = "";
 $TOTALBRUTO = 0;
+$TOTALSALIDASF = 0;
+$NETOEXPOR = 0;
+$NETOINDU = 0;
 
 $TOTALENVASEDEXPORTACION = "";
 $TOTALNETODEXPORTACION = "";
@@ -161,7 +164,7 @@ $TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
 
 $TOTAL2 = $TOTALNETOSF - $TOTALSALIDASF;
 
-$IDUSUARIOI = $ARRAYPROCESO[0]['ID_USUARIOI'];  
+$IDUSUARIOI = $ARRAYPROCESO[0]['ID_USUARIOI'];
 $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
 $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
 
@@ -393,12 +396,12 @@ foreach ($ARRAYDEXPORTACION as $r) :
 
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-  $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);   
+  $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
   $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
   if ($ARRAYTCALIBRE) {
-      $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+    $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
   } else {
-      $NOMBRETCALIBRE = "Sin Datos";
+    $NOMBRETCALIBRE = "Sin Datos";
   }
   if ($r['EMBOLSADO'] == "1") {
     $EMBOLSADO = "SI";
@@ -406,6 +409,13 @@ foreach ($ARRAYDEXPORTACION as $r) :
   if ($r['EMBOLSADO'] == "0") {
     $EMBOLSADO = "NO";
   }
+  if ($TOTALSALIDASF > 0) {
+    $NETOEXPOR = number_format(($r['KILOS_DESHIDRATACION_DPEXPORTACION'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+  } else {
+    $NETOEXPOR = 0;
+  }
+  $NETOINDU = 0;
+
 
   $html = $html . '    
         <tr>
@@ -415,7 +425,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
             <td class=" center">' . $r['ENVASE'] . ' </td>
             <td class=" center"> ' . $r['NETO'] . '</td>
             <td class=" center "> ' . $r['DESHIDRATACION'] . ' </td>
-            <td class=" center"> ' . number_format(($r['KILOS_DESHIDRATACION_DPEXPORTACION']/$TOTALSALIDASF)*100,2, ",",".") . '%</td>
+            <td class=" center"> ' . $NETOEXPOR . '%</td>
             <td class=" center "> ' . $EMBOLSADO . ' </td>
             <td class=" center "> ' . $NOMBRETCALIBRE . ' </td>
             <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
@@ -468,13 +478,19 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
 
+  if ($TOTALSALIDASF > 0) {
+    $NETOINDU = number_format(($r['KILOS_NETO_DPINDUSTRIAL'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+  } else {
+    $NETOINDU = 0;
+  }
+
   $html = $html . '    
         <tr>
             <th class=" left"> ' . $r['FOLIO_DPINDUSTRIAL'] . '</th>
             <td class=" center"> ' . $r['EMBALADO'] . '</td>
             <td class=" center"> ' . $ARRAYEVEINDUSTRIALID[0]['NOMBRE_ESTANDAR'] . '</td>
             <td class=" center"> ' . $r['NETO'] . '</td>
-            <td class=" center"> ' . number_format(($r['KILOS_NETO_DPINDUSTRIAL']/$TOTALSALIDASF)*100,2,",",".") . '%</td>
+            <td class=" center"> ' . $NETOINDU . '%</td>
             <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         </tr>
         ';
