@@ -4,71 +4,71 @@ include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-
-
+include_once '../controlador/TPROCESO_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../controlador/VESPECIES_ADO.php';
+include_once '../controlador/ESPECIES_ADO.php';
+include_once '../controlador/PROCESO_ADO.php';
 
+include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../controlador/PROCESO_ADO.php';
+
+include_once '../modelo/PROCESO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
 
-$DESPACHOEX_ADO =  new DESPACHOEX_ADO();
-$TRANSPORTE_ADO =  new TRANSPORTE_ADO();
-$CONDUCTOR_ADO =  new CONDUCTOR_ADO();
-
+$TPROCESO_ADO =  new TPROCESO_ADO();
+$PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$ESPECIES_ADO =  new ESPECIES_ADO();
 
-$EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
-$ICARGA_ADO =  new ICARGA_ADO();
+$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
+$PROCESO_ADO =  new PROCESO_ADO();
 
 
+$PROCESO =  new PROCESO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
-
-$TOTALBRUTO = "";
-$TOTALNETO = "";
 $TOTALENVASE = "";
-$FECHADESDE = "";
-$FECHAHASTA = "";
+$TOTALNETO = "";
+$TOTALNETOENTRADA = "";
+$TOTALINDUSTRIAL = "";
+$TOTALEXPORTACION = "";
+$TURNO = "";
+$NETOENTRADA="";
 
-$PRODUCTOR = "";
-$NUMEROGUIA = "";
 
 //INICIALIZAR ARREGLOS
-$ARRAYDESPACHOEX = "";
-$ARRAYDESPACHOEXTOTALES = "";
-$ARRAYVEREMPRESA = "";
-$ARRAYVERPRODUCTOR = "";
-$ARRAYVERTRANSPORTE = "";
-$ARRAYVERCONDUCTOR = "";
+$ARRAYEMPRESA = "";
+$ARRAYFOLIO2 = "";
+$ARRAYPVESPECIES = "";
+$ARRAYTPROCESO = "";
+$ARRAYPRODUCTOR = "";
+$ARRAYVESPECIES = "";
+
+$ARRAYPROCESO = "";
+$ARRAYTOTALPROCESO = "";
+$ARRAYTOTALPROCESOENTRADA = "";
+$ARRAYEXISMATERIPRIMAPROCESO = "";
+
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
-    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOEXTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoexEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-
-    $TOTALBRUTO = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
+    $ARRAYPROCESO = $PROCESO_ADO->listarProcesoEmpresaPlantaTemporadaCerradoCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
-
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
 
-
-
+if(isset($_REQUEST["ABRIR"])){
+    
+    $PROCESO->__SET('ID_PROCESO', $_REQUEST['ID']);
+    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+    $PROCESO_ADO->abierto($PROCESO);    
+    echo "<script type='text/javascript'> location.href ='listarAProceso.php?op';</script>";
+}
 
 ?>
 
@@ -77,7 +77,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Agrupado Despacho Exportación</title>
+    <title>Agrupado Proceso</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -87,9 +87,6 @@ include_once "../config/datosUrLP.php";
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
-
-
-
                 function irPagina(url) {
                     location.href = "" + url;
                 }
@@ -133,20 +130,18 @@ include_once "../config/datosUrLP.php";
                     document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
                     setTimeout("mueveReloj()", 1000);
                 }
-                /*
-                function refrescar() {
-                    document.getElementById("form_reg_dato").submit();
-                }*/
 
-                function abrirPestana(url) {
-                    var win = window.open(url, '_blank');
-                    win.focus();
-                }
+
                 //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
                 function abrirVentana(url) {
                     var opciones =
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
                     window.open(url, 'window', opciones);
+                }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
                 }
             </script>
 </head>
@@ -162,15 +157,15 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Agrupado Despacho </h3>
+                            <h3 class="page-title">Agrupado Proceso</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                        <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                        <li class="breadcrumb-item" aria-current="page">Depacho Exportación</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Depacho </a>
+                                        <li class="breadcrumb-item" aria-current="page">Modulo</li>
+                                        <li class="breadcrumb-item" aria-current="page">Packing</li>
+                                        <li class="breadcrumb-item" aria-current="page">Proceso</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Proceso </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -208,45 +203,76 @@ include_once "../config/datosUrLP.php";
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
-                                                    <th>Número </th>
+                                                    <th>Numero</th>
                                                     <th>Estado</th>
-                                                    <th class="text-center">Operaciónes</th>
-                                                    <th>Fecha Despacho </th>
-                                                    <th>Número Sello</th>
-                                                    <th>Número Guía </th>
-                                                    <th>Fecha Guía </th>
-                                                    <th>Cantidad Envase</th>
-                                                    <th>Kilos Neto</th>
-                                                    <th>Kilos Bruto</th>
+                                                    <th class="text-center">Operaciones</th>
+                                                    <th>Fecha Proceso</th>
+                                                    <th>Tipo Proceso</th>
+                                                    <th>Turno </th>
+                                                    <th>Especie</th>
+                                                    <th>Variedad</th>
+                                                    <th>K. Neto Entrada</th>
+                                                    <th>K. Neto Salida</th>
+                                                    <th>K. Exportacion </th>
+                                                    <th>K. Industrial</th>
+                                                    <th>CSG Productor</th>
+                                                    <th>Nombre Productor</th>
                                                     <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
-                                                    <th>Transporte </th>
-                                                    <th>Nombre Conductor </th>
-                                                    <th>Patente Camión </th>
-                                                    <th>Patente Carro </th>
+                                                    <th>Fecha Modificacion</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYDESPACHOEX as $r) : ?>
+                                                <?php foreach ($ARRAYPROCESO as $r) : ?>
 
                                                     <?php
-                                                    $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
-                                                    if ($ARRAYVERTRANSPORTE) {
-                                                        $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-                                                    } else {
-                                                        $NOMBRETRANSPORTE = "Sin Datos";
-                                                    }
-                                                    $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
-                                                    if ($ARRAYVERCONDUCTOR) {
 
-                                                        $NOMBRECONDUCTOR = $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
-                                                    } else {
-                                                        $NOMBRECONDUCTOR = "Sin Datos";
+                                                    $ARRAYEXISMATERIPRIMAPROCESO = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($r['ID_PROCESO']);
+                                                    if ($ARRAYEXISMATERIPRIMAPROCESO) {
+                                                        $NETOENTRADA = $ARRAYEXISMATERIPRIMAPROCESO[0]['NETO'];
                                                     }
 
+                                                    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                    if ($ARRAYVERVESPECIESID) {
+                                                        $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                        $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
+                                                        if ($ARRAYVERVESPECIESID) {
+                                                            $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+                                                        } else {
+                                                            $NOMBRESPECIES = "Sin Datos";
+                                                        }
+                                                    } else {
+                                                        $NOMBREVESPECIES = "Sin Datos";
+                                                        $NOMBRESPECIES = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                    if ($ARRAYVERPRODUCTORID) {
+
+                                                        $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                        $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                    } else {
+                                                        $CSGPRODUCTOR = "Sin Datos";
+                                                        $NOMBREPRODUCTOR = "Sin Datos";
+                                                    }
+
+                                                    $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($r['ID_TPROCESO']);
+                                                    if ($ARRAYTPROCESO) {
+                                                        $TPROCESO = $ARRAYTPROCESO[0]['NOMBRE_TPROCESO'];
+                                                    } else {
+                                                        $TPROCESO = "Sin Datos";
+                                                    }
+                                                    if ($r['TURNO']) {
+                                                        if ($r['TURNO'] == "1") {
+                                                            $TURNO = "Dia";
+                                                        }
+                                                        if ($r['TURNO'] == "2") {
+                                                            $TURNO = "Noche";
+                                                        }
+                                                    } else {
+                                                        $TURNO = "Sin Datos";
+                                                    }
                                                     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYEMPRESA) {
                                                         $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -265,10 +291,10 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
-                                                    ?>
 
+                                                    ?>
                                                     <tr class="text-left">
-                                                        <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
+                                                        <td> <?php echo $r['NUMERO_PROCESO']; ?> </td>
                                                         <td>
                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                 <button type="button" class="btn btn-block btn-danger">Cerrado</button>
@@ -286,52 +312,32 @@ include_once "../config/datosUrLP.php";
                                                                         </button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
-                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHOEX']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoEX" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoEX" />
+                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROCESO']; ?>" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Abrir">
+                                                                                    <button type="submit" class="btn btn-success btn-block " id="ABRIR" name="ABRIR">
+                                                                                         <i class="si-book-open si"></i> Abrir
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoPtPackingList.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe Comercial">
-                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
-                                                                                </button>
-                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $r['NUMERO_SELLO_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['GUIA']; ?></td>
-                                                        <td><?php echo $r['ENVASE']; ?></td>
+                                                        <td><?php echo $TPROCESO; ?></td>
+                                                        <td><?php echo $TURNO; ?> </td>
+                                                        <td><?php echo $NOMBRESPECIES; ?></td>
+                                                        <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                        <td><?php echo $NETOENTRADA; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
-                                                        <td><?php echo $r['BRUTO']; ?></td>
+                                                        <td><?php echo $r['EXPORTACION']; ?></td>
+                                                        <td><?php echo $r['INDUSTRIAL']; ?></td>
+                                                        <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                        <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
-                                                        <td><?php echo $NOMBRETRANSPORTE; ?></td>
-                                                        <td><?php echo $NOMBRECONDUCTOR; ?></td>
-                                                        <td><?php echo $r['PATENTE_CAMION']; ?></td>
-                                                        <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -341,44 +347,16 @@ include_once "../config/datosUrLP.php";
                                         </table>
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Bruto </label>
-                                            <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <!-- /.box -->
-
+                        <div class="box-footer">
+                        </div>
+                    </div>
+                    <!-- /.box -->
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
 
         <?php include_once "../config/footer.php"; ?>
         <?php include_once "../config/menuExtra.php"; ?>

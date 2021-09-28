@@ -677,6 +677,18 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarHExiindustrial.php"><i class="ti-more"></i>Producto Industrial</a></li>
         </ul>
       </li>
+      <li class="treeview">
+        <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/icons.svg" class="svg-icon" alt="">
+          <span> AP</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="listarAProceso.php"><i class="ti-more"></i> Proceso</a></li>
+        </ul>
+      </li>
       <li class="header">Configuraciones</li>
       <li class="treeview">
         <a href="#">

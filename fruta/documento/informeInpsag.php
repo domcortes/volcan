@@ -285,8 +285,8 @@ $html = '
         
         <div id="invoice">
           <div class="date"><b>Fecha Inspección: </b>' . $FECHAINPSAG . ' </div>
-          <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="address"><b> Planta: </b>' . $PLANTA . '</div>
+          <div class="address"><b> Temporada: </b>' . $TEMPORADA . '</div>
         </div>
 
         <div id="client">
@@ -396,9 +396,8 @@ $html = $html . '
             <div class="date"><b><hr></b></div>
             <div class="date center">  Firma Responsable</div>
             <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
-        </div>
+          </div>
       </div>  
-
     </main>
     <footer>
     Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>

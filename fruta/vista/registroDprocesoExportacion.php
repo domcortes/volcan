@@ -163,7 +163,7 @@ if (isset($_REQUEST['CREAR'])) {
     if ($FOLIOMANUAL != "on") {
         $FOLIOMANUALR = "0";
         $SINO = "0";
-        $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolio($FOLIO);
+        $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolioProceso($FOLIO);
         if ($ARRAYULTIMOFOLIO) {
             if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
                 $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
@@ -893,7 +893,7 @@ if ($_POST) {
                                                         <?php if ($ARRAYESTANDAR) {    ?>
                                                             <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($ESTANDAR == $r['ID_ESTANDAR']) {
                                                                                                                     echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_ESTANDAR'] ?> </option>
+                                                                                                                } ?>> <?php echo $r['CODIGO_ESTANDAR'] ?> : <?php echo $r['NOMBRE_ESTANDAR'] ?> </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
                                                         <?php } ?>
