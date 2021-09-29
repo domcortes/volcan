@@ -54,11 +54,9 @@
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</head>
 	<body class="hold-transition sidebar-collapse sidebar-mini login-page">
-		<!-- Site wrapper -->
 		<div class="login-box">
 			<div class="login-logo">
 				<img src="/img/volcan-foods-logo-original.png" alt="" height="50px">
-
 			</div>
 			<!-- /.login-logo -->
 			<div class="card border-0">
