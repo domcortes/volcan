@@ -445,10 +445,15 @@ class RECEPCIONIND_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
+            $datos = $this->conexion->prepare("SELECT *  ,
+                                                    DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
+                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                    IFNULL(KILOS_NETO_RECEPCION,0)  AS 'NETO',
+                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0) AS 'GUIA'
                                             FROM fruta_recepcionind 
-                                            WHERE  
-                                                ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
@@ -464,6 +469,7 @@ class RECEPCIONIND_ADO
             die($e->getMessage());
         }
     }
+
 
     public function listarRecepcionEmpresaPlantaTemporada2CBX($EMPRESA,  $PLANTA, $TEMPORADA)
     {
