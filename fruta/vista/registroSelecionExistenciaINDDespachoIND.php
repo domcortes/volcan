@@ -222,8 +222,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                         </div>
                                         <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-56col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label><i class="fa fa-info-circle"> </i> Para <b>Despachar</b> una parte de los <b>kilos</b> de un folio ingrese los kilos a despachar y presione <b> D. Folios </b> </label>
-                                                <label><i class="fa fa-info-circle"> </i> Para <b>Despachar folios</b> completos, seleccione los folios y presione <b>D. Kilos</b> </label>
+                                                <label><i class="fa fa-info-circle"> </i> Para <b>Despachar folios</b> completos, seleccione los folios y presione <b>D. Folio</b> </label>
+                                                <label><i class="fa fa-info-circle"> </i> Para <b>Despachar</b> una parte de los <b>kilos</b> de un folio ingrese los kilos a despachar y presione <b> D. Kilos </b> </label>
                                             </div>
                                         </div>
                                     </div>
@@ -333,7 +333,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                             <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Despacho Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
                                                 <i class="ti-save-alt"></i> D. Folio
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="D. Kilos" name="DIVIDIR" value="DIVIDIR" <?php echo $DISABLED; ?>>
+                                            <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="Despacho Kilos" name="DIVIDIR" value="DIVIDIR" <?php echo $DISABLED; ?>>
                                                 <i class="ti-save-alt"></i> D. Kilos
                                             </button>
                                         </div>
