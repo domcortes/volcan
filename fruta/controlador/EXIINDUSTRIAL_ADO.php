@@ -1224,7 +1224,7 @@ class EXIINDUSTRIAL_ADO
                                                     FORMAT(IFNULL(NETO_DESPACHO,0),2,'de_DE') AS 'NETOD'  ,  
                                                     FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL-NETO_DESPACHO,0),2,'de_DE') AS 'DELTA',  
                                                     FORMAT(IFNULL(PRECIO_KILO,0),2,'de_DE') AS 'KILOP'  ,  
-                                                    FORMAT(IFNULL(NETO_DESPACHO*PRECIO_KILO,0),2,'de_DE') AS 'PRECIO'   
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO,0),2,'de_DE') AS 'PRECIO'   
                                         FROM fruta_exiindustrial 
                                         WHERE ID_DESPACHO= '" . $IDDESPACHOIND . "'   
                                         AND ESTADO BETWEEN 3 AND  5
@@ -1512,7 +1512,7 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT 
                                                     IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0) AS 'NETO' ,
                                                     IFNULL(SUM(NETO_DESPACHO),0) AS 'NETOD' ,
-                                                    IFNULL(SUM(NETO_DESPACHO*PRECIO_KILO),0) AS 'PRECIO' 
+                                                    IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO),0) AS 'PRECIO' 
                                              FROM fruta_exiindustrial
                                              WHERE 
                                               ID_DESPACHO = '" . $IDDESPACHOIND . "' 
@@ -1538,7 +1538,7 @@ class EXIINDUSTRIAL_ADO
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0),2,'de_DE') AS 'NETO' ,
                                                     FORMAT(IFNULL(SUM(NETO_DESPACHO),0),2,'de_DE') AS 'NETOD' ,
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL-NETO_DESPACHO),0),2,'de_DE') AS 'DELTA' ,
-                                                    FORMAT(IFNULL(SUM(NETO_DESPACHO*PRECIO_KILO),0),2,'de_DE') AS 'PRECIO' 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO),0),2,'de_DE') AS 'PRECIO' 
                                              FROM fruta_exiindustrial
                                              WHERE 
                                               ID_DESPACHO = '" . $IDDESPACHOIND . "' 
@@ -1629,4 +1629,7 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
+
+
+
 }

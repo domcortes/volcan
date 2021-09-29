@@ -355,11 +355,11 @@ foreach ($ARRAYDRECEPCION as $d) :
   $html = $html . '
               
   <tr class="bt">
-      <th class=" left">&nbsp;</th>
-      <th class=" left">SUB TOTAL</th>
-      <th class="center">' . $ARRAYDRECEPCION2TOTALES[0]['NETO'] . '</th>
-      <th class=" center">&nbsp;</th>
-      <th class=" center">&nbsp;</th>
+      <th class="color3 left">&nbsp;</th>
+      <th class="color3 left">SUB TOTAL</th>
+      <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['NETO'] . '</th>
+      <th class="color3 center">&nbsp;</th>
+      <th class="color3 center">&nbsp;</th>
   </tr>
 ';
 
@@ -388,11 +388,15 @@ $html = $html . '
           <div class="address">Conductor: ' . $CONDUCTOR . '</div>
           <div class="address">Patente Camion: ' . $PATENTECAMION . '</div>
           <div class="address">Patente Carro: ' . $PATENTE . '</div>
-        </div>
-        
+        </div>        
         <div id="client">
           <div class="address"><b>Observaciones</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
+        </div>
+        <div id="invoice">
+            <div class="date"><b><hr></b></div>
+            <div class="date center">  Firma Responsable</div>
+            <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
         </div>
       </div>  
           
@@ -455,18 +459,7 @@ $PDF->SetHTMLHeader('
 ');
 
 $PDF->SetHTMLFooter('
-<table width="100%" >
-    <tr>
-      <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> <hr> </td>
-      <td class="color2 right" style="width: 30%;"> </td>
-    </tr>
-    <tr>
-      <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
-      <td class="color2 center" style="width: 30%;"> </td>
-    </tr>    
-  </table>
+
     <table width="100%" >
         <tbody>
             <tr>

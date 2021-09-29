@@ -109,15 +109,17 @@ if (isset($_REQUEST['parametro'])) {
 }
 $ARRAYDESPACHO = $DESPACHOIND_ADO->verDespachomp2($NUMERODESPACHO);
 $ARRAYDESPACHOTOTAL = $DESPACHOIND_ADO->obtenerTotalesDespachompCBX2($IDOP);
-$TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
-$TOTALPRECIO = $ARRAYDESPACHOTOTAL[0]['PRECIO'];
+$TOTALNETODESPACHO = $ARRAYDESPACHOTOTAL[0]['NETO'];
+$TOTALPRECIODESPACHO = $ARRAYDESPACHOTOTAL[0]['PRECIO'];
 
 
 $ARRAYEXISTENCIATOMADA = $EXIINDUSTRIAL_ADO->buscarPorDespacho2($NUMERODESPACHO);
 $ARRAYDESPACHOTOTAL = $EXIINDUSTRIAL_ADO->obtenerTotalesDespacho2($IDOP);
 
+$TOTALNETO= $ARRAYDESPACHOTOTAL[0]['NETO'];
 $TOTALNETOD= $ARRAYDESPACHOTOTAL[0]['NETOD'];
 $TOTALDELTA= $ARRAYDESPACHOTOTAL[0]['DELTA'];
+$TOTALPRECIO = $ARRAYDESPACHOTOTAL[0]['PRECIO'];
 
 
 
@@ -437,16 +439,16 @@ $html = $html . '
 
 if ($TDESPACHO != "3") {
   $html .= '  
-  <th class="color center">' . $TOTALNETO . '</th>
+  <th class="color center">' . $TOTALNETODESPACHO . '</th>
   ';  
 
 }
 
 if ($TDESPACHO == "3") {
   $html .= '  
-    <th class="color center">' . $TOTALNETOD . '</th>
+    <th class="color center">' . $TOTALNETODESPACHO . '</th>
     <th class="color center"></th>
-    <th class="color center">' . $TOTALPRECIO . '</th>
+    <th class="color center">' . $TOTALPRECIODESPACHO . '</th>
   ';  
 
 }
