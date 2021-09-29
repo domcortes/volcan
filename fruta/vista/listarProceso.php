@@ -56,7 +56,7 @@ $ARRAYEXISMATERIPRIMAPROCESO = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYPROCESO = $PROCESO_ADO->listarProcesoEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYPROCESO = $PROCESO_ADO->listarProcesoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYTOTALPROCESO = $PROCESO_ADO->obtenerTotalesEmpresaPlantaTemporadaLista($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYTOTALPROCESOENTRADA = $EXIMATERIAPRIMA_ADO->obtenerTotalProcesoEmpresaPlantaTemporada($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
@@ -233,7 +233,7 @@ include_once "../config/datosUrLP.php";
 
                                                     $ARRAYEXISMATERIPRIMAPROCESO = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($r['ID_PROCESO']);
                                                     if ($ARRAYEXISMATERIPRIMAPROCESO) {
-                                                        $NETOENTRADA = $ARRAYEXISMATERIPRIMAPROCESO[0]['NETO'];
+                                                        $NETOENTRADA = $ARRAYEXISMATERIPRIMAPROCESO[0]['NETOSF'];
                                                     }
 
                                                     $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);

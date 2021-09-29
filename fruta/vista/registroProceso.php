@@ -1441,7 +1441,7 @@ if (isset($_POST)) {
                             title:"Folio eliminado"
                         }).then((result)=>{
                             if(result.value){
-                                location.href = "/fruta/vista/registroProceso.php?op";
+                                location.href = "registroProceso.php?op";
                             }
                         });
                     </script>';

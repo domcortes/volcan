@@ -447,19 +447,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroGuiaPorRecibirMP.php">Materia Prima<i class="ti-more"></i> </a></li>
               <li><a href="registroGuiaPorRecibirIND.php">Inudstrial<i class="ti-more"></i></a></li>
             </ul>
-          </li>
-          <!--
-          <li class="treeview">
-            <a href="#">Repaletizaje
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroRepaletizajeMpRecepcion.php"><i class="ti-more"></i> Materia  Prima</a></li>
-              <li><a href="listarRepaletizajeMpRecepcion.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
-            </ul>
-          </li>-->
+          </li>     
           <li><a href="listarEximateriaprima.php">Existencia Materia Prima<i class="ti-more"></i></a></li>
           <li><a href="listarExiindustrial.php">Existencia Industrial<i class="ti-more"></i></a></li>
         </ul>
