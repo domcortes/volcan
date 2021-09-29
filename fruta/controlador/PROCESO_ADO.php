@@ -447,7 +447,7 @@ class PROCESO_ADO
             $datos = $this->conexion->prepare("SELECT
                                                  FORMAT(IFNULL(SUM(KILOS_EXPORTACION_PROCESO),0),2,'de_DE') AS 'EXPORTACION'   ,                                                 
                                                  FORMAT(IFNULL(SUM(KILOS_INDUSTRIAL_PROCESO),0),2,'de_DE') AS 'INDUSTRIAL'    ,                                                 
-                                                 FORMAT(IFNULL(SUM(KILOS_NETO_PROCESO),0),2,'de_DE') AS 'NETO'                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_NETO_PROCESO-KILOS_INDUSTRIAL_PROCESO),0),2,'de_DE') AS 'NETO'                                                 
                                              FROM fruta_proceso                                                                                         
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
