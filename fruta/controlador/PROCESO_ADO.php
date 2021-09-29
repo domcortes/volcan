@@ -333,7 +333,14 @@ class PROCESO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_proceso                                                        
+            $datos = $this->conexion->prepare("SELECT * ,  
+                                                    IFNULL(KILOS_EXPORTACION_PROCESO,0) AS 'EXPORTACION'   ,                                                 
+                                                    IFNULL(KILOS_INDUSTRIAL_PROCESO,0) AS 'INDUSTRIAL'    ,                                                 
+                                                    IFNULL(KILOS_NETO_PROCESO,0) AS 'NETO',
+                                                    DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y') AS 'FECHA', 
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                                FROM fruta_proceso                                                        
                                                 WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
