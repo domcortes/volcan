@@ -62,8 +62,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
     $TOTALNETOENTRADA = $ARRAYTOTALPROCESOENTRADA[0]['NETO'];
     $TOTALNETO = $ARRAYTOTALPROCESO[0]['NETO'];
-    $TOTALINDUSTRIAL = $ARRAYTOTALPROCESO[0]['INDUSTRIAL'];
     $TOTALEXPORTACION = $ARRAYTOTALPROCESO[0]['EXPORTACION'];
+    $TOTALINDUSTRIAL = $ARRAYTOTALPROCESO[0]['INDUSTRIAL'];
 
 
 
@@ -213,10 +213,11 @@ include_once "../config/datosUrLP.php";
                                                     <th>Turno </th>
                                                     <th>Especie</th>
                                                     <th>Variedad</th>
-                                                    <th>K. Neto Entrada</th>
-                                                    <th>K. Neto Salida</th>
-                                                    <th>K. Exportacion </th>
-                                                    <th>K. Industrial</th>
+                                                    <th>Kg. Neto Entrada</th>
+                                                    <th>Kg. Neto Expo</th>
+                                                    <th>Kg. Con Deshi. </th>
+                                                    <th>Kg. Industrial</th>
+
                                                     <th>CSG Productor</th>
                                                     <th>Nombre Productor</th>
                                                     <th>Fecha Ingreso</th>
@@ -387,6 +388,14 @@ include_once "../config/datosUrLP.php";
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">Total Exportacion</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Kg. Con Desh</div>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
                                         </div>
