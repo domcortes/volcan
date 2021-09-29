@@ -439,16 +439,16 @@ $html = $html . '
 
 if ($TDESPACHO != "3") {
   $html .= '  
-  <th class="color center">' . $TOTALNETODESPACHO . '</th>
+  <th class="color center">' . $TOTALNETO . '</th>
   ';  
 
 }
 
 if ($TDESPACHO == "3") {
   $html .= '  
-    <th class="color center">' . $TOTALNETODESPACHO . '</th>
+    <th class="color center">' . $TOTALNETO . '</th>
     <th class="color center"></th>
-    <th class="color center">' . $TOTALPRECIODESPACHO . '</th>
+    <th class="color center">' . $TOTALPRECIO . '</th>
   ';  
 
 }
