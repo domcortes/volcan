@@ -272,7 +272,7 @@ if (isset($_REQUEST['CERRAR'])) {
     if ($_REQUEST['TOTALDESHIDRATACIONEX'] >  $_REQUEST['TOTALNETO']) {
         $SINO = "1";
         $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR AL LO INGRESADO";
-    }else   if ($_REQUEST['PEXPORTACIONEXPO'] < 100) {
+    } else   if ($_REQUEST['PEXPORTACIONEXPO'] < 100) {
         $SINO = "1";
         $MENSAJEPORCENTAJE = "LA SUMA DE LOS % TIENE QUE SER 100";
     } else {
@@ -934,28 +934,13 @@ if (isset($_POST)) {
                                             <?php } ?>
                                         </div>
                                         <div class="btn-group col-sm-4">
-                                            <?php if ($OP != ""): ?>
-                                            <button type="button"
-                                                class="btn btn-primary  "
-                                                data-toggle="tooltip"
-                                                title="Informe"
-                                                id="defecto"
-                                                name="tarjas"
-                                                <?php echo $DISABLEDFOLIO; ?>
-                                                Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i> Proceso
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="btn  btn-info  "
-                                                data-toggle="tooltip"
-                                                title="Tarja"
-                                                id="defecto"
-                                                name="tarjas"
-                                                <?php echo $DISABLEDFOLIO; ?>
-                                                Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i> Tarjas
-                                            </button>
+                                            <?php if ($OP != "") : ?>
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Proceso
+                                                </button>
+                                                <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
+                                                </button>
                                             <?php endif ?>
                                         </div>
                                     </div>
@@ -976,7 +961,9 @@ if (isset($_POST)) {
                                         <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                         <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroSelecionExistenciaMPProceso" />
                                         <div class="col-auto">
-                                            <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>Seleccion Existencia</button>
+                                            <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                                    echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                                                } ?>>Seleccion Existencia</button>
                                         </div>
                                     </div>
                                 </form>
@@ -1055,7 +1042,9 @@ if (isset($_POST)) {
                                                             <form method="post" id="form1">
                                                                 <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
                                                                 <div class="btn-group btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                    <button type="submit" class="btn btn-sm btn-danger " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP" <?php echo $DISABLED2;?> <?php if ($ESTADO == 0) {echo "disabled";} ?>><i class="ti-close"></i></button>
+                                                                    <button type="submit" class="btn btn-sm btn-danger " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                    echo "disabled";
+                                                                                                                                                                                                                                } ?>><i class="ti-close"></i></button>
                                                                 </div>
                                                             </form>
                                                         </td>
@@ -1087,17 +1076,6 @@ if (isset($_POST)) {
                                                 <!-- inicio input -->
                                                 <input type="hidden" class="form-control" placeholder="TOTAL ENVASE" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASEE; ?>" />
                                                 <input type="text" class="form-control text-center" placeholder="Total Envase" id="TOTALENVASEEV" name="TOTALENVASEEV" value="<?php echo $TOTALENVASEEV; ?>" disabled />
-                                                <!-- /termino input -->
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Neto</div>
-                                                </div>
-                                                <!-- inicio input -->
-                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETOE; ?>" />
-                                                <input type="text" class="form-control text-center" placeholder="Total Neto " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
                                                 <!-- /termino input -->
                                             </div>
                                         </div>
@@ -1148,7 +1126,8 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                                 <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDprocesoExportacion" />
                                                 <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Producto Terminado" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                echo "disabled style='background-color: #eeeeee;'";} ?>>Agregar prod. Terminado</button>
+                                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                                            } ?>>Agregar prod. Terminado</button>
                                             </div>
                                         </form>
                                         <form method="post" id="form6" name="form6">
@@ -1157,7 +1136,9 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroProceso" />
                                                 <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDprocesoIndustrial" />
-                                                <button type="submit" class="btn btn-secondary btn-block" data-toggle="tooltip" title="Agregar Producto Industrial" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>Agregar prod. Industrial</button>
+                                                <button type="submit" class="btn btn-secondary btn-block" data-toggle="tooltip" title="Agregar Producto Industrial" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                                            } ?>>Agregar prod. Industrial</button>
                                             </div>
                                         </form>
                                     </div>
@@ -1330,19 +1311,30 @@ if (isset($_POST)) {
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-                                                        Kilos Exportacion
-                                                    </div>
+                                                    <div class="input-group-text">Kilos Neto MP</div>
                                                 </div>
-                                                <input type="hidden" class="form-control" id="TOTALDESHIDRATACIONEX" name="TOTALDESHIDRATACIONEX" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" />
-                                                <input type="text" class="form-control text-center" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEXV; ?>" disabled />
+                                                <!-- inicio input -->
+                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETOE; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="Total Neto " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
+                                                <!-- /termino input -->
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
-                                                        Kilos Industrial
+                                                        Kilos Neto Exportacion
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALDESHIDRATACIONEX" name="TOTALDESHIDRATACIONEX" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALNETOEX; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        Kilos Neto Industrial
                                                     </div>
                                                 </div>
                                                 <input type="hidden" class="form-control" id="TOTALNETOIND" name="TOTALNETOIND" value="<?php echo $TOTALNETOIND; ?>" />
@@ -1385,40 +1377,40 @@ if (isset($_POST)) {
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
         <?php
-            //OPERACION DE REGISTRO DE FILA
-            if (isset($_REQUEST['CREAR'])) {
+        //OPERACION DE REGISTRO DE FILA
+        if (isset($_REQUEST['CREAR'])) {
 
-                $ARRAYNUMERO = $PROCESO_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+            $ARRAYNUMERO = $PROCESO_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+            $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
-                //UTILIZACION METODOS SET DEL MODELO
-                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-                $PROCESO->__SET('NUMERO_PROCESO', $NUMERO);
-                $PROCESO->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
-                $PROCESO->__SET('TURNO', $_REQUEST['TURNO']);
-                $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESO']);
-                $PROCESO->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-                $PROCESO->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESO']);
-                $PROCESO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $PROCESO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $PROCESO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                $PROCESO->__SET('ID_USUARIOI', $IDUSUARIOS);
-                $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
-                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR  HORAINGRESOPROCESO
-                $PROCESO_ADO->agregarProceso($PROCESO);
-                //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-                $ARRYAOBTENERID = $PROCESO_ADO->obtenerId(
-                    $_REQUEST['FECHAPROCESO'],
-                    $_REQUEST['EMPRESA'],
-                    $_REQUEST['PLANTA'],
-                    $_REQUEST['TEMPORADA'],
-                );
-                //REDIRECCIONAR A PAGINA registroRecepcion.php
+            //UTILIZACION METODOS SET DEL MODELO
+            //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+            $PROCESO->__SET('NUMERO_PROCESO', $NUMERO);
+            $PROCESO->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
+            $PROCESO->__SET('TURNO', $_REQUEST['TURNO']);
+            $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESO']);
+            $PROCESO->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+            $PROCESO->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+            $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESO']);
+            $PROCESO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+            $PROCESO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+            $PROCESO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+            $PROCESO->__SET('ID_USUARIOI', $IDUSUARIOS);
+            $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
+            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR  HORAINGRESOPROCESO
+            $PROCESO_ADO->agregarProceso($PROCESO);
+            //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+            $ARRYAOBTENERID = $PROCESO_ADO->obtenerId(
+                $_REQUEST['FECHAPROCESO'],
+                $_REQUEST['EMPRESA'],
+                $_REQUEST['PLANTA'],
+                $_REQUEST['TEMPORADA'],
+            );
+            //REDIRECCIONAR A PAGINA registroRecepcion.php
 
-                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PROCESO'];
-                $_SESSION["parametro1"] = "crear";
-                echo '<script>
+            $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PROCESO'];
+            $_SESSION["parametro1"] = "crear";
+            echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Proceso registrado",
@@ -1427,15 +1419,15 @@ if (isset($_POST)) {
                         location.href ="registroProceso.php?op";
                     })
                 </script>';
-            }
+        }
 
-            if (isset($_REQUEST['QUITAR'])) {
-                $IDQUITAR = $_REQUEST['IDQUITAR'];
-                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIMATERIAPRIMA_ADO->actualizarDeselecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
-                echo
-                    '<script>
+        if (isset($_REQUEST['QUITAR'])) {
+            $IDQUITAR = $_REQUEST['IDQUITAR'];
+            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $EXIMATERIAPRIMA_ADO->actualizarDeselecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
+            echo
+            '<script>
                         Swal.fire({
                             icon:"info",
                             title:"Folio eliminado"
@@ -1445,7 +1437,7 @@ if (isset($_POST)) {
                             }
                         });
                     </script>';
-            }
+        }
         ?>
 </body>
 
