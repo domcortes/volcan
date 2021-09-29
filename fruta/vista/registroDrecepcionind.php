@@ -193,7 +193,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": "  . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
         }
         if ($TRECEPCION == "2") {
@@ -237,7 +237,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] .  ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
         endforeach;
     }
@@ -264,7 +264,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] .  ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
 
         endforeach;
@@ -294,7 +294,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] .  ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
         endforeach;
     }
@@ -323,7 +323,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] .  ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
         endforeach;
     }
@@ -589,7 +589,7 @@ if ($_POST) {
                                                     <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                         <?php if ($ARRAYPRODUCTOR) {    ?>
                                                             <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) { echo "selected"; } ?>>
-                                                                <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['RUT_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
+                                                                <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
