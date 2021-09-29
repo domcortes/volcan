@@ -233,7 +233,7 @@ include_once "../config/datosUrLP.php";
 
                                                     $ARRAYEXISMATERIPRIMAPROCESO = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($r['ID_PROCESO']);
                                                     if ($ARRAYEXISMATERIPRIMAPROCESO) {
-                                                        $NETOENTRADA = $ARRAYEXISMATERIPRIMAPROCESO[0]['NETO'];
+                                                        $NETOENTRADA = $ARRAYEXISMATERIPRIMAPROCESO[0]['NETOSF'];
                                                     }
 
                                                     $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
