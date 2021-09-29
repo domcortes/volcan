@@ -439,7 +439,33 @@ class DESPACHOPT_ADO
             die($e->getMessage());
         }
     }
+    public function listarDespachoptEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                 IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',   
+                                                 IFNULL(KILOS_NETO_DESPACHO,0) AS 'NETO',  
+                                                 IFNULL(KILOS_BRUTO_DESPACHO,0)  AS 'BRUTO' 
+                                        FROM fruta_despachopt                                                                           
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarDespachoptEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
@@ -467,27 +493,7 @@ class DESPACHOPT_ADO
             die($e->getMessage());
         }
     }
-    public function listarDespachoptEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT * 
-                                        FROM fruta_despachopt                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                        AND ID_PLANTA = '" . $PLANTA . "'
-                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
+ 
     public function listarDespachoptEmpresaPlantaTemporadaGuiaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

@@ -480,7 +480,11 @@ class DESPACHOIND_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
@@ -505,7 +509,7 @@ class DESPACHOIND_ADO
                                                 DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
-                                                FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO'
+                                                FORMAT(IFNULL(KILOS_NETO_DESPACHO,0),2,'de_DE')  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
