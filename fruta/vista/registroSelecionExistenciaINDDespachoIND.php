@@ -397,37 +397,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIINDUSTRIAL_ADO->actualizarSelecionarDespachoNeto($EXIINDUSTRIAL);
 
-                        $NETONUEVO = $NETOORIGINAL - $NETO;
-                        $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-                        $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-                        $ARRAYULTIMOFOLIO = $EXIINDUSTRIAL_ADO->obtenerFolio($FOLIO);
-                        if ($ARRAYULTIMOFOLIO) {
-                            if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
-                                $FOLIODPINDUSTRIAL = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-                            } else {
-                                $FOLIODPINDUSTRIAL =  $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'];
-                            }
-                        } else {
-                            $FOLIODPINDUSTRIAL = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-                        }
-                        $NUMEROFOLIODINDUSTRIAL = $FOLIODPINDUSTRIAL + 1;
-                        $ARRAYFOLIOPOEXPO = $EXIINDUSTRIAL_ADO->buscarPorFolioRepaletizaje($NUMEROFOLIODINDUSTRIAL);
-                        while (count($ARRAYFOLIOPOEXPO) == 1) {
-                            $ARRAYFOLIOPOEXPO = $EXIINDUSTRIAL_ADO->buscarPorFolioRepaletizaje($NUMEROFOLIODINDUSTRIAL);
-                            if (count($ARRAYFOLIOPOEXPO) == 1) {
-                                $NUMEROFOLIODINDUSTRIAL += 1;
-                            }
-                        };
+                        $NETONUEVO = $NETOORIGINAL - $NETO;                 
 
-                        $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
+                        $FOLIOALIASESTACTICO = $FOLIOORIGINAL;
                         $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-                            "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_DESPACHO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
+                            "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_DESPACHO:" . $_REQUEST['IDP'] . "_FOLIO:" . $FOLIOORIGINAL;
 
 
                         $ARRAYVEREXITENICA = $EXIINDUSTRIAL_ADO->verExiindustrial($IDEXISTENCIA);
                         foreach ($ARRAYVEREXITENICA as $r) :
-                            $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL',  $FOLIOORIGINAL);
-                            $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                            $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $r['FOLIO_EXIINDUSTRIAL']);
+                            $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']);
                             $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL', $r['FECHA_EMBALADO_EXIINDUSTRIAL']);
                             $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $NETONUEVO);
                             $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
