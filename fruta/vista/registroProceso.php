@@ -220,134 +220,6 @@ if (empty($ARRAYFOLIO2)) {
 }
 //OPERACIONES
 
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-    $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
-    $PROCESO->__SET('TURNO',  $_REQUEST['TURNOE']);
-    $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESOE']);
-    $PROCESO->__SET('KILOS_NETO_PROCESO', $_REQUEST['TOTALNETOEXPO']);
-    $PROCESO->__SET('KILOS_EXPORTACION_PROCESO', $_REQUEST['TOTALDESHIDRATACIONEX']);
-    $PROCESO->__SET('KILOS_INDUSTRIAL_PROCESO', $_REQUEST['TOTALNETOIND']);
-    $PROCESO->__SET('PDEXPORTACION_PROCESO', $_REQUEST['PEXPORTACIONEXPOEX']);
-    $PROCESO->__SET('PDINDUSTRIAL_PROCESO', $_REQUEST['PEXPORTACIONEXPOINDU']);
-    $PROCESO->__SET('PORCENTAJE_PROCESO', $_REQUEST['PEXPORTACIONEXPO']);
-    $PROCESO->__SET('ID_VESPECIES',  $_REQUEST['VESPECIESE']);
-    $PROCESO->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
-    $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESOE']);
-    $PROCESO->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-    $PROCESO->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-    $PROCESO->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
-    $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $PROCESO_ADO->actualizarProceso($PROCESO);
-}
-//OPERACION CERRAR DE FILA
-if (isset($_REQUEST['CERRAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    $ARRAYEXIMATERIAPRIMATOMADO = $EXIMATERIAPRIMA_ADO->buscarPorProceso($_REQUEST['IDP']);
-    $ARRAYDEXPORTACIONPORPROCESO = $DPEXPORTACION_ADO->buscarPorProceso($_REQUEST['IDP']);
-    $ARRATDINDUSTRIALPORPROCESO = $DPINDUSTRIAL_ADO->buscarPorProceso($_REQUEST['IDP']);
-    if (empty($ARRAYEXIMATERIAPRIMATOMADO) && empty($ARRAYEXIMATERIAPRIMATOMADOPROCESADO)) {
-        $SINO = "1";
-        $MENSAJEEXISTENCIA = "TIENE  QUE HABER AL MENOS UN REGISTRO DE EXISTENCIA SELECIOANDO";
-    } else {
-        $SINO = "0";
-        $MENSAJEEXISTENCIA = "";
-    }
-    if (empty($ARRAYDEXPORTACIONPORPROCESO)) {
-        $SINO = "1";
-        $MENSAJEEXPORTACION = "TIENE  QUE HABER AL MENOS UN REGISTRO  PRODUCTO TERMINADO";
-    } else {
-        $SINO = "0";
-        $MENSAJEEXPORTACION = "";
-    }
-    if (empty($ARRATDINDUSTRIALPORPROCESO)) {
-        $SINO = "1";
-        $MENSAJEINDUSTRIAL = "TIENE  QUE HABER AL MENOS UN REGISTRO PRODUCTO INDUSTRIAL";
-    } else {
-        $SINO = "0";
-        $MENSAJEINDUSTRIAL = "";
-    }
-    if ($_REQUEST['TOTALDESHIDRATACIONEX'] >  $_REQUEST['TOTALNETO']) {
-        $SINO = "1";
-        $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR AL LO INGRESADO";
-    } else {
-        $SINO = "0";
-        $MENSAJEDIFERENCIA = "";
-    }
-    if ($_REQUEST['PEXPORTACIONEXPO'] < 100) {
-        $SINO = "1";
-        $MENSAJEPORCENTAJE = "LA SUMA DE LOS % TIENE QUE SER 100";
-    } else {
-        $SINO = "0";
-        $MENSAJEPORCENTAJE = "";
-    }
-
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO 
-    if ($SINO == "0") {
-        $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
-        $PROCESO->__SET('TURNO',  $_REQUEST['TURNOE']);
-        $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESOE']);
-        $PROCESO->__SET('KILOS_NETO_PROCESO', $_REQUEST['TOTALNETOEXPO']);
-        $PROCESO->__SET('KILOS_EXPORTACION_PROCESO', $_REQUEST['TOTALDESHIDRATACIONEX']);
-        $PROCESO->__SET('KILOS_INDUSTRIAL_PROCESO', $_REQUEST['TOTALNETOIND']);
-        $PROCESO->__SET('PDEXPORTACION_PROCESO', $_REQUEST['PEXPORTACIONEXPOEX']);
-        $PROCESO->__SET('PDINDUSTRIAL_PROCESO', $_REQUEST['PEXPORTACIONEXPOINDU']);
-        $PROCESO->__SET('PORCENTAJE_PROCESO', $_REQUEST['PEXPORTACIONEXPO']);
-        $PROCESO->__SET('ID_VESPECIES',  $_REQUEST['VESPECIESE']);
-        $PROCESO->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
-        $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESOE']);
-        $PROCESO->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-        $PROCESO->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-        $PROCESO->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
-        $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $PROCESO_ADO->actualizarProceso($PROCESO);
-
-        $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $PROCESO_ADO->cerrado($PROCESO);
-
-        $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->buscarPorProceso($_REQUEST['IDP']);
-
-        $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorProceso($_REQUEST['IDP']);
-        $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorProceso($_REQUEST['IDP']);
-
-
-
-        foreach ($ARRAYEXIMATERIAPRIMA as $r) :
-            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIMATERIAPRIMA_ADO->procesado($EXIMATERIAPRIMA);
-        endforeach;
-        foreach ($ARRAYEXIEXPORTACION as $s) :
-            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->vigente($EXIEXPORTACION);
-        endforeach;
-        foreach ($ARRAYEXIINDUSTRIAL as $f) :
-            $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $f['ID_EXIINDUSTRIAL']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIINDUSTRIAL_ADO->vigente($EXIINDUSTRIAL);
-        endforeach;
-
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        if ($_SESSION['parametro1'] == "crear") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroProceso.php?op';</script>";
-        }
-        if ($_SESSION['parametro1'] == "editar") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroProceso.php?op';</script>";
-        }
-    }
-}
-
-
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -930,7 +802,7 @@ if (isset($_POST)) {
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
                                                 <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                    <i class="ti-pencil-alt"></i> Editar
+                                                    <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
                                                 <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                     <i class="ti-save-alt"></i> Cerrar
@@ -1449,6 +1321,231 @@ if (isset($_POST)) {
                             }
                         });
                     </script>';
+            }
+
+            //OPERACION EDICION DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+                $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
+                $PROCESO->__SET('TURNO',  $_REQUEST['TURNOE']);
+                $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESOE']);
+                $PROCESO->__SET('KILOS_NETO_PROCESO', $_REQUEST['TOTALNETOEXPO']);
+                $PROCESO->__SET('KILOS_EXPORTACION_PROCESO', $_REQUEST['TOTALDESHIDRATACIONEX']);
+                $PROCESO->__SET('KILOS_INDUSTRIAL_PROCESO', $_REQUEST['TOTALNETOIND']);
+                $PROCESO->__SET('PDEXPORTACION_PROCESO', $_REQUEST['PEXPORTACIONEXPOEX']);
+                $PROCESO->__SET('PDINDUSTRIAL_PROCESO', $_REQUEST['PEXPORTACIONEXPOINDU']);
+                $PROCESO->__SET('PORCENTAJE_PROCESO', $_REQUEST['PEXPORTACIONEXPO']);
+                $PROCESO->__SET('ID_VESPECIES',  $_REQUEST['VESPECIESE']);
+                $PROCESO->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
+                $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESOE']);
+                $PROCESO->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
+                $PROCESO->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
+                $PROCESO->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
+                $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $PROCESO_ADO->actualizarProceso($PROCESO);
+                echo
+                    '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Proceso Actualizado",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroProceso.php?op";
+                            }
+                        });
+                    </script>';
+            }
+
+            //OPERACION CERRAR DE FILA
+            if (isset($_REQUEST['CERRAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                $ARRAYEXIMATERIAPRIMATOMADO = $EXIMATERIAPRIMA_ADO->buscarPorProceso($_REQUEST['IDP']);
+                $ARRAYDEXPORTACIONPORPROCESO = $DPEXPORTACION_ADO->buscarPorProceso($_REQUEST['IDP']);
+                $ARRATDINDUSTRIALPORPROCESO = $DPINDUSTRIAL_ADO->buscarPorProceso($_REQUEST['IDP']);
+                if (empty($ARRAYEXIMATERIAPRIMATOMADO) && empty($ARRAYEXIMATERIAPRIMATOMADOPROCESADO)) {
+                    $SINO = "1";
+                    $MENSAJEEXISTENCIA = "TIENE  QUE HABER AL MENOS UN REGISTRO DE EXISTENCIA SELECIOANDO";
+                } else {
+                    $SINO = "0";
+                    $MENSAJEEXISTENCIA = "";
+                }
+                if (empty($ARRAYDEXPORTACIONPORPROCESO)) {
+                    $SINO = "1";
+                    $MENSAJEEXPORTACION = "TIENE  QUE HABER AL MENOS UN REGISTRO  PRODUCTO TERMINADO";
+                     echo
+                    '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Advertencia de cierre de proceso",
+                            text:"Tiene que haber al menos un registro de producto terminado",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroProceso.php?op";
+                            }
+                        });
+                    </script>';
+
+                } else {
+                    $SINO = "0";
+                    $MENSAJEEXPORTACION = "";
+                }
+                if (empty($ARRATDINDUSTRIALPORPROCESO)) {
+                    $SINO = "1";
+                    $MENSAJEINDUSTRIAL = "TIENE  QUE HABER AL MENOS UN REGISTRO PRODUCTO INDUSTRIAL";
+                                         echo
+                    '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Advertencia de cierre de proceso",
+                            text:"Tiene que haber al menos un retistro de producto industrial",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroProceso.php?op";
+                            }
+                        });
+                    </script>';
+                } else {
+                    $SINO = "0";
+                    $MENSAJEINDUSTRIAL = "";
+                }
+                if ($_REQUEST['TOTALDESHIDRATACIONEX'] >  $_REQUEST['TOTALNETO']) {
+                    $SINO = "1";
+                    $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR AL LO INGRESADO";
+                                         echo
+                    '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Advertencia de cierre de proceso",
+                            text:"La diferencia no puede ser menor a lo ingresado",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroProceso.php?op";
+                            }
+                        });
+                    </script>';
+                } else {
+                    $SINO = "0";
+                    $MENSAJEDIFERENCIA = "";
+                }
+                if ($_REQUEST['PEXPORTACIONEXPO'] < 100) {
+                    $SINO = "1";
+                    $MENSAJEPORCENTAJE = "LA SUMA DE LOS % TIENE QUE SER 100";
+                    echo
+                    '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Advertencia de cierre de proceso",
+                            text:"La suma de los porcentajes tiene que ser 100%",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroProceso.php?op";
+                            }
+                        });
+                    </script>';
+                } else {
+                    $SINO = "0";
+                    $MENSAJEPORCENTAJE = "";
+                }
+
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                if ($SINO == "0") {
+                    $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
+                    $PROCESO->__SET('TURNO',  $_REQUEST['TURNOE']);
+                    $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESOE']);
+                    $PROCESO->__SET('KILOS_NETO_PROCESO', $_REQUEST['TOTALNETOEXPO']);
+                    $PROCESO->__SET('KILOS_EXPORTACION_PROCESO', $_REQUEST['TOTALDESHIDRATACIONEX']);
+                    $PROCESO->__SET('KILOS_INDUSTRIAL_PROCESO', $_REQUEST['TOTALNETOIND']);
+                    $PROCESO->__SET('PDEXPORTACION_PROCESO', $_REQUEST['PEXPORTACIONEXPOEX']);
+                    $PROCESO->__SET('PDINDUSTRIAL_PROCESO', $_REQUEST['PEXPORTACIONEXPOINDU']);
+                    $PROCESO->__SET('PORCENTAJE_PROCESO', $_REQUEST['PEXPORTACIONEXPO']);
+                    $PROCESO->__SET('ID_VESPECIES',  $_REQUEST['VESPECIESE']);
+                    $PROCESO->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
+                    $PROCESO->__SET('ID_TPROCESO', $_REQUEST['TPROCESOE']);
+                    $PROCESO->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
+                    $PROCESO->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
+                    $PROCESO->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
+                    $PROCESO->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $PROCESO_ADO->actualizarProceso($PROCESO);
+
+                    $PROCESO->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $PROCESO_ADO->cerrado($PROCESO);
+
+                    $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->buscarPorProceso($_REQUEST['IDP']);
+
+                    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorProceso($_REQUEST['IDP']);
+                    $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorProceso($_REQUEST['IDP']);
+
+
+
+                    foreach ($ARRAYEXIMATERIAPRIMA as $r) :
+                        $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
+                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                        $EXIMATERIAPRIMA_ADO->procesado($EXIMATERIAPRIMA);
+                    endforeach;
+                    foreach ($ARRAYEXIEXPORTACION as $s) :
+                        $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
+                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                        $EXIEXPORTACION_ADO->vigente($EXIEXPORTACION);
+                    endforeach;
+                    foreach ($ARRAYEXIINDUSTRIAL as $f) :
+                        $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $f['ID_EXIINDUSTRIAL']);
+                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                        $EXIINDUSTRIAL_ADO->vigente($EXIINDUSTRIAL);
+                    endforeach;
+
+                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+                    if ($_SESSION['parametro1'] == "crear") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+
+                    echo
+                    '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Proceso Cerrado",
+                            text:"Este proceso se encuentra cerrado",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroProceso.php?op";
+                            }
+                        });
+                    </script>';
+                    }
+                    if ($_SESSION['parametro1'] == "editar") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        echo
+                        '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Proceso Cerrado",
+                            text:"Este proceso se encuentra cerrado",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroProceso.php?op";
+                            }
+                        });
+                    </script>';
+                    }
+                }
             }
         ?>
 </body>

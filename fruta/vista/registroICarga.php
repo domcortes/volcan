@@ -232,10 +232,6 @@ $DISABLEDSTYLE2 = "style='background-color: #eeeeee;'";
 $DISABLED3 = "";
 $DISABLEDSTYLE3 = "";
 
-
-
-
-
 //INICIALIZAR ARREGLOS
 
 $ARRAYEMPRESA = "";
@@ -307,9 +303,7 @@ $ARRAYCONSOLIDADODESPACHO2 = "";
 $ARRAYCALIBRE = "";
 $ARRAYNUMERO = "";
 
-
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-
 
 $ARRAYTSERVICIO = $TSERVICIO_ADO->listarTservicioPorEmpresaCBX($EMPRESAS);
 $ARRAYMERCADO = $MERCADO_ADO->listarMercadoPorEmpresaCBX($EMPRESAS);
@@ -337,8 +331,6 @@ $ARRAYNAVIERA = $NAVIERA_ADO->listarNavierPorEmpresaCBX($EMPRESAS);
 $ARRAYPCARGA = $PCARGA_ADO->listarPcargaPorEmpresaCBX($EMPRESAS);
 $ARRAYPDESTINO = $PDESTINO_ADO->listarPdestinoPorEmpresaCBX($EMPRESAS);
 
-
-
 $ARRAYFPAGO = $FPAGO_ADO->listarFpagoPorEmpresaCBX($EMPRESAS);
 $ARRAYMVENTA = $MVENTA_ADO->listarMventaPorEmpresaCBX($EMPRESAS);
 $ARRAYCVENTA = $CVENTA_ADO->listarCventaPorEmpresaCBX($EMPRESAS);;
@@ -351,7 +343,6 @@ $ARRAYSEGURO = $SEGURO_ADO->listarSeguroPorEmpressCBX($EMPRESAS);
 $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
 $ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 $ARRAYPAIS = $PAIS_ADO->listarPaisCBX();
-
 
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 
@@ -370,95 +361,7 @@ include_once "../config/datosUrlD.php";
 
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
 
-    $ARRAYNUMERO = $ICARGA_ADO->obtenerNumero($_REQUEST['EMPRESA'],  $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-    $ICARGA->__SET('NUMERO_ICARGA', $NUMERO);
-    $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
-    $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
-    $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
-    $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
-    $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
-    $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
-    $ICARGA->__SET('TEMBARQUE_ICARGA', $_REQUEST['TEMBARQUE']);
-    $ICARGA->__SET('FUMIGADO_ICARGA', $_REQUEST['FUMIGADO']);
-    $ICARGA->__SET('T_ICARGA', $_REQUEST['TINSTRUCTIVO']);
-    $ICARGA->__SET('O2_ICARGA', $_REQUEST['O2INSTRUCTIVO']);
-    $ICARGA->__SET('C02_ICARGA', $_REQUEST['CO2INSTRUCTIVO']);
-    $ICARGA->__SET('ALAMPA_ICARGA', $_REQUEST['ALAMPAINSTRUCTIVO']);
-    $ICARGA->__SET('COSTO_FLETE_ICARGA', $_REQUEST['COSTOFLETE']);
-    $ICARGA->__SET('DUS_ICARGA', $_REQUEST['DUSINSTRUCTIVO']);
-    $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
-    $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
-    $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
-    $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
-    $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
-    $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
-    $ICARGA->__SET('ID_TSERVICIO', $_REQUEST['TSERVICIO']);
-    $ICARGA->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORA']);
-    $ICARGA->__SET('ID_CONSIGNATARIO', $_REQUEST['CONSIGNATARIO']);
-    $ICARGA->__SET('ID_NOTIFICADOR', $_REQUEST['NOTIFICADOR']);
-    $ICARGA->__SET('ID_BROKER', $_REQUEST['BROKER']);
-    $ICARGA->__SET('ID_RFINAL', $_REQUEST['RFINAL']);
-    $ICARGA->__SET('ID_MERCADO', $_REQUEST['MERCADO']);
-    $ICARGA->__SET('ID_AADUANA', $_REQUEST['AADUANA']);
-    $ICARGA->__SET('ID_AGCARGA', $_REQUEST['AGCARGA']);
-    $ICARGA->__SET('ID_DFINAL', $_REQUEST['DFINAL']);
-    $ICARGA->__SET('ID_FPAGO', $_REQUEST['FPAGO']);
-    $ICARGA->__SET('ID_CVENTA', $_REQUEST['CVENTA']);
-    $ICARGA->__SET('ID_MVENTA', $_REQUEST['MVENTA']);
-    $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
-    $ICARGA->__SET('COSTO_FLETE_ICARGA', $_REQUEST['COSTOFLETE']);
-    $ICARGA->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
-    $ICARGA->__SET('ID_ATMOSFERA', $_REQUEST['ATMOSFERA']);
-    if (isset($_REQUEST['TEMBARQUE'])) {
-        if ($_REQUEST['TEMBARQUE'] == "1") {
-            $ICARGA->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-            $ICARGA->__SET('CRT_ICARGA', $_REQUEST['CRT']);
-            $ICARGA->__SET('ID_LCARGA', $_REQUEST['LCARGA']);
-            $ICARGA->__SET('ID_LDESTINO', $_REQUEST['LDESTINO']);
-        }
-        if ($_REQUEST['TEMBARQUE'] == "2") {
-            $ICARGA->__SET('ID_LAREA', $_REQUEST['LAEREA']);
-            $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
-            $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
-            $ICARGA->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
-            $ICARGA->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
-        }
-        if ($_REQUEST['TEMBARQUE'] == "3") {
-            $ICARGA->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
-            $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
-            $ICARGA->__SET('FECHASTACKING_ICARGA', $_REQUEST['FECHASTACKING']);
-            $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
-            $ICARGA->__SET('ID_PCARGA', $_REQUEST['PCARGA']);
-            $ICARGA->__SET('ID_PDESTINO', $_REQUEST['PDESTINO']);
-        }
-    }
-    $ICARGA->__SET('ID_PAIS',  $_REQUEST['PAIS']);
-    $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-    $ICARGA->__SET('ID_PLANTA',  $_REQUEST['PLANTA']);
-    $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
-    $ICARGA->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $ICARGA_ADO->agregarIcarga($ICARGA);
-
-    $ARRYAOBTENERID = $ICARGA_ADO->obtenerId(
-        $_REQUEST['FECHAINSTRUCTIVO'],
-        $_REQUEST['OBSERVACIONINSTRUCTIVO'],
-        $_REQUEST['EMPRESA'],
-        $_REQUEST['TEMPORADA'],
-
-    );
-
-    //REDIRECCIONAR A PAGINA registroICarga.php 
-    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_ICARGA'];
-    $_SESSION["parametro1"] = "crear";
-    echo "<script type='text/javascript'> location.href ='registroICarga.php?op';</script>";
-}
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
     $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
@@ -533,8 +436,8 @@ if (isset($_REQUEST['EDITAR'])) {
     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
     $ICARGA_ADO->actualizarIcarga($ICARGA);
 }
-if (isset($_REQUEST['CERRAR'])) {
 
+if (isset($_REQUEST['CERRAR'])) {
     if ($_REQUEST['IDP']) {
         $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($_REQUEST['IDP']);
     }
@@ -868,7 +771,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYVERICARGA as $r) :
-
             $NUMEROVER = $r['NUMERO_ICARGA'];
             $FECHAINSTRUCTIVO = $r['FECHA_ICARGA'];
             $TSERVICIO = $r['ID_TSERVICIO'];
@@ -1055,6 +957,7 @@ if (isset($_POST)) {
             }
         }
     }
+
     //DATO COMERCIAL
     if (isset($_REQUEST['FPAGO'])) {
         $FPAGO = $_REQUEST['FPAGO'];
@@ -1128,9 +1031,6 @@ if (isset($_POST)) {
         $TEMPORADA = "" . $_REQUEST['TEMPORADA'];
     }
 }
-
-
-
 
 ?>
 
@@ -2121,9 +2021,7 @@ if (isset($_POST)) {
                                                                 <option></option>
                                                                 <?php foreach ($ARRAYDFINAL as $r) : ?>
                                                                     <?php if ($ARRAYDFINAL) {    ?>
-                                                                        <option value="<?php echo $r['ID_DFINAL']; ?>" <?php if ($DFINAL == $r['ID_DFINAL']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                        <option value="<?php echo $r['ID_DFINAL']; ?>" <?php if ($DFINAL == $r['ID_DFINAL']) { echo "selected"; } ?>>
                                                                             <?php echo $r['NOMBRE_DFINAL'] ?>
                                                                         </option>
                                                                     <?php } else { ?>
@@ -2860,30 +2758,30 @@ if (isset($_POST)) {
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                    <div class="btn-group btn-rounded col-6" role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroICarga.php');">
-                                                <i class="ti-trash"></i>
+                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroICarga.php');">
+                                                <i class="ti-trash"></i> Cancelar
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Crear
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarICarga.php'); ">
-                                                <i class="ti-back-left "></i>
+                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarICarga.php'); ">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i>
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <i class="ti-pencil-alt"></i> Editar
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Cerrar
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="informe" Onclick="abrirPestana('../documento/informeICarga.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
+                                            <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="informe" Onclick="abrirPestana('../documento/informeICarga.php?parametro=<?php echo $IDOP; ?>&&NOMBREUSUARIO=<?php echo $NOMBREUSUARIOS; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Informe
                                             </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Carga Real" id="defecto" name="cargareal" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
+                                            <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Carga Real" id="defecto" name="cargareal" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Carga Real
                                             </button>
 
                                         <?php } ?>
@@ -2997,9 +2895,7 @@ if (isset($_POST)) {
                                                             <input type="hidden" class="form-control" placeholder="OP ICARGA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL ICARGA" id="URLP" name="URLP" value="registroICarga" />
                                                             <input type="hidden" class="form-control" placeholder="URL DICARGA" id="URLD" name="URLD" value="registroDicarga" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Instructivo" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                        } ?>>
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Instructivo" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
                                                                 <i class=" glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -3147,6 +3043,110 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                $ARRAYNUMERO = $ICARGA_ADO->obtenerNumero($_REQUEST['EMPRESA'],  $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+                $ICARGA->__SET('NUMERO_ICARGA', $NUMERO);
+                $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
+                $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
+                $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
+                $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
+                $ICARGA->__SET('FECHAETA_ICARGA', $_REQUEST['FECHAETA']);
+                $ICARGA->__SET('FDA_ICARGA', $_REQUEST['FDA']);
+                $ICARGA->__SET('TEMBARQUE_ICARGA', $_REQUEST['TEMBARQUE']);
+                $ICARGA->__SET('FUMIGADO_ICARGA', $_REQUEST['FUMIGADO']);
+                $ICARGA->__SET('T_ICARGA', $_REQUEST['TINSTRUCTIVO']);
+                $ICARGA->__SET('O2_ICARGA', $_REQUEST['O2INSTRUCTIVO']);
+                $ICARGA->__SET('C02_ICARGA', $_REQUEST['CO2INSTRUCTIVO']);
+                $ICARGA->__SET('ALAMPA_ICARGA', $_REQUEST['ALAMPAINSTRUCTIVO']);
+                $ICARGA->__SET('COSTO_FLETE_ICARGA', $_REQUEST['COSTOFLETE']);
+                $ICARGA->__SET('DUS_ICARGA', $_REQUEST['DUSINSTRUCTIVO']);
+                $ICARGA->__SET('BOLAWBCRT_ICARGA', $_REQUEST['BOLAWBCRTINSTRUCTIVO']);
+                $ICARGA->__SET('NETO_ICARGA', $_REQUEST['NETOINSTRUCTIVO']);
+                $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
+                $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
+                $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
+                $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
+                $ICARGA->__SET('ID_TSERVICIO', $_REQUEST['TSERVICIO']);
+                $ICARGA->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORA']);
+                $ICARGA->__SET('ID_CONSIGNATARIO', $_REQUEST['CONSIGNATARIO']);
+                $ICARGA->__SET('ID_NOTIFICADOR', $_REQUEST['NOTIFICADOR']);
+                $ICARGA->__SET('ID_BROKER', $_REQUEST['BROKER']);
+                $ICARGA->__SET('ID_RFINAL', $_REQUEST['RFINAL']);
+                $ICARGA->__SET('ID_MERCADO', $_REQUEST['MERCADO']);
+                $ICARGA->__SET('ID_AADUANA', $_REQUEST['AADUANA']);
+                $ICARGA->__SET('ID_AGCARGA', $_REQUEST['AGCARGA']);
+                $ICARGA->__SET('ID_DFINAL', $_REQUEST['DFINAL']);
+                $ICARGA->__SET('ID_FPAGO', $_REQUEST['FPAGO']);
+                $ICARGA->__SET('ID_CVENTA', $_REQUEST['CVENTA']);
+                $ICARGA->__SET('ID_MVENTA', $_REQUEST['MVENTA']);
+                $ICARGA->__SET('ID_TFLETE', $_REQUEST['TFLETE']);
+                $ICARGA->__SET('COSTO_FLETE_ICARGA', $_REQUEST['COSTOFLETE']);
+                $ICARGA->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
+                $ICARGA->__SET('ID_ATMOSFERA', $_REQUEST['ATMOSFERA']);
+                if (isset($_REQUEST['TEMBARQUE'])) {
+                    if ($_REQUEST['TEMBARQUE'] == "1") {
+                        $ICARGA->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+                        $ICARGA->__SET('CRT_ICARGA', $_REQUEST['CRT']);
+                        $ICARGA->__SET('ID_LCARGA', $_REQUEST['LCARGA']);
+                        $ICARGA->__SET('ID_LDESTINO', $_REQUEST['LDESTINO']);
+                    }
+                    if ($_REQUEST['TEMBARQUE'] == "2") {
+                        $ICARGA->__SET('ID_LAREA', $_REQUEST['LAEREA']);
+                        $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
+                        $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
+                        $ICARGA->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
+                        $ICARGA->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
+                    }
+                    if ($_REQUEST['TEMBARQUE'] == "3") {
+                        $ICARGA->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
+                        $ICARGA->__SET('NAVE_ICARGA', $_REQUEST['NAVE']);
+                        $ICARGA->__SET('FECHASTACKING_ICARGA', $_REQUEST['FECHASTACKING']);
+                        $ICARGA->__SET('NVIAJE_ICARGA', $_REQUEST['NVIAJE']);
+                        $ICARGA->__SET('ID_PCARGA', $_REQUEST['PCARGA']);
+                        $ICARGA->__SET('ID_PDESTINO', $_REQUEST['PDESTINO']);
+                    }
+                }
+                $ICARGA->__SET('ID_PAIS',  $_REQUEST['PAIS']);
+                $ICARGA->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
+                $ICARGA->__SET('ID_PLANTA',  $_REQUEST['PLANTA']);
+                $ICARGA->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
+                $ICARGA->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $ICARGA_ADO->agregarIcarga($ICARGA);
+
+                $ARRYAOBTENERID = $ICARGA_ADO->obtenerId(
+                    $_REQUEST['FECHAINSTRUCTIVO'],
+                    $_REQUEST['OBSERVACIONINSTRUCTIVO'],
+                    $_REQUEST['EMPRESA'],
+                    $_REQUEST['TEMPORADA'],
+
+                );
+
+                //REDIRECCIONAR A PAGINA registroICarga.php
+                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_ICARGA'];
+                $_SESSION["parametro1"] = "crear";
+                echo
+                    '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro de carga creado",
+                            text:"El registro fue creado exitosamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"ok"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href ="fruta/vista/registroICarga.php?op"
+                            }
+                            })
+                    </script>';
+            }
+        ?>
 </body>
 
 </html>

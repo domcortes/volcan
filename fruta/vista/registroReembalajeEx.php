@@ -264,28 +264,7 @@ if (isset($_REQUEST['CREAR'])) {
     $_SESSION["parametro1"] = "crear";
     echo "<script type='text/javascript'> location.href ='registroReembalajeEx.php?op';</script>";
 }
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    $REEMBALAJE->__SET('FECHA_REEMBALAJE',  $_REQUEST['FECHAREEMBALAJEE']);
-    $REEMBALAJE->__SET('TURNO',  $_REQUEST['TURNOE']);
-    $REEMBALAJE->__SET('OBSERVACIONE_REEMBALAJE', $_REQUEST['OBSERVACIONREEMBALAJEE']);
-    $REEMBALAJE->__SET('KILOS_NETO_REEMBALAJE', $_REQUEST['TOTALNETOEXPO']);
-    $REEMBALAJE->__SET('KILOS_EXPORTACION_REEMBALAJE', $_REQUEST['TOTALDESHIDRATACIONEX']);
-    $REEMBALAJE->__SET('KILOS_INDUSTRIAL_REEMBALAJE', $_REQUEST['TOTALNETOIND']);
-    $REEMBALAJE->__SET('PDEXPORTACION_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPOEX']);
-    $REEMBALAJE->__SET('PDINDUSTRIAL_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPOINDU']);
-    $REEMBALAJE->__SET('PORCENTAJE_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPO']);
-    $REEMBALAJE->__SET('ID_VESPECIES', $_REQUEST['VESPECIESE']);
-    $REEMBALAJE->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
-    $REEMBALAJE->__SET('ID_TREEMBALAJE', $_REQUEST['TREEMBALAJEE']);
-    $REEMBALAJE->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
-    $REEMBALAJE->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
-    $REEMBALAJE->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
-    $REEMBALAJE->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
-    $REEMBALAJE->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $REEMBALAJE_ADO->actualizarReembalaje($REEMBALAJE);
-}
+
 //OPERACION CERRAR DE FILA
 if (isset($_REQUEST['CERRAR'])) {
     //UTILIZACION METODOS SET DEL MODELO
@@ -962,7 +941,7 @@ if (isset($_POST)) {
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
                                                 <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                    <i class="ti-pencil-alt"></i> Editar
+                                                    <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
                                                 <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                     <i class="ti-save-alt"></i> Cerrar
@@ -1416,6 +1395,41 @@ if (isset($_POST)) {
                         icon:"info",
                         title:"Ingreso / Existencia eliminada",
                         text:"Se ha eliminado un ingreso/existencia de producto terminado."
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "/fruta/vista/registroReembalajeEx.php?op";
+                            }
+                        });
+                </script>';
+            }
+
+            //OPERACION EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                $REEMBALAJE->__SET('FECHA_REEMBALAJE',  $_REQUEST['FECHAREEMBALAJEE']);
+                $REEMBALAJE->__SET('TURNO',  $_REQUEST['TURNOE']);
+                $REEMBALAJE->__SET('OBSERVACIONE_REEMBALAJE', $_REQUEST['OBSERVACIONREEMBALAJEE']);
+                $REEMBALAJE->__SET('KILOS_NETO_REEMBALAJE', $_REQUEST['TOTALNETOEXPO']);
+                $REEMBALAJE->__SET('KILOS_EXPORTACION_REEMBALAJE', $_REQUEST['TOTALDESHIDRATACIONEX']);
+                $REEMBALAJE->__SET('KILOS_INDUSTRIAL_REEMBALAJE', $_REQUEST['TOTALNETOIND']);
+                $REEMBALAJE->__SET('PDEXPORTACION_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPOEX']);
+                $REEMBALAJE->__SET('PDINDUSTRIAL_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPOINDU']);
+                $REEMBALAJE->__SET('PORCENTAJE_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPO']);
+                $REEMBALAJE->__SET('ID_VESPECIES', $_REQUEST['VESPECIESE']);
+                $REEMBALAJE->__SET('ID_PRODUCTOR',  $_REQUEST['PRODUCTORE']);
+                $REEMBALAJE->__SET('ID_TREEMBALAJE', $_REQUEST['TREEMBALAJEE']);
+                $REEMBALAJE->__SET('ID_EMPRESA',  $_REQUEST['EMPRESAE']);
+                $REEMBALAJE->__SET('ID_PLANTA',  $_REQUEST['PLANTAE']);
+                $REEMBALAJE->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADAE']);
+                $REEMBALAJE->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
+                $REEMBALAJE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $REEMBALAJE_ADO->actualizarReembalaje($REEMBALAJE);
+                echo
+                '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Embalaje actualizado",
+                        text:"Se ha actualizado el registro de embalaje correctamente."
                         }).then((result)=>{
                             if(result.value){
                                 location.href = "/fruta/vista/registroReembalajeEx.php?op";
