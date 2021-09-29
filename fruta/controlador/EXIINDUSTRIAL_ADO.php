@@ -193,7 +193,7 @@ class EXIINDUSTRIAL_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(),  1, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -594,14 +594,14 @@ class EXIINDUSTRIAL_ADO
             $query = "
                 UPDATE fruta_exiindustrial SET	
                         MODIFICACION =  SYSDATE(),		
-                        ESTADO_REGISTRO = 0	,	
-                        ID_PROCESO = ?
-                WHERE FOLIO_AUXILIAR_EXIINDUSTRIAL= ?;";
+                        ESTADO_REGISTRO = 0	                        
+                WHERE FOLIO_AUXILIAR_EXIINDUSTRIAL= ? AND FOLIO_EXIINDUSTRIAL= ? AND ID_PROCESO = ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIINDUSTRIAL->__GET('ID_PROCESO'),
-                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL')
+                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('ID_PROCESO')
                     )
 
                 );
@@ -699,14 +699,15 @@ class EXIINDUSTRIAL_ADO
             $query = "
                     UPDATE fruta_exiindustrial SET	
                             MODIFICACION =  SYSDATE(),		
-                            ESTADO = 0	,	
-                            ID_PROCESO = ?
-                    WHERE FOLIO_AUXILIAR_EXIINDUSTRIAL= ?;";
+                            ESTADO = 0	
+                           
+                    WHERE FOLIO_AUXILIAR_EXIINDUSTRIAL= ? AND FOLIO_EXIINDUSTRIAL= ? AND  ID_PROCESO = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIINDUSTRIAL->__GET('ID_PROCESO'),
-                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL')
+                        $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('ID_PROCESO')
                     )
 
                 );
@@ -1022,11 +1023,20 @@ class EXIINDUSTRIAL_ADO
 
 
     //LISTAR
+   
     public function listarExiindustrialEmpresaPlantaTemporadaDisponibleCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
-            $datos = $this->conexion->prepare("SELECT *,  DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS', 
-                                                        DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO'
+            $datos = $this->conexion->prepare("SELECT *,  
+                                                        DATEDIFF(SYSDATE(), FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
+                                                        DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y ') AS 'RECEPCION',
+                                                        DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y ') AS 'PROCESO',
+                                                        DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y ') AS 'REEMBALAJE',
+                                                        DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y ') AS 'DESPACHO',
+                                                        DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',      
+                                                        DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',     
+                                                        IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                         FROM fruta_exiindustrial 
                                         WHERE  ESTADO_REGISTRO = 1
                                         AND ESTADO = 2                                              
@@ -1045,7 +1055,6 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
-
     public function listarExiindustrialEmpresaPlantaTemporadaDisponibleCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
@@ -1630,6 +1639,26 @@ class EXIINDUSTRIAL_ADO
         }
     }
 
+    //VALIDAR FOLIO
+    public function validarFolioProceso($FOLIO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                            FROM fruta_exiindustrial
+                                            WHERE 
+                                                 ID_DESPACHO IS NULL
+                                                AND FOLIO_EXIINDUSTRIAL = '" . $FOLIO . "' ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
 
 
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }

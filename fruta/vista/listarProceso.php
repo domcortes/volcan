@@ -62,8 +62,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
     $TOTALNETOENTRADA = $ARRAYTOTALPROCESOENTRADA[0]['NETO'];
     $TOTALNETO = $ARRAYTOTALPROCESO[0]['NETO'];
-    $TOTALINDUSTRIAL = $ARRAYTOTALPROCESO[0]['INDUSTRIAL'];
     $TOTALEXPORTACION = $ARRAYTOTALPROCESO[0]['EXPORTACION'];
+    $TOTALINDUSTRIAL = $ARRAYTOTALPROCESO[0]['INDUSTRIAL'];
 
 
 
@@ -213,10 +213,11 @@ include_once "../config/datosUrLP.php";
                                                     <th>Turno </th>
                                                     <th>Especie</th>
                                                     <th>Variedad</th>
-                                                    <th>K. Neto Entrada</th>
-                                                    <th>K. Neto Salida</th>
-                                                    <th>K. Exportacion </th>
-                                                    <th>K. Industrial</th>
+                                                    <th>Kg. Neto Entrada</th>
+                                                    <th>Kg. Neto Expo</th>
+                                                    <th>Kg. Con Deshi. </th>
+                                                    <th>Kg. Industrial</th>
+                                                    <th>Kg. Diferencia</th>
                                                     <th>CSG Productor</th>
                                                     <th>Nombre Productor</th>
                                                     <th>Fecha Ingreso</th>
@@ -354,9 +355,10 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $NOMBRESPECIES; ?></td>
                                                         <td><?php echo $NOMBREVESPECIES; ?></td>
                                                         <td><?php echo $NETOENTRADA; ?></td>
-                                                        <td><?php echo $r['NETO']; ?></td>
+                                                        <td><?php echo $r['NETO']-$r['INDUSTRIAL']; ?></td>
                                                         <td><?php echo $r['EXPORTACION']; ?></td>
                                                         <td><?php echo $r['INDUSTRIAL']; ?></td>
+                                                        <td><?php echo number_format( $NETOENTRADA-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>
                                                         <td><?php echo $CSGPRODUCTOR; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
@@ -371,32 +373,32 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="box-footer">
                             <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                 <div class="form-row align-items-center" role="group" aria-label="Datos">
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Materia Prima</div>
+                                                <div class="input-group-text">Total Kg. Neto Entrada</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOENTRADA; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Total Kg. Neto Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOENTRADA; ?>" disabled />
                                         </div>
                                     </div>
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Exportacion</div>
+                                                <div class="input-group-text">Total Kg. Neto Expo</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Total Kg. Neto Expo" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
                                     </div>
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Industrial</div>
+                                                <div class="input-group-text">Total Kg. Industrial</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Total Kg. Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
