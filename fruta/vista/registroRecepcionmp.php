@@ -1231,7 +1231,7 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionmp" />
                                                                 <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                     <?php if ($ESTADO == "0") { ?>
-                                                                        <button type="submit" class="btn btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
+                                                                        <button type="submit" class="btn btn-info  btn-sm   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
                                                                             <i class="ti-eye"></i> Ver
                                                                         </button>
                                                                     <?php } ?>
