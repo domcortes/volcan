@@ -414,11 +414,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
                             $EXIINDUSTRIAL->__SET('INGRESO', $r['INGRESO']);
                             $EXIINDUSTRIAL->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
-                            $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
+                            $EXIINDUSTRIAL->__SET('ID_FOLIO',  $r['ID_FOLIO']);
                             $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
                             $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
                             $EXIINDUSTRIAL->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
-                            $EXIINDUSTRIAL->__SET('ID_DESPACHO2', $IDDESPACHO);
+
+                            $EXIINDUSTRIAL->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);
+                            $EXIINDUSTRIAL->__SET('ID_REEMBALAJE', $r['ID_REEMBALAJE']);
+                            $EXIINDUSTRIAL->__SET('ID_PROCESO', $r['ID_PROCESO']);
+                            $EXIINDUSTRIAL->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
+
                             $EXIINDUSTRIAL->__SET('ID_EMPRESA', $EMPRESAS);
                             $EXIINDUSTRIAL->__SET('ID_PLANTA', $PLANTAS);
                             $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $TEMPORADAS);
