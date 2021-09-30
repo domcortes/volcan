@@ -60,7 +60,7 @@ $IDOP = "";
 $IDOP2 = "";
 $OP = "";
 $NODATOURL = "";
-
+$SINNO = "";
 
 
 //INICIALIZAR ARREGLOS
@@ -447,27 +447,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
 
                     if ($ENVASE != "") {
-                        $SINONETO = 0;
-                        $MENSAJEPRECIO = $MENSAJE;
+                        $SINOENVASE = 0;
+                        $MENSAJE = $MENSAJE;
                         if ($ENVASE <= 0) {
-                            $SINONETO = 1;
+                            $SINOENVASE = 1;
                             $MENSAJE = $MENSAJE . " <br> " . $FOLIOORIGINAL . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
                         } else {
                             if ($ENVASE >= $ENVASEORIGINAL) {
-                                $SINONETO = 1;
+                                $SINOENVASE = 1;
                                 $MENSAJE = $MENSAJE . " <br> " . $FOLIOORIGINAL . ": LA CANTIDAD DE ENVASES NO PUEDE SER MAYOR O IGUAL A LOS ENVASES ORIGINAL";
                             } else {
-                                $SINONETO = 0;
+                                $SINOENVASE = 0;
                                 $MENSAJE = $MENSAJE;
                             }
                         }
                     } else {
-                        $SINONETO = 1;
+                        $SINOENVASE = 1;
                         // $MENSAJE = $MENSAJE . " <br> " . $FOLIOEXIINDUSTRIALPRECIO . ": SE DEBE INGRESAR UN DATO EN KILOS DESPACHO";
                     }
 
-                    if ($SINONETO == 0) {
-
+                    if ($SINOENVASE == 0) {
                         $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
                         $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
 
@@ -482,7 +481,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         $NETONUEVO = $ENVASE * $PROMEDIO;
                         $PESOENVASENUEVO = $ENVASE * $PESOENVASEESTANDAR;
                         $BRUTONUEVO = $NETONUEVO + $PESOENVASENUEVO + $PESOPALLET;
-                        echo $ENVASE;
+
 
                         //ACTUALIZA LOS DATOS DE LA FOLIO ACTUAL
 
@@ -527,30 +526,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaProceso($EXIMATERIAPRIMA);
                         endforeach;
+                        $SINNO = 0;
                     }
-
-
-
                 endforeach;
-                if ($SINO == 0) {
 
+                if ($SINO == 0) {
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                    echo
-                    "<script>
-                            Swal.fire({
-                                icon:'info',
-                                title:'Folios agregados al proceso'
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href ='" . $_REQUEST['URLO'] . ".php?op';
-                                }
-                            });
-                    </script>";
-
-                    //   echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
                 }
-                if ($SINONETO == 1) {
+                if ($SINOENVASE == 1) {
                     if ($MENSAJE != "") {
                         echo
                         '<script>
@@ -580,15 +565,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                showConfirmButton:true
+                showConfirmButton: true
             })
 
             Toast.fire({
-                icon:"info",
-                title:"Informacion importante",
-                html:"<label>Para <b>seleccionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label><label>Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>"
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Para <b>seleccionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label><label>Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>"
             })
-        </script>'
+        </script>
 </body>
 
 </html>
