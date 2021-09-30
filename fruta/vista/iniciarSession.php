@@ -105,7 +105,7 @@ $ARRAYTEMPORADA = "";
                         <div class="row">
                             <div class="col-12">
                                 <div class="btn-group col-12 d-flex">
-                                    <a href="/" class="btn btn-danger w-100"> VOLVER</a>
+                                    <a href="../../" class="btn btn-danger w-100"> VOLVER</a>
                                     <button type="submit" class="btn btn-success w-100" id="ENTRAR" name="ENTRAR">ENTRAR</button>
                                 </div>
                             </div>
