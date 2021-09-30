@@ -1345,7 +1345,7 @@ if (isset($_POST)) {
                         confirmButtonText:"OK"
                     }).then((result)=>{
                         if(result.value){
-                            location.href = "/fruta/vista/registroProceso.php?op";
+                            location.href = "registroProceso.php?op";
                         }
                     });
                 </script>';
@@ -1370,7 +1370,7 @@ if (isset($_POST)) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href = "/fruta/vista/registroProceso.php?op";
+                                location.href = "registroProceso.php?op";
                             }
                         });
                     </script>';
@@ -1391,7 +1391,7 @@ if (isset($_POST)) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href = "/fruta/vista/registroProceso.php?op";
+                                location.href = "registroProceso.php?op";
                             }
                         });
                     </script>';
@@ -1412,7 +1412,7 @@ if (isset($_POST)) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href = "/fruta/vista/registroProceso.php?op";
+                                location.href = "registroProceso.php?op";
                             }
                         });
                     </script>';
@@ -1433,7 +1433,7 @@ if (isset($_POST)) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href = "/fruta/vista/registroProceso.php?op";
+                                location.href = "registroProceso.php?op";
                             }
                         });
                     </script>';
@@ -1450,7 +1450,7 @@ if (isset($_POST)) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href = "/fruta/vista/registroProceso.php?op";
+                                location.href = "registroProceso.php?op";
                             }
                         });
                     </script>';
@@ -1522,7 +1522,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href = "/fruta/vista/registroProceso.php?op";
+                                    location.href = "registroProceso.php?op";
                                 }
                             });
                         </script>';
@@ -1541,7 +1541,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href = "/fruta/vista/registroProceso.php?op";
+                                    location.href = "registroProceso.php?op";
                                 }
                             });
                         </script>';
