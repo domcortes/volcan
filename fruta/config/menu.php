@@ -422,6 +422,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <ul class="treeview-menu">
                   <li><a href="registroDespachomp.php">Registro Despacho<i class="ti-more"></i></a></li>
                   <li><a href="listarDespachomp.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachompDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
                 </ul>
               </li>
               <li class="treeview">
@@ -433,6 +434,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <ul class="treeview-menu">
                   <li><a href="registroDespachoind.php">Registro Despacho<i class="ti-more"></i></a></li>
                   <li><a href="listarDespachoind.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachoindDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
                 </ul>
               </li>
             </ul>
@@ -447,7 +449,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroGuiaPorRecibirMP.php">Materia Prima<i class="ti-more"></i> </a></li>
               <li><a href="registroGuiaPorRecibirIND.php">Inudstrial<i class="ti-more"></i></a></li>
             </ul>
-          </li>     
+          </li>
           <li><a href="listarEximateriaprima.php">Existencia Materia Prima<i class="ti-more"></i></a></li>
           <li><a href="listarExiindustrial.php">Existencia Industrial<i class="ti-more"></i></a></li>
         </ul>
@@ -622,6 +624,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroDespachopt.php"><i class="ti-more"></i>Registro Despacho</a></li>
               <li><a href="listarDespachopt.php"><i class="ti-more"></i>Agrupado Despacho</a></li>
+              <li><a href="listarDespachoptDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">

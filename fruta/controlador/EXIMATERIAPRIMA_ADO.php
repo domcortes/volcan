@@ -635,7 +635,12 @@ class EXIMATERIAPRIMA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("  SELECT * 
+            $datos = $this->conexion->prepare("  SELECT * ,  
+                                                    IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
+                                                    IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0) AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0) AS 'BRUTO',
+                                                    IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0) AS 'PROMEDIO'
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ID_DESPACHO= '" . $IDDESPACHO . "'  
                                                       AND ESTADO_REGISTRO = 1;");
@@ -660,7 +665,7 @@ class EXIMATERIAPRIMA_ADO
                                                     FORMAT(IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0),0,'de_DE') AS 'ENVASE',
                                                     FORMAT(IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0),2,'de_DE') AS 'NETO',
                                                     FORMAT(IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0),0,'de_DE') AS 'BRUTO',
-                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,3),5,'de_DE') AS 'PROMEDIO'
+                                                    FORMAT(IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0),5,'de_DE') AS 'PROMEDIO'
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ID_DESPACHO= '" . $IDDESPACHO . "'  
                                                       AND ESTADO_REGISTRO = 1;");

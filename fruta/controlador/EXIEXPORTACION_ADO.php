@@ -1608,7 +1608,16 @@ class EXIEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
+            $datos = $this->conexion->prepare("SELECT *  ,           
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',               
+                                                    IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0) AS 'ENVASE', 
+                                                    IFNULL(KILOS_NETO_EXIEXPORTACION,0) AS 'NETO',
+                                                    IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0) AS 'DESHIRATACION',
+                                                    IFNULL(PDESHIDRATACION_EXIEXPORTACION,0) AS 'PORCENTAJE',
+                                                    IFNULL(KILOS_BRUTO_EXIEXPORTACION,0) AS 'BRUTO',
+                                                    IFNULL(PRECIO_PALLET,0) AS 'PRECIO',
+                                                    IFNULL(PRECIO_PALLET*CANTIDAD_ENVASE_EXIEXPORTACION,0) AS 'TOTAL_PRECIO',
+                                                    IF(STOCK = '0','Sin Datos',STOCK ) AS 'STOCKR'
                                                 FROM fruta_exiexportacion 
                                                 WHERE ID_DESPACHO= '" . $IDDESEXPORTACION . "'   
                                                 AND ESTADO BETWEEN 7 AND  9
@@ -1625,7 +1634,6 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-
 
     public function buscarPordespacho2($IDDESEXPORTACION)
     {

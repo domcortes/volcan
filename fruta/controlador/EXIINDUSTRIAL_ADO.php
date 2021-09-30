@@ -1207,10 +1207,17 @@ class EXIINDUSTRIAL_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial 
-                                      WHERE ID_DESPACHO= '" . $IDDESPACHOIND . "'   
-                                      AND ESTADO BETWEEN 3 AND  5
-                                      AND ESTADO_REGISTRO = 1;");
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                    DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',
+                                                    IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO'  ,  
+                                                    IFNULL(NETO_DESPACHO,0) AS 'NETOD'  ,  
+                                                    IFNULL(KILOS_NETO_EXIINDUSTRIAL-NETO_DESPACHO,0) AS 'DELTA',  
+                                                    IFNULL(PRECIO_KILO,0) AS 'KILOP'  ,  
+                                                    IFNULL(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO,0) AS 'PRECIO'   
+                                        FROM fruta_exiindustrial 
+                                        WHERE ID_DESPACHO= '" . $IDDESPACHOIND . "'   
+                                        AND ESTADO BETWEEN 3 AND  5
+                                        AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
