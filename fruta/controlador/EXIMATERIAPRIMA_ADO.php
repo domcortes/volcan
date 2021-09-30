@@ -276,6 +276,84 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+
+
+    public function agregarEximateriaprimaProceso(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {
+
+            $query =
+                "INSERT INTO fruta_eximateriaprima ( 
+
+
+                                                           FOLIO_EXIMATERIAPRIMA,
+                                                           FOLIO_AUXILIAR_EXIMATERIAPRIMA,
+                                                           FOLIO_MANUAL,
+                                                           FECHA_COSECHA_EXIMATERIAPRIMA,
+                                                           CANTIDAD_ENVASE_EXIMATERIAPRIMA,
+
+                                                           KILOS_NETO_EXIMATERIAPRIMA,
+                                                           KILOS_BRUTO_EXIMATERIAPRIMA,
+                                                           KILOS_PROMEDIO_EXIMATERIAPRIMA,
+                                                           PESO_PALLET_EXIMATERIAPRIMA,
+                                                           ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA,
+
+                                                           ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA,
+                                                           GASIFICADO,
+                                                           INGRESO,
+                                                           ID_TMANEJO,
+                                                           ID_FOLIO,
+                                                           
+                                                           ID_ESTANDAR,
+                                                           ID_PRODUCTOR,
+                                                           ID_VESPECIES,
+
+                                                           ID_EMPRESA, 
+                                                           ID_PLANTA, 
+                                                           ID_TEMPORADA,
+
+                                                           MODIFICACION,
+                                                           ESTADO,  
+                                                           ESTADO_REGISTRO
+                                                   ) VALUES
+              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?,    ?, ?, ?, SYSDATE(), 2, 1);";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+
+                        $EXIMATERIAPRIMA->__GET('FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_AUXILIAR_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('FOLIO_MANUAL'),
+                        $EXIMATERIAPRIMA->__GET('FECHA_COSECHA_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
+
+                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_PROMEDIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('PESO_PALLET_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA'),
+
+                        $EXIMATERIAPRIMA->__GET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('GASIFICADO'),
+                        $EXIMATERIAPRIMA->__GET('INGRESO'),
+                        $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
+                        $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
+                        $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
+                        $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_EMPRESA'),
+                        $EXIMATERIAPRIMA->__GET('ID_PLANTA'),
+                        $EXIMATERIAPRIMA->__GET('ID_TEMPORADA')
+
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //REGISTRO DE UNA NUEVA FILA    
 
 
@@ -1063,7 +1141,34 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+    public function actualizareEnvasesProcesoKilos(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
+    {
+        try {
+            $query = "
+            UPDATE fruta_eximateriaprima SET
+                MODIFICACION = SYSDATE(),
+                ESTADO = 3,  
+                CANTIDAD_ENVASE_EXIMATERIAPRIMA = ? ,   
+                KILOS_NETO_EXIMATERIAPRIMA = ? ,   
+                KILOS_BRUTO_EXIMATERIAPRIMA = ? ,      
+                ID_PROCESO = ?          
+            WHERE ID_EXIMATERIAPRIMA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $EXIMATERIAPRIMA->__GET('CANTIDAD_ENVASE_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_NETO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('KILOS_BRUTO_EXIMATERIAPRIMA'),
+                        $EXIMATERIAPRIMA->__GET('ID_PROCESO'),
+                        $EXIMATERIAPRIMA->__GET('ID_EXIMATERIAPRIMA')
 
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //CAMBIO A DESACTIVADO
     public function deshabilitarRecepcion(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
