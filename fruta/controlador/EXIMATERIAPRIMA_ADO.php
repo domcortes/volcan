@@ -308,6 +308,9 @@ class EXIMATERIAPRIMA_ADO
                                                            ID_PRODUCTOR,
                                                            ID_VESPECIES,
 
+                                                           ID_RECEPCION,
+                                                           ID_DESPACHO2,
+
                                                            ID_EMPRESA, 
                                                            ID_PLANTA, 
                                                            ID_TEMPORADA,
@@ -316,7 +319,7 @@ class EXIMATERIAPRIMA_ADO
                                                            ESTADO,  
                                                            ESTADO_REGISTRO
                                                    ) VALUES
-              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?,    ?, ?, ?, SYSDATE(), 2, 1);";
+              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?,  ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -342,6 +345,9 @@ class EXIMATERIAPRIMA_ADO
                         $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
                         $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
                         $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),
+
+                        $EXIMATERIAPRIMA->__GET('ID_RECEPCION'),
+                        $EXIMATERIAPRIMA->__GET('ID_DESPACHO2'),
 
                         $EXIMATERIAPRIMA->__GET('ID_EMPRESA'),
                         $EXIMATERIAPRIMA->__GET('ID_PLANTA'),
