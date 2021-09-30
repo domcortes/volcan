@@ -1236,6 +1236,10 @@ class EXIINDUSTRIAL_ADO
 
             $datos = $this->conexion->prepare("SELECT * ,
                                                     DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',
+                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y ') AS 'RECEPCION',
+                                                    DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y ') AS 'PROCESO',
+                                                    DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y ') AS 'REEMBALAJE',
+                                                    DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y ') AS 'DESPACHO',
                                                     FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL,0),2,'de_DE') AS 'NETO'  ,  
                                                     FORMAT(IFNULL(NETO_DESPACHO,0),2,'de_DE') AS 'NETOD'  ,  
                                                     FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL-NETO_DESPACHO,0),2,'de_DE') AS 'DELTA',  
