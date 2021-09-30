@@ -224,12 +224,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
 
                                     <div class="row">
-                                        <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                        </div>
-                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-56col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-11 col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 col-xs-11">
                                             <div class="form-group">
-
                                             </div>
+                                        </div>
+                                        <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
                                         </div>
                                     </div>
                                     <div clas="row">
@@ -369,8 +368,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                         <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Por Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
                                             <i class="ti-save-alt"></i> P. Folio
                                         </button>
-                                        <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="Por Kilos" name="DIVIDIR" value="DIVIDIR" <?php echo $DISABLED; ?>>
-                                            <i class="ti-save-alt"></i> P. Kilos
+                                        <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="Por Envases" name="DIVIDIR" value="DIVIDIR" <?php echo $DISABLED; ?>>
+                                            <i class="ti-save-alt"></i> P. Envases
                                         </button>
                                     </div>
                                 </div>
@@ -520,6 +519,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
                             $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
                             $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
+                            $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
+                            $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);
                             $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $EMPRESAS);
                             $EXIMATERIAPRIMA->__SET('ID_PLANTA', $PLANTAS);
                             $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);
