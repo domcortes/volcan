@@ -228,8 +228,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                         </div>
                                         <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-56col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label><i class="fa fa-info-circle"> </i> Para <b>Selecionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label>
-                                                <label><i class="fa fa-info-circle"> </i> Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>
+
                                             </div>
                                         </div>
                                     </div>
@@ -574,6 +573,21 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             }
         }
         ?>
+
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showConfirmButton:true
+            })
+
+            Toast.fire({
+                icon:"info",
+                title:"Informacion importante",
+                html:"<label>Para <b>seleccionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label><label>Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>"
+            })
+        </script>'
 </body>
 
 </html>
