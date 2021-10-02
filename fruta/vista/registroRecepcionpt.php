@@ -26,11 +26,6 @@ include_once '../modelo/EXIEXPORTACION.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-$USUARIO_ADO = new USUARIO_ADO();
-$EMPRESA_ADO =  new EMPRESA_ADO();
-$PLANTA_ADO =  new PLANTA_ADO();
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $FOLIO_ADO =  new FOLIO_ADO();
 
@@ -1380,7 +1375,7 @@ if (isset($_POST)) {
                                                                 <td><?php echo $s['NETO']; ?></td>
                                                                 <td><?php echo $s['PORCENTAJE'] ?></td>
                                                                 <td><?php echo $s['DESHIDRATACION']; ?></td>
-                                                                <td><?php echo $s['NETO']; ?></td>
+                                                                <td><?php echo $s['BRUTO']; ?></td>
                                                                 <td><?php echo $GASIFICADO; ?></td>
                                                                 <td><?php echo $EMBOLSADO; ?></td>
                                                                 <td><?php echo $NOMBRETMANEJO; ?></td>
