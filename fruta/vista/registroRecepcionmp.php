@@ -1249,7 +1249,7 @@ if (isset($_POST)) {
                                                                 </div>
                                                             </form>
                                                         </td>
-                                                        <td><?php echo $s['FECHA_COSECHA_DRECEPCION']; ?></td>
+                                                        <td><?php echo $s['COSECHA']; ?></td>
                                                         <td><?php echo $NOMBREESTANDAR; ?></td>
                                                         <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                         <td><?php echo $s['ENVASE']; ?></td>

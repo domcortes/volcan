@@ -356,7 +356,7 @@ foreach ($ARRAYDRECEPCION as $s) :
 		<div class="subtitulo2"></div>
 
 		<div class="info justify">
-			<b> Fecha Cosecha : </b>  '.$s['FECHA_COSECHA_DRECEPCIONR'].'
+			<b> Fecha Cosecha : </b>  '.$s['COSECHA'].'
 		</div>
         <br>
 		<div class="info justify">

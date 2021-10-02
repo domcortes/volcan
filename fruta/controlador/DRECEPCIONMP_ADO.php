@@ -244,10 +244,14 @@ class DRECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
-                                            FROM fruta_drecepcionmp 
-                                            WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
-                                            AND ESTADO_REGISTRO = 1 ;");
+            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'COSECHA',
+                                                        IFNULL(CANTIDAD_ENVASE_DRECEPCION,0) AS 'ENVASE', 
+                                                        IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO', 
+                                                        IFNULL(KILOS_PROMEDIO_DRECEPCION,0) AS 'PROMEDIO' , 
+                                                        IFNULL(KILOS_BRUTO_DRECEPCION,0)  AS 'BRUTO'  
+                                             FROM fruta_drecepcionmp
+                                             WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
+                                             AND ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -264,7 +268,7 @@ class DRECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'FECHA_COSECHA_DRECEPCIONR',
+            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'COSECHA',
                                                         FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),0,'de_DE') AS 'ENVASE', 
                                                         FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO', 
                                                         FORMAT(IFNULL(KILOS_PROMEDIO_DRECEPCION,0),3,'de_DE') AS 'PROMEDIO' , 
@@ -288,7 +292,7 @@ class DRECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'FECHA_COSECHA_DRECEPCIONR',
+            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'COSECHA',
                                                         FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),0,'de_DE') AS 'ENVASE', 
                                                         FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO', 
                                                         FORMAT(IFNULL(KILOS_PROMEDIO_DRECEPCION,0),3,'de_DE') AS 'PROMEDIO' , 
@@ -387,7 +391,7 @@ class DRECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'FECHA_COSECHA_DRECEPCIONR',
+            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'COSECHA',
                                                         FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),0,'de_DE') AS 'ENVASE', 
                                                         FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO', 
                                                         FORMAT(IFNULL(KILOS_PROMEDIO_DRECEPCION,0),2,'de_DE') AS 'PROMEDIO' , 

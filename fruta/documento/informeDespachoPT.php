@@ -293,7 +293,7 @@ $html = '
       <h2 class="titulo" style="text-align: center; color: black;">
         INFORME DESPACHO PRODUCTO TERMINADO
         <br>
-        <b> Número Despacho: ' . $NUMERODESPACHO . '</b>
+        <b> Número Despacho: ' . $NUMERO . '</b>
       </h2>
       <div id="details" class="clearfix">
         

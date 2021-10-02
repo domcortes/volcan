@@ -1505,7 +1505,7 @@ class EXIMATERIAPRIMA_ADO
                                                 FROM fruta_eximateriaprima  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                GROUP BY FOLIO_AUXILIAR_EXIMATERIAPRIMA
+                                                AND ESTADO_REGISTRO !=0
                                                 ORDER BY ULTIMOFOLIO; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
