@@ -320,7 +320,14 @@ class DRECEPCIONPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
+            $datos = $this->conexion->prepare("SELECT * , 
+                                                DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
+                                                IFNULL(CANTIDAD_ENVASE_APROBADO_DRECEPCION,0) AS 'ENVASE',
+                                                IFNULL(KILOS_NETO_REAL_DRECEPCION,0) AS 'NETOREAL',
+                                                IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO',
+                                                IFNULL(KILOS_BRUTO_DRECEPCION,0) AS 'BRUTO' ,
+                                                IFNULL(PDESHIDRATACION_DRECEPCION,0) AS 'PORCENTAJE' ,
+                                                IFNULL(KILOS_DESHIDRATACION_DRECEPCION,0) AS 'DESHIDRATACION' 
                                             FROM fruta_drecepcionpt 
                                             WHERE ID_RECEPCION = " . $IDRECEPCION . " 
                                             AND ESTADO_REGISTRO = '1' ;");
