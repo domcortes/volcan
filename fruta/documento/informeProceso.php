@@ -162,7 +162,7 @@ $ARRAYDINDUSTRIALTOTALES = $DPINDUSTRIAL_ADO->obtenerTotales2($IDOP);
 $TOTALNETODINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETO'];
 $TOTALNETOSFDINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETOSF'];
 
-if ($TOTALSALIDASF > 0) {
+if ($TOTALNETOSF > 0) {
   if ($TOTALNETOSFDEXPORTACION > 0) {
     $PDEXPORTACION = ($TOTALNETOSFDEXPORTACION / $TOTALNETOSF) * 100;
   } else {
@@ -437,7 +437,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
   if ($r['EMBOLSADO'] == "0") {
     $EMBOLSADO = "NO";
   }
-  if ($TOTALSALIDASF > 0) {
+  if ($TOTALNETOSF > 0) {
     $NETOEXPOR = number_format(($r['KILOS_NETO_DPEXPORTACION'] / $TOTALNETOSF) * 100, 2, ",", ".");
   } else {
     $NETOEXPOR = 0;
@@ -567,7 +567,7 @@ $html = $html . '
         } else {
           $NOMBRETCALIBRE = "Sin Datos";
         }
-        if ($TOTALSALIDASF > 0) {
+        if ($TOTALNETOSF > 0) {
           $NETOCALIBRE = number_format(($r['NETO'] / $TOTALSALIDASF) * 100, 2, ",", ".");
         } else {
           $NETOCALIBRE = 0;
