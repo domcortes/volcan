@@ -419,6 +419,7 @@ class DPEXPORTACION_ADO
                                                 FORMAT(IFNULL(SUM(KILOS_NETO_DPEXPORTACION),0),2,'de_DE') AS 'NETO' , 
                                                 FORMAT(IFNULL(SUM(KILOS_BRUTO_DPEXPORTACION),0),2,'de_DE') AS 'BRUTO' , 
                                                 FORMAT(IFNULL(SUM(KILOS_DESHIDRATACION_DPEXPORTACION),0),2,'de_DE') AS 'DESHIDRATACION' ,
+                                                IFNULL(SUM(KILOS_DESHIDRATACION_DPEXPORTACION),0) AS 'DESHIDRATACIONSF' ,
                                                 IFNULL(SUM(KILOS_NETO_DPEXPORTACION),0) AS 'NETOSF' 
                                          FROM fruta_dpexportacion 
                                          WHERE ID_PROCESO = '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1;");

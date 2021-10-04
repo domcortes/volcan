@@ -530,6 +530,7 @@ class DREXPORTACION_ADO
                                                 FORMAT(IFNULL(SUM(KILOS_NETO_DREXPORTACION),0),2,'de_DE') AS 'NETO' , 
                                                 FORMAT(IFNULL(SUM(KILOS_BRUTO_DREXPORTACION),0),2,'de_DE') AS 'BRUTO' , 
                                                 FORMAT(IFNULL(SUM(KILOS_DESHIDRATACION_DREXPORTACION),0),2,'de_DE') AS 'DESHIDRATACION', 
+                                                IFNULL(SUM(KILOS_DESHIDRATACION_DREXPORTACION),0) AS 'DESHIDRATACIONSF', 
                                                 IFNULL(SUM(KILOS_NETO_DREXPORTACION),0) AS 'NETOSF'  
                                          FROM  fruta_drexportacion  
                                          WHERE ID_REEMBALAJE = '" . $IDPROCESO . "' 

@@ -268,12 +268,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
     if ($TOTALNETOEX != 0 && $TOTALNETOE != 0) {
-        $PEXPORTACIONEXPOEX = (($TOTALNETOEX) / $TOTALNETOEXPO) * 100;
+        $PEXPORTACIONEXPOEX = (($TOTALDESHIDRATACIONEX) / $TOTALNETOE) * 100;
     } else {
         $PEXPORTACIONEXPOEX = 0;
     }
     if ($TOTALNETOIND != 0 && $TOTALNETOE != 0) {
-        $PEXPORTACIONEXPOINDU = (($TOTALNETOIND) / $TOTALNETOEXPO) * 100;
+        $PEXPORTACIONEXPOINDU = (($TOTALNETOIND) / $TOTALNETOE) * 100;
     } else {
         $PEXPORTACIONEXPOINDU = 0;
     }
