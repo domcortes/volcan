@@ -386,6 +386,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showConfirmButton: true
+            })
+
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Para <b>seleccionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label><label>Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>"
+            })
+        </script>
         <?php
         //OPERACION DE REGISTRO DE FILA
         if (isset($_REQUEST['AGREGAR'])) {
@@ -403,7 +417,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-
                 echo
                 "<script>
                         Swal.fire({
@@ -533,7 +546,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 if ($SINO == 0) {
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    echo
+                    "<script>
+                            Swal.fire({
+                                icon:'info',
+                                title:'Folios agregados al proceso'
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href ='" . $_REQUEST['URLO'] . ".php?op';
+                                }
+                            });
+                        </script>";
+                   //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
                 }
                 if ($SINOENVASE == 1) {
                     if ($MENSAJE != "") {
@@ -560,20 +584,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         }
         ?>
 
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                showConfirmButton: true
-            })
-
-            Toast.fire({
-                icon: "info",
-                title: "Informacion importante",
-                html: "<label>Para <b>seleccionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label><label>Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>"
-            })
-        </script>
 </body>
 
 </html>
