@@ -1812,6 +1812,7 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    
     public function buscarPorRecepcionNumeroFolio($IDRECEPCION, $NUMEROFOLIO)
     {
         try {

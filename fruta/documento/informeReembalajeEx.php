@@ -129,36 +129,63 @@ if (isset($_REQUEST['parametro'])) {
 
 $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($IDOP);
 $ARRAYREEMBALAJETOTALES = $REEMBALAJE_ADO->obtenerTotales($IDOP);
+
+$TOTALSALIDA = $ARRAYREEMBALAJETOTALES[0]['SALIDA'];
+//$TOTALSALIDASF = $ARRAYREEMBALAJETOTALES[0]['SALIDASF'];
+
 $ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorReembalaje2($IDOP);
+$ARRAYEXISTENCIATOMADATOTALES = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
+$TOTALENVASE = $ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
+$TOTALNETO = $ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
+$TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
+
 
 $ARRAYDEXPORTACION = $DREXPORTACION_ADO->buscarPorReembalaje2($IDOP);
+$ARRAYDEXPORTACIONCALIBRE = $DREXPORTACION_ADO->buscarPorReembalajeAgrupadoCalibre($IDOP);
 $ARRAYDEXPORTACIONTOTALES = $DREXPORTACION_ADO->obtenerTotales2($IDOP);
+
+$TOTALENVASEDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['ENVASE'];
+$TOTALNETODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['NETO'];
+$TOTALDESHIDRATACIONDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
+$TOTALBRUTODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['BRUTO'];
+$TOTALNETOSFDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['NETOSF'];
+
 
 $ARRAYDINDUSTRIAL = $DRINDUSTRIAL_ADO->buscarPorReembalaje2($IDOP);
 $ARRAYDINDUSTRIALTOTALES = $DRINDUSTRIAL_ADO->obtenerTotales2($IDOP);
+$TOTALNETODINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETO'];
+$TOTALNETOSFDINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETOSF'];
 
 $PDEXPORTACION = $ARRAYREEMBALAJE[0]['PDEXPORTACION_REEMBALAJE'];
 $PDINDUSTRIAL = $ARRAYREEMBALAJE[0]['PDINDUSTRIAL_REEMBALAJE'];
 $NUMEROREEMBALAJE = $ARRAYREEMBALAJE[0]['NUMERO_REEMBALAJE'];
 $OBSERVACIONES = $ARRAYREEMBALAJE[0]['OBSERVACIONE_REEMBALAJE'];
-$PDTOTAL = $PDEXPORTACION + $PDINDUSTRIAL;
 
-$TOTALSALIDA = $ARRAYREEMBALAJETOTALES[0]['SALIDA'];
-$TOTALSALIDASF = $ARRAYREEMBALAJETOTALES[0]['SALIDASF'];
+$TOTALSALIDASF=$TOTALNETOSFDEXPORTACION+$TOTALNETOSFDINDUSTRIAL;
 
-$TOTALENVASEDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['ENVASE']; //TOTAL_DESHIDRATACION
-$TOTALNETODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['NETO'];
-$TOTALDESHIDRATACIONDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
-$TOTALBRUTODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['BRUTO'];
 
-$TOTALNETODINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETO'];
-//$TOTALBRUTODINDUSTRIAL=$ARRAYDINDUSTRIALTOTALES[0]['TOTAL_BRUTO'];
+if ($TOTALSALIDASF > 0) {
+  if ($TOTALNETOSFDEXPORTACION > 0) {
+    $PDEXPORTACION = ($TOTALNETOSFDEXPORTACION / $TOTALSALIDASF) * 100;
+  } else {
+    $PDEXPORTACION = 0;
+  }
+  if ($TOTALNETOSFDINDUSTRIAL > 0) {
+    $PDINDUSTRIAL = ($TOTALNETOSFDINDUSTRIAL / $TOTALSALIDASF) * 100;
+  } else {
+    $PDINDUSTRIAL = 0;
+  }
+} else {
+  $PDEXPORTACION = 0;
+  $PDINDUSTRIAL = 0;
+}
+$PDTOTAL = number_format($PDEXPORTACION + $PDINDUSTRIAL, 2, ",", ".");
 
-$ARRAYEXISTENCIATOMADATOTALES = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
 
-$TOTALENVASE = $ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
-$TOTALNETO = $ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
-$TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
+
+
+
+
 
 $TOTAL2 = $TOTALNETOSF - $TOTALSALIDASF;
 
@@ -408,9 +435,9 @@ $html = $html . '
             <th class="color center">Cant. Envase</th>
             <th class="color center">Kilos Neto</th>
             <th class="color center">Kilos Con Deshidratacion</th>
+            <th class="color center ">% </th>
             <th class="color center ">Variedad </th>
             <th class="color center">Embolsado</th>
-            <th class="color center">Tipo Manejo</th>     
             <th class="color center">Calibre</th>          
           </tr>
         </thead>
@@ -430,7 +457,11 @@ foreach ($ARRAYDEXPORTACION as $r) :
   } else {
     $NOMBRETCALIBRE = "Sin Datos";
   }
-
+  if ($TOTALSALIDASF > 0) {
+    $NETOEXPOR = number_format(($r['KILOS_NETO_DREXPORTACION'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+  } else {
+    $NETOEXPOR = 0;
+  }
 
   if ($r['EMBOLSADO'] == "1") {
     $EMBOLSADO = "SI";
@@ -446,9 +477,9 @@ foreach ($ARRAYDEXPORTACION as $r) :
             <td class=" center">' . $r['ENVASE'] . ' </td>
             <td class=" center"> ' . $r['NETO'] . '</td>
             <td class=" center "> ' . $r['DESHIDRATACION'] . ' </td>
+            <td class=" center "> ' . $NETOEXPOR . ' </td>
             <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
             <td class=" center "> ' . $EMBOLSADO . ' </td>
-            <td class=" center "> ' . $TMANEJO . ' </td>
             <td class=" center">' . $NOMBRETCALIBRE . '</td>
         </tr>
         ';
@@ -462,7 +493,7 @@ $html = $html . '
                 <th class="color center"> ' . $TOTALENVASEDEXPORTACION . '</th>
                 <th class="color center">' . $TOTALNETODEXPORTACION . ' </th>
                 <th class="color center "> ' . $TOTALDESHIDRATACIONDEXPORTACION . ' </th>
-                <th class="color center ">  </th>
+                <th class="color center "> ' . number_format($PDEXPORTACION, 2, ",", ".") . '% </th>
                 <th class="color center ">  </th>
                 <th class="color left"></th>
                 <th class="color left"></th>
@@ -480,13 +511,14 @@ $html = $html . '
         <thead>
            
           <tr>
-            <th colspan="5" class="center">PRODUCTO INDUSTRIAL.</th>
+            <th colspan="6" class="center">PRODUCTO INDUSTRIAL.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
             <th class="color center">Fecha Embalado</th>
             <th class="color center">Envase/Estandar</th>
             <th class="color center">Kilos Neto</th>
+            <th class="color center ">% </th>
             <th class="color center ">Variedad </th>
           </tr>
         </thead>
@@ -497,13 +529,18 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
-
+  if ($TOTALSALIDASF > 0) {
+    $NETOINDU = number_format(($r['KILOS_NETO_DRINDUSTRIAL'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+  } else {
+    $NETOINDU = 0;
+  }
   $html = $html . '    
         <tr>
             <th class=" left"> ' . $r['FOLIO_DRINDUSTRIAL'] . '</th>
             <td class=" center"> ' . $r['EMBALADO'] . '</td>
             <td class=" center"> ' . $ARRAYEVEINDUSTRIALID[0]['NOMBRE_ESTANDAR'] . '</td>
             <td class=" center"> ' . $r['KILOS_NETO_DRINDUSTRIAL'] . '</td>
+            <td class=" center"> ' . $NETOINDU . '</td>
             <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         </tr>
         ';
@@ -515,7 +552,8 @@ $html = $html . '
             <th class="color center"> </th>
             <th class="color right">Sub Total </th>
             <th class="color center">' . $TOTALNETODINDUSTRIAL . ' </th>
-            <th class="color center ">  </th>
+            <th class="color center "> ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </th>
+            <th class="color center"> </th>
         </tr>
         ';
 
@@ -530,8 +568,8 @@ $html = $html . '
       <div id="details" >            
         <div id="client">
           <div class="address"><b>PORCENTAJES: </b></div>
-          <div class="address">EXPORTACION:  ' . $PDEXPORTACION . '</div>
-          <div class="address">INDUSTRIAL: ' . $PDINDUSTRIAL . ' </div>
+          <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
+          <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
           <div class="address">TOTAL: ' . $PDTOTAL . '</div>
         </div>
         <div id="client">
@@ -541,6 +579,8 @@ $html = $html . '
             <div class="address">TOTAL: ' . $TOTAL2 . '</div>
         </div>
       </div>      
+
+
       <div id="details" >            
         <div id="client">
           <div class="address"><b>Observaciones: </b></div>
@@ -603,18 +643,6 @@ $PDF->SetHTMLHeader('
 ');
 
 $PDF->SetHTMLFooter('
-<table width="100%" >
-    <tr>
-      <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> <hr> </td>
-      <td class="color2 right" style="width: 30%;"> </td>
-    </tr>
-    <tr>
-      <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
-      <td class="color2 center" style="width: 30%;"> </td>
-    </tr>    
-  </table>
 
     <table width="100%" >
         <tbody>

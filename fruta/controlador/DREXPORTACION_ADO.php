@@ -473,7 +473,29 @@ class DREXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorReembalajeAgrupadoCalibre($IDREEMBALAJE)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT  
+                                                        IFNULL(SUM(KILOS_NETO_DREXPORTACION),0) AS 'NETO',
+                                                        ID_TCALIBRE
+                                        FROM  fruta_drexportacion  
+                                        WHERE  ID_REEMBALAJE = '" . $IDREEMBALAJE . "'  
+                                        AND  ESTADO_REGISTRO  = 1                                        
+                                        GROUP BY ID_TCALIBRE ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //BUSQUEDA DE LOS TOTALES ASOCIADOS AL ID PROCESO
     public function obtenerTotales($IDPROCESO)
@@ -507,7 +529,8 @@ class DREXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DREXPORTACION),0),0,'de_DE') AS 'ENVASE', 
                                                 FORMAT(IFNULL(SUM(KILOS_NETO_DREXPORTACION),0),2,'de_DE') AS 'NETO' , 
                                                 FORMAT(IFNULL(SUM(KILOS_BRUTO_DREXPORTACION),0),2,'de_DE') AS 'BRUTO' , 
-                                                FORMAT(IFNULL(SUM(KILOS_DESHIDRATACION_DREXPORTACION),0),2,'de_DE') AS 'DESHIDRATACION' 
+                                                FORMAT(IFNULL(SUM(KILOS_DESHIDRATACION_DREXPORTACION),0),2,'de_DE') AS 'DESHIDRATACION', 
+                                                IFNULL(SUM(KILOS_NETO_DREXPORTACION),0) AS 'NETOSF'  
                                          FROM  fruta_drexportacion  
                                          WHERE ID_REEMBALAJE = '" . $IDPROCESO . "' 
                                          AND  ESTADO_REGISTRO  = 1;");
