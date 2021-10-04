@@ -161,7 +161,7 @@ $PDINDUSTRIAL = $ARRAYREEMBALAJE[0]['PDINDUSTRIAL_REEMBALAJE'];
 $NUMEROREEMBALAJE = $ARRAYREEMBALAJE[0]['NUMERO_REEMBALAJE'];
 $OBSERVACIONES = $ARRAYREEMBALAJE[0]['OBSERVACIONE_REEMBALAJE'];
 
-$TOTALSALIDASF=$TOTALNETOSFDEXPORTACION+$TOTALNETOSFDINDUSTRIAL;
+$TOTALSALIDASF = $TOTALNETOSFDEXPORTACION + $TOTALNETOSFDINDUSTRIAL;
 
 
 if ($TOTALSALIDASF > 0) {
@@ -206,7 +206,7 @@ if ($ARRAYREEMBALAJE[0]['TURNO'] == 2) {
 $PRODUCTOR = $ARRAYREEMBALAJE[0]['ID_PRODUCTOR'];
 
 
-$IDUSUARIOI = $ARRAYREEMBALAJE[0]['ID_USUARIOI'];  
+$IDUSUARIOI = $ARRAYREEMBALAJE[0]['ID_USUARIOI'];
 $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
 $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
 
@@ -365,7 +365,7 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
   $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
   $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
   $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
- 
+
   $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
   if ($ARRAYTCALIBRE) {
     $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
@@ -564,29 +564,63 @@ $html = $html . '
 
 $html = $html . '
      
-    </div>
-      <div id="details" >            
-        <div id="client">
-          <div class="address"><b>PORCENTAJES: </b></div>
-          <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
-          <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
-          <div class="address">TOTAL: ' . $PDTOTAL . '</div>
-        </div>
-        <div id="client">
-            <div class="address"><b>DIFERENCIA: </b></div>
-            <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
-            <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
-            <div class="address">TOTAL: ' . $TOTAL2 . '</div>
-        </div>
-      </div>      
+<div id="details" class="clearfix">      
+<div id="client">
+  <div class="address"><b>PORCENTAJES: </b></div>
+  <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
+  <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
+  <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
+</div>
+<div id="client">
+  <div class="address"><b>DIFERENCIA: </b></div>
+  <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
+  <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
+  <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
+</div>
+';
+foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
+  $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+  if ($ARRAYTCALIBRE) {
+    $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+  } else {
+    $NOMBRETCALIBRE = "Sin Datos";
+  }
+  if ($TOTALNETOSF > 0) {
+    $NETOCALIBRE = number_format(($r['NETO'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+  } else {
+    $NETOCALIBRE = 0;
+  }
+
+  $html = $html . '   
+<div id="invoice">
+   <div class="date"> <b>' . $NOMBRETCALIBRE . '</b>:  ' . $NETOCALIBRE . '%</div>   
+</div>
+';
+endforeach;
+
+$html = $html . '  
+
+<div id="client">
+    <div class="address"><b>PORCENTAJES EN CALIBRE: </b></div>
+</div>
+
+</div>
 
 
-      <div id="details" >            
+';
+
+$html = $html . '   
+    <div id="details" class="clearfix">
         <div id="client">
-          <div class="address"><b>Observaciones: </b></div>
-          <div class="address">' . $OBSERVACIONES . '</div>
+          <div class="address"><b>Observaciones</b></div>
+          <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
-      </div> 
+        <div id="invoice">
+          <div class="date"><b><hr></b></div>
+          <div class="date center">  Firma Responsable</div>
+          <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
+      </div>
+    </div>  
             
     </main>
     <footer>
