@@ -135,7 +135,7 @@ if (isset($_REQUEST['parametro'])) {
 $ARRAYPROCESO = $PROCESO_ADO->verProceso2($IDOP);
 $ARRAYPROCESOTOTALES = $PROCESO_ADO->obtenerTotales($IDOP);
 $TOTALSALIDA = $ARRAYPROCESOTOTALES[0]['SALIDA'];
-$TOTALSALIDASF = $ARRAYPROCESOTOTALES[0]['SALIDASF'];
+//$TOTALSALIDASF = $ARRAYPROCESOTOTALES[0]['SALIDASF'];
 
 $ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPorProceso2($IDOP);
 $ARRAYEXISTENCIATOMADATOTALES = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($IDOP);
@@ -162,16 +162,16 @@ $ARRAYDINDUSTRIAL = $DPINDUSTRIAL_ADO->buscarPorProceso2($IDOP);
 $ARRAYDINDUSTRIALTOTALES = $DPINDUSTRIAL_ADO->obtenerTotales2($IDOP);
 $TOTALNETODINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETO'];
 $TOTALNETOSFDINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETOSF'];
-//$TOTALSALIDASF=$TOTALNETOSFDEXPORTACION+$TOTALNETOSFDINDUSTRIAL;
+$TOTALSALIDASF=$TOTALNETOSFDEXPORTACION+$TOTALNETOSFDINDUSTRIAL;
 
-if ($TOTALNETOSF > 0) {
+if ($TOTALSALIDASF > 0) {
   if ($TOTALNETOSFDEXPORTACION > 0) {
-    $PDEXPORTACION = ($TOTALDESHIDRATACIONDEXPORTACION / $TOTALNETOSF) * 100;
+    $PDEXPORTACION = ($TOTALNETOSFDEXPORTACION / $TOTALSALIDASF) * 100;
   } else {
     $PDEXPORTACION = 0;
   }
-  if ($TOTALNETOSFDINDUSTRIAL > 0) {
-    $PDINDUSTRIAL = ($TOTALNETOSFDINDUSTRIAL / $TOTALNETOSF) * 100;
+  if ($TOTALSALIDASF > 0) {
+    $PDINDUSTRIAL = ($TOTALNETOSFDINDUSTRIAL / $TOTALSALIDASF) * 100;
   } else {
     $PDINDUSTRIAL = 0;
   }
@@ -191,8 +191,7 @@ $TOTALENVASE = $ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
 $TOTALNETO = $ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
 $TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
 
-
-$TOTAL2 = $TOTALNETOSF - $TOTALSALIDASF;
+$TOTAL2 = $TOTALNETOSF - ($TOTALDESHIDRATACIONSFDEXPORTACION+$TOTALNETOSFDINDUSTRIAL);
 
 $IDUSUARIOI = $ARRAYPROCESO[0]['ID_USUARIOI'];
 $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
@@ -439,8 +438,8 @@ foreach ($ARRAYDEXPORTACION as $r) :
   if ($r['EMBOLSADO'] == "0") {
     $EMBOLSADO = "NO";
   }
-  if ($TOTALNETOSF > 0) {
-    $NETOEXPOR = number_format(($r['KILOS_DESHIDRATACION_DPEXPORTACION'] / $TOTALNETOSF) * 100, 2, ",", ".");
+  if ($TOTALSALIDASF > 0) {
+    $NETOEXPOR = number_format(($r['KILOS_NETO_DPEXPORTACION'] / $TOTALSALIDASF) * 100, 2, ",", ".");
   } else {
     $NETOEXPOR = 0;
   }
@@ -507,8 +506,8 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
 
-  if ($TOTALNETOSF > 0) {
-    $NETOINDU = number_format(($r['KILOS_NETO_DPINDUSTRIAL'] / $TOTALNETOSF) * 100, 2, ",", ".");
+  if ($TOTALSALIDASF > 0) {
+    $NETOINDU = number_format(($r['KILOS_NETO_DPINDUSTRIAL'] / $TOTALSALIDASF) * 100, 2, ",", ".");
   } else {
     $NETOINDU = 0;
   }
@@ -561,6 +560,9 @@ $html = $html . '
           <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
           <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
         </div>
+        
+        <div id="client">
+        <div class="address"><b>PORCENTAJES EN CALIBRE: </b></div>
       ';
       foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
         $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
@@ -569,23 +571,20 @@ $html = $html . '
         } else {
           $NOMBRETCALIBRE = "Sin Datos";
         }
-        if ($TOTALNETOSF > 0) {
-          $NETOCALIBRE = number_format(($r['NETO'] / $TOTALNETOSF) * 100, 2, ",", ".");
+        if ($TOTALSALIDASF > 0) {
+          $NETOCALIBRE = number_format(($r['NETO'] / $TOTALSALIDASF) * 100, 2, ",", ".");
         } else {
           $NETOCALIBRE = 0;
         }   
         
 $html = $html . '   
-        <div id="invoice">
-           <div class="date"> <b>' . $NOMBRETCALIBRE . '</b>:  ' . $NETOCALIBRE . '%</div>   
-        </div>
+           <div class="address"> ' . $NOMBRETCALIBRE . ':  ' . $NETOCALIBRE . '%</div>   
+        
         ';
       endforeach;
       
 $html = $html . '  
- 
-        <div id="client">
-            <div class="address"><b>PORCENTAJES EN CALIBRE: </b></div>
+
         </div>
         
       </div>
