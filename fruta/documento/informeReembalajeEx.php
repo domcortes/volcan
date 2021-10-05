@@ -579,7 +579,7 @@ foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
   }
 
   $html = $html . '   
-   <div class="address"> <b>' . $NOMBRETCALIBRE . '</b>:  ' . $NETOCALIBRE . '%</div>   
+  <div class="address"> <b>' . $NOMBRETCALIBRE . ' </b>:( ' . $r['NETOF'] . ' KG)  ' . $NETOCALIBRE . '%</div>     
 
 ';
 endforeach;

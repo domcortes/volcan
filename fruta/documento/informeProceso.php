@@ -567,7 +567,7 @@ $html = $html . '
         }   
         
 $html = $html . '   
-           <div class="address"> ' . $NOMBRETCALIBRE . ':  ' . $NETOCALIBRE . '%</div>   
+        <div class="address"> <b>' . $NOMBRETCALIBRE . ' </b>:( ' . $r['NETOF'] . ' KG)  ' . $NETOCALIBRE . '%</div>         
         
         ';
       endforeach;

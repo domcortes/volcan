@@ -368,6 +368,7 @@ class DPEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     IFNULL(SUM(KILOS_NETO_DPEXPORTACION),0) AS 'NETO',
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_DPEXPORTACION),0),2,'de_DE') AS 'NETOF',
                                                     ID_TCALIBRE
                                                 FROM fruta_dpexportacion 
                                                 WHERE ID_PROCESO= '".$IDPROCESO."' 

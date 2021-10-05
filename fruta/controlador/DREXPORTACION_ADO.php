@@ -479,6 +479,7 @@ class DREXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT  
                                                         IFNULL(SUM(KILOS_NETO_DREXPORTACION),0) AS 'NETO',
+                                                        FORMAT(IFNULL(SUM(KILOS_NETO_DREXPORTACION),0),2,'de_DE') AS 'NETOF' , 
                                                         ID_TCALIBRE
                                         FROM  fruta_drexportacion  
                                         WHERE  ID_REEMBALAJE = '" . $IDREEMBALAJE . "'  
