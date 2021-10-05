@@ -461,7 +461,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Canitdad Producto</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
-                                                <input type="text" class="form-control" placeholder="Canitdad Producto" id="CANTIDAD" name="CANTIDAD" value="<?php echo $CANTIDAD; ?>" <?php echo $DISABLEDE;  ?> <?php echo $DISABLED; ?> />
+                                                <input type="text" class="form-control" placeholder="Canitdad Producto" id="CANTIDAD" name="CANTIDAD" value="<?php echo $CANTIDAD; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -526,7 +526,7 @@ if (isset($_POST)) {
                                         <?php } ?>
                                     </div>
                                     <div class="btn-group col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 col-xs-12 float-right " role="group" aria-label="Informes">
-                                        <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarjas" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                        <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarjas" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcion.php?parametro=<?php echo $IDP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                             <i class="fa fa-file-pdf-o"></i> Tarja
                                         </button>
                                     </div>
