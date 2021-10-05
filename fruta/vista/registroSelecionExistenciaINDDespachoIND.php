@@ -325,14 +325,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <!-- /.row -->
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                        <div class="btn-group btn-rounded btn-block col-6" role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Despacho Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Despacho Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
                                                 <i class="ti-save-alt"></i> D. Folio
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="Despacho Kilos" name="DIVIDIR" value="DIVIDIR" <?php echo $DISABLED; ?>>
+                                            <button type="submit" class="btn btn-info" data-toggle="tooltip" title="Despacho Kilos" name="DIVIDIR" value="DIVIDIR" <?php echo $DISABLED; ?>>
                                                 <i class="ti-save-alt"></i> D. Kilos
                                             </button>
                                         </div>
@@ -352,7 +352,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         <?php include_once "../config/urlBase.php"; ?>
         <?php
         if (isset($_REQUEST['DIVIDIR'])) {
-
             $IDDESPACHO = $_REQUEST['IDP'];
             $ARRAYFOLIO = $_REQUEST['FOLIO'];
             $ARRAYIDEXISTENCIA = $_REQUEST['IDEXISTENCIA'];
@@ -462,10 +461,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 }
             }
         }
+
         if (isset($_REQUEST['AGREGAR'])) {
-
             $IDDESPACHO = $_REQUEST['IDP'];
-
             if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
 
                 $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
