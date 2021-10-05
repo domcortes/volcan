@@ -178,196 +178,7 @@ include_once "../config/datosUrlD.php";
 
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
 
-    $ARRAYNUMERO = $DESPACHOIND_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $DESPACHOIND->__SET('NUMERO_DESPACHO', $NUMERO);
-    $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
-    $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
-    $DESPACHOIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-    $DESPACHOIND->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
-    $DESPACHOIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-    $DESPACHOIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-    $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
-    if ($_REQUEST['TDESPACHO'] == "1") {
-        $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
-    }
-    if ($_REQUEST['TDESPACHO'] == "2") {
-        $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    }
-    if ($_REQUEST['TDESPACHO'] == "3") {
-        $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
-    }
-    if ($_REQUEST['TDESPACHO'] == "4") {
-        $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
-    }
-    if ($_REQUEST['TDESPACHO'] == "5") {
-        $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
-    }
-    $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $DESPACHOIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $DESPACHOIND->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $DESPACHOIND->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DESPACHOIND_ADO->agregarDespachomp($DESPACHOIND);
-
-
-    //OBTENER EL ID DE LA DESPACHOIND CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-    $ARRYAOBTENERID = $DESPACHOIND_ADO->obtenerId(
-        $_REQUEST['FECHADESPACHO'],
-        $_REQUEST['EMPRESA'],
-        $_REQUEST['PLANTA'],
-        $_REQUEST['TEMPORADA'],
-    );
-
-    //REDIRECCIONAR A PAGINA registroDespachoind.php
-
-    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
-    $_SESSION["parametro1"] = "crear";
-    echo "<script type='text/javascript'> location.href ='registroDespachoind.php?op';</script>";
-}
-if (isset($_REQUEST['EDITAR'])) {
-    $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
-    $DESPACHOIND->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
-    $DESPACHOIND->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
-    $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
-    $DESPACHOIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-    $DESPACHOIND->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
-    $DESPACHOIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-    $DESPACHOIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-    $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-    if ($_REQUEST['TDESPACHOE'] == "1") {
-        $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
-    }
-    if ($_REQUEST['TDESPACHOE'] == "2") {
-        $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-    }
-    if ($_REQUEST['TDESPACHOE'] == "3") {
-        $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
-    }
-    if ($_REQUEST['TDESPACHOE'] == "4") {
-        $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
-    }
-    if ($_REQUEST['TDESPACHOE'] == "5") {
-        $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
-    }
-    $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $DESPACHOIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $DESPACHOIND->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DESPACHOIND_ADO->actualizarDespachomp($DESPACHOIND);
-}
-//OPERACION PARA CERRAR LA DESPACHOIND
-if (isset($_REQUEST['CERRAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-    $ARRAYDDESPACHOMP2 = $EXIINDUSTRIAL_ADO->buscarPorDespacho($_REQUEST['IDP']);
-    if (empty($ARRAYDDESPACHOMP2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-    if ($_REQUEST['TDESPACHOE'] == "3") {
-        $ARRAYCONTEOPRECIO = $EXIINDUSTRIAL_ADO->contarExistenciaPorDespachoPrecioNulo($_REQUEST['IDP']);
-        if ($ARRAYCONTEOPRECIO) {
-            if ($ARRAYCONTEOPRECIO[0]["CONTEO"] != 0) {
-                $MENSAJEPRECIO = "ES OBLIGATORIO TENER PRECIOS POR KILOS EN TODAS LAS EXISTENCIA SELECCIONADA";
-                $SINO = "1";
-            } else {
-                $MENSAJEPRECIO = "";
-                $SINO = "0";
-            }
-        }
-    }
-    if ($SINO == "0") {
-        $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
-        $DESPACHOIND->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
-        $DESPACHOIND->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
-        $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
-        $DESPACHOIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $DESPACHOIND->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
-        $DESPACHOIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $DESPACHOIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-        $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-        if ($_REQUEST['TDESPACHOE'] == "1") {
-            $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "2") {
-            $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "3") {
-            $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "4") {
-            $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "5") {
-            $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
-        }
-        $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $DESPACHOIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $DESPACHOIND->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $DESPACHOIND_ADO->actualizarDespachomp($DESPACHOIND);
-
-        $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $DESPACHOIND_ADO->cerrado($DESPACHOIND);
-
-        $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $DESPACHOIND_ADO->Confirmado($DESPACHOIND);
-
-        $ARRAYEXISENCIADESPACHOMP = $EXIINDUSTRIAL_ADO->buscarPorDespacho($_REQUEST['IDP']);
-        foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
-            if ($_REQUEST['TDESPACHOE'] == "1") {
-                $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);
-                $EXIINDUSTRIAL->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIINDUSTRIAL_ADO->enTransito($EXIINDUSTRIAL);
-            } else {
-                $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);
-                $EXIINDUSTRIAL->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIINDUSTRIAL_ADO->despachado($EXIINDUSTRIAL);
-            }
-        endforeach;
-        //REDIRECCIONAR A PAGINA registroDespachoind.php 
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-
-        if ($_SESSION['parametro1'] == "crear") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroDespachoind.php?op';</script>";
-        }
-        if ($_SESSION['parametro1'] == "editar") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroDespachoind.php?op';</script>";
-        }
-    }
-}
-if (isset($_REQUEST['QUITAR'])) {
-    $IDQUITAR = $_REQUEST['IDQUITAR'];
-    $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDQUITAR);
-    // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EXIINDUSTRIAL_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIINDUSTRIAL);
-}
 if (isset($_REQUEST['PRECIOS'])) {
     $IDDESPACHO= $_REQUEST['IDP'];
     $ARRAYIDDESPACHO = $_REQUEST['IDDESPACHO'];
@@ -1020,7 +831,6 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLP" name="URLP" value="registroDespachoind" />
 
-
                                                 <label>Número Despacho</label>
                                                 <input type="text" class="form-control" style="background-color: #eeeeee;" placeholder="Número Despacho" id="NUMEROVER" name="NUMEROVER" value="<?php echo $NUMEROVER; ?>" disabled />
                                                 <label id="val_id" class="validacion"> </label>
@@ -1096,9 +906,7 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYTRANSPORTITA as $r) : ?>
                                                         <?php if ($ARRAYTRANSPORTITA) {    ?>
-                                                            <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
+                                                            <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
                                                         <?php } ?>
@@ -1123,9 +931,7 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYCONDUCTOR as $r) : ?>
                                                         <?php if ($ARRAYCONDUCTOR) {    ?>
-                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_CONDUCTOR'] ?> </option>
+                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_CONDUCTOR'] ?> </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
                                                         <?php } ?>
@@ -1167,9 +973,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPLANTADESTINO as $r) : ?>
                                                             <?php if ($ARRAYPLANTADESTINO) {    ?>
-                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTADESTINO == $r['ID_PLANTA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
+                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTADESTINO == $r['ID_PLANTA']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
                                                             <?php } else { ?>
                                                                 <option>No Hay Datos Registrados </option>
                                                             <?php } ?>
@@ -1188,9 +992,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                             <?php if ($ARRAYPRODUCTOR) {    ?>
-                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>> <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?> </option>
+                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) { echo "selected"; } ?>> <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?> </option>
                                                             <?php } else { ?>
                                                                 <option>No Hay Datos Registrados </option>
                                                             <?php } ?>
@@ -1209,9 +1011,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYCOMPRADOR as $r) : ?>
                                                             <?php if ($ARRAYCOMPRADOR) {    ?>
-                                                                <option value="<?php echo $r['ID_COMPRADOR']; ?>" <?php if ($COMPRADOR == $r['ID_COMPRADOR']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>> <?php echo $r['NOMBRE_COMPRADOR'] ?> </option>
+                                                                <option value="<?php echo $r['ID_COMPRADOR']; ?>" <?php if ($COMPRADOR == $r['ID_COMPRADOR']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_COMPRADOR'] ?> </option>
                                                             <?php } else { ?>
                                                                 <option>No Hay Datos Registrados </option>
                                                             <?php } ?>
@@ -1248,9 +1048,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPLANTAEXTERNA as $r) : ?>
                                                             <?php if ($ARRAYPLANTAEXTERNA) {    ?>
-                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTAEXTERNA == $r['ID_PLANTA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
+                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTAEXTERNA == $r['ID_PLANTA']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
                                                             <?php } else { ?>
                                                                 <option>No Hay Datos Registrados </option>
                                                             <?php } ?>
@@ -1282,221 +1080,217 @@ if (isset($_POST)) {
                                 </div> <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachoind.php');">
-                                                <i class="ti-trash"></i>Cancelar
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>CREAR
-                                            </button>
-                                        <?php } ?>
-                                        <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachoind.php'); ">
-                                                <i class="ti-back-left "></i> Volver
-                                            </button>
-                                            <button type="submit" class="btn  btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i>Guardar
-                                            </button>
-                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>Cerrar
-                                            </button>
-                                            <button type="button" class="btn   btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoIND.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
-                                                <i class="fa fa-file-pdf-o"></i>Informe
-                                            </button>
-                                        <?php } ?>
+                                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
+                                        <div class="btn-group col-sm-6" role="group" aria-label="Acciones generales">
+                                            <?php if ($OP == "") { ?>
+                                                <button type=" button" class="btn btn-danger " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachoind.php');">
+                                                    <i class="ti-trash"></i>Cancelar
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> CREAR
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP != "") { ?>
+                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachoind.php'); ">
+                                                    <i class="ti-back-left "></i> Volver
+                                                </button>
+                                                <button type="submit" class="btn  btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                    <i class="ti-pencil-alt"></i>Guardar
+                                                </button>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i>Cerrar
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+                                        <?php if ($OP != ""): ?>
+                                            <div class="btn-group col-sm-2">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoIND.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                    <i class="fa fa-file-pdf-o"></i>Informe
+                                                </button>
+                                            </div>
+                                        <?php endif ?>
                                     </div>
+
                                 </div>
                             </div>
                         </form>
                         <!--.row -->
+
+
                         <div class="box">
-                            <div class="row">
-                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                </div>
-                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
-                                    <div class="form-group">
-                                        <label> </label>
-                                    </div>
-                                </div>
+                            <div class="box-header bg-info">
+
                             </div>
-                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJE; ?> </label>
-                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJENETO; ?> </label>
-                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJEPRECIO; ?> </label>
+                            <div class="box-body">
+                               <div class="row">
+                                    <div class="col-10">
+                                        <div class="table-responsive">
+                                            <form method="post" id="form2">
+                                                <table id="detalle" class="table table-hover " style="width: 120%;">
+                                                    <thead>
+                                                        <tr class="text-left">
+                                                            <th> N° Folio </th>
+                                                            <th class="text-center">Operaciónes</th>
+                                                            <?php if ($TDESPACHO == "3") { ?>
+                                                                <th>Precio Por Kilos </th>
+                                                            <?php } ?>
+                                                            <th>Fecha Embalado </th>
+                                                            <th>Código Estandar</th>
+                                                            <th>Envase/Estandar</th>
+                                                            <th>Variedad</th>
+                                                            <th>Kilos Neto</th>
+                                                            <?php if ($TDESPACHO == "3") { ?>
+                                                                <th>Total Precio </th>
+                                                            <?php } ?>
+                                                            <th>CSG</th>
+                                                            <th>Productor</th>
+                                                            <th>Tipo Manejo</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php if ($ARRAYTOMADO) { ?>
+                                                            <?php foreach ($ARRAYTOMADO as $r) : ?>
+                                                                <?php
+                                                                $CONTADOR = $CONTADOR + 1;
+                                                                $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                if ($ARRAYVERPRODUCTORID) {
+                                                                    $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                    $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $CSGPRODUCTOR = "Sin Datos";
+                                                                    $NOMBREPRODUCTOR = "Sin Datos";
+                                                                }
+                                                                $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                                if ($ARRAYVERVESPECIESID) {
+                                                                    $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                                } else {
+                                                                    $NOMBREVARIEDAD = "Sin Datos";
+                                                                }
+                                                                $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                                if ($ARRAYEVERERECEPCIONID) {
+                                                                    $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                                    $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                                } else {
+                                                                    $NOMBREESTANDAR = "Sin Datos";
+                                                                    $CODIGOESTANDAR = "Sin Datos";
+                                                                }
+                                                                $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                                if ($ARRAYTMANEJO) {
+                                                                    $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                                } else {
+                                                                    $NOMBRETMANEJO = "Sin Datos";
+                                                                }
 
-                            <div class="row">
-                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
-                                    <div class="table-responsive">
-                                        <form method="post" id="form2">
-                                            <table id="detalle" class="table table-hover " style="width: 120%;">
-                                                <thead>
-                                                    <tr class="text-left">
-                                                        <th> N° Folio </th>
-                                                        <th class="text-center">Operaciónes</th>
-                                                        <?php if ($TDESPACHO == "3") { ?>
-                                                            <th>Precio Por Kilos </th>
+                                                                ?>
+                                                                <tr class="text-left">
+                                                                    <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
+                                                                    <form method="post" id="form1">
+                                                                        <td class="text-center">
+                                                                            <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>" />
+                                                                            <div class="btn-group col-6 btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                                <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia Industrial" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
+                                                                                    <i class="ti-close"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </form>
+                                                                    <?php if ($TDESPACHO == "3") { ?>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <input type="hidden" class="form-control" name="IDDESPACHO[]" value="<?php echo $r['ID_DESPACHO']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                                                <input type="hidden" class="form-control" name="FOLIOEXIINDUSTRIALPRECIO[]" value="<?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>" />
+                                                                                <input type="hidden" class="form-control" name="IDEXIINDUSTRIALPRECIO[]" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>" />
+                                                                                <input type="hidden" class="form-control" name="IDPRECIO[]" value="<?php echo  $CONTADOR; ?>" />
+                                                                                <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" placeholder="0.00" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0)
+                                                                                    { echo "disabled"; } ?> value="<?php echo $r['PRECIO_KILO']; ?>" />
+                                                                            </div>
+                                                                        </td>
+                                                                    <?php } ?>
+                                                                    <td><?php echo $r['EMBALADO']; ?></td>
+                                                                    <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                    <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                    <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                                    <td><?php echo $r['NETO']; ?></td>
+                                                                    <?php if ($TDESPACHO == "3") { ?>
+                                                                        <td><?php echo $r['PRECIO']; ?></td>
+                                                                    <?php } ?>
+                                                                    <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                    <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                    <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
                                                         <?php } ?>
-                                                        <th>Fecha Embalado </th>
-                                                        <th>Código Estandar</th>
-                                                        <th>Envase/Estandar</th>
-                                                        <th>Variedad</th>
-                                                        <th>Kilos Neto</th>
-                                                        <?php if ($TDESPACHO == "3") { ?>
-                                                            <th>Total Precio </th>
-                                                        <?php } ?>
-                                                        <th>CSG</th>
-                                                        <th>Productor</th>
-                                                        <th>Tipo Manejo</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php if ($ARRAYTOMADO) { ?>
-                                                        <?php foreach ($ARRAYTOMADO as $r) : ?>
-                                                            <?php
-                                                            $CONTADOR = $CONTADOR + 1;
-                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                            if ($ARRAYVERPRODUCTORID) {
-                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                            } else {
-                                                                $CSGPRODUCTOR = "Sin Datos";
-                                                                $NOMBREPRODUCTOR = "Sin Datos";
-                                                            }
-                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                            if ($ARRAYVERVESPECIESID) {
-                                                                $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                            } else {
-                                                                $NOMBREVARIEDAD = "Sin Datos";
-                                                            }
-                                                            $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                            if ($ARRAYEVERERECEPCIONID) {
-                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                            } else {
-                                                                $NOMBREESTANDAR = "Sin Datos";
-                                                                $CODIGOESTANDAR = "Sin Datos";
-                                                            }
-                                                            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                            if ($ARRAYTMANEJO) {
-                                                                $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                            } else {
-                                                                $NOMBRETMANEJO = "Sin Datos";
-                                                            }
-
-                                                            ?>
-                                                            <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
-                                                                <form method="post" id="form1">
-                                                                    <td class="text-center">
-                                                                        <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>" />
-                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia Industrial" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                                                                                        } ?>>
-                                                                                <i class="ti-close"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </td>
-                                                                </form>
-                                                                <?php if ($TDESPACHO == "3") { ?>
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <input type="hidden" class="form-control" name="IDDESPACHO[]" value="<?php echo $r['ID_DESPACHO']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                            <input type="hidden" class="form-control" name="FOLIOEXIINDUSTRIALPRECIO[]" value="<?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>" />
-                                                                            <input type="hidden" class="form-control" name="IDEXIINDUSTRIALPRECIO[]" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>" />
-                                                                            <input type="hidden" class="form-control" name="IDPRECIO[]" value="<?php echo  $CONTADOR; ?>" />
-                                                                            <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" placeholder="0.00" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                echo "disabled";
-                                                                                                                                                                                            } ?> value="<?php echo $r['PRECIO_KILO']; ?>" />
-                                                                        </div>
-                                                                    </td>
-                                                                <?php } ?>
-                                                                <td><?php echo $r['EMBALADO']; ?></td>
-                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                                <td><?php echo $r['NETO']; ?></td>
-                                                                <?php if ($TDESPACHO == "3") { ?>
-                                                                    <td><?php echo $r['PRECIO']; ?></td>
-                                                                <?php } ?>
-                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        </form>
+                                                    </tbody>
+                                                </table>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td class=" center">
-                                                    <form method="post" id="form3">
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoind" />
-                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaINDDespachoIND" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                            } ?>>
-                                                                Seleccion Existencias
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-
-                                            <?php if ($TDESPACHO == "3") {
-                                                $ARRAYDDESPACHOMP2 = $EXIINDUSTRIAL_ADO->verExistenciaPorDespacho($IDDESPACHOMP);
-                                            ?>
+                                    <div class="col-2">
+                                        <table>
+                                            <tbody>
                                                 <tr>
                                                     <td class=" center">
-                                                        <div class="form-group">
-                                                            <button type="submit" form="form2" class="btn btn-primary btn-block" data-toggle="tooltip" title="Agregar  Precios" name="PRECIOS" value="PRECIOS" <?php echo $DISABLED2; ?> <?php if (empty($ARRAYDDESPACHOMP2)) {
-                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                            } ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                    } ?>>
-                                                                Agregar Precios
-                                                            </button>
-                                                        </div>
+                                                        <form method="post" id="form3">
+                                                            <div class="form-group">
+                                                                <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                                <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                                <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoind" />
+                                                                <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaINDDespachoIND" />
+                                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
+                                                                    <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
+                                                                    Seleccion Existencias
+                                                                </button>
+                                                            </div>
+                                                        </form>
                                                     </td>
                                                 </tr>
-                                            <?php }   ?>
-                                            <tr>
-                                                <th>Total Neto</th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
-                                                    </div>
-                                                </td>
-                                            </tr>
 
-                                            <?php if ($TDESPACHO == "3") { ?>
+                                                <?php if ($TDESPACHO == "3") {
+                                                    $ARRAYDDESPACHOMP2 = $EXIINDUSTRIAL_ADO->verExistenciaPorDespacho($IDDESPACHOMP);
+                                                ?>
+                                                    <tr>
+                                                        <td class=" center">
+                                                            <div class="form-group">
+                                                                <button type="submit" form="form2" class="btn btn-primary btn-block" data-toggle="tooltip" title="Agregar  Precios" name="PRECIOS" value="PRECIOS"
+                                                                    <?php echo $DISABLED2; ?>
+                                                                    <?php if (empty($ARRAYDDESPACHOMP2)) { echo "disabled style='background-color: #eeeeee;'"; } ?>
+                                                                    <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>
+                                                                    Agregar Precios
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php }   ?>
                                                 <tr>
-                                                    <th>Total Precio</th>
+                                                    <th>Total Neto</th>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <div class="form-group">
-                                                            <input type="hidden" class="form-control" id="TOTALPRECIO" name="TOTALBRUTO" value="<?php echo $TOTALPRECIO; ?>" />
-                                                            <input type="text" class="form-control" placeholder="Total Precio" id="TOTALPRECIOV" name="TOTALPRECIOV" value="<?php echo $TOTALPRECIOV; ?>" disabled />
+                                                            <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
+                                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+
+                                                <?php if ($TDESPACHO == "3") { ?>
+                                                    <tr>
+                                                        <th>Total Precio</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <input type="hidden" class="form-control" id="TOTALPRECIO" name="TOTALBRUTO" value="<?php echo $TOTALPRECIO; ?>" />
+                                                                <input type="text" class="form-control" placeholder="Total Precio" id="TOTALPRECIOV" name="TOTALPRECIOV" value="<?php echo $TOTALPRECIOV; ?>" disabled />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                               </div>
                             </div>
                         </div>
                     </section>
@@ -1509,6 +1303,284 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+        //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                $ARRAYNUMERO = $DESPACHOIND_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                $DESPACHOIND->__SET('NUMERO_DESPACHO', $NUMERO);
+                $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
+                $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
+                $DESPACHOIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+                $DESPACHOIND->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
+                $DESPACHOIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+                $DESPACHOIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+                $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
+                if ($_REQUEST['TDESPACHO'] == "1") {
+                    $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
+                }
+                if ($_REQUEST['TDESPACHO'] == "2") {
+                    $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                }
+                if ($_REQUEST['TDESPACHO'] == "3") {
+                    $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                }
+                if ($_REQUEST['TDESPACHO'] == "4") {
+                    $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
+                }
+                if ($_REQUEST['TDESPACHO'] == "5") {
+                    $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
+                }
+                $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $DESPACHOIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $DESPACHOIND->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $DESPACHOIND->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DESPACHOIND_ADO->agregarDespachomp($DESPACHOIND);
+
+
+                //OBTENER EL ID DE LA DESPACHOIND CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+                $ARRYAOBTENERID = $DESPACHOIND_ADO->obtenerId(
+                    $_REQUEST['FECHADESPACHO'],
+                    $_REQUEST['EMPRESA'],
+                    $_REQUEST['PLANTA'],
+                    $_REQUEST['TEMPORADA'],
+                );
+
+                //REDIRECCIONAR A PAGINA registroDespachoind.php
+
+                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
+                $_SESSION["parametro1"] = "crear";
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro creado",
+                        text:"Se ha creado el registro correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "/fruta/vista/registroDespachoind.php?op";
+                        }
+                    })
+                </script>';
+                // echo "<script type='text/javascript'> location.href ='registroDespachoind.php?op';</script>";
+            }
+
+            if (isset($_REQUEST['EDITAR'])) {
+                $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                $DESPACHOIND->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
+                $DESPACHOIND->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
+                $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                $DESPACHOIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                $DESPACHOIND->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
+                $DESPACHOIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                $DESPACHOIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+                if ($_REQUEST['TDESPACHOE'] == "1") {
+                    $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "2") {
+                    $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "3") {
+                    $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "4") {
+                    $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "5") {
+                    $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                }
+                $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $DESPACHOIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $DESPACHOIND->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DESPACHOIND_ADO->actualizarDespachomp($DESPACHOIND);
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro guardado",
+                        text:"Se han guardado los cambios correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "/fruta/vista/registroDespachoind.php?op";
+                        }
+                    })
+                </script>';
+            }
+
+            //OPERACION PARA CERRAR LA DESPACHOIND
+            if (isset($_REQUEST['CERRAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+
+                $ARRAYDDESPACHOMP2 = $EXIINDUSTRIAL_ADO->buscarPorDespacho($_REQUEST['IDP']);
+                if (empty($ARRAYDDESPACHOMP2)) {
+                    // $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
+                    $SINO = "1";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Registro no pudo ser cerrado",
+                            text:"Tiene que haber al menos una existencia de producto terminado",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        })
+                    </script>';
+                } else {
+                    $MENSAJE = "";
+                    $SINO = "0";
+                }
+                if ($_REQUEST['TDESPACHOE'] == "3") {
+                    $ARRAYCONTEOPRECIO = $EXIINDUSTRIAL_ADO->contarExistenciaPorDespachoPrecioNulo($_REQUEST['IDP']);
+                    if ($ARRAYCONTEOPRECIO) {
+                        if ($ARRAYCONTEOPRECIO[0]["CONTEO"] != 0) {
+                            // $MENSAJEPRECIO = "ES OBLIGATORIO TENER PRECIOS POR KILOS EN TODAS LAS EXISTENCIA SELECCIONADA";
+                            $SINO = "1";
+                            echo '<script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Registro no pudo ser cerrado",
+                                    text:"Es obligatorio tener precios por kilos en todas las existencias seleccionadas",
+                                    showConfirmButton:true,
+                                    confirmButtonText:"OK"
+                                })
+                            </script>';
+                        } else {
+                            $MENSAJEPRECIO = "";
+                            $SINO = "0";
+                        }
+                    }
+                }
+                if ($SINO == "0") {
+                    $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                    $DESPACHOIND->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
+                    $DESPACHOIND->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
+                    $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                    $DESPACHOIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                    $DESPACHOIND->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
+                    $DESPACHOIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                    $DESPACHOIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                    $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+                    if ($_REQUEST['TDESPACHOE'] == "1") {
+                        $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "2") {
+                        $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "3") {
+                        $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "4") {
+                        $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "5") {
+                        $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                    }
+                    $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $DESPACHOIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $DESPACHOIND->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $DESPACHOIND_ADO->actualizarDespachomp($DESPACHOIND);
+
+                    $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $DESPACHOIND_ADO->cerrado($DESPACHOIND);
+
+                    $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $DESPACHOIND_ADO->Confirmado($DESPACHOIND);
+
+                    $ARRAYEXISENCIADESPACHOMP = $EXIINDUSTRIAL_ADO->buscarPorDespacho($_REQUEST['IDP']);
+                    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+                        if ($_REQUEST['TDESPACHOE'] == "1") {
+                            $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);
+                            $EXIINDUSTRIAL->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                            $EXIINDUSTRIAL_ADO->enTransito($EXIINDUSTRIAL);
+                        } else {
+                            $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);
+                            $EXIINDUSTRIAL->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                            $EXIINDUSTRIAL_ADO->despachado($EXIINDUSTRIAL);
+                        }
+                    endforeach;
+                    //REDIRECCIONAR A PAGINA registroDespachoind.php
+                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+
+                    if ($_SESSION['parametro1'] == "crear") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro de Despacho cerrado",
+                                text:"El registro de despacho se encuentra cerrado",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href = "/fruta/vista/registroDespachoind.php?op";
+                                }
+                            })
+                        </script>';
+                        // echo "<script type='text/javascript'> location.href ='registroDespachoind.php?op';</script>";
+                    }
+                    if ($_SESSION['parametro1'] == "editar") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro de Despacho cerrado",
+                                text:"El registro de despacho se encuentra cerrado",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href = "/fruta/vista/registroDespachoind.php?op";
+                                }
+                            })
+                        </script>';
+                        // echo "<script type='text/javascript'> location.href ='registroDespachoind.php?op';</script>";
+                    }
+                }
+            }
+
+            if (isset($_REQUEST['QUITAR'])) {
+                $IDQUITAR = $_REQUEST['IDQUITAR'];
+                $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDQUITAR);
+                // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIINDUSTRIAL_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIINDUSTRIAL);
+                 echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Detalle eliminado",
+                        text:"Se han eliminado el registro correctamente correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "/fruta/vista/registroDespachoind.php?op";
+                        }
+                    })
+                </script>';
+            }
+        ?>
 </body>
 
 </html>
