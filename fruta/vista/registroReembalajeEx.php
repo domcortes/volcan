@@ -308,7 +308,7 @@ if (isset($_REQUEST['CERRAR'])) {
         $REEMBALAJE->__SET('TURNO',  $_REQUEST['TURNOE']);
         $REEMBALAJE->__SET('OBSERVACIONE_REEMBALAJE', $_REQUEST['OBSERVACIONREEMBALAJEE']);
         $REEMBALAJE->__SET('KILOS_NETO_REEMBALAJE', $_REQUEST['TOTALNETOEXPO']);
-        $REEMBALAJE->__SET('KILOS_EXPORTACION_REEMBALAJE', $_REQUEST['TOTALDESHIDRATACIONEX']);
+        $REEMBALAJE->__SET('KILOS_EXPORTACION_REEMBALAJE', $_REQUEST['TOTALNETOEX']);
         $REEMBALAJE->__SET('KILOS_INDUSTRIAL_REEMBALAJE', $_REQUEST['TOTALNETOIND']);
         $REEMBALAJE->__SET('PDEXPORTACION_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPOEX']);
         $REEMBALAJE->__SET('PDINDUSTRIAL_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPOINDU']);
@@ -338,7 +338,7 @@ if (isset($_REQUEST['CERRAR'])) {
         foreach ($ARRAYEXIPRODUCTOTERMINADOTOMADO as $s) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        ///      $EXIEXPORTACION_ADO->Reembalaje($EXIEXPORTACION);
+             $EXIEXPORTACION_ADO->Reembalaje($EXIEXPORTACION);
         endforeach;
         foreach ($ARRAYEXIEXPORTACION as $s) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
@@ -401,22 +401,25 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $TOTALDESHIDRATACIONEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['DESHIDRATACION'];
     $TOTALDESHIDRATACIONEXV = $ARRAYDEXPORTACIONTOTALREEMBALAJE2[0]['DESHIDRATACION'];
 
+    $TOTALENVASEEXPO = $TOTALENVASEEX + $TOTALENVASEIND;
+    $TOTALNETOEXPO = $TOTALNETOEX + $TOTALNETOIND;
+    $TOTALBRUTOEXPO = $TOTALBRUTOEX + $TOTALBRUTOIND;
+
     if ($TOTALNETOEX != 0 && $TOTALNETOE != 0) {
-        $PEXPORTACIONEXPOEX = round((($TOTALDESHIDRATACIONEX) / $TOTALNETOE) * 100, 3);
+        $PEXPORTACIONEXPOEX = (($TOTALNETOEX) / $TOTALNETOEXPO) * 100;
     } else {
         $PEXPORTACIONEXPOEX = 0;
     }
     if ($TOTALNETOIND != 0 && $TOTALNETOE != 0) {
-        $PEXPORTACIONEXPOINDU = round((($TOTALNETOIND) / $TOTALNETOE) * 100, 2);
+        $PEXPORTACIONEXPOINDU = (($TOTALNETOIND) / $TOTALNETOEXPO) * 100;
     } else {
         $PEXPORTACIONEXPOINDU = 0;
     }
 
-    $PEXPORTACIONEXPO = round(($PEXPORTACIONEXPOEX + $PEXPORTACIONEXPOINDU), 2);
-    $TOTALENVASEEXPO = $TOTALENVASEEX + $TOTALENVASEIND;
-    $TOTALNETOEXPO = $TOTALNETOEX + $TOTALNETOIND;
-    $TOTALBRUTOEXPO = $TOTALBRUTOEX + $TOTALBRUTOIND;
-    $DIFERENCIAKILOSNETOEXPO = round($TOTALNETOE - ($TOTALDESHIDRATACIONEX + $TOTALNETOIND), 2);
+    $PEXPORTACIONEXPO = ($PEXPORTACIONEXPOEX + $PEXPORTACIONEXPOINDU);
+
+
+    $DIFERENCIAKILOSNETOEXPO = $TOTALNETOE - ($TOTALDESHIDRATACIONEX + $TOTALNETOIND);
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -1089,22 +1092,11 @@ if (isset($_POST)) {
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Neto</div>
-                                                </div>
-                                                <!-- inicio input -->
-                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETOE; ?>" />
-                                                <input type="text" class="form-control" placeholder="Total Neto " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
-                                                <!-- /termino input -->
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
                                                     <div class="input-group-text">% Exportacion</div>
                                                 </div>
                                                 <!-- inicio input -->
                                                 <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOEX" name="PEXPORTACIONEXPOEX" value="<?php echo $PEXPORTACIONEXPOEX; ?>" />
-                                                <input type="text" class="form-control" placeholder="% Exportacion" id="PEXPORTACIONEXPOEXV" name="PEXPORTACIONEXPOEXV" value="<?php echo $PEXPORTACIONEXPOEX; ?>" disabled />
+                                                <input type="text" class="form-control text-center" placeholder="% Exportacion" id="PEXPORTACIONEXPOEXV" name="PEXPORTACIONEXPOEXV" value="<?php echo number_format($PEXPORTACIONEXPOEX, 2, ",", "."); ?>" disabled />
                                                 <!-- /termino input -->
                                             </div>
                                         </div>
@@ -1115,7 +1107,7 @@ if (isset($_POST)) {
                                                 </div>
                                                 <!-- inicio input -->
                                                 <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOINDU" name="PEXPORTACIONEXPOINDU" value="<?php echo $PEXPORTACIONEXPOINDU; ?>" />
-                                                <input type="text" class="form-control" placeholder="% Industrial" id="PEXPORTACIONEXPOINDUV" name="PEXPORTACIONEXPOINDUV" value="<?php echo $PEXPORTACIONEXPOINDU; ?>" disabled />
+                                                <input type="text" class="form-control text-center" placeholder="% Industrial" id="PEXPORTACIONEXPOINDUV" name="PEXPORTACIONEXPOINDUV" value="<?php echo number_format($PEXPORTACIONEXPOINDU, 2, ",", "."); ?>" disabled />
                                                 <!-- /termino input -->
                                             </div>
                                         </div>
@@ -1329,8 +1321,19 @@ if (isset($_POST)) {
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
+                                                    <div class="input-group-text">Kilos Neto</div>
+                                                </div>
+                                                <!-- inicio input -->
+                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETOE; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
+                                                <!-- /termino input -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
                                                     <div class="input-group-text">
-                                                        Kilos Exportacion
+                                                        Kilos Neto Exportacion
                                                     </div>
                                                 </div>
                                                 <input type="hidden" class="form-control" id="TOTALDESHIDRATACIONEX" name="TOTALDESHIDRATACIONEX" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" />
@@ -1341,7 +1344,7 @@ if (isset($_POST)) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
-                                                        Kilos Industrial
+                                                        Kilos Neto Industrial
                                                     </div>
                                                 </div>
                                                 <input type="hidden" class="form-control" id="TOTALNETOIND" name="TOTALNETOIND" value="<?php echo $TOTALNETOIND; ?>" />
@@ -1356,7 +1359,7 @@ if (isset($_POST)) {
                                                     </div>
                                                 </div>
                                                 <input type="hidden" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEX" name="DIFERENCIAKILOSNETOEX" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" />
-                                                <input type="text" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
+                                                <input type="text" class="form-control text-center" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo number_format($DIFERENCIAKILOSNETOEXPO, 2, ",", "."); ?>" disabled />
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -1409,7 +1412,7 @@ if (isset($_POST)) {
                 $REEMBALAJE->__SET('TURNO',  $_REQUEST['TURNOE']);
                 $REEMBALAJE->__SET('OBSERVACIONE_REEMBALAJE', $_REQUEST['OBSERVACIONREEMBALAJEE']);
                 $REEMBALAJE->__SET('KILOS_NETO_REEMBALAJE', $_REQUEST['TOTALNETOEXPO']);
-                $REEMBALAJE->__SET('KILOS_EXPORTACION_REEMBALAJE', $_REQUEST['TOTALDESHIDRATACIONEX']);
+                $REEMBALAJE->__SET('KILOS_EXPORTACION_REEMBALAJE', $_REQUEST['TOTALNETOEX']);
                 $REEMBALAJE->__SET('KILOS_INDUSTRIAL_REEMBALAJE', $_REQUEST['TOTALNETOIND']);
                 $REEMBALAJE->__SET('PDEXPORTACION_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPOEX']);
                 $REEMBALAJE->__SET('PDINDUSTRIAL_REEMBALAJE', $_REQUEST['PEXPORTACIONEXPOINDU']);

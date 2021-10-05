@@ -340,14 +340,15 @@ class DPEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * ,DATE_FORMAT(FECHA_EMBALADO_DPEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
-                                                        FORMAT(CANTIDAD_ENVASE_DPEXPORTACION,0,'de_DE') AS 'ENVASE',
-                                                        FORMAT(KILOS_NETO_DPEXPORTACION,2,'de_DE') AS 'NETO',
-                                                        FORMAT(KILOS_BRUTO_DPEXPORTACION,2,'de_DE') AS 'BRUTO',
-                                                        FORMAT(PDESHIDRATACION_DPEXPORTACION,2,'de_DE') AS 'PORCENTAJE',
-                                                        FORMAT(KILOS_DESHIDRATACION_DPEXPORTACION,2,'de_DE') AS 'DESHIDRATACION'
-                                            FROM fruta_dpexportacion 
-                                            WHERE ID_PROCESO= '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1;");
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                            DATE_FORMAT(FECHA_EMBALADO_DPEXPORTACION, '%d-%m-%Y') AS 'EMBALADO',
+                                                            FORMAT(CANTIDAD_ENVASE_DPEXPORTACION,0,'de_DE') AS 'ENVASE',
+                                                            FORMAT(KILOS_NETO_DPEXPORTACION,2,'de_DE') AS 'NETO',
+                                                            FORMAT(KILOS_BRUTO_DPEXPORTACION,2,'de_DE') AS 'BRUTO',
+                                                            FORMAT(PDESHIDRATACION_DPEXPORTACION,2,'de_DE') AS 'PORCENTAJE',
+                                                            FORMAT(KILOS_DESHIDRATACION_DPEXPORTACION,2,'de_DE') AS 'DESHIDRATACION'
+                                                FROM fruta_dpexportacion 
+                                                WHERE ID_PROCESO= '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -361,6 +362,31 @@ class DPEXPORTACION_ADO
         }
     }
 
+    public function buscarPorProcesoAgrupadoCalibre($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    IFNULL(SUM(KILOS_NETO_DPEXPORTACION),0) AS 'NETO',
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_DPEXPORTACION),0),2,'de_DE') AS 'NETOF',
+                                                    ID_TCALIBRE
+                                                FROM fruta_dpexportacion 
+                                                WHERE ID_PROCESO= '".$IDPROCESO."' 
+                                                AND  ESTADO_REGISTRO = 1
+                                                GROUP BY ID_TCALIBRE 
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //TOTALES
     //BUSQUEDA DE LOS TOTALES ASOCIADOS AL ID PROCESO
     public function obtenerTotales($IDPROCESO)
@@ -393,7 +419,9 @@ class DPEXPORTACION_ADO
                                                 FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DPEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
                                                 FORMAT(IFNULL(SUM(KILOS_NETO_DPEXPORTACION),0),2,'de_DE') AS 'NETO' , 
                                                 FORMAT(IFNULL(SUM(KILOS_BRUTO_DPEXPORTACION),0),2,'de_DE') AS 'BRUTO' , 
-                                                FORMAT(IFNULL(SUM(KILOS_DESHIDRATACION_DPEXPORTACION),0),2,'de_DE') AS 'DESHIDRATACION' 
+                                                FORMAT(IFNULL(SUM(KILOS_DESHIDRATACION_DPEXPORTACION),0),2,'de_DE') AS 'DESHIDRATACION' ,
+                                                IFNULL(SUM(KILOS_DESHIDRATACION_DPEXPORTACION),0) AS 'DESHIDRATACIONSF' ,
+                                                IFNULL(SUM(KILOS_NETO_DPEXPORTACION),0) AS 'NETOSF' 
                                          FROM fruta_dpexportacion 
                                          WHERE ID_PROCESO = '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1;");
             $datos->execute();

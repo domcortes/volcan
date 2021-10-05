@@ -99,6 +99,7 @@ $ARRAYPVESPECIES = "";
 
 $ARRAYDEXPORTACION = "";
 $ARRAYDEXPORTACION2 = "";
+$ARRAYDEXPORTACIONCALIBRE = "";
 $ARRAYDEXPORTACIONTOTALES = "";
 
 $ARRAYDINDUSTRIAL = "";
@@ -133,36 +134,64 @@ if (isset($_REQUEST['parametro'])) {
 
 $ARRAYPROCESO = $PROCESO_ADO->verProceso2($IDOP);
 $ARRAYPROCESOTOTALES = $PROCESO_ADO->obtenerTotales($IDOP);
-$ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPorProceso2($IDOP);
-
-$ARRAYDEXPORTACION = $DPEXPORTACION_ADO->buscarPorProceso2($IDOP);
-$ARRAYDEXPORTACIONTOTALES = $DPEXPORTACION_ADO->obtenerTotales2($IDOP);
-
-$ARRAYDINDUSTRIAL = $DPINDUSTRIAL_ADO->buscarPorProceso2($IDOP);
-$ARRAYDINDUSTRIALTOTALES = $DPINDUSTRIAL_ADO->obtenerTotales2($IDOP);
-
-
 $TOTALSALIDA = $ARRAYPROCESOTOTALES[0]['SALIDA'];
-$TOTALSALIDASF = $ARRAYPROCESOTOTALES[0]['SALIDASF'];
-$PDEXPORTACION = $ARRAYPROCESO[0]['PDEXPORTACION_PROCESO'];
-$PDINDUSTRIAL = $ARRAYPROCESO[0]['PDINDUSTRIAL_PROCESO'];
-$OBSERVACIONES = $ARRAYPROCESO[0]['OBSERVACIONE_PROCESO'];
-$PDTOTAL = $PDEXPORTACION + $PDINDUSTRIAL;
+//$TOTALSALIDASF = $ARRAYPROCESOTOTALES[0]['SALIDASF'];
 
-$TOTALENVASEDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['ENVASE']; //TOTAL_DESHIDRATACION
-$TOTALNETODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['NETO'];
-$TOTALDESHIDRATACIONDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
-$TOTALBRUTODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['BRUTO'];
-
-$TOTALNETODINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETO'];
+$ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPorProceso2($IDOP);
 $ARRAYEXISTENCIATOMADATOTALES = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($IDOP);
-
 $TOTALENVASE = $ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
 $TOTALNETO = $ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
 $TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
 
 
-$TOTAL2 = $TOTALNETOSF - $TOTALSALIDASF;
+
+$ARRAYDEXPORTACION = $DPEXPORTACION_ADO->buscarPorProceso2($IDOP);
+$ARRAYDEXPORTACIONCALIBRE = $DPEXPORTACION_ADO->buscarPorProcesoAgrupadoCalibre($IDOP);
+$ARRAYDEXPORTACIONTOTALES = $DPEXPORTACION_ADO->obtenerTotales2($IDOP);
+$TOTALENVASEDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['ENVASE']; //TOTAL_DESHIDRATACION
+$TOTALNETODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['NETO'];
+$TOTALDESHIDRATACIONDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
+$TOTALDESHIDRATACIONSFDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACIONSF'];
+$TOTALBRUTODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['BRUTO'];
+$TOTALNETOSFDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['NETOSF'];
+
+
+
+
+$ARRAYDINDUSTRIAL = $DPINDUSTRIAL_ADO->buscarPorProceso2($IDOP);
+$ARRAYDINDUSTRIALTOTALES = $DPINDUSTRIAL_ADO->obtenerTotales2($IDOP);
+$TOTALNETODINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETO'];
+$TOTALNETOSFDINDUSTRIAL = $ARRAYDINDUSTRIALTOTALES[0]['NETOSF'];
+$TOTALSALIDASF=$TOTALNETOSFDEXPORTACION+$TOTALNETOSFDINDUSTRIAL;
+
+if ($TOTALSALIDASF > 0) {
+  if ($TOTALNETOSFDEXPORTACION > 0) {
+    $PDEXPORTACION = ($TOTALNETOSFDEXPORTACION / $TOTALSALIDASF) * 100;
+  } else {
+    $PDEXPORTACION = 0;
+  }
+  if ($TOTALSALIDASF > 0) {
+    $PDINDUSTRIAL = ($TOTALNETOSFDINDUSTRIAL / $TOTALSALIDASF) * 100;
+  } else {
+    $PDINDUSTRIAL = 0;
+  }
+} else {
+  $PDEXPORTACION = 0;
+  $PDINDUSTRIAL = 0;
+}
+$PDTOTAL = number_format($PDEXPORTACION + $PDINDUSTRIAL, 2, ",", ".");
+
+
+
+$OBSERVACIONES = $ARRAYPROCESO[0]['OBSERVACIONE_PROCESO'];
+
+
+$ARRAYEXISTENCIATOMADATOTALES = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($IDOP);
+$TOTALENVASE = $ARRAYEXISTENCIATOMADATOTALES[0]['ENVASE'];
+$TOTALNETO = $ARRAYEXISTENCIATOMADATOTALES[0]['NETO'];
+$TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
+
+$TOTAL2 = $TOTALNETOSF - ($TOTALDESHIDRATACIONSFDEXPORTACION+$TOTALNETOSFDINDUSTRIAL);
 
 $IDUSUARIOI = $ARRAYPROCESO[0]['ID_USUARIOI'];
 $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
@@ -410,7 +439,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
     $EMBOLSADO = "NO";
   }
   if ($TOTALSALIDASF > 0) {
-    $NETOEXPOR = number_format(($r['KILOS_DESHIDRATACION_DPEXPORTACION'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+    $NETOEXPOR = number_format(($r['KILOS_NETO_DPEXPORTACION'] / $TOTALSALIDASF) * 100, 2, ",", ".");
   } else {
     $NETOEXPOR = 0;
   }
@@ -431,7 +460,6 @@ foreach ($ARRAYDEXPORTACION as $r) :
             <td class=" center "> ' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
         </tr>
         ';
-
 endforeach;
 $html = $html . '    
             <tr>
@@ -441,7 +469,7 @@ $html = $html . '
                 <th class="color center"> ' . $TOTALENVASEDEXPORTACION . '</th>
                 <th class="color center">' . $TOTALNETODEXPORTACION . ' </th>
                 <th class="color center "> ' . $TOTALDESHIDRATACIONDEXPORTACION . ' </th>
-                <th class="color center "> ' . $PDEXPORTACION . '% </th>
+                <th class="color center "> ' . number_format($PDEXPORTACION, 2, ",", ".") . '% </th>
                 <th class="color center ">  </th>
                 <th class="color center ">  </th>
                 <th class="color center ">  </th>
@@ -502,7 +530,7 @@ $html = $html . '
             <th class="color center"> </th>
             <th class="color right">Sub Total </th>
             <th class="color center">' . $TOTALNETODINDUSTRIAL . ' </th>
-            <th class="color center "> ' . $PDINDUSTRIAL . '% </th>
+            <th class="color center "> ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </th>
             <th class="color center ">  </th>
         </tr>
         ';
@@ -515,32 +543,65 @@ $html = $html . '
 $html = $html . '
      
     </div>
-      <div id="details" >            
+
+ 
+
+
+      <div id="details" class="clearfix">      
+       
+      
         <div id="client">
+        <div class="address"><b>% CALIBRE EXPORTACIÓN: </b></div>
+      ';
+      foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
+        $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+        if ($ARRAYTCALIBRE) {
+          $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+        } else {
+          $NOMBRETCALIBRE = "Sin Datos";
+        }
+        if ($TOTALNETOSFDEXPORTACION > 0) {
+          $NETOCALIBRE = number_format(($r['NETO'] / $TOTALNETOSFDEXPORTACION) * 100, 2, ",", ".");
+        } else {
+          $NETOCALIBRE = 0;
+        }   
+        
+$html = $html . '   
+        <div class="address"> <b>' . $NOMBRETCALIBRE . ' </b>:( ' . $r['NETOF'] . ' KG)  ' . $NETOCALIBRE . '%</div>         
+        
+        ';
+      endforeach;
+      
+$html = $html . '  
+
+        </div>
+        <div id="client">
+          <div class="address"><b>DIFERENCIA: </b></div>
+          <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
+          <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
+          <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
           <div class="address"><b>PORCENTAJES: </b></div>
-          <div class="address">EXPORTACION:  ' . $PDEXPORTACION . '%</div>
-          <div class="address">INDUSTRIAL: ' . $PDINDUSTRIAL . '% </div>
+          <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
+          <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
           <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
         </div>
-        <div id="client">
-            <div class="address"><b>DIFERENCIA: </b></div>
-            <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
-            <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
-            <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
-        </div>
-      </div>   
-      <div id="details" class="clearfix" >            
-        <div id="client">
-          <div class="address"><b>Observaciones: </b></div>
-          <div class="address">' . $OBSERVACIONES . '</div>
-        </div>
-          <div id="invoice">
-            <div class="date"><b><hr></b></div>
-            <div class="date center">  Firma Responsable</div>
-            <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
-        </div>
-      </div>  
+        
+      </div>
 
+
+      ';     
+$html = $html . '   
+    <div id="details" class="clearfix">
+        <div id="client">
+          <div class="address"><b>Observaciones</b></div>
+          <div class="address">  ' . $OBSERVACIONES . ' </div>
+        </div>
+        <div id="invoice">
+          <div class="date"><b><hr></b></div>
+          <div class="date center">  Firma Responsable</div>
+          <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
+      </div>
+    </div>  
     </main> 
     <footer>
     Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>

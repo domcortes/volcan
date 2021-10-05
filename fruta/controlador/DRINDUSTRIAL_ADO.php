@@ -387,7 +387,8 @@ class DRINDUSTRIAL_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                 FORMAT(IFNULL(SUM(KILOS_NETO_DRINDUSTRIAL),0),2,'de_DE') AS 'NETO'
+                                                 FORMAT(IFNULL(SUM(KILOS_NETO_DRINDUSTRIAL),0),2,'de_DE') AS 'NETO',
+                                                 IFNULL(SUM(KILOS_NETO_DRINDUSTRIAL),0) AS 'NETOSF'
                                           FROM fruta_drindustrial 
                                           WHERE ID_REEMBALAJE = '" . $IDPROCESO . "' 
                                           AND ESTADO_REGISTRO = 1;");

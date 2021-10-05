@@ -260,25 +260,27 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $TOTALDESHIDRATACIONEXV = $ARRAYDEXPORTACIONTOTALPROCES2[0]['DESHIDRATACION'];
 
 
-    if ($TOTALNETOEX != 0 && $TOTALNETOE != 0) {
-        $PEXPORTACIONEXPOEX = round((($TOTALDESHIDRATACIONEX) / $TOTALNETOE) * 100, 3);
-    } else {
-        $PEXPORTACIONEXPOEX = 0;
-    }
-    if ($TOTALNETOIND != 0 && $TOTALNETOE != 0) {
-        $PEXPORTACIONEXPOINDU = round((($TOTALNETOIND) / $TOTALNETOE) * 100, 2);
-    } else {
-        $PEXPORTACIONEXPOINDU = 0;
-    }
-
-    $PEXPORTACIONEXPO = round(($PEXPORTACIONEXPOEX + $PEXPORTACIONEXPOINDU), 2);
 
 
     $TOTALENVASEEXPO = $TOTALENVASEEX + $TOTALENVASEIND;
     $TOTALNETOEXPO = $TOTALNETOEX + $TOTALNETOIND;
     $TOTALBRUTOEXPO = $TOTALBRUTOEX + $TOTALBRUTOIND;
 
-    $DIFERENCIAKILOSNETOEXPO = round($TOTALNETOE - ($TOTALDESHIDRATACIONEX + $TOTALNETOIND), 2);
+
+    if ($TOTALNETOEX != 0 && $TOTALNETOE != 0) {
+        $PEXPORTACIONEXPOEX = (($TOTALNETOEX) / $TOTALNETOEXPO) * 100;
+    } else {
+        $PEXPORTACIONEXPOEX = 0;
+    }
+    if ($TOTALNETOIND != 0 && $TOTALNETOE != 0) {
+        $PEXPORTACIONEXPOINDU = (($TOTALNETOIND) / $TOTALNETOEXPO) * 100;
+    } else {
+        $PEXPORTACIONEXPOINDU = 0;
+    }
+
+    $PEXPORTACIONEXPO = ($PEXPORTACIONEXPOEX + $PEXPORTACIONEXPOINDU);
+
+    $DIFERENCIAKILOSNETOEXPO = $TOTALNETOE - ($TOTALDESHIDRATACIONEX + $TOTALNETOIND);
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -570,8 +572,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
-            ?>
+            <?php include_once "../config/menu.php";  ?>
 
             <div class="content-wrapper">
                 <div class="container-full">
@@ -961,7 +962,7 @@ if (isset($_POST)) {
                                                 </div>
                                                 <!-- inicio input -->
                                                 <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOEX" name="PEXPORTACIONEXPOEX" value="<?php echo $PEXPORTACIONEXPOEX; ?>" />
-                                                <input type="text" class="form-control text-center" placeholder="% Exportacion" id="PEXPORTACIONEXPOEXV" name="PEXPORTACIONEXPOEXV" value="<?php echo $PEXPORTACIONEXPOEX; ?>" disabled />
+                                                <input type="text" class="form-control text-center" placeholder="% Exportacion" id="PEXPORTACIONEXPOEXV" name="PEXPORTACIONEXPOEXV" value="<?php echo number_format($PEXPORTACIONEXPOEX, 2, ",", "."); ?>" disabled />
                                                 <!-- /termino input -->
                                             </div>
                                         </div>
@@ -972,7 +973,7 @@ if (isset($_POST)) {
                                                 </div>
                                                 <!-- inicio input -->
                                                 <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOINDU" name="PEXPORTACIONEXPOINDU" value="<?php echo $PEXPORTACIONEXPOINDU; ?>" />
-                                                <input type="text" class="form-control text-center" placeholder="% Industrial" id="PEXPORTACIONEXPOINDUV" name="PEXPORTACIONEXPOINDUV" value="<?php echo $PEXPORTACIONEXPOINDU; ?>" disabled />
+                                                <input type="text" class="form-control text-center" placeholder="% Industrial" id="PEXPORTACIONEXPOINDUV" name="PEXPORTACIONEXPOINDUV" value="<?php echo number_format($PEXPORTACIONEXPOINDU, 2, ",", "."); ?>" disabled />
                                                 <!-- /termino input -->
                                             </div>
                                         </div>
@@ -1225,7 +1226,7 @@ if (isset($_POST)) {
                                                     </div>
                                                 </div>
                                                 <input type="hidden" class="form-control" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEX" name="DIFERENCIAKILOSNETOEX" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" />
-                                                <input type="text" class="form-control text-center" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo $DIFERENCIAKILOSNETOEXPO; ?>" disabled />
+                                                <input type="text" class="form-control text-center" placeholder="DIFERENCIA KILOS NETO" id="DIFERENCIAKILOSNETOEXN" name="DIFERENCIAKILOSNETOEXN" value="<?php echo number_format($DIFERENCIAKILOSNETOEXPO, 2, ",", "."); ?>" disabled />
                                             </div>
                                         </div>
                                         <div class="col-auto">
