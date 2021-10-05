@@ -563,17 +563,7 @@ $html = $html . '
      
 <div id="details" class="clearfix">      
 <div id="client">
-  <div class="address"><b>PORCENTAJES: </b></div>
-  <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
-  <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
-  <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
-</div>
-<div id="client">
-  <div class="address"><b>DIFERENCIA: </b></div>
-  <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
-  <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
-  <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
-</div>
+  <div class="address"><b>% CALIBRE EXPORTACIÓN: </b></div>
 ';
 foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
   $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
@@ -582,25 +572,31 @@ foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
   } else {
     $NOMBRETCALIBRE = "Sin Datos";
   }
-  if ($TOTALSALIDASF > 0) {
-    $NETOCALIBRE = number_format(($r['NETO'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+  if ($TOTALNETODEXPORTACION > 0) {
+    $NETOCALIBRE = number_format(($r['NETO'] / $TOTALNETODEXPORTACION) * 100, 2, ",", ".");
   } else {
     $NETOCALIBRE = 0;
   }
 
   $html = $html . '   
-<div id="invoice">
-   <div class="date"> <b>' . $NOMBRETCALIBRE . '</b>:  ' . $NETOCALIBRE . '%</div>   
-</div>
+   <div class="address"> <b>' . $NOMBRETCALIBRE . '</b>:  ' . $NETOCALIBRE . '%</div>   
+
 ';
 endforeach;
 
 $html = $html . '  
-
-<div id="client">
-    <div class="address"><b>PORCENTAJES EN CALIBRE: </b></div>
 </div>
 
+  <div id="client">
+    <div class="address"><b>PORCENTAJES: </b></div>
+    <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
+    <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
+    <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
+    <div class="address"><b>DIFERENCIA: </b></div>
+    <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
+    <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
+    <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
+  </div>
 </div>
 
 
