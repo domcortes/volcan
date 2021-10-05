@@ -120,129 +120,6 @@ include_once "../config/validarDatosUrlD.php";
 
 //OPERACIONES
 
-if (isset($_REQUEST['EDITAR'])) {
-
-    $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
-    //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION
-    $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($_REQUEST['ESTANDAR']);
-    //OBTENCIONS DE LOS DATOS, OBTENIDOS EN LA CONSULTA
-    if ($KILOSBRUTODRECEPCION > 0 && $CANTIDADENVASEDRECEPCION > 0) {
-        if ($ARRAYVERESTANDAR) {
-            $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-            if ($_REQUEST['PESOPALLETRECEPCION']) {
-                $PESOPALLETEESTANDAR = $_REQUEST['PESOPALLETRECEPCION'];
-            } else {
-                $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
-            }
-
-            $PESOENVASEESTANDAR = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
-
-            //OPERACIONES DE OBTENER NETO Y PROMEDIO  DEL DETALLE
-            $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASEESTANDAR - $PESOPALLETEESTANDAR;
-            $KILOSPROMEDIODRECEPCION = $KILOSNETODRECEPCION / $_REQUEST['CANTIDADENVASEDRECEPCION'];
-        }
-    }
-
-    $DRECEPCIONMP->__SET('FECHA_COSECHA_DRECEPCION', $_REQUEST['FECHACOSECHADRECEPCION']);
-    $DRECEPCIONMP->__SET('CANTIDAD_ENVASE_DRECEPCION', $_REQUEST['CANTIDADENVASEDRECEPCION']);
-    $DRECEPCIONMP->__SET('KILOS_NETO_DRECEPCION', $KILOSNETODRECEPCION);
-    $DRECEPCIONMP->__SET('KILOS_BRUTO_DRECEPCION', $_REQUEST['KILOSBRUTODRECEPCION']);
-    $DRECEPCIONMP->__SET('KILOS_PROMEDIO_DRECEPCION', $KILOSPROMEDIODRECEPCION);
-    $DRECEPCIONMP->__SET('PESO_PALLET_DRECEPCION', $_REQUEST['PESOPALLETRECEPCION']);
-    $DRECEPCIONMP->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
-    $DRECEPCIONMP->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
-    $DRECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    $DRECEPCIONMP->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-    $DRECEPCIONMP->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-    $DRECEPCIONMP->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-    $DRECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $DRECEPCIONMP->__SET('ID_DRECEPCION', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DRECEPCIONMP_ADO->actualizarDrecepcion($DRECEPCIONMP);
-
-
-    $ARRAYVERFOLIOEXISTENCIA = $EXIMATERIAPRIMA_ADO->buscarPorRecepcionNumeroFolio($_REQUEST['IDP'], $_REQUEST['NUMEROFOLIODRECEPCIONE']);
-    if ($ARRAYVERFOLIOEXISTENCIA) {
-
-        $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $_REQUEST['FECHACOSECHADRECEPCION']);
-        $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $_REQUEST['CANTIDADENVASEDRECEPCION']);
-        $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $KILOSNETODRECEPCION);
-        $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $_REQUEST['KILOSBRUTODRECEPCION']);
-        $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $KILOSPROMEDIODRECEPCION);
-        $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA', $_REQUEST['PESOPALLETRECEPCION']);
-        $EXIMATERIAPRIMA->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
-        $EXIMATERIAPRIMA->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-        $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-        $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-        $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-        $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $EXIMATERIAPRIMA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIMATERIAPRIMA"]);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIMATERIAPRIMA_ADO->actualizarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
-    } else {
-        $NUMEROFOLIODRECEPCION = $_REQUEST["NUMEROFOLIODRECEPCIONE"];
-        $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
-        $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-            "_TIPO_FOLIO:MATERIA PRIMA_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
-        if ($_REQUEST["FOLIOMANUALE"] != "on") {
-            $FOLIOMANUALR = "0";
-        }
-        if ($_REQUEST["FOLIOMANUALE"] == "on") {
-            $FOLIOMANUALR = "1";
-        }
-        $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA', $NUMEROFOLIODRECEPCION);
-        $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $NUMEROFOLIODRECEPCION);
-        $EXIMATERIAPRIMA->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-        $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $_REQUEST['FECHACOSECHADRECEPCION']);
-        $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $_REQUEST['CANTIDADENVASEDRECEPCION']);
-        $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $KILOSNETODRECEPCION);
-        $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $_REQUEST['KILOSBRUTODRECEPCION']);
-        $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $KILOSPROMEDIODRECEPCION);
-        $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA', $_REQUEST['PESOPALLETRECEPCION']);
-        $EXIMATERIAPRIMA->__SET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASDIANAMICO);
-        $EXIMATERIAPRIMA->__SET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASESTACTICO);
-        $EXIMATERIAPRIMA->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
-        $EXIMATERIAPRIMA->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-        $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-        $EXIMATERIAPRIMA->__SET('ID_FOLIO',  $_REQUEST['FOLIO']);
-        $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-        $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-        $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $EXIMATERIAPRIMA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
-    }
-    //REDIRECCIONAR A PAGINA registroRecepcionmp.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-
-if (isset($_REQUEST['ELIMINAR'])) {
-    $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODRECEPCIONE'];
-    $DRECEPCIONMP->__SET('ID_DRECEPCION', $_REQUEST['ID']);
-    $DRECEPCIONMP_ADO->deshabilitar($DRECEPCIONMP);
-
-
-    $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $FOLIOELIMINAR);
-    $EXIMATERIAPRIMA_ADO->deshabilitarRecepcion($EXIMATERIAPRIMA);
-
-    $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $FOLIOELIMINAR);
-    $EXIMATERIAPRIMA_ADO->eliminadoRecepcion($EXIMATERIAPRIMA);
-
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
 
 
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
@@ -260,7 +137,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $FECHARECEPCION = "" . $r['FECHA_RECEPCION'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
         }
         if ($TRECEPCION == "2") {
@@ -305,6 +182,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             }
             $FOLIO = "" . $r['ID_FOLIO'];
@@ -314,7 +192,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " .  $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
@@ -345,6 +223,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             }
             $FOLIO = "" . $r['ID_FOLIO'];
@@ -354,7 +233,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " .  $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
@@ -383,6 +262,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             }
             $FOLIO = "" . $r['ID_FOLIO'];
@@ -392,7 +272,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " .  $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
@@ -422,6 +303,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             }
             $FOLIO = "" . $r['ID_FOLIO'];
@@ -431,7 +313,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " .  $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
@@ -459,6 +341,7 @@ if ($_POST) {
         $ESTANDAR = $_REQUEST['ESTANDAR'];
         $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
         if ($ARRAYVERESTANDAR) {
+            $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
             $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             if ($_REQUEST['PESOPALLETRECEPCION']) {
                 $PESOPALLETRECEPCION = $_REQUEST['PESOPALLETRECEPCION'];
@@ -469,9 +352,12 @@ if ($_POST) {
                     $PESOPALLETRECEPCION = "";
                 }
             }
+            if ($_REQUEST['KILOSBRUTODRECEPCION'] > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
+                $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
+                $KILOSNETODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'] - $PESOENVASE - $PESOPALLETRECEPCION;
+            }
         }
     }
-
     if (isset($_REQUEST['VESPECIES'])) {
         $VESPECIES = $_REQUEST['VESPECIES'];
     }
@@ -483,25 +369,6 @@ if ($_POST) {
     }
     if (isset($_REQUEST['KILOSBRUTODRECEPCION'])) {
         $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
-        //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION
-        $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($_REQUEST['ESTANDAR']);
-        //OBTENCIONS DE LOS DATOS, OBTENIDOS EN LA CONSULTA
-        if ($KILOSBRUTODRECEPCION > 0 && $CANTIDADENVASEDRECEPCION > 0) {
-            if ($ARRAYVERESTANDAR) {
-                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-                if ($_REQUEST['PESOPALLETRECEPCION']) {
-                    $PESOPALLETEESTANDAR = $_REQUEST['PESOPALLETRECEPCION'];
-                } else {
-                    $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
-                }
-
-                $PESOENVASEESTANDAR = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
-
-                //OPERACIONES DE OBTENER NETO Y PROMEDIO  DEL DETALLE
-                $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASEESTANDAR - $PESOPALLETEESTANDAR;
-                $KILOSPROMEDIODRECEPCION = $KILOSNETODRECEPCION / $_REQUEST['CANTIDADENVASEDRECEPCION'];
-            }
-        }
     }
     if (isset($_REQUEST['NOTADRECEPCION'])) {
         $NOTADRECEPCION = $_REQUEST['NOTADRECEPCION'];
@@ -527,6 +394,36 @@ if ($_POST) {
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
+                function neto() {
+                    var repuesta;
+                    var pesoenvase = 0;
+                    var pesoneto = 0;
+
+                    ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;
+                    document.getElementById('val_estandar').innerHTML = "";
+
+                    if (ESTANDAR == null || ESTANDAR == 0) {
+                        document.form_reg_dato.ESTANDAR.focus();
+                        document.form_reg_dato.ESTANDAR.style.borderColor = "#FF0000";
+                        document.getElementById('val_estandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        repuesta = 1;
+                    } else {
+                        document.form_reg_dato.ESTANDAR.style.borderColor = "#4AF575";
+                        repuesta = 0;
+                    }
+                    if (repuesta == 0) {
+                        PESOENVASEESTANDAR = document.getElementById("PESOENVASEESTANDAR").value;
+                        CANTIDADENVASEDRECEPCION = document.getElementById("CANTIDADENVASEDRECEPCION").value;
+                        PESOPALLETRECEPCION = document.getElementById("PESOPALLETRECEPCION").value;
+                        KILOSBRUTODRECEPCION = document.getElementById("KILOSBRUTODRECEPCION").value;
+                        pesoenvase = PESOENVASEESTANDAR * CANTIDADENVASEDRECEPCION;
+                        pesoneto = KILOSBRUTODRECEPCION - PESOPALLETRECEPCION - pesoenvase;
+
+                    }
+                    //document.getElementById('val_kilosneto').innerHTML = pesoneto;
+                    document.getElementById('KILOSNETODRECEPCIONV').value = pesoneto;
+                }
+
                 function validacion() {
 
                     FOLIOMANUAL = document.getElementById('FOLIOMANUAL').checked;
@@ -844,7 +741,8 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Estandar </label>
-                                                <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
+                                                <input type="hidden" class="form-control" placeholder="PESOENVASEESTANDAR" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR; ?>" />
+                                                <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit();" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
                                                         <?php if ($ARRAYESTANDAR) {    ?>
@@ -925,7 +823,7 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Peso Pallet</label>
-                                                <input type="number" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCION" name="PESOPALLETRECEPCION" value="<?php echo $PESOPALLETRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCION" name="PESOPALLETRECEPCION" onchange="neto()" value="<?php echo $PESOPALLETRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_pesopallet" class="validacion"> </label>
 
                                             </div>
@@ -933,7 +831,7 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Cantidad Envase</label>
-                                                <input type="number" class="form-control" placeholder="Cantidad Envase" id="CANTIDADENVASEDRECEPCION" name="CANTIDADENVASEDRECEPCION" value="<?php echo $CANTIDADENVASEDRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" class="form-control" placeholder="Cantidad Envase" id="CANTIDADENVASEDRECEPCION" name="CANTIDADENVASEDRECEPCION" onchange="neto()" value="<?php echo $CANTIDADENVASEDRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_cantidadenvase" class="validacion"> </label>
 
                                             </div>
@@ -941,7 +839,7 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Kilo Bruto</label>
-                                                <input type="number" class="form-control" placeholder="Kilo Bruto" id="KILOSBRUTODRECEPCION" name="KILOSBRUTODRECEPCION" onchange="this.form.submit()" value="<?php echo $KILOSBRUTODRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" class="form-control" placeholder="Kilo Bruto" id="KILOSBRUTODRECEPCION" name="KILOSBRUTODRECEPCION" onchange="neto()" value="<?php echo $KILOSBRUTODRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_kilosbruto" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -951,7 +849,7 @@ if ($_POST) {
                                                 <input type="hidden" class="form-control" placeholder="KILOSPROMEDIODRECEPCION" id="KILOSPROMEDIODRECEPCION" name="KILOSPROMEDIODRECEPCION" value="<?php echo $KILOSPROMEDIODRECEPCION; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="KILOSNETODRECEPCION" id="KILOSNETODRECEPCION" name="KILOSNETODRECEPCION" value="<?php echo $KILOSNETODRECEPCION; ?>" />
                                                 <input type="number" class="form-control" placeholder="Kilo Neto" id="KILOSNETODRECEPCIONV" name="KILOSNETODRECEPCIONV" value="<?php echo $KILOSNETODRECEPCION; ?>" disabled style='background-color: #eeeeee;'" />
-                                        <label id=" val_kilosneto" class="validacion"> </label>
+                                                <label id=" val_kilosneto" class="validacion"> </label>
                                             </div>
                                         </div>
                                     </div>
@@ -970,7 +868,7 @@ if ($_POST) {
                                     <div class="box-footer">
                                         <div class="btn-group btn-block col-3" role="group" aria-label="Acciones generales">
                                             <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i> Cancelar
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
                                             <?php if ($OP == "") { ?>
                                                 <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
@@ -1066,7 +964,7 @@ if ($_POST) {
             //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($_REQUEST['ESTANDAR']);
             //OBTENCIONS DE LOS DATOS, OBTENIDOS EN LA CONSULTA
-            if ($KILOSBRUTODRECEPCION > 0 && $CANTIDADENVASEDRECEPCION > 0) {
+            if ($KILOSBRUTODRECEPCION > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
                 if ($ARRAYVERESTANDAR) {
                     $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                     if ($_REQUEST['PESOPALLETRECEPCION']) {
@@ -1075,10 +973,10 @@ if ($_POST) {
                         $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
                     }
 
-                    $PESOENVASEESTANDAR = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
+                    $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
 
                     //OPERACIONES DE OBTENER NETO Y PROMEDIO  DEL DETALLE
-                    $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASEESTANDAR - $PESOPALLETEESTANDAR;
+                    $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASE - $PESOPALLETEESTANDAR;
                     $KILOSPROMEDIODRECEPCION = $KILOSNETODRECEPCION / $_REQUEST['CANTIDADENVASEDRECEPCION'];
                 }
             }
@@ -1154,6 +1052,153 @@ if ($_POST) {
                     </script>';
             }
         }
+        if (isset($_REQUEST['EDITAR'])) {
+
+            $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
+            //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION
+            $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($_REQUEST['ESTANDAR']);
+            //OBTENCIONS DE LOS DATOS, OBTENIDOS EN LA CONSULTA
+            if ($KILOSBRUTODRECEPCION > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
+                if ($ARRAYVERESTANDAR) {
+                    $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                    if ($_REQUEST['PESOPALLETRECEPCION']) {
+                        $PESOPALLETEESTANDAR = $_REQUEST['PESOPALLETRECEPCION'];
+                    } else {
+                        $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                    }
+                    $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
+                    //OPERACIONES DE OBTENER NETO Y PROMEDIO  DEL DETALLE
+                    $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASE - $PESOPALLETEESTANDAR;
+                    $KILOSPROMEDIODRECEPCION = $KILOSNETODRECEPCION / $_REQUEST['CANTIDADENVASEDRECEPCION'];
+                }
+            }
+
+            $DRECEPCIONMP->__SET('FECHA_COSECHA_DRECEPCION', $_REQUEST['FECHACOSECHADRECEPCION']);
+            $DRECEPCIONMP->__SET('CANTIDAD_ENVASE_DRECEPCION', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+            $DRECEPCIONMP->__SET('KILOS_NETO_DRECEPCION', $KILOSNETODRECEPCION);
+            $DRECEPCIONMP->__SET('KILOS_BRUTO_DRECEPCION', $_REQUEST['KILOSBRUTODRECEPCION']);
+            $DRECEPCIONMP->__SET('KILOS_PROMEDIO_DRECEPCION', $KILOSPROMEDIODRECEPCION);
+            $DRECEPCIONMP->__SET('PESO_PALLET_DRECEPCION', $_REQUEST['PESOPALLETRECEPCION']);
+            $DRECEPCIONMP->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
+            $DRECEPCIONMP->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
+            $DRECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+            $DRECEPCIONMP->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+            $DRECEPCIONMP->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+            $DRECEPCIONMP->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+            $DRECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+            $DRECEPCIONMP->__SET('ID_DRECEPCION', $_REQUEST['ID']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $DRECEPCIONMP_ADO->actualizarDrecepcion($DRECEPCIONMP);
+
+
+            $ARRAYVERFOLIOEXISTENCIA = $EXIMATERIAPRIMA_ADO->buscarPorRecepcionNumeroFolio($_REQUEST['IDP'], $_REQUEST['NUMEROFOLIODRECEPCIONE']);
+            if ($ARRAYVERFOLIOEXISTENCIA) {
+
+                $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $_REQUEST['FECHACOSECHADRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $KILOSNETODRECEPCION);
+                $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $_REQUEST['KILOSBRUTODRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $KILOSPROMEDIODRECEPCION);
+                $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA', $_REQUEST['PESOPALLETRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
+                $EXIMATERIAPRIMA->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $EXIMATERIAPRIMA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIMATERIAPRIMA"]);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIMATERIAPRIMA_ADO->actualizarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
+            } else {
+                $NUMEROFOLIODRECEPCION = $_REQUEST["NUMEROFOLIODRECEPCIONE"];
+                $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
+                $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                    "_TIPO_FOLIO:MATERIA PRIMA_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
+                if ($_REQUEST["FOLIOMANUALE"] != "on") {
+                    $FOLIOMANUALR = "0";
+                }
+                if ($_REQUEST["FOLIOMANUALE"] == "on") {
+                    $FOLIOMANUALR = "1";
+                }
+                $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA', $NUMEROFOLIODRECEPCION);
+                $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $NUMEROFOLIODRECEPCION);
+                $EXIMATERIAPRIMA->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $_REQUEST['FECHACOSECHADRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $KILOSNETODRECEPCION);
+                $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $_REQUEST['KILOSBRUTODRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $KILOSPROMEDIODRECEPCION);
+                $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA', $_REQUEST['PESOPALLETRECEPCION']);
+                $EXIMATERIAPRIMA->__SET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASDIANAMICO);
+                $EXIMATERIAPRIMA->__SET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASESTACTICO);
+                $EXIMATERIAPRIMA->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
+                $EXIMATERIAPRIMA->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                $EXIMATERIAPRIMA->__SET('ID_FOLIO',  $_REQUEST['FOLIO']);
+                $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $EXIMATERIAPRIMA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
+            }
+            //REDIRECCIONAR A PAGINA registroRecepcionmp.php 
+            $_SESSION["parametro"] =  $_REQUEST['IDP'];
+            $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+            echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Fila registrada",
+                        text:"Se ha Modificado una fila en el detalle de recepcion",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a recepcion"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href ="' . $_REQUEST['URLO'] . '.php?op";
+                        }
+                    })
+                </script>';
+            //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+        }
+        if (isset($_REQUEST['ELIMINAR'])) {
+            $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODRECEPCIONE'];
+            $DRECEPCIONMP->__SET('ID_DRECEPCION', $_REQUEST['ID']);
+            $DRECEPCIONMP_ADO->deshabilitar($DRECEPCIONMP);
+
+
+            $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+            $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $FOLIOELIMINAR);
+            $EXIMATERIAPRIMA_ADO->deshabilitarRecepcion($EXIMATERIAPRIMA);
+
+            $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+            $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $FOLIOELIMINAR);
+            $EXIMATERIAPRIMA_ADO->eliminadoRecepcion($EXIMATERIAPRIMA);
+
+            $_SESSION["parametro"] =  $_REQUEST['IDP'];
+            $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+            echo '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Fila Eliminada",
+                        text:"Se ha Eliminado una fila en el detalle de recepcion",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a recepcion"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href ="' . $_REQUEST['URLO'] . '.php?op";
+                        }
+                    })
+                </script>';
+            //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+        }
+
         ?>
 </body>
 
