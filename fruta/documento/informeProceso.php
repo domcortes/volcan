@@ -561,7 +561,7 @@ $html = $html . '
           $NOMBRETCALIBRE = "Sin Datos";
         }
         if ($TOTALNETOSFDEXPORTACION > 0) {
-          $NETOCALIBRE = number_format(($r['NETO'] / $TOTALNETOSFDEXPORTACION) * 100, 2, ",", ".");
+          $NETOCALIBRE = number_format(($r['NETO'] / $TOTALNETOSF) * 100, 2, ",", ".");
         } else {
           $NETOCALIBRE = 0;
         }   

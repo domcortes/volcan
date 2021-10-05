@@ -527,7 +527,7 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
   if ($TOTALSALIDASF > 0) {
-    $NETOINDU = number_format(($r['KILOS_NETO_DRINDUSTRIAL'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+    $NETOINDU = number_format(($r['KILOS_NETO_DRINDUSTRIAL'] / $TOTALNETOSF) * 100, 2, ",", ".");
   } else {
     $NETOINDU = 0;
   }
