@@ -201,10 +201,10 @@ include_once "../config/datosUrLP.php";
                                                     <th>Tipo Reembalaje</th>
                                                     <th>Turno </th>
                                                     <th>Especie</th>
-                                                    <th>Variedad</th>
-                                                    <th>K. Neto Salida</th>
-                                                    <th>K. Exportacion </th>
-                                                    <th>K. Industrial</th>
+                                                    <th>Variedad</th>                                                    
+                                                    <th>Kg. Neto Entrada</th>
+                                                    <th>Kg. Neto Expo</th>
+                                                    <th>Kg. Industrial</th>
                                                     <th>CSG Productor</th>
                                                     <th>Nombre Productor</th>
                                                     <th>Fecha Ingreso</th>
@@ -362,15 +362,15 @@ include_once "../config/datosUrLP.php";
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Neto</div>
+                                                <div class="input-group-text">Kg. Neto Entrada</div>    
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Kg. Neto Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
                                     </div>
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Exportacion</div>
+                                                <div class="input-group-text">Kg. Neto Expo</div>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
                                         </div>
@@ -378,9 +378,9 @@ include_once "../config/datosUrLP.php";
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Industrial</div>
+                                                <div class="input-group-text">Kg. Industrial</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Kg. Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
