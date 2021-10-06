@@ -604,6 +604,10 @@ if (isset($_POST)) {
 
         $FECHAMODIFCIACIONDESPACHO = "" . $_REQUEST['FECHAMODIFCIACIONDESPACHO'];
     }
+    if (isset($_REQUEST['FECHADESPACHO'])) {
+
+        $FECHADESPACHO = "" . $_REQUEST['FECHADESPACHO'];
+    }
 
     if (isset($_REQUEST['NUMEROGUIADESPACHO'])) {
 
