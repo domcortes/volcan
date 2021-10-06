@@ -176,7 +176,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Administración</li>
                                         <li class="breadcrumb-item" aria-current="page">Orden Compra</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarOcompra.php"> Aprobar/Rechazar </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Aprobar/Rechazar </a>
                                         </li>
                                     </ol>
                                 </nav>

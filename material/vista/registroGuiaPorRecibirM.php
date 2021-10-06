@@ -202,7 +202,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php //include_once "../config/menu.php";
+        <?php include_once "../config/menu.php";
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

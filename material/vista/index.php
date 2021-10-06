@@ -121,6 +121,8 @@ include_once "../config/ValidardatosUrl.php";
                     </div>
                 </div>
                 <section class="content">
+
+
                 </section>
             </div>
         </div>
@@ -130,5 +132,4 @@ include_once "../config/ValidardatosUrl.php";
     </div>
     <?php include_once "../config/urlBase.php"; ?>
 </body>
-
 </html>

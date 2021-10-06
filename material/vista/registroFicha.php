@@ -580,9 +580,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Consumo</li>
                                             <li class="breadcrumb-item" aria-current="page">Ficha</li>
-                                            <li class="breadcrumb-item active" aria-current="page">
-                                                <a href="registroOcompra.php"> Registro Ficha </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Ficha </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -811,7 +809,7 @@ if (isset($_POST)) {
                                                                     <?php echo $CONTADOR;  ?>
                                                                 </a>
                                                             </td>
-                                                            
+
                                                             <td class="text-center">
                                                                 <form method="post" id="form1" name="form1">
                                                                     <input type="hidden" class="form-control" placeholder="ID DFICHA" id="IDD" name="IDD" value="<?php echo $s['ID_DFICHA']; ?>" />

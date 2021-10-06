@@ -634,10 +634,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Administración</li>
                                             <li class="breadcrumb-item" aria-current="page">Orden Compra</li>
-                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
-                                            <li class="breadcrumb-item active" aria-current="page">
-                                                <a href="registroOcompra.php"> Registro Orden </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Orden </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -909,7 +906,7 @@ if (isset($_POST)) {
                                                         ?>
                                                         <tr>
 
-                                                        
+
                                                         <tr>
                                                             <td class="text-center">
                                                                 <form method="post" id="form1" name="form1">
@@ -959,8 +956,8 @@ if (isset($_POST)) {
                                             <input type="hidden" class="form-control" placeholder="URL OCOMPRA" id="URLP" name="URLP" value="registroOcompra" />
                                             <input type="hidden" class="form-control" placeholder="URL DOCOMPRA" id="URLD" name="URLD" value="registroDocompra" />
                                             <button type="submit" class=" btn btn-block btn-success" data-toggle="tooltip" title="Agregar Detalle" id="CREARDURL" name="CREARDURL" <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                    echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                } ?>>
+                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                    } ?>>
                                                 Agregar Detalle
                                             </button>
                                         </div>
