@@ -199,8 +199,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Peso neto envase </th>
                                                         <th>Cantidad Envase</th>
                                                         <th>Kilos Neto</th>
-                                                        <th>Empresa</th>
-                                                        <th>Temporada</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -305,9 +303,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
                                                             <td><?php echo $PESONETOESTANDAR; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
-                                                            <td><?php echo $r['NETO']; ?></td>
-                                                            <td><?php echo $NOMBREEMPRESA; ?></td>
-                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $r['NETO']; ?></td>4
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
