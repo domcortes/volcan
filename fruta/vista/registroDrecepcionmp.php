@@ -848,7 +848,7 @@ if ($_POST) {
                                                 <label>Kilo Neto</label>
                                                 <input type="hidden" class="form-control" placeholder="KILOSPROMEDIODRECEPCION" id="KILOSPROMEDIODRECEPCION" name="KILOSPROMEDIODRECEPCION" value="<?php echo $KILOSPROMEDIODRECEPCION; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="KILOSNETODRECEPCION" id="KILOSNETODRECEPCION" name="KILOSNETODRECEPCION" value="<?php echo $KILOSNETODRECEPCION; ?>" />
-                                                <input type="number" class="form-control" placeholder="Kilo Neto" id="KILOSNETODRECEPCIONV" name="KILOSNETODRECEPCIONV" value="<?php echo number_format($KILOSNETODRECEPCION, 2, ",", "."); ?>" disabled style='background-color: #eeeeee;'" />
+                                                <input type="text" class="form-control" placeholder="Kilo Neto" id="KILOSNETODRECEPCIONV" name="KILOSNETODRECEPCIONV" value="<?php echo number_format($KILOSNETODRECEPCION, 2, ",", "."); ?>" disabled style='background-color: #eeeeee;'" />
                                                 <label id=" val_kilosneto" class="validacion"> </label>
                                             </div>
                                         </div>
