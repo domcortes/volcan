@@ -248,14 +248,10 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Desacho</th>
                                                     <th>Número Guía Despacho</th>
                                                     <th>Tipo Despacho</th>
-                                                    <th>Cantidad Envase</th>
-                                                    <th>Kilos Neto</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -378,7 +374,6 @@ include_once "../config/datosUrLP.php";
 
                                                         ?>
                                                         <tr class="text-left">
-
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
@@ -399,15 +394,10 @@ include_once "../config/datosUrLP.php";
                                                             <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
-
-                                                            <td><?php echo $r['ENVASE']; ?></td>
-                                                            <td><?php echo $r['NETO']; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                             <td><?php echo $r['PATENTE_CARRO']; ?></td>
-                                                            <td><?php echo $r['INGRESO']; ?></td>
-                                                            <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
