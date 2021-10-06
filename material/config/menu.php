@@ -56,10 +56,12 @@
                   echo $ARRAYEMPRESAS[0]['NOMBRE_EMPRESA'];
                   $EMPRESA = $ARRAYEMPRESAS[0]['ID_EMPRESA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -70,10 +72,12 @@
                   echo $ARRAYPLANTAS[0]['NOMBRE_PLANTA'];
                   $PLANTA = $ARRAYPLANTAS[0]['ID_PLANTA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -84,10 +88,12 @@
                   echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
                   $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
             </div>
@@ -206,6 +212,7 @@
                       }
                     } else {
                       session_destroy();
+                      echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                     }
                     ?>
                   </small>
@@ -377,6 +384,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroRecepcionm.php">Registro Recepción<i class="ti-more"></i></a></li>
               <li><a href="listarRecepcionm.php"> Agrupado Recepción <i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcionmDetallado.php"> Detallado Recepción <i class="ti-more"></i></a></li>
               <li><a href="listarRecepcionmInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
             </ul>
           </li>
@@ -389,6 +397,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroRecepcione.php">Registro Recepción<i class="ti-more"></i></a></li>
               <li><a href="listarRecepcione.php"> Agrupado Recepción<i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcioneDetallado.php"> Detallado Recepción <i class="ti-more"></i></a></li>
               <li><a href="listarRecepcioneInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
             </ul>
           </li>
@@ -447,6 +456,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroOcompra.php">Registro Orden<i class="ti-more"></i></a></li>
               <li><a href="listarOcompra.php"> Agrupado Orden<i class="ti-more"></i></a></li>
+              <li><a href="listarOcompraDetallado.php"> Detallado Orden<i class="ti-more"></i></a></li>
               <li><a href="listarOcompraAR.php"> Aprobar/Rechazar<i class="ti-more"></i></a></li>
             </ul>
           </li>
