@@ -376,30 +376,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
 
       </li>
 
-      <li class="header">Modulo</li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/layout.svg" class="svg-icon" alt="">
-          <span>Ejemplo</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Ejemplo
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#">Registro Ejemplo <i class="ti-more"></i></a></li>
-              <li><a href="#"> Agrupado Ejemplo<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li><a href="#">Ejemplo<i class="ti-more"></i></a></li>
-        </ul>
-      </li>  
+      <li class="header">Modulo</li> 
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/reports.svg" class="svg-icon" alt="">
@@ -446,7 +423,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
       </li>
       <li class="treeview">
         <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/exchange.svg" class="svg-icon" alt="">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
           <span> Informes</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
