@@ -887,21 +887,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
 
         </ul>
       </li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/members.svg" class="svg-icon" alt="">
-          <span>Usuario</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="registroTusuario.php"><i class="ti-more"></i>Tipo Usuario</a></li>
-          <li><a href="registroUsuario.php"><i class="ti-more"></i>Usuario</a></li>
-          <li><a href="registroPtusuario.php"><i class="ti-more"></i>Privilegio Tipo Usuario</a></li>
-          <li><a href="listarAusuario.php"><i class="ti-more"></i>Actividad Usuario</a></li>
-        </ul>
-      </li>
     </ul>
   </section>
 </aside>
