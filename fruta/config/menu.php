@@ -589,26 +589,35 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>
           <li class="treeview">
-            <a href="#">Despacho P. Terminado
+            <a href="#">Despacho
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroDespachopt.php">Registro Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachopt.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+              <li class="treeview">
+                <a href="#">Despacho P. Terminado
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroDespachopt.php">Registro Despacho<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachopt.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Despacho Exportacion
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroDespachoEX.php">Registro Despacho<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachoEX.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>              
               <li><a href="listarDespachoptDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Despacho Exportacion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroDespachoEX.php">Registro Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoEX.php">Agrupado Despacho<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
