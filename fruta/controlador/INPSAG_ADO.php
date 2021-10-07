@@ -618,7 +618,7 @@ class INPSAG_ADO
     //OTRAS FUNCIONES
 
     //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
-    public function obtenerId($FECHAINPSAG, $OBSERVACIONINPSAG,  $EMPRESA, $PLANTA, $TEMPORADA)
+    public function obtenerId($FECHAINPSAG, $OBSERVACIONINPSAG,  $PLANTA, $TEMPORADA)
     {
 
         try {
@@ -628,8 +628,7 @@ class INPSAG_ADO
                                              FECHA_INPSAG LIKE '" . $FECHAINPSAG . "' 
                                              AND OBSERVACION_INPSAG LIKE '" . $OBSERVACIONINPSAG . "' 
                                              AND DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
-                                             AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')    
-                                             AND ID_EMPRESA = '" . $EMPRESA . "'                                      
+                                             AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')                                                                                    
                                              AND ID_PLANTA = '" . $PLANTA . "'                                      
                                              AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                              ORDER BY ID_INPSAG DESC

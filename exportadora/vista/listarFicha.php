@@ -160,7 +160,7 @@ include_once "../config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Consumo</li>
                                         <li class="breadcrumb-item" aria-current="page">Ficha</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarOcompra.php"> Agrupado Ficha </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Ficha </a>
                                         </li>
                                     </ol>
                                 </nav>

@@ -527,7 +527,7 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVEINDUSTRIALID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
   if ($TOTALSALIDASF > 0) {
-    $NETOINDU = number_format(($r['KILOS_NETO_DRINDUSTRIAL'] / $TOTALSALIDASF) * 100, 2, ",", ".");
+    $NETOINDU = number_format(($r['KILOS_NETO_DRINDUSTRIAL'] / $TOTALNETOSF) * 100, 2, ",", ".");
   } else {
     $NETOINDU = 0;
   }
@@ -588,14 +588,14 @@ $html = $html . '
 </div>
 
   <div id="client">
+    <div class="address"><b>DIFERENCIA: </b></div>
+    <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
+    <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
+    <div class="address">DIFERENCIA: ' . number_format($TOTAL2, 2, ",", ".") . '</div>
     <div class="address"><b>PORCENTAJES: </b></div>
     <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
     <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
     <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
-    <div class="address"><b>DIFERENCIA: </b></div>
-    <div class="address">KILOS NETO INGRESO.:  ' . $TOTALNETO . '</div>
-    <div class="address">KILOS NETO SALIDA: ' . $TOTALSALIDA . ' </div>
-    <div class="address">DIFERENCIA: ' . $TOTAL2 . '</div>
   </div>
 </div>
 

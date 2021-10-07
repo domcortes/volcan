@@ -56,10 +56,12 @@
                   echo $ARRAYEMPRESAS[0]['NOMBRE_EMPRESA'];
                   $EMPRESA = $ARRAYEMPRESAS[0]['ID_EMPRESA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -70,10 +72,12 @@
                   echo $ARRAYPLANTAS[0]['NOMBRE_PLANTA'];
                   $PLANTA = $ARRAYPLANTAS[0]['ID_PLANTA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -84,10 +88,12 @@
                   echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
                   $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
             </div>
@@ -206,6 +212,7 @@
                       }
                     } else {
                       session_destroy();
+                      echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                     }
                     ?>
                   </small>
@@ -377,6 +384,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroRecepcionm.php">Registro Recepción<i class="ti-more"></i></a></li>
               <li><a href="listarRecepcionm.php"> Agrupado Recepción <i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcionmDetallado.php"> Detallado Recepción <i class="ti-more"></i></a></li>
               <li><a href="listarRecepcionmInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
             </ul>
           </li>
@@ -389,6 +397,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroRecepcione.php">Registro Recepción<i class="ti-more"></i></a></li>
               <li><a href="listarRecepcione.php"> Agrupado Recepción<i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcioneDetallado.php"> Detallado Recepción <i class="ti-more"></i></a></li>
               <li><a href="listarRecepcioneInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
             </ul>
           </li>
@@ -404,31 +413,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>
           <li><a href="listarInventariomRecepcion.php">Inventario Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventarioeRecepcion.php">Envases<i class="ti-more"></i></a></li>
+          <li><a href="listarInventarioeRecepcion.php">Inventario Envases<i class="ti-more"></i></a></li>
         </ul>
-      </li>      
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/reports.svg" class="svg-icon" alt="">
-          <span>Consumo</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Ficha Consumo
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroFicha.php">Registro Ficha </a></li>
-              <li><a href="listarFicha.php"> Agrupado Ficha</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>      
+      </li>        
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/invoice.svg" class="svg-icon" alt="">
@@ -447,11 +434,12 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroOcompra.php">Registro Orden<i class="ti-more"></i></a></li>
               <li><a href="listarOcompra.php"> Agrupado Orden<i class="ti-more"></i></a></li>
+              <li><a href="listarOcompraDetallado.php"> Detallado Orden<i class="ti-more"></i></a></li>
               <li><a href="listarOcompraAR.php"> Aprobar/Rechazar<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li><a href="listarInventariomOcompra.php">Inventario Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventarioeOcompra.php">Envases<i class="ti-more"></i></a></li>
+          <li><a href="listarInventarioeOcompra.php">Inventario Envases<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -472,9 +460,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             <ul class="treeview-menu">
               <li><a href="registroDespachom.php">Registro Despacho<i class="ti-more"></i></a></li>
               <li><a href="listarDespachom.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+              <li><a href="listarDespachomDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
             </ul>
           </li>
-
           <li class="treeview">
             <a href="#">Envases
               <span class="pull-left-container">
@@ -482,15 +470,13 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-
               <li><a href="registroDespachoe.php">Registro Despacho<i class="ti-more"></i></a></li>
               <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
-
+              <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
             </ul>
           </li>
-
           <li><a href="listarInventariomDespacho.php">Inventario Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventarioeDespacho.php">Envases<i class="ti-more"></i></a></li>
+          <li><a href="listarInventarioeDespacho.php">Inventario Envases<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -604,20 +590,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>
           <li class="treeview">
-            <a href="#">Usuario
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#">Privilegio</a></li>
-              <!--<li><a href="#">Chat</a></li>-->
-              <li><a href="registroTusuario.php">Tipo Usuario<i class="ti-more"></i></a></li>
-              <li><a href="registroUsuario.php">Usuario<i class="ti-more"></i></a></li>
-              <li><a href="#">Historial<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
             <a href="#">Otros
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right"></i>
@@ -631,7 +603,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </li>
         </ul>
       </li>
-      <li><a href="#"></a></li>
     </ul>
   </section>
 </aside>

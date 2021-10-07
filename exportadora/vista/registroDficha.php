@@ -45,7 +45,7 @@ $CONSUMOPORENVASE = 0;
 $CONSUMOPORPALLET = 0;
 $PALLETCARGA = 0;
 $FACTORCONSUMO = 0;
-$ENVASEESTANDAR = "";
+$ENVASEESTANDAR = 0;
 $DESCRIPCION = "";
 
 
@@ -78,7 +78,7 @@ $ARRAYVERTUMEDIDA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-$ARRAYPRODUCTO = $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
+$ARRAYPRODUCTO = $PRODUCTO_ADO->listarProductoPorEmpresaPorTemporadaCBX($EMPRESAS, $TEMPORADAS);
 include_once "../config/validarDatosUrlD.php";
 
 
@@ -316,9 +316,11 @@ if (isset($_POST)) {
         }
     }
     if (isset($_REQUEST['FACTORCONSUMO'])) {
-        $FACTORCONSUMO = "" . $_REQUEST['FACTORCONSUMO'];
-        $CONSUMOPORENVASE = $FACTORCONSUMO * 1;
-        $CONSUMOPORPALLET = $CONSUMOPORENVASE * $ENVASEESTANDAR;
+        $FACTORCONSUMO = "" . $_REQUEST['FACTORCONSUMO'];  
+        if($FACTORCONSUMO>0){      
+            $CONSUMOPORENVASE = $FACTORCONSUMO * 1;
+            $CONSUMOPORPALLET = $CONSUMOPORENVASE * $ENVASEESTANDAR;
+        }
     }
     if (isset($_REQUEST['ENVASEESTANDAR'])) {
         $ENVASEESTANDAR = "" . $_REQUEST['ENVASEESTANDAR'];
@@ -533,15 +535,15 @@ if (isset($_POST)) {
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label>Consumo Por Envase </label>
+                                                <label>Consumo Por Caja </label>
                                                 <input type="hidden" class="form-control" placeholder="CONSUMOPORENVASE" id="CONSUMOPORENVASE" name="CONSUMOPORENVASE" value="<?php echo $CONSUMOPORENVASE; ?>" />
-                                                <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Envase" id="CONSUMOPORENVASEV" name="CONSUMOPORENVASEV" value="<?php echo $CONSUMOPORENVASE; ?>" disabled />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Caja" id="CONSUMOPORENVASEV" name="CONSUMOPORENVASEV" value="<?php echo $CONSUMOPORENVASE; ?>" disabled />
                                                 <label id="val_consumocaja" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label>Envase Estandar</label>
+                                                <label>Envase  Estandar</label>
                                                 <input type="hidden" class="form-control" placeholder="ENVASEESTANDAR" id="ENVASEESTANDAR" name="ENVASEESTANDAR" value="<?php echo $ENVASEESTANDAR; ?>" />
                                                 <input type="number" step="0.01" class="form-control" placeholder="Envase Estandar" id="ENVASEESTANDARV" name="ENVASEESTANDARV" value="<?php echo $ENVASEESTANDAR; ?>" disabled />
                                                 <label id="val_envaseestandar" class="validacion"> </label>

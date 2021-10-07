@@ -275,7 +275,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
                 $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-                $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+                $ARRAYVERESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
                 if ($ARRAYTETIQUETA) {
                     $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
@@ -287,7 +287,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
                 }
                 if ($ARRAYVERESTANDARCOMERCIAL) {
-                    $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                    $NOMBREESTANDARCOMERCIAL = $ARRAYVERESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
                 }
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
@@ -330,7 +330,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
                 $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-                $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+                $ARRAYVERESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
                 if ($ARRAYTETIQUETA) {
                     $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
@@ -342,7 +342,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
                 }
                 if ($ARRAYESTANDARCOMERCIAL) {
-                    $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                    $NOMBREESTANDARCOMERCIAL = $ARRAYVERESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
                 }
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
@@ -385,7 +385,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
                 $ARRAYMERCADO = $MERCADO_ADO->verMercado($MERCADO);
                 $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-                $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+                $ARRAYVERESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
                 if ($ARRAYTETIQUETA) {
                     $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
@@ -397,7 +397,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
                 }
                 if ($ARRAYESTANDARCOMERCIAL) {
-                    $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+                    $NOMBREESTANDARCOMERCIAL = $ARRAYVERESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
                 }
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
@@ -424,7 +424,7 @@ if (isset($_POST)) {
             $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
             $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
             $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-            $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
+            $ARRAYVERESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
 
             if ($ARRAYTETIQUETA) {
                 $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
@@ -435,8 +435,8 @@ if (isset($_POST)) {
             if ($ARRAYESPECIES) {
                 $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
             }
-            if ($ARRAYESTANDARCOMERCIAL) {
-                $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
+            if ($ARRAYVERESTANDARCOMERCIAL) {
+                $NOMBREESTANDARCOMERCIAL = $ARRAYVERESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
             }
         }
     }
@@ -467,7 +467,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title>Registro Orden </title>
+    <title>Registro Ficha </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -580,9 +580,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Consumo</li>
                                             <li class="breadcrumb-item" aria-current="page">Ficha</li>
-                                            <li class="breadcrumb-item active" aria-current="page">
-                                                <a href="registroOcompra.php"> Registro Ficha </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Ficha </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -701,15 +699,9 @@ if (isset($_POST)) {
                                             <label id="val_especies" class="validacion"> </label>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <label>Estandar Comercial</label>
-                                            <input type="hidden" class="form-control" placeholder="ESTANDARCOMERCIAL" id="ESTANDARCOMERCIAL" name="ESTANDARCOMERCIAL" value="<?php echo $ESTANDARCOMERCIAL; ?>" />
-                                            <input type="text" class="form-control" placeholder="Estandar Comercial" id="ESTANDARCOMERCIALV" name="ESTANDARCOMERCIALV" value="<?php echo $NOMBREESTANDARCOMERCIAL; ?>" disabled />
-                                            <label id="val_estandarcomercial" class="validacion"> </label>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Tipo Etiqueta</label>
                                             <input type="hidden" class="form-control" placeholder="TETIQUETA" id="TETIQUETA" name="TETIQUETA" value="<?php echo $TETIQUETA; ?>" />
-                                            <input type="text" class="form-control" placeholder="Tipo Etiqueta" id="TETIQUETAV" name="TETIQUETAV" value="<?php echo $NOMBRETEMBALAJE; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Tipo Etiqueta" id="TETIQUETAV" name="TETIQUETAV" value="<?php echo $NOMBRETETIQUETA; ?>" disabled />
                                             <label id="val_tetiqueta" class="validacion"> </label>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -811,7 +803,7 @@ if (isset($_POST)) {
                                                                     <?php echo $CONTADOR;  ?>
                                                                 </a>
                                                             </td>
-                                                            
+
                                                             <td class="text-center">
                                                                 <form method="post" id="form1" name="form1">
                                                                     <input type="hidden" class="form-control" placeholder="ID DFICHA" id="IDD" name="IDD" value="<?php echo $s['ID_DFICHA']; ?>" />
@@ -890,9 +882,7 @@ if (isset($_POST)) {
                                             <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLP" name="URLP" value="registroFicha" />
                                             <input type="hidden" class="form-control" placeholder="URL DFICHA" id="URLD" name="URLD" value="registroDficha" />
-                                            <button type="submit" class=" btn btn-block btn-success " ata-toggle="tooltip" title="Agregar Detalle" id="CREARDURL" name="CREARDURL" <?php if ($ESTADO == 0) {
-                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                    } ?>>
+                                            <button type="submit" class=" btn btn-block btn-success " ata-toggle="tooltip" title="Agregar Detalle" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?>>
                                                 Agregar Detalle
                                             </button>
                                         </div>

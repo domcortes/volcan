@@ -675,7 +675,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title>Registro Despacho PT</title>
+    <title>Registro Despacho Materiales</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -967,8 +967,8 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Despacho</li>
-                                            <li class="breadcrumb-item" aria-current="page">Depsacho Materiales </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciónes Registro Despacho </a>
+                                            <li class="breadcrumb-item" aria-current="page">Materiales </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Despacho </a>
                                             </li>
                                         </ol>
                                     </nav>

@@ -162,7 +162,7 @@ include_once "../config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Administración</li>
                                         <li class="breadcrumb-item" aria-current="page">Orden Compra</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarOcompra.php"> Agrupado Orden </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Orden </a>
                                         </li>
                                     </ol>
                                 </nav>

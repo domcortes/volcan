@@ -77,7 +77,7 @@ if ($ARRAYRECEPCION) {
 	}
 	if ($TIPORECEPCION == "2") {
 		$NOMBRETRECEPCION = "Desde Productor";
-		$ARRAYPRODUCTOR = $PRODUCTO_ADO->verProducto($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
+		$ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
 		$NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
 	}
 	if ($TIPORECEPCION == "3") {
@@ -172,18 +172,26 @@ $html = '
 <title>Tarja Recepcion Granel</title>
 
 <style type="text/css">	
+	div
 	{
-		padding: 0px;
+		padding:0px;
 		border: 0px;
 		margin: 0px;
 	}
 	div.contenido
 	{
-		width: calc(8cm - 22px);
+		width: 100%;
 		height: auto;
-		border: solid 1px rgba(0,0,0,0.5);
-		margin: 0 auto;
-		padding: 2px 0px;
+		border-top: solid 1px rgba(0,0,0,0.5);
+		border-bottom: solid 1px rgba(0,0,0,0.5);
+		border-left: solid 1px rgba(0,0,0,0.5);
+		border-right: solid 1px rgba(0,0,0,0.5);
+		
+		padding-top: 0px;
+		padding-bottom: 0px;
+		padding-left: 0px;
+		padding-right: 0px;
+
 		overflow: hidden;
 	}
 	div.contenido div.titulo

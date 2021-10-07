@@ -928,8 +928,8 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepción Materiales</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroRecepcionm.php"> Registro Recepción </a>
+                                            <li class="breadcrumb-item" aria-current="page">Materiales</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Recepción </a>
                                             </li>
                                         </ol>
                                     </nav>

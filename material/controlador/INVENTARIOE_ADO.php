@@ -750,7 +750,7 @@ class INVENTARIOE_ADO
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
                                                 FORMAT(IFNULL(CANTIDAD_ENTRADA,0),0,'de_DE') AS 'CANTIDAD', 
-                                                FORMAT(IFNULL(VALOR_UNITARIO,0),0,'de_DE') AS 'VALOR' , 
+                                                FORMAT(IFNULL(VALOR_UNITARIO,0),5,'de_DE') AS 'VALOR' , 
                                                 FORMAT(IFNULL(VALOR_UNITARIO * CANTIDAD_ENTRADA,0),0,'de_DE') AS 'TOTAL' 
                                              FROM material_inventarioe
                                                 WHERE ESTADO_REGISTRO = 1 

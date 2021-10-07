@@ -665,7 +665,7 @@ class ICARGA_ADO
             die($e->getMessage());
         }
     }
-    public function listarIcargaConfirmadoCBX()
+    public function listarIcargaConfirmadoCBX($IDEMPRESA, $IDTEMPORADA)
     {
         try {
 
@@ -673,7 +673,9 @@ class ICARGA_ADO
                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
                                             FROM fruta_icarga  
                                             WHERE ESTADO_REGISTRO = 1
-                                            AND  ESTADO_ICARGA = 2; ");
+                                            AND  ESTADO_ICARGA = 2
+                                            AND ID_EMPRESA = '" . $IDEMPRESA . "'
+                                            AND ID_TEMPORADA = '" . $IDTEMPORADA . "' ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -686,7 +688,7 @@ class ICARGA_ADO
             die($e->getMessage());
         }
     }
-    public function listarIcargaTomadoCBX()
+    public function listarIcargaTomadoCBX($IDEMPRESA, $IDTEMPORADA)
     {
         try {
 
@@ -694,7 +696,9 @@ class ICARGA_ADO
                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
                                             FROM fruta_icarga  
                                             WHERE ESTADO_REGISTRO = 1
-                                            AND  ESTADO_ICARGA > 2; ");
+                                            AND  ESTADO_ICARGA > 2 
+                                            AND ID_EMPRESA = '" . $IDEMPRESA . "'
+                                            AND ID_TEMPORADA = '" . $IDTEMPORADA . "' ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -748,6 +752,7 @@ class ICARGA_ADO
         try {
             $query = "
 		UPDATE fruta_icarga SET			
+            MODIFICACION = SYSDATE(),     
             ESTADO_REGISTRO = 0
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -767,7 +772,8 @@ class ICARGA_ADO
 
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET		
+            MODIFICACION = SYSDATE(),     	
             ESTADO_REGISTRO = 1
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -786,7 +792,8 @@ class ICARGA_ADO
 
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET	
+            MODIFICACION = SYSDATE(),     		
             ESTADO = 1
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -806,7 +813,8 @@ class ICARGA_ADO
 
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET	
+            MODIFICACION = SYSDATE(),     		
             ESTADO = 0
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -828,7 +836,8 @@ class ICARGA_ADO
 
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET	
+            MODIFICACION = SYSDATE(),     		
             ESTADO_ICARGA = 0
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -847,7 +856,8 @@ class ICARGA_ADO
 
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET		
+            MODIFICACION = SYSDATE(),     	
             ESTADO_ICARGA = 1
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -866,7 +876,8 @@ class ICARGA_ADO
     {
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET
+            MODIFICACION = SYSDATE(),     			
             ESTADO_ICARGA = 2
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -885,7 +896,8 @@ class ICARGA_ADO
     {
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET	
+            MODIFICACION = SYSDATE(),     		
             ESTADO_ICARGA = 3
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -904,7 +916,8 @@ class ICARGA_ADO
     {
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET	
+            MODIFICACION = SYSDATE(),     		
             ESTADO_ICARGA = 4
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)
@@ -923,7 +936,8 @@ class ICARGA_ADO
     {
         try {
             $query = "
-		UPDATE fruta_icarga SET			
+		UPDATE fruta_icarga SET	
+            MODIFICACION = SYSDATE(),     		
             ESTADO_ICARGA = 5
 		WHERE ID_ICARGA= ?;";
             $this->conexion->prepare($query)

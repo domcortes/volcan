@@ -53,10 +53,12 @@
                   echo $ARRAYEMPRESAS[0]['NOMBRE_EMPRESA'];
                   $EMPRESA = $ARRAYEMPRESAS[0]['ID_EMPRESA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -67,10 +69,12 @@
                   echo $ARRAYPLANTAS[0]['NOMBRE_PLANTA'];
                   $PLANTA = $ARRAYPLANTAS[0]['ID_PLANTA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -81,10 +85,12 @@
                   echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
                   $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
                 } else {
-                  echo "-";
+                  session_destroy();
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                 }
               } else {
                 session_destroy();
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
             </div>
@@ -208,6 +214,7 @@
                       }
                     } else {
                       session_destroy();
+                      echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
                     }
                     ?>
                   </small>
@@ -472,8 +479,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroProceso.php"><i class="ti-more"></i>Registro Proceso </a></li>
-              <li><a href="listarProceso.php"><i class="ti-more"></i>Agrupado Proceso</a></li>
+              <li><a href="registroProceso.php">Registro Proceso<i class="ti-more"></i></a></li>
+              <li><a href="listarProceso.php">Agrupado Proceso<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -483,50 +490,13 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroReembalajeEx.php"><i class="ti-more"></i> Producto Terminado </a></li>
-              <li><a href="listarReembalajeEx.php"><i class="ti-more"></i>Agrupado Reembalaje</a></li>
+              <li><a href="registroReembalajeEx.php"> Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="listarReembalajeEx.php">Agrupado Reembalaje<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <!--
-          <li class="treeview">
-            <a href="#"> Repaletizaje
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li class="treeview">
-                <a href="#"> Producto Terminado
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroRepaletizajePTProceso.php"><i class="ti-more"></i> Registro Repaletizaje</a></li>
-                  <li><a href="listarRepaletizajePTProceso.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
-                </ul>
-              </li>
-            </ul>-->
-          <!--
-            <ul class="treeview-menu">
-              <li class="treeview">
-                <a href="#"> Materia Prima
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="registroRepaletizajeMp.php"><i class="ti-more"></i> Registro Repaletizaje</a></li>
-                  <li><a href="#"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-                -->
-
-          <li><a href="listarExiexportacion.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
-          <li><a href="listarEximateriaprimaProceso.php"><i class="ti-more"></i>Existencia Materia Prima</a></li>
-          <li><a href="listarExiindustrialProceso.php"><i class="ti-more"></i>Existencia Industrial</a></li>
+          <li><a href="listarExiexportacion.php">Existencia P. Terminado<i class="ti-more"></i></a></li>
+          <li><a href="listarEximateriaprimaProceso.php">Existencia Materia Prima<i class="ti-more"></i></a></li>
+          <li><a href="listarExiindustrialProceso.php">Existencia Industrial<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -545,11 +515,11 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroICarga.php">Registro Inst. Carga</a></li>
-              <li><a href="listarICarga.php">Agrupado Inst. Carga</a></li>
+              <li><a href="registroICarga.php">Registro Inst. Carga<i class="ti-more"></i></a></li>
+              <li><a href="listarICarga.php">Agrupado Inst. Carga<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarExiexportacionLogistica.php"><i class="ti-more"></i> Existencia P. Terminado</a></li>
+          <li><a href="listarExiexportacionLogistica.php">Existencia P. Terminado<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -568,11 +538,11 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroInpsag.php"><i class="ti-more"></i>Registro Inspección </a></li>
-              <li><a href="listarInpsag.php"><i class="ti-more"></i>Agrupado Inspección </a></li>
+              <li><a href="registroInpsag.php">Registro Inspección<i class="ti-more"></i></a></li>
+              <li><a href="listarInpsag.php">Agrupado Inspección<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarExiexportacionOSAG.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
+          <li><a href="listarExiexportacionOSAG.php">Existencia P. Terminado<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -591,10 +561,10 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroRecepcionpt.php"><i class="ti-more"></i>Registro Recepción</a></li>
-              <li><a href="listarRecepcionpt.php"><i class="ti-more"></i>Agrupado Recepción</a></li>
+              <li><a href="registroRecepcionpt.php">Registro Recepción<i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcionpt.php">Agrupado Recepción<i class="ti-more"></i></a></li>
               <li><a href="listarRecepcionptDetallado.php">Detallado Recepción<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionptInterplanta.php"><i class="ti-more"></i>Agrupado Interplanta</a></li>
+              <li><a href="listarRecepcionptInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -604,7 +574,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirPT.php"><i class="ti-more"></i> Producto Terminado</a></li>
+              <li><a href="registroGuiaPorRecibirPT.php"> Producto Terminado<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -614,31 +584,40 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroRepaletizajePTFrigorifico.php"><i class="ti-more"></i> Producto Terminado</a></li>
-              <li><a href="listarRepaletizajePTFrigorifico.php"><i class="ti-more"></i>Agrupado Repaletizaje</a></li>
+              <li><a href="registroRepaletizajePTFrigorifico.php"> Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="listarRepaletizajePTFrigorifico.php">Agrupado Repaletizaje<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
-            <a href="#">Despacho P. Terminado
+            <a href="#">Despacho
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroDespachopt.php"><i class="ti-more"></i>Registro Despacho</a></li>
-              <li><a href="listarDespachopt.php"><i class="ti-more"></i>Agrupado Despacho</a></li>
+              <li class="treeview">
+                <a href="#">Despacho P. Terminado
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroDespachopt.php">Registro Despacho<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachopt.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Despacho Exportacion
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="registroDespachoEX.php">Registro Despacho<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachoEX.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>              
               <li><a href="listarDespachoptDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Despacho Exportacion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroDespachoEX.php"><i class="ti-more"></i>Registro Despacho</a></li>
-              <li><a href="listarDespachoEX.php"><i class="ti-more"></i>Agrupado Despacho</a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -648,13 +627,13 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroPcdespacho.php"><i class="ti-more"></i> Registro PC </a></li>
-              <li><a href="listarPcdespacho.php"><i class="ti-more"></i>Agrupado PC</a></li>
+              <li><a href="registroPcdespacho.php"> Registro PC<i class="ti-more"></i></a></li>
+              <li><a href="listarPcdespacho.php">Agrupado PC<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarExiexportacionFrigorifico.php"><i class="ti-more"></i>Existencia P. Terminado</a></li>
-          <li><a href="listarExiexportacionDespachadoFrigorifico.php"><i class="ti-more"></i>Despacho P. Terminado</a></li>
-          <li><a href="registroCambiarFolioPT.php"><i class="ti-more"></i>Cambiar Folio P. Terminado</a></li>
+          <li><a href="listarExiexportacionFrigorifico.php">Existencia P. Terminado<i class="ti-more"></i></a></li>
+          <li><a href="listarExiexportacionDespachadoFrigorifico.php">Despacho P. Terminado<i class="ti-more"></i></a></li>
+          <li><a href="registroCambiarFolioPT.php">Cambiar Folio P. Terminado<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -666,9 +645,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="listarHEximateriaprima.php"><i class="ti-more"></i> Materia Prima</a></li>
-          <li><a href="listarHExiexportacion.php"><i class="ti-more"></i> Producto Terminado</a></li>
-          <li><a href="listarHExiindustrial.php"><i class="ti-more"></i>Producto Industrial</a></li>
+          <li><a href="listarHEximateriaprima.php"> Materia Prima<i class="ti-more"></i></a></li>
+          <li><a href="listarHExiexportacion.php"> Producto Terminado<i class="ti-more"></i></a></li>
+          <li><a href="listarHExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -680,7 +659,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="listarAProceso.php"><i class="ti-more"></i> Proceso</a></li>
+          <li><a href="listarAProceso.php">Proceso<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="header">Configuraciones</li>
@@ -906,21 +885,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>
 
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/members.svg" class="svg-icon" alt="">
-          <span>Usuario</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="registroTusuario.php"><i class="ti-more"></i>Tipo Usuario</a></li>
-          <li><a href="registroUsuario.php"><i class="ti-more"></i>Usuario</a></li>
-          <li><a href="registroPtusuario.php"><i class="ti-more"></i>Privilegio Tipo Usuario</a></li>
-          <li><a href="listarAusuario.php"><i class="ti-more"></i>Actividad Usuario</a></li>
         </ul>
       </li>
     </ul>

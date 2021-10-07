@@ -592,7 +592,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title>Registro Recepción Materiales</title>
+    <title>Registro Recepción Envases</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -859,8 +859,8 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepción Envases</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroRecepcione.php"> Registro Recepción </a>
+                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Recepción </a>
                                             </li>
                                         </ol>
                                     </nav>
