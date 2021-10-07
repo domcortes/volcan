@@ -845,30 +845,7 @@ class INVENTARIOE_ADO
         }
     }
 
-    public function listarInventarioPorEmpresaPlantaTemporadaCBX($IDEMPRESA, $IDPLANTA, $IDTEMPORADA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT 
-                                                * 
-                                            FROM material_inventarioe
-                                                WHERE ESTADO_REGISTRO = 1 
-                                                AND ESTADO = 2
-                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' 
-                                                AND ID_PLANTA = '" . $IDPLANTA . "'
-                                                AND ID_TEMPORADA = '" . $IDTEMPORADA . "'  ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
+   
     public function listarInventarioPorEmpresaPlantaTemporadaNoGroupCBX($IDEMPRESA, $IDPLANTA, $IDTEMPORADA)
     {
         try {
@@ -897,7 +874,35 @@ class INVENTARIOE_ADO
             die($e->getMessage());
         }
     }
+    public function listarInventarioPorEmpresaPlantaTemporadaCBX($IDEMPRESA, $IDPLANTA, $IDTEMPORADA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                IFNULL(SUM(CANTIDAD_ENTRADA),0) AS 'ENTRADA', 
+                                                IFNULL(SUM(CANTIDAD_SALIDA),0) AS 'SALIDA', 
+                                                IFNULL(SUM(CANTIDAD_ENTRADA-CANTIDAD_SALIDA),0) AS 'CANTIDAD', 
+                                                IFNULL(SUM(VALOR_UNITARIO),0) AS 'VALOR'    
+                                             FROM material_inventarioe
+                                                WHERE  ID_EMPRESA = '" . $IDEMPRESA . "' 
+                                                AND ID_PLANTA = '" . $IDPLANTA . "'
+                                                AND ID_TEMPORADA = '" . $IDTEMPORADA . "' 
+                                                AND ESTADO_REGISTRO = 1
+                                            GROUP BY ID_BODEGA, ID_PRODUCTO;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarInventarioPorEmpresaPlantaTemporada2CBX($IDEMPRESA, $IDPLANTA, $IDTEMPORADA)
     {
         try {
@@ -938,6 +943,35 @@ class INVENTARIOE_ADO
                                                 FORMAT(IFNULL(SUM(CANTIDAD_SALIDA),0),0,'de_DE') AS 'SALIDA', 
                                                 FORMAT(IFNULL(SUM(CANTIDAD_ENTRADA-CANTIDAD_SALIDA),0),0,'de_DE') AS 'CANTIDAD', 
                                                 FORMAT(IFNULL(SUM(VALOR_UNITARIO),0),3,'de_DE') AS 'VALOR'    
+                                             FROM material_inventarioe
+                                                WHERE  ID_EMPRESA = '" . $IDEMPRESA . "' 
+                                                AND ID_PLANTA = '" . $IDPLANTA . "'
+                                                AND ID_TEMPORADA = '" . $IDTEMPORADA . "' 
+                                                AND ESTADO_REGISTRO = 1
+                                            GROUP BY ID_BODEGA, ID_PRODUCTO, ID_RECEPCION, ID_DESPACHO;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarHinventarioPorEmpresaPlantaTemporadaCBX($IDEMPRESA, $IDPLANTA, $IDTEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                IFNULL(SUM(CANTIDAD_ENTRADA),0)AS 'ENTRADA', 
+                                                IFNULL(SUM(CANTIDAD_SALIDA),0) AS 'SALIDA', 
+                                                IFNULL(SUM(CANTIDAD_ENTRADA-CANTIDAD_SALIDA),0) AS 'CANTIDAD', 
+                                                IFNULL(SUM(VALOR_UNITARIO),0) AS 'VALOR'    
                                              FROM material_inventarioe
                                                 WHERE  ID_EMPRESA = '" . $IDEMPRESA . "' 
                                                 AND ID_PLANTA = '" . $IDPLANTA . "'

@@ -412,8 +412,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroGuiaPorRecibirE.php">Envases<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarInventariomRecepcion.php">Inventario Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventarioeRecepcion.php">Inventario Envases<i class="ti-more"></i></a></li>
+          <li><a href="listarInventariomRecepcion.php">Existencia Materiales<i class="ti-more"></i></a></li>
+          <li><a href="listarInventarioeRecepcion.php">Existencia Envases<i class="ti-more"></i></a></li>
         </ul>
       </li>        
       <li class="treeview">
@@ -438,8 +438,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarOcompraAR.php"> Aprobar/Rechazar<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarInventariomOcompra.php">Inventario Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventarioeOcompra.php">Inventario Envases<i class="ti-more"></i></a></li>
+          <li><a href="listarInventariomOcompra.php">Existencia Materiales<i class="ti-more"></i></a></li>
+          <li><a href="listarInventarioeOcompra.php">Existencia Envases<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -475,14 +475,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarInventariomDespacho.php">Inventario Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventarioeDespacho.php">Inventario Envases<i class="ti-more"></i></a></li>
+          <li><a href="listarInventariomDespacho.php">Existencia Materiales<i class="ti-more"></i></a></li>
+          <li><a href="listarInventarioeDespacho.php">Existencia Envases<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
-          <span>Historial Inventario</span>
+          <span>Historial Existencia</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>

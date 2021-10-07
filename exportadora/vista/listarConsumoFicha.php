@@ -3,25 +3,44 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
+include_once '../fruta/controlador/EXIEXPORTACION_ADO.php';
+include_once '../fruta/controlador/EEXPORTACION_ADO.php';
+include_once '../fruta/controlador/ECOMERCIAL_ADO.php';
+include_once '../fruta/controlador/ESPECIES_ADO.php';
+include_once '../fruta/controlador/MERCADO_ADO.php';
+include_once '../fruta/controlador/TETIQUETA_ADO.php';
+include_once '../fruta/controlador/TEMBALAJE_ADO.php';
+
+include_once '../material/controlador/PRODUCTO_ADO.php';
+include_once '../material/controlador/FAMILIA_ADO.php';
+include_once '../material/controlador/SUBFAMILIA_ADO.php';
+include_once '../material/controlador/TUMEDIDA_ADO.php';
+
+
 
 include_once '../controlador/FICHA_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ECOMERCIAL_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/MERCADO_ADO.php';
-include_once '../controlador/TETIQUETA_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../controlador/DFICHA_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$FICHA_ADO =  new FICHA_ADO();
+$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $ECOMERCIAL_ADO =  new ECOMERCIAL_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $MERCADO_ADO =  new MERCADO_ADO();
 $TETIQUETA_ADO =  new TETIQUETA_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+
+
+$PRODUCTO_ADO =  new PRODUCTO_ADO();
+$FAMILIA_ADO =  new FAMILIA_ADO();
+$SUBFAMILIA_ADO =  new SUBFAMILIA_ADO();
+$TUMEDIDA_ADO =  new TUMEDIDA_ADO();
+
+
+$FICHA_ADO =  new FICHA_ADO();
+$DFICHA_ADO =  new DFICHA_ADO();
 
 //INIICIALIZAR MODELO
 
@@ -66,7 +85,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Agrupado Ficha</title>
+    <title>Consumo Materiales</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -143,7 +162,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php //include_once "../config/menu.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -152,15 +171,14 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Agrupado Ficha</h3>
+                            <h3 class="page-title">Consumo Materiales</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Materiales</li>
-                                        <li class="breadcrumb-item" aria-current="page">Ficha</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Ficha </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#">Consumo Materiales</a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -196,17 +214,24 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 150%;">
+                                        <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>Número Ficha </th>
-                                                    <th class="text-center">Estado</th>
-                                                    <th class="text-center">Operaciónes</th>
+                                                    <th>Codigo Estandar </th>
                                                     <th>Envase/Estandar </th>
-                                                    <th>Estandar Comercial</th>
                                                     <th>Especies </th>
                                                     <th>Tipo Etiqueta </th>
                                                     <th>Tipo Embalaje </th>
+                                                    <th>Codigo Producto </th>
+                                                    <th>Producto </th>
+                                                    <th>Familia </th>
+                                                    <th>Sub Familia </th>
+                                                    <th>Unidad Medida </th>
+                                                    <th>Factor Consumo </th>                                                
+                                                    <th>Cantidad Estandar </th>
+                                                    <th>Envases Estandar</th>
+                                                    <th>Total Consumo </th> 
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                     <th>Empresa </th>
@@ -218,7 +243,8 @@ include_once "../config/datosUrLP.php";
                                                     <?php
                                                     $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
                                                     if ($ARRAYESTANDAR) {
-                                                        $NOMBRESTANDAR = $ARRAYESTANDAR[0]["CODIGO_ESTANDAR"] . ":" . $ARRAYESTANDAR[0]["NOMBRE_ESTANDAR"];
+                                                        $CODIGOESTANDAR = $ARRAYESTANDAR[0]["CODIGO_ESTANDAR"];
+                                                        $NOMBRESTANDAR = $ARRAYESTANDAR[0]["NOMBRE_ESTANDAR"];
                                                         $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
                                                         $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
                                                         $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
@@ -256,6 +282,7 @@ include_once "../config/datosUrLP.php";
                                                             $NOMBREESTANDARCOMERCIAL = "Sin Datos";
                                                         }
                                                     } else {
+                                                        $CODIGOESTANDAR = "Sin Datos";
                                                         $NOMBRESTANDAR = "Sin Datos";
                                                     }
 
@@ -271,66 +298,74 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
-                                                    ?>
-                                                    <tr>
-                                                        <td> <?php echo $r['NUMERO_FICHA']; ?> </td>
-                                                        <td>
-                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
-                                                            <?php  }  ?>
-                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
-                                                            <?php  }  ?>
-                                                        </td>
 
-                                                        
-                                                        <td class="text-center">
-                                                            <form method="post" id="form1">
-                                                                <div class="list-icons d-inline-flex">
-                                                                    <div class="list-icons-item dropdown">
-                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <i class="glyphicon glyphicon-cog"></i>
-                                                                        </button>
-                                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
-                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_FICHA']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroFicha" />
-                                                                            <input type="hidden" class="form-control" placeholder="URLO" id="URLO" name="URLO" value="listarFicha" />
-                                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeFicha.php?parametro=<?php echo $r['ID_FICHA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </td>
-                                                        <td> <?php echo $NOMBRESTANDAR; ?></td>
-                                                        <td> <?php echo $NOMBREESTANDARCOMERCIAL; ?></td>
-                                                        <td> <?php echo $NOMBREESPECIES; ?></td>
-                                                        <td> <?php echo $NOMBRETETIQUETA; ?>
-                                                        <td> <?php echo $NOMBRETEMBALAJE; ?>
-                                                        <td><?php echo $r['INGRESO']; ?></td>
-                                                        <td><?php echo $r['MODIFICACION']; ?></td>
-                                                        <td> <?php echo $NOMBRETEMPORADA; ?>
-                                                        <td> <?php echo $NOMBRETEMPORADA; ?>
-                                                    </tr>
+                                                   $ARRAYEXISTENCIADIESTANDAR = $EXIEXPORTACION_ADO->listarExiexportacionEstandarAgrupadoProceso($r['ID_ESTANDAR']);
+                                                    if ($ARRAYEXISTENCIADIESTANDAR) {
+                                                        $ENVASES=$ARRAYEXISTENCIADIESTANDAR[0]["ENVASE"];
+                                                        $NUMERO=$ARRAYEXISTENCIADIESTANDAR[0]["NUMERO"];
+                                                    }else{
+                                                        $ENVASES=0;
+                                                        $NUMERO=0;
+                                                    }                                                    
+                                                
+                                                    $ARRAYDFICHA = $DFICHA_ADO->listarDfichaPorFich2CBX($r['ID_FICHA']);
+
+
+                                                    ?>
+
+                                                    <?php foreach ($ARRAYDFICHA as $s) : ?>
+                                                        <?php
+                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                        if ($ARRAYPRODUCTO) {
+                                                            $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                            $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                            $ARRAYFAMILIA = $FAMILIA_ADO->verFamilia($ARRAYPRODUCTO[0]['ID_FAMILIA']);
+                                                            if ($ARRAYFAMILIA) {
+                                                                $FAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                            } else {
+                                                                $FAMILIA = "Sin Dato";
+                                                            }
+                                                            $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->verSubfamilia($ARRAYPRODUCTO[0]['ID_SUBFAMILIA']);
+                                                            if ($ARRAYFAMILIA) {
+                                                                $SUBFAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                            } else {
+                                                                $SUBFAMILIA = "Sin Dato";
+                                                            }
+
+                                                            $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($ARRAYPRODUCTO[0]['ID_TUMEDIDA']);
+                                                            if ($ARRAYTUMEDIDA) {
+                                                                $TUMEDIDA = $ARRAYTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+                                                            } else {
+                                                                $TUMEDIDA = "Sin Dato";
+                                                            }
+                                                        } else {
+                                                            $CODIGOPRODUCTO = "Sin Dato";
+                                                            $NOMBREPRODUCTO = "Sin Dato";
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo $r['NUMERO_FICHA']; ?> </td>
+                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBRESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBREESPECIES; ?></td>
+                                                            <td><?php echo $NOMBRETETIQUETA; ?>
+                                                            <td><?php echo $NOMBRETEMBALAJE; ?>
+                                                            <td><?php echo $CODIGOPRODUCTO ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTO ?></td>
+                                                            <td><?php echo $FAMILIA ?></td>
+                                                            <td><?php echo $SUBFAMILIA ?></td>
+                                                            <td><?php echo $TUMEDIDA ?></td>
+                                                            <td><?php echo $s['FACTOR_CONSUMO_DFICHA'] ?></td>
+                                                            <td><?php echo $NUMERO ?></td>
+                                                            <td><?php echo $ENVASES ?></td>
+                                                            <td><?php echo $ENVASES * $s['FACTOR_CONSUMO_DFICHA'] ?></td>    
+                                                            <td><?php echo $r['INGRESO']; ?></td>
+                                                            <td><?php echo $r['MODIFICACION']; ?></td>
+                                                            <td> <?php echo $NOMBRETEMPORADA; ?>
+                                                            <td> <?php echo $NOMBRETEMPORADA; ?>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>

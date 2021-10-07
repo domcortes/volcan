@@ -578,7 +578,7 @@ if (isset($_POST)) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Consumo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Materiales</li>
                                             <li class="breadcrumb-item" aria-current="page">Ficha</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Ficha </a> </li>
                                         </ol>
@@ -795,8 +795,34 @@ if (isset($_POST)) {
                                             <tbody>
                                                 <?php if ($ARRAYDFICHA) { ?>
                                                     <?php foreach ($ARRAYDFICHA as $s) : ?>
-
                                                         <?php $CONTADOR += 1;  ?>
+                                                        <?php
+                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                        if ($ARRAYPRODUCTO) {
+                                                            $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                            $ARRAYFAMILIA = $FAMILIA_ADO->verFamilia($ARRAYPRODUCTO[0]['ID_FAMILIA']);
+                                                            if ($ARRAYFAMILIA) {
+                                                                $FAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                            } else {
+                                                                $FAMILIA = "Sin Dato";
+                                                            }
+                                                            $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->verSubfamilia($ARRAYPRODUCTO[0]['ID_SUBFAMILIA']);
+                                                            if ($ARRAYFAMILIA) {
+                                                                $SUBFAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                            } else {
+                                                                $SUBFAMILIA = "Sin Dato";
+                                                            }
+
+                                                            $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($ARRAYPRODUCTO[0]['ID_TUMEDIDA']);
+                                                            if ($ARRAYTUMEDIDA) {
+                                                                $TUMEDIDA = $ARRAYTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+                                                            } else {
+                                                                $TUMEDIDA = "Sin Dato";
+                                                            }
+                                                        } else {
+                                                            $NOMBREPRODUCTO= "Sin Dato";
+                                                        }
+                                                        ?>
                                                         <tr>
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
@@ -831,35 +857,7 @@ if (isset($_POST)) {
                                                                     </div>
                                                                 </form>
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
-                                                                if ($ARRAYPRODUCTO) {
-                                                                    echo $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                                    $ARRAYFAMILIA = $FAMILIA_ADO->verFamilia($ARRAYPRODUCTO[0]['ID_FAMILIA']);
-                                                                    if ($ARRAYFAMILIA) {
-                                                                        $FAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
-                                                                    } else {
-                                                                        $FAMILIA = "Sin Dato";
-                                                                    }
-                                                                    $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->verSubfamilia($ARRAYPRODUCTO[0]['ID_SUBFAMILIA']);
-                                                                    if ($ARRAYFAMILIA) {
-                                                                        $SUBFAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
-                                                                    } else {
-                                                                        $SUBFAMILIA = "Sin Dato";
-                                                                    }
-
-                                                                    $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($ARRAYPRODUCTO[0]['ID_TUMEDIDA']);
-                                                                    if ($ARRAYTUMEDIDA) {
-                                                                        $TUMEDIDA = $ARRAYTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
-                                                                    } else {
-                                                                        $TUMEDIDA = "Sin Dato";
-                                                                    }
-                                                                } else {
-                                                                    echo "Sin Dato";
-                                                                }
-                                                                ?>
-                                                            </td>
+                                                            <td><?php echo $NOMBREPRODUCTO ?></td>
                                                             <td><?php echo $FAMILIA ?></td>
                                                             <td><?php echo $SUBFAMILIA ?></td>
                                                             <td><?php echo $TUMEDIDA ?></td>

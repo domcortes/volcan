@@ -127,8 +127,8 @@ class FICHA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,            
-                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESOF',
-                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACIONF'  
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'  
                                             FROM `material_ficha` 
                                             WHERE `ID_FICHA`= '".$ID."';");
             $datos->execute();
@@ -355,8 +355,8 @@ class FICHA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *,           
-                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACIONF'  
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'  
                                             FROM `material_ficha` 
                                             WHERE `ESTADO_REGISTRO` = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "'     
@@ -379,8 +379,8 @@ class FICHA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *,           
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACIONF'  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'  
                                             FROM `material_ficha` 
                                             WHERE `ESTADO_REGISTRO` = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "'     

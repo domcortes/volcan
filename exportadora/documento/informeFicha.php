@@ -284,17 +284,7 @@ $html = $html . '
             <th class="color2 left"> </th> 
             <th class=" left">Embalaje </th>
             <td class=" left">' . $NOMBRETEMBALAJE . ' </td>
-        </tr>   
-        <tr>     
-            <th class="color2 left"> </th> 
-            <th class=" left">Mercado </th>
-            <td class=" left">' . $NOMBREMERCADO . ' </td>
-        </tr>  
-        <tr>     
-            <th class="color2 left"> </th> 
-            <th class=" left">Estandar Comercial </th>
-            <td class=" left">' . $NOMBREESTANDARCOMERCIAL . ' </td>
-        </tr> 
+        </tr>    
         <tr>     
             <th class="color2 left"> </th> 
             <th class=" left">Cantidad Envase </th>
