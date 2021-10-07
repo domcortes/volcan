@@ -373,14 +373,12 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/dashboard.svg" class="svg-icon" alt="">
           <span>Inicio</span>
         </a>
-
       </li>
-
-      <li class="header">Modulo</li> 
+      <li class="header">Modulo</li>
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/reports.svg" class="svg-icon" alt="">
-          <span>Consumo</span>
+          <span>Materiales</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
@@ -397,8 +395,11 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarFicha.php"> Agrupado Ficha<i class="ti-more"></i></a></li>
             </ul>
           </li>
+          <li><a href="#">Existencia Materiales<i class="ti-more"></i></a></li>
+          <li><a href="#">Consumo Materiales<i class="ti-more"></i></a></li>
+          <li><a href="#">Kardex<i class="ti-more"></i></a></li>
         </ul>
-      </li>    
+      </li>
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/exchange.svg" class="svg-icon" alt="">
@@ -430,8 +431,43 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="listarExiexportacion.php">Detalle Existencia PT <i class="ti-more"></i></a></li>
-          <li><a href="listarExiexportacionAgrupado.php">Agrupado Existencia PT <i class="ti-more"></i></a></li>
+          <li class="treeview">
+            <a href="#">Materia Prima
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="#">Detalle Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="#">Historial Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Recepción MP<i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Despacho MP<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">Producto Terminado
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="listarExiexportacion.php">Detalle Existencia PT <i class="ti-more"></i></a></li>
+              <li><a href="listarExiexportacionAgrupado.php">Agrupado Existencia PT <i class="ti-more"></i></a></li>
+              <li><a href="#">Historial Existencia PT <i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Recepción PT<i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Despacho PT<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">Gestión
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="#">Informe Liquidación <i class="ti-more"></i></a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li class="header">Configuraciones</li>
