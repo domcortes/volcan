@@ -173,7 +173,6 @@ if (isset($_REQUEST['CREAR'])) {
     $ARRYAOBTENERID = $INPSAG_ADO->obtenerId(
         $_REQUEST['FECHAINPSAG'],
         $_REQUEST['OBSERVACIONINPSAG'],
-        $_REQUEST['EMPRESA'],
         $_REQUEST['PLANTA'],
         $_REQUEST['TEMPORADA'],
     );
