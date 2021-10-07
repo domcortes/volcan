@@ -190,7 +190,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Condición </th>
                                                         <th>Código Estandar </th>
                                                         <th>Envase/Estandar </th>
-                                                        <th>CSG Productor </th>
                                                         <th>Nombre Productor </th>
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
@@ -295,7 +294,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $ESTADOSAG; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
@@ -303,7 +301,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
                                                             <td><?php echo $PESONETOESTANDAR; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
-                                                            <td><?php echo $r['NETO']; ?></td>4
+                                                            <td><?php echo $r['NETO']; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

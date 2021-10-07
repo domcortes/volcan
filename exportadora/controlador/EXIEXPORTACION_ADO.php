@@ -930,7 +930,7 @@ class EXIEXPORTACION_ADO
                                                         AND ESTADO = 2
                                                         AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                         AND ID_TEMPORADA = '" . $TEMPORADA . "' 
-                                                GROUP BY ID_ESTANDAR, ID_VESPECIES, ID_TCALIBRE
+                                                GROUP BY ID_ESTANDAR, ID_PRODUCTOR, ID_VESPECIES, ID_TCALIBRE
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
