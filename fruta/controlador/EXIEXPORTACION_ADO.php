@@ -4292,4 +4292,36 @@ class EXIEXPORTACION_ADO
         }
     }
 
+//CONSUMO
+public function listarExiexportacionEstandarAgrupadoProceso($ESTANDAR)
+{
+    try {
+
+        $datos = $this->conexion->prepare("SELECT 
+                                                IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NUMERO'
+                                            FROM fruta_exiexportacion 
+                                            WHERE 
+                                                    ID_ESTANDAR = '" . $ESTANDAR . "' 
+                                                    AND ESTADO_REGISTRO = 1
+                                                    AND ESTADO = 2
+                                            GROUP BY ID_PROCESO
+                                      ;");
+        $datos->execute();
+        $resultado = $datos->fetchAll();
+
+        //	print_r($resultado);
+        //	var_dump($resultado);
+
+
+        return $resultado;
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+}
+
+
+
+
+
 }
