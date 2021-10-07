@@ -187,17 +187,17 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <table id="existencia" class="table table-hover " style="width: 150%;">
                                                 <thead>
                                                     <tr class="text-left">
-                                                        <th>Condición </th>
-                                                        <th>Código Estandar </th>
-                                                        <th>Envase/Estandar </th>
-                                                        <th>Nombre Productor </th>
+                                                        <th>COD. Estandar </th>
+                                                        <th>Nombre Estandar </th>
+                                                        <th>Productor </th>
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
-                                                        <th>Tipo Calibre </th>
-                                                        <th>Tipo Embalaje </th>
-                                                        <th>Peso neto envase </th>
+                                                        <th>Calibre </th>
+                                                        <th>Embalaje </th>
+                                                        <th>Condición </th>
                                                         <th>Cantidad Envase</th>
-                                                        <th>Kilos Neto</th>
+                                                        <th>Neto Estandar </th>
+                                                        <th>Kg. Neto</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -291,7 +291,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         }
                                                         ?>
                                                         <tr class="text-left">
-                                                            <td><?php echo $ESTADOSAG; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
@@ -299,8 +298,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
-                                                            <td><?php echo $PESONETOESTANDAR; ?></td>
+                                                            <td><?php echo $ESTADOSAG; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
+                                                            <td><?php echo $PESONETOESTANDAR; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
