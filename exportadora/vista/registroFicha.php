@@ -699,12 +699,6 @@ if (isset($_POST)) {
                                             <label id="val_especies" class="validacion"> </label>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <label>Estandar Comercial</label>
-                                            <input type="hidden" class="form-control" placeholder="ESTANDARCOMERCIAL" id="ESTANDARCOMERCIAL" name="ESTANDARCOMERCIAL" value="<?php echo $ESTANDARCOMERCIAL; ?>" />
-                                            <input type="text" class="form-control" placeholder="Estandar Comercial" id="ESTANDARCOMERCIALV" name="ESTANDARCOMERCIALV" value="<?php echo $NOMBREESTANDARCOMERCIAL; ?>" disabled />
-                                            <label id="val_estandarcomercial" class="validacion"> </label>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Tipo Etiqueta</label>
                                             <input type="hidden" class="form-control" placeholder="TETIQUETA" id="TETIQUETA" name="TETIQUETA" value="<?php echo $TETIQUETA; ?>" />
                                             <input type="text" class="form-control" placeholder="Tipo Etiqueta" id="TETIQUETAV" name="TETIQUETAV" value="<?php echo $NOMBRETETIQUETA; ?>" disabled />
