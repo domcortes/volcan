@@ -52,7 +52,7 @@ $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarInventarioPorEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYINVENTARIOTOTALES = $INVENTARIOM_ADO->obtenerTotalesInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYINVENTARIOTOTALES[0]['CANTIDAD'];
 }
@@ -68,7 +68,7 @@ include_once "../config/reporteUrl.php";
 <html lang="es">
 
 <head>
-    <title>Inventario Materiales</title>
+    <title>Existencia Materiales</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -149,14 +149,14 @@ include_once "../config/reporteUrl.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Inventario Materiales</h3>
+                            <h3 class="page-title">Existencia Materiales</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Administración</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarInventariomOcompra.php"> Inventario Materiales </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="listarInventariomOcompra.php"> Existencia Materiales </a>
                                         </li>
                                     </ol>
                                 </nav>

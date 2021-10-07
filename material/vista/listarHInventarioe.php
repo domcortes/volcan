@@ -60,7 +60,7 @@ $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarHinventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarHinventarioPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrl.php";
 include_once "../config/reporteUrl.php";
@@ -72,7 +72,7 @@ include_once "../config/reporteUrl.php";
 <html lang="es">
 
 <head>
-    <title>Inventario Envases</title>
+    <title>Existencia Envases</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -153,14 +153,14 @@ include_once "../config/reporteUrl.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Inventario Envases</h3>
+                            <h3 class="page-title">Existencia Envases</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Historial</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Inventario Envases </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Envases </a>
                                         </li>
                                     </ol>
                                 </nav>
