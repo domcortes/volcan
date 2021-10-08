@@ -349,7 +349,21 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 <?php include_once "../config/menuExtra.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../config/urlBase.php"; ?>        
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showConfirmButton:true
+            })
+
+            Toast.fire({
+                icon:"info",
+                title:"Informacion importante",
+                html:"<label>Para <b>Despachar folios</b> completos, seleccione los folios y presione <b>D. Folio</b> </label><label>Para <b>Despachar</b> una parte de los <b>kilos</b> de un folio ingrese los kilos a despachar y presione <b> D. Kilos </b> </label>"
+            })
+        </script>
         <?php
         if (isset($_REQUEST['DIVIDIR'])) {
 
@@ -502,20 +516,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
         ?>
 
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                showConfirmButton:true
-            })
-
-            Toast.fire({
-                icon:"info",
-                title:"Informacion importante",
-                html:"<label>Para <b>Despachar folios</b> completos, seleccione los folios y presione <b>D. Folio</b> </label><label>Para <b>Despachar</b> una parte de los <b>kilos</b> de un folio ingrese los kilos a despachar y presione <b> D. Kilos </b> </label>"
-            })
-        </script>'
 
 
 </body>
