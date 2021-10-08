@@ -446,8 +446,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="#">Detallado Existencia IND<i class="ti-more"></i></a></li>
               <li><a href="#">Detallado Recepción IND<i class="ti-more"></i></a></li>
               <li><a href="#">Detallado Despacho IND<i class="ti-more"></i></a></li>
-              <li><a href="#">Consolidado Recepción Granel<i class="ti-more"></i></a></li>
-              <li><a href="#">Consolidado Despacho Granel<i class="ti-more"></i></a></li>
+              <li><a href="#">Consolidado Recep. Granel<i class="ti-more"></i></a></li>
+              <li><a href="#">Consolidado Desp. Granel<i class="ti-more"></i></a></li>
               <li><a href="#">Historial Existencia MP<i class="ti-more"></i></a></li>
               <li><a href="#">Historial Existencia IND<i class="ti-more"></i></a></li>
             </ul>
