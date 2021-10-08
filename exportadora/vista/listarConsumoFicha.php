@@ -3,18 +3,18 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../fruta/controlador/EXIEXPORTACION_ADO.php';
-include_once '../fruta/controlador/EEXPORTACION_ADO.php';
-include_once '../fruta/controlador/ECOMERCIAL_ADO.php';
-include_once '../fruta/controlador/ESPECIES_ADO.php';
-include_once '../fruta/controlador/MERCADO_ADO.php';
-include_once '../fruta/controlador/TETIQUETA_ADO.php';
-include_once '../fruta/controlador/TEMBALAJE_ADO.php';
+include_once '../controlador/EXIEXPORTACION_ADO.php';
+include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../controlador/ECOMERCIAL_ADO.php';
+include_once '../controlador/ESPECIES_ADO.php';
+include_once '../controlador/MERCADO_ADO.php';
+include_once '../controlador/TETIQUETA_ADO.php';
+include_once '../controlador/TEMBALAJE_ADO.php';
 
-include_once '../material/controlador/PRODUCTO_ADO.php';
-include_once '../material/controlador/FAMILIA_ADO.php';
-include_once '../material/controlador/SUBFAMILIA_ADO.php';
-include_once '../material/controlador/TUMEDIDA_ADO.php';
+include_once '../controlador/PRODUCTO_ADO.php';
+include_once '../controlador/FAMILIA_ADO.php';
+include_once '../controlador/SUBFAMILIA_ADO.php';
+include_once '../controlador/TUMEDIDA_ADO.php';
 
 
 
@@ -162,7 +162,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php //include_once "../config/menu.php"; ?>
+        <?php include_once "../config/menu.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
