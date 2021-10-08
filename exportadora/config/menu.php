@@ -448,8 +448,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="#">Detallado Despacho IND<i class="ti-more"></i></a></li>
               <li><a href="#">Consolidado Recep. Granel<i class="ti-more"></i></a></li>
               <li><a href="#">Consolidado Desp. Granel<i class="ti-more"></i></a></li>
-              <li><a href="#">Historial Existencia MP<i class="ti-more"></i></a></li>
-              <li><a href="#">Historial Existencia IND<i class="ti-more"></i></a></li>
+              <li><a href="#">Historial Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="#">Historial Industrial<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -465,7 +465,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="#">Detallado Despacho Expo<i class="ti-more"></i></a></li>
               <li><a href="#">Consolidado Desp. PT<i class="ti-more"></i></a></li>
               <li><a href="listarExiexportacionAgrupado.php">Agrupado Existencia PT <i class="ti-more"></i></a></li>
-              <li><a href="listarHExiexportacion.php">Historial Existencia PT <i class="ti-more"></i></a></li>
+              <li><a href="listarHExiexportacion.php">Historial Producto Terminado <i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
