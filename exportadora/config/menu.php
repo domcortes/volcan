@@ -434,16 +434,22 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </a>
         <ul class="treeview-menu">
           <li class="treeview">
-            <a href="#">Materia Prima
+            <a href="#">Granel
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#">Detalle Materia Prima<i class="ti-more"></i></a></li>
-              <li><a href="#">Historial Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Existencia MP<i class="ti-more"></i></a></li>
               <li><a href="#">Detallado Recepción MP<i class="ti-more"></i></a></li>
-              <li><a href="#">Detallado Despacho MP<i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Despacho MP<i class="ti-more"></i></a></li>              
+              <li><a href="#">Detallado Existencia IND<i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Recepción IND<i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Despacho IND<i class="ti-more"></i></a></li>
+              <li><a href="#">Consolidado Recepción Granel<i class="ti-more"></i></a></li>
+              <li><a href="#">Consolidado Despacho Granel<i class="ti-more"></i></a></li>
+              <li><a href="#">Historial Existencia MP<i class="ti-more"></i></a></li>
+              <li><a href="#">Historial Existencia IND<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -453,11 +459,11 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="listarExiexportacion.php">Detalle Existencia PT <i class="ti-more"></i></a></li>
-              <li><a href="listarExiexportacionAgrupado.php">Agrupado Existencia PT <i class="ti-more"></i></a></li>
-              <li><a href="listarHExiexportacion.php">Historial Existencia PT <i class="ti-more"></i></a></li>
+              <li><a href="listarExiexportacion.php">Detallado Existencia PT <i class="ti-more"></i></a></li>
               <li><a href="#">Detallado Recepción PT<i class="ti-more"></i></a></li>
               <li><a href="#">Detallado Despacho PT<i class="ti-more"></i></a></li>
+              <li><a href="listarExiexportacionAgrupado.php">Agrupado Existencia PT <i class="ti-more"></i></a></li>
+              <li><a href="listarHExiexportacion.php">Historial Existencia PT <i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
