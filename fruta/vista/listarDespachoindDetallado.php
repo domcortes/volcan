@@ -330,7 +330,7 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
-                                                    $ARRAYTOMADO = $EXIINDUSTRIAL_ADO->buscarPorDespacho2($r['ID_DESPACHO']);
+                                                    $ARRAYTOMADO = $EXIINDUSTRIAL_ADO->buscarPorDespacho($r['ID_DESPACHO']);
                                                     ?>
 
                                                     <?php foreach ($ARRAYTOMADO as $s) : ?>
