@@ -462,6 +462,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarExiexportacion.php">Detallado Existencia PT <i class="ti-more"></i></a></li>
               <li><a href="#">Detallado Recepción PT<i class="ti-more"></i></a></li>
               <li><a href="#">Detallado Despacho PT<i class="ti-more"></i></a></li>
+              <li><a href="#">Detallado Despacho Expo<i class="ti-more"></i></a></li>
+              <li><a href="#">Consolidado Desp. PT<i class="ti-more"></i></a></li>
               <li><a href="listarExiexportacionAgrupado.php">Agrupado Existencia PT <i class="ti-more"></i></a></li>
               <li><a href="listarHExiexportacion.php">Historial Existencia PT <i class="ti-more"></i></a></li>
             </ul>
