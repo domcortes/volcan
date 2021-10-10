@@ -83,20 +83,19 @@ $ARRAYMGUIAPT = "";
 
 
 
-if ($EMPRESAS  && $TEMPORADAS) {
-
-    $ARRAYDESPACHOPT = $DESPACHOPT_ADO->listarDespachoptEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOPT_ADO->obtenerTotalesDespachoptEmpresaTemporadaCBX2($EMPRESAS,  $TEMPORADAS);
-
-    $TOTALBRUTOPT = $ARRAYDESPACHOPTTOTALES[0]['BRUTO'];
-    $TOTALNETOPT = $ARRAYDESPACHOPTTOTALES[0]['NETO'];
-    $TOTALENVASEPT = $ARRAYDESPACHOPTTOTALES[0]['ENVASE'];
+if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
 
+    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaemporada2CBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYDESPACHOEXTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoexEmpresaTemporadaCBX2($EMPRESAS, $TEMPORADAS);
 
-    $TOTALBRUTO = $TOTALBRUTOPT;
-    $TOTALNETO  = $TOTALNETOPT;
-    $TOTALENVASE  = $TOTALENVASEPT;
+    $TOTALBRUTOEX = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
+    $TOTALNETOEX = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
+    $TOTALENVASEEX = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
+
+    $TOTALBRUTO = $TOTALBRUTOEX;
+    $TOTALNETO  = $TOTALNETOEX ;
+    $TOTALENVASE  = $TOTALENVASEEX;
 }
 
 
@@ -114,7 +113,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Detallado Despacho PT</title>
+    <title>Detallado Despacho EXPO</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -207,7 +206,7 @@ include_once "../config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Informe</li>
                                         <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Despacho PT</a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Despacho EXPO </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -291,35 +290,8 @@ include_once "../config/datosUrLP.php";
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
+                                                <?php foreach ($ARRAYDESPACHOEX as $r) : ?>
                                                     <?php
-                                                    if ($r['ESTADO_DESPACHO'] == "1") {
-                                                        $ESTADODESPACHO = "Por Confirmar";
-                                                    }
-                                                    if ($r['ESTADO_DESPACHO'] == "2") {
-                                                        $ESTADODESPACHO = "Confirmado";
-                                                    }
-                                                    if ($r['ESTADO_DESPACHO'] == "3") {
-                                                        $ESTADODESPACHO = "Rechazado";
-                                                    }
-                                                    if ($r['ESTADO_DESPACHO'] == "4") {
-                                                        $ESTADODESPACHO = "Aprobado";
-                                                    }
-                                                    if ($r['TDESPACHO'] == "1") {
-                                                        $TDESPACHO = "Interplanta";
-                                                    }
-                                                    if ($r['TDESPACHO'] == "2") {
-                                                        $TDESPACHO = "Devolución Productor";
-                                                    }
-                                                    if ($r['TDESPACHO'] == "3") {
-                                                        $TDESPACHO = "Venta";
-                                                    }
-                                                    if ($r['TDESPACHO'] == "4") {
-                                                        $TDESPACHO = "Regalo";
-                                                    }
-                                                    if ($r['TDESPACHO'] == "5") {
-                                                        $TDESPACHO = "Planta Externa";
-                                                    }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
@@ -352,13 +324,13 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
+                                                    $ARRAYTOMADOEX = $EXIEXPORTACION_ADO->buscarPordespachoEx($r['ID_DESPACHOEX']);
 
-                                                    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespacho($r['ID_DESPACHO']);
                                                     ?>
-                                                    <?php foreach ($ARRAYTOMADO as $s) : ?>
-                                                        <?php
 
-                                                        if ($s['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                    <?php foreach ($ARRAYTOMADOEX as $s) : ?>
+                                                        <?php
+                                                        if ($s['TESTADOSAG'] == null || $s['TESTADOSAG'] == "0") {
                                                             $ESTADOSAG = "Sin Condición";
                                                         }
                                                         if ($s['TESTADOSAG'] == "1") {
@@ -422,10 +394,6 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRETEMBALAJE = "Sin Datos";
                                                         }
-                                                        if ($s['PRECIO_PALLET']) {
-                                                            $TOTALPRECIO = $s['PRECIO_PALLET'] * $s['CANTIDAD_ENVASE_EXIEXPORTACION'];
-                                                        }
-
                                                         $ARRAYRECEPCION = $RECEPCIONPT_ADO->verRecepcion2($s['ID_RECEPCION']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
@@ -472,10 +440,7 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NUMEROREPALETIZAJE = "Sin Datos";
                                                         }
-
-
                                                         ?>
-
                                                         <tr class="text-left">
                                                             <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td><?php echo $s['RECEPCION']; ?></td>
@@ -509,9 +474,9 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NUMEROREEMBALEJE; ?></td>
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $NUMEROREPALETIZAJE; ?></td>
-                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
-                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
+                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
+                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -519,6 +484,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
+
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
