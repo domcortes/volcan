@@ -83,7 +83,7 @@ $ARRAYMGUIAPT = "";
 
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS  &&  $TEMPORADAS) {
 
     $ARRAYDESPACHOPT = $DESPACHOPT_ADO->listarDespachoptEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYDESPACHOPTTOTALES = $DESPACHOPT_ADO->obtenerTotalesDespachoptEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);

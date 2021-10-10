@@ -83,7 +83,7 @@ $ARRAYMGUIAPT = "";
 
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS && $TEMPORADAS) {
 
 
     $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaemporada2CBX($EMPRESAS,  $TEMPORADAS);
