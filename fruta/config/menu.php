@@ -446,8 +446,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                   <li><a href="listarDespachoindDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
                 </ul>
               </li>
-
-              <li><a href="listarDespachoGranelDetallado.php">Consolidado Despacho<i class="ti-more"></i></a></li>
+              <li><a href="listarDespachoGranelConsoliado.php">Consolidado Despacho<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
