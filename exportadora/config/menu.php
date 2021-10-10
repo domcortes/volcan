@@ -440,16 +440,16 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#">Detallado Existencia MP<i class="ti-more"></i></a></li>
-              <li><a href="#">Detallado Recepción MP<i class="ti-more"></i></a></li>
-              <li><a href="#">Detallado Despacho MP<i class="ti-more"></i></a></li>              
-              <li><a href="#">Detallado Existencia IND<i class="ti-more"></i></a></li>
-              <li><a href="#">Detallado Recepción IND<i class="ti-more"></i></a></li>
-              <li><a href="#">Detallado Despacho IND<i class="ti-more"></i></a></li>
-              <li><a href="#">Consolidado Recep. Granel<i class="ti-more"></i></a></li>
-              <li><a href="#">Consolidado Desp. Granel<i class="ti-more"></i></a></li>
-              <li><a href="#">Historial Materia Prima<i class="ti-more"></i></a></li>
-              <li><a href="#">Historial Industrial<i class="ti-more"></i></a></li>
+              <li><a href="listarEximateriaprima.php">Detallado Existencia MP<i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcionmpDetallado.php">Detallado Recepción MP<i class="ti-more"></i></a></li>
+              <li><a href="listarDespachompDetallado.php">Detallado Despacho MP<i class="ti-more"></i></a></li>              
+              <li><a href="listarExiindustrial.php">Detallado Existencia IND<i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcionindDetallado.php">Detallado Recepción IND<i class="ti-more"></i></a></li>
+              <li><a href="listarDespachoindDetallado.php">Detallado Despacho IND<i class="ti-more"></i></a></li>
+              <li><a href="listarRecepcionGranelConsolidado.php">Consolidado Recep. Granel<i class="ti-more"></i></a></li>
+              <li><a href="listarDespachoGranelConsoliado.php">Consolidado Desp. Granel<i class="ti-more"></i></a></li>
+              <li><a href="listarHEximateriaprima.php">Historial Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="listarHExiindustrial.php">Historial Industrial<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
