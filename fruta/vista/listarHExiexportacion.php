@@ -208,13 +208,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
                                                         <th>Condición </th>
-
                                                         <th>Código Estandar </th>
                                                         <th>Envase/Estandar </th>
-
                                                         <th>CSG Productor </th>
                                                         <th>Nombre Productor </th>
-
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
                                                         <th>Cantidad Envase</th>

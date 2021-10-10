@@ -10,6 +10,8 @@ include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
+include_once '../controlador/TPROCESO_ADO.php';
+include_once '../controlador/PROCESO_ADO.php';
 include_once '../controlador/REPALETIZAJEMP_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
 
@@ -26,6 +28,8 @@ $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $REPALETIZAJEMP_ADO =  new REPALETIZAJEMP_ADO();
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
+$TPROCESO_ADO =  new TPROCESO_ADO();
+$PROCESO_ADO =  new PROCESO_ADO();
 
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 
@@ -193,8 +197,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Kilo Neto</th>
                                                         <th>Kilo Promedio </th>
                                                         <th>Kilo Bruto </th>
-                                                        <th>Número Repaletizaje</th>
-                                                        <th>Fecha Repaletizaje</th>
+                                                        <th>Número Proceso </th>
+                                                        <th>Fecha Proceso </th>
+                                                        <th>Tipo Proceso </th>
                                                         <th>Tipo Despacho</th>
                                                         <th>Número Despacho</th>
                                                         <th>Fecha Despacho</th>
@@ -259,11 +264,19 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $FECHAGUIARECEPCION = "Sin Datos";
                                                             $TIPORECEPCION = "Sin Datos";
                                                         }
-                                                        $ARRATREPALETIZAJE = $REPALETIZAJEMP_ADO->verRepaletizaje2($r['ID_REPALETIZAJE']);
-                                                        if ($ARRATREPALETIZAJE) {
-                                                            $NUMEROREPALETIZAJE = $ARRATREPALETIZAJE[0]["NUMERO_REPALETIZAJE"];
+                                                        
+                                                        $ARRAYPROCESO = $PROCESO_ADO->verProceso($r['ID_PROCESO']);
+                                                        if ($ARRAYPROCESO) {
+                                                            $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
+                                                            $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA_PROCESO"];
+                                                            $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
+                                                            if ($ARRAYTPROCESO) {
+                                                                $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
+                                                            }
                                                         } else {
-                                                            $NUMEROREPALETIZAJE = "Sin Datos";
+                                                            $NUMEROPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "Sin datos";
+                                                            $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYDESPACHO = $DESPACHOMP_ADO->verDespachomp2($r['ID_DESPACHO']);
                                                         if ($ARRAYDESPACHO) {
@@ -361,8 +374,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['NETO']; ?></td>
                                                             <td><?php echo $r['PROMEDIO']; ?></td>
                                                             <td><?php echo $r['BRUTO']; ?></td>       
-                                                            <td><?php echo $NUMEROREPALETIZAJE; ?></td>
-                                                            <td><?php echo $r['REPALETIZAJE']; ?></td>
+                                                            <td><?php echo $NUMEROPROCESO; ?></td>
+                                                            <td><?php echo $FECHAPROCESO; ?></td>
+                                                            <td><?php echo $TPROCESO; ?></td>
                                                             <td><?php echo $NOMBRETDESPACHO; ?></td>
                                                             <td><?php echo $NUMERODESPACHO; ?></td>
                                                             <td><?php echo $r['DESPACHO']; ?></td>
@@ -397,8 +411,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Kilo Neto</th>
                                                         <th>Kilo Promedio </th>
                                                         <th>Kilo Bruto </th>
-                                                        <th>Número Repaletizaje</th>
-                                                        <th>Fecha Repaletizaje</th>
+                                                        <th>Número Proceso </th>
+                                                        <th>Fecha Proceso </th>
+                                                        <th>Tipo Proceso </th>
                                                         <th>Tipo Despacho</th>
                                                         <th>Número Despacho</th>
                                                         <th>Fecha Despacho</th>
