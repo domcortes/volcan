@@ -10,6 +10,7 @@ include_once '../controlador/DRECEPCIONMP_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
+include_once '../controlador/PRODUCTOR_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR¿
@@ -20,7 +21,7 @@ $DRECEPCIONMP_ADO =  new DRECEPCIONMP_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
-
+$PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -156,7 +157,8 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../config/menu.php"; 
+        ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -219,6 +221,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Fecha Recepcion </th>
                                                     <th>Hora Recepcion </th>
                                                     <th>Tipo Recepcion</th>
+                                                    <th>Origen Recepcion</th>
                                                     <th>Numero Guia </th>
                                                     <th>Fecha Guia </th>
                                                     <th>Total Kilos Guia</th>
@@ -304,12 +307,25 @@ include_once "../config/datosUrLP.php";
                                                             <?php
                                                             if ($r['TRECEPCION'] == "1") {
                                                                 echo "Desde Productor ";
+                                                                $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                if ($ARRAYPRODUCTOR) {
+                                                                    $ORIGEN = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                }
                                                             }
                                                             if ($r['TRECEPCION'] == "2") {
                                                                 echo "Planta Externa";
+                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                                if ($ARRAYPLANTA2) {
+                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                }
                                                             }
                                                             ?>
                                                         </td>
+                                                        <td><?php echo $ORIGEN; ?></td>
                                                         <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                         <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                         <td><?php echo $r['GUIA']; ?></td>
