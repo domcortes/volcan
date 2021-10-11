@@ -358,7 +358,7 @@ include_once "../config/datosUrLP.php";
                                                     <?php foreach ($ARRAYTOMADO as $s) : ?>
                                                         <?php
 
-                                                        if ($s['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                        if ($s['TESTADOSAG'] == null || $s['TESTADOSAG'] == "0") {
                                                             $ESTADOSAG = "Sin Condición";
                                                         }
                                                         if ($s['TESTADOSAG'] == "1") {

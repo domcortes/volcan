@@ -257,6 +257,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Tipo Producto</th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
+                                                    <th>Cantidad Envases</th>
                                                     <th>Kilos Neto</th>
                                                     <th>Variedad</th>
                                                     <th>CSG</th>
@@ -429,6 +430,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo "Producto Industrial"; ?> </td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
@@ -581,6 +583,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo "Materia Prima"; ?> </td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>

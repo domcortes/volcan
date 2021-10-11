@@ -17,11 +17,9 @@ include_once '../controlador/CONDUCTOR_ADO.php';
 
 
 include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/TREEMBALAJE_ADO.php';
 
 include_once '../controlador/RECEPCIONIND_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/REEMBALAJE_ADO.php';
 
 include_once '../controlador/EINDUSTRIAL_ADO.php';
 include_once '../controlador/DESPACHOIND_ADO.php';
@@ -39,7 +37,6 @@ $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
-$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
 
 
@@ -48,11 +45,9 @@ $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 
 
 $TPROCESO_ADO =  new TPROCESO_ADO();
-$TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 
 $RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
-$REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 
 
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
@@ -262,18 +257,12 @@ include_once "../config/datosUrLP.php";
                                                     <th>Fecha Embalado/Cosecha </th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Fecha Guía Recepción </th>
-                                                    <th>Fecha Proceso </th>
-                                                    <th>Fecha Reembalaje </th>
                                                     <th>Fecha Despacho </th>
                                                     <th>Tipo Manejo</th>
                                                     <th>Número Recepción</th>
                                                     <th>Número Guía Recepción</th>
                                                     <th>Tipo Recepción</th>
-                                                    <th>Número Proceso</th>
-                                                    <th>Tipo Proceso</th>
-                                                    <th>Número Reembalaje</th>
-                                                    <th>Tipo Reembalaje</th>
-                                                    <th>Número Desacho</th>
+                                                    <th>Número Despacho</th>
                                                     <th>Número Guía Despacho</th>
                                                     <th>Tipo Despacho</th>
                                                     <th>Transporte </th>
@@ -413,18 +402,12 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $s['COSECHA']; ?></td>
                                                             <td><?php echo $s['RECEPCION']; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
+                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
