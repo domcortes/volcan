@@ -4471,7 +4471,7 @@ public function listarExiexportacionEstandarAgrupadoProceso($ESTANDAR)
 
         $datos = $this->conexion->prepare("SELECT 
                                                 IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
-                                                IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NUMERO'
+                                                IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO'
                                             FROM fruta_exiexportacion 
                                             WHERE 
                                                     ID_ESTANDAR = '" . $ESTANDAR . "' 
@@ -4483,7 +4483,7 @@ public function listarExiexportacionEstandarAgrupadoProceso($ESTANDAR)
         $resultado = $datos->fetchAll();
 
         //	print_r($resultado);
-        //	var_dump($resultado);
+        	var_dump($resultado);
 
 
         return $resultado;

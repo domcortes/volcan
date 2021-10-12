@@ -4,6 +4,8 @@ include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../controlador/EXIEXPORTACION_ADO.php';
+include_once '../controlador/PROCESO_ADO.php';
+include_once '../controlador/DPEXPORTACION_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ECOMERCIAL_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
@@ -25,6 +27,8 @@ include_once '../controlador/DFICHA_ADO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
+$PROCESO_ADO =  new PROCESO_ADO();
+$DPEXPORTACION_ADO =  new DPEXPORTACION_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $ECOMERCIAL_ADO =  new ECOMERCIAL_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
@@ -162,7 +166,8 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../config/menu.php"; 
+        ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -218,6 +223,8 @@ include_once "../config/datosUrLP.php";
                                             <thead>
                                                 <tr>
                                                     <th>Número Ficha </th>
+                                                    <th>Número Proceso </th>
+                                                    <th>Fecha Proceso </th>
                                                     <th>Codigo Estandar </th>
                                                     <th>Envase/Estandar </th>
                                                     <th>Especies </th>
@@ -228,10 +235,9 @@ include_once "../config/datosUrLP.php";
                                                     <th>Familia </th>
                                                     <th>Sub Familia </th>
                                                     <th>Unidad Medida </th>
-                                                    <th>Factor Consumo </th>                                                
-                                                    <th>Cantidad Estandar </th>
+                                                    <th>Factor Consumo </th>
                                                     <th>Envases Estandar</th>
-                                                    <th>Total Consumo </th> 
+                                                    <th>Total Consumo </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                     <th>Empresa </th>
@@ -298,74 +304,74 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
-
-                                                   $ARRAYEXISTENCIADIESTANDAR = $EXIEXPORTACION_ADO->listarExiexportacionEstandarAgrupadoProceso($r['ID_ESTANDAR']);
-                                                    if ($ARRAYEXISTENCIADIESTANDAR) {
-                                                        $ENVASES=$ARRAYEXISTENCIADIESTANDAR[0]["ENVASE"];
-                                                        $NUMERO=$ARRAYEXISTENCIADIESTANDAR[0]["NUMERO"];
-                                                    }else{
-                                                        $ENVASES=0;
-                                                        $NUMERO=0;
-                                                    }                                                    
-                                                
+                                                    $ARRAYEXISTENCIADIESTANDAR = $DPEXPORTACION_ADO->listarDpexportacionAgrupadoEstandarProceso($r['ID_ESTANDAR']);
                                                     $ARRAYDFICHA = $DFICHA_ADO->listarDfichaPorFich2CBX($r['ID_FICHA']);
 
-
                                                     ?>
+                                                    <?php foreach ($ARRAYEXISTENCIADIESTANDAR as $a) : ?>
 
-                                                    <?php foreach ($ARRAYDFICHA as $s) : ?>
-                                                        <?php
-                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
-                                                        if ($ARRAYPRODUCTO) {
-                                                            $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
-                                                            $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                            $ARRAYFAMILIA = $FAMILIA_ADO->verFamilia($ARRAYPRODUCTO[0]['ID_FAMILIA']);
-                                                            if ($ARRAYFAMILIA) {
-                                                                $FAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
-                                                            } else {
-                                                                $FAMILIA = "Sin Dato";
+                                                        <?php foreach ($ARRAYDFICHA as $s) : ?>
+                                                            <?php
+                                                            $ARRAYPROCESO=$PROCESO_ADO->verProceso2($a["ID_PROCESO"]);
+                                                            if($ARRAYPROCESO){
+                                                                $NUMEROPROCESO=$ARRAYPROCESO[0]["NUMERO_PROCESO"];
+                                                                $FECHAPROCESO=$ARRAYPROCESO[0]["FECHA"];
+                                                            }else{
+                                                                $NUMEROPROCESO="Sin Datos";
+                                                                $FECHAPROCESO="Sin Datos";
                                                             }
-                                                            $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->verSubfamilia($ARRAYPRODUCTO[0]['ID_SUBFAMILIA']);
-                                                            if ($ARRAYFAMILIA) {
-                                                                $SUBFAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
-                                                            } else {
-                                                                $SUBFAMILIA = "Sin Dato";
-                                                            }
+                                                            $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                            if ($ARRAYPRODUCTO) {
+                                                                $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                                $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                                $ARRAYFAMILIA = $FAMILIA_ADO->verFamilia($ARRAYPRODUCTO[0]['ID_FAMILIA']);
+                                                                if ($ARRAYFAMILIA) {
+                                                                    $FAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                                } else {
+                                                                    $FAMILIA = "Sin Dato";
+                                                                }
+                                                                $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->verSubfamilia($ARRAYPRODUCTO[0]['ID_SUBFAMILIA']);
+                                                                if ($ARRAYFAMILIA) {
+                                                                    $SUBFAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                                } else {
+                                                                    $SUBFAMILIA = "Sin Dato";
+                                                                }
 
-                                                            $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($ARRAYPRODUCTO[0]['ID_TUMEDIDA']);
-                                                            if ($ARRAYTUMEDIDA) {
-                                                                $TUMEDIDA = $ARRAYTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+                                                                $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($ARRAYPRODUCTO[0]['ID_TUMEDIDA']);
+                                                                if ($ARRAYTUMEDIDA) {
+                                                                    $TUMEDIDA = $ARRAYTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+                                                                } else {
+                                                                    $TUMEDIDA = "Sin Dato";
+                                                                }
                                                             } else {
-                                                                $TUMEDIDA = "Sin Dato";
+                                                                $CODIGOPRODUCTO = "Sin Dato";
+                                                                $NOMBREPRODUCTO = "Sin Dato";
                                                             }
-                                                        } else {
-                                                            $CODIGOPRODUCTO = "Sin Dato";
-                                                            $NOMBREPRODUCTO = "Sin Dato";
-                                                        }
-                                                        ?>
-                                                        <tr>
-                                                            <td><?php echo $r['NUMERO_FICHA']; ?> </td>
-                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                            <td><?php echo $NOMBRESTANDAR; ?></td>
-                                                            <td><?php echo $NOMBREESPECIES; ?></td>
-                                                            <td><?php echo $NOMBRETETIQUETA; ?>
-                                                            <td><?php echo $NOMBRETEMBALAJE; ?>
-                                                            <td><?php echo $CODIGOPRODUCTO ?></td>
-                                                            <td><?php echo $NOMBREPRODUCTO ?></td>
-                                                            <td><?php echo $FAMILIA ?></td>
-                                                            <td><?php echo $SUBFAMILIA ?></td>
-                                                            <td><?php echo $TUMEDIDA ?></td>
-                                                            <td><?php echo $s['FACTOR_CONSUMO_DFICHA'] ?></td>
-                                                            <td><?php echo $NUMERO ?></td>
-                                                            <td><?php echo $ENVASES ?></td>
-                                                            <td><?php echo $ENVASES * $s['FACTOR_CONSUMO_DFICHA'] ?></td>    
-                                                            <td><?php echo $r['INGRESO']; ?></td>
-                                                            <td><?php echo $r['MODIFICACION']; ?></td>
-                                                            <td> <?php echo $NOMBRETEMPORADA; ?>
-                                                            <td> <?php echo $NOMBRETEMPORADA; ?>
-                                                        </tr>
+                                                            ?>
+                                                            <tr>
+                                                                <td><?php echo $r['NUMERO_FICHA']; ?> </td>
+                                                                <td><?php echo $NUMEROPROCESO; ?></td>
+                                                                <td><?php echo $FECHAPROCESO; ?></td>
+                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBRESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBREESPECIES; ?></td>
+                                                                <td><?php echo $NOMBRETETIQUETA; ?>
+                                                                <td><?php echo $NOMBRETEMBALAJE; ?>
+                                                                <td><?php echo $CODIGOPRODUCTO ?></td>
+                                                                <td><?php echo $NOMBREPRODUCTO ?></td>
+                                                                <td><?php echo $FAMILIA ?></td>
+                                                                <td><?php echo $SUBFAMILIA ?></td>
+                                                                <td><?php echo $TUMEDIDA ?></td>
+                                                                <td><?php echo $s['FACTOR_CONSUMO_DFICHA'] ?></td>
+                                                                <td><?php echo $a["ENVASE"] ?></td>
+                                                                <td><?php echo $a["ENVASE"] * $s['FACTOR_CONSUMO_DFICHA'] ?></td>
+                                                                <td><?php echo $r['INGRESO']; ?></td>
+                                                                <td><?php echo $r['MODIFICACION']; ?></td>
+                                                                <td> <?php echo $NOMBREEMPRESA; ?>
+                                                                <td> <?php echo $NOMBRETEMPORADA; ?>
+                                                            </tr>
+                                                        <?php endforeach; ?>
                                                     <?php endforeach; ?>
-
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
