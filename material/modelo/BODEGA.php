@@ -10,6 +10,7 @@
         private	  $ID_BODEGA; 
         private	  $NOMBRE_BODEGA;
         private	  $NOMBRE_CONTACTO_BODEGA;
+        private	  $PRINCIPAL;
         private   $ESTADO_REGISTRO; 
         private   $INGRESO;
         private   $MODIFICACION;

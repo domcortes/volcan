@@ -153,6 +153,7 @@ class BODEGA_ADO
                 "INSERT INTO `principal_bodega` (
                                                     `NOMBRE_BODEGA`,
                                                     `NOMBRE_CONTACTO_BODEGA`,
+                                                    `PRINCIPAL`,
                                                     `ID_EMPRESA`,
                                                     `ID_PLANTA`,
                                                     `ID_USUARIOI`,
@@ -161,13 +162,14 @@ class BODEGA_ADO
                                                     `MODIFICACION`,
                                                     `ESTADO_REGISTRO`
                                                 ) VALUES
-	       	(?, ?, ?, ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
+	       	(?, ?, ?, ?, ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
 
                         $BODEGA->__GET('NOMBRE_BODEGA'),
                         $BODEGA->__GET('NOMBRE_CONTACTO_BODEGA'),
+                        $BODEGA->__GET('PRINCIPAL'),
                         $BODEGA->__GET('ID_EMPRESA'),
                         $BODEGA->__GET('ID_PLANTA'),
                         $BODEGA->__GET('ID_USUARIOI'),
@@ -206,6 +208,7 @@ class BODEGA_ADO
             `MODIFICACION`= SYSDATE(),
             `NOMBRE_BODEGA`= ?,
             `NOMBRE_CONTACTO_BODEGA`= ?,
+            `PRINCIPAL`= ?,
             `ID_EMPRESA`= ?,
             `ID_PLANTA`= ?,
             `ID_USUARIOM`= ?
@@ -217,6 +220,7 @@ class BODEGA_ADO
                     array(
                         $BODEGA->__GET('NOMBRE_BODEGA'),
                         $BODEGA->__GET('NOMBRE_CONTACTO_BODEGA'),
+                        $BODEGA->__GET('PRINCIPAL'),
                         $BODEGA->__GET('ID_EMPRESA'),
                         $BODEGA->__GET('ID_PLANTA'),
                         $BODEGA->__GET('ID_USUARIOM'),
@@ -231,49 +235,51 @@ class BODEGA_ADO
     }
 
 
-    //FUNCIONES ESPECIALIZADAS 
+//FUNCIONES ESPECIALIZADAS 
     //CAMBIO DE ESTADO DE LA FILA
     //CAMBIO A DESACTIVADO
-    public function deshabilitar(BODEGA $BODEGA)
-    {
+    public function deshabilitar(BODEGA $BODEGA){
 
-        try {
+        try{
             $query = "
 		UPDATE `principal_bodega` SET					
             `MODIFICACION`= SYSDATE(),
             `ESTADO_REGISTRO` = 0
 		WHERE `ID_BODEGA`= ?;";
             $this->conexion->prepare($query)
-                ->execute(
-                    array(
-                        $BODEGA->__GET('ID_BODEGA')
-                    )
-
+            ->execute(
+                array(                 
+                    $BODEGA->__GET('ID_BODEGA')                    
+                )
+                
                 );
-        } catch (Exception $e) {
+            
+        }catch(Exception $e){
             die($e->getMessage());
         }
+        
     }
     //CAMBIO A ACTIVADO
-    public function habilitar(BODEGA $BODEGA)
-    {
+    public function habilitar(BODEGA $BODEGA){
 
-        try {
+        try{
             $query = "
 		UPDATE `principal_bodega` SET				
             `MODIFICACION`= SYSDATE(),	
             `ESTADO_REGISTRO` = 1
 		WHERE `ID_BODEGA`= ?;";
             $this->conexion->prepare($query)
-                ->execute(
-                    array(
-                        $BODEGA->__GET('ID_BODEGA')
-                    )
-
+            ->execute(
+                array(                 
+                    $BODEGA->__GET('ID_BODEGA')                    
+                )
+                
                 );
-        } catch (Exception $e) {
+            
+        }catch(Exception $e){
             die($e->getMessage());
         }
+        
     }
     public function listarBodegaPorEmpresaCBX($IDEMPRESA)
     {
@@ -283,7 +289,7 @@ class BODEGA_ADO
                                                 * 
                                              FROM `principal_bodega` 
                                              WHERE `ESTADO_REGISTRO` = 1 
-                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
+                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -296,16 +302,18 @@ class BODEGA_ADO
             die($e->getMessage());
         }
     }
-    public function listarBodegaPorEmpresaPlantaCBX($IDEMPRESA, $IDPLANTA)
+
+    public function listarBodegaPorEmpresaPlantaPrincipalCBX($IDEMPRESA,$IDPLANTA)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT 
-                                                * 
-                                             FROM `principal_bodega` 
-                                             WHERE `ESTADO_REGISTRO` = 1 
-                                             AND ID_EMPRESA = '" . $IDEMPRESA . "'
-                                             AND ID_PLANTA = '" . $IDPLANTA . "';	");
+            $datos = $this->conexion->prepare(" SELECT * 
+                                                FROM `principal_bodega` 
+                                                WHERE `ESTADO_REGISTRO` = 1                                              
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."'
+                                                    AND ID_PLANTA = '".$IDPLANTA."'
+                                                    AND PRINCIPAL = 1
+                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -318,4 +326,30 @@ class BODEGA_ADO
             die($e->getMessage());
         }
     }
+    
+    public function listarBodegaPorEmpresaPlantaPrincipalDistinoActualCBX($IDEMPRESA,$IDPLANTA, $IDBODEGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * 
+                                                FROM `principal_bodega` 
+                                                WHERE `ESTADO_REGISTRO` = 1                                              
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."'
+                                                    AND ID_PLANTA = '".$IDPLANTA."'
+                                                    AND ID_BODEGA != '".$IDBODEGA."'
+                                                    AND PRINCIPAL = 1
+                                              ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 }
