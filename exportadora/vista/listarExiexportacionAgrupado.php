@@ -58,7 +58,7 @@ $ARRAYPLANTA = "";
 $ARRAYVERRECEPCIONPT = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS  &&  $TEMPORADAS) {
     $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaTemporadaAgrupadoPorEstandarVariedadCalibreDisponible($EMPRESAS,  $TEMPORADAS);
     $ARRAYTOTALEXIEXPORTACION = $EXIEXPORTACION_ADO->obtenerTotalesEmpresaTemporadaDisponible2($EMPRESAS,  $TEMPORADAS);
 
@@ -142,13 +142,14 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Agrupado Existencia PT</h3>
+                                <h3 class="page-title">Producto Terminado </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Informes</li>
+                                            <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Existencia PT</a>
                                             </li>
                                         </ol>

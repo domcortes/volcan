@@ -634,7 +634,31 @@ class DESPACHOIND_ADO
             die($e->getMessage());
         }
     }
+    public function obtenerTotalesDespachompEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT  
+                                                    IFNULL(SUM(KILOS_NETO_DESPACHO),0) AS 'NETO'  , 
+                                                    IFNULL(SUM(TOTAL_PRECIO),0) AS 'PRECIO'   
+                                        FROM fruta_despachoind 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function obtenerTotalesDespachompEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

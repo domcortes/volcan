@@ -2,7 +2,7 @@
 
 //LLAMADA DE LOS ARCHIVOS NECESAROP PARA LA OPERACION DEL CONTROLADOR
 //LLAMADA AL MODELO DE CLASE
-include_once '../modelo/RECEPCIONPT.php';
+include_once '../modelo/RECEPCIONMP.php';
 //LLAMADA AL CONFIGURACION DE LA BASE DE DATOS
 include_once '../config/BDCONFIG.php';
 //INICIALIZAR VARIABLES
@@ -12,7 +12,7 @@ $USER = "";
 $PASS = "";
 
 //ESTRUCTURA DEL CONTROLADOR
-class RECEPCIONPT_ADO
+class RECEPCIONMP_ADO
 {
 
     //ATRIBUTO
@@ -44,7 +44,7 @@ class RECEPCIONPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionpt limit 6;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionmp limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -63,7 +63,7 @@ class RECEPCIONPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionpt ;	");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionmp ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -90,7 +90,7 @@ class RECEPCIONPT_ADO
             $datos = $this->conexion->prepare("SELECT *,
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
-                                                    FROM fruta_recepcionpt 
+                                                    FROM fruta_recepcionmp 
                                              WHERE ID_RECEPCION= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -115,7 +115,7 @@ class RECEPCIONPT_ADO
                                                         DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
                                                         DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                         DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' 
-                                            FROM fruta_recepcionpt
+                                            FROM fruta_recepcionmp
                                             WHERE ID_RECEPCION= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -136,7 +136,7 @@ class RECEPCIONPT_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionpt WHERE OBSERVACION_RECEPCION LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionmp WHERE OBSERVACION_RECEPCION LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -151,14 +151,14 @@ class RECEPCIONPT_ADO
     }
 
     //REGISTRO DE UNA NUEVA FILA    
-    public function agregarRecepcion(RECEPCIONPT $RECEPCIONPT)
+    public function agregarRecepcion(RECEPCIONMP $RECEPCIONMP)
     {
         try {
 
 
 
             $query =
-                "INSERT INTO fruta_recepcionpt (   
+                "INSERT INTO fruta_recepcionmp (   
                                                     NUMERO_RECEPCION, 
                                                     FECHA_RECEPCION, 
                                                     HORA_RECEPCION, 
@@ -192,28 +192,28 @@ class RECEPCIONPT_ADO
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $RECEPCIONPT->__GET('NUMERO_RECEPCION'),
-                        $RECEPCIONPT->__GET('FECHA_RECEPCION'),
-                        $RECEPCIONPT->__GET('HORA_RECEPCION'),
-                        $RECEPCIONPT->__GET('FECHA_GUIA_RECEPCION'),
-                        $RECEPCIONPT->__GET('NUMERO_GUIA_RECEPCION'),
-                        $RECEPCIONPT->__GET('TOTAL_KILOS_GUIA_RECEPCION'),
-                        $RECEPCIONPT->__GET('CANTIDAD_ENVASE_RECEPCION'),
-                        $RECEPCIONPT->__GET('KILOS_NETO_RECEPCION'),
-                        $RECEPCIONPT->__GET('KILOS_BRUTO_RECEPCION'),
-                        $RECEPCIONPT->__GET('OBSERVACION_RECEPCION'),
-                        $RECEPCIONPT->__GET('PATENTE_CAMION'),
-                        $RECEPCIONPT->__GET('PATENTE_CARRO'),
-                        $RECEPCIONPT->__GET('ID_PLANTA2'),
-                        $RECEPCIONPT->__GET('ID_PRODUCTOR'),
-                        $RECEPCIONPT->__GET('TRECEPCION'),
-                        $RECEPCIONPT->__GET('ID_TRANSPORTE'),
-                        $RECEPCIONPT->__GET('ID_CONDUCTOR'),
-                        $RECEPCIONPT->__GET('ID_EMPRESA'),
-                        $RECEPCIONPT->__GET('ID_PLANTA'),
-                        $RECEPCIONPT->__GET('ID_TEMPORADA'),
-                        $RECEPCIONPT->__GET('ID_USUARIOI'),
-                        $RECEPCIONPT->__GET('ID_USUARIOM')
+                        $RECEPCIONMP->__GET('NUMERO_RECEPCION'),
+                        $RECEPCIONMP->__GET('FECHA_RECEPCION'),
+                        $RECEPCIONMP->__GET('HORA_RECEPCION'),
+                        $RECEPCIONMP->__GET('FECHA_GUIA_RECEPCION'),
+                        $RECEPCIONMP->__GET('NUMERO_GUIA_RECEPCION'),
+                        $RECEPCIONMP->__GET('TOTAL_KILOS_GUIA_RECEPCION'),
+                        $RECEPCIONMP->__GET('CANTIDAD_ENVASE_RECEPCION'),
+                        $RECEPCIONMP->__GET('KILOS_NETO_RECEPCION'),
+                        $RECEPCIONMP->__GET('KILOS_BRUTO_RECEPCION'),
+                        $RECEPCIONMP->__GET('OBSERVACION_RECEPCION'),
+                        $RECEPCIONMP->__GET('PATENTE_CAMION'),
+                        $RECEPCIONMP->__GET('PATENTE_CARRO'),
+                        $RECEPCIONMP->__GET('ID_PLANTA2'),
+                        $RECEPCIONMP->__GET('ID_PRODUCTOR'),
+                        $RECEPCIONMP->__GET('TRECEPCION'),
+                        $RECEPCIONMP->__GET('ID_TRANSPORTE'),
+                        $RECEPCIONMP->__GET('ID_CONDUCTOR'),
+                        $RECEPCIONMP->__GET('ID_EMPRESA'),
+                        $RECEPCIONMP->__GET('ID_PLANTA'),
+                        $RECEPCIONMP->__GET('ID_TEMPORADA'),
+                        $RECEPCIONMP->__GET('ID_USUARIOI'),
+                        $RECEPCIONMP->__GET('ID_USUARIOM')
                     )
 
                 );
@@ -226,7 +226,7 @@ class RECEPCIONPT_ADO
     public function eliminarRecepcion($id)
     {
         try {
-            $sql = "DELETE FROM fruta_recepcionpt WHERE ID_RECEPCION=" . $id . ";";
+            $sql = "DELETE FROM fruta_recepcionmp WHERE ID_RECEPCION=" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -237,11 +237,11 @@ class RECEPCIONPT_ADO
 
 
     //ACTUALIZAR INFORMACION DE LA FILA
-    public function actualizarRecepcion(RECEPCIONPT $RECEPCIONPT)
+    public function actualizarRecepcion(RECEPCIONMP $RECEPCIONMP)
     {
         try {
             $query = "
-                    UPDATE fruta_recepcionpt SET
+                    UPDATE fruta_recepcionmp SET
                         MODIFICACION = SYSDATE(),
                         FECHA_RECEPCION = ?,
                         HORA_RECEPCION = ?, 
@@ -267,27 +267,27 @@ class RECEPCIONPT_ADO
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $RECEPCIONPT->__GET('FECHA_RECEPCION'),
-                        $RECEPCIONPT->__GET('HORA_RECEPCION'),
-                        $RECEPCIONPT->__GET('FECHA_GUIA_RECEPCION'),
-                        $RECEPCIONPT->__GET('NUMERO_GUIA_RECEPCION'),
-                        $RECEPCIONPT->__GET('TOTAL_KILOS_GUIA_RECEPCION'),
-                        $RECEPCIONPT->__GET('CANTIDAD_ENVASE_RECEPCION'),
-                        $RECEPCIONPT->__GET('KILOS_NETO_RECEPCION'),
-                        $RECEPCIONPT->__GET('KILOS_BRUTO_RECEPCION'),
-                        $RECEPCIONPT->__GET('OBSERVACION_RECEPCION'),
-                        $RECEPCIONPT->__GET('PATENTE_CAMION'),
-                        $RECEPCIONPT->__GET('PATENTE_CARRO'),
-                        $RECEPCIONPT->__GET('TRECEPCION'),
-                        $RECEPCIONPT->__GET('ID_PLANTA2'),
-                        $RECEPCIONPT->__GET('ID_PRODUCTOR'),
-                        $RECEPCIONPT->__GET('ID_TRANSPORTE'),
-                        $RECEPCIONPT->__GET('ID_CONDUCTOR'),
-                        $RECEPCIONPT->__GET('ID_EMPRESA'),
-                        $RECEPCIONPT->__GET('ID_PLANTA'),
-                        $RECEPCIONPT->__GET('ID_TEMPORADA'),
-                        $RECEPCIONPT->__GET('ID_USUARIOM'),
-                        $RECEPCIONPT->__GET('ID_RECEPCION')
+                        $RECEPCIONMP->__GET('FECHA_RECEPCION'),
+                        $RECEPCIONMP->__GET('HORA_RECEPCION'),
+                        $RECEPCIONMP->__GET('FECHA_GUIA_RECEPCION'),
+                        $RECEPCIONMP->__GET('NUMERO_GUIA_RECEPCION'),
+                        $RECEPCIONMP->__GET('TOTAL_KILOS_GUIA_RECEPCION'),
+                        $RECEPCIONMP->__GET('CANTIDAD_ENVASE_RECEPCION'),
+                        $RECEPCIONMP->__GET('KILOS_NETO_RECEPCION'),
+                        $RECEPCIONMP->__GET('KILOS_BRUTO_RECEPCION'),
+                        $RECEPCIONMP->__GET('OBSERVACION_RECEPCION'),
+                        $RECEPCIONMP->__GET('PATENTE_CAMION'),
+                        $RECEPCIONMP->__GET('PATENTE_CARRO'),
+                        $RECEPCIONMP->__GET('TRECEPCION'),
+                        $RECEPCIONMP->__GET('ID_PLANTA2'),
+                        $RECEPCIONMP->__GET('ID_PRODUCTOR'),
+                        $RECEPCIONMP->__GET('ID_TRANSPORTE'),
+                        $RECEPCIONMP->__GET('ID_CONDUCTOR'),
+                        $RECEPCIONMP->__GET('ID_EMPRESA'),
+                        $RECEPCIONMP->__GET('ID_PLANTA'),
+                        $RECEPCIONMP->__GET('ID_TEMPORADA'),
+                        $RECEPCIONMP->__GET('ID_USUARIOM'),
+                        $RECEPCIONMP->__GET('ID_RECEPCION')
 
                     )
 
@@ -303,18 +303,18 @@ class RECEPCIONPT_ADO
     //FUNCIONES ESPECIALIZADAS 
     //CAMBIO DE ESTADO DE REGISTRO DEL REGISTRO
     //CAMBIO A DESACTIVADO
-    public function deshabilitar(RECEPCIONPT $RECEPCIONPT)
+    public function deshabilitar(RECEPCIONMP $RECEPCIONMP)
     {
 
         try {
             $query = "
-    UPDATE fruta_recepcionpt SET			
+    UPDATE fruta_recepcionmp SET			
             ESTADO_REGISTRO = 0
     WHERE ID_RECEPCION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $RECEPCIONPT->__GET('ID_RECEPCION')
+                        $RECEPCIONMP->__GET('ID_RECEPCION')
                     )
 
                 );
@@ -323,17 +323,17 @@ class RECEPCIONPT_ADO
         }
     }
     //CAMBIO A ACTIVADO
-    public function habilitar(RECEPCIONPT $RECEPCIONPT)
+    public function habilitar(RECEPCIONMP $RECEPCIONMP)
     {
         try {
             $query = "
-    UPDATE fruta_recepcionpt SET			
+    UPDATE fruta_recepcionmp SET			
             ESTADO_REGISTRO = 1
     WHERE ID_RECEPCION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $RECEPCIONPT->__GET('ID_RECEPCION')
+                        $RECEPCIONMP->__GET('ID_RECEPCION')
                     )
 
                 );
@@ -344,17 +344,17 @@ class RECEPCIONPT_ADO
 
     //CAMBIO ESTADO
     //ABIERTO 1
-    public function abierto(RECEPCIONPT $RECEPCIONPT)
+    public function abierto(RECEPCIONMP $RECEPCIONMP)
     {
         try {
             $query = "
-                    UPDATE fruta_recepcionpt SET			
+                    UPDATE fruta_recepcionmp SET			
                             ESTADO = 1
                     WHERE ID_RECEPCION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $RECEPCIONPT->__GET('ID_RECEPCION')
+                        $RECEPCIONMP->__GET('ID_RECEPCION')
                     )
                 );
         } catch (Exception $e) {
@@ -362,17 +362,17 @@ class RECEPCIONPT_ADO
         }
     }
     //CERRADO 0
-    public function  cerrado(RECEPCIONPT $RECEPCIONPT)
+    public function  cerrado(RECEPCIONMP $RECEPCIONMP)
     {
         try {
             $query = "
-                    UPDATE fruta_recepcionpt SET			
+                    UPDATE fruta_recepcionmp SET			
                             ESTADO = 0
                     WHERE ID_RECEPCION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $RECEPCIONPT->__GET('ID_RECEPCION')
+                        $RECEPCIONMP->__GET('ID_RECEPCION')
                     )
                 );
         } catch (Exception $e) {
@@ -389,7 +389,7 @@ class RECEPCIONPT_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT *
-                                                FROM fruta_recepcionpt
+                                                FROM fruta_recepcionmp
                                                 WHERE 
                                                     NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
                                                     AND ID_PRODUCTOR = " . $PRODUCTOR . "                                                 
@@ -413,7 +413,7 @@ class RECEPCIONPT_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT *
-                                                FROM fruta_recepcionpt
+                                                FROM fruta_recepcionmp
                                                 WHERE 
                                                     NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
                                                     AND ID_PLANTA2 = " . $PLANTA2 . "                                                 
@@ -434,16 +434,53 @@ class RECEPCIONPT_ADO
         }
     }
 
+
     //LISTA
+    public function listarRecepcionEmpresaTemporadaCBX($EMPRESA,   $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *  ,
+                                                    DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
+                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                    IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
+                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
+                                            FROM fruta_recepcionmp 
+                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'   
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function listarRecepcionEmpresaPlantaTemporadaCBX($EMPRESA,  $PLANTA, $TEMPORADA)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
-                                            FROM fruta_recepcionpt 
-                                            WHERE  
-                                                ID_EMPRESA = '" . $EMPRESA . "' 
+            $datos = $this->conexion->prepare("SELECT *  ,
+                                                    DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
+                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                    IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
+                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
+                                            FROM fruta_recepcionmp 
+                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
@@ -473,7 +510,7 @@ class RECEPCIONPT_ADO
                                                     FORMAT(IFNULL(KILOS_NETO_RECEPCION,0),2,'de_DE')  AS 'NETO',
                                                     FORMAT(IFNULL(KILOS_BRUTO_RECEPCION,0),2,'de_DE')  AS 'BRUTO',
                                                     FORMAT(IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0),2,'de_DE')  AS 'GUIA'
-                                            FROM fruta_recepcionpt 
+                                            FROM fruta_recepcionmp 
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
@@ -490,64 +527,7 @@ class RECEPCIONPT_ADO
             die($e->getMessage());
         }
     }
-    public function listarRecepcionEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
-    {
-        try {
 
-            $datos = $this->conexion->prepare("SELECT *  ,
-                                                    DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
-                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
-                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
-                                                    IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
-                                                    IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
-                                                    IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
-                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0) AS 'GUIA'
-                                            FROM fruta_recepcionpt 
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'   
-                                            ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    public function listarRecepcionEmpresaTemporada2CBX($EMPRESA,   $TEMPORADA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT *  ,
-                                                    DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
-                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
-                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
-                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_RECEPCION,0),0,'de_DE')  AS 'ENVASE',
-                                                    FORMAT(IFNULL(KILOS_NETO_RECEPCION,0),2,'de_DE')  AS 'NETO',
-                                                    FORMAT(IFNULL(KILOS_BRUTO_RECEPCION,0),2,'de_DE')  AS 'BRUTO',
-                                                    FORMAT(IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0),2,'de_DE')  AS 'GUIA'
-                                            FROM fruta_recepcionpt 
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'   
-                                            ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
     //TOTALES
     public function obtenerTotalesRecepcionCBX()
     {
@@ -556,7 +536,7 @@ class RECEPCIONPT_ADO
             $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0) AS 'ENVASE',   
                                                      IFNULL(SUM(KILOS_NETO_RECEPCION),0) AS 'NETO',  
                                                      IFNULL(SUM(KILOS_BRUTO_RECEPCION),0)  AS 'BRUTO'  
-                                            FROM fruta_recepcionpt ;	");
+                                            FROM fruta_recepcionmp ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -578,7 +558,33 @@ class RECEPCIONPT_ADO
                                                      FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0),0,'de_DE') AS 'ENVASE',   
                                                      FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE') AS 'NETO',  
                                                      FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM fruta_recepcionpt ;	");
+                                            FROM fruta_recepcionmp ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESA,   $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(TOTAL_KILOS_GUIA_RECEPCION),0) AS 'GUIA',   
+                                                        IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0) AS 'ENVASE',  
+                                                        IFNULL(SUM(KILOS_NETO_RECEPCION),0)  AS 'NETO',  
+                                                        IFNULL(SUM(KILOS_BRUTO_RECEPCION),0)   AS 'BRUTO'  
+                                            FROM fruta_recepcionmp 
+                                            WHERE  
+                                                ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                            ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -599,7 +605,7 @@ class RECEPCIONPT_ADO
                                                         FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0),0,'de_DE') AS 'ENVASE',  
                                                         FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE')  AS 'NETO',  
                                                         FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')   AS 'BRUTO'  
-                                            FROM fruta_recepcionpt 
+                                            FROM fruta_recepcionmp 
                                             WHERE  
                                                 ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' 
@@ -616,7 +622,6 @@ class RECEPCIONPT_ADO
             die($e->getMessage());
         }
     }
-
     public function obtenerTotalesRecepcionEmpresaPlantaTemporada2CBX($EMPRESA,  $PLANTA, $TEMPORADA)
     {
         try {
@@ -625,7 +630,7 @@ class RECEPCIONPT_ADO
                                                         FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0),0,'de_DE') AS 'ENVASE',  
                                                         FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE')  AS 'NETO',  
                                                         FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')   AS 'BRUTO'  
-                                            FROM fruta_recepcionpt 
+                                            FROM fruta_recepcionmp 
                                             WHERE  
                                                 ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -654,15 +659,15 @@ class RECEPCIONPT_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT *
-                                            FROM fruta_recepcionpt
+                                            FROM fruta_recepcionmp
                                             WHERE    
                                                  DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
                                                  AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')
                                                  AND OBSERVACION_RECEPCION LIKE '" . $OBSERVACION . "'     
                                                  AND TRECEPCION = '" . $TRECEPCION . "'                                                     
-                                                 AND ID_EMPRESA = " . $EMPRESA . " 
-                                                 AND ID_PLANTA = " . $PLANTA . " 
-                                                 AND ID_TEMPORADA = " . $TEMPORADA . "         
+                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                 AND ID_PLANTA = '" . $PLANTA . "' 
+                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "'         
                                                  ORDER BY ID_RECEPCION DESC
                                                  ; ");
             $datos->execute();
@@ -704,7 +709,7 @@ class RECEPCIONPT_ADO
     {
         try {
             $datos = $this->conexion->prepare(" SELECT  COUNT(IFNULL(NUMERO_RECEPCION,0)) AS 'NUMERO'
-                                            FROM fruta_recepcionpt
+                                            FROM fruta_recepcionmp
                                             WHERE  
                                                 ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'

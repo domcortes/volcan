@@ -306,9 +306,9 @@ $html = '
 
 
         <div id="client">
-          <div class="address"><b>Tipo Despacho:  </b>' . $TDESPACHON . '</div>
           <div class="address"><b>Número Guía:  </b>' . $NUMEROGUIA . '</div>
           <div class="address"><b>Número Sello:  </b>' . $NUMEROSELLO . '</div>
+          <div class="address"><b>Tipo Despacho:  </b>' . $TDESPACHON . '</div>
           ';
 if ($TDESPACHO == "1") {
   $html .= '
@@ -317,12 +317,12 @@ if ($TDESPACHO == "1") {
 }
 if ($TDESPACHO == "2") {
   $html .= '
-            <div class="address"><b>Nombre Productor:  </b>' . $PRODUCTOR . '</div>
+            <div class="address"><b>Productor Destino:  </b>' . $PRODUCTOR . '</div>
             ';
 }
 if ($TDESPACHO == "3") {
   $html .= '
-            <div class="address"><b>Nombre Comprador:  </b>' . $COMPRADOR . '</div>
+            <div class="address"><b>Comprador Destino:  </b>' . $COMPRADOR . '</div>
             ';
 }
 if ($TDESPACHO == "4") {

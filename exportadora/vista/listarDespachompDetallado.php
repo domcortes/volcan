@@ -7,17 +7,26 @@ include_once "../config/validarUsuario.php";
 
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-
-include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 
+
 include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 
 
+include_once '../controlador/TPROCESO_ADO.php';
+
+include_once '../controlador/RECEPCIONIND_ADO.php';
+include_once '../controlador/PROCESO_ADO.php';
+
+include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../controlador/DESPACHOIND_ADO.php';
+include_once '../controlador/EXIINDUSTRIAL_ADO.php';
+
+
+include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/RECEPCIONMP_ADO.php';
@@ -26,22 +35,30 @@ include_once '../controlador/RECEPCIONMP_ADO.php';
 //INICIALIZAR CONTROLADOR
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
-
-
-
-$ERECEPCION_ADO =  new ERECEPCION_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
-$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+
+
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 
 
+$TPROCESO_ADO =  new TPROCESO_ADO();
 
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
+$PROCESO_ADO =  new PROCESO_ADO();
+
+
+$ERECEPCION_ADO =  new ERECEPCION_ADO();
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
+
+
+$EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$DESPACHOIND_ADO =  new DESPACHOIND_ADO();
+$EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -52,7 +69,7 @@ $TOTALNETO = "";
 $TOTALENVASE = "";
 $FECHADESDE = "";
 $FECHAHASTA = "";
-
+$TOTALNETO = 0;
 $PRODUCTOR = "";
 $NUMEROGUIA = "";
 
@@ -63,20 +80,22 @@ $ARRAYVEREMPRESA = "";
 $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
-$ARRAYMGUIAMP = "";
+$ARRAYMGUIAIND = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS  &&  $TEMPORADAS) {
 
-    $ARRAYDESPACHOPT = $DESPACHOMP_ADO->listarDespachompEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
-    $TOTALBRUTO = $ARRAYDESPACHOPTTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOPTTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOPTTOTALES[0]['ENVASE'];
+
+
+    $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
+    $ARRAYDESPACHOMPTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $TOTALNETOMP = $ARRAYDESPACHOMPTOTALES[0]['NETO'];
+
+    $TOTALNETO =  $TOTALNETOMP;
 }
 
 
@@ -94,7 +113,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Detallado Despacho Materia Prima</title>
+    <title>Detallado Despacho MP</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -170,7 +189,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php";
+        <?php include_once "../config/menu.php"; 
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -188,8 +207,7 @@ include_once "../config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Granel</li>
                                         <li class="breadcrumb-item" aria-current="page">Despacho</li>
-                                        <li class="breadcrumb-item" aria-current="page">Materia Prima</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Despacho </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Despacho MP</a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -229,15 +247,14 @@ include_once "../config/datosUrLP.php";
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>N° Folio </th>
+                                                    <th>Tipo Producto</th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
-                                                    <th>Cantidad Envase</th>
                                                     <th>Kilos Neto</th>
-                                                    <th>Kilos Bruto</th>
                                                     <th>Variedad</th>
                                                     <th>CSG</th>
                                                     <th>Productor</th>
-                                                    <th>Fecha Cosecha </th>
+                                                    <th>Fecha Embalado/Cosecha </th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Fecha Guía Recepción </th>
                                                     <th>Fecha Despacho </th>
@@ -245,7 +262,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Recepción</th>
                                                     <th>Número Guía Recepción</th>
                                                     <th>Tipo Recepción</th>
-                                                    <th>Número Desacho</th>
+                                                    <th>Número Despacho</th>
                                                     <th>Número Guía Despacho</th>
                                                     <th>Tipo Despacho</th>
                                                     <th>Transporte </th>
@@ -258,7 +275,7 @@ include_once "../config/datosUrLP.php";
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
+                                                <?php foreach ($ARRAYDESPACHOMP as $r) : ?>
                                                     <?php
                                                     if ($r['ESTADO_DESPACHO'] == "1") {
                                                         $ESTADODESPACHO = "Por Confirmar";
@@ -375,11 +392,10 @@ include_once "../config/datosUrLP.php";
                                                         ?>
                                                         <tr class="text-left">
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
+                                                            <td><?php echo "Materia Prima"; ?> </td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                            <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
@@ -391,7 +407,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
-                                                            <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
+                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
@@ -406,6 +422,7 @@ include_once "../config/datosUrLP.php";
                                                     <?php endforeach; ?>
 
                                                 <?php endforeach; ?>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -413,21 +430,17 @@ include_once "../config/datosUrLP.php";
 
                             </div>
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 col-xs-12">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 col-xs-12">
-                                        <div class="form-group">
-                                            <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 col-xs-12">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -79,8 +79,8 @@ $ARRAYPLANTA = "";
 $ARRAYVERRECEPCIONPT = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaTemporadaSF2($EMPRESAS, $TEMPORADAS);
+if ($EMPRESAS  && $TEMPORADAS) {
+    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaTemporada($EMPRESAS, $TEMPORADAS);
 }
 
 ?>
@@ -166,6 +166,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Informes</li>
+                                            <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Historial Existencia PT</a>
                                             </li>
                                         </ol>
