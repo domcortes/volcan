@@ -14,6 +14,7 @@ include_once '../controlador/TEMBALAJE_ADO.php';
 
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 
 include_once '../controlador/TPROCESO_ADO.php';
@@ -42,6 +43,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
+$COMPRADOR_ADO =  new COMPRADOR_ADO();
 
 
 $TPROCESO_ADO =  new TPROCESO_ADO();
