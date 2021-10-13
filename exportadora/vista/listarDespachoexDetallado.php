@@ -11,6 +11,7 @@ include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../controlador/DFINAL_ADO.php';
 
 
 include_once '../controlador/CONDUCTOR_ADO.php';
@@ -37,6 +38,8 @@ $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
+$DFINAL_ADO =  new DFINAL_ADO();
+
 
 
 
@@ -280,6 +283,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Despacho </th>
                                                     <th>Número Guía Despacho </th>
                                                     <th>Tipo Despacho </th>
+                                                    <th>Destino</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -306,6 +310,12 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRECONDUCTOR = "Sin Datos";
                                                     }
 
+                                                    $ARRAYDFINAL = $DFINAL_ADO->verDfinal($r['ID_DFINAL']);
+                                                    if ($ARRAYDFINAL) {
+                                                        $NOMBREDFINAL = $ARRAYDFINAL[0]['NOMBRE_DFINAL'];
+                                                    } else {
+                                                        $NOMBREDFINAL = "Sin Datos";
+                                                    }
                                                     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYEMPRESA) {
                                                         $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -477,6 +487,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
                                                             <td><?php echo "Exportación"; ?></td>
+                                                            <td><?php echo $NOMBREDFINAL; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>

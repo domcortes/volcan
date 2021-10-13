@@ -281,6 +281,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Despacho </th>
                                                     <th>Número Guía Despacho </th>
                                                     <th>Tipo Despacho </th>
+                                                    <th>Destino </th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -307,18 +308,43 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = "Interplanta";
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Devolución Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $ORIGEN = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Venta";
+                                                        $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($r['ID_COMPRADOR']);
+                                                        if ($ARRAYCOMPRADOR) {
+                                                            $ORIGEN = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Regalo";
+                                                        $ORIGEN = $r['REGALO_DESPACHO'];
                                                     }
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA3']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -512,6 +538,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
