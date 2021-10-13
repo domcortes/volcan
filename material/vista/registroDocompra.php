@@ -91,7 +91,7 @@ if (isset($_REQUEST['CREAR'])) {
 
 
 
-    $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
+    //$VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
     $DOCOMPRA->__SET('CANTIDAD_DOCOMPRA', $_REQUEST['CANTIDAD']);
     $DOCOMPRA->__SET('VALOR_UNITARIO_DOCOMPRA', $_REQUEST['VALORUNITARIO']);
     $DOCOMPRA->__SET('DESCRIPCION_DOCOMPRA', $_REQUEST['DESCRIPCION']);
@@ -109,7 +109,7 @@ if (isset($_REQUEST['CREAR'])) {
 }
 if (isset($_REQUEST['EDITAR'])) {
 
-    $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
+    //$VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
     $DOCOMPRA->__SET('CANTIDAD_DOCOMPRA', $_REQUEST['CANTIDAD']);
     $DOCOMPRA->__SET('VALOR_UNITARIO_DOCOMPRA', $_REQUEST['VALORUNITARIO']);
     $DOCOMPRA->__SET('DESCRIPCION_DOCOMPRA', $_REQUEST['DESCRIPCION']);
@@ -273,6 +273,64 @@ if (isset($_POST)) {
         <?php include_once "../config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
+                function total() {
+
+                    var total;
+                    var repuesta;
+
+                    CANTIDAD = document.getElementById("CANTIDAD").value;
+                    VALORUNITARIO = document.getElementById("VALORUNITARIO").value;
+
+                    document.getElementById('val_cantidad').innerHTML = "";
+                    document.getElementById('val_vu').innerHTML = "";
+
+
+                    if (VALORUNITARIO == null || VALORUNITARIO.length == 0 || /^\s+$/.test(VALORUNITARIO)) {
+                        document.form_reg_dato.VALORUNITARIO.focus();
+                        document.form_reg_dato.VALORUNITARIO.style.borderColor = "#FF0000";
+                        document.getElementById('val_vu').innerHTML = "NO HA INGRESADO DATOS";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.VALORUNITARIO.style.borderColor = "#4AF575";
+                    }
+
+                    if (VALORUNITARIO == 0) {
+                        document.form_reg_dato.VALORUNITARIO.focus();
+                        document.form_reg_dato.VALORUNITARIO.style.borderColor = "#FF0000";
+                        document.getElementById('val_vu').innerHTML = "TIENE QUE SER MAYOR A CERO";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.VALORUNITARIO.style.borderColor = "#4AF575";
+                    }
+
+                    if (CANTIDAD == null || CANTIDAD.length == 0 || /^\s+$/.test(CANTIDAD)) {
+                        document.form_reg_dato.CANTIDAD.focus();
+                        document.form_reg_dato.CANTIDAD.style.borderColor = "#FF0000";
+                        document.getElementById('val_cantidad').innerHTML = "NO HA INGRESADO DATOS";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.CANTIDAD.style.borderColor = "#4AF575";
+                    }
+
+                    if (CANTIDAD == 0) {
+                        document.form_reg_dato.CANTIDAD.focus();
+                        document.form_reg_dato.CANTIDAD.style.borderColor = "#FF0000";
+                        document.getElementById('val_cantidad').innerHTML = "TIENE QUE SER MAYOR A CERO";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.CANTIDAD.style.borderColor = "#4AF575";
+                    }                    
+                    if (repuesta == 0) {
+                        total=CANTIDAD*VALORUNITARIO;
+                    }
+                    document.getElementById('VALORTOTALV').value = total;
+
+                }
+
                 function validacion() {
 
 
@@ -433,7 +491,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Cantidad Producto</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
-                                                <input type="number" class="form-control" placeholder="Canitdad Producto" id="CANTIDAD" name="CANTIDAD" value="<?php echo $CANTIDAD; ?>" <?php echo $DISABLED; ?> />
+                                                <input type="number" class="form-control" placeholder="Canitdad Producto" id="CANTIDAD" name="CANTIDAD" onchange="total()" value="<?php echo $CANTIDAD; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -441,7 +499,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Valor Unitario </label>
                                                 <input type="hidden" class="form-control" placeholder="VALORUNITARIOE" id="VALORUNITARIOE" name="VALORUNITARIOE" value="<?php echo $VALORUNITARIO; ?>" />
-                                                <input type="number" step="any" class="form-control" placeholder="Valor Unitario" onchange="this.form.submit()" id="VALORUNITARIO" name="VALORUNITARIO" value="<?php echo $VALORUNITARIO; ?>" <?php echo $DISABLED; ?> />
+                                                <input type="number" step="any" class="form-control" placeholder="Valor Unitario" onchange="total()" id="VALORUNITARIO" name="VALORUNITARIO" value="<?php echo $VALORUNITARIO; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_vu" class="validacion"> </label>
                                             </div>
                                         </div>
