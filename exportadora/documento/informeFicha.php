@@ -300,7 +300,6 @@ $html = $html . '
             <th class="color left">Sub Familia</th>
             <th class="color left">Unidad Medida</th>
             <th class="color left">Factor Consumo</th>
-            <th class="color left">Consumo Por Envase</th>
             <th class="color left">Consumo Por Pallet</th>
             <th class="color left">Pallet Por Carga </th>
             <th class="color left">Consumo Por Contenedor</th>
@@ -352,11 +351,10 @@ foreach ($ARRAYDFICHA as $d) :
                           <td class="left">' . $FAMILIA . '</td>
                           <td class="left">' . $SUBFAMILIA . '</td>
                           <td class="left">' . $TUMEDIDA . '</td>
-                          <td class="left">' . $d['FACTOR_CONSUMO_DFICHA'] . '</td>
-                          <td class="left">' . $d['CONSUMO_ENVASE_DFICHA'] . '</td>
-                          <td class="left">' . $d['CONSUMO_PALLET_DFICHA'] . '</td>
-                          <td class="left">' . $d['PALLET_CARGA_DFICHA'] . '</td>
-                          <td class="left">' . $d['CONSUMO_CONTENEDOR_DFICHA'] . '</td>
+                          <td class="left">' . $d['FACTOR'] . '</td>
+                          <td class="left">' . $d['CONSUMOPALLET'] . '</td>
+                          <td class="left">' . $d['PALLET'] . '</td>
+                          <td class="left">' . $d['CONSUMOCONTENEDOR'] . '</td>
                       </tr>
               ';
 

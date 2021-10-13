@@ -88,7 +88,7 @@ include_once "../config/validarDatosUrlD.php";
 if (isset($_REQUEST['CREAR'])) {
 
     if ($_REQUEST['FACTORCONSUMO'] > 0) {
-        $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'] * 1;
+        $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'];
         $CONSUMOPORPALLET = $CONSUMOPORENVASE * $_REQUEST['ENVASEESTANDAR'];
         if ($_REQUEST['PALLETCARGA'] > 0) {
             $CONSUMOCONTENEDOR = $_REQUEST['PALLETCARGA'] * $CONSUMOPORPALLET;
@@ -96,7 +96,6 @@ if (isset($_REQUEST['CREAR'])) {
     }
 
     $DFICHA->__SET('FACTOR_CONSUMO_DFICHA', $_REQUEST['FACTORCONSUMO']);
-    $DFICHA->__SET('CONSUMO_ENVASE_DFICHA', $CONSUMOPORENVASE);
     $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $CONSUMOPORPALLET);
     $DFICHA->__SET('PALLET_CARGA_DFICHA', $_REQUEST['PALLETCARGA']);
     $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $CONSUMOCONTENEDOR);
@@ -114,7 +113,7 @@ if (isset($_REQUEST['CREAR'])) {
 if (isset($_REQUEST['EDITAR'])) {
 
     if ($_REQUEST['FACTORCONSUMO'] > 0) {
-        $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'] * 1;
+        $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'];
         $CONSUMOPORPALLET = $CONSUMOPORENVASE * $_REQUEST['ENVASEESTANDAR'];
         if ($_REQUEST['PALLETCARGA'] > 0) {
             $CONSUMOCONTENEDOR = $_REQUEST['PALLETCARGA'] * $CONSUMOPORPALLET;
@@ -122,7 +121,6 @@ if (isset($_REQUEST['EDITAR'])) {
     }
 
     $DFICHA->__SET('FACTOR_CONSUMO_DFICHA', $_REQUEST['FACTORCONSUMO']);
-    $DFICHA->__SET('CONSUMO_ENVASE_DFICHA', $CONSUMOPORENVASE);
     $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $CONSUMOPORPALLET);
     $DFICHA->__SET('PALLET_CARGA_DFICHA', $_REQUEST['PALLETCARGA']);
     $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $CONSUMOCONTENEDOR);
@@ -206,7 +204,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 }
             }
             $FACTORCONSUMO = "" . $r['FACTOR_CONSUMO_DFICHA'];
-            $CONSUMOPORENVASE = "" . $r['CONSUMO_ENVASE_DFICHA'];
             $CONSUMOPORPALLET = "" . $r['CONSUMO_PALLET_DFICHA'];
             $PALLETCARGA = "" . $r['PALLET_CARGA_DFICHA'];
             $CONSUMOCONTENEDOR = "" . $r['CONSUMO_CONTENEDOR_DFICHA'];
@@ -239,7 +236,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 }
             }
             $FACTORCONSUMO = "" . $r['FACTOR_CONSUMO_DFICHA'];
-            $CONSUMOPORENVASE = "" . $r['CONSUMO_ENVASE_DFICHA'];
             $CONSUMOPORPALLET = "" . $r['CONSUMO_PALLET_DFICHA'];
             $PALLETCARGA = "" . $r['PALLET_CARGA_DFICHA'];
             $CONSUMOCONTENEDOR = "" . $r['CONSUMO_CONTENEDOR_DFICHA'];
@@ -270,7 +266,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 }
             }
             $FACTORCONSUMO = "" . $r['FACTOR_CONSUMO_DFICHA'];
-            $CONSUMOPORENVASE = "" . $r['CONSUMO_ENVASE_DFICHA'];
             $CONSUMOPORPALLET = "" . $r['CONSUMO_PALLET_DFICHA'];
             $PALLETCARGA = "" . $r['PALLET_CARGA_DFICHA'];
             $CONSUMOCONTENEDOR = "" . $r['CONSUMO_CONTENEDOR_DFICHA'];
@@ -302,7 +297,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 }
             }
             $FACTORCONSUMO = "" . $r['FACTOR_CONSUMO_DFICHA'];
-            $CONSUMOPORENVASE = "" . $r['CONSUMO_ENVASE_DFICHA'];
             $CONSUMOPORPALLET = "" . $r['CONSUMO_PALLET_DFICHA'];
             $PALLETCARGA = "" . $r['PALLET_CARGA_DFICHA'];
             $CONSUMOCONTENEDOR = "" . $r['CONSUMO_CONTENEDOR_DFICHA'];
@@ -461,7 +455,6 @@ if (isset($_POST)) {
                     if (repuesta == 0) {
                         ENVASEESTANDARV = document.getElementById("ENVASEESTANDARV").value;
 
-                        consumoenvase = FACTORCONSUMO;
                         consumopallet = ENVASEESTANDARV * FACTORCONSUMO;
                         consumocarga = consumopallet * PALLETCARGA;
 
@@ -470,11 +463,9 @@ if (isset($_POST)) {
                         //.toLocaleString()
 
                     }
-                    document.getElementById('CONSUMOPORENVASEV').value = consumoenvase;
                     document.getElementById('CONSUMOPORPALLETV').value = consumopallet;
                     document.getElementById('CONSUMOCONTENEDORV').value = consumocarga;
                     /*
-                        document.getElementById('CONSUMOPORENVASE').value = consumoenvase;
                         document.getElementById('CONSUMOPORPALLET').value = consumopallet;
                         document.getElementById('CONSUMOCONTENEDOR').value = consumocarga;
                     */
@@ -610,14 +601,6 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="FACTORCONSUMOE" id="FACTORCONSUMOE" name="FACTORCONSUMOE" value="<?php echo $FACTORCONSUMO; ?>" />
                                                 <input type="number" step="0.00001" class="form-control" placeholder="Factor Consumo" onchange="consumo()" id="FACTORCONSUMO" name="FACTORCONSUMO" value="<?php echo $FACTORCONSUMO; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_fconsumo" class="validacion"> </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Consumo Por Caja </label>
-                                                <input type="hidden" class="form-control" placeholder="CONSUMOPORENVASE" id="CONSUMOPORENVASE" name="CONSUMOPORENVASE" value="<?php echo $CONSUMOPORENVASE; ?>" />
-                                                <input type="number" step="0.00001" class="form-control" placeholder="Consumo Por Caja" id="CONSUMOPORENVASEV" name="CONSUMOPORENVASEV" value="<?php echo $CONSUMOPORENVASE; ?>" disabled />
-                                                <label id="val_consumocaja" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
