@@ -45,7 +45,7 @@ class DFICHA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_dficha` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  material_dficha  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -63,7 +63,7 @@ class DFICHA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_dficha` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  material_dficha  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -82,7 +82,7 @@ class DFICHA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_dficha` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  material_dficha  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -102,7 +102,7 @@ class DFICHA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_dficha` WHERE `ID_DFICHA`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  material_dficha  WHERE  ID_DFICHA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -127,24 +127,22 @@ class DFICHA_ADO
 
 
             $query =
-                "INSERT INTO `material_dficha` (
-                                            `FACTOR_CONSUMO_DFICHA`,
-                                            `CONSUMO_ENVASE_DFICHA`, 
-                                            `CONSUMO_PALLET_DFICHA`, 
-                                            `PALLET_CARGA_DFICHA`, 
-                                            `CONSUMO_CONTENEDOR_DFICHA`, 
-                                            `OBSERVACIONES_DFICHA`,
-                                            `ID_PRODUCTO`, 
-                                            `ID_FICHA`, 
-                                            `ESTADO`,
-                                            `ESTADO_REGISTRO`
-                                           )  VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?,  1, 1 );";
+                "INSERT INTO  material_dficha  (
+                                                    FACTOR_CONSUMO_DFICHA ,
+                                                    CONSUMO_PALLET_DFICHA , 
+                                                    PALLET_CARGA_DFICHA , 
+                                                    CONSUMO_CONTENEDOR_DFICHA , 
+                                                    OBSERVACIONES_DFICHA ,
+                                                    ID_PRODUCTO , 
+                                                    ID_FICHA , 
+                                                    ESTADO ,
+                                                    ESTADO_REGISTRO 
+                                                )  VALUES
+	       	( ?, ?, ?, ?, ?, ?, ?,   1, 1 );";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $DFICHA->__GET('FACTOR_CONSUMO_DFICHA'),
-                        $DFICHA->__GET('CONSUMO_ENVASE_DFICHA'),
                         $DFICHA->__GET('CONSUMO_PALLET_DFICHA'),
                         $DFICHA->__GET('PALLET_CARGA_DFICHA'),
                         $DFICHA->__GET('CONSUMO_CONTENEDOR_DFICHA'),
@@ -163,7 +161,7 @@ class DFICHA_ADO
     public function eliminarDFicha($id)
     {
         try {
-            $sql = "DELETE FROM `material_dficha` WHERE `ID_DFICHA`=" . $id . ";";
+            $sql = "DELETE FROM  material_dficha  WHERE  ID_DFICHA =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -177,21 +175,19 @@ class DFICHA_ADO
     {
         try {
             $query = "
-		UPDATE `material_dficha` SET
-            `FACTOR_CONSUMO_DFICHA`= ?,
-            `CONSUMO_ENVASE_DFICHA`= ?,
-            `CONSUMO_PALLET_DFICHA`= ?,
-            `PALLET_CARGA_DFICHA`= ?,
-            `CONSUMO_CONTENEDOR_DFICHA`= ?,
-            `OBSERVACIONES_DFICHA`= ?,
-            `ID_PRODUCTO`= ?,
-            `ID_FICHA`= ?
-		WHERE `ID_DFICHA`= ?;";
+		UPDATE  material_dficha  SET
+             FACTOR_CONSUMO_DFICHA = ?,
+             CONSUMO_PALLET_DFICHA = ?,
+             PALLET_CARGA_DFICHA = ?,
+             CONSUMO_CONTENEDOR_DFICHA = ?,
+             OBSERVACIONES_DFICHA = ?,
+             ID_PRODUCTO = ?,
+             ID_FICHA = ?
+		WHERE  ID_DFICHA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $DFICHA->__GET('FACTOR_CONSUMO_DFICHA'),
-                        $DFICHA->__GET('CONSUMO_ENVASE_DFICHA'),
                         $DFICHA->__GET('CONSUMO_PALLET_DFICHA'),
                         $DFICHA->__GET('PALLET_CARGA_DFICHA'),
                         $DFICHA->__GET('CONSUMO_CONTENEDOR_DFICHA'),
@@ -216,9 +212,9 @@ class DFICHA_ADO
 
         try {
             $query = "
-    UPDATE `material_dficha` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_DFICHA`= ?;";
+    UPDATE  material_dficha  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_DFICHA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -235,9 +231,9 @@ class DFICHA_ADO
     {
         try {
             $query = "
-    UPDATE `material_dficha` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_DFICHA`= ?;";
+    UPDATE  material_dficha  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_DFICHA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -255,9 +251,9 @@ class DFICHA_ADO
 
         try {
             $query = "
-    UPDATE `material_dficha` SET			
-            `ESTADO` = 0
-    WHERE `ID_DFICHA`= ?;";
+    UPDATE  material_dficha  SET			
+             ESTADO  = 0
+    WHERE  ID_DFICHA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -274,9 +270,9 @@ class DFICHA_ADO
     {
         try {
             $query = "
-    UPDATE `material_dficha` SET			
-            `ESTADO` = 1
-    WHERE `ID_DFICHA`= ?;";
+    UPDATE  material_dficha  SET			
+             ESTADO  = 1
+    WHERE  ID_DFICHA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -295,7 +291,7 @@ class DFICHA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * 
-                                            FROM `material_dficha`
+                                            FROM  material_dficha 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_FICHA = '" . $IDFICHA . "'  ;
                                         	");
@@ -316,9 +312,14 @@ class DFICHA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESOF',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACIONF'
-                                             FROM `material_dficha`
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',                                                
+                                                FORMAT(FACTOR_CONSUMO_DFICHA,5,'de_DE') AS 'FACTOR',
+                                                FORMAT(CONSUMO_PALLET_DFICHA,0,'de_DE') AS 'CONSUMOPALLET' , 
+                                                FORMAT(PALLET_CARGA_DFICHA,0,'de_DE') AS 'PALLET' , 
+                                                FORMAT(CONSUMO_CONTENEDOR_DFICHA,2,'de_DE') AS  'CONSUMOCONTENEDOR'
+
+                                             FROM  material_dficha 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_FICHA = '" . $IDFICHA . "'  ;	");
             $datos->execute();

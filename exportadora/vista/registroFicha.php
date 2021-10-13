@@ -786,7 +786,6 @@ if (isset($_POST)) {
                                                     <th>Sub Familia </th>
                                                     <th>Unidad Medida </th>
                                                     <th>Factor Consumo </th>
-                                                    <th>Consumo Envase</th>
                                                     <th>Consumo Pallet</th>
                                                     <th>Pallet Carga</th>
                                                     <th>Consumo Contenedor</th>
@@ -861,11 +860,10 @@ if (isset($_POST)) {
                                                             <td><?php echo $FAMILIA ?></td>
                                                             <td><?php echo $SUBFAMILIA ?></td>
                                                             <td><?php echo $TUMEDIDA ?></td>
-                                                            <td><?php echo $s['FACTOR_CONSUMO_DFICHA'] ?></td>
-                                                            <td><?php echo $s['CONSUMO_ENVASE_DFICHA'] ?></td>
-                                                            <td><?php echo $s['CONSUMO_PALLET_DFICHA'] ?></td>
-                                                            <td><?php echo $s['PALLET_CARGA_DFICHA'] ?></td>
-                                                            <td><?php echo $s['CONSUMO_CONTENEDOR_DFICHA'] ?></td>
+                                                            <td><?php echo $s['FACTOR'] ?></td>
+                                                            <td><?php echo $s['CONSUMOPALLET'] ?></td>
+                                                            <td><?php echo $s['PALLET'] ?></td>
+                                                            <td><?php echo $s['CONSUMOCONTENEDOR'] ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php } ?>
