@@ -755,7 +755,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Proveedor</label>
                                                 <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
-                                                <select class="form-control select2" id="PROVEEDOR" name="PROVEEDOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
+                                                <select class="form-control select2" id="PROVEEDOR" name="PROVEEDOR" style="width: 100%;" <?php echo $DISABLED2; ?>  <?php echo $DISABLEDFOLIO; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYPROVEEDOR as $r) : ?>
                                                         <?php if ($ARRAYPROVEEDOR) {    ?>
