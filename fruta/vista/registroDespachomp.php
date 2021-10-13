@@ -1075,22 +1075,23 @@ if (isset($_POST)) {
                                 <h4 class="card-title">Detalle de Despacho de Materia Prima</h4>
                             </div>
                             <div class="card-header">
-                                <form method="post" id="form1">
-                                    <div class="form-row align-items-center">
-                                        <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                        <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                        <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachomp" />
-                                        <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaMPDespachoMp" />
-                                        <div class="col-auto">
-                                            <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
-                                                <?php echo $DISABLED2; ?>
-                                                <?php
-                                                    if ($ESTADO == 0) {
-                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                    }
-                                                ?>
-                                                > Selector Existencias
-                                            </button>
+                                     <div class="form-row align-items-center">
+                                        <form method="post" id="form1">
+                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachomp" />
+                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaMPDespachoMp" />
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
+                                                    <?php echo $DISABLED2; ?>
+                                                    <?php
+                                                        if ($ESTADO == 0) {
+                                                            echo "disabled style='background-color: #eeeeee;'";
+                                                        }
+                                                    ?>
+                                                    > Selector Existencias
+                                                </button>
+                                            </form>
                                         </div>
                                         <div class="col-auto">
                                             <label class="sr-only" for=""></label>
@@ -1184,7 +1185,7 @@ if (isset($_POST)) {
                                                                 <tr class="text-left">
                                                                     <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
                                                                     <td class="text-center">
-                                                                      <form method="post" id="form1">
+                                                                      <form method="post" id="form2">
                                                                             <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
                                                                             <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
                                                                                 <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
@@ -1212,7 +1213,6 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                         </div>
                     </section>
