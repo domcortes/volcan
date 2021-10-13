@@ -1184,12 +1184,14 @@ if (isset($_POST)) {
                                                                 <tr class="text-left">
                                                                     <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
                                                                     <td class="text-center">
-                                                                        <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
-                                                                        <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
-                                                                            <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
-                                                                                <i class="ti-close"></i>
-                                                                            </button>
-                                                                        </div>
+                                                                      <form method="post" id="form1">
+                                                                            <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
+                                                                            <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
+                                                                                <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
+                                                                                    <i class="ti-close"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
                                                                     </td>
                                                                     <td><?php echo $r['COSECHA']; ?></td>
                                                                     <td><?php echo $CODIGOESTANDAR; ?></td>
@@ -1285,14 +1287,84 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href="/fruta/vista/registroDespachomp.php?op";
+                                    location.href="registroDespachomp.php?op";
                                 }
                             })
                         </script>';
-                    // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
-                }
+                // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
+            }
 
-                if (isset($_REQUEST['EDITAR'])) {
+            if (isset($_REQUEST['EDITAR'])) {
+                $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                $DESPACHOMP->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
+                $DESPACHOMP->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
+                $DESPACHOMP->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
+                $DESPACHOMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                $DESPACHOMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                $DESPACHOMP->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
+                $DESPACHOMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                $DESPACHOMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                $DESPACHOMP->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+                if ($_REQUEST['TDESPACHOE'] == "1") {
+                    $DESPACHOMP->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "2") {
+                    $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "3") {
+                    $DESPACHOMP->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "4") {
+                    $DESPACHOMP->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "5") {
+                    $DESPACHOMP->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                }
+                $DESPACHOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $DESPACHOMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $DESPACHOMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $DESPACHOMP->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DESPACHOMP_ADO->actualizarDespachomp($DESPACHOMP);
+
+                echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Cambios guardados",
+                            text:"Los cambios fueron guardados correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "registroDespachomp.php?op";
+                            }
+                        })
+                    </script>';
+            }
+
+            //OPERACION PARA CERRAR LA DESPACHOMP
+            if (isset($_REQUEST['CERRAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+
+                $ARRAYDDESPACHOMP2 = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
+                if (empty($ARRAYDDESPACHOMP2)) {
+                    // $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
+                    $SINO = "1";
+                    echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Accion restringida",
+                                text:"No puedes cerrar aun, tiene que haber al menos una existencia de producto terminado"
+                            })
+                        </script>';
+                } else {
+                    $MENSAJE = "";
+                    $SINO = "0";
+                }
+                if ($SINO == "0") {
                     $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
                     $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     $DESPACHOMP->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
@@ -1327,106 +1399,36 @@ if (isset($_POST)) {
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $DESPACHOMP_ADO->actualizarDespachomp($DESPACHOMP);
 
-                    echo '<script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Cambios guardados",
-                            text:"Los cambios fueron guardados correctamente",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "/fruta/vista/registroDespachomp.php?op";
-                            }
-                        })
-                    </script>';
-                }
+                    $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $DESPACHOMP_ADO->cerrado($DESPACHOMP);
 
-                //OPERACION PARA CERRAR LA DESPACHOMP
-                if (isset($_REQUEST['CERRAR'])) {
-                    //UTILIZACION METODOS SET DEL MODELO
-                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                    $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $DESPACHOMP_ADO->Confirmado($DESPACHOMP);
 
-                    $ARRAYDDESPACHOMP2 = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
-                    if (empty($ARRAYDDESPACHOMP2)) {
-                        // $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
-                        $SINO = "1";
-                        echo '<script>
-                            Swal.fire({
-                                icon:"info",
-                                title:"Accion restringida",
-                                text:"No puedes cerrar aun, tiene que haber al menos una existencia de producto terminado"
-                            })
-                        </script>';
-                    } else {
-                        $MENSAJE = "";
-                        $SINO = "0";
-                    }
-                    if ($SINO == "0") {
-                        $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
-                        $DESPACHOMP->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
-                        $DESPACHOMP->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
-                        $DESPACHOMP->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
-                        $DESPACHOMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
-                        $DESPACHOMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-                        $DESPACHOMP->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
-                        $DESPACHOMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-                        $DESPACHOMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-                        $DESPACHOMP->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+                    $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
+                    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
                         if ($_REQUEST['TDESPACHOE'] == "1") {
-                            $DESPACHOMP->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                            $EXIMATERIAPRIMA_ADO->enTransito($EXIMATERIAPRIMA);
+                        } else {
+                            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                            $EXIMATERIAPRIMA_ADO->despachado($EXIMATERIAPRIMA);
                         }
-                        if ($_REQUEST['TDESPACHOE'] == "2") {
-                            $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                        }
-                        if ($_REQUEST['TDESPACHOE'] == "3") {
-                            $DESPACHOMP->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
-                        }
-                        if ($_REQUEST['TDESPACHOE'] == "4") {
-                            $DESPACHOMP->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
-                        }
-                        if ($_REQUEST['TDESPACHOE'] == "5") {
-                            $DESPACHOMP->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
-                        }
-                        $DESPACHOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                        $DESPACHOMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                        $DESPACHOMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                        $DESPACHOMP->__SET('ID_USUARIOM', $IDUSUARIOS);
-                        $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $DESPACHOMP_ADO->actualizarDespachomp($DESPACHOMP);
+                    endforeach;
+                    //REDIRECCIONAR A PAGINA registroDespachomp.php
+                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
 
-                        $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                        $DESPACHOMP_ADO->cerrado($DESPACHOMP);
+                    if ($_SESSION['parametro1'] == "crear") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
 
-                        $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                        $DESPACHOMP_ADO->Confirmado($DESPACHOMP);
-
-                        $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
-                        foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
-                            if ($_REQUEST['TDESPACHOE'] == "1") {
-                                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
-                                $EXIMATERIAPRIMA->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                                $EXIMATERIAPRIMA_ADO->enTransito($EXIMATERIAPRIMA);
-                            } else {
-                                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
-                                $EXIMATERIAPRIMA->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                                $EXIMATERIAPRIMA_ADO->despachado($EXIMATERIAPRIMA);
-                            }
-                        endforeach;
-                        //REDIRECCIONAR A PAGINA registroDespachomp.php
-                        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-
-                        if ($_SESSION['parametro1'] == "crear") {
-                            $_SESSION["parametro"] = $_REQUEST['IDP'];
-                            $_SESSION["parametro1"] = "ver";
-
-                            echo '<script>
+                        echo '<script>
                                 Swal.fire({
                                     icon:"info",
                                     title:"Registro de Despacho cerrado",
@@ -1435,16 +1437,16 @@ if (isset($_POST)) {
                                     confirmButtonText:"OK"
                                 }).then((result)=>{
                                     if(result.value){
-                                        location.href="/fruta/vista/registroDespachomp.php?op";
+                                        location.href="registroDespachomp.php?op";
                                     }
                                 })
                             </script>';
-                            // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
-                        }
-                        if ($_SESSION['parametro1'] == "editar") {
-                            $_SESSION["parametro"] = $_REQUEST['IDP'];
-                            $_SESSION["parametro1"] = "ver";
-                            echo '<script>
+                        // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
+                    }
+                    if ($_SESSION['parametro1'] == "editar") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
                                 Swal.fire({
                                     icon:"info",
                                     title:"Registro de Despacho cerrado",
@@ -1453,33 +1455,33 @@ if (isset($_POST)) {
                                     confirmButtonText:"OK"
                                 }).then((result)=>{
                                     if(result.value){
-                                        location.href="/fruta/vista/registroDespachomp.php?op";
+                                        location.href="registroDespachomp.php?op";
                                     }
                                 })
                             </script>';
-                            // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
-                        }
+                        // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
                     }
                 }
+            }
 
-                if (isset($_REQUEST['QUITAR'])) {
-                    $IDQUITAR = $_REQUEST['IDQUITAR'];
-                    $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDQUITAR);
-                    // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $EXIMATERIAPRIMA_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIMATERIAPRIMA);
-                    echo '<script>
+            if (isset($_REQUEST['QUITAR'])) {
+                $IDQUITAR = $_REQUEST['IDQUITAR'];
+                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDQUITAR);
+                // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIMATERIAPRIMA_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIMATERIAPRIMA);
+                echo '<script>
                             Swal.fire({
                                 icon:"info",
                                 title:"Accion realizada",
                                 text:"Se ha eliminado la existencia."
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href="/fruta/vista/registroDespachomp.php?op";
+                                    location.href="registroDespachomp.php?op";
                                 }
                             })
                         </script>';
-                }
-        ?>
+            }
+            ?>
 </body>
 
 </html>
