@@ -43,10 +43,13 @@ $PRODUCTOR = "";
 $PVESPECIES = "";
 $SELECIONAREXISTENCIA = "";
 $FECHAPROCESO = "";
-
+$CONTADOR = 0;
 $EMPRESA = "";
 $PLANTA = "";
 $TEMPORADA = "";
+$SINO = "";
+$SINOENVASE="";
+$MENSAJE = "";
 
 
 $DISABLED = "";
@@ -156,7 +159,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../config/menu.php"; 
+            ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
@@ -228,6 +232,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                             <th>Folio </th>
                                                             <th>Fecha Cosecha </th>
                                                             <th>Selección</th>
+                                                            <th>Seleccion Envase</th>
                                                             <th>CSG Productor </th>
                                                             <th>Nombre Productor </th>
                                                             <th>Código Estandar </th>
@@ -247,6 +252,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                     <tbody>
                                                         <?php foreach ($ARRAYEXIMATERIAPRIMA as $r) : ?>
 
+                                                            <?php $CONTADOR = $CONTADOR + 1; ?>
                                                             <?php
                                                             $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                             if ($ARRAYRECEPCION) {
@@ -308,6 +314,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                         <label for="SELECIONAREXISTENCIA<?php echo $r['ID_EXIMATERIAPRIMA']; ?>"> Seleccionar</label>
                                                                     </div>
                                                                 </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" class="form-control" name="IDCAJA[]" value="<?php echo  $CONTADOR; ?>">
+                                                                        <input type="hidden" class="form-control" name="IDEXISTENCIA[]" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>">
+                                                                        <input type="hidden" class="form-control" name="ESTANDAR[]" value="<?php echo  $r['ID_ESTANDAR']; ?>">
+                                                                        <input type="hidden" class="form-control" name="FOLIO[]" value="<?php echo  $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?>">
+                                                                        <input type="hidden" class="form-control" name="ENVASEORIGINAL[]" value="<?php echo $r['CANTIDAD_ENVASE_EXIMATERIAPRIMA']; ?>">
+                                                                        <input type="hidden" class="form-control" name="PROMEDIO[]" value="<?php echo $r['KILOS_PROMEDIO_EXIMATERIAPRIMA']; ?>">
+                                                                        <input type="hidden" class="form-control" name="PESOPALLET[]" value="<?php echo $r['PESO_PALLET_EXIMATERIAPRIMA']; ?>">
+                                                                        <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" class="form-control" name="ENVASE[]">
+                                                                    </div>
+                                                                </td>
                                                                 <td><?php echo $CSGPRODUCTOR; ?></td>
                                                                 <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                                 <td><?php echo $CODIGOESTANDAR; ?></td>
@@ -337,9 +355,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                             <button type="button" class="btn btn-danger  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Cancelar
                                             </button>
-
-                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i> Agregar
+                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Por Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> P. Folio
+                                            </button>
+                                            <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="Por Envases" name="DIVIDIR" value="DIVIDIR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> P. Envases
                                             </button>
                                         </div>
                                     </div>
@@ -357,44 +377,208 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <script>            
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showConfirmButton: true
+            })
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Para <b>seleccionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label><label>Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>"
+            })
+        </script>
         <?php
-            //OPERACION DE REGISTRO DE FILA
-                if (isset($_REQUEST['AGREGAR'])) {
+        //OPERACION DE REGISTRO DE FILA
+        if (isset($_REQUEST['AGREGAR'])) {
 
-                    $IDDESPACHO = $_REQUEST['IDP'];
+            $IDDESPACHO = $_REQUEST['IDP'];
 
-                    if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
+            if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
 
-                        $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
+                $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
 
-                        //var_dump($SELECIONAREXISTENCIA);
-                        foreach ($SELECIONAREXISTENCIA as $r) :
-                            $IDEXISMATERIAPRIMA = $r;
+                //var_dump($SELECIONAREXISTENCIA);
+                foreach ($SELECIONAREXISTENCIA as $r) :
+                    $IDEXISMATERIAPRIMA = $r;
 
-                            $EXIMATERIAPRIMA->__SET('ID_DESPACHO', $IDDESPACHO);
-                            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDEXISMATERIAPRIMA);
-                            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                            $EXIMATERIAPRIMA_ADO->actualizarSelecionarDespachoCambiarEstado($EXIMATERIAPRIMA);
-                        endforeach;
+                    $EXIMATERIAPRIMA->__SET('ID_DESPACHO', $IDDESPACHO);
+                    $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDEXISMATERIAPRIMA);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $EXIMATERIAPRIMA_ADO->actualizarSelecionarDespachoCambiarEstado($EXIMATERIAPRIMA);
+                endforeach;
 
-                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                        echo '<script>
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
                             Swal.fire({
-                                icon:"success",
-                                title:"Registros agregados",
-                                text:"Se han agregado los registros correctamente",
+                                icon:"info",
+                                title:"Folios agregados al proceso",
                                 showConfirmButton:true,
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href="'.$_REQUEST['URLO'].'.php?op";
+                                    location.href="' . $_REQUEST['URLO'] . '.php?op";
                                 }
                             })
                         </script>';
-                        // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+            }
+        }
+
+        if (isset($_REQUEST['DIVIDIR'])) {
+
+            $SINO=1;
+            $IDDESPACHO = $_REQUEST['IDP'];
+            $ARRAYIDCAJA = $_REQUEST['IDCAJA'];
+            $ARRAYESTANDAR = $_REQUEST['ESTANDAR'];
+            $ARRAYFOLIO = $_REQUEST['FOLIO'];
+            $ARRAYIDEXISTENCIA = $_REQUEST['IDEXISTENCIA'];
+            $ARRAYENVASEORIGINAL = $_REQUEST['ENVASEORIGINAL'];
+            $ARRAYENVASE = $_REQUEST['ENVASE'];
+            $ARRAYPROMEDIO = $_REQUEST['PROMEDIO'];
+            $ARRAYPESOPALLET = $_REQUEST['PESOPALLET'];
+
+            if (isset($_REQUEST['IDCAJA'])) {
+                foreach ($ARRAYIDCAJA as $ID) :
+                    $IDNETO = $ID - 1;
+                    $ESTANDAR = $ARRAYESTANDAR[$IDNETO];
+                    $IDEXISTENCIA = $ARRAYIDEXISTENCIA[$IDNETO];
+                    $FOLIOORIGINAL = $ARRAYFOLIO[$IDNETO];
+                    $ENVASE = $ARRAYENVASE[$IDNETO];
+                    $ENVASEORIGINAL = $ARRAYENVASEORIGINAL[$IDNETO];
+                    $PROMEDIO = $ARRAYPROMEDIO[$IDNETO];
+                    $PESOPALLET = $ARRAYPESOPALLET[$IDNETO];
+
+
+                    if ($ENVASE != "") {
+                        $SINOENVASE = 0;
+                        $MENSAJE = $MENSAJE;
+                        if ($ENVASE <= 0) {
+                            $SINOENVASE = 1;
+                            $MENSAJE = $MENSAJE . " <br> <b>" . $FOLIOORIGINAL . "</b>: SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
+                        } else {
+                            if ($ENVASE >= $ENVASEORIGINAL) {
+                                $SINOENVASE = 1;
+                                $MENSAJE = $MENSAJE . " <br> <b>" . $FOLIOORIGINAL . "</b: LA CANTIDAD DE ENVASES NO PUEDE SER MAYOR O IGUAL A LOS ENVASES ORIGINAL";
+                            } else {
+                                $SINOENVASE = 0;
+                                $MENSAJE = $MENSAJE;
+                            }
+                        }
+                    } else {
+                        $SINOENVASE = 1;
+                        //$MENSAJE = $MENSAJE . " <br> " . $FOLIOORIGINAL . ": SE DEBE INGRESAR UN DATO EN KILOS DESPACHO";
+                    }
+
+                    if ($SINOENVASE == 0) {
+                        $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
+                        $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
+
+                        //KILOS PARA LINEA NUEVA
+                        $ENVASERESTANTE = $ENVASEORIGINAL - $ENVASE;
+                        $NETORESTANTE = $ENVASERESTANTE * $PROMEDIO;
+                        $PESOENVASERESTANTE = $ENVASERESTANTE * $PESOENVASEESTANDAR;
+                        $BRUTORESTANTE = $NETORESTANTE + $PESOENVASERESTANTE + $PESOPALLET;
+
+                        //KILOS PARA LA LINEA ACTUAL
+                        $ENVASENUEVO = $ENVASE;
+                        $NETONUEVO = $ENVASE * $PROMEDIO;
+                        $PESOENVASENUEVO = $ENVASE * $PESOENVASEESTANDAR;
+                        $BRUTONUEVO = $NETONUEVO + $PESOENVASENUEVO + $PESOPALLET;
+                        
+
+                        //ACTUALIZA LOS DATOS DE LA FOLIO ACTUAL
+
+                        $EXIMATERIAPRIMA->__SET('ID_DESPACHO', $IDDESPACHO);
+                        $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDEXISTENCIA);
+                        $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $ENVASENUEVO);
+                        $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $NETONUEVO);
+                        $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $BRUTONUEVO);
+                        // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                         $EXIMATERIAPRIMA_ADO->actualizareEnvasesDespachoKilos($EXIMATERIAPRIMA);
+
+                        $FOLIOALIASESTACTICO = $FOLIOORIGINAL;
+                        $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                            "_TIPO_FOLIO:MATERIA PRIMA_DESPACHO:" . $_REQUEST['IDP'] . "_FOLIO:" . $FOLIOORIGINAL;
+
+                        //CREA UNA FOLIO NUEVO CON EL RESTANTE DE LOS ENVASES
+                        $ARRAYVEREXITENICA = $EXIMATERIAPRIMA_ADO->verEximateriaprima($IDEXISTENCIA);
+                        foreach ($ARRAYVEREXITENICA as $r) :
+                            $EXIMATERIAPRIMA->__SET('FOLIO_EXIMATERIAPRIMA', $r['FOLIO_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('FOLIO_AUXILIAR_EXIMATERIAPRIMA', $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('FOLIO_MANUAL', $r['FOLIO_MANUAL']);
+                            $EXIMATERIAPRIMA->__SET('FECHA_COSECHA_EXIMATERIAPRIMA', $r['FECHA_COSECHA_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('CANTIDAD_ENVASE_EXIMATERIAPRIMA', $ENVASERESTANTE);
+                            $EXIMATERIAPRIMA->__SET('KILOS_NETO_EXIMATERIAPRIMA', $NETORESTANTE);
+                            $EXIMATERIAPRIMA->__SET('KILOS_BRUTO_EXIMATERIAPRIMA', $BRUTORESTANTE);
+                            $EXIMATERIAPRIMA->__SET('KILOS_PROMEDIO_EXIMATERIAPRIMA', $r['KILOS_PROMEDIO_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('PESO_PALLET_EXIMATERIAPRIMA',  $r['PESO_PALLET_EXIMATERIAPRIMA']);
+                            $EXIMATERIAPRIMA->__SET('ALIAS_DINAMICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASDIANAMICO);
+                            $EXIMATERIAPRIMA->__SET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA', $FOLIOALIASESTACTICO);
+                            $EXIMATERIAPRIMA->__SET('GASIFICADO', $r['GASIFICADO']);
+                            $EXIMATERIAPRIMA->__SET('INGRESO', $r['INGRESO']);
+                            $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
+                            $EXIMATERIAPRIMA->__SET('ID_FOLIO', $r['ID_FOLIO']);
+                            $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
+                            $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
+                            $EXIMATERIAPRIMA->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
+                            $EXIMATERIAPRIMA->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
+                            $EXIMATERIAPRIMA->__SET('ID_DESPACHO2', $r['ID_DESPACHO2']);
+                            $EXIMATERIAPRIMA->__SET('ID_EMPRESA', $EMPRESAS);
+                            $EXIMATERIAPRIMA->__SET('ID_PLANTA', $PLANTAS);
+                            $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);
+                        // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                            $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaDespacho($EXIMATERIAPRIMA);
+                        endforeach;
+                        $SINO = 0;
+                    }
+                endforeach;
+
+                if ($SINO == 0) {
+                    
+                    
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo
+                    "<script>
+                            Swal.fire({
+                                icon:'info',
+                                title:'Folios agregados al proceso'
+                            }).then((result)=>{
+                                if(result.value){
+                                   location.href ='" . $_REQUEST['URLO'] . ".php?op';
+                                }                          
+                            });
+                    </script>";
+                   //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                   
+                }
+                if ($SINOENVASE == 1) {
+                    if ($MENSAJE != "") {
+                        echo
+                        '<script>
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            timer: 5000,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            showCancelButton: false,
+                            showCloseButton: true,
+                            focusConfirm: false,                  
+                        })
+                        Toast.fire({
+                        icon: "alert", 
+                        title: "",
+                        html:"' . $MENSAJE . '"
+                        })
+                    </script>';
                     }
                 }
+            }
+        }
         ?>
 </body>
 
