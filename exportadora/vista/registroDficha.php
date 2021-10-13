@@ -87,12 +87,19 @@ include_once "../config/validarDatosUrlD.php";
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CREAR'])) {
 
+    if ($_REQUEST['FACTORCONSUMO'] > 0) {
+        $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'] * 1;
+        $CONSUMOPORPALLET = $CONSUMOPORENVASE * $_REQUEST['ENVASEESTANDAR'];
+        if ($_REQUEST['PALLETCARGA'] > 0) {
+            $CONSUMOCONTENEDOR = $_REQUEST['PALLETCARGA'] * $CONSUMOPORPALLET;
+        }
+    }
 
     $DFICHA->__SET('FACTOR_CONSUMO_DFICHA', $_REQUEST['FACTORCONSUMO']);
-    $DFICHA->__SET('CONSUMO_ENVASE_DFICHA', $_REQUEST['CONSUMOPORENVASE']);
-    $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $_REQUEST['CONSUMOPORPALLET']);
+    $DFICHA->__SET('CONSUMO_ENVASE_DFICHA', $CONSUMOPORENVASE);
+    $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $CONSUMOPORPALLET);
     $DFICHA->__SET('PALLET_CARGA_DFICHA', $_REQUEST['PALLETCARGA']);
-    $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $_REQUEST['CONSUMOCONTENEDOR']);
+    $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $CONSUMOCONTENEDOR);
     $DFICHA->__SET('OBSERVACIONES_DFICHA', $_REQUEST['PRODUCTO']);
     $DFICHA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $DFICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
@@ -106,11 +113,19 @@ if (isset($_REQUEST['CREAR'])) {
 }
 if (isset($_REQUEST['EDITAR'])) {
 
+    if ($_REQUEST['FACTORCONSUMO'] > 0) {
+        $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'] * 1;
+        $CONSUMOPORPALLET = $CONSUMOPORENVASE * $_REQUEST['ENVASEESTANDAR'];
+        if ($_REQUEST['PALLETCARGA'] > 0) {
+            $CONSUMOCONTENEDOR = $_REQUEST['PALLETCARGA'] * $CONSUMOPORPALLET;
+        }
+    }
+
     $DFICHA->__SET('FACTOR_CONSUMO_DFICHA', $_REQUEST['FACTORCONSUMO']);
-    $DFICHA->__SET('CONSUMO_ENVASE_DFICHA', $_REQUEST['CONSUMOPORENVASE']);
-    $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $_REQUEST['CONSUMOPORPALLET']);
+    $DFICHA->__SET('CONSUMO_ENVASE_DFICHA', $CONSUMOPORENVASE);
+    $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $CONSUMOPORPALLET);
     $DFICHA->__SET('PALLET_CARGA_DFICHA', $_REQUEST['PALLETCARGA']);
-    $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $_REQUEST['CONSUMOCONTENEDOR']);
+    $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $CONSUMOCONTENEDOR);
     $DFICHA->__SET('OBSERVACIONES_DFICHA', $_REQUEST['PRODUCTO']);
     $DFICHA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $DFICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
@@ -316,18 +331,13 @@ if (isset($_POST)) {
         }
     }
     if (isset($_REQUEST['FACTORCONSUMO'])) {
-        $FACTORCONSUMO = "" . $_REQUEST['FACTORCONSUMO'];  
-        if($FACTORCONSUMO>0){      
-            $CONSUMOPORENVASE = $FACTORCONSUMO * 1;
-            $CONSUMOPORPALLET = $CONSUMOPORENVASE * $ENVASEESTANDAR;
-        }
+        $FACTORCONSUMO = "" . $_REQUEST['FACTORCONSUMO'];
     }
     if (isset($_REQUEST['ENVASEESTANDAR'])) {
         $ENVASEESTANDAR = "" . $_REQUEST['ENVASEESTANDAR'];
     }
     if (isset($_REQUEST['PALLETCARGA'])) {
         $PALLETCARGA = "" . $_REQUEST['PALLETCARGA'];
-        $CONSUMOCONTENEDOR = $CONSUMOPORPALLET * $PALLETCARGA;
     }
 }
 
@@ -401,6 +411,75 @@ if (isset($_POST)) {
                     document.form_reg_dato.PALLETCARGA.style.borderColor = "#4AF575";
 
                 }
+
+                function consumo() {
+                    var consumoenvase;
+                    var consumopallet;
+                    var consumocarga;
+                    FACTORCONSUMO = document.getElementById("FACTORCONSUMO").value;
+                    PALLETCARGA = document.getElementById("PALLETCARGA").value;
+                    document.getElementById('val_fconsumo').innerHTML = "";
+                    document.getElementById('val_palletcarga').innerHTML = "";
+
+                    if (FACTORCONSUMO == null || FACTORCONSUMO.length == 0 || /^\s+$/.test(FACTORCONSUMO)) {
+                        document.form_reg_dato.FACTORCONSUMO.focus();
+                        document.form_reg_dato.FACTORCONSUMO.style.borderColor = "#FF0000";
+                        document.getElementById('val_fconsumo').innerHTML = "NO HA INGRESADO DATOS";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.FACTORCONSUMO.style.borderColor = "#4AF575";
+                    }
+                    if (FACTORCONSUMO == 0) {
+                        document.form_reg_dato.FACTORCONSUMO.focus();
+                        document.form_reg_dato.FACTORCONSUMO.style.borderColor = "#FF0000";
+                        document.getElementById('val_fconsumo').innerHTML = "TIENE QUE SER MAYOR A CERO";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.FACTORCONSUMO.style.borderColor = "#4AF575";
+                    }
+                    if (PALLETCARGA == null || PALLETCARGA.length == 0 || /^\s+$/.test(PALLETCARGA)) {
+                        document.form_reg_dato.PALLETCARGA.focus();
+                        document.form_reg_dato.PALLETCARGA.style.borderColor = "#FF0000";
+                        document.getElementById('val_palletcarga').innerHTML = "NO HA INGRESADO DATOS";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.PALLETCARGA.style.borderColor = "#4AF575";
+                    }
+                    if (PALLETCARGA == 0) {
+                        document.form_reg_dato.PALLETCARGA.focus();
+                        document.form_reg_dato.PALLETCARGA.style.borderColor = "#FF0000";
+                        document.getElementById('val_palletcarga').innerHTML = "TIENE QUE SER MAYOR A CERO";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.PALLETCARGA.style.borderColor = "#4AF575";
+                    }
+
+                    if (repuesta == 0) {
+                        ENVASEESTANDARV = document.getElementById("ENVASEESTANDARV").value;
+
+                        consumoenvase = FACTORCONSUMO;
+                        consumopallet = ENVASEESTANDARV * FACTORCONSUMO;
+                        consumocarga = consumopallet * PALLETCARGA;
+
+                        consumopallet = consumopallet.toFixed(2);
+                        consumocarga = consumocarga.toFixed(2);
+                        //.toLocaleString()
+
+                    }
+                    document.getElementById('CONSUMOPORENVASEV').value = consumoenvase;
+                    document.getElementById('CONSUMOPORPALLETV').value = consumopallet;
+                    document.getElementById('CONSUMOCONTENEDORV').value = consumocarga;
+                    /*
+                        document.getElementById('CONSUMOPORENVASE').value = consumoenvase;
+                        document.getElementById('CONSUMOPORPALLET').value = consumopallet;
+                        document.getElementById('CONSUMOCONTENEDOR').value = consumocarga;
+                    */
+
+                }
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
                     location.href = "" + url;
@@ -465,7 +544,7 @@ if (isset($_POST)) {
                     <!-- Main content -->
                     <section class="content">
 
-                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato" onsubmit="return validacion()">
+                        <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
                                 <div class="box-header with-border">
                                     <!--
@@ -473,7 +552,7 @@ if (isset($_POST)) {
                                         -->
                                 </div>
                                 <div class="box-body ">
-                                    <div class="row">  
+                                    <div class="row">
                                         <div class=" col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Producto</label>
@@ -529,7 +608,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Factor Consumo </label>
                                                 <input type="hidden" class="form-control" placeholder="FACTORCONSUMOE" id="FACTORCONSUMOE" name="FACTORCONSUMOE" value="<?php echo $FACTORCONSUMO; ?>" />
-                                                <input type="number" step="0.01" class="form-control" placeholder="Factor Consumo" onchange="this.form.submit()" id="FACTORCONSUMO" name="FACTORCONSUMO" value="<?php echo $FACTORCONSUMO; ?>" <?php echo $DISABLED; ?> />
+                                                <input type="number" step="0.00001" class="form-control" placeholder="Factor Consumo" onchange="consumo()" id="FACTORCONSUMO" name="FACTORCONSUMO" value="<?php echo $FACTORCONSUMO; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_fconsumo" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -537,13 +616,13 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Consumo Por Caja </label>
                                                 <input type="hidden" class="form-control" placeholder="CONSUMOPORENVASE" id="CONSUMOPORENVASE" name="CONSUMOPORENVASE" value="<?php echo $CONSUMOPORENVASE; ?>" />
-                                                <input type="number" step="0.01" class="form-control" placeholder="Consumo Por Caja" id="CONSUMOPORENVASEV" name="CONSUMOPORENVASEV" value="<?php echo $CONSUMOPORENVASE; ?>" disabled />
+                                                <input type="number" step="0.00001" class="form-control" placeholder="Consumo Por Caja" id="CONSUMOPORENVASEV" name="CONSUMOPORENVASEV" value="<?php echo $CONSUMOPORENVASE; ?>" disabled />
                                                 <label id="val_consumocaja" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label>Envase  Estandar</label>
+                                                <label>Envase Estandar</label>
                                                 <input type="hidden" class="form-control" placeholder="ENVASEESTANDAR" id="ENVASEESTANDAR" name="ENVASEESTANDAR" value="<?php echo $ENVASEESTANDAR; ?>" />
                                                 <input type="number" step="0.01" class="form-control" placeholder="Envase Estandar" id="ENVASEESTANDARV" name="ENVASEESTANDARV" value="<?php echo $ENVASEESTANDAR; ?>" disabled />
                                                 <label id="val_envaseestandar" class="validacion"> </label>
@@ -561,7 +640,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Pallet Por Carga </label>
                                                 <input type="hidden" class="form-control" placeholder="PALLETCARGAE" id="PALLETCARGAE" name="PALLETCARGAE" value="<?php echo $PALLETCARGA; ?>" />
-                                                <input type="number" step="0.01" class="form-control" placeholder="Factor Consumo" onchange="this.form.submit()" id="PALLETCARGA" name="PALLETCARGA" value="<?php echo $PALLETCARGA; ?>" <?php echo $DISABLED; ?> />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Factor Consumo" onchange="consumo()" id="PALLETCARGA" name="PALLETCARGA" value="<?php echo $PALLETCARGA; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_palletcarga" class="validacion"> </label>
                                             </div>
                                         </div>

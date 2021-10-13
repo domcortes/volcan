@@ -55,6 +55,7 @@ $BORDER = "";
 $CONTADOR = 0;
 $SINONETO = "";
 $SINO = "";
+$SINOENVASE="";
 $MENSAJE = "";
 $IDOP = "";
 $IDOP2 = "";
@@ -433,7 +434,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             }
         }
         if (isset($_REQUEST['DIVIDIR'])) {
-
+            $SINO = 1;
             $IDPROCESO = $_REQUEST['IDP'];
 
             $ARRAYIDCAJA = $_REQUEST['IDCAJA'];
@@ -476,7 +477,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         }
                     } else {
                         $SINOENVASE = 1;
-                        // $MENSAJE = $MENSAJE . " <br> " . $FOLIOEXIINDUSTRIALPRECIO . ": SE DEBE INGRESAR UN DATO EN KILOS DESPACHO";
+                        // $MENSAJE = $MENSAJE . " <br> " . $FOLIOORIGINAL . ": SE DEBE INGRESAR UN DATO EN KILOS DESPACHO";
                     }
 
                     if ($SINOENVASE == 0) {
@@ -537,9 +538,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIMATERIAPRIMA->__SET('ID_PLANTA', $PLANTAS);
                             $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);
                             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                            $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaProceso($EXIMATERIAPRIMA);
+                           $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaProceso($EXIMATERIAPRIMA);
                         endforeach;
-                        $SINNO = 0;
+                        $SINO = 0;
                     }
                 endforeach;
 
@@ -560,6 +561,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                    //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
                 }
                 if ($SINOENVASE == 1) {
+                   
                     if ($MENSAJE != "") {
                         echo
                         '<script>

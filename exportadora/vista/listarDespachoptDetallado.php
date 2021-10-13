@@ -281,6 +281,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Despacho </th>
                                                     <th>Número Guía Despacho </th>
                                                     <th>Tipo Despacho </th>
+                                                    <th>Destino </th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -307,18 +308,43 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = "Interplanta";
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Devolución Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $ORIGEN = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Venta";
+                                                        $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($r['ID_COMPRADOR']);
+                                                        if ($ARRAYCOMPRADOR) {
+                                                            $ORIGEN = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Regalo";
+                                                        $ORIGEN = $r['REGALO_DESPACHO'];
                                                     }
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA3']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -512,6 +538,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -528,27 +555,37 @@ include_once "../config/datosUrLP.php";
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                        <div class="form-group">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Bruto </label>
-                                            <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

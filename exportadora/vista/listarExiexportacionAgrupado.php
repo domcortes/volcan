@@ -312,21 +312,27 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-6 col-6 col-xs-6">
-                                        <div class="form-group">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 col-xs-12">
-                                        <div class="form-group">
-                                            <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 col-xs-12">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -11,6 +11,7 @@ include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../controlador/DFINAL_ADO.php';
 
 
 include_once '../controlador/CONDUCTOR_ADO.php';
@@ -37,6 +38,8 @@ $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
+$DFINAL_ADO =  new DFINAL_ADO();
+
 
 
 
@@ -280,6 +283,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Despacho </th>
                                                     <th>Número Guía Despacho </th>
                                                     <th>Tipo Despacho </th>
+                                                    <th>Destino</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -306,6 +310,12 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRECONDUCTOR = "Sin Datos";
                                                     }
 
+                                                    $ARRAYDFINAL = $DFINAL_ADO->verDfinal($r['ID_DFINAL']);
+                                                    if ($ARRAYDFINAL) {
+                                                        $NOMBREDFINAL = $ARRAYDFINAL[0]['NOMBRE_DFINAL'];
+                                                    } else {
+                                                        $NOMBREDFINAL = "Sin Datos";
+                                                    }
                                                     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYEMPRESA) {
                                                         $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -477,6 +487,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
                                                             <td><?php echo "Exportación"; ?></td>
+                                                            <td><?php echo $NOMBREDFINAL; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -494,27 +505,37 @@ include_once "../config/datosUrLP.php";
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                        <div class="form-group">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Bruto </label>
-                                            <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

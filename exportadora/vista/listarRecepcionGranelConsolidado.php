@@ -473,8 +473,7 @@ include_once "../config/datosUrLP.php";
                                                             $NOMBREESTANDAR = "Sin Datos";
                                                         }
                                                         ?>
-                                                        <tr class="text-left">
-
+                                                        <tr class="text-left">                                     
 
                                                             <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
                                                             <td><?php echo "Materia Prima"; ?> </td>
@@ -488,7 +487,6 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $s['COSECHA']; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $r['FECHA_GUIA']; ?></td>
-                                                            <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
@@ -500,8 +498,6 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-
-
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>

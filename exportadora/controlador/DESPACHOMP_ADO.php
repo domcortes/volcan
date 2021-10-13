@@ -316,7 +316,7 @@ class DESPACHOMP_ADO
         }
     }
 
-//VISUALIZAR
+    //VISUALIZAR
 
 
 
@@ -532,7 +532,7 @@ class DESPACHOMP_ADO
             die($e->getMessage());
         }
     }
-    
+
     public function listarDespachompEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
@@ -649,7 +649,7 @@ class DESPACHOMP_ADO
 
 
     //TOTALES
-    public function obtenerTotalesDespachompCBX2($IDDESPACHO )
+    public function obtenerTotalesDespachompCBX2($IDDESPACHO)
     {
         try {
 
@@ -672,7 +672,33 @@ class DESPACHOMP_ADO
         } catch (Exception $e) {
             die($e->getMessage());
         }
-    }   public function obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESA,  $TEMPORADA)
+    }
+    public function obtenerTotalesDespachompEmpresaTemporadaCBX2($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'   
+                                        FROM fruta_despachomp 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESA,  $TEMPORADA)
     {
         try {
 

@@ -23,7 +23,7 @@ $BODEGA =  new BODEGA();
 $IDOP = "";
 $OP = "";
 $DISABLED = "";
-
+$PRINCIPAL = "";
 
 $NOMBREBODEGA = "";
 $NOMBRECONTACTO = "";
@@ -32,7 +32,7 @@ $FNOMBRE = "";
 $NOMBREPLANTA = "";
 $ESTADO = "";
 
-$CONTADOR=0;
+
 
 $NOMBRE = "";
 $MENSAJE = "";
@@ -43,6 +43,7 @@ $BORDER = "";
 
 //INICIALIZAR ARREGLOS
 $ARRAYBODEGA = "";
+$ARRAYVALIDARBODEGA = "";
 $ARRAYBODEGAID = "";
 $ARRAYPLANTA = "";
 $ARRAYPLANTA2 = "";
@@ -52,7 +53,7 @@ $ARRAYEMPRESA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaCBX($EMPRESAS);
-$ARRAYPLANTA = $PLANTA_ADO->listarPlantaPropiaCBX();
+$ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
@@ -62,35 +63,65 @@ include_once "../config/datosUrl.php";
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['GUARDAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $BODEGA->__SET('NOMBRE_BODEGA', $_REQUEST['NOMBREBODEGA']);
-    $BODEGA->__SET('NOMBRE_CONTACTO_BODEGA', $_REQUEST['NOMBRECONTACTO']);
-    $BODEGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $BODEGA->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $BODEGA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $BODEGA_ADO->agregarBodega($BODEGA);
-    //REDIRECCIONAR A PAGINA registroBodega.php
-    echo "<script type='text/javascript'> location.href ='registroBodega.php';</script>";
+
+    $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA']);
+    if ($ARRAYVALIDARBODEGA) {
+        $SINO = 1;
+        $MENSAJE = "YA EXISTE UNA BODEGA PRINCIPAL EN LA PLANTA SELECIONADA";
+    } else {
+        $SINO = 0;
+        $MENSAJE = "";
+    }
+    if ($SINO == 0) {
+        //UTILIZACION METODOS SET DEL MODELO
+        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+        $BODEGA->__SET('NOMBRE_BODEGA', $_REQUEST['NOMBREBODEGA']);
+        $BODEGA->__SET('NOMBRE_CONTACTO_BODEGA', $_REQUEST['NOMBRECONTACTO']);
+        $BODEGA->__SET('PRINCIPAL', $_REQUEST['PRINCIPAL']);
+        $BODEGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+        $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+        $BODEGA->__SET('ID_USUARIOI', $IDUSUARIOS);
+        $BODEGA->__SET('ID_USUARIOM', $IDUSUARIOS);
+        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+        $BODEGA_ADO->agregarBodega($BODEGA);
+        //REDIRECCIONAR A PAGINA registroBodega.php
+        echo "<script type='text/javascript'> location.href ='registroBodega.php';</script>";
+    }
 }
 
 //OPERACION DE EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
 
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $BODEGA->__SET('NOMBRE_BODEGA', $_REQUEST['NOMBREBODEGA']);
-    $BODEGA->__SET('NOMBRE_CONTACTO_BODEGA', $_REQUEST['NOMBRECONTACTO']);
-    $BODEGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $BODEGA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $BODEGA->__SET('ID_BODEGA', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $BODEGA_ADO->actualizarBodega($BODEGA);
-    //REDIRECCIONAR A PAGINA registroBodega.php
-    echo "<script type='text/javascript'> location.href ='registroBodega.php';</script>";
+    if ($_REQUEST['PRINCIPAL'] == 1) {
+        $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalDistinoActualCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['ID']);
+        if ($ARRAYVALIDARBODEGA) {
+            $SINO = 1;
+            $MENSAJE = "YA EXISTE UNA BODEGA PRINCIPAL EN LA PLANTA SELECIONADA";
+        } else {
+            $SINO = 0;
+            $MENSAJE = "";
+        }
+    } else {
+        $SINO = 0;
+        $MENSAJE = "";
+    }
+
+
+    if ($SINO == 0) {
+        //UTILIZACION METODOS SET DEL MODELO
+        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+        $BODEGA->__SET('NOMBRE_BODEGA', $_REQUEST['NOMBREBODEGA']);
+        $BODEGA->__SET('NOMBRE_CONTACTO_BODEGA', $_REQUEST['NOMBRECONTACTO']);
+        $BODEGA->__SET('PRINCIPAL', $_REQUEST['PRINCIPAL']);
+        $BODEGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+        $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+        $BODEGA->__SET('ID_USUARIOM', $IDUSUARIOS);
+        $BODEGA->__SET('ID_BODEGA', $_REQUEST['ID']);
+        //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+        $BODEGA_ADO->actualizarBodega($BODEGA);
+        //REDIRECCIONAR A PAGINA registroBodega.php
+        echo "<script type='text/javascript'> location.href ='registroBodega.php';</script>";
+    }
 }
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -131,6 +162,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         foreach ($ARRAYBODEGAID as $r) :
             $NOMBREBODEGA = "" . $r['NOMBRE_BODEGA'];
             $NOMBRECONTACTO = "" . $r['NOMBRE_CONTACTO_BODEGA'];
+            $PRINCIPAL = "" . $r['PRINCIPAL'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $ESTADO = "" . $r['ESTADO_REGISTRO'];
@@ -152,6 +184,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         foreach ($ARRAYBODEGAID as $r) :
             $NOMBREBODEGA = "" . $r['NOMBRE_BODEGA'];
             $NOMBRECONTACTO = "" . $r['NOMBRE_CONTACTO_BODEGA'];
+            $PRINCIPAL = "" . $r['PRINCIPAL'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $ESTADO = "" . $r['ESTADO_REGISTRO'];
@@ -183,12 +216,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 NOMBREBODEGA = document.getElementById("NOMBREBODEGA").value;
                 NOMBRECONTACTO = document.getElementById("NOMBRECONTACTO").value;
                 PLANTA = document.getElementById("PLANTA").selectedIndex;
+                PRINCIPAL = document.getElementById("PRINCIPAL").selectedIndex;
 
 
 
                 document.getElementById('val_nombre').innerHTML = "";
                 document.getElementById('val_nombrec').innerHTML = "";
                 document.getElementById('val_planta').innerHTML = "";
+                document.getElementById('val_bprincipal').innerHTML = "";
 
 
                 if (NOMBREBODEGA == null || NOMBREBODEGA.length == 0 || /^\s+$/.test(NOMBREBODEGA)) {
@@ -216,6 +251,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     return false;
                 }
                 document.form_reg_dato.PLANTA.style.borderColor = "#4AF575";
+
+                if (PRINCIPAL == null || PRINCIPAL == 0) {
+                    document.form_reg_dato.PRINCIPAL.focus();
+                    document.form_reg_dato.PRINCIPAL.style.borderColor = "#FF0000";
+                    document.getElementById('val_bprincipal').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                    return false;
+                }
+                document.form_reg_dato.PRINCIPAL.style.borderColor = "#4AF575";
             }
 
 
@@ -271,7 +314,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../config/menu.php";
+            ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -338,13 +382,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <label id="val_nombre" class="validacion"> </label>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Nombre Contacto </label>
                                                         <input type="text" class="form-control" placeholder="Nombre Contacto Bodega" id="NOMBRECONTACTO" name="NOMBRECONTACTO" value="<?php echo $NOMBRECONTACTO; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombrec" class="validacion"> </label>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label>Planta</label>
@@ -365,7 +411,23 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_planta" class="validacion"> </label>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Bodega Principal</label>
+                                                        <select class="form-control select2" id="PRINCIPAL" name="PRINCIPAL" style="width: 100%;" value="<?php echo $PRINCIPAL; ?>" <?php echo $DISABLED; ?>>
+                                                            <option> </option>
+                                                            <option value="0" <?php if ($PRINCIPAL == "0") {
+                                                                                    echo "selected";
+                                                                                } ?>> No</option>
+                                                            <option value="1" <?php if ($PRINCIPAL == "1") {
+                                                                                    echo "selected";
+                                                                                } ?>> Si</option>
+                                                        </select>
+                                                        <label id="val_bprincipal" class="validacion"> </label>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <label id="val_mensaje" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
@@ -396,18 +458,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Numero </th>
+                                                        <th>Id </th>
                                                         <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYBODEGA as $r) : ?> 
-                                                        <?php $CONTADOR=$CONTADOR+1; ?>
+                                                    <?php foreach ($ARRAYBODEGA as $r) : ?>
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $CONTADOR; ?>
+                                                                    <?php echo $r['ID_BODEGA']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_BODEGA']; ?></td>
