@@ -7,11 +7,13 @@ include_once "../config/validarUsuario.php";
 
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TEMBALAJE_ADO.php';
 
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/RECEPCIONPT_ADO.php';
@@ -22,11 +24,13 @@ include_once '../controlador/DRECEPCIONPT_ADO.php';
 //INICIALIZAR CONTROLADOR
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
+$ESPECIES_ADO =  new ESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $EEXPORTACION_ADO = new EEXPORTACION_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
+$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
 $EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
 $RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
@@ -44,6 +48,7 @@ $TOTALGUIA = "";
 $TOTALBRUTO = "";
 $TOTALNETO = "";
 $TOTALENVASE = "";
+$ORIGEN="";
 
 $FECHADESDE = "";
 $FECHAHASTA = "";
@@ -222,29 +227,32 @@ include_once "../config/datosUrLP.php";
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
-
-
                                                     <th>N° Folio </th>
+                                                    <th>Fecha Embalado </th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
+                                                    <th>CSG</th>
+                                                    <th>Productor</th>
+                                                    <th>Especies</th>
+                                                    <th>Variedad</th>
                                                     <th>Cantidad Envase</th>
                                                     <th>Kilo Neto </th>
                                                     <th>% Deshidratación </th>
                                                     <th>Kilo Con Deshidratación </th>
                                                     <th>Kilo Bruto </th>
-                                                    <th>Variedad</th>
-                                                    <th>CSG</th>
-                                                    <th>Productor</th>
-                                                    <th>Fecha Embalado </th>
+                                                    <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
+                                                    <th>Tipo Recepción</th>
+                                                    <th>Origen Recepción</th>
+                                                    <th>Número Guía Recepción</th>
                                                     <th>Fecha Guía Recepción </th>
-                                                    <th>Gasificacion</th>
-                                                    <th>Embolsado</th>
                                                     <th>Tipo Manejo </th>
                                                     <th>Tipo Calibre </th>
-                                                    <th>Número Recepción</th>
-                                                    <th>Número Guía Recepción</th>
-                                                    <th>Tipo Recepción</th>
+                                                    <th>Tipo Embalaje </th>
+                                                    <th>Stock </th>
+                                                    <th>Embolsado</th>
+                                                    <th>Gasificacion</th>   
+                                                    <th>Prefrío</th>                                                    
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -260,12 +268,24 @@ include_once "../config/datosUrLP.php";
                                                     <?php
                                                     if ($r['TRECEPCION'] == "1") {
                                                         $TRECEPCION = "Desde Productor ";
+                                                        $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if($ARRAYPRODUCTOR2){
+                                                            $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'].":".$ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                        }else{
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     } else if ($r['TRECEPCION'] == "2") {
                                                         $TRECEPCION = "Planta Externa";
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if($ARRAYPLANTA2){
+                                                            $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        }else{
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                     } else {
                                                         $TRECEPCION = "Sin Datos";
+                                                        $ORIGEN = "Sin Datos";
                                                     }
-
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
@@ -279,7 +299,6 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRECONDUCTOR = "Sin Datos";
                                                     }
-
                                                     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYEMPRESA) {
                                                         $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -305,18 +324,19 @@ include_once "../config/datosUrLP.php";
 
                                                     <?php foreach ($ARRAYTOMADO as $s) : ?>
                                                         <?php
-                                                        $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
-                                                        if ($ARRAYVESPECIES) {
-                                                            $NOMBREVARIEDAD = $ARRAYVESPECIES[0]['NOMBRE_VESPECIES'];
+                                                     
+                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
+                                                        if ($ARRAYVERVESPECIESID) {
+                                                            $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                            $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
+                                                            if ($ARRAYVERVESPECIESID) {
+                                                                $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+                                                            } else {
+                                                                $NOMBRESPECIES = "Sin Datos";
+                                                            }
                                                         } else {
                                                             $NOMBREVARIEDAD = "Sin Datos";
-                                                        }
-                                                        if ($s['GASIFICADO_DRECEPCION'] == "1") {
-                                                            $GASIFICADO = "SI";
-                                                        } else if ($s['GASIFICADO_DRECEPCION'] == "0") {
-                                                            $GASIFICADO = "NO";
-                                                        } else {
-                                                            $GASIFICADO = "Sin Datos";
+                                                            $NOMBRESPECIES = "Sin Datos";
                                                         }
                                                         $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
                                                         if ($ARRAYTCALIBRE) {
@@ -329,6 +349,13 @@ include_once "../config/datosUrLP.php";
                                                             $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
                                                         } else {
                                                             $NOMBRETMANEJO = "Sin Datos";
+                                                        }
+                                                        
+                                                        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($s['ID_TEMBALAJE']);
+                                                        if ($ARRAYTEMBALAJE) {
+                                                            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                        } else {
+                                                            $NOMBRETEMBALAJE = "Sin Datos";
                                                         }
                                                         $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
                                                         if ($ARRAYESTANDAR) {
@@ -352,32 +379,56 @@ include_once "../config/datosUrLP.php";
                                                             $EMBOLSADO =  "SI";
                                                         } else {
                                                             $EMBOLSADO = "Sin Datos";
-                                                        }
+                                                        }                                                                                                                 
+                                                        if ($s['STOCK_DRECEPCION'] != "") {
+                                                            $STOCK = $s['STOCK_DRECEPCION'] ;
+                                                        } else if ($s['STOCK_DRECEPCION'] == "") {
+                                                            $STOCK = "Sin Datos";
+                                                        } else {
+                                                            $STOCK = "Sin Datos";
+                                                        }                                                                                                                 
+                                                        if ($s['GASIFICADO_DRECEPCION'] == "1") {
+                                                            $GASIFICADO = "SI";
+                                                        } else if ($s['GASIFICADO_DRECEPCION'] == "0") {
+                                                            $GASIFICADO = "NO";
+                                                        } else {
+                                                            $GASIFICADO = "Sin Datos";
+                                                        }                                                   
+                                                        if ($s['PREFRIO_DRECEPCION'] == "0") {
+                                                            $PREFRIO = "NO";
+                                                        } else if ($s['PREFRIO_DRECEPCION'] == "1") {
+                                                            $PREFRIO =  "SI";
+                                                        } else {
+                                                            $PREFRIO = "Sin Datos";
+                                                        }  
                                                         ?>
-
-                                                        <tr class="center">
-
+                                                        <tr class="center">                                                        
                                                             <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
+                                                            <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                            <td><?php echo $NOMBRESPECIES; ?></td>
+                                                            <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
                                                             <td><?php echo $s['PORCENTAJE'] ?></td>
                                                             <td><?php echo $s['DESHIDRATACION']; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
-                                                            <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                            <td><?php echo $s['EMBALADO']; ?></td>
+                                                            <td> <?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
+                                                            <td><?php echo $TRECEPCION;  ?></td>
+                                                            <td><?php echo $ORIGEN;  ?></td>
+                                                            <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                             <td><?php echo $r['FECHA_GUIA']; ?></td>
-                                                            <td><?php echo $GASIFICADO; ?></td>
-                                                            <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                            <td> <?php echo $r['NUMERO_RECEPCION']; ?> </td>
-                                                            <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
-                                                            <td><?php echo $TRECEPCION;  ?></td>
+                                                            <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                            <td><?php echo $STOCK; ?></td>
+                                                            <td><?php echo $EMBOLSADO; ?></td>
+                                                            <td><?php echo $GASIFICADO; ?></td>
+                                                            <td><?php echo $PREFRIO; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -385,8 +436,6 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-
-
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
