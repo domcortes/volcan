@@ -453,7 +453,7 @@ if (isset($_POST)) {
                     }
 
                     if (repuesta == 0) {
-                        ENVASEESTANDARV = document.getElementById("ENVASEESTANDARV").value;
+                        ENVASEESTANDARV = parseInt(document.getElementById("ENVASEESTANDARV").value);
 
                         consumopallet = ENVASEESTANDARV * FACTORCONSUMO;
                         consumocarga = consumopallet * PALLETCARGA;
