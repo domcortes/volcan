@@ -96,34 +96,6 @@ $ARRAYTMANEJO = "";
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 
-if (isset($_REQUEST['AGREGAR'])) {
-
-    $IDPCDESPACHO = $_REQUEST['IDP'];
-
-    if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
-        $SINO = "0";
-        $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
-    } else {
-        $SINO = "1";
-        $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
-    }
-    if ($SINO == "0") {
-
-        foreach ($SELECIONAREXISTENCIA as $r) :
-            $IDEXIEXPORTACION = $r;
-            $EXIEXPORTACION->__SET('ID_PCDESPACHO', $IDPCDESPACHO);
-            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACION);
-            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->actualizarSelecionarPCCambiarEstado($EXIEXPORTACION);
-
-        endforeach;
-
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-    }
-}
-
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
@@ -393,13 +365,13 @@ include_once "../config/validarDatosUrlD.php";
                                     <!-- /.row -->
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i>
+                                        <div class="btn-group btn-block col-6" role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
 
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> Agregar seleccion
                                             </button>
                                         </div>
                                     </div>
@@ -418,6 +390,43 @@ include_once "../config/validarDatosUrlD.php";
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            if (isset($_REQUEST['AGREGAR'])) {
+                $IDPCDESPACHO = $_REQUEST['IDP'];
+                if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
+                    $SINO = "0";
+                    $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
+                } else {
+                    $SINO = "1";
+                    $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
+                }
+                if ($SINO == "0") {
+                    foreach ($SELECIONAREXISTENCIA as $r) :
+                        $IDEXIEXPORTACION = $r;
+                        $EXIEXPORTACION->__SET('ID_PCDESPACHO', $IDPCDESPACHO);
+                        $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACION);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $EXIEXPORTACION_ADO->actualizarSelecionarPCCambiarEstado($EXIEXPORTACION);
+                    endforeach;
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Accion realizada exitosamente",
+                            text:"El detalle seleccionado fue agregado exitosamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href="'.$_REQUEST['URLO'].'.php?op";
+                            }
+                        })
+                    </script>';
+                    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                }
+            }
+        ?>
 </body>
 
 </html>
