@@ -725,6 +725,10 @@ class INVENTARIOE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
+                                                IFNULL(CANTIDAD_ENTRADA,0) AS 'CANTIDAD', 
+                                                IFNULL(VALOR_UNITARIO,0) AS 'VALOR' , 
                                                 IFNULL(VALOR_UNITARIO * CANTIDAD_ENTRADA,0) AS 'TOTAL'  
                                             FROM material_inventarioe
                                                 WHERE ESTADO_REGISTRO = 1 
@@ -1020,7 +1024,9 @@ class INVENTARIOE_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT 
-                                                * 
+                                                * , 
+                                                IFNULL(CANTIDAD_SALIDA,0) AS 'CANTIDAD' ,
+                                                IFNULL(VALOR_UNITARIO,0) AS 'VALOR'
                                             FROM material_inventarioe 
                                                 WHERE ID_DESPACHO= '" . $IDDESPACHO . "' 
                                                 AND ESTADO_REGISTRO = 1

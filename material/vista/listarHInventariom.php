@@ -270,6 +270,14 @@ include_once "../config/reporteUrl.php";
                                                         } else {
                                                             $NOMBRETDOCUMENTO = "Sin Datos";
                                                         }
+                                                        $ARRAYOCOMPRA = $OCOMPRA_ADO->verOcompra2($ARRAYRECEPCIONM[0]['ID_OCOMPRA']);
+                                                        if ($ARRAYOCOMPRA) {
+                                                            $NUMEROOCOMPRA = $ARRAYOCOMPRA[0]['NUMERO_OCOMPRA'];
+                                                            $NUMEROIOCOMPRA = $ARRAYOCOMPRA[0]['NUMEROI_OCOMPRA'];
+                                                        } else {
+                                                            $NUMEROOCOMPRA = "Sin Datos";
+                                                            $NUMEROIOCOMPRA = "Sin Datos";
+                                                        }
                                                         if ($ARRAYRECEPCIONM[0]['TRECEPCION'] == "1") {
                                                             $TRECEPCION = "Desde Proveedor";
                                                             $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($ARRAYRECEPCIONM[0]["ID_PROVEEDOR"]);
@@ -313,17 +321,9 @@ include_once "../config/reporteUrl.php";
                                                         $NUMERORECEPCION = "Sin Datos";
                                                         $FECHARECEPCION = "Sin Datos";
                                                         $NUMERODOCUMENTORECEPCION = "Sin Datos";
-                                                    }
-
-                                                    $ARRAYOCOMPRA = $OCOMPRA_ADO->verOcompra2($r['ID_OCOMPRA']);
-                                                    if ($ARRAYOCOMPRA) {
-                                                        $NUMEROOCOMPRA = $ARRAYOCOMPRA[0]['NUMERO_OCOMPRA'];
-                                                        $NUMEROIOCOMPRA = $ARRAYOCOMPRA[0]['NUMEROI_OCOMPRA'];
-                                                    } else {
                                                         $NUMEROOCOMPRA = "Sin Datos";
                                                         $NUMEROIOCOMPRA = "Sin Datos";
                                                     }
-
                                                     $ARRAYDESPACHO = $DESPACHOM_ADO->verDespachom2($r["ID_DESPACHO"]);
                                                     if ($ARRAYDESPACHO) {
                                                         $NUMERODESPACHO = $ARRAYDESPACHO[0]["NUMERO_DESPACHO"];
