@@ -16,7 +16,9 @@ include_once '../controlador/PRODUCTO_ADO.php';
 include_once '../controlador/TCONTENEDOR_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
 
+include_once '../controlador/OCOMPRA_ADO.php';
 include_once '../controlador/INVENTARIOM_ADO.php';
+include_once '../controlador/RECEPCIONM_ADO.php';
 include_once '../controlador/DESPACHOM_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
@@ -35,7 +37,9 @@ $TCONTENEDOR_ADO = new TCONTENEDOR_ADO();
 $TUMEDIDA_ADO = new TUMEDIDA_ADO();
 
 
+$OCOMPRA_ADO = new OCOMPRA_ADO();
 $INVENTARIOM_ADO = new INVENTARIOM_ADO();
+$RECEPCIONM_ADO = new RECEPCIONM_ADO();
 $DESPACHOM_ADO = new DESPACHOM_ADO();
 
 
@@ -219,26 +223,31 @@ include_once "../config/datosUrLP.php";
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
-                                                    <th>Fecha Despacho </th>
                                                     <th>N° Folio </th>
-                                                    <th>Código Producto </th>
+                                                    <th>Codigo Producto </th>
                                                     <th>Producto </th>
-                                                    <th>Tipo Contenedor</th>
-                                                    <th>Unidad Medida</th>
                                                     <th>Cantidad</th>
-                                                    <th>Valor Unitario</th>
+                                                    <th>Unidad Medida</th>
+                                                    <th>Tipo Contenedor</th>
                                                     <th>Bodega</th>
-                                                    <th>Número Despacho</th>
+                                                    <th>Número Recepción </th>
+                                                    <th>Fecha Recepción </th>
+                                                    <th>Tipo Recepción</th>
+                                                    <th>Origen Recepción</th>
                                                     <th>Número Documento </th>
+                                                    <th>Tipo Documento </th>
+                                                    <th>Número Despacho</th>
+                                                    <th>Fecha Despacho </th>
                                                     <th>Tipo Despacho</th>
-                                                    <th>Estado Despacho</th>
-                                                    <th>Cantidad </th>
+                                                    <th>Destino Despacho </th>
+                                                    <th>Número Documento </th>
+                                                    <th>Valor Unitario</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
+                                                    <th>Numero Oc</th>
+                                                    <th>Numero Oc Interno</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -263,26 +272,65 @@ include_once "../config/datosUrLP.php";
 
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
+                                                        $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA"]);
+                                                        if ($ARRAYVERBODEGA) {
+                                                            $NOMBRDESTINO = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Interplanta";
+                                                        $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA2"]);
+                                                        $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA2"]);
+                                                        if ($ARRAYVERBODEGA && $ARRAYPLANTAINTERNA) {
+                                                            $NOMBRDESTINO = "" . $ARRAYPLANTAINTERNA[0]["NOMBRE_PLANTA"] . " - " . $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Devolución a Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Devolución a Proveedor";
+                                                        $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
+                                                        if ($ARRAYPROVEEDOR) {
+                                                            $NOMBRDESTINO = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                        $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA3"]);
+                                                        if ($ARRAYPLANTAEXTERNA) {
+                                                            $NOMBRDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "6") {
                                                         $TDESPACHO = "Venta";
+                                                        $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($r["ID_CLIENTE"]);
+                                                        if ($ARRAYVERCLIENTE) {
+                                                            $NOMBRDESTINO = $ARRAYVERCLIENTE[0]["NOMBRE_CLIENTE"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "7") {
                                                         $TDESPACHO = "Regalo";
+                                                        $REGALO = $r['REGALO_DESPACHO'];
                                                     } else {
                                                         $TDESPACHO = "Sin Datos";
+                                                        $NOMBRDESTINO = "Sin Datos";
                                                     }
 
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
@@ -316,10 +364,75 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
-                                                    $ARRAYTOMADO = $INVENTARIOM_ADO->buscarPorDespacho2($r['ID_DESPACHO']);
+                                                    $ARRAYTOMADO = $INVENTARIOM_ADO->buscarPorDespacho($r['ID_DESPACHO']);
                                                     ?>
                                                     <?php foreach ($ARRAYTOMADO as $s) : ?>
                                                         <?php
+
+                                                        $ARRAYRECEPCIONM = $RECEPCIONM_ADO->verRecepcion2($s["ID_RECEPCION"]);
+                                                        if ($ARRAYRECEPCIONM) {
+                                                            $NUMERORECEPCION = $ARRAYRECEPCIONM[0]["NUMERO_RECEPCION"];
+                                                            $FECHARECEPCION = $ARRAYRECEPCIONM[0]["FECHA"];
+                                                            $NUMERODOCUMENTORECEPCION = $ARRAYRECEPCIONM[0]["NUMERO_DOCUMENTO_RECEPCION"];
+                                                            $ARRAYVERTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($ARRAYRECEPCIONM[0]["ID_TDOCUMENTO"]);
+                                                            if ($ARRAYVERTDOCUMENTO) {
+                                                                $NOMBRETDOCUMENTO = $ARRAYVERTDOCUMENTO[0]['NOMBRE_TDOCUMENTO'];
+                                                            } else {
+                                                                $NOMBRETDOCUMENTO = "Sin Datos";
+                                                            }
+                                                            if ($ARRAYRECEPCIONM[0]['TRECEPCION'] == "1") {
+                                                                $TRECEPCION = "Desde Proveedor";
+                                                                $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($ARRAYRECEPCIONM[0]["ID_PROVEEDOR"]);
+                                                                if ($ARRAYPROVEEDOR) {
+                                                                    $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                                } else {
+                                                                    $NOMBREORIGEN = "Sin Datos";
+                                                                }
+                                                            } else if ($ARRAYRECEPCIONM[0]['TRECEPCION'] == "2") {
+                                                                $TRECEPCION = "Desde Productor";
+                                                                $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCIONM[0]["ID_PRODUCTOR"]);
+                                                                if ($ARRAYPRODUCTOR) {
+                                                                    $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                                } else {
+                                                                    $NOMBREORIGEN = "Sin Datos";
+                                                                }
+                                                            } else if ($ARRAYRECEPCIONM[0]['TRECEPCION'] == "3") {
+                                                                $TRECEPCION = "Planta Externa";
+                                                                $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONM[0]["ID_PLANTA2"]);
+                                                                if ($ARRAYPLANTAEXTERNA) {
+                                                                    $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                                } else {
+                                                                    $NOMBREORIGEN = "Sin Datos";
+                                                                }
+                                                            } else if ($ARRAYRECEPCIONM[0]['TRECEPCION'] == "4") {
+                                                                $TRECEPCION = "Inventario Inicial";
+                                                                $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($ARRAYRECEPCIONM[0]["ID_PROVEEDOR"]);
+                                                                if ($ARRAYPROVEEDOR) {
+                                                                    $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                                } else {
+                                                                    $NOMBREORIGEN = "Sin Datos";
+                                                                }
+                                                            } else {
+                                                                $TRECEPCION = "Sin Datos";
+                                                                $NOMBREORIGEN = "Sin Datos";
+                                                            }
+                                                        } else {
+                                                            $TRECEPCION = "Sin Datos";
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                            $NOMBRETDOCUMENTO = "Sin Datos";
+                                                            $NUMERORECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $NUMERODOCUMENTORECEPCION = "Sin Datos";
+                                                        }
+
+                                                        $ARRAYOCOMPRA = $OCOMPRA_ADO->verOcompra2($s['ID_OCOMPRA']);
+                                                        if ($ARRAYOCOMPRA) {
+                                                            $NUMEROOCOMPRA = $ARRAYOCOMPRA[0]['NUMERO_OCOMPRA'];
+                                                            $NUMEROIOCOMPRA = $ARRAYOCOMPRA[0]['NUMEROI_OCOMPRA'];
+                                                        } else {
+                                                            $NUMEROOCOMPRA = "Sin Datos";
+                                                            $NUMEROIOCOMPRA = "Sin Datos";
+                                                        }
                                                         $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($s['ID_BODEGA']);
                                                         if ($ARRAYVERBODEGA) {
                                                             $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
@@ -347,27 +460,32 @@ include_once "../config/datosUrLP.php";
                                                             $NOMBRETUMEDIDA = "Sin Datos";
                                                         }
                                                         ?>
-                                                        <tr class="text-left">
-                                                            <td><?php echo $r['FECHA']; ?></td>
+                                                        <tr class="text-left">          
                                                             <td><?php echo $s['FOLIO_INVENTARIO']; ?> </td>
                                                             <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTO; ?></td>
-                                                            <td><?php echo $NOMBRETCONTENEDOR; ?></td>
-                                                            <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $s['CANTIDAD']; ?></td>
-                                                            <td><?php echo $s['VALOR']; ?></td>
-                                                            <td><?php echo $NOMBREBODEGA; ?></td>
+                                                            <td><?php echo $NOMBRETUMEDIDA; ?></td>
+                                                            <td><?php echo $NOMBRETCONTENEDOR; ?></td>
+                                                            <td><?php echo $NOMBREBODEGA; ?></td>                                                            
+                                                            <td><?php echo $NUMERORECEPCION; ?></td>
+                                                            <td><?php echo $FECHARECEPCION; ?></td>
+                                                            <td><?php echo $TRECEPCION; ?></td>
+                                                            <td><?php echo $NOMBREORIGEN; ?></td>
+                                                            <td><?php echo $NUMERODOCUMENTORECEPCION; ?></td>
+                                                            <td><?php echo $NOMBRETDOCUMENTO; ?></td>                                                     
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
-                                                            <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
+                                                            <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
-                                                            <td><?php echo $ESTADODESPACHO; ?></td>
-                                                            <td><?php echo $r['CANTIDAD']; ?></td>
+                                                            <td><?php echo $NOMBRDESTINO; ?></td>
+                                                            <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
+                                                            <td><?php echo $s['VALOR']; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                             <td><?php echo $r['PATENTE_CARRO']; ?></td>
-                                                            <td><?php echo $r['INGRESO']; ?></td>
-                                                            <td><?php echo $r['MODIFICACION']; ?></td>
+                                                            <td><?php echo $NUMEROOCOMPRA; ?></td>
+                                                            <td><?php echo $NUMEROIOCOMPRA; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -380,15 +498,17 @@ include_once "../config/datosUrLP.php";
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 col-xs-10">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Cantidad </label>
-                                            <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
+                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Cantidad </div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

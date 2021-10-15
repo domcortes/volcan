@@ -1241,7 +1241,9 @@ class INVENTARIOM_ADO {
         try {
 
             $datos = $this->conexion->prepare(" SELECT 
-                                                    * 
+                                                    * ,
+                                                    IFNULL(CANTIDAD_INVENTARIO,0) AS 'CANTIDAD' ,
+                                                    IFNULL(VALOR_UNITARIO,0) AS 'VALOR'
                                                 FROM material_inventariom 
                                                     WHERE ID_DESPACHO= '" . $IDDESPACHO . "' 
                                                     AND ESTADO_REGISTRO = 1
