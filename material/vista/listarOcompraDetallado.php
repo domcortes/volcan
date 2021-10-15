@@ -53,7 +53,7 @@ $ARRAYVERTMONEDA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYOCOMPRA = $OCOMPRA_ADO->listarOcompraPorEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYOCOMPRA = $OCOMPRA_ADO->listarOcompraPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYOCOMPRATOTALES = $OCOMPRA_ADO->obtenerTotalesOcompraPorEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
 
     $TOTALCANTIDAD = $ARRAYOCOMPRATOTALES[0]['CANTIDAD'];
@@ -203,28 +203,20 @@ include_once "../config/datosUrLP.php";
                                             <thead>
                                                 <tr>
                                                     <th>Fecha Orden </th>
-
                                                     <th>Codigo Producto </th>
                                                     <th>Producto </th>
                                                     <th>Unidad Medida</th>
                                                     <th>Cantidad</th>
                                                     <th>Valor Unitario</th>
                                                     <th>Valor Total</th>
-
-
-
                                                     <th>Número Orden </th>
                                                     <th>Número Interno </th>
                                                     <th>Estado Orden</th>
                                                     <th>Proveedor</th>
-                                                    <th>Cantidad Producto</th>
-                                                    <th>Total Valor</th>
                                                     <th>Formato Pago</th>
                                                     <th>Tipo Moneda</th>
                                                     <th>Tipo Cambio</th>
                                                     <th>Reponsable</th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -269,7 +261,7 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRERESPONSABLE = "Sin Datos";
                                                     }
 
-                                                    $ARRAYDOCOMPRA = $DOCOMPRA_ADO->listarDocompraPorOcompra2CBX($r['ID_OCOMPRA']);
+                                                    $ARRAYDOCOMPRA = $DOCOMPRA_ADO->listarDocompraPorOcompraCBX($r['ID_OCOMPRA']);
                                                     ?>
 
                                                     <?php foreach ($ARRAYDOCOMPRA as $s) : ?>
@@ -301,14 +293,10 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMEROI_OCOMPRA']; ?> </td>
                                                             <td><?php echo $ESTADOOCOMPRA; ?></td>
                                                             <td><?php echo $NOMBREPROVEEDOR; ?></td>
-                                                            <td><?php echo $r['CANTIDAD']; ?></td>
-                                                            <td><?php echo $r['TOTAL_VALOR']; ?></td>
                                                             <td><?php echo $NOMBREFPAGO; ?></td>
                                                             <td><?php echo $NOMBRETMONEDA; ?></td>
                                                             <td><?php echo $r['TCAMBIO_OCOMPRA']; ?></td>
                                                             <td><?php echo $NOMBRERESPONSABLE; ?></td>
-                                                            <td><?php echo $r['INGRESO']; ?></td>
-                                                            <td><?php echo $r['MODIFICACION']; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
@@ -316,23 +304,29 @@ include_once "../config/datosUrLP.php";
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 col-xs-8">
-                                        <div class="form-group">
+                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Cantidad </div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>Total Cantidad Producto </label>
-                                            <input type="text" class="form-control" placeholder="Total Valor" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Valor Producto </label>
-                                            <input type="text" class="form-control" placeholder="Total Valor" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTCALVALOR; ?>" disabled />
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Valor </div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Valor" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTCALVALOR; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

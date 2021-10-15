@@ -524,11 +524,16 @@ class DESPACHOE_ADO
     }
 
     //LISTAR
+  
     public function listarDespachoeEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
@@ -553,11 +558,36 @@ class DESPACHOE_ADO
                                                 DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
-                                                FORMAT(CANTIDAD_DESPACHO,0,'de_DE')  AS 'CANTIDAD'
+                                                FORMAT(IFNULL(CANTIDAD_DESPACHO,0),0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarDespachoeEmpresaPlantaTemporadaInterplantaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
+                                        FROM material_despachoe                                                                           
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA2 = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
 
@@ -578,7 +608,7 @@ class DESPACHOE_ADO
                                                 DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
-                                                FORMAT(CANTIDAD_DESPACHO,0,'de_DE')  AS 'CANTIDAD'
+                                                FORMAT(IFNULL(CANTIDAD_DESPACHO,0),0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
@@ -596,6 +626,33 @@ class DESPACHOE_ADO
         }
     }
 
+    public function listarDespachoeEmpresaPlantaTemporadaGuiaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
+                                        FROM material_despachoe                                                                           
+                                        WHERE   TDESPACHO = 2
+                                                AND ESTADO_DESPACHO = 2
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarDespachoeEmpresaPlantaTemporadaGuiaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
@@ -604,7 +661,7 @@ class DESPACHOE_ADO
                                                 DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
-                                                FORMAT(CANTIDAD_DESPACHO,0,'de_DE')  AS 'CANTIDAD'
+                                                FORMAT(IFNULL(CANTIDAD_DESPACHO,0),0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE   TDESPACHO = 2
                                                 AND ESTADO_DESPACHO = 2
