@@ -19,11 +19,11 @@ include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TPROCESO_ADO.php';
 include_once '../controlador/TREEMBALAJE_ADO.php';
 
-include_once '../controlador/RECEPCIONIND_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 include_once '../controlador/REEMBALAJE_ADO.php';
 
 include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../controlador/RECEPCIONIND_ADO.php';
 include_once '../controlador/DRECEPCIONIND_ADO.php';
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
 
@@ -45,11 +45,11 @@ $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $TPROCESO_ADO =  new TPROCESO_ADO();
 $TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 
-$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 $DRECEPCIONIND_ADO =  new DRECEPCIONIND_ADO();
 $EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
 
@@ -321,7 +321,7 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
-                                                    $ARRAYTOMADO = $DRECEPCIONIND_ADO->buscarPorRecepcion2($r['ID_RECEPCION']);
+                                                    $ARRAYTOMADO = $DRECEPCIONIND_ADO->buscarPorRecepcion($r['ID_RECEPCION']);
                                                     ?>
 
                                                     <?php foreach ($ARRAYTOMADO as $s) : ?>
