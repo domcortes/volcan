@@ -389,15 +389,18 @@ class DOCOMPRA_ADO {
         
     }
   
-
     public function listarDocompraPorOcompraCBX($IDOCOMPRA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * 
-                                            FROM `material_docompra`
+            $datos=$this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
+                                                IFNULL(`CANTIDAD_DOCOMPRA`,0) AS 'CANTIDAD', 
+                                                IFNULL(`VALOR_UNITARIO_DOCOMPRA`,0) AS 'VALOR' ,
+                                                IFNULL(`VALOR_UNITARIO_DOCOMPRA` * `CANTIDAD_DOCOMPRA`,0) AS 'TOTAL' 
+                                             FROM `material_docompra`
                                                 WHERE ESTADO_REGISTRO = 1 
-                                                AND ID_OCOMPRA = '".$IDOCOMPRA."'  ;
-                                        	");
+                                                AND ID_OCOMPRA = '".$IDOCOMPRA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             

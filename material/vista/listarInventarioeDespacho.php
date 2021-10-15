@@ -178,13 +178,13 @@ include_once "../config/reporteUrl.php";
                                         <table id="existencia" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>Bodega</th>
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
                                                     <th>Entrada</th>
                                                     <th>Salida</th>
                                                     <th>Total</th>
+                                                    <th>Bodega</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -213,13 +213,13 @@ include_once "../config/reporteUrl.php";
                                                     }
                                                     ?>
                                                     <tr class="center">
-                                                        <td><?php echo $NOMBREBODEGA; ?></td>
                                                         <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                         <td><?php echo $r['ENTRADA']; ?></td>
                                                         <td><?php echo $r['SALIDA']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
+                                                        <td><?php echo $NOMBREBODEGA; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -227,35 +227,45 @@ include_once "../config/reporteUrl.php";
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-6 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-xs-12">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4 col-xs-4">
-                                        <div class="form-group">
-                                            <label>Entrada </label>
-                                            <input type="text" class="form-control" placeholder="Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENTRADA; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4 col-xs-4">
-                                        <div class="form-group">
-                                            <label>Salida </label>
-                                            <input type="text" class="form-control" placeholder="Salida" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALSALIDA; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4 col-xs-4">
-                                        <div class="form-group">
-                                            <label>Total </label>
-                                            <input type="text" class="form-control" placeholder="Total" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
+                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Entrada </div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENTRADA; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Salida </div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Salida" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALSALIDA; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total </div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total " id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
 

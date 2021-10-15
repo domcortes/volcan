@@ -302,6 +302,29 @@ class BODEGA_ADO
             die($e->getMessage());
         }
     }
+    
+    public function listarBodegaPorEmpresaPlantaCBX($IDEMPRESA, $IDPLANTA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                * 
+                                             FROM `principal_bodega` 
+                                             WHERE `ESTADO_REGISTRO` = 1 
+                                             AND ID_EMPRESA = '".$IDEMPRESA."'
+                                             AND ID_PLANTA = '".$IDPLANTA."';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function listarBodegaPorEmpresaPlantaPrincipalCBX($IDEMPRESA,$IDPLANTA)
     {

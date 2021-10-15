@@ -562,6 +562,32 @@ class OCOMPRA_ADO {
     }
 
 
+    public function listarOcompraPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
+                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHA',
+                                                IFNULL(TOTAL_CANTIDAD_OCOMPRA,0) AS 'CANTIDAD',
+                                                IFNULL(TOTAL_VALOR_OCOMPRA,0) AS 'TOTAL_VALOR'
+                                             FROM material_ocompra
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     public function listarOcompraPorEmpresaTemporada2CBX($IDEMPRESA,$IDTEMPORADA){
         try{
             

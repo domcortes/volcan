@@ -183,7 +183,8 @@ include_once "../config/reporteUrl.php";
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
-
+                                                    <th>Recepción/Despacho</th>
+                                                    <th>Número Movimiento</th>
                                                     <th>Tipo Movimiento</th>
                                                     <th>Número Documento</th>
                                                     <th>Fecha Movimiento</th>
@@ -192,7 +193,6 @@ include_once "../config/reporteUrl.php";
                                                     <th>Patente Camión</th>
                                                     <th>Origen </th>
                                                     <th>Destino </th>
-
                                                     <th>Entrada</th>
                                                     <th>Salida</th>
                                                     <th>Empresa</th>
@@ -221,12 +221,14 @@ include_once "../config/reporteUrl.php";
                                                     $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                     $ARRAYDESPACHO = $DESPACHOE_ADO->verDespachoe2($r['ID_DESPACHO']);
                                                     if ($ARRAYRECEPCION) {
-                                                        $NUMERODOCUMENTO = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
+                                                        $NOMBRETIPO = "Recepción";
+                                                        $NUMEROPERACION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
+                                                        $NUMERODOCUMENTO = $ARRAYRECEPCION[0]['NUMERO_DOCUMENTO_RECEPCION'];
                                                         $FECHAOPERACION = $ARRAYRECEPCION[0]['FECHA'];
                                                         $TOPERACION = $ARRAYRECEPCION[0]['TRECEPCION'];
                                                         $TRANSPORTE = $ARRAYRECEPCION[0]['ID_TRANSPORTE'];
                                                         $CONDUCTOR = $ARRAYRECEPCION[0]['ID_CONDUCTOR'];
-                                                        $PATENTECAMION = $ARRAYRECEPCION[0]['PATENTE_CAMION'];                                                        
+                                                        $PATENTECAMION = $ARRAYRECEPCION[0]['PATENTE_CAMION'];
                                                         $ARRAYVERTRANPORTE = $TRANSPORTE_ADO->verTransporte($TRANSPORTE);
                                                         if ($ARRAYVERTRANPORTE) {
                                                             $NOMBRETRASPORTE = $ARRAYVERTRANPORTE[0]["NOMBRE_TRANSPORTE"];
@@ -257,12 +259,14 @@ include_once "../config/reporteUrl.php";
                                                             $ORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
                                                         } else if ($TOPERACION == "4") {
                                                             $NOMBREOPERACION = "Inventario Inicial";
-                                                            $ORIGEN="";
-                                                        }else{
+                                                            $ORIGEN = "";
+                                                        } else {
                                                             $NOMBREOPERACION = "Sin Datos";
                                                         }
                                                     } else if ($ARRAYDESPACHO) {
-                                                        $NUMERODOCUMENTO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
+                                                        $NOMBRETIPO = "Despacho";
+                                                        $NUMEROPERACION = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
+                                                        $NUMERODOCUMENTO = $ARRAYDESPACHO[0]['NUMERO_DOCUMENTO'];
                                                         $FECHAOPERACION = $ARRAYDESPACHO[0]['FECHA'];
                                                         $TOPERACION = $ARRAYDESPACHO[0]['TDESPACHO'];
                                                         $TRANSPORTE = $ARRAYDESPACHO[0]['ID_TRANSPORTE'];
@@ -324,6 +328,7 @@ include_once "../config/reporteUrl.php";
                                                         $PATENTECAMION = "Sin Datos";
                                                         $ORIGEN = "Sin Datos";
                                                         $DESTINO = "Sin Datos";
+                                                        $NOMBRETIPO = "Sin Datos";
                                                     }
                                                     $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYVEREMPRESA) {
@@ -349,7 +354,8 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBRETUMEDIDA; ?></td>
-
+                                                        <td><?php echo $NOMBRETIPO; ?></td>
+                                                        <td><?php echo $NOMBRETIPO; ?></td>
                                                         <td><?php echo $NOMBREOPERACION; ?></td>
                                                         <td><?php echo $NUMERODOCUMENTO; ?></td>
                                                         <td><?php echo $FECHAOPERACION; ?></td>
@@ -358,7 +364,6 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $PATENTECAMION; ?></td>
                                                         <td><?php echo $ORIGEN; ?></td>
                                                         <td><?php echo $DESTINO; ?></td>
-
                                                         <td><?php echo $r['ENTRADA']; ?></td>
                                                         <td><?php echo $r['SALIDA']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -372,6 +377,8 @@ include_once "../config/reporteUrl.php";
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
+                                                    <th>Recepción/Despacho</th>
+                                                    <th>Número Movimiento</th>
                                                     <th>Tipo Movimiento</th>
                                                     <th>Número Documento</th>
                                                     <th>Fecha Movimiento</th>
@@ -385,7 +392,6 @@ include_once "../config/reporteUrl.php";
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
-                                                </tr>
                                                 </tr>
                                             </tfoot>
                                         </table>

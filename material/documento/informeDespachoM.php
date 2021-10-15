@@ -150,7 +150,7 @@ if ($ARRAYRECEPCION) {
   } else
   if ($TDESPACHO == "7") {
     $NOMBRETDESPACHO = "Regalo";
-    $REGALO== $ARRAYRECEPCION[0]['REGALO_DESPACHO'];
+    $REGALO= $ARRAYRECEPCION[0]['REGALO_DESPACHO'];
   } else {
     $NOMBRETDESPACHO = "Sin Datos";
   }

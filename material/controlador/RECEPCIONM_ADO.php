@@ -478,7 +478,12 @@ class RECEPCIONM_ADO {
     public function listarRecepcionPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_recepcionm`
+            $datos=$this->conexion->prepare("SELECT *  ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
+                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0) AS 'CANTIDAD'
+                                             FROM `material_recepcionm`
                                              WHERE ESTADO_REGISTRO = 1 
                                              AND ID_EMPRESA = '".$IDEMPRESA."' 
                                              AND ID_PLANTA = '".$IDPLANTA."'

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2021 a las 21:06:07
+-- Tiempo de generación: 15-10-2021 a las 14:10:12
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -108,7 +108,9 @@ CREATE TABLE `estandar_eexportacion` (
   `PESO_PALLET_ESTANDAR` decimal(10,2) DEFAULT NULL,
   `TFRUTA_ESTANDAR` int(11) DEFAULT NULL,
   `EMBOLSADO` int(11) DEFAULT NULL,
-  `STOCK` int(11) DEFAULT NULL,
+  `STOCK` int(11) DEFAULT 0,
+  `TCATEGORIA` int(11) DEFAULT 0,
+  `TCOLOR` int(11) DEFAULT 0,
   `ESTADO_REGISTRO` int(11) DEFAULT NULL,
   `INGRESO` date DEFAULT NULL,
   `MODIFICACION` date DEFAULT NULL,
@@ -125,9 +127,9 @@ CREATE TABLE `estandar_eexportacion` (
 -- Volcado de datos para la tabla `estandar_eexportacion`
 --
 
-INSERT INTO `estandar_eexportacion` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `CANTIDAD_ENVASE_ESTANDAR`, `PESO_NETO_ESTANDAR`, `PDESHIDRATACION_ESTANDAR`, `PESO_BRUTO_ESTANDAR`, `PESO_ENVASE_ESTANDAR`, `PESO_PALLET_ESTANDAR`, `TFRUTA_ESTANDAR`, `EMBOLSADO`, `STOCK`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_ESPECIES`, `ID_TETIQUETA`, `ID_TEMBALAJE`, `ID_ECOMERCIAL`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '6100', 'Blueberries 4 x 4 oz  240', 240, '1.50', '5.00', '2.50', '1.00', '19.00', 2, 0, 1, 1, NULL, NULL, 25, 1, 1, 1, 1, 1, 1),
-(2, '5100', 'Blueberries 4x4 oz 312', 312, '2.00', '2.00', '2.04', '0.04', '15.00', 2, 0, 0, 1, NULL, NULL, 25, 2, 1, 1, 1, 1, 1);
+INSERT INTO `estandar_eexportacion` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `CANTIDAD_ENVASE_ESTANDAR`, `PESO_NETO_ESTANDAR`, `PDESHIDRATACION_ESTANDAR`, `PESO_BRUTO_ESTANDAR`, `PESO_ENVASE_ESTANDAR`, `PESO_PALLET_ESTANDAR`, `TFRUTA_ESTANDAR`, `EMBOLSADO`, `STOCK`, `TCATEGORIA`, `TCOLOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_ESPECIES`, `ID_TETIQUETA`, `ID_TEMBALAJE`, `ID_ECOMERCIAL`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, '6100', 'Blueberries 4 x 4 oz  240', 240, '1.50', '5.00', '2.50', '1.00', '19.00', 2, 0, 1, 0, 0, 1, NULL, NULL, 25, 1, 1, 1, 1, 1, 1),
+(2, '5100', 'Blueberries 4x4 oz 312', 312, '2.00', '2.00', '2.04', '0.04', '15.00', 2, 0, 0, 0, 0, 1, NULL, NULL, 25, 2, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -171,6 +173,8 @@ CREATE TABLE `estandar_erecepcion` (
   `PESO_ENVASE_ESTANDAR` decimal(10,3) DEFAULT NULL,
   `PESO_PALLET_ESTANDAR` decimal(10,2) DEFAULT NULL,
   `TFRUTA_ESTANDAR` int(11) DEFAULT NULL,
+  `TRATAMIENTO1` int(11) DEFAULT 0,
+  `TRATAMIENTO2` int(11) DEFAULT 0,
   `ESTADO_REGISTRO` int(11) DEFAULT NULL,
   `INGRESO` date DEFAULT NULL,
   `MODIFICACION` date DEFAULT NULL,
@@ -184,11 +188,11 @@ CREATE TABLE `estandar_erecepcion` (
 -- Volcado de datos para la tabla `estandar_erecepcion`
 --
 
-INSERT INTO `estandar_erecepcion` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `CANTIDAD_ENVASE_ESTANDAR`, `PESO_ENVASE_ESTANDAR`, `PESO_PALLET_ESTANDAR`, `TFRUTA_ESTANDAR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_ESPECIES`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '1001', '5 Envases de 1.8 Kilos', 5, '1.800', '15.00', 1, 1, NULL, NULL, 1, 25, 1, 1),
-(2, '1002', 'Rejilla Cosechera Verde', 204, '0.500', '15.00', 1, 0, NULL, NULL, 1, 25, 1, 1),
-(3, '1003', 'Rejilla Cosehera Blanca', 240, '2.500', '15.00', 1, 1, NULL, NULL, 1, 25, 1, 1),
-(4, '1002', 'Rejilla Cosechera Verde', 204, '1.800', '19.00', 1, 1, NULL, NULL, 1, 25, 1, 1);
+INSERT INTO `estandar_erecepcion` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `CANTIDAD_ENVASE_ESTANDAR`, `PESO_ENVASE_ESTANDAR`, `PESO_PALLET_ESTANDAR`, `TFRUTA_ESTANDAR`, `TRATAMIENTO1`, `TRATAMIENTO2`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_ESPECIES`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, '1001', '5 Envases de 1.8 Kilos', 5, '1.800', '15.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 1, 1),
+(2, '1002', 'Rejilla Cosechera Verde', 204, '0.500', '15.00', 1, 0, 0, 0, NULL, NULL, 1, 25, 1, 1),
+(3, '1003', 'Rejilla Cosehera Blanca', 240, '2.500', '15.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 1, 1),
+(4, '1002', 'Rejilla Cosechera Verde', 204, '1.800', '19.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -816,7 +820,9 @@ INSERT INTO `fruta_dicarga` (`ID_DICARGA`, `CANTIDAD_ENVASE_DICARGA`, `KILOS_NET
 (1, 1320, '1980.00', '3418.00', '15.00', '19800.00', 0, 1, '2021-09-06 23:10:41', '2021-09-06 23:10:41', 1, 1, 4),
 (2, 1320, '1980.00', '3418.00', '15.00', '19800.00', 0, 1, '2021-09-06 23:12:36', '2021-09-06 23:12:36', 1, 1, 4),
 (3, 1320, '1980.00', '3418.00', '5.00', '6600.00', 0, 1, '2021-09-06 23:42:56', '2021-09-06 23:42:56', 1, 1, 3),
-(4, 1320, '1980.00', '3418.00', '2.00', '2640.00', 0, 1, '2021-09-06 23:53:04', '2021-09-06 23:53:04', 1, 1, 2);
+(4, 1320, '1980.00', '3418.00', '2.00', '2640.00', 0, 1, '2021-09-06 23:53:04', '2021-09-06 23:53:04', 1, 1, 2),
+(5, 44, '66.00', '132.30', '15.65', '688.60', 1, 1, '2021-10-14 11:32:09', '2021-10-14 11:32:09', 1, 1, 5),
+(6, 44, '66.00', '132.30', '15.65', '688.60', 1, 1, '2021-10-14 11:32:20', '2021-10-14 11:32:20', 1, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -2645,6 +2651,38 @@ INSERT INTO `fruta_tcalibre` (`ID_TCALIBRE`, `NUMERO_TCALIBRE`, `NOMBRE_TCALIBRE
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `fruta_tcategoria`
+--
+
+CREATE TABLE `fruta_tcategoria` (
+  `ID_TCATEGORIA` bigint(20) NOT NULL,
+  `NOMBRE_TCATEGORIA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESTADO_REGISTRO` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `INGRESO` date DEFAULT NULL,
+  `MODIFICACION` date DEFAULT NULL,
+  `ID_USUARIOI` bigint(20) NOT NULL,
+  `ID_USUARIOM` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fruta_tcolor`
+--
+
+CREATE TABLE `fruta_tcolor` (
+  `ID_TCOLOR` bigint(20) NOT NULL,
+  `NOMBRE_TCOLOR` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESTADO_REGISTRO` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `INGRESO` date DEFAULT NULL,
+  `MODIFICACION` date DEFAULT NULL,
+  `ID_USUARIOI` bigint(20) NOT NULL,
+  `ID_USUARIOM` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `fruta_tcontenedor`
 --
 
@@ -2863,6 +2901,38 @@ CREATE TABLE `fruta_tproductor` (
 
 INSERT INTO `fruta_tproductor` (`ID_TPRODUCTOR`, `NUMERO_TPRODUCTOR`, `NOMBRE_TPRODUCTOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
 (1, 1, 'Prueba', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fruta_tratamineto1`
+--
+
+CREATE TABLE `fruta_tratamineto1` (
+  `ID_TTRATAMIENTO` bigint(20) NOT NULL,
+  `NOMBRE_TTRATAMIENTO` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESTADO_REGISTRO` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `INGRESO` date DEFAULT NULL,
+  `MODIFICACION` date DEFAULT NULL,
+  `ID_USUARIOI` bigint(20) NOT NULL,
+  `ID_USUARIOM` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fruta_tratamineto2`
+--
+
+CREATE TABLE `fruta_tratamineto2` (
+  `ID_TTRATAMIENTO` bigint(20) NOT NULL,
+  `NOMBRE_TTRATAMIENTO` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESTADO_REGISTRO` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `INGRESO` date DEFAULT NULL,
+  `MODIFICACION` date DEFAULT NULL,
+  `ID_USUARIOI` bigint(20) NOT NULL,
+  `ID_USUARIOM` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4255,7 +4325,8 @@ INSERT INTO `material_recepcionm` (`ID_RECEPCION`, `NUMERO_RECEPCION`, `FECHA_RE
 (2, 2, '2021-09-20', 1, 0, '5151', 'pp', '', 5000, '', 0, 1, '2021-09-20 16:20:09', '2021-09-20 17:24:55', 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, 1, 1),
 (3, 3, '2021-09-22', 2, NULL, '515', 'ss', '', 1000, '', 0, 1, '2021-09-22 23:09:37', '2021-09-22 23:11:21', 1, 1, 2, 2, 1, 1, 1, NULL, NULL, NULL, 1, 1, 1),
 (4, 4, '2021-09-23', 4, NULL, '1515', '15', '', 0, '', 1, 1, '2021-09-23 09:39:50', '2021-09-23 09:39:50', 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, 1),
-(5, 5, '2021-10-05', 1, 1, '155', 'ppp', '', 0, '', 1, 1, '2021-10-05 15:14:22', '2021-10-05 15:14:22', 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, 1);
+(5, 5, '2021-10-05', 1, 1, '155', 'ppp', '', 0, '', 1, 1, '2021-10-05 15:14:22', '2021-10-05 15:14:22', 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, 1),
+(6, 6, '2021-10-13', 2, NULL, '15115', 'sss', '', 0, 'sss', 1, 1, '2021-10-13 17:06:34', '2021-10-13 17:06:34', 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -6941,6 +7012,22 @@ ALTER TABLE `fruta_tcalibre`
   ADD KEY `fk_fk_fruta_tcalibre_usuario_usuariom_idx` (`ID_USUARIOM`);
 
 --
+-- Indices de la tabla `fruta_tcategoria`
+--
+ALTER TABLE `fruta_tcategoria`
+  ADD PRIMARY KEY (`ID_TCATEGORIA`),
+  ADD KEY `fk_fruta_tcategoria_usuario_usuarioi_idx` (`ID_USUARIOI`),
+  ADD KEY `fk_fruta_tcategoria_usuario_usuariom_idx` (`ID_USUARIOM`);
+
+--
+-- Indices de la tabla `fruta_tcolor`
+--
+ALTER TABLE `fruta_tcolor`
+  ADD PRIMARY KEY (`ID_TCOLOR`),
+  ADD KEY `fk_fruta_tcolor_usuario_usuarioi_idx` (`ID_USUARIOI`),
+  ADD KEY `fk_fruta_tcolor_usuario_usuariom_idx` (`ID_USUARIOM`);
+
+--
 -- Indices de la tabla `fruta_tcontenedor`
 --
 ALTER TABLE `fruta_tcontenedor`
@@ -7017,6 +7104,22 @@ ALTER TABLE `fruta_tproductor`
   ADD KEY `fk_fruta_tproductor_principal_empresa_idx` (`ID_EMPRESA`),
   ADD KEY `fk_fruta_tproductor_usuario_usuarioi_idx` (`ID_USUARIOI`),
   ADD KEY `fk_fruta_tproductor_usuario_usuariom_idx` (`ID_USUARIOM`);
+
+--
+-- Indices de la tabla `fruta_tratamineto1`
+--
+ALTER TABLE `fruta_tratamineto1`
+  ADD PRIMARY KEY (`ID_TTRATAMIENTO`),
+  ADD KEY `fk_fruta_tratamineto1_usuario_usuarioi_idx` (`ID_USUARIOI`),
+  ADD KEY `fk_fruta_tratamineto1_usuario_usuariom_idx` (`ID_USUARIOM`);
+
+--
+-- Indices de la tabla `fruta_tratamineto2`
+--
+ALTER TABLE `fruta_tratamineto2`
+  ADD PRIMARY KEY (`ID_TTRATAMIENTO`),
+  ADD KEY `fk_fruta_tratamineto2_usuario_usuarioi_idx` (`ID_USUARIOI`),
+  ADD KEY `fk_fruta_tratamineto2_usuario_usuariom_idx` (`ID_USUARIOM`);
 
 --
 -- Indices de la tabla `fruta_treembalaje`
@@ -7703,7 +7806,7 @@ ALTER TABLE `fruta_dfinal`
 -- AUTO_INCREMENT de la tabla `fruta_dicarga`
 --
 ALTER TABLE `fruta_dicarga`
-  MODIFY `ID_DICARGA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_DICARGA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `fruta_dpexportacion`
@@ -7958,6 +8061,18 @@ ALTER TABLE `fruta_tcalibre`
   MODIFY `ID_TCALIBRE` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `fruta_tcategoria`
+--
+ALTER TABLE `fruta_tcategoria`
+  MODIFY `ID_TCATEGORIA` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `fruta_tcolor`
+--
+ALTER TABLE `fruta_tcolor`
+  MODIFY `ID_TCOLOR` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `fruta_tcontenedor`
 --
 ALTER TABLE `fruta_tcontenedor`
@@ -8010,6 +8125,18 @@ ALTER TABLE `fruta_tproceso`
 --
 ALTER TABLE `fruta_tproductor`
   MODIFY `ID_TPRODUCTOR` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `fruta_tratamineto1`
+--
+ALTER TABLE `fruta_tratamineto1`
+  MODIFY `ID_TTRATAMIENTO` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `fruta_tratamineto2`
+--
+ALTER TABLE `fruta_tratamineto2`
+  MODIFY `ID_TTRATAMIENTO` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `fruta_treembalaje`
@@ -8159,7 +8286,7 @@ ALTER TABLE `material_recepcione`
 -- AUTO_INCREMENT de la tabla `material_recepcionm`
 --
 ALTER TABLE `material_recepcionm`
-  MODIFY `ID_RECEPCION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_RECEPCION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `material_responsable`
@@ -9067,6 +9194,20 @@ ALTER TABLE `fruta_tcalibre`
   ADD CONSTRAINT `fk_fruta_tcalibre_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `fruta_tcategoria`
+--
+ALTER TABLE `fruta_tcategoria`
+  ADD CONSTRAINT `fk_fruta_tcategoria_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_tcategoria_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `fruta_tcolor`
+--
+ALTER TABLE `fruta_tcolor`
+  ADD CONSTRAINT `fk_fruta_tcolor_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_tcolor_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `fruta_tcontenedor`
 --
 ALTER TABLE `fruta_tcontenedor`
@@ -9134,6 +9275,20 @@ ALTER TABLE `fruta_tproductor`
   ADD CONSTRAINT `fk_fruta_tproductor_principal_empresa` FOREIGN KEY (`ID_EMPRESA`) REFERENCES `principal_empresa` (`ID_EMPRESA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_tproductor_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_tproductor_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `fruta_tratamineto1`
+--
+ALTER TABLE `fruta_tratamineto1`
+  ADD CONSTRAINT `fk_fruta_tratamineto1_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_tratamineto1_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `fruta_tratamineto2`
+--
+ALTER TABLE `fruta_tratamineto2`
+  ADD CONSTRAINT `fk_fruta_tratamineto2_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_tratamineto2_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `fruta_treembalaje`

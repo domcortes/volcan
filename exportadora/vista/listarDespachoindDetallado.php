@@ -256,7 +256,7 @@ include_once "../config/datosUrLP.php";
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>N° Folio </th>
-                                                    <th>Fecha Embalado </th>
+                                                    <th>Fecha Embalado/Cosecha </th>
                                                     <th>Tipo Producto</th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
@@ -419,31 +419,36 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRETMANEJO = "Sin Datos";
                                                         }
-                                                        $ARRAYPROCESO = $PROCESO_ADO->verProceso($s['ID_PROCESO']);
+                                                        $ARRAYPROCESO = $PROCESO_ADO->verProceso2($s['ID_PROCESO']);
                                                         if ($ARRAYPROCESO) {
                                                             $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
+                                                            $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA"];
                                                             $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "Sin datos";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
                                                         if ($ARRAYREEMBALAJE) {
                                                             $NUMEROREEMBALEJE = $ARRAYREEMBALAJE[0]["ID_TREEMBALAJE"];
+                                                            $FECHAREEMBALEJE = $ARRAYREEMBALAJE[0]["FECHA"];
                                                             $ARRAYTREEMBALAJE = $TREEMBALAJE_ADO->verTreembalaje($ARRAYREEMBALAJE[0]["ID_TREEMBALAJE"]);
                                                             if ($ARRAYTREEMBALAJE) {
                                                                 $TREEMBALAJE = $ARRAYTREEMBALAJE[0]["NOMBRE_TREEMBALAJE"];
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "Sin datos";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($s['ID_RECEPCION']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
+                                                            $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
                                                             $NUMEROGUIARECEPCION = $ARRAYRECEPCION[0]["NUMERO_GUIA_RECEPCION"];
                                                             $FECHAGUIARECEPCION = $ARRAYRECEPCION[0]["GUIA"];
                                                             if ($ARRAYRECEPCION[0]["TRECEPCION"] == 1) {
@@ -453,6 +458,7 @@ include_once "../config/datosUrLP.php";
                                                                 $TIPORECEPCION = "Planta Externa";
                                                             }
                                                         } else {
+                                                            $FECHARECEPCION = "Sin Datos";
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
                                                             $FECHAGUIARECEPCION = "Sin Datos";
@@ -472,15 +478,15 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
-                                                            <td><?php echo $s['RECEPCION']; ?></td>
+                                                            <td><?php echo $FECHARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                             <td><?php echo $NUMEROPROCESO; ?></td>
-                                                            <td><?php echo $s['PROCESO']; ?></td>
+                                                            <td><?php echo $FECHAPROCESO; ?></td>
                                                             <td><?php echo $TPROCESO; ?></td>
                                                             <td><?php echo $NUMEROREEMBALEJE; ?></td>
-                                                            <td><?php echo $s['REEMBALAJE']; ?></td>
+                                                            <td><?php echo $FECHAREEMBALEJE; ?></td>
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
@@ -494,7 +500,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
-                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>                                                              
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
