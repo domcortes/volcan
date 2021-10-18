@@ -165,7 +165,7 @@ $(function () {
         'autoWidth': true,
         'responsive': false,
         'order': [
-            [0, 'desc'], //desc ->descente asc -> ascedente
+            [0, 'asc'], //desc ->descente asc -> ascedente
         ],
         "pagingType": "full_numbers",
         "language": {
