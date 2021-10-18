@@ -50,6 +50,7 @@ class REPALETIZAJEMP_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_repaletizajemp limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class REPALETIZAJEMP_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_repaletizajemp WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -90,6 +92,7 @@ class REPALETIZAJEMP_ADO {
                                             AND ID_TEMPORADA = '".$TEMPORADA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -109,6 +112,7 @@ class REPALETIZAJEMP_ADO {
                                             FROM fruta_repaletizajemp ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -131,6 +135,7 @@ class REPALETIZAJEMP_ADO {
                                             AND ID_TEMPORADA = '".$TEMPORADA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -149,6 +154,7 @@ class REPALETIZAJEMP_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_repaletizajempWHERE  ESTADO_REGISTRO = 0;;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -171,6 +177,7 @@ class REPALETIZAJEMP_ADO {
                                             FROM fruta_repaletizajemp WHERE ID_REPALETIZAJE= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -194,6 +201,7 @@ class REPALETIZAJEMP_ADO {
                                              WHERE ID_REPALETIZAJE= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -367,6 +375,7 @@ public function actualizarRepaletizajeQuitarExistenciaMateriaPrima(REPALETIZAJEM
                                                  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -478,6 +487,7 @@ public function filtro4RepaletizajeCBX($FECHADESDE, $FECHAHASTA){
                                         ;");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
         
         //	print_r($resultado);
         //	VAR_DUMP($resultado);
@@ -498,6 +508,7 @@ public function filtro4TotalesRepaletizajeCBX($FECHADESDE, $FECHAHASTA){
                                         ;	");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
         
         //	print_r($resultado);
         //	VAR_DUMP($resultado);
@@ -521,6 +532,7 @@ public function obtenerNumero($EMPRESA,$PLANTA,$TEMPORADA){
                                                 ; ");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
         
         //	print_r($resultado);
         //	VAR_DUMP($resultado);

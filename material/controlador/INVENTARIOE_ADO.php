@@ -49,6 +49,7 @@ class INVENTARIOE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM material_inventarioe limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -67,6 +68,7 @@ class INVENTARIOE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM material_inventarioe WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class INVENTARIOE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM material_inventarioe WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class INVENTARIOE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM material_inventarioe WHERE ID_INVENTARIO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -127,6 +131,7 @@ class INVENTARIOE_ADO
                                                 WHERE ID_INVENTARIO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -736,6 +741,7 @@ class INVENTARIOE_ADO
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -761,6 +767,7 @@ class INVENTARIOE_ADO
                                                 AND ID_RECEPCION = '" . $IDINVENTARIO . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -783,6 +790,7 @@ class INVENTARIOE_ADO
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -811,6 +819,7 @@ class INVENTARIOE_ADO
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -838,6 +847,7 @@ class INVENTARIOE_ADO
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -868,6 +878,7 @@ class INVENTARIOE_ADO
                                                 AND ESTADO_REGISTRO = 1	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -897,6 +908,7 @@ class INVENTARIOE_ADO
                                             GROUP BY ID_BODEGA, ID_PRODUCTO;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -926,6 +938,7 @@ class INVENTARIOE_ADO
                                             GROUP BY ID_BODEGA, ID_PRODUCTO;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -955,6 +968,7 @@ class INVENTARIOE_ADO
                                             GROUP BY ID_BODEGA, ID_PRODUCTO, ID_RECEPCION, ID_DESPACHO;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -984,6 +998,7 @@ class INVENTARIOE_ADO
                                             GROUP BY ID_BODEGA, ID_PRODUCTO, ID_RECEPCION, ID_DESPACHO;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1008,6 +1023,7 @@ class INVENTARIOE_ADO
                                                 AND ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1034,6 +1050,7 @@ class INVENTARIOE_ADO
                                                 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1059,6 +1076,7 @@ class INVENTARIOE_ADO
                                                 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1083,6 +1101,7 @@ class INVENTARIOE_ADO
                                                 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1107,6 +1126,7 @@ class INVENTARIOE_ADO
                                                 AND ID_RECEPCION = '" . $IDINVENTARIO . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1129,6 +1149,7 @@ class INVENTARIOE_ADO
                                                 AND ID_RECEPCION = '" . $IDRECEPCION . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1153,6 +1174,7 @@ class INVENTARIOE_ADO
                                                 AND ID_DESPACHO = '" . $IDDESPACHO . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1174,6 +1196,7 @@ class INVENTARIOE_ADO
                                                 AND ID_DESPACHO = '" . $IDDESPACHO . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1200,6 +1223,7 @@ class INVENTARIOE_ADO
                                                     AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

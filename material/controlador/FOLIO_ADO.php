@@ -48,6 +48,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_folio` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -66,6 +67,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_folio` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -84,6 +86,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_folio` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -102,6 +105,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_folio` WHERE `ID_FOLIO`= '".$IDFOLIO."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -118,6 +122,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_folio` WHERE `NUMERO_FOLIO`= '".$NUMEROFOLIO."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -278,6 +283,7 @@ class FOLIO_ADO {
                                              AND ID_EMPRESA= '".$IDEMPRESA."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -300,6 +306,7 @@ class FOLIO_ADO {
                                                 AND `TFOLIO` =".$TFOLIO."   ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -325,6 +332,7 @@ class FOLIO_ADO {
                                                 AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -348,6 +356,7 @@ class FOLIO_ADO {
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);

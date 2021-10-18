@@ -49,6 +49,7 @@ class DRECEPCIONE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_drecepcione` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -67,6 +68,7 @@ class DRECEPCIONE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_drecepcione` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class DRECEPCIONE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_drecepcione` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class DRECEPCIONE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_drecepcione` WHERE `ID_DRECEPCION`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -127,6 +131,7 @@ class DRECEPCIONE_ADO
                                                 WHERE `ID_DRECEPCION`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -416,6 +421,7 @@ class DRECEPCIONE_ADO
                                                 AND ID_TUMEDIDA = '" . $IDTUMEDIDA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -439,6 +445,7 @@ class DRECEPCIONE_ADO
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -462,6 +469,7 @@ class DRECEPCIONE_ADO
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -486,6 +494,7 @@ class DRECEPCIONE_ADO
                                                 AND ID_RECEPCION = '" . $IDRECEPCION . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -513,6 +522,7 @@ class DRECEPCIONE_ADO
                                                 AND ID_DOCOMPRA IS NOT NULL ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -538,6 +548,7 @@ class DRECEPCIONE_ADO
                                                 AND ID_DOCOMPRA IS  NULL;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -563,6 +574,7 @@ class DRECEPCIONE_ADO
                                                 AND ID_RECEPCION = '" . $IDRECEPCION . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -585,6 +597,7 @@ class DRECEPCIONE_ADO
                                                 AND ID_RECEPCION = '" . $IDRECEPCION . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

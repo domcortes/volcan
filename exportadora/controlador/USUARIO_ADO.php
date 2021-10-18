@@ -52,6 +52,7 @@ class USUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class USUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -86,6 +88,7 @@ class USUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class USUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `ID_USUARIO`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -125,6 +129,7 @@ class USUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `NOMBRE_USUARIO` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -144,6 +149,7 @@ class USUARIO_ADO {
                                             WHERE `ID_USUARIO` = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -372,6 +378,7 @@ class USUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `NOMBRE_USUARIO`= '".$NOMBRE."' AND `CONTRASENA_USUARIO` = '".$CONTRASENA."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

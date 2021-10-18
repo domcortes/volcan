@@ -51,6 +51,7 @@ class PTUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_ptusuario` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class PTUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_ptusuario` ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -90,6 +92,7 @@ class PTUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_ptusuario` WHERE `ID_PTUSUARIO`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

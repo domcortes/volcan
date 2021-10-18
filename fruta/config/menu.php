@@ -744,7 +744,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </a>
                 <ul class="treeview-menu">
                   <li><a href="registroLaerea.php"><i class="ti-more"></i>Linea Area</a></li>
-                  <li><a href="registroAerolinia.php"><i class="ti-more"></i>Aerolinia</a></li>
                   <li><a href="registroAeronave.php"><i class="ti-more"></i>Aeronave</a></li>
                 </ul>
               </li>
@@ -756,7 +755,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </a>
                 <ul class="treeview-menu">
                   <li><a href="registroNaviera.php"><i class="ti-more"></i>Naviera</a></li>
-                  <li><a href="registroNave.php"><i class="ti-more"></i>Nave</a></li>
                 </ul>
               </li>
               <li class="treeview">

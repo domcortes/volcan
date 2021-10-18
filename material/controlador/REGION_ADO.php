@@ -50,6 +50,7 @@ class REGION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_region` limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class REGION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_region` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class REGION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_region` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class REGION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_region` WHERE `ID_REGION`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -126,6 +130,7 @@ class REGION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_region` WHERE `NOMBRE_REGION` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

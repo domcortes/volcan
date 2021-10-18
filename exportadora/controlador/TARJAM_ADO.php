@@ -51,6 +51,7 @@ class TARJAM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tarjam` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class TARJAM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tarjam` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class TARJAM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tarjam` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class TARJAM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tarjam` WHERE `ID_TARJA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -129,6 +133,7 @@ class TARJAM_ADO {
                                                 WHERE `ID_TARJA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -386,6 +391,7 @@ class TARJAM_ADO {
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -410,6 +416,7 @@ class TARJAM_ADO {
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -433,6 +440,7 @@ class TARJAM_ADO {
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -457,6 +465,7 @@ class TARJAM_ADO {
                                                 AND ID_DRECEPCION = '".$IDDRECEPCION ."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -480,6 +489,7 @@ class TARJAM_ADO {
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -504,6 +514,7 @@ class TARJAM_ADO {
                                                 AND ID_DOCOMPRA = '".$IDDOCOMPRA ."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -529,6 +540,7 @@ class TARJAM_ADO {
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -551,6 +563,7 @@ class TARJAM_ADO {
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -577,6 +590,7 @@ class TARJAM_ADO {
                                                 AND ID_DRECEPCION = '".$IDDRECEPCION ."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -599,6 +613,7 @@ class TARJAM_ADO {
                                                 AND ID_DRECEPCION = '".$IDDRECEPCION ."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -623,6 +638,7 @@ class TARJAM_ADO {
                                                 AND ID_DOCOMPRA = '".$IDDOCOMPRA ."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -645,6 +661,7 @@ class TARJAM_ADO {
                                                 AND ID_DOCOMPRA = '".$IDDOCOMPRA ."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

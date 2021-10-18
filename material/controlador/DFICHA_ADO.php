@@ -48,6 +48,7 @@ class DFICHA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_dficha` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class DFICHA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_dficha` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class DFICHA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_dficha` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class DFICHA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_dficha` WHERE `ID_DFICHA`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -301,6 +305,7 @@ class DFICHA_ADO
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -323,6 +328,7 @@ class DFICHA_ADO
                                                 AND ID_FICHA = '" . $IDFICHA . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

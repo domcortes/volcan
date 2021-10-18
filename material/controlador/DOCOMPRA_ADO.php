@@ -51,6 +51,7 @@ class DOCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_docompra` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class DOCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_docompra` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class DOCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_docompra` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class DOCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_docompra` WHERE `ID_DOCOMPRA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -129,6 +133,7 @@ class DOCOMPRA_ADO {
                                                 WHERE `ID_DOCOMPRA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -377,6 +382,7 @@ class DOCOMPRA_ADO {
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -403,6 +409,7 @@ class DOCOMPRA_ADO {
                                                 AND ID_OCOMPRA = '".$IDOCOMPRA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -428,6 +435,7 @@ class DOCOMPRA_ADO {
                                                 AND ID_OCOMPRA = '".$IDOCOMPRA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -453,6 +461,7 @@ class DOCOMPRA_ADO {
                                                 AND ID_OCOMPRA = '".$IDOCOMPRA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -476,6 +485,7 @@ class DOCOMPRA_ADO {
                                                 AND ID_OCOMPRA = '".$IDOCOMPRA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -48,6 +48,7 @@ class TCALIBRE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class TCALIBRE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -84,6 +86,7 @@ class TCALIBRE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class TCALIBRE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` WHERE `ID_TCALIBRE`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -126,6 +130,7 @@ class TCALIBRE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tcalibre` WHERE `NOMBRE_TCALIBRE` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -261,6 +266,7 @@ class TCALIBRE_ADO {
                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -282,6 +288,7 @@ class TCALIBRE_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -50,6 +50,7 @@ class ESPECIES_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class ESPECIES_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class ESPECIES_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class ESPECIES_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` WHERE `ID_ESPECIES`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -127,6 +131,7 @@ class ESPECIES_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_especies` WHERE `NOMBRE_ESPECIES` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

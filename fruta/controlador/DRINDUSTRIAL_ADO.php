@@ -48,6 +48,7 @@ class DRINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drindustrial limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class DRINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drindustrial ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class DRINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drindustrial WHERE ID_DRINDUSTRIAL= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -288,6 +291,7 @@ class DRINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(NUMERO_LINEA),0) AS 'NUMEROLINEAN' FROM fruta_drindustrial WHERE ID_REEMBALAJE= '" . $IDPROCESO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -309,6 +313,7 @@ class DRINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(FOLIO_DRINDUSTRIAL),0) AS 'ULTIMOFOLIO',IFNULL(MAX(FOLIO_DRINDUSTRIAL),0) AS 'ULTIMOFOLIO2' FROM fruta_drindustrial  WHERE ID_FOLIO= '" . $IDFOLIO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -329,6 +334,7 @@ class DRINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drindustrial WHERE ID_REEMBALAJE= '" . $IDREEMBALAJE . "'  AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -350,6 +356,7 @@ class DRINDUSTRIAL_ADO
                                             WHERE ID_REEMBALAJE= '" . $IDREEMBALAJE . "'  AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -372,6 +379,7 @@ class DRINDUSTRIAL_ADO
                                           AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -394,6 +402,7 @@ class DRINDUSTRIAL_ADO
                                           AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -412,6 +421,7 @@ class DRINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

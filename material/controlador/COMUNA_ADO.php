@@ -51,6 +51,7 @@ class COMUNA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_comuna` limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -70,6 +71,7 @@ class COMUNA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_comuna` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class COMUNA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_comuna` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class COMUNA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_comuna` WHERE `ID_COMUNA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -126,6 +130,7 @@ class COMUNA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_comuna` WHERE `NOMBRE_COMUNA` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

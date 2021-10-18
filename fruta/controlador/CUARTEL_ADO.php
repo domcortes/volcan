@@ -51,6 +51,7 @@ class CUARTEL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -70,6 +71,7 @@ class CUARTEL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -88,6 +90,7 @@ class CUARTEL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -106,6 +109,7 @@ class CUARTEL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` WHERE `ID_CUARTEL`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -126,6 +130,7 @@ class CUARTEL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_cuartel` WHERE `NOMBRE_CUARTEL` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -287,6 +292,7 @@ class CUARTEL_ADO {
                                              AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -310,6 +316,7 @@ class CUARTEL_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

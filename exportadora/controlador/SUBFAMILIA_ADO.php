@@ -51,6 +51,7 @@ class SUBFAMILIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class SUBFAMILIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class SUBFAMILIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class SUBFAMILIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE `ID_SUBFAMILIA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -255,6 +259,7 @@ class SUBFAMILIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -272,6 +277,7 @@ class SUBFAMILIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_subfamilia` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."' AND ID_FAMILIA = '".$IDFAMILIA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -294,6 +300,7 @@ class SUBFAMILIA_ADO {
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

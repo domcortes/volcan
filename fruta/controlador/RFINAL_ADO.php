@@ -48,6 +48,7 @@ class RFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class RFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal`  WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -84,6 +86,7 @@ class RFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal`  WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -102,6 +105,7 @@ class RFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal` WHERE `ID_RFINAL`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -123,6 +127,7 @@ class RFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_rfinal` WHERE `NOMBRE_RFINAL` LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -304,6 +309,7 @@ class RFINAL_ADO
                                              AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -326,6 +332,7 @@ class RFINAL_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

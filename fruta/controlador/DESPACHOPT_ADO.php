@@ -47,6 +47,7 @@ class DESPACHOPT_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_despachopt limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -66,6 +67,7 @@ class DESPACHOPT_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_despachopt ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -94,6 +96,7 @@ class DESPACHOPT_ADO
                                              WHERE ID_DESPACHO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -116,6 +119,7 @@ class DESPACHOPT_ADO
                                              WHERE ID_DESPACHO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -135,6 +139,7 @@ class DESPACHOPT_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_despachopt WHERE OBSERVACION_DESPACHO LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -399,6 +404,7 @@ class DESPACHOPT_ADO
                                         FROM fruta_despachopt ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -429,6 +435,7 @@ class DESPACHOPT_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -456,6 +463,7 @@ class DESPACHOPT_ADO
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -483,6 +491,7 @@ class DESPACHOPT_ADO
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -507,6 +516,7 @@ class DESPACHOPT_ADO
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -537,6 +547,7 @@ class DESPACHOPT_ADO
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -562,6 +573,7 @@ class DESPACHOPT_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -586,6 +598,7 @@ class DESPACHOPT_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -611,6 +624,7 @@ class DESPACHOPT_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -637,6 +651,7 @@ class DESPACHOPT_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -662,6 +677,7 @@ class DESPACHOPT_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -688,6 +704,7 @@ class DESPACHOPT_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -715,6 +732,7 @@ class DESPACHOPT_ADO
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -901,6 +919,7 @@ class DESPACHOPT_ADO
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -932,6 +951,7 @@ class DESPACHOPT_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             // var_dump($resultado);
@@ -952,6 +972,7 @@ class DESPACHOPT_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA' , DATE_FORMAT(NOW( ), '%H:%i') AS 'HORA'   ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -977,6 +998,7 @@ class DESPACHOPT_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

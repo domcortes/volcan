@@ -50,6 +50,7 @@ class MOCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_mocompra limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class MOCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_mocompra WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -89,6 +91,7 @@ class MOCOMPRA_ADO {
                                             AND ID_OCOMPRA = '" . $IDOCOMPRA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -108,6 +111,7 @@ class MOCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_mocompra WHERE ESTADO_REGISTRO= 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -128,6 +132,7 @@ class MOCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_mocompra WHERE ID_MGUIA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -294,6 +299,7 @@ class MOCOMPRA_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -318,6 +324,7 @@ class MOCOMPRA_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -339,6 +346,7 @@ class MOCOMPRA_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -364,6 +372,7 @@ class MOCOMPRA_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

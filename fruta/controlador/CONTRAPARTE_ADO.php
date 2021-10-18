@@ -48,6 +48,7 @@ class CONTRAPARTE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class CONTRAPARTE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte`  WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -84,6 +86,7 @@ class CONTRAPARTE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte`  WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -102,6 +105,7 @@ class CONTRAPARTE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_contraparte` WHERE `ID_CONTRAPARTE`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -267,6 +271,7 @@ class CONTRAPARTE_ADO
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -290,6 +295,7 @@ class CONTRAPARTE_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

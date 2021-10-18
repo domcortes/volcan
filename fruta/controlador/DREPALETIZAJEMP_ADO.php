@@ -50,6 +50,7 @@ class DREPALETIZAJEMP_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_drepaletizajemp` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class DREPALETIZAJEMP_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_drepaletizajemp` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -88,6 +90,7 @@ class DREPALETIZAJEMP_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_drepaletizajemp`WHERE  `ESTADO_REGISTRO` = 0;;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -108,6 +111,7 @@ class DREPALETIZAJEMP_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_drepaletizajemp` WHERE `ID_DREPALETIZAJE`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -357,6 +361,7 @@ class DREPALETIZAJEMP_ADO {
             $datos=$this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_INGRESO, '%Y-%m-%d ') AS 'INGRESO'  FROM `fruta_drepaletizajemp` WHERE `ID_REPALETIZAJE`= '".$IDREPALETIZAJE."' AND `ESTADO_REGISTRO` = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -378,6 +383,7 @@ class DREPALETIZAJEMP_ADO {
                                             AND `ESTADO_REGISTRO` = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -404,6 +410,7 @@ class DREPALETIZAJEMP_ADO {
                                              AND `ESTADO_REGISTRO` = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -427,6 +434,7 @@ class DREPALETIZAJEMP_ADO {
                                              AND `ESTADO_REGISTRO` = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -451,6 +459,7 @@ class DREPALETIZAJEMP_ADO {
                                              ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -474,6 +483,7 @@ class DREPALETIZAJEMP_ADO {
                                              GROUP BY `FOLIO_NUEVO_DREPALETIZAJE` ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -52,6 +52,7 @@ class CONDUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -70,6 +71,7 @@ class CONDUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class CONDUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -104,6 +107,7 @@ class CONDUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `ID_CONDUCTOR` LIKE '".$IDCONDUCTOR."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -271,6 +275,7 @@ class CONDUCTOR_ADO {
         $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `NOMBRE_CONDUCTOR` LIKE '%".$NOMBRE."%';");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
         
         //	print_r($resultado);
         //	VAR_DUMP($resultado);
@@ -288,6 +293,7 @@ public function listarConductorPorEmpresaCBX($IDEMPRESA){
         $datos=$this->conexion->prepare("SELECT * FROM `transporte_conductor` WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
         
         //	print_r($resultado);
         //	VAR_DUMP($resultado);
@@ -309,6 +315,7 @@ public function obtenerNumero($IDEMPRESA)
                                             WHERE ID_EMPRESA = '".$IDEMPRESA."' ; ");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
 
         //	print_r($resultado);
         //	VAR_DUMP($resultado);

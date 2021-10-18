@@ -48,6 +48,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -66,6 +67,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -84,6 +86,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -105,6 +108,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_FOLIO= '".$IDFOLIO."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -121,6 +125,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE NUMERO_FOLIO= '".$NUMEROFOLIO."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -279,6 +284,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_EMPRESA= '".$IDEMPRESA."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -301,6 +307,7 @@ class FOLIO_ADO {
                                             AND ID_TEMPORADA = ".$TEMPORADA."  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -320,6 +327,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_EMPRESA= '".$EMPRESA."' AND ID_PLANTA= '".$PLANTA."' AND ID_TEMPORADA= '".$TEMPORADA."' AND  TFOLIO= 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -339,6 +347,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_EMPRESA= '".$EMPRESA."' AND ID_PLANTA= '".$PLANTA."' AND ID_TEMPORADA= '".$TEMPORADA."' AND  TFOLIO= 2 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -357,6 +366,7 @@ class FOLIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_folio WHERE ID_EMPRESA= '".$EMPRESA."' AND ID_PLANTA= '".$PLANTA."' AND ID_TEMPORADA= '".$TEMPORADA."' AND  TFOLIO= 3;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -378,6 +388,7 @@ class FOLIO_ADO {
                                             AND  TFOLIO BETWEEN 2 AND 3;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	var_dump($resultado);

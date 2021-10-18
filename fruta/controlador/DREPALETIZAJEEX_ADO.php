@@ -155,6 +155,7 @@ class DREPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drepaletizajeex WHERE ID_DREPALETIZAJE= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -174,6 +175,7 @@ class DREPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drepaletizajeex limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -193,6 +195,7 @@ class DREPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drepaletizajeex WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -212,6 +215,7 @@ class DREPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drepaletizajeexWHERE  ESTADO_REGISTRO = 0;;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -316,6 +320,7 @@ class DREPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drepaletizajeex WHERE ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "' AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -339,6 +344,7 @@ class DREPALETIZAJEEX_ADO
                                          AND ESTADO_REGISTRO = 1 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -362,6 +368,7 @@ class DREPALETIZAJEEX_ADO
                                         GROUP BY FOLIO_NUEVO_DREPALETIZAJE ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -381,6 +388,7 @@ class DREPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drepaletizajeex WHERE ID_EXIEXPORTACION= '" . $IDEXIEXPORTACION . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -403,6 +411,7 @@ class DREPALETIZAJEEX_ADO
                                     GROUP BY FOLIO_NUEVO_DREPALETIZAJE ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -425,6 +434,7 @@ class DREPALETIZAJEEX_ADO
                                                     GROUP BY ID_VESPECIES;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -446,6 +456,7 @@ class DREPALETIZAJEEX_ADO
                                                 GROUP BY productor.ID_PRODUCTOR;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -466,6 +477,7 @@ class DREPALETIZAJEEX_ADO
                                          GROUP BY ID_PROCESO ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -510,6 +522,7 @@ class DREPALETIZAJEEX_ADO
                                          ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -530,6 +543,7 @@ class DREPALETIZAJEEX_ADO
                                                 AND ESTADO_REGISTRO = 1  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -553,6 +567,7 @@ class DREPALETIZAJEEX_ADO
                                                 AND ESTADO_REGISTRO = 1  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -578,6 +593,7 @@ class DREPALETIZAJEEX_ADO
                                              AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -602,6 +618,7 @@ class DREPALETIZAJEEX_ADO
                                              AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -625,6 +642,7 @@ class DREPALETIZAJEEX_ADO
                                              GROUP BY FOLIO_NUEVO_DREPALETIZAJE;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -648,6 +666,7 @@ class DREPALETIZAJEEX_ADO
                                              GROUP BY FOLIO_NUEVO_DREPALETIZAJE;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -669,6 +688,7 @@ class DREPALETIZAJEEX_ADO
                                              WHERE ID_EXIEXPORTACION= '" . $IDEXIEXPORTACION . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -692,6 +712,7 @@ class DREPALETIZAJEEX_ADO
                                                 AND ESTADO_REGISTRO = 1  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

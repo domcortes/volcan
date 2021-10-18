@@ -48,6 +48,7 @@ class PLANTA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -67,6 +68,7 @@ class PLANTA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` WHERE  `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -89,6 +91,7 @@ class PLANTA_ADO {
                                             AND TPLANTA = 1	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -110,6 +113,7 @@ class PLANTA_ADO {
                                             AND TPLANTA = 1	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -130,6 +134,7 @@ class PLANTA_ADO {
                                             AND TPLANTA = 2	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -149,6 +154,7 @@ class PLANTA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` WHERE  `ESTADO_REGISTRO`= 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -168,6 +174,7 @@ class PLANTA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` WHERE `ID_PLANTA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -188,6 +195,7 @@ class PLANTA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_planta` WHERE `NOMBRE_PLANTA` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -353,6 +361,7 @@ class PLANTA_ADO {
                                             AND `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

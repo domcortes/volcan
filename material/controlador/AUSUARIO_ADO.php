@@ -51,6 +51,7 @@ class AUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_ausuario` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class AUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_ausuario` ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -90,6 +92,7 @@ class AUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_ausuario` WHERE `ID_AUSUARIO`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -232,6 +235,7 @@ class AUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_ausuario` WHERE `ID_USUARIO`= '".$NOMBREUSUARIO."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -255,6 +259,7 @@ class AUSUARIO_ADO {
                                             ORDER BY `FECHA_AUSUARIO` DESC LIMIT 5 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

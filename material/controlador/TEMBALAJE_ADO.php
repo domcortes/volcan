@@ -49,6 +49,7 @@ class TEMBALAJE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class TEMBALAJE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class TEMBALAJE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -103,6 +106,7 @@ class TEMBALAJE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` WHERE `ID_TEMBALAJE`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -122,6 +126,7 @@ class TEMBALAJE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tembalaje` WHERE `NOMBRE_TEMBALAJE` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -263,6 +268,7 @@ class TEMBALAJE_ADO {
                                              AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -285,6 +291,7 @@ class TEMBALAJE_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

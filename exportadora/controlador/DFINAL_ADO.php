@@ -48,6 +48,7 @@ class DFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class DFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class DFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class DFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `ID_DFINAL`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -126,6 +130,7 @@ class DFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `NOMBRE_DFINAL` LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -261,6 +266,7 @@ class DFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `NOMBRE_DFINAL` LIKE '%" . $NOMBREDFINAL . "%' AND `NOMBRE_DFINAL` LIKE '%" . $NOMBREDFINALV . "%' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -278,6 +284,7 @@ class DFINAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_dfinal` WHERE `NOMBRE_DFINAL` LIKE '%" . $NOMBREDFINAL . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -298,6 +305,7 @@ class DFINAL_ADO
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -318,6 +326,7 @@ class DFINAL_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

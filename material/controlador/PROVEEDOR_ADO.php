@@ -49,6 +49,7 @@ class PROVEEDOR_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -67,6 +68,7 @@ class PROVEEDOR_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class PROVEEDOR_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class PROVEEDOR_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` WHERE `ID_PROVEEDOR`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -279,6 +283,7 @@ class PROVEEDOR_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -300,6 +305,7 @@ class PROVEEDOR_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -51,6 +51,7 @@ class MERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_mercado` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class MERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_mercado` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class MERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_mercado` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -108,6 +111,7 @@ class MERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_mercado` WHERE `ID_MERCADO`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -128,6 +132,7 @@ class MERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_mercado` WHERE `NOMBRE_MERCADO` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -265,6 +270,7 @@ class MERCADO_ADO {
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -287,6 +293,7 @@ class MERCADO_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

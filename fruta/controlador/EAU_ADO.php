@@ -51,6 +51,7 @@ class EAU_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `control_eau` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class EAU_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `control_eau` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class EAU_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `control_eau` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class EAU_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `control_eau` WHERE `ID_EAU`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -128,6 +132,7 @@ class EAU_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `control_eau` WHERE `RUT_USUARIO` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -224,6 +229,7 @@ class EAU_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `control_eau` WHERE `ID_EMPRESA` LIKE '%".$IDEMPRESA."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -288,6 +294,7 @@ class EAU_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `control_eau` WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA ='".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

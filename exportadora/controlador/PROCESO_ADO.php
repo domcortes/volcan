@@ -48,6 +48,7 @@ class PROCESO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_proceso LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class PROCESO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_proceso ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -90,6 +92,7 @@ class PROCESO_ADO
                                                     WHERE ID_PROCESO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -111,6 +114,7 @@ class PROCESO_ADO
                                              FROM fruta_proceso WHERE ID_PROCESO = '" . $IDPROCESO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -346,6 +350,7 @@ class PROCESO_ADO
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -374,6 +379,7 @@ class PROCESO_ADO
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -402,6 +408,7 @@ class PROCESO_ADO
                                                 AND ESTADO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -429,6 +436,7 @@ class PROCESO_ADO
                                              WHERE ID_PROCESO = '" . $IDPROCESO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -456,6 +464,7 @@ class PROCESO_ADO
                                              ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -487,6 +496,7 @@ class PROCESO_ADO
                                             ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -507,6 +517,7 @@ class PROCESO_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -530,6 +541,7 @@ class PROCESO_ADO
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

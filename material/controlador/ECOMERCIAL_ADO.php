@@ -49,6 +49,7 @@ class ECOMERCIAL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class ECOMERCIAL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class ECOMERCIAL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class ECOMERCIAL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` WHERE `ID_ECOMERCIAL`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -126,6 +130,7 @@ class ECOMERCIAL_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_ecomercial` WHERE `NOMBRE_ECOMERCIAL` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -279,6 +284,7 @@ class ECOMERCIAL_ADO {
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -49,6 +49,7 @@ class EEXPORTACION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_eexportacion` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class EEXPORTACION_ADO {
             $datos=$this->conexion->prepare(" SELECT * FROM `estandar_eexportacion` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -86,6 +88,7 @@ class EEXPORTACION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_eexportacion` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class EEXPORTACION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_eexportacion` WHERE `ID_ESTANDAR`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -127,6 +131,7 @@ class EEXPORTACION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_eexportacion` WHERE `NOMBRE_ESTANDAR` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -310,6 +315,7 @@ class EEXPORTACION_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `estandar_eexportacion` WHERE `ID_ESPECIES`= '".$IDESPECIES."' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -331,6 +337,7 @@ class EEXPORTACION_ADO {
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

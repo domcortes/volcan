@@ -48,6 +48,7 @@ class EMPRESA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class EMPRESA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -83,6 +85,7 @@ class EMPRESA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` WHERE `ESTADO_REGISTRO` = 0 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -101,6 +104,7 @@ class EMPRESA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` WHERE `ID_EMPRESA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -121,6 +125,7 @@ class EMPRESA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_empresa` WHERE `NOMBRE_EMPRESA` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

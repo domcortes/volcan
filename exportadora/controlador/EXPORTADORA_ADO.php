@@ -46,6 +46,7 @@ class EXPORTADORA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -64,6 +65,7 @@ class EXPORTADORA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -81,6 +83,7 @@ class EXPORTADORA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` WHERE `ESTADO_REGISTRO` = 0 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -99,6 +102,7 @@ class EXPORTADORA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` WHERE `ID_EXPORTADORA`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -119,6 +123,7 @@ class EXPORTADORA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_exportadora` WHERE `NOMBRE_EXPORTADORA` LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
