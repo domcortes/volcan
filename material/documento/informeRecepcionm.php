@@ -303,7 +303,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="6" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="7" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Codigo Producto</th>
@@ -312,6 +312,7 @@ $html = $html . '
             <th class="color left">Unidad Medida</th>
             <th class="color left">Cantidad</th>
             <th class="color left">Valor Unitario</th>
+            <th class="color left">Notas</th>
           </tr>
         </thead>
          <tbody>
@@ -335,6 +336,7 @@ foreach ($ARRAYDRECEPCION as $d) :
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>
                           <td class="left">$ ' . $d['VALOR_UNITARIO'] . '</td>
+                          <td class="left">' . $d['DESCRIPCION_DRECEPCION'] . '</td>
                       </tr>
               ';
 
@@ -348,6 +350,7 @@ $html = $html . '
                       <th class="color left">&nbsp;</th>
                       <th class="color right">SUB TOTAL</th>
                       <th class="color left"> ' . $TOTALCANTIDAD . '</th>
+                      <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
                   </tr>
               ';
@@ -369,7 +372,7 @@ $html = $html . '
         </div>
         
         <div id="client">
-          <div class="address"><b>Observaciones</b></div>
+          <div class="address"><b>Notas Generales</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
       </div>
