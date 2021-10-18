@@ -257,6 +257,7 @@ class RECEPCIONM_ADO {
             `MODIFICACION`= SYSDATE(),
             `FECHA_RECEPCION`= ?,
             `TRECEPCION`= ?,
+            `SNOCOMPRA`= ?,
             `NUMERO_DOCUMENTO_RECEPCION`= ?,
             `PATENTE_CAMION`= ?,
             `PATENTE_CARRO`= ?,
@@ -280,6 +281,7 @@ class RECEPCIONM_ADO {
                 array(    
                     $RECEPCIONM->__GET('FECHA_RECEPCION')  ,    
                     $RECEPCIONM->__GET('TRECEPCION')  ,     
+                    $RECEPCIONM->__GET('SNOCOMPRA')  ,     
                     $RECEPCIONM->__GET('NUMERO_DOCUMENTO_RECEPCION')  , 
                     $RECEPCIONM->__GET('PATENTE_CAMION')  ,  
                     $RECEPCIONM->__GET('PATENTE_CARRO')  ,         

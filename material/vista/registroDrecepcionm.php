@@ -78,6 +78,7 @@ $PLANTA3 = "";
 $PROVEEDOR = "";
 $PRODUCTOR = "";
 $ESTADO = "";
+$ESTADORECEPCION = "";
 
 $DISABLED = "";
 $DISABLED2 = "";
@@ -192,6 +193,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLP = $_SESSION['urlO'];
+    $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion($IDP);
+    if ($ARRAYRECEPCION) {
+        $ESTADORECEPCION = $ARRAYRECEPCION[0]["ESTADO"];
+    }
 }
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
@@ -586,6 +591,27 @@ if (isset($_POST)) {
                                             <tbody>
                                                 <?php if ($ARRAYDTRECEPCION) { ?>
                                                     <?php foreach ($ARRAYDTRECEPCION as $s) : ?>
+                                                        <?php
+                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                        if ($ARRAYPRODUCTO) {
+                                                            $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                        } else {
+                                                            $NOMBREPRODUCTO = "Sin Dato";
+                                                        }
+                                                        $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($s['ID_TCONTENEDOR']);
+                                                        if ($ARRAYTCONTENEDOR) {
+                                                            $NOMBRECONTENEDOR = $ARRAYTCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
+                                                        } else {
+                                                            $NOMBRECONTENEDOR = "Sin Dato";
+                                                        }
+
+                                                        $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
+                                                        if ($ARRAYTUMEDIDA) {
+                                                            $NOMBRETUMEDIDA = $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                        } else {
+                                                            $NOMBRETUMEDIDA = "Sin Dato";
+                                                        }
+                                                        ?>
                                                         <tr class="text-left">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
@@ -604,12 +630,12 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionm" />
                                                                     <input type="hidden" class="form-control" placeholder="URL DTRECEPCIONE" id="URLT" name="URLT" value="registroDtrecepcionm" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <?php if ($s['ESTADO']  == "0") { ?>
+                                                                        <?php if ($ESTADORECEPCION  == "0") { ?>
                                                                             <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
                                                                                 <i class="ti-eye"></i>
                                                                             </button>
                                                                         <?php } ?>
-                                                                        <?php if ($s['ESTADO']  == "1") { ?>
+                                                                        <?php if ($ESTADORECEPCION  == "1") { ?>
                                                                             <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED; ?>>
                                                                                 <i class="ti-pencil-alt"></i>
                                                                             </button>
@@ -625,36 +651,9 @@ if (isset($_POST)) {
                                                             </td>
                                                             <td><?php echo $s['CANTIDADC']; ?></td>
                                                             <td><?php echo $s['CANTIDAD']; ?></td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
-                                                                if ($ARRAYPRODUCTO) {
-                                                                    echo $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                                } else {
-                                                                    echo "Sin Producto";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($s['ID_TCONTENEDOR']);
-                                                                if ($ARRAYTCONTENEDOR) {
-                                                                    echo $ARRAYTCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
-                                                                } else {
-                                                                    echo "Sin Producto";
-                                                                }
-                                                                ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
-                                                                if ($ARRAYTUMEDIDA) {
-                                                                    echo $ARRAYTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
-                                                                } else {
-                                                                    echo "Sin Unidad Medida";
-                                                                }
-                                                                ?>
-                                                            </td>
+                                                            <td><?php echo $NOMBREPRODUCTO  ?> </td>
+                                                            <td><?php echo $NOMBRECONTENEDOR  ?> </td>
+                                                            <td><?php echo $NOMBRETUMEDIDA  ?> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php } ?>

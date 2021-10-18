@@ -113,7 +113,7 @@ $DISABLED = "";
 $DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
-
+$DISABLEDOC = "";
 
 $DISABLEDFOLIO = "";
 $MENSAJEFOLIO = "";
@@ -255,49 +255,44 @@ if (isset($_REQUEST['CREAR'])) {
 }
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
-
-    $ARRAYDRECEPCION2 = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcionCBX($_REQUEST['IDP']);
-    if (empty($ARRAYDRECEPCION2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-
-
-    if ($SINO == "0") {
-        //UTILIZACION METODOS SET DEL MODELO
-        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-        $RECEPCIONM->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-        $RECEPCIONM->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMERODOCUMENTOE']);
-        $RECEPCIONM->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-        $RECEPCIONM->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $RECEPCIONM->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACIONE']);
-        $RECEPCIONM->__SET('TOTAL_CANTIDAD_RECEPCION', $_REQUEST['TOTALCANTIDAD']);
-        $RECEPCIONM->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
-        if ($_REQUEST['TRECEPCIONE'] == "1") {
-            $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRAE']);
+    
+    //UTILIZACION METODOS SET DEL MODELO
+    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $RECEPCIONM->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+    $RECEPCIONM->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMERODOCUMENTOE']);
+    $RECEPCIONM->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+    $RECEPCIONM->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+    $RECEPCIONM->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACIONE']);
+    $RECEPCIONM->__SET('TOTAL_CANTIDAD_RECEPCION', $_REQUEST['TOTALCANTIDAD']);
+    $RECEPCIONM->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
+    if ($_REQUEST['TRECEPCIONE'] == "1") {
+        if (isset($_REQUEST['SNOCOMPRA']) == "on") {
+            $SNOCOMPRAR = "1";          
+            $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRA']);
             $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+        } else {
+            $SNOCOMPRAR = "0";
+            $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
         }
-        if ($_REQUEST['TRECEPCIONE'] == "2") {
-            $RECEPCIONM->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-        }
-        if ($_REQUEST['TRECEPCIONE'] == "3") {
-            $RECEPCIONM->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-        }
-        $RECEPCIONM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-        $RECEPCIONM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-        $RECEPCIONM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-        $RECEPCIONM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
-        $RECEPCIONM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
-        $RECEPCIONM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-        $RECEPCIONM->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $RECEPCIONM->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $RECEPCIONM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $RECEPCIONM_ADO->actualizarRecepcion($RECEPCIONM);
+        $RECEPCIONM->__SET('SNOCOMPRA', $SNOCOMPRAR);
     }
+    if ($_REQUEST['TRECEPCIONE'] == "2") {
+        $RECEPCIONM->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+    }
+    if ($_REQUEST['TRECEPCIONE'] == "3") {
+        $RECEPCIONM->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+    }
+    $RECEPCIONM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+    $RECEPCIONM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+    $RECEPCIONM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+    $RECEPCIONM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
+    $RECEPCIONM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
+    $RECEPCIONM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+    $RECEPCIONM->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+    $RECEPCIONM->__SET('ID_USUARIOM', $IDUSUARIOS);
+    $RECEPCIONM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+    $RECEPCIONM_ADO->actualizarRecepcion($RECEPCIONM);
 }
 //OPERACION PARA CERRAR LA RECEPCIONM
 if (isset($_REQUEST['CERRAR'])) {
@@ -307,17 +302,14 @@ if (isset($_REQUEST['CERRAR'])) {
     if (empty($ARRAYDRECEPCION2)) {
         $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
         $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-    if ($_REQUEST['DIFERENCIA'] == 0) {
+    } else  if ($_REQUEST['DIFERENCIA'] == 0) {
         $MENSAJE = "";
         $SINO = "0";
     } else {
         $MENSAJE = "LA DIFERENICA TIENE QUE SER CERO";
         $SINO = "1";
     }
+
     if ($SINO == "0") {
         $RECEPCIONM->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
         $RECEPCIONM->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMERODOCUMENTOE']);
@@ -327,8 +319,15 @@ if (isset($_REQUEST['CERRAR'])) {
         $RECEPCIONM->__SET('TOTAL_CANTIDAD_RECEPCION', $_REQUEST['TOTALCANTIDAD']);
         $RECEPCIONM->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
         if ($_REQUEST['TRECEPCIONE'] == "1") {
-            $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRAE']);
-            $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+            if (isset($_REQUEST['SNOCOMPRA']) == "on") {
+                $SNOCOMPRAR = "1";
+                $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRA']);
+                $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+            } else {
+                $SNOCOMPRAR = "0";
+                $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
+            }
+            $RECEPCIONM->__SET('SNOCOMPRA', $SNOCOMPRAR);
         }
         if ($_REQUEST['TRECEPCIONE'] == "2") {
             $RECEPCIONM->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
@@ -401,7 +400,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
     $ARRAYDRECEPCIONNODOCOMPRA = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcionNoDocompra2CBX($IDOP);
-    $ARRAYDRECEPCIONSIDOCOMPRA = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcionSiDocompra2CBX($IDOP);;
+    $ARRAYDRECEPCIONSIDOCOMPRA = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcionSiDocompra2CBX($IDOP);
+    if ($ARRAYDRECEPCIONSIDOCOMPRA) {
+        $DISABLEDOC = "disabled";
+    }
 
     $ARRAYDRECEPCIONTOTAL = $DRECEPCIONM_ADO->obtenerTotalesDrecepcionPorRecepcionCBX($IDOP);
     $ARRAYDRECEPCIONTOTAL2 = $DRECEPCIONM_ADO->obtenerTotalesDrecepcionPorRecepcion2CBX($IDOP);
@@ -616,6 +618,12 @@ if (isset($_POST)) {
             }
         }
     }
+    if (isset($_REQUEST['SNOCOMPRA'])) {
+        $SNOCOMPRA = "" . $_REQUEST['SNOCOMPRA'];
+    }
+    if (isset($_REQUEST['OCOMPRA'])) {
+        $OCOMPRA = "" . $_REQUEST['OCOMPRA'];
+    }
     if (isset($_REQUEST['PATENTECAMION'])) {
         $PATENTECAMION = "" . $_REQUEST['PATENTECAMION'];
     }
@@ -670,6 +678,19 @@ if (isset($_POST)) {
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
+
+                function ocompra() {
+                    SNOCOMPRA = document.getElementById('SNOCOMPRA').checked;
+                    if (SNOCOMPRA == true) {
+                        document.getElementById('OCOMPRA').disabled = false;
+                        document.getElementById('PROVEEDOR').disabled = true;
+                    } else {
+                        document.getElementById('OCOMPRA').disabled = true;
+                        document.getElementById('PROVEEDOR').disabled = false;
+                        document.getElementById("OCOMPRA").innerText  = null;
+                    }
+                }
+
                 function validacion() {
 
                     FECHARECEPCION = document.getElementById("FECHARECEPCION").value;
@@ -734,7 +755,6 @@ if (isset($_POST)) {
                                 }
                                 document.form_reg_dato.OCOMPRA.style.borderColor = "#4AF575";
                             }
-
 
                             if (PROVEEDOR == null || PROVEEDOR == 0) {
                                 document.form_reg_dato.PROVEEDOR.focus();
@@ -1006,9 +1026,9 @@ if (isset($_POST)) {
                                                     <label>Con OC</label>
                                                     <br>
                                                     <input type="hidden" class="form-control" placeholder="SNOCOMPRAE" id="SNOCOMPRAE" name="SNOCOMPRAE" value="<?php echo $SNOCOMPRA; ?>" />
-                                                    <input type="checkbox" class="chk-col-danger" name="SNOCOMPRA" id="SNOCOMPRA" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php if ($SNOCOMPRA == "on") {
+                                                    <input type="checkbox" class="chk-col-danger" name="SNOCOMPRA" id="SNOCOMPRA" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLEDOC; ?> <?php echo $DISABLED2; ?> onchange="ocompra();" <?php if ($SNOCOMPRA == "on") {
                                                                                                                                                                                                                         echo "checked";
-                                                                                                                                                                                                                    } ?> onchange="this.form.submit()">
+                                                                                                                                                                                                                    } ?> >
                                                     <label for="SNOCOMPRA"></label>
                                                 </div>
                                             </div>
@@ -1016,9 +1036,9 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Orden Compra</label>
                                                     <input type="hidden" class="form-control" placeholder="OCOMPRAE" id="OCOMPRAE" name="OCOMPRAE" value="<?php echo $OCOMPRA; ?>" />
-                                                    <select class="form-control select2" id="OCOMPRA" name="OCOMPRA" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php if ($SNOCOMPRA != "on") {
-                                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                            } ?>>
+                                                    <select class="form-control select2" id="OCOMPRA" name="OCOMPRA" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?> <?php echo $DISABLEDOC; ?> <?php if ($SNOCOMPRA != "on") {
+                                                                                                                                                                                                                        echo "disabled";
+                                                                                                                                                                                                                    } ?>>
                                                         <option></option>
                                                         <?php foreach ($ARRAYOCOMPRA as $r) : ?>
                                                             <?php if ($ARRAYOCOMPRA) {    ?>
@@ -1069,9 +1089,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Proveedor</label>
                                                     <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
-                                                    <select class="form-control select2" id="PROVEEDOR" name="PROVEEDOR" style="width: 100%;" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php if ($OCOMPRA) {
-                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                } ?>>
+                                                    <select class="form-control select2" id="PROVEEDOR" name="PROVEEDOR" style="width: 100%;" <?php echo $DISABLEDFOLIO; ?>  <?php echo $DISABLED2; ?>  <?php if ($OCOMPRA) {   echo "disabled"; } ?>>
                                                         <option></option>
                                                         <?php foreach ($ARRAYPROVEEDOR as $r) : ?>
                                                             <?php if ($ARRAYPROVEEDOR) {    ?>
@@ -1134,7 +1152,7 @@ if (isset($_POST)) {
                                                     <label id="val_planta2" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                        <?php } ?>                                        
+                                        <?php } ?>
                                         <?php if ($TRECEPCION == "4") { ?>
                                         <?php } ?>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -1266,7 +1284,7 @@ if (isset($_POST)) {
                                             <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionm.php'); ">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-pencil-alt"></i> Guardar
                                             </button>
                                             <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
@@ -1356,7 +1374,7 @@ if (isset($_POST)) {
                                                                             <button type="submit" class="btn btn-secondary btn-sm " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?>>
                                                                                 <i class="fa fa-fw fa-copy"></i>
                                                                             </button>
-                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
+                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?> <?php if($TOTALTARJADR>0){echo "disabled";}?> >
                                                                                 <i class="ti-close"></i>
                                                                             </button>
                                                                         <?php } ?>
@@ -1413,7 +1431,7 @@ if (isset($_POST)) {
                                                                             <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
                                                                                 <i class="ti-pencil-alt"></i>
                                                                             </button>
-                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
+                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?> <?php if($TOTALTARJADR>0){echo "disabled";}?> >
                                                                                 <i class="ti-close"></i>
                                                                             </button>
                                                                         <?php } ?>
