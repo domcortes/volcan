@@ -291,9 +291,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="4" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="5" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
+            <th class="color left">Codigo Producto</th>
             <th class="color left">Producto</th>
             <th class="color left">Unidad Medida</th>
             <th class="color left">Cantidad</th>
@@ -332,7 +333,7 @@ $html = $html . '
                       <th class="color left">&nbsp;</th>
                       <th class="color right">SUB TOTAL</th>
                       <th class="color left"> ' . $TOTALCANTIDAD . '</th>
-                      <th class="color left">&nbsp;</th>
+                      <th class="color left">&nbsp;</th>4
                   </tr>
               ';
 
@@ -352,7 +353,7 @@ $html = $html . '
           <div class="address">Patente Carro: ' . $PATENTECARRO . '</div> 
         </div>        
         <div id="client">
-          <div class="address"><b>Observaciones</b></div>
+          <div class="address"><b>Notas Generales</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
       </div>
