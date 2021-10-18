@@ -1544,7 +1544,9 @@ class EXIEXPORTACION_ADO
                                                     AND ID_ESTANDAR= '" . $ESTANDAR . "'   
                                                     AND ID_FOLIO= '" . $FOLIO . "'  
                                                     AND FECHA_EMBALADO_EXIEXPORTACION= '" . $FECHAEMBALADO . "'   
-                                                    AND ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "'  
+                                                    AND ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "' 
+                                                    AND ESTADO_REGISTRO = 1 
+                                                    LIMIT 1
                                                     ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -2988,13 +2990,11 @@ class EXIEXPORTACION_ADO
             $query = "
                             UPDATE fruta_exiexportacion SET	
                                     MODIFICACION = SYSDATE(), 		
-                                    ESTADO = 0, 		
-                                    ID_REPALETIZAJE = ?
-                            WHERE ID_EXIEXPORTACION= ?  AND ESTADO = 1;";
+                                    ESTADO = 0
+                            WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
                         $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
                     )
 
@@ -3336,13 +3336,11 @@ class EXIEXPORTACION_ADO
             $query = "
                     UPDATE fruta_exiexportacion SET		
                             MODIFICACION = SYSDATE(), 	
-                            ESTADO_REGISTRO = 0, 	
-                            ID_REPALETIZAJE = ?
-                    WHERE ID_EXIEXPORTACION= ? AND ESTADO = 1;";
+                            ESTADO_REGISTRO = 0 	
+                    WHERE ID_EXIEXPORTACION= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('ID_REPALETIZAJE'),
                         $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
                     )
 
