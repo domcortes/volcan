@@ -438,7 +438,7 @@ include_once "../config/datosUrLP.php";
                                                             $PREFRIO = "Sin Datos";
                                                         }
                                                         ?>
-                                                        <tr class="center">
+                                                        <tr class="text-left">
                                                             <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td><?php echo "Producto Terminado"; ?> </td>
