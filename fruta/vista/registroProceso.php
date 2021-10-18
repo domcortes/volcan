@@ -1421,9 +1421,9 @@ if (isset($_POST)) {
                 $SINO = "0";
                 $MENSAJEINDUSTRIAL = "";
             }
-            if ($_REQUEST['TOTALDESHIDRATACIONEX'] >  $_REQUEST['TOTALNETO']) {
+            if ($_REQUEST['TOTALDESHIDRATACIONEX'] < 0) {
                 $SINO = "1";
-                $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR AL LO INGRESADO";
+                $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR A ZERO";
                 echo
                     '<script>
                         Swal.fire({
