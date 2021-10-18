@@ -14,6 +14,7 @@ include_once '../controlador/TPROCESO_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
@@ -30,6 +31,7 @@ $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $TPROCESO_ADO =  new TPROCESO_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
+$COMPRADOR_ADO =  new COMPRADOR_ADO();
 
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 

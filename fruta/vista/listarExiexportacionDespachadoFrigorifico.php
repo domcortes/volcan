@@ -15,6 +15,7 @@ include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 include_once '../controlador/TPROCESO_ADO.php';
 include_once '../controlador/TREEMBALAJE_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 
 
@@ -41,6 +42,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 $TPROCESO_ADO =  new TPROCESO_ADO();
 $TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
+$COMPRADOR_ADO =  new COMPRADOR_ADO();
 
 
 
