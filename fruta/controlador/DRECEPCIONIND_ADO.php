@@ -221,7 +221,8 @@ class DRECEPCIONIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                            DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO'
+                                                        DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
+                                                        IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO'
                                             FROM fruta_drecepcionind 
                                             WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                             AND ESTADO_REGISTRO = 1 ;");
