@@ -22,6 +22,7 @@ include_once '../controlador/DOCOMPRA_ADO.php';
 include_once '../controlador/INVENTARIOE_ADO.php';
 include_once '../controlador/RECEPCIONE_ADO.php';
 include_once '../controlador/DRECEPCIONE_ADO.php';
+include_once '../controlador/RECEPCIONMP_ADO.php';
 
 include_once '../modelo/INVENTARIOE.php';
 include_once '../modelo/RECEPCIONE.php';
@@ -47,6 +48,7 @@ $DOCOMPRA_ADO =  new DOCOMPRA_ADO();
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 $DRECEPCIONE_ADO =  new DRECEPCIONE_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 
 //INIICIALIZAR MODELO
 $INVENTARIOE =  new INVENTARIOE();
@@ -67,7 +69,7 @@ $OBSERVACION = "";
 
 $ESTADO = "";
 $CONTADOR = 0;
-
+$IDRECEPCIONMP="";
 $TDOCUMENTO = "";
 $BODEGA = "";
 $PROVEEDOR = "";
@@ -89,6 +91,7 @@ $TOTALVALORV = 0;
 
 $NUMERO = "";
 $NUMEROVER = "";
+$NUMERORECEPCIONMP="";
 $FOLIONUMERO = "";
 
 $SINO = "";
@@ -135,7 +138,7 @@ $ARRAYPRODUCTO = "";
 $ARRAYFECHAACTUAL = "";
 $ARRYAOBTENERID = "";
 $ARRAYNUMERO = "";
-
+$ARRAYRECEPCIONMP="";
 $ARRAYINVENTARIORECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
@@ -395,6 +398,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAINGRESO = "" . $r['INGRESO'];
             $FECHAMODIFCIACION = "" . $r['MODIFICACION'];
             $ESTADO = "" . $r['ESTADO'];
+            $IDRECEPCIONMP= "" . $r['ID_RECEPCIONMP'];
+            $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+            if($ARRAYRECEPCIONMP){
+                $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+            }
+
         endforeach;
     }
 
@@ -446,6 +455,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAINGRESO = "" . $r['INGRESO'];
             $FECHAMODIFCIACION = "" . $r['MODIFICACION'];
             $ESTADO = "" . $r['ESTADO'];
+            $IDRECEPCIONMP= "" . $r['ID_RECEPCIONMP'];
+            $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+            if($ARRAYRECEPCIONMP){
+                $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+            }
         endforeach;
     }
 
@@ -497,6 +511,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAINGRESO = "" . $r['INGRESO'];
             $FECHAMODIFCIACION = "" . $r['MODIFICACION'];
             $ESTADO = "" . $r['ESTADO'];
+            $IDRECEPCIONMP= "" . $r['ID_RECEPCIONMP'];
+            $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+            if($ARRAYRECEPCIONMP){
+                $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+            }
         endforeach;
     }
 }
@@ -914,10 +933,6 @@ if (isset($_POST)) {
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <?php if ($TRECEPCION != "1") { ?>
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                            </div>
-                                        <?php } ?>
                                         <?php if ($TRECEPCION == "1") { ?>
                                             <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
@@ -953,7 +968,28 @@ if (isset($_POST)) {
                                                     <label id="val_ocompra" class="validacion"> </label>
                                                 </div>
                                             </div>
-
+                                        <?php } ?>                                                                            
+                                        <?php if ($TRECEPCION == "2") { ?>                                                
+                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                                <div class="form-group">   
+                                                   <?php  if($ARRAYRECEPCIONMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Recepción de Materia prima.<br> <b> Numero Recepcion: <?php echo $NUMERORECEPCIONMP;?> </b> </p>   
+                                                    <?php }?>
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                        
+                                        <?php if ($TRECEPCION == "3") { ?>                                                
+                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                                <div class="form-group">        
+                                                    <?php  if($ARRAYRECEPCIONMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Recepción de Materia prima.<br> <b> Numero Recepcion: <?php echo $NUMERORECEPCIONMP;?> </b> </p>   
+                                                    <?php }?>  
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                            
+                                        <?php if ($TRECEPCION == "4") { ?>
+                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            </div>
                                         <?php } ?>
                                         <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
@@ -1052,7 +1088,7 @@ if (isset($_POST)) {
                                                     </select>
                                                     <label id="val_planta2" class="validacion"> </label>
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                         <?php } ?>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
@@ -1232,7 +1268,7 @@ if (isset($_POST)) {
                                         -->
                             </div>
                             <div class="row">
-                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
+                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-8 col-xs-8">
                                     <div class=" table-responsive">
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -1358,7 +1394,7 @@ if (isset($_POST)) {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 col-xs-4">
                                     <form method="post" id="form2" name="form2">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
@@ -1415,6 +1451,7 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+
 </body>
 
 </html>

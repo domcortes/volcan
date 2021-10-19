@@ -244,6 +244,66 @@ class DRECEPCIONMP_ADO
 
 
     //BUSCAR
+    public function buscarPorRecepcionPorProductoAgrupadoEstandarproducto($IDRECEPCION, $IDPRODUCTO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 
+                                                        estandar.ID_PRODUCTO,
+                                                        producto.ID_TUMEDIDA, 
+                                                        IFNULL(SUM(detalle.CANTIDAD_ENVASE_DRECEPCION),0) AS 'ENVASE' 
+                                                FROM fruta_drecepcionmp detalle, estandar_erecepcion estandar, material_producto producto 
+                                                WHERE detalle.ID_ESTANDAR= estandar.ID_ESTANDAR 
+                                                    AND estandar.ID_PRODUCTO=producto.ID_PRODUCTO 
+                                                    AND detalle.ESTADO_REGISTRO = 1 
+                                                    AND detalle.ID_RECEPCION = '" . $IDRECEPCION . "' 
+                                                    AND estandar.ID_PRODUCTO = '" . $IDPRODUCTO . "' 
+                                                GROUP BY estandar.ID_PRODUCTO     
+                                             
+                                             ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            echo "<br>";
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorRecepcionAgrupadoEstandarproducto($IDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 
+                                                        estandar.ID_PRODUCTO,
+                                                        producto.ID_TUMEDIDA, 
+                                                        IFNULL(SUM(detalle.CANTIDAD_ENVASE_DRECEPCION),0) AS 'ENVASE' 
+                                                FROM fruta_drecepcionmp detalle, estandar_erecepcion estandar, material_producto producto 
+                                                WHERE detalle.ID_ESTANDAR= estandar.ID_ESTANDAR 
+                                                    AND estandar.ID_PRODUCTO=producto.ID_PRODUCTO 
+                                                    AND detalle.ESTADO_REGISTRO = 1 
+                                                    AND   ID_RECEPCION = '" . $IDRECEPCION . "' 
+                                                GROUP BY estandar.ID_PRODUCTO     
+                                             
+                                             ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorRecepcion($IDRECEPCION)
     {
         try {

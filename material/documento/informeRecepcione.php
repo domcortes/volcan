@@ -20,6 +20,7 @@ include_once '../controlador/CONDUCTOR_ADO.php';
 
 include_once '../controlador/INVENTARIOE_ADO.php';
 include_once '../controlador/RECEPCIONE_ADO.php';
+include_once '../controlador/RECEPCIONMP_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -43,6 +44,7 @@ $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -113,11 +115,23 @@ if ($ARRAYRECEPCION) {
     $NOMBRETRECEPCION = "Desde Productor";
     $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
     $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+    
+    $IDRECEPCIONMP= $ARRAYRECEPCION[0]['ID_RECEPCIONMP'];
+    $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+    if($ARRAYRECEPCIONMP){
+        $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+    }
   }
   if ($TIPORECEPCION == "3") {
     $NOMBRETRECEPCION = "Desde Planta Externa";
     $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]["ID_PLANTA2"]);
     $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+    
+    $IDRECEPCIONMP= $ARRAYRECEPCION[0]['ID_RECEPCIONMP'];
+    $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+    if($ARRAYRECEPCIONMP){
+        $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+    }
   }  
   if ($TIPORECEPCION == "4") {
     $NOMBRETRECEPCION = "Inventario Inicial";
@@ -273,21 +287,28 @@ if ($TIPORECEPCION == "2") {
   $html = $html . ' 
 <div class="address"><b>Nombre Productor: </b>' . $NOMBREORIGEN . '</div>
 ';
+
 }
 if ($TIPORECEPCION == "3") {
   $html = $html . ' 
 <div class="address"><b>Nombre Planta Externa: </b>' . $NOMBREORIGEN . '</div>
 ';
+
 }
 
 
 
 $html = $html . '
           <div class="address"><b>Bodega Destino: </b>' . $NOMBREBODEGA . '</div>
+';
 
-        </div>
-        
+$html=$html.'
+        </div>        
       </div>
+';
+
+
+  $html=$html.'
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
@@ -343,7 +364,7 @@ $html = $html . '
 
 $html = $html . '
         </tbody>
-      </table>
+      </table> 
       <div id="details" class="clearfix">
         <div id="client">
           <div class="address"><b>Información de Transporte</b></div>
@@ -353,8 +374,16 @@ $html = $html . '
           <div class="address">Patente Carro: ' . $PATENTECARRO . '</div> 
         </div>        
         <div id="client">
+        ';
+ if($ARRAYRECEPCIONMP){
+ $html=$html.'
+          <div class="address"><b>Esta Registro viene desde una Recepción de Materia prima</b>: Numero Recepción: ' . $NUMERORECEPCIONMP . ' </div>
+ ';
+ }
+ $html = $html . '
           <div class="address"><b>Notas Generales</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
+
         </div>
       </div>
     </main>
