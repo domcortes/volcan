@@ -224,20 +224,7 @@ if (isset($_REQUEST['CREAR'])) {
 }
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-    $ARRAYDRECEPCION2 = $DRECEPCIONE_ADO->listarDrecepcionPorRecepcionCBX($_REQUEST['IDP']);
-    if (empty($ARRAYDRECEPCION2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
 
-
-
-    if ($SINO == "0") {
 
         $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
         $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMERODOCUMENTOE']);
@@ -268,7 +255,7 @@ if (isset($_REQUEST['EDITAR'])) {
         $RECEPCIONE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
         $RECEPCIONE_ADO->actualizarRecepcion($RECEPCIONE);
-    }
+    
 }
 //OPERACION PARA CERRAR LA RECEPCIONE
 if (isset($_REQUEST['CERRAR'])) {
@@ -1217,7 +1204,7 @@ if (isset($_POST)) {
                                             <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcione.php'); ">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-pencil-alt"></i> Guardar
                                             </button>
                                             <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
