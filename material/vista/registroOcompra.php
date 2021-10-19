@@ -72,7 +72,7 @@ $URL = "";
 $URLO = "";
 $DISABLED0 = "";
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 
