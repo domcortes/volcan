@@ -51,6 +51,7 @@ class OCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_ocompra limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class OCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_ocompra WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class OCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_ocompra WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class OCOMPRA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_ocompra WHERE ID_OCOMPRA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -130,6 +134,7 @@ class OCOMPRA_ADO {
                                                 WHERE ID_OCOMPRA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -462,6 +467,7 @@ class OCOMPRA_ADO {
                                                  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -484,6 +490,7 @@ class OCOMPRA_ADO {
                                                     DATE_FORMAT(NOW( ), '%H:%i') AS 'HORA' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -506,6 +513,7 @@ class OCOMPRA_ADO {
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -528,6 +536,7 @@ class OCOMPRA_ADO {
                                              AND ID_TEMPORADA = '".$IDTEMPORADA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -549,6 +558,7 @@ class OCOMPRA_ADO {
                                              AND ESTADO_OCOMPRA = '4'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -577,6 +587,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -603,6 +614,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -626,6 +638,7 @@ class OCOMPRA_ADO {
                                              AND ESTADO_OCOMPRA = '4'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -654,6 +667,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -676,6 +690,7 @@ class OCOMPRA_ADO {
                                              AND ESTADO_OCOMPRA = 2;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -704,6 +719,7 @@ class OCOMPRA_ADO {
                                                 AND ESTADO_OCOMPRA = 2  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -726,6 +742,7 @@ class OCOMPRA_ADO {
                                              AND ESTADO_OCOMPRA = 2;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -754,6 +771,7 @@ class OCOMPRA_ADO {
                                                 AND ESTADO_OCOMPRA = 2  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -781,6 +799,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -806,6 +825,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -832,6 +852,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -856,6 +877,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -881,6 +903,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -905,6 +928,7 @@ class OCOMPRA_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -929,6 +953,7 @@ class OCOMPRA_ADO {
                                                 AND ESTADO_OCOMPRA = 2   ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -954,6 +979,7 @@ class OCOMPRA_ADO {
                                                 AND ESTADO_OCOMPRA = 2   ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

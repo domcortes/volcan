@@ -48,6 +48,7 @@ class REPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_repaletizajeex limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class REPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_repaletizajeexWHERE  ESTADO_REGISTRO = 0;;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -89,6 +91,7 @@ class REPALETIZAJEEX_ADO
                                             FROM fruta_repaletizajeex WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -118,6 +121,7 @@ class REPALETIZAJEEX_ADO
                                                 WHERE ID_REPALETIZAJE= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -141,6 +145,7 @@ class REPALETIZAJEEX_ADO
                                                 WHERE ID_REPALETIZAJE= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -272,6 +277,7 @@ class REPALETIZAJEEX_ADO
                                          ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -302,6 +308,7 @@ class REPALETIZAJEEX_ADO
                                          ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -328,6 +335,7 @@ class REPALETIZAJEEX_ADO
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -442,6 +450,7 @@ class REPALETIZAJEEX_ADO
                                                  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -468,6 +477,7 @@ class REPALETIZAJEEX_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -50,6 +50,7 @@ class LDESTINO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_ldestino` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class LDESTINO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_ldestino` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -88,6 +90,7 @@ class LDESTINO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_ldestino` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -108,6 +111,7 @@ class LDESTINO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_ldestino` WHERE `ID_LDESTINO`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -129,6 +133,7 @@ class LDESTINO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_ldestino` WHERE `NOMBRE_LDESTINO` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -267,6 +272,7 @@ class LDESTINO_ADO {
                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -288,6 +294,7 @@ class LDESTINO_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

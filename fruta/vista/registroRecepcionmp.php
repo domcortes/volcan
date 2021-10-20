@@ -7,7 +7,8 @@ include_once "../config/validarUsuario.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../controlador/FOLIO_ADO.php';
-
+include_once '../controlador/TDOCUMENTO_ADO.php';
+include_once '../controlador/BODEGA_ADO.php';
 
 include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
@@ -20,15 +21,24 @@ include_once '../controlador/RECEPCIONMP_ADO.php';
 include_once '../controlador/DRECEPCIONMP_ADO.php';
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 
+include_once '../controlador/RECEPCIONE_ADO.php';
+include_once '../controlador/INVENTARIOE_ADO.php';
+
 include_once '../modelo/RECEPCIONMP.php';
 include_once '../modelo/DRECEPCIONMP.php';
 include_once '../modelo/EXIMATERIAPRIMA.php';
+
+include_once '../modelo/RECEPCIONE.php';
+include_once '../modelo/INVENTARIOE.php';
+
 
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
 $FOLIO_ADO = new FOLIO_ADO();
+$TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
+$BODEGA_ADO = new BODEGA_ADO();
 
 
 $ERECEPCION_ADO = new ERECEPCION_ADO();
@@ -42,10 +52,16 @@ $EXIMATERIAPRIMA_ADO = new EXIMATERIAPRIMA_ADO();
 $RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 $DRECEPCIONMP_ADO =  new DRECEPCIONMP_ADO();
 
+$RECEPCIONE_ADO =  new RECEPCIONE_ADO();
+$INVENTARIOE_ADO =  new INVENTARIOE_ADO();
+
 //INIICIALIZAR MODELO
 $DRECEPCIONMP =  new DRECEPCIONMP();
 $RECEPCIONMP =  new RECEPCIONMP();
 $EXIMATERIAPRIMA =  new EXIMATERIAPRIMA();
+
+$RECEPCIONE =  new RECEPCIONE();
+$INVENTARIOE =  new INVENTARIOE();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -102,11 +118,13 @@ $EEXPORTACION = "";
 $VESPECIES = "";
 $CALIBRE = "";
 $PRODUCTOR = "";
-
+$TDOCUMENTO="";
+$BODEGA="";
 $FOLIOELIMINAR = "";
+$TRECEPCIONE="";
 
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 $DISABLEDFOLIO = "";
@@ -150,6 +168,10 @@ $ARRAYEXISENCIARECEPCION = "";
 $ARRAYNUMERO = "";
 $ARRAYFOLIO3 = "";
 $ARRAYTMANEJO = "";
+$ARRAYRECEPCIONE="";
+$ARRAYINVENTARIOE="";
+$ARRAYDRECEPCIONAGRUPADO="";
+$ARRAYDRECEPCIONETOTALES="";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
@@ -157,6 +179,8 @@ $ARRAYTRANSPORTE = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
 $ARRAYCONDUCTOR = $CONDUCTOR_ADO->listarConductorPorEmpresaCBX($EMPRESAS);
 $ARRAYVESPECIES = $VESPECIES_ADO->listarVespeciesPorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
+$ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->listarTdocumentoPorEmpresaCBX($EMPRESAS);
+$ARRAYBODEGA =  $BODEGA_ADO->listarBodegaPorEmpresaCBX($EMPRESAS);
 $ARRAYPLANTA2 = $PLANTA_ADO->listarPlantaExternaCBX();
 
 
@@ -175,38 +199,6 @@ if (empty($ARRAYFOLIO3)) {
     $DISABLEDFOLIO = "disabled";
     $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS MP </b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
 }
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-    $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
-    $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-    $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
-    $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
-    $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
-    $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
-    $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
-    $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-    $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-    $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
-    $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
-    if ($_REQUEST['TRECEPCIONE'] == "1") {
-        $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-    }
-    if ($_REQUEST['TRECEPCIONE'] == "2") {
-        $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-    }
-    $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-    $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-    $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-    $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-    $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-    $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $RECEPCIONMP_ADO->actualizarRecepcion($RECEPCIONMP);
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -220,6 +212,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $ARRAYDRECEPCION = $DRECEPCIONMP_ADO->buscarPorRecepcion2($IDOP);
     $ARRAYDRECEPCIONTOTALES = $DRECEPCIONMP_ADO->obtenerTotales($IDOP);
     $ARRAYDRECEPCIONTOTALES2 = $DRECEPCIONMP_ADO->obtenerTotales2($IDOP);
+    
+    $ARRAYRECEPCIONE=$RECEPCIONE_ADO->listarRecepcionPorRecepcionMpCBX($IDOP);
+    if($ARRAYRECEPCIONE){        
+        $BODEGA= $ARRAYRECEPCIONE[0]['ID_BODEGA'];
+        $TDOCUMENTO =$ARRAYRECEPCIONE[0]['ID_TDOCUMENTO'];
+    }
 
     $CANTIDADENVASERECEPCION = $ARRAYDRECEPCIONTOTALES[0]['TOTAL_ENVASE'];
     $KILOSNETORECEPCION = $ARRAYDRECEPCIONTOTALES[0]['TOTAL_NETO'];
@@ -473,6 +471,14 @@ if (isset($_POST)) {
     if (isset($_REQUEST['TEMPORADA'])) {
         $TEMPORADA = "" . $_REQUEST['TEMPORADA'];
     }
+    
+    if (isset($_REQUEST['TDOCUMENTO'])) {
+        $TDOCUMENTO = "" . $_REQUEST['TDOCUMENTO'];
+    }
+    
+    if (isset($_REQUEST['BODEGA'])) {
+        $BODEGA = "" . $_REQUEST['BODEGA'];
+    }
 }
 
 
@@ -483,7 +489,6 @@ if (isset($_POST)) {
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <title>Registro Recepcion</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -495,6 +500,8 @@ if (isset($_POST)) {
     <!- FUNCIONES BASES -!>
         <script type="text/javascript">
             //VALIDACION DE FORMULARIO
+            
+         
             function validacion() {
 
                 FECHARECEPCION = document.getElementById("FECHARECEPCION").value;
@@ -655,29 +662,189 @@ if (isset($_POST)) {
                 }
                 document.form_reg_dato.OBSERVACION.style.borderColor = "#4AF575";
                 */
-            }
-            /*
-                            function confirmar() {
+            }  
+            function validacion2() {
+
+                FECHARECEPCION = document.getElementById("FECHARECEPCION").value;
+                HORARECEPCION = document.getElementById("HORARECEPCION").value;
+                TRECEPCION = document.getElementById("TRECEPCION").selectedIndex;
+                NUMEROGUIA = document.getElementById("NUMEROGUIA").value;
+                FECHAGUIA = document.getElementById("FECHAGUIA").value;
+                TOTALGUIA = document.getElementById("TOTALGUIA").value;
+                TRANSPORTE = document.getElementById("TRANSPORTE").selectedIndex;
+                CONDUCTOR = document.getElementById("CONDUCTOR").selectedIndex;
+                PATENTECAMION = document.getElementById("PATENTECAMION").value;
+                PATENTECARRO = document.getElementById("PATENTECARRO").value;                
+                //OBSERVACION = document.getElementById("OBSERVACION").value;
+
+                TDOCUMENTO = document.getElementById("TDOCUMENTO").selectedIndex;
+                    BODEGA = document.getElementById("BODEGA").selectedIndex;
+
+                document.getElementById('val_fechar').innerHTML = "";
+                document.getElementById('val_horar').innerHTML = "";
+                document.getElementById('val_trecepcion').innerHTML = "";
+                document.getElementById('val_numerog').innerHTML = "";
+                document.getElementById('val_fechag').innerHTML = "";
+                document.getElementById('val_totalg').innerHTML = "";
+                document.getElementById('val_transporte').innerHTML = "";
+                document.getElementById('val_conductor').innerHTML = "";
+                document.getElementById('val_patentecamion').innerHTML = "";
+                document.getElementById('val_patentecarro').innerHTML = "";
+                //  document.getElementById('val_observacion').innerHTML = "";
+
+                
+                document.getElementById('val_tdocumento').innerHTML = "";
+                    document.getElementById('val_bodega').innerHTML = "";
+
+                if (FECHARECEPCION == null || FECHARECEPCION.length == 0 || /^\s+$/.test(FECHARECEPCION)) {
+                    document.form_reg_dato.FECHARECEPCION.focus();
+                    document.form_reg_dato.FECHARECEPCION.style.borderColor = "#FF0000";
+                    document.getElementById('val_fechar').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.FECHARECEPCION.style.borderColor = "#4AF575";
 
 
-                                FOLIOELIMINAR = document.getElementById("FOLIOELIMINAR").value;
-                                NOMBRESUSUARIOSLOGIN = document.getElementById("NOMBRESUSUARIOSLOGIN").value;
-
-                                var mensaje = 'Estimado/a: ' + NOMBRESUSUARIOSLOGIN + ' ¿Estas seguro de eliminar el Folio: ' + FOLIOELIMINAR + '?';
-
-
-
-                                if (confirm("Desea seguir?")) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                                     }
-
-            */
+                if (HORARECEPCION == null || HORARECEPCION.length == 0) {
+                    document.form_reg_dato.HORARECEPCION.focus();
+                    document.form_reg_dato.HORARECEPCION.style.borderColor = "#FF0000";
+                    document.getElementById('val_horar').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.HORARECEPCION.style.borderColor = "#4AF575";
 
 
 
+                if (TRECEPCION == null || TRECEPCION == 0) {
+                    document.form_reg_dato.TRECEPCION.focus();
+                    document.form_reg_dato.TRECEPCION.style.borderColor = "#FF0000";
+                    document.getElementById('val_trecepcion').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    return false
+                }
+                document.form_reg_dato.TRECEPCION.style.borderColor = "#4AF575";
+
+
+                if (NUMEROGUIA == null || NUMEROGUIA.length == 0 || /^\s+$/.test(NUMEROGUIA)) {
+                    document.form_reg_dato.NUMEROGUIA.focus();
+                    document.form_reg_dato.NUMEROGUIA.style.borderColor = "#FF0000";
+                    document.getElementById('val_numerog').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.NUMEROGUIA.style.borderColor = "#4AF575";
+
+
+
+                if (FECHAGUIA == null || FECHAGUIA.length == 0 || /^\s+$/.test(FECHAGUIA)) {
+                    document.form_reg_dato.FECHAGUIA.focus();
+                    document.form_reg_dato.FECHAGUIA.style.borderColor = "#FF0000";
+                    document.getElementById('val_fechag').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.FECHAGUIA.style.borderColor = "#4AF575";
+
+                if (TOTALGUIA == null || TOTALGUIA == 0) {
+                    document.form_reg_dato.TOTALGUIA.focus();
+                    document.form_reg_dato.TOTALGUIA.style.borderColor = "#FF0000";
+                    document.getElementById('val_totalg').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.TOTALGUIA.style.borderColor = "#4AF575";
+
+
+                if (TRANSPORTE == null || TRANSPORTE == 0) {
+                    document.form_reg_dato.TRANSPORTE.focus();
+                    document.form_reg_dato.TRANSPORTE.style.borderColor = "#FF0000";
+                    document.getElementById('val_transporte').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    return false
+                }
+                document.form_reg_dato.TRANSPORTE.style.borderColor = "#4AF575";
+
+
+                if (CONDUCTOR == null || CONDUCTOR == 0) {
+                    document.form_reg_dato.CONDUCTOR.focus();
+                    document.form_reg_dato.CONDUCTOR.style.borderColor = "#FF0000";
+                    document.getElementById('val_conductor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    return false
+                }
+                document.form_reg_dato.CONDUCTOR.style.borderColor = "#4AF575";
+
+                if (PATENTECAMION == null || PATENTECAMION == 0) {
+                    document.form_reg_dato.PATENTECAMION.focus();
+                    document.form_reg_dato.PATENTECAMION.style.borderColor = "#FF0000";
+                    document.getElementById('val_patentecamion').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.PATENTECAMION.style.borderColor = "#4AF575";
+
+                /*
+                                    if (PATENTECARRO == null || PATENTECARRO == 0) {
+                                        document.form_reg_dato.PATENTECARRO.focus();
+                                        document.form_reg_dato.PATENTECARRO.style.borderColor = "#FF0000";
+                                        document.getElementById('val_patentecarro').innerHTML = "NO A INGRESADO DATO";
+                                        return false
+                                    }
+                                    document.form_reg_dato.PATENTECARRO.style.borderColor = "#4AF575";
+                */
+
+                if (TRECEPCION == 1) {
+                    PRODUCTOR = document.getElementById("PRODUCTOR").selectedIndex;
+
+
+                    document.getElementById('val_productor').innerHTML = "";
+
+                    if (PRODUCTOR == null || PRODUCTOR == 0) {
+                        document.form_reg_dato.PRODUCTOR.focus();
+                        document.form_reg_dato.PRODUCTOR.style.borderColor = "#FF0000";
+                        document.getElementById('val_productor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.PRODUCTOR.style.borderColor = "#4AF575";
+
+                }
+
+                if (TRECEPCION == 2) {
+                    PLANTA2 = document.getElementById("PLANTA2").selectedIndex;
+                    document.getElementById('val_planta2').innerHTML = "";
+                    if (PLANTA2 == null || PLANTA2 == 0) {
+                        document.form_reg_dato.PLANTA2.focus();
+                        document.form_reg_dato.PLANTA2.style.borderColor = "#FF0000";
+                        document.getElementById('val_planta2').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.PLANTA2.style.borderColor = "#4AF575";
+
+                }
+
+
+                /*
+                if (OBSERVACION == null || OBSERVACION.length == 0 || /^\s+$/.test(OBSERVACION)) {
+                    document.form_reg_dato.OBSERVACION.focus();
+                    document.form_reg_dato.OBSERVACION.style.borderColor = "#FF0000";
+                    document.getElementById('val_observacion').innerHTML = "NO A INGRESADO DATO";
+                    return false
+                }
+                document.form_reg_dato.OBSERVACION.style.borderColor = "#4AF575";
+                */
+
+
+                if (TDOCUMENTO == null || TDOCUMENTO == 0) {
+                        document.form_reg_dato.TDOCUMENTO.focus();
+                        document.form_reg_dato.TDOCUMENTO.style.borderColor = "#FF0000";
+                        document.getElementById('val_tdocumento').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.TDOCUMENTO.style.borderColor = "#4AF575";
+                
+                    if (BODEGA == null || BODEGA == 0) {
+                        document.form_reg_dato.BODEGA.focus();
+                        document.form_reg_dato.BODEGA.style.borderColor = "#FF0000";
+                        document.getElementById('val_bodega').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.BODEGA.style.borderColor = "#4AF575";
+
+
+            }  
 
             //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCIONMP
             function refrescar() {
@@ -743,7 +910,6 @@ if (isset($_POST)) {
 
 
 </head>
-
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
@@ -867,12 +1033,8 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="Tipo Recepción" id="TRECEPCIONE" name="TRECEPCIONE" value="<?php echo $TRECEPCION; ?>" />
                                                 <select class="form-control select2" id="TRECEPCION" name="TRECEPCION" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
                                                     <option> </option>
-                                                    <option value="1" <?php if ($TRECEPCION == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> Desde Productor </option>
-                                                    <option value="2" <?php if ($TRECEPCION == "2") {
-                                                                            echo "selected";
-                                                                        } ?>> Planta Externa </option>
+                                                    <option value="1" <?php if ($TRECEPCION == "1") { echo "selected";  } ?>> Desde Productor </option>
+                                                    <option value="2" <?php if ($TRECEPCION == "2") { echo "selected";   } ?>> Planta Externa </option>
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -908,9 +1070,7 @@ if (isset($_POST)) {
                                                 <option></option>
                                                 <?php foreach ($ARRAYTRANSPORTE as $r) : ?>
                                                     <?php if ($ARRAYTRANSPORTE) {    ?>
-                                                        <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
+                                                        <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {  echo "selected";   } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
                                                     <?php } else { ?>
                                                         <option>No Hay Datos Registrados </option>
                                                     <?php } ?>
@@ -926,8 +1086,6 @@ if (isset($_POST)) {
                                                 </button>
                                             </div>
                                         </div>
-
-
                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Conductor</label>
@@ -936,9 +1094,7 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYCONDUCTOR as $r) : ?>
                                                         <?php if ($ARRAYCONDUCTOR) {    ?>
-                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) { echo "selected"; } ?>>
                                                                 <?php echo $r['NOMBRE_CONDUCTOR'] ?>
                                                             </option>
                                                         <?php } else { ?>
@@ -1001,9 +1157,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                             <?php if ($ARRAYPRODUCTOR) {    ?>
-                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
+                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {  echo "selected";   } ?>>
                                                                     <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -1031,9 +1185,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPLANTA2 as $r) : ?>
                                                             <?php if ($ARRAYPLANTA2) {    ?>
-                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA2 == $r['ID_PLANTA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA2 == $r['ID_PLANTA']) {       echo "selected";   } ?>>
                                                                     <?php echo $r['NOMBRE_PLANTA'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -1074,8 +1226,49 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1"  placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?>><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted"><i class="fas fa-info-circle"></i> Datos necesarios para la recepción de envases</p>
+                                    <div class="row">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Tipo Documento</label>
+                                                <input type="hidden" class="form-control" placeholder="TDOCUMENTOE" id="TDOCUMENTOE" name="TDOCUMENTOE" value="<?php echo $TDOCUMENTO; ?>" />
+                                                <select class="form-control select2" id="TDOCUMENTO" name="TDOCUMENTO" style="width: 100%;"  <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYTDOCUMENTO as $r) : ?>
+                                                        <?php if ($ARRAYTDOCUMENTO) {    ?>
+                                                            <option value="<?php echo $r['ID_TDOCUMENTO']; ?>" <?php if ($TDOCUMENTO == $r['ID_TDOCUMENTO']) {    echo "selected";  } ?>> 
+                                                                <?php echo $r['NOMBRE_TDOCUMENTO'] ?> 
+                                                            </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_tdocumento" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Bodega Destino</label>
+                                                <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
+                                                <select class="form-control select2" id="BODEGA" name="BODEGA" style="width: 100%;"  <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYBODEGA as $r) : ?>
+                                                        <?php if ($ARRAYBODEGA) {    ?>
+                                                            <option value="<?php echo $r['ID_BODEGA']; ?>" <?php if ($BODEGA == $r['ID_BODEGA']) { echo "selected";   } ?>> 
+                                                                <?php echo $r['NOMBRE_BODEGA'] ?> 
+                                                            </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_bodega" class="validacion"> </label>
                                             </div>
                                         </div>
                                     </div>
@@ -1097,16 +1290,16 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionmp.php'); ">
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
-                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                     <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
-                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return  validacion2()">
                                                     <i class="ti-save-alt"></i> Cerrar
                                                 </button>
                                             <?php } ?>
                                         </div>
                                         <div class="btn-group col-sm-4">
-                                            <?php if ($OP !=""): ?>
+                                            <?php if ($OP != "") : ?>
                                                 <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcion.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
@@ -1128,11 +1321,7 @@ if (isset($_POST)) {
                                         <input type="hidden" class="form-control" placeholder="URL RECEPCIONMP" id="URLP" name="URLP" value="registroRecepcionmp" />
                                         <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionmp" />
                                         <div class="col-auto">
-                                            <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?>
-                                                <?php echo $DISABLEDFOLIO; ?>
-                                                <?php if ($ESTADO == 0): ?>
-                                                    disabled style='background-color: #eeeeee;'
-                                                <?php endif ?>> Agregar Detalle
+                                            <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) : ?> disabled style='background-color: #eeeeee;' <?php endif ?>> Agregar Detalle
                                             </button>
                                         </div>
                                         <div class="col-auto">
@@ -1271,204 +1460,405 @@ if (isset($_POST)) {
                             </div>
                         </div>
 
-                        </div>
-                        <!--.row -->
-                    </section>
-                    <!-- /.content -->
-
-
                 </div>
+                <!--.row -->
+                </section>
+                <!-- /.content -->
+
+
             </div>
-
-            <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
     </div>
-    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
 
-        <?php
-        //OPERACION DE REGISTRO DE FILA
-        if (isset($_REQUEST['CREAR'])) {
+    <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
+        <?php include_once "../config/footer.php"; ?>
+        <?php include_once "../config/menuExtra.php"; ?>
+        </div>
+        <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
+            <?php include_once "../config/urlBase.php"; ?>
+
+            <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
 
 
-            if ($_REQUEST['TRECEPCION'] == "1") {
-                $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-                if ($ARRAYRECEPCIONBUSCARGPETP) {
-                    $SINO = "1";
-                    $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
-                } else {
-                    $SINO = "0";
-                    $MENSAJE3 = "";
-                }
-            }
-            if ($_REQUEST['TRECEPCION'] == "2") {
-                $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorPlantaExternaGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-                if ($ARRAYRECEPCIONBUSCARGPETP) {
-                    $SINO = "1";
-                    $MENSAJE3 = "LA GUIA DE LA PLANTA ORIGEN SE ENCUENTRA DUPLICADA";
-                } else {
-                    $SINO = "0";
-                    $MENSAJE3 = "";
-                }
-            }
-
-            if ($SINO == "0") {
-                $ARRAYNUMERO = $RECEPCIONMP_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-                //UTILIZACION METODOS SET DEL MODELO
-                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-
-                $RECEPCIONMP->__SET('NUMERO_RECEPCION', $NUMERO);
-                $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCION']);
-                $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
-                $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
-                $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', 0);
-                $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', 0);
-                $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', 0);
-                $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIA']);
-                $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
-                $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-                $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
-                $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCION']);
                 if ($_REQUEST['TRECEPCION'] == "1") {
-                    $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    if ($ARRAYRECEPCIONBUSCARGPETP) {
+                        $SINO = "1";
+                        $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
+                    } else {
+                        $SINO = "0";
+                        $MENSAJE3 = "";
+                    }
                 }
                 if ($_REQUEST['TRECEPCION'] == "2") {
-                    $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-                }
-                $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-                $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-                $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                $RECEPCIONMP->__SET('ID_USUARIOI', $IDUSUARIOS);
-                $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
-                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
-
-                //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-                $ARRYAOBTENERID = $RECEPCIONMP_ADO->obtenerID(
-                    $_REQUEST['OBSERVACION'],
-                    $_REQUEST['TRECEPCION'],
-                    $_REQUEST['EMPRESA'],
-                    $_REQUEST['PLANTA'],
-                    $_REQUEST['TEMPORADA'],
-                );
-
-                //REDIRECCIONAR A PAGINA registroRecepcionmp.php
-                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
-                $_SESSION["parametro1"] = "crear";
-                echo '<script>
-                Swal.fire({
-                    icon:"success",
-                    title:"Recepcion creada",
-                    text:"El encabezado de recepcion se ha creado correctamente",
-                    showConfirmButton: true,
-                    confirmButtonText:"Cerrar",
-                    closeOnConfirm:false
-                }).then((result)=>{
-                    if(result.value){
-                        location.href = "registroRecepcionmp.php?op";
+                    $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorPlantaExternaGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    if ($ARRAYRECEPCIONBUSCARGPETP) {
+                        $SINO = "1";
+                        $MENSAJE3 = "LA GUIA DE LA PLANTA ORIGEN SE ENCUENTRA DUPLICADA";
+                    } else {
+                        $SINO = "0";
+                        $MENSAJE3 = "";
                     }
-                })
-            </script>';
+                }
+
+                if ($SINO == "0") {
+                    $ARRAYNUMERO = $RECEPCIONMP_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                    //UTILIZACION METODOS SET DEL MODELO
+                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+
+                    $RECEPCIONMP->__SET('NUMERO_RECEPCION', $NUMERO);
+                    $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                    $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCION']);
+                    $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
+                    $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
+                    $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', 0);
+                    $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', 0);
+                    $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', 0);
+                    $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIA']);
+                    $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
+                    $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+                    $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
+                    $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCION']);
+                    if ($_REQUEST['TRECEPCION'] == "1") {
+                        $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    }
+                    if ($_REQUEST['TRECEPCION'] == "2") {
+                        $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+                    }
+                    $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+                    $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+                    $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $RECEPCIONMP->__SET('ID_USUARIOI', $IDUSUARIOS);
+                    $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
+
+                    //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+                    $ARRYAOBTENERID = $RECEPCIONMP_ADO->obtenerID(
+                        $_REQUEST['OBSERVACION'],
+                        $_REQUEST['TRECEPCION'],
+                        $_REQUEST['EMPRESA'],
+                        $_REQUEST['PLANTA'],
+                        $_REQUEST['TEMPORADA'],
+                    );
+
+                    //REDIRECCIONAR A PAGINA registroRecepcionmp.php
+                    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
+                    $_SESSION["parametro1"] = "crear";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Recepcion creada",
+                            text:"El encabezado de recepcion se ha creado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "registroRecepcionmp.php?op";
+                            }
+                        })
+                    </script>';
+                }
             }
-        }
-
-    //OPERACION PARA CERRAR LA RECEPCION
-    if (isset($_REQUEST['CERRAR'])) {
-        //UTILIZACION METODOS SET DEL MODELO
-        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-        $ARRAYDRECEPCION2 = $DRECEPCIONMP_ADO->listarDRecepcionPorRecepcion($_REQUEST['IDP']);
-        if (empty($ARRAYDRECEPCION2)) {
-            $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
-            $SINO = "1";
-        } else {
-            $MENSAJE = "";
-            $SINO = "0";
-        }
-        if ($SINO == "0") {
-
-            $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-            $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
-            $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-            $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
-            $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
-            $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
-            $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
-            $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
-            $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-            $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-            $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
-            $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
-            if ($_REQUEST['TRECEPCIONE'] == "1") {
-                $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-            }
-            if ($_REQUEST['TRECEPCIONE'] == "2") {
-                $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-            }
-            $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-            $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-            $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-            $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-            $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-            $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
-            $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $RECEPCIONMP_ADO->actualizarRecepcion($RECEPCIONMP);
-
-            $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $RECEPCIONMP_ADO->cerrado($RECEPCIONMP);
-
-
-            $ARRAYEXISENCIARECEPCION = $EXIMATERIAPRIMA_ADO->buscarPorRecepcion($_REQUEST['IDP']);
-
-            foreach ($ARRAYEXISENCIARECEPCION as $r) :
-                $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
+            //OPERACION EDICION DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+                $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
+                $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
+                $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
+                $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
+                $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
+                $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
+                $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+                $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST[' OBSERVACION']);
+                $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
+                if ($_REQUEST['TRECEPCIONE'] == "1") {
+                    $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                }
+                if ($_REQUEST['TRECEPCIONE'] == "2") {
+                    $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+                }
+                $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIMATERIAPRIMA_ADO->vigente($EXIMATERIAPRIMA);
-            endforeach;
+                $RECEPCIONMP_ADO->actualizarRecepcion($RECEPCIONMP);
 
-            //REDIRECCIONAR A PAGINA registroRecepcionmp.php
-            //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-            if ($_SESSION['parametro1'] == "crear") {
-                $_SESSION["parametro"] = $_REQUEST['IDP'];
-                $_SESSION["parametro1"] = "ver";
-                echo '<script>
+                if ($_SESSION['parametro1'] == "crear") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "crear";
+                    echo '<script>
                         Swal.fire({
                             icon:"info",
-                            title:"Recepcion Cerrada",
-                            text:"Esta recepcion se encuentra cerrada y no puede ser modificada"
+                            title:"Recepcion Modificada",
+                            text:"Esta recepcion se ha modificada"
                         }).then((result)=>{
                             if(result.value){
                                 location.href ="registroRecepcionmp.php?op";
                             }
                         })
                     </script>';
-            }
-            if ($_SESSION['parametro1'] == "editar") {
-                $_SESSION["parametro"] = $_REQUEST['IDP'];
-                $_SESSION["parametro1"] = "ver";
-                echo '<script>
+                }
+                if ($_SESSION['parametro1'] == "editar") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "editar";
+                    echo '<script>
                         Swal.fire({
                             icon:"info",
-                            title:"Recepcion Cerrada",
-                            text:"Esta recepcion se encuentra cerrada y no puede ser modificada"
+                            title:"Recepcion Modificada",
+                            text:"Esta recepcion se ha modificada"
                         }).then((result)=>{
                             if(result.value){
                                 location.href ="registroRecepcionmp.php?op";
                             }
                         })
                     </script>';
+                }
             }
-        }
-    }
+            //OPERACION PARA CERRAR LA RECEPCION
+            if (isset($_REQUEST['CERRAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                $ARRAYDRECEPCION2 = $DRECEPCIONMP_ADO->listarDRecepcionPorRecepcion($_REQUEST['IDP']);
+                if (empty($ARRAYDRECEPCION2)) {
+                    echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Accion restringida",
+                                text:"Tiene que haber al menos un registro en el detalle"
+                            })
+                        </script>';
+                    $SINO = "1";
+                }else{
+                    $MENSAJE = "";
+                    $SINO = "0";
+                }
+
+                if ($SINO == "0") {
+
+                    $RECEPCIONMP->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+                    $RECEPCIONMP->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
+                    $RECEPCIONMP->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
+                    $RECEPCIONMP->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                    $RECEPCIONMP->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
+                    $RECEPCIONMP->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
+                    $RECEPCIONMP->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
+                    $RECEPCIONMP->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
+                    $RECEPCIONMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+                    $RECEPCIONMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                    $RECEPCIONMP->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
+                    $RECEPCIONMP->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
+                    if ($_REQUEST['TRECEPCIONE'] == "1") {
+                        $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                    }
+                    if ($_REQUEST['TRECEPCIONE'] == "2") {
+                        $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+                    }
+                    $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                    $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                    $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                    $RECEPCIONMP->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                    $RECEPCIONMP->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                    $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $RECEPCIONMP_ADO->actualizarRecepcion($RECEPCIONMP);
+
+                    $RECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $RECEPCIONMP_ADO->cerrado($RECEPCIONMP);
 
 
-?>
+                    $ARRAYEXISENCIARECEPCION = $EXIMATERIAPRIMA_ADO->buscarPorRecepcion($_REQUEST['IDP']);
+                    foreach ($ARRAYEXISENCIARECEPCION as $r) :
+                        $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $EXIMATERIAPRIMA_ADO->vigente($EXIMATERIAPRIMA);
+                    endforeach;
+
+                    $ARRAYRECEPCIONE=$RECEPCIONE_ADO->listarRecepcionPorRecepcionMpCBX($_REQUEST['IDP']);
+                    if(empty($ARRAYRECEPCIONE)){
+                        $ARRAYNUMERO = $RECEPCIONE_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                        $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                        //UTILIZACION METODOS SET DEL MODELO
+                        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                        $RECEPCIONE->__SET('NUMERO_RECEPCION', $NUMERO);
+                        $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+                        $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                        $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+                        $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                        $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
+                        if ($_REQUEST['TRECEPCIONE'] == "1") {
+                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $TRECEPCIONE=2;
+                        }
+                        if ($_REQUEST['TRECEPCIONE'] == "2") {
+                            $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+                            $TRECEPCIONE=3;
+                        }
+                        $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
+                        $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                        $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                        $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                        $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                        $RECEPCIONE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);   
+                        $RECEPCIONE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
+                        $RECEPCIONE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
+                        $RECEPCIONE->__SET('ID_RECEPCIONMP', $_REQUEST['IDP']);  
+                        $RECEPCIONE->__SET('ID_USUARIOI', $IDUSUARIOS);
+                        $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $RECEPCIONE_ADO->agregarRecepcion($RECEPCIONE);
+    
+    
+                        //OBTENER EL ID DE LA RECEPCIONE CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+                        $ARRYAOBTENERID = $RECEPCIONE_ADO->buscarID(
+                            $_REQUEST['FECHARECEPCIONE'],
+                            $_REQUEST['OBSERVACION'],
+                            $_REQUEST['EMPRESA'],
+                            $_REQUEST['PLANTA'],
+                            $_REQUEST['TEMPORADA'],
+                        );                            
+                        $ARRAYDRECEPCIONAGRUPADO = $DRECEPCIONMP_ADO->buscarPorRecepcionAgrupadoEstandarproducto($_REQUEST['IDP']);
+                        foreach ($ARRAYDRECEPCIONAGRUPADO as $r ) {                            
+                            $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCIONE']);
+                            $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r["ENVASE"]);
+                            $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
+                            $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                            $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                            $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                            $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                            $INVENTARIOE->__SET('ID_PRODUCTO', $r["ID_PRODUCTO"]);
+                            $INVENTARIOE->__SET('ID_TUMEDIDA', $r["ID_TUMEDIDA"]);
+                            $INVENTARIOE->__SET('ID_RECEPCION', $ARRYAOBTENERID[0]["ID_RECEPCION"]);
+                            $INVENTARIOE_ADO->agregarInventarioRecepcion($INVENTARIOE);
+                        }                        
+                        $ARRAYDRECEPCIONETOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorRecepcionCBX($ARRYAOBTENERID[0]["ID_RECEPCION"]);   
+                        $RECEPCIONE->__SET('TOTAL_CANTIDAD_RECEPCION', $ARRAYDRECEPCIONETOTALES[0]["CANTIDAD"]);
+                        $RECEPCIONE->__SET('ID_RECEPCION', $ARRYAOBTENERID[0]["ID_RECEPCION"]);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $RECEPCIONE_ADO->cerrarActualizarcantidad($RECEPCIONE);
+
+                    }else{                        
+                        $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+                        $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                        $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+                        $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                        $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
+                        if ($_REQUEST['TRECEPCIONE'] == "1") {
+                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $TRECEPCIONE=2;
+                        }
+                        if ($_REQUEST['TRECEPCIONE'] == "2") {
+                            $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+                            $TRECEPCIONE=3;
+                        }
+                        $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
+                        $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                        $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                        $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                        $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                        $RECEPCIONE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);  
+                        $RECEPCIONE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
+                        $RECEPCIONE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
+                        $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                        $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $RECEPCIONE_ADO->actualizarRecepcion($RECEPCIONE);
+
+                        $ARRAYINVENTARIOE=$INVENTARIOE_ADO->buscarPorRecepcion($ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
+                        foreach ($ARRAYINVENTARIOE as $r ) {                           
+
+                            $ARRAYDRECEPCIONAGRUPADO = $DRECEPCIONMP_ADO->buscarPorRecepcionPorProductoAgrupadoEstandarproducto($_REQUEST['IDP'],$r["ID_PRODUCTO"]);
+                            if($ARRAYDRECEPCIONAGRUPADO){
+                                $INVENTARIOE->__SET('TRECEPCION',   $TRECEPCIONE);
+                                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $ARRAYDRECEPCIONAGRUPADO[0]["ENVASE"]);
+                                $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
+                                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                                $INVENTARIOE->__SET('ID_PRODUCTO', $ARRAYDRECEPCIONAGRUPADO[0]["ID_PRODUCTO"]);
+                                $INVENTARIOE->__SET('ID_TUMEDIDA', $ARRAYDRECEPCIONAGRUPADO[0]["ID_TUMEDIDA"]);
+                                $INVENTARIOE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
+                                $INVENTARIOE->__SET('ID_INVENTARIO', $r["ID_INVENTARIO"]);
+                                $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
+                            }else{                                
+                                $INVENTARIOE->__SET('TRECEPCION',   $TRECEPCIONE);
+                                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', 0);
+                                $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
+                                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                                $INVENTARIOE->__SET('ID_PRODUCTO', $r["ID_PRODUCTO"]);
+                                $INVENTARIOE->__SET('ID_TUMEDIDA', $r["ID_TUMEDIDA"]);
+                                $INVENTARIOE->__SET('ID_RECEPCION', $r["ID_RECEPCION"]);
+                                $INVENTARIOE->__SET('ID_INVENTARIO', $r["ID_INVENTARIO"]);
+                                $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
+                            }
+
+                        }                        
+                        $ARRAYDRECEPCIONETOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorRecepcionCBX($ARRAYRECEPCIONE[0]["ID_RECEPCION"]);   
+                        $RECEPCIONE->__SET('TOTAL_CANTIDAD_RECEPCION', $ARRAYDRECEPCIONETOTALES[0]["CANTIDAD"]);
+                        $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $RECEPCIONE_ADO->cerrarActualizarcantidad($RECEPCIONE);
+                        
+                       
+
+                    }              
+                        //REDIRECCIONAR A PAGINA registroRecepcionmp.php
+                        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+                        if ($_SESSION['parametro1'] == "crear") {
+                            $_SESSION["parametro"] = $_REQUEST['IDP'];
+                            $_SESSION["parametro1"] = "ver";
+                            echo '<script>
+                                    Swal.fire({
+                                        icon:"info",
+                                        title:"Recepcion Cerrada",
+                                        text:"Esta recepcion se encuentra cerrada y no puede ser modificada."
+                                    }).then((result)=>{
+                                        if(result.value){
+                                            location.href ="registroRecepcionmp.php?op";
+                                        }
+                                    })
+                                </script>';
+                        }
+                        if ($_SESSION['parametro1'] == "editar") {
+                            $_SESSION["parametro"] = $_REQUEST['IDP'];
+                            $_SESSION["parametro1"] = "ver";
+                            echo '<script>
+                                    Swal.fire({
+                                        icon:"info",
+                                        title:"Recepcion Cerrada",
+                                        text:"Esta recepcion se encuentra cerrada y no puede ser modificada."
+                                    }).then((result)=>{
+                                        if(result.value){
+                                            location.href ="registroRecepcionmp.php?op";
+                                        }
+                                    })
+                                </script>';
+                        }
+                    
+                }
+            }
+
+
+            ?>
 </body>
 
 </html>

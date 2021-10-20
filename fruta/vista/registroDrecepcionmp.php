@@ -400,7 +400,10 @@ if ($_POST) {
                     var pesoneto = 0;
 
                     ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;
+                    CANTIDADENVASEDRECEPCION = document.getElementById("CANTIDADENVASEDRECEPCION").value;
+
                     document.getElementById('val_estandar').innerHTML = "";
+                    document.getElementById('val_cantidadenvase').innerHTML = "";
 
                     if (ESTANDAR == null || ESTANDAR == 0) {
                         document.form_reg_dato.ESTANDAR.focus();
@@ -411,14 +414,26 @@ if ($_POST) {
                         document.form_reg_dato.ESTANDAR.style.borderColor = "#4AF575";
                         repuesta = 0;
                     }
+
+                    if (CANTIDADENVASEDRECEPCION == null || CANTIDADENVASEDRECEPCION == 0) {
+                        document.form_reg_dato.CANTIDADENVASEDRECEPCION.focus();
+                        document.form_reg_dato.CANTIDADENVASEDRECEPCION.style.borderColor = "#FF0000";
+                        document.getElementById('val_cantidadenvase').innerHTML = "NO HA INGRESADO DATOS";
+                        repuesta = 1;
+                    } else {
+                        document.form_reg_dato.CANTIDADENVASEDRECEPCION.style.borderColor = "#4AF575";
+                        repuesta = 0;
+                    }
+
                     if (repuesta == 0) {
-                        PESOENVASEESTANDAR = document.getElementById("PESOENVASEESTANDAR").value;
-                        CANTIDADENVASEDRECEPCION = document.getElementById("CANTIDADENVASEDRECEPCION").value;
-                        PESOPALLETRECEPCION = document.getElementById("PESOPALLETRECEPCION").value;
-                        KILOSBRUTODRECEPCION = document.getElementById("KILOSBRUTODRECEPCION").value;
+                        PESOENVASEESTANDAR = parseFloat(document.getElementById("PESOENVASEESTANDAR").value);
+                        CANTIDADENVASEDRECEPCION = parseInt(document.getElementById("CANTIDADENVASEDRECEPCION").value);
+                        PESOPALLETRECEPCION = parseFloat(document.getElementById("PESOPALLETRECEPCION").value);
+                        KILOSBRUTODRECEPCION = parseFloat(document.getElementById("KILOSBRUTODRECEPCION").value);
+
                         pesoenvase = PESOENVASEESTANDAR * CANTIDADENVASEDRECEPCION;
                         pesoneto = KILOSBRUTODRECEPCION - PESOPALLETRECEPCION - pesoenvase;
-
+                        pesoneto = pesoneto.toFixed(2);
                     }
                     //document.getElementById('val_kilosneto').innerHTML = pesoneto;
                     document.getElementById('KILOSNETODRECEPCIONV').value = pesoneto;

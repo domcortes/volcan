@@ -50,6 +50,7 @@ class MGUIAPT_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class MGUIAPT_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -89,6 +91,7 @@ class MGUIAPT_ADO {
                                             AND ID_DESPACHO = '" . $DESPACHO . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -108,6 +111,7 @@ class MGUIAPT_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt WHERE ESTADO_REGISTRO= 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -128,6 +132,7 @@ class MGUIAPT_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM fruta_mguiapt WHERE ID_MGUIA= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -298,6 +303,7 @@ class MGUIAPT_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -322,6 +328,7 @@ class MGUIAPT_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -346,6 +353,7 @@ class MGUIAPT_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -371,6 +379,7 @@ class MGUIAPT_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -398,6 +407,7 @@ class MGUIAPT_ADO {
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

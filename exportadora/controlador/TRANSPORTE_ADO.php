@@ -44,6 +44,7 @@ class TRANSPORTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_transporte` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -61,6 +62,7 @@ class TRANSPORTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -79,6 +81,7 @@ class TRANSPORTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -100,6 +103,7 @@ class TRANSPORTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `ID_TRANSPORTE`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -120,6 +124,7 @@ class TRANSPORTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `NOMBRE_TRANSPORTE` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -295,6 +300,7 @@ class TRANSPORTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_transporte` WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -315,6 +321,7 @@ class TRANSPORTE_ADO {
                                                 FROM `transporte_transporte`  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

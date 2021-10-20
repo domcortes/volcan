@@ -50,6 +50,7 @@ class FICHA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_ficha` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class FICHA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_ficha` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class FICHA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_ficha` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -111,6 +114,7 @@ class FICHA_ADO {
                                             WHERE `ID_FICHA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -133,6 +137,7 @@ class FICHA_ADO {
                                             WHERE `ID_FICHA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -339,6 +344,7 @@ class FICHA_ADO {
                                                  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -363,6 +369,7 @@ class FICHA_ADO {
                                             AND  ID_TEMPORADA = '" . $IDTEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -387,6 +394,7 @@ class FICHA_ADO {
                                             AND  ID_TEMPORADA = '" . $IDTEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -411,6 +419,7 @@ class FICHA_ADO {
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
     
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

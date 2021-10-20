@@ -98,13 +98,8 @@ $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion2($IDOP);
 if ($ARRAYRECEPCION) {
   $ARRAYDRECEPCION = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcion2CBX($IDOP);
   $ARRAYDRECEPCIONTOTAL = $DRECEPCIONM_ADO->obtenerTotalesDrecepcionPorRecepcion2CBX($IDOP);
-  $ARRAYTARJAM = $TARJAM_ADO->verTarja($IDOP);
-  if ($ARRAYTARJAM) {
-    $ARRAYTCONTENDOR = $TCONTENEDOR_ADO->verTcontenedor($ARRAYTARJAM[0]["ID_TCONTENEDOR"]);
-    if ($ARRAYTCONTENDOR) {
-      $NOMBRETCONETEDOR = $ARRAYTCONTENDOR[0]["NOMBRE_TCONTENEDOR"];
-    }
-  }
+
+
 
   $TOTALCANTIDAD = $ARRAYDRECEPCIONTOTAL[0]["CANTIDAD"];
 
@@ -130,7 +125,7 @@ if ($ARRAYRECEPCION) {
     $NOMBRETRECEPCION = "Desde Planta Externa";
     $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]["ID_PLANTA2"]);
     $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
-  }  
+  }
   if ($TIPORECEPCION == "4") {
     $NOMBRETRECEPCION = "Inventario Inicial";
   }
@@ -303,7 +298,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="6" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="7" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Codigo Producto</th>
@@ -312,6 +307,7 @@ $html = $html . '
             <th class="color left">Unidad Medida</th>
             <th class="color left">Cantidad</th>
             <th class="color left">Valor Unitario</th>
+            <th class="color left">Notas</th>
           </tr>
         </thead>
          <tbody>
@@ -326,6 +322,15 @@ foreach ($ARRAYDRECEPCION as $d) :
   if ($ARRAYVERTUMEDIDA) {
     $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
   }
+
+  $ARRAYTARJAM = $TARJAM_ADO->listarTarjaPorDrecepcionCBX($d['ID_DRECEPCION']);
+  if ($ARRAYTARJAM) {
+    $ARRAYTCONTENDOR = $TCONTENEDOR_ADO->verTcontenedor($ARRAYTARJAM[0]["ID_TCONTENEDOR"]);
+    if ($ARRAYTCONTENDOR) {
+      $NOMBRETCONETEDOR = $ARRAYTCONTENDOR[0]["NOMBRE_TCONTENEDOR"];
+    }
+  }
+
   $html = $html . '
           
                       <tr >
@@ -335,6 +340,7 @@ foreach ($ARRAYDRECEPCION as $d) :
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>
                           <td class="left">$ ' . $d['VALOR_UNITARIO'] . '</td>
+                          <td class="left">' . $d['DESCRIPCION_DRECEPCION'] . '</td>
                       </tr>
               ';
 
@@ -348,6 +354,7 @@ $html = $html . '
                       <th class="color left">&nbsp;</th>
                       <th class="color right">SUB TOTAL</th>
                       <th class="color left"> ' . $TOTALCANTIDAD . '</th>
+                      <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
                   </tr>
               ';
@@ -369,7 +376,7 @@ $html = $html . '
         </div>
         
         <div id="client">
-          <div class="address"><b>Observaciones</b></div>
+          <div class="address"><b>Notas Generales</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
       </div>

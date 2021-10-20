@@ -48,6 +48,7 @@ class MGUIAE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM material_mguiae limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -67,6 +68,7 @@ class MGUIAE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM material_mguiae ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -86,6 +88,7 @@ class MGUIAE_ADO
                                             AND ID_DESPACHO = '" . $DESPACHO . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -106,6 +109,7 @@ class MGUIAE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM material_mguiae WHERE ID_MGUIA= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -275,6 +279,7 @@ class MGUIAE_ADO
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -300,6 +305,7 @@ class MGUIAE_ADO
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -328,6 +334,7 @@ class MGUIAE_ADO
                                              ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

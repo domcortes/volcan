@@ -48,6 +48,7 @@ class EXIMATERIAPRIMA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_eximateriaprima limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class EXIMATERIAPRIMA_ADO
                                                 ORDER BY FOLIO_EXIMATERIAPRIMA ASC; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -89,6 +91,7 @@ class EXIMATERIAPRIMA_ADO
                                              ORDER BY FOLIO_EXIMATERIAPRIMA ASC; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -110,6 +113,7 @@ class EXIMATERIAPRIMA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_eximateriaprima WHERE ID_EXIMATERIAPRIMA= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -449,6 +453,7 @@ class EXIMATERIAPRIMA_ADO
                                     AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -469,6 +474,7 @@ class EXIMATERIAPRIMA_ADO
                                     AND ESTADO = 9;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -491,6 +497,7 @@ class EXIMATERIAPRIMA_ADO
                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -528,6 +535,7 @@ class EXIMATERIAPRIMA_ADO
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -562,6 +570,7 @@ class EXIMATERIAPRIMA_ADO
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -597,6 +606,7 @@ class EXIMATERIAPRIMA_ADO
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -632,6 +642,7 @@ class EXIMATERIAPRIMA_ADO
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -666,6 +677,7 @@ class EXIMATERIAPRIMA_ADO
                                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -699,6 +711,7 @@ class EXIMATERIAPRIMA_ADO
                                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -735,6 +748,7 @@ class EXIMATERIAPRIMA_ADO
                                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -759,6 +773,7 @@ class EXIMATERIAPRIMA_ADO
                                               WHERE ID_RECEPCION= '" . $IDRECEPCION . "'  AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -779,6 +794,7 @@ class EXIMATERIAPRIMA_ADO
                                                       AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -804,6 +820,7 @@ class EXIMATERIAPRIMA_ADO
                                                       AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -830,6 +847,7 @@ class EXIMATERIAPRIMA_ADO
                                                       AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -855,6 +873,7 @@ class EXIMATERIAPRIMA_ADO
                                                       AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -879,6 +898,7 @@ class EXIMATERIAPRIMA_ADO
                                                     AND ESTADO !=0;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -903,6 +923,7 @@ class EXIMATERIAPRIMA_ADO
                                              AND ESTADO != 0    ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -940,6 +961,7 @@ class EXIMATERIAPRIMA_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -977,6 +999,7 @@ class EXIMATERIAPRIMA_ADO
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1004,6 +1027,7 @@ class EXIMATERIAPRIMA_ADO
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1029,6 +1053,7 @@ class EXIMATERIAPRIMA_ADO
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1054,6 +1079,7 @@ class EXIMATERIAPRIMA_ADO
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1075,6 +1101,7 @@ class EXIMATERIAPRIMA_ADO
                                              AND  ESTADO_REGISTRO= 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1097,6 +1124,7 @@ class EXIMATERIAPRIMA_ADO
                                              AND  ESTADO_REGISTRO= 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1121,6 +1149,7 @@ class EXIMATERIAPRIMA_ADO
                                              AND ID_PROCESO IS NOT NULL ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1143,6 +1172,7 @@ class EXIMATERIAPRIMA_ADO
                                              AND  ESTADO_REGISTRO= 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1166,6 +1196,7 @@ class EXIMATERIAPRIMA_ADO
                                              AND  ESTADO_REGISTRO= 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1631,6 +1662,7 @@ class EXIMATERIAPRIMA_ADO
                                                 ORDER BY ULTIMOFOLIO; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

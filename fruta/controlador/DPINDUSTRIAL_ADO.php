@@ -48,6 +48,7 @@ class DPINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_dpindustrial limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class DPINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_dpindustrial ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class DPINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_dpindustrial WHERE ID_DPINDUSTRIAL= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -297,6 +300,7 @@ class DPINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_dpindustrial WHERE ID_PROCESO= '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -319,6 +323,7 @@ class DPINDUSTRIAL_ADO
                                         AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -342,6 +347,7 @@ class DPINDUSTRIAL_ADO
                                           AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -364,6 +370,7 @@ class DPINDUSTRIAL_ADO
                                           AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -385,6 +392,7 @@ class DPINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(FOLIO_DPINDUSTRIAL),0) AS 'ULTIMOFOLIO',IFNULL(MAX(FOLIO_DPINDUSTRIAL),0) AS 'ULTIMOFOLIO2' FROM fruta_dpindustrial  WHERE  ID_FOLIO= '" . $IDFOLIO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -404,6 +412,7 @@ class DPINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

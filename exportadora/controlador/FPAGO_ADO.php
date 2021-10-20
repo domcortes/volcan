@@ -48,6 +48,7 @@ class FPAGO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -67,6 +68,7 @@ class FPAGO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class FPAGO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -106,6 +109,7 @@ class FPAGO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` WHERE `ID_FPAGO`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -127,6 +131,7 @@ class FPAGO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_fpago` WHERE `NOMBRE_FPAGO` LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -265,6 +270,7 @@ class FPAGO_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -286,6 +292,7 @@ class FPAGO_ADO
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -307,6 +314,7 @@ class FPAGO_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

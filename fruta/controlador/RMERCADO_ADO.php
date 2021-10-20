@@ -51,6 +51,7 @@ class RMERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class RMERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class RMERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class RMERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `ID_RMERCADO`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -127,6 +131,7 @@ class RMERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `NOMBRE_RMERCADO` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -267,6 +272,7 @@ class RMERCADO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_rmercado` WHERE `ID_PRODUCTOR`= '".$IDPRODUCTOR."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -289,6 +295,7 @@ class RMERCADO_ADO {
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -312,6 +319,7 @@ class RMERCADO_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -48,6 +48,7 @@ class CONSIGNATARIO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class CONSIGNATARIO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario`  WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -84,6 +86,7 @@ class CONSIGNATARIO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario`  WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -102,6 +105,7 @@ class CONSIGNATARIO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario` WHERE `ID_CONSIGNATARIO`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -123,6 +127,7 @@ class CONSIGNATARIO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario` WHERE `NOMBRE_CONSIGNATARIO` LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -304,6 +309,7 @@ class CONSIGNATARIO_ADO
                                                 AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -325,6 +331,7 @@ class CONSIGNATARIO_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

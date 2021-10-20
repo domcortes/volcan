@@ -51,6 +51,7 @@ class VESPECIES_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class VESPECIES_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class VESPECIES_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class VESPECIES_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ID_VESPECIES`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -127,6 +131,7 @@ class VESPECIES_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `NOMBRE_VESPECIES` LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -266,6 +271,7 @@ class VESPECIES_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ID_ESPECIES`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -284,6 +290,7 @@ class VESPECIES_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ID_ESPECIES`= '" . $ID . "'  AND `ESTADO_REGISTRO` = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -303,6 +310,7 @@ class VESPECIES_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` WHERE `ID_ESPECIES`= '" . $ID . "'  AND `ESTADO_REGISTRO` = 0;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -320,6 +328,7 @@ class VESPECIES_ADO
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_vespecies`  WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -342,6 +351,7 @@ class VESPECIES_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

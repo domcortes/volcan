@@ -49,6 +49,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -68,6 +69,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -88,6 +90,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -774,6 +777,7 @@ class EXIEXPORTACION_ADO
                                         AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -795,6 +799,7 @@ class EXIEXPORTACION_ADO
                                         AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -814,6 +819,7 @@ class EXIEXPORTACION_ADO
                                         AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -836,6 +842,7 @@ class EXIEXPORTACION_ADO
                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -857,6 +864,7 @@ class EXIEXPORTACION_ADO
                                         AND ESTADO = ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -878,6 +886,7 @@ class EXIEXPORTACION_ADO
                                         AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -895,6 +904,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion WHERE ID_EXIEXPORTACION= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -934,6 +944,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -974,6 +985,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1014,6 +1026,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1055,6 +1068,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1096,6 +1110,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1138,6 +1153,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1180,6 +1196,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1221,6 +1238,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1262,6 +1280,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1301,6 +1320,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1341,6 +1361,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1380,6 +1401,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1408,6 +1430,7 @@ class EXIEXPORTACION_ADO
                                                     AND ESTADO != 0  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1431,6 +1454,7 @@ class EXIEXPORTACION_ADO
                                                     GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1454,6 +1478,7 @@ class EXIEXPORTACION_ADO
                                                 AND FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIODREXPORTACION . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1476,6 +1501,7 @@ class EXIEXPORTACION_ADO
                                                     AND FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIODREXPORTACION . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1498,6 +1524,7 @@ class EXIEXPORTACION_ADO
                                                     AND FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIODREXPORTACION . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1522,6 +1549,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1543,6 +1571,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1570,6 +1599,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1589,6 +1619,7 @@ class EXIEXPORTACION_ADO
                                                  AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1609,6 +1640,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1633,6 +1665,7 @@ class EXIEXPORTACION_ADO
                                                 AND ESTADO BETWEEN 3  AND 4 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1665,6 +1698,7 @@ class EXIEXPORTACION_ADO
                                                     ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1692,6 +1726,7 @@ class EXIEXPORTACION_ADO
                                                 AND ESTADO BETWEEN 3  AND 4 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1714,6 +1749,7 @@ class EXIEXPORTACION_ADO
                                                     AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1738,6 +1774,7 @@ class EXIEXPORTACION_ADO
                                                 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1775,6 +1812,7 @@ class EXIEXPORTACION_ADO
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1806,6 +1844,7 @@ class EXIEXPORTACION_ADO
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1834,6 +1873,7 @@ class EXIEXPORTACION_ADO
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1870,6 +1910,7 @@ class EXIEXPORTACION_ADO
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1891,6 +1932,7 @@ class EXIEXPORTACION_ADO
                                         AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1912,6 +1954,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1932,6 +1975,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1962,6 +2006,7 @@ class EXIEXPORTACION_ADO
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1987,6 +2032,7 @@ class EXIEXPORTACION_ADO
                                                     AND ESTADO !=0;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -2011,6 +2057,7 @@ class EXIEXPORTACION_ADO
                                                     AND ESTADO !=0;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -2035,6 +2082,7 @@ class EXIEXPORTACION_ADO
                                                     AND ESTADO !=0;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -2069,6 +2117,7 @@ class EXIEXPORTACION_ADO
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2102,6 +2151,7 @@ class EXIEXPORTACION_ADO
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2146,6 +2196,7 @@ class EXIEXPORTACION_ADO
                                           ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2186,6 +2237,7 @@ class EXIEXPORTACION_ADO
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2228,6 +2280,7 @@ class EXIEXPORTACION_ADO
                                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2253,6 +2306,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2278,6 +2332,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2303,6 +2358,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2328,6 +2384,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2351,6 +2408,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2377,6 +2435,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -2404,6 +2463,7 @@ class EXIEXPORTACION_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2431,6 +2491,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2455,6 +2516,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2480,6 +2542,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2503,6 +2566,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2528,6 +2592,7 @@ class EXIEXPORTACION_ADO
                                                  AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2556,6 +2621,7 @@ class EXIEXPORTACION_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2583,6 +2649,7 @@ class EXIEXPORTACION_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2611,6 +2678,7 @@ class EXIEXPORTACION_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -2641,6 +2709,7 @@ class EXIEXPORTACION_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -2667,6 +2736,7 @@ class EXIEXPORTACION_ADO
                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3519,6 +3589,7 @@ class EXIEXPORTACION_ADO
                                             ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3542,6 +3613,7 @@ class EXIEXPORTACION_ADO
                                                 ORDER BY ULTIMOFOLIO; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -3564,6 +3636,7 @@ class EXIEXPORTACION_ADO
                                                 ORDER BY ULTIMOFOLIO; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -3632,6 +3705,7 @@ class EXIEXPORTACION_ADO
                                             GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3660,6 +3734,7 @@ class EXIEXPORTACION_ADO
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3687,6 +3762,7 @@ class EXIEXPORTACION_ADO
                                             GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3719,6 +3795,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3747,6 +3824,7 @@ class EXIEXPORTACION_ADO
                                             AND ID_INPSAG= '" . $IDINPSAG . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3774,6 +3852,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3802,6 +3881,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3831,6 +3911,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3859,6 +3940,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3888,6 +3970,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3918,6 +4001,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3944,6 +4028,7 @@ class EXIEXPORTACION_ADO
                                             AND ID_INPSAG= '" . $IDINPSAG . "'            ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -3972,6 +4057,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4000,6 +4086,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4030,6 +4117,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4057,6 +4145,7 @@ class EXIEXPORTACION_ADO
                                         GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4083,6 +4172,7 @@ class EXIEXPORTACION_ADO
                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4110,6 +4200,7 @@ class EXIEXPORTACION_ADO
                                         AND ID_DESPACHOEX= '" . $IDDESPACHOEX . "'  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4138,6 +4229,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4165,6 +4257,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4193,6 +4286,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4221,6 +4315,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4252,6 +4347,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4281,6 +4377,7 @@ class EXIEXPORTACION_ADO
                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4306,6 +4403,7 @@ class EXIEXPORTACION_ADO
                                         AND ID_DESPACHOEX= '" . $IDDESPACHOEX . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4336,6 +4434,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4367,6 +4466,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4398,6 +4498,7 @@ class EXIEXPORTACION_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -4429,6 +4530,7 @@ class EXIEXPORTACION_ADO
                                                     AND FOLIO_EXIEXPORTACION = '".$FOLIO."' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -4453,6 +4555,7 @@ class EXIEXPORTACION_ADO
                                                     AND FOLIO_EXIEXPORTACION = '".$FOLIO."' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -4481,6 +4584,7 @@ public function listarExiexportacionEstandarAgrupadoProceso($ESTANDAR)
                                       ;");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
 
         //	print_r($resultado);
         	var_dump($resultado);

@@ -47,6 +47,7 @@ class DESPACHOEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_despachoex limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -66,6 +67,7 @@ class DESPACHOEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_despachoex ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -84,6 +86,7 @@ class DESPACHOEX_ADO
                                                FROM fruta_despachoex ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -107,6 +110,7 @@ class DESPACHOEX_ADO
                                              FROM fruta_despachoex WHERE ID_DESPACHOEX= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -132,6 +136,7 @@ class DESPACHOEX_ADO
                                             WHERE ID_DESPACHOEX= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -152,6 +157,7 @@ class DESPACHOEX_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_despachoex WHERE OBSERVACION_DESPACHOEX LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -591,6 +597,7 @@ class DESPACHOEX_ADO
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -622,6 +629,7 @@ class DESPACHOEX_ADO
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -648,6 +656,7 @@ class DESPACHOEX_ADO
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -683,6 +692,7 @@ class DESPACHOEX_ADO
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -717,6 +727,7 @@ class DESPACHOEX_ADO
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -742,6 +753,7 @@ class DESPACHOEX_ADO
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -768,6 +780,7 @@ class DESPACHOEX_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -795,6 +808,7 @@ class DESPACHOEX_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -820,6 +834,7 @@ class DESPACHOEX_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -847,6 +862,7 @@ class DESPACHOEX_ADO
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -870,6 +886,7 @@ class DESPACHOEX_ADO
                                             FROM fruta_despachoex ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -901,6 +918,7 @@ class DESPACHOEX_ADO
                                               ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             // var_dump($resultado);
@@ -1000,6 +1018,7 @@ class DESPACHOEX_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA' , DATE_FORMAT(NOW( ), '%H:%i') AS 'HORA'   ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1024,6 +1043,7 @@ class DESPACHOEX_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

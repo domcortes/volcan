@@ -44,6 +44,7 @@ class LAEREA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -61,6 +62,7 @@ class LAEREA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -79,6 +81,7 @@ class LAEREA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -100,6 +103,7 @@ class LAEREA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` WHERE `ID_LAEREA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -120,6 +124,7 @@ class LAEREA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_laerea` WHERE `NOMBRE_LAEREA` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -298,6 +303,7 @@ class LAEREA_ADO {
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -320,6 +326,7 @@ class LAEREA_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

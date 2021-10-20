@@ -51,6 +51,7 @@ class AERONAVE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class AERONAVE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class AERONAVE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -109,6 +112,7 @@ class AERONAVE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` WHERE `ID_AERONAVE`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -252,6 +256,7 @@ class AERONAVE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aeronave` WHERE `ID_LAEREA`= '".$IDLAEREA."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -272,6 +277,7 @@ class AERONAVE_ADO {
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -294,6 +300,7 @@ class AERONAVE_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

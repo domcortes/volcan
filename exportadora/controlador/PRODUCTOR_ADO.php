@@ -50,6 +50,7 @@ class PRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class PRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor`  WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -86,6 +88,7 @@ class PRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor`  WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -104,6 +107,7 @@ class PRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor` WHERE `ID_PRODUCTOR`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -125,6 +129,7 @@ class PRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor` WHERE `NOMBRE_PRODUCTOR` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -330,6 +335,7 @@ class PRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor`  WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -349,6 +355,7 @@ public function obtenerNombreTarja($ID_PRODUCTOR){
         $datos=$this->conexion->prepare("SELECT *, if( LENGTH(NOMBRE_PRODUCTOR)>70,SUBSTRING(NOMBRE_PRODUCTOR,1,70),NOMBRE_PRODUCTOR) AS 'NOMBRE_CORTADO' FROM `fruta_productor`  WHERE `ID_PRODUCTOR`=".$ID_PRODUCTOR."  ;");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
         
         //	print_r($resultado);
         //	VAR_DUMP($resultado);
@@ -371,6 +378,7 @@ public function obtenerNumero($IDEMPRESA)
                                                 ; ");
         $datos->execute();
         $resultado = $datos->fetchAll();
+            $datos=null;
 
         //	print_r($resultado);
         //	VAR_DUMP($resultado);

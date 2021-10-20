@@ -48,6 +48,8 @@ class CCALIDAD_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +68,8 @@ class CCALIDAD_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -83,6 +87,8 @@ class CCALIDAD_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -101,6 +107,8 @@ class CCALIDAD_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` WHERE `ID_CCALIDAD`= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -122,6 +130,8 @@ class CCALIDAD_ADO
             $datos = $this->conexion->prepare("SELECT * FROM `fruta_ccalidad` WHERE `NOMBRE_CCALIDAD` LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -265,6 +275,8 @@ class CCALIDAD_ADO
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -287,6 +299,8 @@ class CCALIDAD_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

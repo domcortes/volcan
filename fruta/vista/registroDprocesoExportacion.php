@@ -183,7 +183,7 @@ if (isset($_REQUEST['CREAR'])) {
             }
         };
     }
-    $FOLIOALIASESTACTICO = $NUMEROFOLIODEXPORTACION ;
+    $FOLIOALIASESTACTICO = $NUMEROFOLIODEXPORTACION;
     $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
         "_TIPO_FOLIO:PRODUCTO TERMINADO_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODEXPORTACION;
 
@@ -463,6 +463,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TCALIBRE = "" . $r['ID_TCALIBRE'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+            }
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
@@ -506,6 +514,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TCALIBRE = "" . $r['ID_TCALIBRE'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+            }
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
@@ -547,6 +563,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TCALIBRE = "" . $r['ID_TCALIBRE'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+            }
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
@@ -584,7 +608,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
             $TCALIBRE = "" . $r['ID_TCALIBRE'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ESTANDAR = "" . $r['ID_ESTANDAR'];
+            $ESTANDAR = "" . $r['ID_ESTANDAR'];  
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+            }
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
@@ -616,6 +648,21 @@ if ($_POST) {
     }
     if (isset($_REQUEST['ESTANDAR'])) {
         $ESTANDAR = $_REQUEST['ESTANDAR'];
+        if ($ESTANDAR) {
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
+            if ($ARRAYVERESTANDAR) {
+                $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                $EMBOLSADO = $ARRAYVERESTANDAR[0]['EMBOLSADO'];
+                $TEMBALAJE = $ARRAYVERESTANDAR[0]['ID_TEMBALAJE'];
+                if($_REQUEST['CANTIDADENVASE'] !=""){
+                    $KILOSNETODRECEPCION = $_REQUEST['CANTIDADENVASE'] * $PESONETOEESTANDAR;
+                }
+            }
+        }
     }
     if (isset($_REQUEST['CANTIDADENVASE'])) {
         $CANTIDADENVASE = $_REQUEST['CANTIDADENVASE'];
@@ -628,25 +675,6 @@ if ($_POST) {
     }
     if (isset($_REQUEST['NOTA'])) {
         $NOTA = $_REQUEST['NOTA'];
-    }
-    if (isset($_REQUEST['CANTIDADENVASE']) != ""  &&  isset($_REQUEST['ESTANDAR']) != "") {
-        $CANTIDADENVASE = $_REQUEST['CANTIDADENVASE'];
-        if ($_REQUEST['CANTIDADENVASE'] == "") {
-            $CANTIDADENVASE = 0;
-        }
-        $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['ESTANDAR']);
-        if ($ARRAYVERESTANDAR) {
-            $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
-            $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-
-            $EMBOLSADO = $ARRAYVERESTANDAR[0]['EMBOLSADO'];
-            $TEMBALAJE = $ARRAYVERESTANDAR[0]['ID_TEMBALAJE'];
-            $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
-            $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
-            $KILOSNETODRECEPCION = $CANTIDADENVASE * $PESONETOEESTANDAR;
-            $KILOSDESHIDRATACION = $KILOSNETODRECEPCION * (1 + ($PDESHIDRATACIONEESTANDAR / 100));
-            $KILOSBRUTORECEPCION = (($CANTIDADENVASE * $PESOENVASEESTANDAR) + $KILOSDESHIDRATACION) + $PESOPALLETEESTANDAR;
-        }
     }
 }
 ?>
@@ -665,6 +693,52 @@ if ($_POST) {
         <?php include_once "../config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
+                function neto() {
+
+                    var repuesta;
+                    var neto;
+                    var deshidratacion;
+                    var pesopallet
+                    var bruto;
+
+                    ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;
+                    document.getElementById('val_estandar').innerHTML = "";
+
+                    if (ESTANDAR == null || ESTANDAR == 0) {
+                        document.form_reg_dato.ESTANDAR.focus();
+                        document.form_reg_dato.ESTANDAR.style.borderColor = "#FF0000";
+                        document.getElementById('val_estandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.ESTANDAR.style.borderColor = "#4AF575";
+                    }
+
+
+                    if (repuesta == 0) {
+                        CANTIDADENVASE = parseInt(document.getElementById("CANTIDADENVASE").value);
+                        PESONETOEESTANDAR = parseFloat(document.getElementById("PESONETOEESTANDAR").value);
+                        PESOBRUTOEESTANDAR = parseFloat(document.getElementById("PESOBRUTOEESTANDAR").value);
+                        PESOENVASEESTANDAR = parseFloat(document.getElementById("PESOENVASEESTANDAR").value);
+                        PESOPALLETEESTANDAR = parseFloat(document.getElementById("PESOPALLETEESTANDAR").value);
+                        PDESHIDRATACIONEESTANDAR = parseFloat(document.getElementById("PDESHIDRATACIONEESTANDAR").value);
+                        pesopallet = PESOPALLETEESTANDAR;
+
+                        neto = CANTIDADENVASE * PESONETOEESTANDAR;
+                        deshidratacion = neto * (1 + (PDESHIDRATACIONEESTANDAR / 100));
+                        bruto = (CANTIDADENVASE * PESOENVASEESTANDAR);
+                        bruto = bruto + (deshidratacion + PESOPALLETEESTANDAR)
+                        neto = neto.toFixed(2);
+                        deshidratacion = deshidratacion.toFixed(2);
+                        bruto = bruto.toFixed(2);
+                    }
+
+                    document.getElementById('KILOSNETOV').value = neto;
+                    //document.getElementById('val_estandar').innerHTML = "neto: " + neto + " des:" + deshidratacion + " bruto: " + bruto;
+                    //document.getElementById('val_neto').innerHTML = "ss";
+                }
+
+
                 function validacion() {
 
                     FOLIOMANUAL = document.getElementById('FOLIOMANUAL').checked;
@@ -889,6 +963,13 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Estandar </label>
+                                                <input type="hidden" class="form-control" placeholder="EMBOLSADO" id="EMBOLSADO" name="EMBOLSADO" value="<?php echo $EMBOLSADO; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="TEMBALAJE" id="TEMBALAJE" name="TEMBALAJE" value="<?php echo $TEMBALAJE; ?>" />
+                                                <input type="hidden" id="PESONETOEESTANDAR" name="PESONETOEESTANDAR" value="<?php echo $PESONETOEESTANDAR; ?>" />
+                                                <input type="hidden" id="PESOBRUTOEESTANDAR" name="PESOBRUTOEESTANDAR" value="<?php echo $PESOBRUTOEESTANDAR; ?>" />
+                                                <input type="hidden" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR; ?>" />
+                                                <input type="hidden" id="PESOPALLETEESTANDAR" name="PESOPALLETEESTANDAR" value="<?php echo $PESOPALLETEESTANDAR; ?>" />
+                                                <input type="hidden" id="PDESHIDRATACIONEESTANDAR" name="PDESHIDRATACIONEESTANDAR" value="<?php echo $PDESHIDRATACIONEESTANDAR; ?>" />
                                                 <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
@@ -907,22 +988,16 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Cantidad Envase </label>
-                                                <input type="number" class="form-control" placeholder="Cantidad Envase" onchange="this.form.submit()" id="CANTIDADENVASE" name="CANTIDADENVASE" value="<?php echo $CANTIDADENVASE; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" class="form-control" placeholder="Cantidad Envase" onchange="neto()" id="CANTIDADENVASE" name="CANTIDADENVASE" value="<?php echo $CANTIDADENVASE; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_cantidadenvase" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Kilo Neto</label>
-                                                <input type="hidden" class="form-control" placeholder="EMBOLSADO" id="EMBOLSADO" name="EMBOLSADO" value="<?php echo $EMBOLSADO; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="TEMBALAJE" id="TEMBALAJE" name="TEMBALAJE" value="<?php echo $TEMBALAJE; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="PESOPALLETEESTANDAR" id="PESOPALLETEESTANDAR" name="PESOPALLETEESTANDAR" value="<?php echo $PESOPALLETEESTANDAR; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="PDESHIDRATACIONEESTANDAR" id="PDESHIDRATACIONEESTANDAR" name="PDESHIDRATACIONEESTANDAR" value="<?php echo $PDESHIDRATACIONEESTANDAR; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="KILOSNETODRECEPCION" id="KILOSNETODRECEPCION" name="KILOSNETODRECEPCION" value="<?php echo $KILOSNETODRECEPCION; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="KILOSDESHIDRATACION" id="KILOSDESHIDRATACION" name="KILOSDESHIDRATACION" value="<?php echo $KILOSDESHIDRATACION; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="KILOSBRUTORECEPCION" id="KILOSBRUTORECEPCION" name="KILOSBRUTORECEPCION" value="<?php echo $KILOSBRUTORECEPCION; ?>" />
                                                 <input type="number" class="form-control" placeholder="Kilo Neto" step="0.01" id="KILOSNETOV" name="KILOSNETOV" value="<?php echo $KILOSNETODRECEPCION; ?>" disabled style='background-color: #eeeeee;'" />
-                                                 <label id=" val_kilosneto" class="validacion"> </label>
+                                                <label id=" val_neto" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">

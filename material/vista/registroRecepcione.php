@@ -22,6 +22,7 @@ include_once '../controlador/DOCOMPRA_ADO.php';
 include_once '../controlador/INVENTARIOE_ADO.php';
 include_once '../controlador/RECEPCIONE_ADO.php';
 include_once '../controlador/DRECEPCIONE_ADO.php';
+include_once '../controlador/RECEPCIONMP_ADO.php';
 
 include_once '../modelo/INVENTARIOE.php';
 include_once '../modelo/RECEPCIONE.php';
@@ -47,6 +48,7 @@ $DOCOMPRA_ADO =  new DOCOMPRA_ADO();
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 $DRECEPCIONE_ADO =  new DRECEPCIONE_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 
 //INIICIALIZAR MODELO
 $INVENTARIOE =  new INVENTARIOE();
@@ -67,7 +69,7 @@ $OBSERVACION = "";
 
 $ESTADO = "";
 $CONTADOR = 0;
-
+$IDRECEPCIONMP="";
 $TDOCUMENTO = "";
 $BODEGA = "";
 $PROVEEDOR = "";
@@ -89,6 +91,7 @@ $TOTALVALORV = 0;
 
 $NUMERO = "";
 $NUMEROVER = "";
+$NUMERORECEPCIONMP="";
 $FOLIONUMERO = "";
 
 $SINO = "";
@@ -97,7 +100,7 @@ $OP = "";
 $URL = "";
 
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 
@@ -135,7 +138,7 @@ $ARRAYPRODUCTO = "";
 $ARRAYFECHAACTUAL = "";
 $ARRYAOBTENERID = "";
 $ARRAYNUMERO = "";
-
+$ARRAYRECEPCIONMP="";
 $ARRAYINVENTARIORECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
@@ -217,32 +220,20 @@ if (isset($_REQUEST['CREAR'])) {
         $_REQUEST['TEMPORADA'],
     );
     //REDIRECCIONAR A PAGINA registroRecepcion.php 
+    
     $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
     $_SESSION["parametro1"] = "crear";
     echo "<script type='text/javascript'> location.href ='registroRecepcione.php?op';</script>";
 }
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-    $ARRAYDRECEPCION2 = $DRECEPCIONE_ADO->listarDrecepcionPorRecepcionCBX($_REQUEST['IDP']);
-    if (empty($ARRAYDRECEPCION2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
 
-
-
-    if ($SINO == "0") {
 
         $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
         $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMERODOCUMENTOE']);
         $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
         $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACIONE']);
+        $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
         $RECEPCIONE->__SET('TOTAL_CANTIDAD_RECEPCION', $_REQUEST['TOTALCANTIDAD']);
         $RECEPCIONE->__SET('TOTAL_VALOR_RECEPCION', $_REQUEST['TOTALVALOR']);
         $RECEPCIONE->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
@@ -267,7 +258,7 @@ if (isset($_REQUEST['EDITAR'])) {
         $RECEPCIONE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
         $RECEPCIONE_ADO->actualizarRecepcion($RECEPCIONE);
-    }
+    
 }
 //OPERACION PARA CERRAR LA RECEPCIONE
 if (isset($_REQUEST['CERRAR'])) {
@@ -287,7 +278,7 @@ if (isset($_REQUEST['CERRAR'])) {
         $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMERODOCUMENTOE']);
         $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
         $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACIONE']);
+        $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
         $RECEPCIONE->__SET('TOTAL_CANTIDAD_RECEPCION', $_REQUEST['TOTALCANTIDAD']);
         $RECEPCIONE->__SET('TOTAL_VALOR_RECEPCION', $_REQUEST['TOTALVALOR']);
         $RECEPCIONE->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
@@ -407,6 +398,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAINGRESO = "" . $r['INGRESO'];
             $FECHAMODIFCIACION = "" . $r['MODIFICACION'];
             $ESTADO = "" . $r['ESTADO'];
+            $IDRECEPCIONMP= "" . $r['ID_RECEPCIONMP'];
+            $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+            if($ARRAYRECEPCIONMP){
+                $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+            }
+
         endforeach;
     }
 
@@ -458,6 +455,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAINGRESO = "" . $r['INGRESO'];
             $FECHAMODIFCIACION = "" . $r['MODIFICACION'];
             $ESTADO = "" . $r['ESTADO'];
+            $IDRECEPCIONMP= "" . $r['ID_RECEPCIONMP'];
+            $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+            if($ARRAYRECEPCIONMP){
+                $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+            }
         endforeach;
     }
 
@@ -509,6 +511,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAINGRESO = "" . $r['INGRESO'];
             $FECHAMODIFCIACION = "" . $r['MODIFICACION'];
             $ESTADO = "" . $r['ESTADO'];
+            $IDRECEPCIONMP= "" . $r['ID_RECEPCIONMP'];
+            $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+            if($ARRAYRECEPCIONMP){
+                $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+            }
         endforeach;
     }
 }
@@ -926,10 +933,6 @@ if (isset($_POST)) {
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <?php if ($TRECEPCION != "1") { ?>
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
-                                            </div>
-                                        <?php } ?>
                                         <?php if ($TRECEPCION == "1") { ?>
                                             <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
@@ -965,7 +968,28 @@ if (isset($_POST)) {
                                                     <label id="val_ocompra" class="validacion"> </label>
                                                 </div>
                                             </div>
-
+                                        <?php } ?>                                                                            
+                                        <?php if ($TRECEPCION == "2") { ?>                                                
+                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                                <div class="form-group">   
+                                                   <?php  if($ARRAYRECEPCIONMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Recepción de Materia prima.<br> <b> Numero Recepcion: <?php echo $NUMERORECEPCIONMP;?> </b> </p>   
+                                                    <?php }?>
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                        
+                                        <?php if ($TRECEPCION == "3") { ?>                                                
+                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                                <div class="form-group">        
+                                                    <?php  if($ARRAYRECEPCIONMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Recepción de Materia prima.<br> <b> Numero Recepcion: <?php echo $NUMERORECEPCIONMP;?> </b> </p>   
+                                                    <?php }?>  
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                            
+                                        <?php if ($TRECEPCION == "4") { ?>
+                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            </div>
                                         <?php } ?>
                                         <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
@@ -1064,7 +1088,7 @@ if (isset($_POST)) {
                                                     </select>
                                                     <label id="val_planta2" class="validacion"> </label>
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                         <?php } ?>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
@@ -1113,7 +1137,7 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
 
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Transporte</label>
                                                 <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
@@ -1132,7 +1156,15 @@ if (isset($_POST)) {
                                                 <label id="val_transporte" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="form-group">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Transporte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <div class="form-group">
                                                     <label>Conductor</label>
@@ -1155,6 +1187,14 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="form-group">
+                                                <br>
+                                                <button type="button" class=" btn btn-success btn-block" data-toggle="tooltip" title="Agregar Conductor" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopConductor.php' ); ">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Patente Camión</label>
@@ -1175,9 +1215,9 @@ if (isset($_POST)) {
                                     <div class="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Observaciónes </label>
+                                                <label>Notas Generales </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1"  placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?> ><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1200,7 +1240,7 @@ if (isset($_POST)) {
                                             <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcione.php'); ">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-pencil-alt"></i> Guardar
                                             </button>
                                             <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
@@ -1228,7 +1268,7 @@ if (isset($_POST)) {
                                         -->
                             </div>
                             <div class="row">
-                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
+                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-8 col-xs-8">
                                     <div class=" table-responsive">
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -1354,7 +1394,7 @@ if (isset($_POST)) {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 col-xs-4">
                                     <form method="post" id="form2" name="form2">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
@@ -1411,6 +1451,7 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+
 </body>
 
 </html>

@@ -48,6 +48,7 @@ class DPEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_dpexportacion limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class DPEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_dpexportacion ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class DPEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_dpexportacion WHERE ID_DPEXPORTACION= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -326,6 +329,7 @@ class DPEXPORTACION_ADO
                                             WHERE ID_PROCESO= '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -351,6 +355,7 @@ class DPEXPORTACION_ADO
                                                 WHERE ID_PROCESO= '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -377,6 +382,7 @@ class DPEXPORTACION_ADO
                                                 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -401,6 +407,7 @@ class DPEXPORTACION_ADO
                                          WHERE ID_PROCESO = '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -426,6 +433,7 @@ class DPEXPORTACION_ADO
                                          WHERE ID_PROCESO = '" . $IDPROCESO . "' AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -449,6 +457,7 @@ class DPEXPORTACION_ADO
                                          GROUP BY FOLIO_DPEXPORTACION;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -470,6 +479,7 @@ class DPEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(FOLIO_DPEXPORTACION),0) AS 'ULTIMOFOLIO',IFNULL(MAX(FOLIO_DPEXPORTACION),0) AS 'ULTIMOFOLIO2' FROM fruta_dpexportacion  WHERE  ID_FOLIO= '" . $IDFOLIO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -490,6 +500,7 @@ class DPEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -511,6 +522,7 @@ class DPEXPORTACION_ADO
                                         WHERE FOLIO_DPEXPORTACION= '" . $FOLIODPEXPORTACION . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -42,6 +42,7 @@ class TPRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -59,6 +60,7 @@ class TPRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -77,6 +79,7 @@ class TPRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -96,6 +99,7 @@ class TPRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `ID_TPRODUCTOR`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -115,6 +119,7 @@ class TPRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `NOMBRE_TPRODUCTOR` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -251,6 +256,7 @@ class TPRODUCTOR_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tproductor` WHERE `ESTADO_REGISTRO` = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -272,6 +278,7 @@ class TPRODUCTOR_ADO {
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
     
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -48,6 +48,7 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -70,6 +71,7 @@ class EXIINDUSTRIAL_ADO
                                             WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -97,6 +99,7 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial WHERE ID_EXIINDUSTRIAL= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -999,6 +1002,7 @@ class EXIINDUSTRIAL_ADO
                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1019,6 +1023,7 @@ class EXIINDUSTRIAL_ADO
                                 AND ESTADO = 5;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1054,6 +1059,7 @@ class EXIINDUSTRIAL_ADO
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1085,6 +1091,7 @@ class EXIINDUSTRIAL_ADO
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1116,6 +1123,7 @@ class EXIINDUSTRIAL_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1147,6 +1155,7 @@ class EXIINDUSTRIAL_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1179,6 +1188,7 @@ class EXIINDUSTRIAL_ADO
                                             AND ESTADO = 2");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1202,6 +1212,7 @@ class EXIINDUSTRIAL_ADO
                                       AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1233,6 +1244,7 @@ class EXIINDUSTRIAL_ADO
                                         AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1264,6 +1276,7 @@ class EXIINDUSTRIAL_ADO
                                         AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1282,6 +1295,7 @@ class EXIINDUSTRIAL_ADO
                                          WHERE FOLIO_AUXILIAR_EXIINDUSTRIAL= '" . $NUMEROFOLIO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1302,6 +1316,7 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial WHERE ID_RECEPCION= '" . $IDRECEPCION . "'  AND FOLIO_AUXILIAR_EXIINDUSTRIAL = '" . $FOLIOAUXILIAREXIINDUSTRIAL . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1322,6 +1337,7 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial WHERE ID_PROCESO= '" . $IDPROCESO . "'  AND FOLIO_AUXILIAR_EXIINDUSTRIAL = '" . $FOLIOAUXILIAREXIINDUSTRIAL . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1340,6 +1356,7 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial WHERE ID_REEMBALAJE= '" . $IDREEMBALAJE . "'  AND FOLIO_AUXILIAR_EXIINDUSTRIAL = '" . $FOLIOAUXILIAREXIINDUSTRIAL . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1361,6 +1378,7 @@ class EXIINDUSTRIAL_ADO
                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1378,6 +1396,7 @@ class EXIINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial WHERE ID_REEMBALAJE= " . $IDREEMBALAJE . " AND ESTADO = 1   AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1407,6 +1426,7 @@ class EXIINDUSTRIAL_ADO
                                              GROUP BY FOLIO_AUXILIAR_EXIINDUSTRIAL;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1430,6 +1450,7 @@ class EXIINDUSTRIAL_ADO
                                                     GROUP BY `FOLIO_AUXILIAR_EXIINDUSTRIAL` ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1452,6 +1473,7 @@ class EXIINDUSTRIAL_ADO
                                              WHERE   FOLIO_AUXILIAR_EXIINDUSTRIAL LIKE '" . $FOLIOAUXILIAREXIINDUSTRIAL . "'  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1478,6 +1500,7 @@ class EXIINDUSTRIAL_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1502,6 +1525,7 @@ class EXIINDUSTRIAL_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1526,6 +1550,7 @@ class EXIINDUSTRIAL_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1553,6 +1578,7 @@ class EXIINDUSTRIAL_ADO
                                              AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1579,6 +1605,7 @@ class EXIINDUSTRIAL_ADO
                                              AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1604,6 +1631,7 @@ class EXIINDUSTRIAL_ADO
                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1628,6 +1656,7 @@ class EXIINDUSTRIAL_ADO
                                         ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1652,6 +1681,7 @@ class EXIINDUSTRIAL_ADO
                                                            AND ESTADO_REGISTRO !=0  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1675,6 +1705,7 @@ class EXIINDUSTRIAL_ADO
                                                 AND FOLIO_EXIINDUSTRIAL = '" . $FOLIO . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

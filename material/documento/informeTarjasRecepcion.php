@@ -44,6 +44,7 @@ $NOMBREORIGEN = "";
 $NOTADETALLE = "";
 $TAMAÑO = "";
 $TAMAÑONOTA = "";
+$TAMAÑOEMPRESA="";
 
 //INCIALIZAR ARREGLORS
 $ARRAYPROVEEDOR = "";
@@ -404,6 +405,25 @@ foreach ($ARRAYTARJAM as $s) :
 	if (strlen($NOMBREPRODUCTO) > "61" && strlen($NOMBREPRODUCTO) <= "70") {
 		$TAMAÑOPRODUCTO = "f9";
 	}
+	
+	if (strlen($EMPRESA) <= "10") {
+		$TAMAÑOEMPRESA = "f30";
+	}
+	if (strlen($EMPRESA) > "10" && strlen($EMPRESA) <= "19") {
+		$TAMAÑOEMPRESA = "f25";
+	}
+	if (strlen($EMPRESA) > "19" && strlen($EMPRESA) <= "25") {
+		$TAMAÑOEMPRESA = "f20";
+	}
+	if (strlen($EMPRESA) > "25" && strlen($EMPRESA) <= "42") {
+		$TAMAÑOEMPRESA = "f25";
+	}
+	if (strlen($EMPRESA) > "42" && strlen($EMPRESA) <= "61") {
+		$TAMAÑOEMPRESA = "f10";
+	}
+	if (strlen($EMPRESA) > "61" && strlen($EMPRESA) <= "70") {
+		$TAMAÑOEMPRESA = "f9";
+	}
 	$html = $html . '
 		<div class="' . $TAMAÑO . ' center " width="100%">
 			<b > ' . $NOMBREORIGEN . '  </b> 
@@ -454,8 +474,8 @@ foreach ($ARRAYTARJAM as $s) :
         </div>
         <br>
 		<div class="subtitulo2"></div>      
-        <div class="titulo center">
-           <b style="font-size: 10px;"> ' . $EMPRESA . '  </b>
+        <div class=" ' . $TAMAÑO . ' center">
+           <b > ' . $EMPRESA . '  </b>
         </div>        
         <br>
       </div>  

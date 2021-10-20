@@ -48,6 +48,7 @@ class ICARGA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_icarga LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -69,6 +70,7 @@ class ICARGA_ADO
                                             WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -89,6 +91,7 @@ class ICARGA_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_icarga  WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -112,6 +115,7 @@ class ICARGA_ADO
                                                 WHERE ID_ICARGA= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -134,6 +138,7 @@ class ICARGA_ADO
                                             WHERE ID_ICARGA = '" . $IDICARGA . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -623,6 +628,7 @@ class ICARGA_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -655,6 +661,7 @@ class ICARGA_ADO
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -678,6 +685,7 @@ class ICARGA_ADO
                                             AND ID_TEMPORADA = '" . $IDTEMPORADA . "' ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -701,6 +709,7 @@ class ICARGA_ADO
                                             AND ID_TEMPORADA = '" . $IDTEMPORADA . "' ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -729,6 +738,7 @@ class ICARGA_ADO
                                               AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -963,6 +973,7 @@ class ICARGA_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -993,6 +1004,7 @@ class ICARGA_ADO
                                                  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1016,6 +1028,7 @@ class ICARGA_ADO
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);

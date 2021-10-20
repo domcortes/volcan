@@ -268,12 +268,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
     if ($TOTALNETOEX != 0 && $TOTALNETOE != 0) {
-        $PEXPORTACIONEXPOEX = (($TOTALNETOEX) / $TOTALNETOEXPO) * 100;
+        $PEXPORTACIONEXPOEX = (($TOTALNETOEX) / $TOTALNETOE) * 100;
     } else {
         $PEXPORTACIONEXPOEX = 0;
     }
     if ($TOTALNETOIND != 0 && $TOTALNETOE != 0) {
-        $PEXPORTACIONEXPOINDU = (($TOTALNETOIND) / $TOTALNETOEXPO) * 100;
+        $PEXPORTACIONEXPOINDU = (($TOTALNETOIND) / $TOTALNETOE) * 100;
     } else {
         $PEXPORTACIONEXPOINDU = 0;
     }
@@ -689,7 +689,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha </label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA PROCESO" id="FECHAPROCESOE" name="FECHAPROCESOE" value="<?php echo $FECHAPROCESO; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Proceso" id="FECHAPROCESO" name="FECHAPROCESO" value="<?php echo $FECHAPROCESO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?> />
+                                                <input type="date" class="form-control"  placeholder="Fecha Proceso" id="FECHAPROCESO" name="FECHAPROCESO" value="<?php echo $FECHAPROCESO; ?>" <?php echo $DISABLED; ?>  <?php echo $DISABLEDFOLIO; ?> />
                                                 <label id="val_fechap" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -715,13 +715,11 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Tipo Proceso</label>
                                                 <input type="hidden" class="form-control" placeholder="TIPO PROCESO" id="TPROCESOE" name="TPROCESOE" value="<?php echo $TPROCESO; ?>" />
-                                                <select class="form-control select2" id="TPROCESO" name="TPROCESO" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
+                                                <select class="form-control select2" id="TPROCESO" name="TPROCESO" style="width: 100%;" <?php echo $DISABLED; ?>  <?php echo $DISABLEDFOLIO; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYTPROCESO as $r) : ?>
                                                         <?php if ($ARRAYTPROCESO) {    ?>
-                                                            <option value="<?php echo $r['ID_TPROCESO']; ?>" <?php if ($TPROCESO == $r['ID_TPROCESO']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_TPROCESO'] ?> </option>
+                                                            <option value="<?php echo $r['ID_TPROCESO']; ?>" <?php if ($TPROCESO == $r['ID_TPROCESO']) {  echo "selected";  } ?>> <?php echo $r['NOMBRE_TPROCESO'] ?> </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
                                                         <?php } ?>
@@ -738,9 +736,7 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                         <?php if ($ARRAYPRODUCTOR) {    ?>
-                                                            <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                            <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {  echo "selected";   } ?>>
                                                                 <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
                                                             </option>
                                                         <?php } else { ?>
@@ -760,9 +756,7 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYVESPECIES as $r) : ?>
                                                         <?php if ($ARRAYVESPECIES) {    ?>
-                                                            <option value="<?php echo $r['ID_VESPECIES']; ?>" <?php if ($VESPECIES == $r['ID_VESPECIES']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                            <option value="<?php echo $r['ID_VESPECIES']; ?>" <?php if ($VESPECIES == $r['ID_VESPECIES']) {     echo "selected";    } ?>>
                                                                 <?php echo $r['NOMBRE_VESPECIES'];  ?>
                                                             </option>
                                                         <?php } else { ?>
@@ -1421,9 +1415,9 @@ if (isset($_POST)) {
                 $SINO = "0";
                 $MENSAJEINDUSTRIAL = "";
             }
-            if ($_REQUEST['TOTALDESHIDRATACIONEX'] >  $_REQUEST['TOTALNETO']) {
+            if ($_REQUEST['TOTALDESHIDRATACIONEX'] < 0) {
                 $SINO = "1";
-                $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR AL LO INGRESADO";
+                $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR A ZERO";
                 echo
                     '<script>
                         Swal.fire({

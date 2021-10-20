@@ -48,6 +48,7 @@ class PCDESPACHO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_pcdespacho limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -67,6 +68,7 @@ class PCDESPACHO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_pcdespacho WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class PCDESPACHO_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_pcdespachoWHERE  ESTADO_REGISTRO = 0;;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -109,6 +112,7 @@ class PCDESPACHO_ADO
                                                 FROM fruta_pcdespacho WHERE ID_PCDESPACHO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -133,6 +137,7 @@ class PCDESPACHO_ADO
                                                 WHERE ID_PCDESPACHO= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -258,6 +263,7 @@ class PCDESPACHO_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -287,6 +293,7 @@ class PCDESPACHO_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -311,6 +318,7 @@ class PCDESPACHO_ADO
                                                       AND ID_TEMPORADA = '" . $TEMPORADA . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -339,6 +347,7 @@ class PCDESPACHO_ADO
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -357,6 +366,7 @@ class PCDESPACHO_ADO
                                             WHERE ID_DESPACHOEX = '" . $IDDESEXPORTACION . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -381,6 +391,7 @@ class PCDESPACHO_ADO
                                         FROM fruta_pcdespacho ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -406,6 +417,7 @@ class PCDESPACHO_ADO
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -622,6 +634,7 @@ class PCDESPACHO_ADO
                                              ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -641,6 +654,7 @@ class PCDESPACHO_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -663,6 +677,7 @@ class PCDESPACHO_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

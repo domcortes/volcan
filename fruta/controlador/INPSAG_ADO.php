@@ -47,6 +47,7 @@ class INPSAG_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_inpsag limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -70,6 +71,7 @@ class INPSAG_ADO
                                             FROM fruta_inpsag ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -95,6 +97,7 @@ class INPSAG_ADO
                                             FROM fruta_inpsag ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -118,6 +121,7 @@ class INPSAG_ADO
                                              FROM fruta_inpsag WHERE ID_INPSAG= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -141,6 +145,7 @@ class INPSAG_ADO
                                             WHERE ID_INPSAG = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -161,6 +166,7 @@ class INPSAG_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_inpsag WHERE OBSERVACION_INPSAG LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -352,6 +358,7 @@ class INPSAG_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -379,6 +386,7 @@ class INPSAG_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -402,6 +410,7 @@ class INPSAG_ADO
                                         FROM fruta_inpsag ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -422,6 +431,7 @@ class INPSAG_ADO
                                         FROM fruta_inpsag ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -449,6 +459,7 @@ class INPSAG_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -473,6 +484,7 @@ class INPSAG_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -636,6 +648,7 @@ class INPSAG_ADO
                                              ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             // var_dump($resultado);
@@ -654,6 +667,7 @@ class INPSAG_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA' , DATE_FORMAT(NOW( ), '%H:%i') AS 'HORA'   ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -677,6 +691,7 @@ class INPSAG_ADO
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

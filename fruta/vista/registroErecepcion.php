@@ -5,6 +5,7 @@ include_once "../config/validarUsuario.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../controlador/ESPECIES_ADO.php';
+include_once '../controlador/PRODUCTO_ADO.php';
 
 
 include_once '../controlador/ERECEPCION_ADO.php';
@@ -13,9 +14,10 @@ include_once '../modelo/ERECEPCION.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $ESPECIES_ADO =  new ESPECIES_ADO();
+$PRODUCTO_ADO =  new PRODUCTO_ADO();
+
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 //INIICIALIZAR MODELO
 $ERECEPCION =  new ERECEPCION();
@@ -29,7 +31,7 @@ $PESOENVASEESTANDAR = "";
 $PESOPALLETESTANDAR = "";
 $ESPECIES = "";
 $ESTADO = "";
-
+$PRODUCTO="";
 $IDOP = "";
 $OP = "";
 $DISABLED = "";
@@ -37,12 +39,13 @@ $DISABLED = "";
 //INICIALIZAR ARREGLOS
 $ARRAYESTANDAR = "";
 $ARRAYESTANDARID = "";
-
+$ARRAYPRODUCTO="";
 $ARRAYESPECIES = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYESTANDAR = $ERECEPCION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
+$ARRAYPRODUCTO= $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
 $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
@@ -63,6 +66,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
     $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $ERECEPCION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $ERECEPCION->__SET('ID_USUARIOI', $IDUSUARIOS);
     $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -83,6 +87,7 @@ if (isset($_REQUEST['EDITAR'])) {
     $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
     $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
     $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
+    $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
     $ERECEPCION->__SET('ID_ESTANDAR', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -136,7 +141,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PESOENVASEESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
             $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
-
+            $PRODUCTO = "" . $r['ID_PRODUCTO'];
         endforeach;
     }
 
@@ -155,6 +160,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PESOENVASEESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
             $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
+            $PRODUCTO = "" . $r['ID_PRODUCTO'];
 
         endforeach;
     }
@@ -188,6 +194,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     PESOPALLETESTANDAR = document.getElementById("PESOPALLETESTANDAR").value;
                     PESOENVASEESTANDAR = document.getElementById("PESOENVASEESTANDAR").value;
                     ESPECIES = document.getElementById("ESPECIES").selectedIndex;
+                    PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
 
 
                     document.getElementById('val_codigo').innerHTML = "";
@@ -196,6 +203,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_envase').innerHTML = "";
                     document.getElementById('val_pallet').innerHTML = "";
                     document.getElementById('val_especies').innerHTML = "";
+                    document.getElementById('val_producto').innerHTML = "";
 
                     if (CODIGOESTANDAR == null || CODIGOESTANDAR == 0) {
                         document.form_reg_dato.CODIGOESTANDAR.focus();
@@ -246,6 +254,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.ESPECIES.style.borderColor = "#4AF575";
+                    
+                    if (PRODUCTO == null || PRODUCTO == 0) {
+                        document.form_reg_dato.PRODUCTO.focus();
+                        document.form_reg_dato.PRODUCTO.style.borderColor = "#FF0000";
+                        document.getElementById('val_producto').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.PRODUCTO.style.borderColor = "#4AF575";
 
 
                 }
@@ -422,6 +438,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <?php endforeach; ?>
                                                         </select>
                                                         <label id="val_especies" class="validacion"> </label>
+                                                    </div>
+                                                </div>                                                
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label> Producto</label>
+                                                        <select class="form-control select2" id="PRODUCTO" name="PRODUCTO" style="width: 100%;" value="<?php echo $PRODUCTO; ?>" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYPRODUCTO as $r) : ?>
+                                                                <?php if ($ARRAYPRODUCTO) {    ?>
+                                                                    <option value="<?php echo $r['ID_PRODUCTO']; ?>" <?php if ($PRODUCTO == $r['ID_PRODUCTO']) {
+                                                                                                                            echo "selected";
+                                                                                                                        } ?>>
+                                                                        <?php echo $r['NOMBRE_PRODUCTO'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No hay Datos Registrados</option>
+                                                                <?php } ?>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <label id="val_producto" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>

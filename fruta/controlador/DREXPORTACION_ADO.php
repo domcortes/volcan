@@ -48,6 +48,7 @@ class DREXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM  fruta_drexportacion  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class DREXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM  fruta_drexportacion  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class DREXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM  fruta_drexportacion  WHERE  ID_DREXPORTACION = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -401,6 +404,7 @@ class DREXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(NUMERO_LINEA),0) AS 'NUMEROLINEAN' FROM  fruta_drexportacion  WHERE   ID_REEMBALAJE = '" . $IDPROCESO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -420,6 +424,7 @@ class DREXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT IFNULL(COUNT(FOLIO_DREXPORTACION),0) AS 'ULTIMOFOLIO',IFNULL(MAX(FOLIO_DREXPORTACION),0) AS 'ULTIMOFOLIO2' FROM  fruta_drexportacion   WHERE   ID_FOLIO = '" . $IDFOLIO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -439,6 +444,7 @@ class DREXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT * FROM  fruta_drexportacion  WHERE  ID_REEMBALAJE = '" . $IDREEMBALAJE . "'  AND  ESTADO_REGISTRO  = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -463,6 +469,7 @@ class DREXPORTACION_ADO
                                         WHERE  ID_REEMBALAJE = '" . $IDREEMBALAJE . "'  AND  ESTADO_REGISTRO  = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -487,6 +494,7 @@ class DREXPORTACION_ADO
                                         GROUP BY ID_TCALIBRE ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -513,6 +521,7 @@ class DREXPORTACION_ADO
                                          AND  ESTADO_REGISTRO  = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -538,6 +547,7 @@ class DREXPORTACION_ADO
                                          AND  ESTADO_REGISTRO  = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -556,6 +566,7 @@ class DREXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -576,6 +587,7 @@ class DREXPORTACION_ADO
                                          WHERE  FOLIO_DPEXPORTACION = '" . $FOLIODPEXPORTACION . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -600,6 +612,7 @@ class DREXPORTACION_ADO
                                          GROUP BY FOLIO_AUX_DREXPORTACION;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -292,7 +292,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Dirreccion </label>
+                                        <label>Direccion </label>
                                         <input type="text" class="form-control" placeholder="Dirreccion Comprador" id="DIRECCIONCOMPRADOR" name="DIRECCIONCOMPRADOR" value="<?php echo $DIRECCIONCOMPRADOR; ?>" <?php echo $DISABLED; ?> />
                                         <label id="val_direccion" class="validacion"> </label>
                                     </div>

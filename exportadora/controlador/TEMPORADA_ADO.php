@@ -51,6 +51,7 @@ class TEMPORADA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -70,6 +71,7 @@ class TEMPORADA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class TEMPORADA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -109,6 +112,7 @@ class TEMPORADA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` WHERE `ID_TEMPORADA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -131,6 +135,7 @@ class TEMPORADA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `principal_temporada` WHERE `NOMBRE_TEMPORADA` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

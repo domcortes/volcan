@@ -51,6 +51,7 @@ class TUMEDIDA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class TUMEDIDA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class TUMEDIDA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class TUMEDIDA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` WHERE `ID_TUMEDIDA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -252,6 +256,7 @@ class TUMEDIDA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_tumedida` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -273,6 +278,7 @@ class TUMEDIDA_ADO {
                                                 FROM `material_tumedida`  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

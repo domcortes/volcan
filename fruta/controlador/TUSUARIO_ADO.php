@@ -51,6 +51,7 @@ class TUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_tusuario` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class TUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_tusuario` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class TUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_tusuario` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class TUSUARIO_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `usuario_tusuario` WHERE `ID_TUSUARIO`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

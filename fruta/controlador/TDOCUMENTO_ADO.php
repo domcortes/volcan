@@ -1,7 +1,7 @@
 <?php
 //LLAMADA DE LOS ARCHIVOS NECESAROP PARA LA OPERACION DEL CONTROLADOR
 //LLAMADA AL MODELO DE CLASE
-include_once '../modelo/CATEGORIA.php';
+include_once '../modelo/TDOCUMENTO.php';
 //LLAMADA AL CONFIGURACION DE LA BASE DE DATOS
 include_once '../config/BDCONFIG.php';
 
@@ -13,7 +13,7 @@ $USER="";
 $PASS="";
 
 //ESTRUCTURA DEL CONTROLADOR
-class CATEGORIA_ADO {
+class TDOCUMENTO_ADO {
     
     
     //ATRIBUTO
@@ -45,12 +45,13 @@ class CATEGORIA_ADO {
     
  //FUNCIONES BASICAS 
  //LISTAR TODO CON LIMITE DE 6 FILAS    
-    public function listarCategoria(){
+    public function listarTdocumento(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_categoria` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -63,12 +64,13 @@ class CATEGORIA_ADO {
         
     }
     //LISTAR TODO
-    public function listarCategoriaCBX(){
+    public function listarTdocumentoCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_categoria` WHERE ESTADO_REGISTRO = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -81,12 +83,13 @@ class CATEGORIA_ADO {
         
     }
 
-    public function listarCategoria2CBX(){
+    public function listarTdocumento2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_categoria` WHERE ESTADO_REGISTRO = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -101,12 +104,13 @@ class CATEGORIA_ADO {
 
 
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
-    public function verCategoria($ID){
+    public function verTdocumento($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `material_categoria` WHERE `ID_CATEGORIA`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` WHERE `ID_TDOCUMENTO`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -123,18 +127,30 @@ class CATEGORIA_ADO {
     
     //REGISTRO DE UNA NUEVA FILA    
 
-    public function agregarCategoria(CATEGORIA $CATEGORIA){
+    public function agregarTdocumento(TDOCUMENTO $TDOCUMENTO){
         try{
             
             
             $query=
-            "INSERT INTO `material_categoria` (`NOMBRE_CATEGORIA`, `ID_EMPRESA`,`INGRESO`,`MODIFICACION`, `ESTADO_REGISTRO`) VALUES
-	       	( ?, ?, SYSDATE() , SYSDATE(), 1);";
+            "INSERT INTO `material_tdocumento` (
+                                                    `NUMERO_TDOCUMENTO`, 
+                                                    `NOMBRE_TDOCUMENTO`, 
+                                                    `ID_EMPRESA`,
+                                                    `ID_USUARIOI`,
+                                                    `ID_USUARIOM`,
+                                                    `INGRESO`,
+                                                    `MODIFICACION`, 
+                                                    `ESTADO_REGISTRO`
+                                                ) VALUES
+	       	( ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
-                    $CATEGORIA->__GET('NOMBRE_CATEGORIA')  ,
-                    $CATEGORIA->__GET('ID_EMPRESA')                
+                    $TDOCUMENTO->__GET('NUMERO_TDOCUMENTO')  ,
+                    $TDOCUMENTO->__GET('NOMBRE_TDOCUMENTO')  ,
+                    $TDOCUMENTO->__GET('ID_EMPRESA') ,      
+                    $TDOCUMENTO->__GET('ID_USUARIOI') , 
+                    $TDOCUMENTO->__GET('ID_USUARIOM')              
                 )
                 
                 );
@@ -146,8 +162,8 @@ class CATEGORIA_ADO {
     
     
     //ELIMINAR FILA, NO SE UTILIZA
-    public function eliminarCategoria($id){
-        try{$sql="DELETE FROM `material_categoria` WHERE `ID_CATEGORIA`=".$id.";";
+    public function eliminarTdocumento($id){
+        try{$sql="DELETE FROM `material_tdocumento` WHERE `ID_TDOCUMENTO`=".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -161,21 +177,22 @@ class CATEGORIA_ADO {
   
     
     //ACTUALIZAR INFORMACION DE LA FILA
-    public function actualizarCategoria(CATEGORIA $CATEGORIA){
+    public function actualizarTdocumento(TDOCUMENTO $TDOCUMENTO){
         try{
             $query = "
-		UPDATE `material_categoria` SET
+		UPDATE `material_tdocumento` SET
             `MODIFICACION`= SYSDATE(),
-            `NOMBRE_CATEGORIA`= ?,
-            `ID_EMPRESA`= ?
-            
-		WHERE `ID_CATEGORIA`= ?;";
+            `NOMBRE_TDOCUMENTO`= ?,
+            `ID_EMPRESA`= ?,
+            `ID_USUARIOM`= ?            
+		WHERE `ID_TDOCUMENTO`= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(   
-                    $CATEGORIA->__GET('NOMBRE_CATEGORIA'), 
-                    $CATEGORIA->__GET('ID_EMPRESA') ,                   
-                    $CATEGORIA->__GET('ID_CATEGORIA')
+                    $TDOCUMENTO->__GET('NOMBRE_TDOCUMENTO'), 
+                    $TDOCUMENTO->__GET('ID_EMPRESA') ,        
+                    $TDOCUMENTO->__GET('ID_USUARIOM') ,          
+                    $TDOCUMENTO->__GET('ID_TDOCUMENTO')
                     
                 )
                 
@@ -191,18 +208,18 @@ class CATEGORIA_ADO {
     //FUNCIONES ESPECIALIZADAS 
     //CAMBIO DE ESTADO DE REGISTRO DEL REGISTRO
     //CAMBIO A DESACTIVADO
-    public function deshabilitar(CATEGORIA $CATEGORIA){
+    public function deshabilitar(TDOCUMENTO $TDOCUMENTO){
 
         try{
             $query = "
-    UPDATE `material_categoria` SET			
+    UPDATE `material_tdocumento` SET			
     `MODIFICACION`= SYSDATE(),		
             `ESTADO_REGISTRO` = 0
-    WHERE `ID_CATEGORIA`= ?;";
+    WHERE `ID_TDOCUMENTO`= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
-                    $CATEGORIA->__GET('ID_CATEGORIA')                    
+                    $TDOCUMENTO->__GET('ID_TDOCUMENTO')                    
                 )
                 
                 );
@@ -213,17 +230,17 @@ class CATEGORIA_ADO {
         
     }
     //CAMBIO A ACTIVADO
-    public function habilitar(CATEGORIA $CATEGORIA){
+    public function habilitar(TDOCUMENTO $TDOCUMENTO){
         try{
             $query = "
-    UPDATE `material_categoria` SET				
-    `MODIFICACION`= SYSDATE(),	
+    UPDATE `material_tdocumento` SET		
+    `MODIFICACION`= SYSDATE(),			
             `ESTADO_REGISTRO` = 1
-    WHERE `ID_CATEGORIA`= ?;";
+    WHERE `ID_TDOCUMENTO`= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
-                    $CATEGORIA->__GET('ID_CATEGORIA')                    
+                    $TDOCUMENTO->__GET('ID_TDOCUMENTO')                    
                 )
                 
                 );
@@ -233,6 +250,44 @@ class CATEGORIA_ADO {
         }
         
     }
+    public function listarTdocumentoPorEmpresaCBX($IDEMPRESA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * FROM `material_tdocumento` WHERE ESTADO_REGISTRO = 1 AND ID_EMPRESA = '".$IDEMPRESA."';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+public function obtenerNumero()
+{
+    try {
+        $datos = $this->conexion->prepare(" SELECT  
+                                                IFNULL(COUNT(NUMERO_TDOCUMENTO),0) AS 'NUMERO'
+                                            FROM `material_tdocumento`  ; ");
+        $datos->execute();
+        $resultado = $datos->fetchAll();
+            $datos=null;
+
+        //	print_r($resultado);
+        //	VAR_DUMP($resultado);
+
+
+        return $resultado;
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+}
 
 }
 ?>

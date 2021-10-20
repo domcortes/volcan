@@ -47,6 +47,7 @@ class DRECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drecepcionind limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -65,6 +66,7 @@ class DRECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drecepcionind ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -83,6 +85,7 @@ class DRECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drecepcionind WHERE ID_RECEPCION= '" . $IDRECEPCION . "' AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -101,6 +104,7 @@ class DRECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drecepcionind WHERE ID_DRECEPCION = " . $IDDRECEPCION . "  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -217,12 +221,14 @@ class DRECEPCIONIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                            DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO'
+                                                    DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
+                                                    IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO'
                                             FROM fruta_drecepcionind 
                                             WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                             AND ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -245,6 +251,7 @@ class DRECEPCIONIND_ADO
                                              AND ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -268,6 +275,7 @@ class DRECEPCIONIND_ADO
                                              GROUP  BY ID_VESPECIES; ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -289,6 +297,7 @@ class DRECEPCIONIND_ADO
                                                 AND ESTADO_REGISTRO = '1'");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -315,6 +324,7 @@ class DRECEPCIONIND_ADO
                                             ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -335,6 +345,7 @@ class DRECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_drecepcionind WHERE ID_RECEPCION = '" . $IDRECEPCION . "' AND FOLIO_DRECEPCION='" . $FOLIODRECEPCION . "' ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -357,6 +368,7 @@ class DRECEPCIONIND_ADO
                                              AND ESTADO_REGISTRO = 1 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -381,6 +393,7 @@ class DRECEPCIONIND_ADO
                                            AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -402,6 +415,7 @@ class DRECEPCIONIND_ADO
                                             AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -505,6 +519,7 @@ class DRECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -528,6 +543,7 @@ class DRECEPCIONIND_ADO
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

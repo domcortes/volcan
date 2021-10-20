@@ -48,6 +48,7 @@ class REEMBALAJE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_reembalaje LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class REEMBALAJE_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_reembalaje ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -90,6 +92,7 @@ class REEMBALAJE_ADO
                                             FROM fruta_reembalaje WHERE ID_REEMBALAJE = '" . $IDREEMBALAJE . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -112,6 +115,7 @@ class REEMBALAJE_ADO
                                             FROM fruta_reembalaje WHERE ID_REEMBALAJE = '" . $IDREEMBALAJE . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -351,6 +355,7 @@ class REEMBALAJE_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -379,6 +384,7 @@ class REEMBALAJE_ADO
                                         ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -402,6 +408,7 @@ class REEMBALAJE_ADO
                                          WHERE ID_REEMBALAJE = '" . $IDREEMBALAJE . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -424,6 +431,7 @@ class REEMBALAJE_ADO
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -449,6 +457,7 @@ class REEMBALAJE_ADO
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -481,6 +490,7 @@ class REEMBALAJE_ADO
                                                  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -499,6 +509,7 @@ class REEMBALAJE_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -521,6 +532,7 @@ class REEMBALAJE_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

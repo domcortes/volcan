@@ -49,6 +49,7 @@ class PROVINCIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class PROVINCIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class PROVINCIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -103,6 +106,7 @@ class PROVINCIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` WHERE `ID_PROVINCIA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -124,6 +128,7 @@ class PROVINCIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_provincia` WHERE `NOMBRE_PROVINCIA` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

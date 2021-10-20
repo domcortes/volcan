@@ -51,6 +51,7 @@ class CLIENTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class CLIENTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class CLIENTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class CLIENTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` WHERE `ID_CLIENTE`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -283,6 +287,7 @@ class CLIENTE_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `material_cliente` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -302,6 +307,7 @@ class CLIENTE_ADO {
                                                 FROM `material_cliente`  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

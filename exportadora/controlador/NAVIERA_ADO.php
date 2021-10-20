@@ -44,6 +44,7 @@ class NAVIERA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -61,6 +62,7 @@ class NAVIERA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -79,6 +81,7 @@ class NAVIERA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -100,6 +103,7 @@ class NAVIERA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` WHERE `ID_NAVIERA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -120,6 +124,7 @@ class NAVIERA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_naviera` WHERE `NOMBRE_NAVIERA` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -299,6 +304,7 @@ class NAVIERA_ADO {
                                              AND ID_EMPRESA= '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -322,6 +328,7 @@ class NAVIERA_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

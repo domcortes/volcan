@@ -50,6 +50,7 @@ class TINPSAG_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tinpsag` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class TINPSAG_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tinpsag` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class TINPSAG_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tinpsag` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class TINPSAG_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tinpsag` WHERE `ID_TINPSAG`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -128,6 +132,7 @@ class TINPSAG_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tinpsag` WHERE `NOMBRE_TINPSAG` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

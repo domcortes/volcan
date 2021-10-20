@@ -47,6 +47,7 @@ class RECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionind limit 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class RECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionind ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -94,6 +96,7 @@ class RECEPCIONIND_ADO
                                              WHERE ID_RECEPCION= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -119,6 +122,7 @@ class RECEPCIONIND_ADO
                                             WHERE ID_RECEPCION= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -139,6 +143,7 @@ class RECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT * FROM fruta_recepcionind WHERE OBSERVACION_RECEPCION LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -403,6 +408,7 @@ class RECEPCIONIND_ADO
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
         //	VAR_DUMP($resultado);
@@ -427,6 +433,7 @@ class RECEPCIONIND_ADO
                                                     ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -457,6 +464,7 @@ class RECEPCIONIND_ADO
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -487,6 +495,7 @@ class RECEPCIONIND_ADO
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -517,6 +526,7 @@ class RECEPCIONIND_ADO
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -538,6 +548,7 @@ class RECEPCIONIND_ADO
                                             FROM fruta_recepcionind ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -558,6 +569,7 @@ class RECEPCIONIND_ADO
                                             FROM fruta_recepcionind ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -582,6 +594,7 @@ class RECEPCIONIND_ADO
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -607,6 +620,7 @@ class RECEPCIONIND_ADO
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -631,6 +645,7 @@ class RECEPCIONIND_ADO
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -664,6 +679,7 @@ class RECEPCIONIND_ADO
                                                  ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -685,6 +701,7 @@ class RECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT CURDATE() AS 'FECHA' , DATE_FORMAT(NOW( ), '%H:%i') AS 'HORA'   ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -709,6 +726,7 @@ class RECEPCIONIND_ADO
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -475,7 +475,7 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
-                                                    $ARRAYTOMADO = $DRECEPCIONIND_ADO->buscarPorRecepcion2($r['ID_RECEPCION']);
+                                                    $ARRAYTOMADO = $DRECEPCIONIND_ADO->buscarPorRecepcion($r['ID_RECEPCION']);
                                                     ?>
 
                                                     <?php foreach ($ARRAYTOMADO as $s) : ?>

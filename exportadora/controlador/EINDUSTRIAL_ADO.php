@@ -47,6 +47,7 @@ class EINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM estandar_eindustrial limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -66,6 +67,7 @@ class EINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM estandar_eindustrial WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -84,6 +86,7 @@ class EINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM estandar_eindustrial WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class EINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM estandar_eindustrial WHERE ID_ESTANDAR= '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -125,6 +129,7 @@ class EINDUSTRIAL_ADO
             $datos = $this->conexion->prepare("SELECT * FROM estandar_eindustrial WHERE NOMBRE_ESTANDAR LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -270,6 +275,7 @@ class EINDUSTRIAL_ADO
                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

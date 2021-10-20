@@ -51,6 +51,7 @@ class INVENTARIOM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_inventariom limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class INVENTARIOM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_inventariom WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class INVENTARIOM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_inventariom WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -107,6 +110,7 @@ class INVENTARIOM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_inventariom WHERE ID_INVENTARIO= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -129,6 +133,7 @@ class INVENTARIOM_ADO {
                                                 WHERE ID_INVENTARIO= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -802,6 +807,7 @@ class INVENTARIOM_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM material_inventariom ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -824,6 +830,7 @@ class INVENTARIOM_ADO {
                                              FROM material_inventariom ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -845,6 +852,7 @@ class INVENTARIOM_ADO {
                                         	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -869,6 +877,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_RECEPCION = '".$IDINVENTARIO."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -903,6 +912,7 @@ class INVENTARIOM_ADO {
                                             GROUP BY  inventario.ID_PRODUCTO, inventario.ID_BODEGA , inventario.ID_PLANTA;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -931,6 +941,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -959,6 +970,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -984,6 +996,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1009,6 +1022,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1030,6 +1044,7 @@ class INVENTARIOM_ADO {
                                             FROM material_inventariom  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1049,6 +1064,7 @@ class INVENTARIOM_ADO {
                                              FROM material_inventariom ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1071,6 +1087,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_RECEPCION = '".$IDINVENTARIO."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1092,6 +1109,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_RECEPCION = '".$IDINVENTARIO."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1114,6 +1132,7 @@ class INVENTARIOM_ADO {
                                                 AND ESTADO BETWEEN 3 AND 5 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1136,6 +1155,7 @@ class INVENTARIOM_ADO {
                                                 AND ESTADO BETWEEN 3 AND 5;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1163,6 +1183,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1185,6 +1206,7 @@ class INVENTARIOM_ADO {
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1212,6 +1234,7 @@ class INVENTARIOM_ADO {
                                                  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -1241,6 +1264,7 @@ class INVENTARIOM_ADO {
                                             ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1263,6 +1287,7 @@ class INVENTARIOM_ADO {
                                                     ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1289,6 +1314,7 @@ class INVENTARIOM_ADO {
                                                     ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1312,6 +1338,7 @@ class INVENTARIOM_ADO {
                                                     ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1339,6 +1366,7 @@ class INVENTARIOM_ADO {
                                                     ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1361,6 +1389,7 @@ class INVENTARIOM_ADO {
                                                     AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);
@@ -1385,6 +1414,7 @@ class INVENTARIOM_ADO {
                                                     AND ESTADO = 2 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	var_dump($resultado);

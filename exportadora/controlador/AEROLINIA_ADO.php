@@ -51,6 +51,7 @@ class AEROLINIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aerolinia` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -69,6 +70,7 @@ class AEROLINIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aerolinia` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class AEROLINIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aerolinia` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -109,6 +112,7 @@ class AEROLINIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aerolinia` WHERE `ID_AEROLINIA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -251,6 +255,7 @@ class AEROLINIA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `transporte_aerolinia` WHERE `ID_LAEREA`= '".$IDLAEREA."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -272,6 +277,7 @@ class AEROLINIA_ADO {
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -295,6 +301,7 @@ class AEROLINIA_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);

@@ -19,6 +19,7 @@
         private   $ESTADO_REGISTRO;
         private   $ID_ESPECIES;
         private	  $ID_EMPRESA; 
+        private   $ID_PRODUCTO;
         private	  $ID_USUARIOI; 
         private	  $ID_USUARIOM; 
         

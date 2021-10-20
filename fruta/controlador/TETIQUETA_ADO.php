@@ -50,6 +50,7 @@ class TETIQUETA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -68,6 +69,7 @@ class TETIQUETA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` WHERE `ESTADO_REGISTRO` = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -85,6 +87,7 @@ class TETIQUETA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -105,6 +108,7 @@ class TETIQUETA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` WHERE `ID_TETIQUETA`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -124,6 +128,7 @@ class TETIQUETA_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `fruta_tetiqueta` WHERE `NOMBRE_TETIQUETA` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -256,6 +261,7 @@ class TETIQUETA_ADO {
                                              AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -277,6 +283,7 @@ class TETIQUETA_ADO {
                                                 ; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
