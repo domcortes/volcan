@@ -122,7 +122,7 @@ $PEXPORTACIONEXPO = 0;
 
 $DISABLED0 = "disabled";
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 $DISABLEDSTYLE0 = "style='background-color: #eeeeee;'";
@@ -1415,7 +1415,7 @@ if (isset($_POST)) {
                 $SINO = "0";
                 $MENSAJEINDUSTRIAL = "";
             }
-            if ($_REQUEST['TOTALDESHIDRATACIONEX'] < 0) {
+            if ($_REQUEST['DIFERENCIAKILOSNETOEX'] > 0) {
                 $SINO = "1";
                 $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR A ZERO";
                 echo
@@ -1432,24 +1432,7 @@ if (isset($_POST)) {
                             }
                         });
                     </script>';
-            } else  if ($_REQUEST['PEXPORTACIONEXPO'] < 100) {
-                $SINO = "1";
-                $MENSAJEPORCENTAJE = "LA SUMA DE LOS % TIENE QUE SER 100";
-                echo
-                    '<script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Advertencia de cierre de proceso",
-                            text:"La suma de los porcentajes tiene que ser 100",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroProceso.php?op";
-                            }
-                        });
-                    </script>';
-            } else {
+            }  else {
                 $SINO = "0";
                 $MENSAJEPORCENTAJE = "";
             }
