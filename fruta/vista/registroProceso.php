@@ -118,6 +118,7 @@ $TOTALBRUTOEXPO = 0;
 $PEXPORTACIONEXPOEX = 0;
 $PEXPORTACIONEXPOINDU = 0;
 $PEXPORTACIONEXPO = 0;
+$PEXPORTACIONEXPOEXDESHI=0;
 
 
 $DISABLED0 = "disabled";
@@ -269,8 +270,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
     if ($TOTALNETOEX != 0 && $TOTALNETOE != 0) {
         $PEXPORTACIONEXPOEX = (($TOTALNETOEX) / $TOTALNETOE) * 100;
+        $PEXPORTACIONEXPOEXDESHI = (($TOTALDESHIDRATACIONEX) / $TOTALNETOE) * 100;
     } else {
         $PEXPORTACIONEXPOEX = 0;
+        $PEXPORTACIONEXPOEXDESHI = 0;
     }
     if ($TOTALNETOIND != 0 && $TOTALNETOE != 0) {
         $PEXPORTACIONEXPOINDU = (($TOTALNETOIND) / $TOTALNETOE) * 100;
@@ -957,6 +960,17 @@ if (isset($_POST)) {
                                                 <!-- inicio input -->
                                                 <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOEX" name="PEXPORTACIONEXPOEX" value="<?php echo $PEXPORTACIONEXPOEX; ?>" />
                                                 <input type="text" class="form-control text-center" placeholder="% Exportacion" id="PEXPORTACIONEXPOEXV" name="PEXPORTACIONEXPOEXV" value="<?php echo number_format($PEXPORTACIONEXPOEX, 2, ",", "."); ?>" disabled />
+                                                <!-- /termino input -->
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">% Expo. Con Desh.</div>
+                                                </div>
+                                                <!-- inicio input -->
+                                                <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="PEXPORTACIONEXPOEXDESHI" name="PEXPORTACIONEXPOEX" value="<?php echo $PEXPORTACIONEXPOEXDESHI; ?>" />
+                                                <input type="text" class="form-control text-center" placeholder="% Expo. Con Desh." id="PEXPORTACIONEXPOEXDESHI" name="PEXPORTACIONEXPOEXV" value="<?php echo number_format($PEXPORTACIONEXPOEXDESHI, 2, ",", "."); ?>" disabled />
                                                 <!-- /termino input -->
                                             </div>
                                         </div>

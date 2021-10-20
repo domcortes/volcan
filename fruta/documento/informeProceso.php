@@ -167,8 +167,10 @@ $TOTALSALIDASF=$TOTALNETOSFDEXPORTACION+$TOTALNETOSFDINDUSTRIAL;
 if ($TOTALSALIDASF > 0) {
   if ($TOTALNETOSFDEXPORTACION > 0) {
     $PDEXPORTACION = ($TOTALNETOSFDEXPORTACION / $TOTALNETOSF) * 100;
+    $PEXPORTACIONEXPOEXDESHI = ($TOTALDESHIDRATACIONSFDEXPORTACION / $TOTALNETOSF) * 100;
   } else {
     $PDEXPORTACION = 0;
+    $PEXPORTACIONEXPOEXDESHI = 0;
   }
   if ($TOTALSALIDASF > 0) {
     $PDINDUSTRIAL = ($TOTALNETOSFDINDUSTRIAL / $TOTALNETOSF) * 100;
@@ -584,6 +586,7 @@ $html = $html . '
           <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
           <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
           <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
+          <div class="address">EXPO. CON DESH.: ' . $PDTOTAL . '%</div>
         </div>
         
       </div>
