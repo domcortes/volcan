@@ -1752,75 +1752,7 @@ if (isset($_POST)) {
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $RECEPCIONE_ADO->cerrarActualizarcantidad($RECEPCIONE);
 
-                    }else{                        
-                        $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-                        $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIAE']);
-                        $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-                        $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-                        $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
-                        if ($_REQUEST['TRECEPCIONE'] == "1") {
-                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                            $TRECEPCIONE=2;
-                        }
-                        if ($_REQUEST['TRECEPCIONE'] == "2") {
-                            $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-                            $TRECEPCIONE=3;
-                        }
-                        $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
-                        $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                        $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                        $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-                        $RECEPCIONE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-                        $RECEPCIONE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);  
-                        $RECEPCIONE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
-                        $RECEPCIONE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
-                        $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
-                        $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
-                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $RECEPCIONE_ADO->actualizarRecepcion($RECEPCIONE);
-
-                        $ARRAYINVENTARIOE=$INVENTARIOE_ADO->buscarPorRecepcion($ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
-                        foreach ($ARRAYINVENTARIOE as $r ) {                           
-
-                            $ARRAYDRECEPCIONAGRUPADO = $DRECEPCIONMP_ADO->buscarPorRecepcionPorProductoAgrupadoEstandarproducto($_REQUEST['IDP'],$r["ID_PRODUCTO"]);
-                            if($ARRAYDRECEPCIONAGRUPADO){
-                                $INVENTARIOE->__SET('TRECEPCION',   $TRECEPCIONE);
-                                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $ARRAYDRECEPCIONAGRUPADO[0]["ENVASE"]);
-                                $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
-                                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-                                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-                                $INVENTARIOE->__SET('ID_PRODUCTO', $ARRAYDRECEPCIONAGRUPADO[0]["ID_PRODUCTO"]);
-                                $INVENTARIOE->__SET('ID_TUMEDIDA', $ARRAYDRECEPCIONAGRUPADO[0]["ID_TUMEDIDA"]);
-                                $INVENTARIOE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
-                                $INVENTARIOE->__SET('ID_INVENTARIO', $r["ID_INVENTARIO"]);
-                                $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
-                            }else{                                
-                                $INVENTARIOE->__SET('TRECEPCION',   $TRECEPCIONE);
-                                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', 0);
-                                $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
-                                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-                                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-                                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-                                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-                                $INVENTARIOE->__SET('ID_PRODUCTO', $r["ID_PRODUCTO"]);
-                                $INVENTARIOE->__SET('ID_TUMEDIDA', $r["ID_TUMEDIDA"]);
-                                $INVENTARIOE->__SET('ID_RECEPCION', $r["ID_RECEPCION"]);
-                                $INVENTARIOE->__SET('ID_INVENTARIO', $r["ID_INVENTARIO"]);
-                                $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
-                            }
-
-                        }                        
-                        $ARRAYDRECEPCIONETOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorRecepcionCBX($ARRAYRECEPCIONE[0]["ID_RECEPCION"]);   
-                        $RECEPCIONE->__SET('TOTAL_CANTIDAD_RECEPCION', $ARRAYDRECEPCIONETOTALES[0]["CANTIDAD"]);
-                        $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
-                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $RECEPCIONE_ADO->cerrarActualizarcantidad($RECEPCIONE);
-                        
-                       
-
-                    }              
+                    }
                         //REDIRECCIONAR A PAGINA registroRecepcionmp.php
                         //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
                         if ($_SESSION['parametro1'] == "crear") {
