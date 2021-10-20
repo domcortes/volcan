@@ -1084,7 +1084,7 @@ if (isset($_POST)) {
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
-                                        <div class="btn-group col-sm-4" role="group" aria-label="acciones">
+                                        <div class="btn-group col-sm-6" role="group" aria-label="acciones">
                                             <?php if ($OP == "") { ?>
                                                 <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionmp.php');">
                                                     <i class="ti-trash"></i> Borrar
