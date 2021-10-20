@@ -1546,14 +1546,15 @@ class EXIEXPORTACION_ADO
                                                     AND FECHA_EMBALADO_EXIEXPORTACION= '" . $FECHAEMBALADO . "'   
                                                     AND ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "' 
                                                     AND ESTADO_REGISTRO = 1 
-                                                    LIMIT 1
+                                                    AND ESTADO BETWEEN 1 AND 2
+                                                    limit 1
                                                     ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
 
-            //	print_r($resultado);
-            //	var_dump($resultado);
+            //print_r($resultado);
+        	//var_dump($resultado);
 
 
             return $resultado;
@@ -2991,11 +2992,12 @@ class EXIEXPORTACION_ADO
                             UPDATE fruta_exiexportacion SET	
                                     MODIFICACION = SYSDATE(), 		
                                     ESTADO = 0
-                            WHERE ID_EXIEXPORTACION= ? ;";
+                            WHERE ID_EXIEXPORTACION= ? AND ID_REPALETIZAJE = ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('ID_REPALETIZAJE')
                     )
 
                 );
@@ -3337,11 +3339,12 @@ class EXIEXPORTACION_ADO
                     UPDATE fruta_exiexportacion SET		
                             MODIFICACION = SYSDATE(), 	
                             ESTADO_REGISTRO = 0 	
-                    WHERE ID_EXIEXPORTACION= ? ;";
+                    WHERE ID_EXIEXPORTACION= ? AND ID_REPALETIZAJE = ?   ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
+                        $EXIEXPORTACION->__GET('ID_EXIEXPORTACION'),
+                        $EXIEXPORTACION->__GET('ID_REPALETIZAJE')
                     )
 
                 );
