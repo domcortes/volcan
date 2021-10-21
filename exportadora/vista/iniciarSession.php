@@ -1,5 +1,7 @@
 <?php
 
+require_once '../../vendor/autoload.php';
+$detect = new Mobile_Detect;
 session_start();
 if (isset($_SESSION["NOMBRE_USUARIO"])) {
     header('Location: iniciarSessionSeleccion.php');
@@ -40,156 +42,156 @@ $ARRAYTEMPORADA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-
-
-
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Fruticola El Volcan</title>
 
-<head>
-    <title>INICIAR SESSION</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <!--Bootsrap 4 CDN-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-        <!- FUNCIONES BASES -!>
-            <script type="text/javascript">
-                function validacion() {
+        <!--Fontawesome CDN-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-                    NOMBRE = document.getElementById("NOMBRE").value;
-                    CONTRASENA = document.getElementById("CONTRASENA").value;
-
-
-
-                    document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_contrasena').innerHTML = "";
-
-
-
-
-                    if (NOMBRE == null || NOMBRE.length == 0 || /^\s+$/.test(NOMBRE)) {
-                        document.form_reg_dato.NOMBRE.focus();
-                        document.form_reg_dato.NOMBRE.style.borderColor = "#FF0000";
-                        document.getElementById('val_nombre').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.NOMBRE.style.borderColor = "#4AF575";
-
-                    if (CONTRASENA == null || CONTRASENA.length == 0 || /^\s+$/.test(CONTRASENA)) {
-                        document.form_reg_dato.CONTRASENA.focus();
-                        document.form_reg_dato.CONTRASENA.style.borderColor = "#FF0000";
-                        document.getElementById('val_contrasena').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.CONTRASENA.style.borderColor = "#4AF575";
-
-                }
-            </script>
-
-</head>
-
-<body class="hold-transition theme-primary bg-gradient-primary">
-    <div class="container h-p100">
-        <div class="row align-items-center justify-content-md-center h-p100">
-            <div class="col-12">
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-4 col-md-5 col-12">
-                        <div class="bg-white-10 rounded5">
-                            <div class="content-top-agile p-10 pb-0">
-                                <h2 class="text-white">INICIO SESSION</h2>
-                                <p class="text-white-50 mb-0">USUARIO</p>
-                            </div>
-                            <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">
-                                <div class="p-30">
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text bg-transparent text-white"><i class="ti-user"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="NOMBRE USUARIO" id="NOMBRE" name="NOMBRE" value="<?php echo $NOMBRE; ?>" autocomplete="on">
-                                            <br>
-                                        </div>
-                                        <label id="val_nombre" class="validacion"> </label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text  bg-transparent text-white"><i class="ti-lock"></i></span>
-                                            </div>
-                                            <input type="password" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="CONTRASE&ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" autocomplete="on">
-
-                                        </div>
-                                        <label id="val_contrasena" class="validacion"> </label>
-                                        <label id="validacion2" class="validacion2"><?php echo  $MENSAJE; ?> </label>
-                                        <label id="validacion" class="validacion"><?php echo  $MENSAJE2; ?> </label>
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-12 text-center">
-                                        <div class="btn-group">
-                                            <a href="../../" class="btn btn-danger">VOLVER</a>
-                                            <button type="submit" class="btn btn-success" id="ENTRAR" name="ENTRAR">ENTRAR</button>
-                                        </div>
-
-                                    </div>
-                                    <!-- /.col -->
+        <!--Custom styles-->
+        <link rel="stylesheet" href="../../loginv2.css">
+        <!--sweetalert-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body class="hold-transition sidebar-collapse sidebar-mini login-page-exportadora">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="/img/volcan-foods-logo-original.png" alt="" height="50px">
+            </div>
+            <div class="card border-0">
+                <div class="card-header bg-info text-white text-center text-uppercase">
+                    <img src="/img/favicon.png" alt="" height="20px">
+                    Inicio de sesion <strong id="title_section"></strong>
+                </div>
+                <div class="card-body login-card-body">
+                    <form class="form" role="form" method="post" name="form_reg_dato">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="NOMBRE USUARIO" id="NOMBRE" name="NOMBRE" value="<?php echo $NOMBRE; ?>" autocomplete="on" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="CONTRASE&ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="btn-group col-12 d-flex">
+                                    <a href="../../" class="btn btn-danger w-100"> VOLVER</a>
+                                    <button type="submit" class="btn btn-success w-100" id="ENTRAR" name="ENTRAR">ENTRAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <?php //include_once "../config/footer.php";
-        ?>
-    </div>
+         <!-- deteccion celular -->
+        <?php if ($detect->isMobile() && $detect->isiOS() ): ?>
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
 
-    <?php include_once "../config/urlBaseLogin.php"; ?>
-    <?php
-        if (isset($_REQUEST['ENTRAR'])) {
-            $NOMBRE = $_REQUEST['NOMBRE'];
-            $CONTRASENA = $_REQUEST['CONTRASENA'];
-            $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Celular iPhone detectado',
+                    html:"Hemos detectado que estas desde un iPhone 📱<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
+                    showConfirmButton:true,
+                    confirmButtonText:"Vale! 😉"
+                })
+            </script>
+        <?php endif ?>
 
-            if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
-                echo
-                '<script>
-                    Swal.fire({
-                        icon:"warning",
-                        title:"Error de acceso",
-                        text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
-                    }).then((result)=>{
-                        if(result.value){
-                            location.href = "iniciarSession.php";
-                        }
-                    })
-                </script>';
-            } else {
-                $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
-                $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
-                $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
-                //$MENSAJE = "DATOS CORRECTOS ";
-                //$MENSAJE2 = "";
-                echo
-                '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Datos Correctos",
-                        text:"Los datos ingresados son correctos."
-                    }).then((result)=>{
-                        if(result.value){
-                            location.href = "iniciarSessionSeleccion.php";
-                        }
-                    })
-                </script>';
+        <!-- deteccion Android -->
+        <?php if ($detect->isMobile() && $detect->isAndroidOS()): ?>
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Celular Android detectado',
+                    html:"Hemos detectado que estas desde un telefono Android 🤖<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
+                    showConfirmButton:true,
+                    confirmButtonText:"Vale! 😉"
+                })
+            </script>
+        <?php endif ?>
+        <?php
+            if (isset($_REQUEST['ENTRAR'])) {
+                $NOMBRE = $_REQUEST['NOMBRE'];
+                $CONTRASENA = $_REQUEST['CONTRASENA'];
+                $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
+
+                if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
+                    echo
+                    '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Error de acceso",
+                            text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "iniciarSession.php";
+                            }
+                        })
+                    </script>';
+                } else {
+                    $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
+                    $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
+                    $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+                    //$MENSAJE = "DATOS CORRECTOS ";
+                    //$MENSAJE2 = "";
+                    echo
+                    '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Datos Correctos",
+                            text:"Los datos ingresados son correctos."
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "iniciarSessionSeleccion.php";
+                            }
+                        })
+                    </script>';
+                }
             }
-        }
-    ?>
-</body>
+        ?>
+    </body>
 </html>

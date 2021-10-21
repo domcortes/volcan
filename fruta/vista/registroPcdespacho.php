@@ -108,43 +108,10 @@ include_once "../config/datosUrlD.php";
 
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
 
-
-    $ARRAYNUMERO = $PCDESPACHO_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
-
-    $PCDESPACHO->__SET('NUMERO_PCDESPACHO', $NUMERO);
-    $PCDESPACHO->__SET('FECHA_PCDESPACHO', $_REQUEST['FECHAPCDESPACHO']);
-    $PCDESPACHO->__SET('MOTIVO_PCDESPACHO', $_REQUEST['MOTIVOPCDESPACHO']);
-    $PCDESPACHO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PCDESPACHO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $PCDESPACHO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $PCDESPACHO->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $PCDESPACHO->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $PCDESPACHO_ADO->agregarPcdespacho($PCDESPACHO);
-
-    $ARRYAOBTENERID = $PCDESPACHO_ADO->obtenerId(
-        $_REQUEST['FECHAPCDESPACHO'],
-        $_REQUEST['MOTIVOPCDESPACHO'],
-        $_REQUEST['EMPRESA'],
-        $_REQUEST['PLANTA'],
-        $_REQUEST['TEMPORADA']
-    );
-
-    //REDIRECCIONAR A PAGINA registroPcdespacho.php 
-    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PCDESPACHO'];
-    $_SESSION["parametro1"] = "crear";
-    echo "<script type='text/javascript'> location.href ='registroPcdespacho.php?op';</script>";
-}
 
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
-
-
     $PCDESPACHO->__SET('CANTIDAD_ENVASE_PCDESPACHO', $_REQUEST['TOTALENVASE']);
     $PCDESPACHO->__SET('KILOS_NETO_PCDESPACHO', $_REQUEST['TOTALNETO']);
     $PCDESPACHO->__SET('FECHA_PCDESPACHO', $_REQUEST['FECHAPCDESPACHOE']);
@@ -205,14 +172,6 @@ if (isset($_REQUEST['CERRAR'])) {
     }
 }
 
-
-
-if (isset($_REQUEST['QUITAR'])) {
-    $IDQUITAR = $_REQUEST['IDQUITAR'];
-    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
-    // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EXIEXPORTACION_ADO->actualizarDeselecionarPCCambiarEstado($EXIEXPORTACION);
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -559,54 +518,82 @@ if ($_POST) {
                                 <!-- /.box-body -->
 
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPcdespacho.php');">
-                                                <i class="ti-trash"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
-                                            </button>
-                                        <?php } ?>
-                                        <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarPcdespacho.php'); ">
-                                                <i class="ti-back-left "></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="informe" Onclick="abrirPestana('../documento/informePcdespacho.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-
-                                        <?php } ?>
+                                    <div class="btn-toolbar justify-content-between" role="toolbar" arialabel="toolbar">
+                                        <div class="btn-group col-sm-6" role="group" aria-label="acciones">
+                                            <?php if ($OP == "") { ?>
+                                                <button type=" button" class="btn btn-danger " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPcdespacho.php');">
+                                                    <i class="ti-trash"></i> Cancelar
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Crear
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP != "") { ?>
+                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarPcdespacho.php'); ">
+                                                    <i class="ti-back-left "></i> Volver
+                                                </button>
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                    <i class="ti-pencil-alt"></i> Editar
+                                                </button>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Cerrar
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+                                        <?php if ($OP!= ""): ?>
+                                            <div class="btn-group col-sm-3">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="informe" Onclick="abrirPestana('../documento/informePcdespacho.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Informe
+                                                </button>
+                                            </div>
+                                        <?php endif ?>
                                     </div>
                                 </div>
                             </div>
                             <!--.row -->
                         </form>
                         <div class="box">
-
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box-header bg-success">
+                                <h4 class="box-title">Seleccion de items</h4>
                             </div>
-                            <div class="row">
-                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                </div>
-                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
-                                    <div class="form-group">
-                                        <label> </label>
+                            <div class="card-header">
+                                <div class="form-row align-items-center">
+                                    <div class="col-auto">
+                                        <form method="post" id="form3" name="form3">
+                                            <input type="hidden" class="form-control" placeholder="ID PCDESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="OP PCDESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="URL PCDESPACHO" id="URLP" name="URLP" value="registroPcdespacho" />
+                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTPcdespacho" />
+                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>
+                                                Seleccionar Items
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label class="sr-only"></label>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Envase</div>
+                                            </div>
+                                            <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
+                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEV; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label class="sr-only"></label>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Neto</div>
+                                            </div>
+                                            <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
+                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <label id="val_validacion" class="validacion"><?php echo $MENSAJE; ?> </label>
                             <div class="row">
-                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
+                                <div class="col-sm-12">
                                     <div class="table-responsive">
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
@@ -711,10 +698,12 @@ if ($_POST) {
                                                             <td>
                                                                 <form method="post" id="form1">
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                echo "disabled";
-                                                                                                                                                                                                                                            } ?>>
+                                                                    <div class="btn-group btn-rounded btn-block col-10" role="group" aria-label="Operaciones Detalle">
+                                                                        <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT"
+                                                                            <?php echo $DISABLED2; ?>
+                                                                            <?php if ($ESTADO == 0) {
+                                                                                echo "disabled";
+                                                                            } ?>>
                                                                             <i class="ti-close"></i>
                                                                         </button>
                                                                     </div>
@@ -743,51 +732,6 @@ if ($_POST) {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td class=" center">
-                                                    <form method="post" id="form3" name="form3">
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" placeholder="ID PCDESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="OP PCDESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="URL PCDESPACHO" id="URLP" name="URLP" value="registroPcdespacho" />
-                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTPcdespacho" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                            } ?>>
-                                                                <i class=" glyphicon glyphicon-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th> Total Envase</th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEV; ?>" disabled />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Total Neto </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </section>
@@ -800,6 +744,71 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+                $ARRAYNUMERO = $PCDESPACHO_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                $PCDESPACHO->__SET('NUMERO_PCDESPACHO', $NUMERO);
+                $PCDESPACHO->__SET('FECHA_PCDESPACHO', $_REQUEST['FECHAPCDESPACHO']);
+                $PCDESPACHO->__SET('MOTIVO_PCDESPACHO', $_REQUEST['MOTIVOPCDESPACHO']);
+                $PCDESPACHO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $PCDESPACHO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $PCDESPACHO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $PCDESPACHO->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $PCDESPACHO->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $PCDESPACHO_ADO->agregarPcdespacho($PCDESPACHO);
+
+                $ARRYAOBTENERID = $PCDESPACHO_ADO->obtenerId(
+                    $_REQUEST['FECHAPCDESPACHO'],
+                    $_REQUEST['MOTIVOPCDESPACHO'],
+                    $_REQUEST['EMPRESA'],
+                    $_REQUEST['PLANTA'],
+                    $_REQUEST['TEMPORADA']
+                );
+
+                //REDIRECCIONAR A PAGINA registroPcdespacho.php
+                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PCDESPACHO'];
+                $_SESSION["parametro1"] = "crear";
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro creado",
+                        text:"El registro se ha creado correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "/fruta/vista/registroPcdespacho.php?op";
+                        }
+                    })
+                </script>';
+                // echo "<script type='text/javascript'> location.href ='registroPcdespacho.php?op';</script>";
+            }
+
+            if (isset($_REQUEST['QUITAR'])) {
+                $IDQUITAR = $_REQUEST['IDQUITAR'];
+                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
+                // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIEXPORTACION_ADO->actualizarDeselecionarPCCambiarEstado($EXIEXPORTACION);
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Accion realizada (QUITAR)",
+                        text:"El elemento seleccionado fue quitado del listado correctamente, esta accion es irreversible",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href="/fruta/vista/registroPcdespacho.php?op";
+                        }
+                    })
+                </script>';
+            }
+        ?>
 </body>
 
 </html>

@@ -30,6 +30,25 @@
 
 }
 
+.login-page-exportadora,
+.register-page-exportadora {
+  -ms-flex-align: center;
+  align-items: center;
+  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url('https://blogs.iadb.org/integracion-comercio/wp-content/uploads/sites/14/2020/02/AdobeStock_20549086-min.jpeg');
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+
+}
+
 .login-box,
 .register-box {
   width: 360px;
