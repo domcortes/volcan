@@ -97,7 +97,7 @@ $OP = "";
 
 
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 
@@ -1433,7 +1433,7 @@ if (isset($_POST)) {
                                                 <td class=" center">
                                                     <div class="form-group">
                                                         <button type="submit" form="form1" class="btn btn-primary btn-block" data-toggle="tooltip" title="Agregar Precios" name="PRECIOS" value="PRECIOS"
-                                                        <?php echo $DISABLED2; ?> <?php if (empty($ARRAYDDESPACHOMP2)) { echo "disabled style='background-color: #eeeeee;'"; } ?>
+                                                        <?php echo $DISABLED2; ?> <?php if (empty($ARRAYTOMADO)) { echo "disabled style='background-color: #eeeeee;'"; } ?>
                                                         <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
                                                             <i class="glyphicon glyphicon-plus"></i> Agregar Precio(s)
                                                         </button>
