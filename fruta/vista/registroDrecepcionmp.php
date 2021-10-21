@@ -401,9 +401,11 @@ if ($_POST) {
 
                     ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;
                     CANTIDADENVASEDRECEPCION = document.getElementById("CANTIDADENVASEDRECEPCION").value;
+                    KILOSBRUTODRECEPCION = document.getElementById("KILOSBRUTODRECEPCION").value;
 
                     document.getElementById('val_estandar').innerHTML = "";
                     document.getElementById('val_cantidadenvase').innerHTML = "";
+                    document.getElementById('val_kilosbruto').innerHTML = "";
 
                     if (ESTANDAR == null || ESTANDAR == 0) {
                         document.form_reg_dato.ESTANDAR.focus();
@@ -422,6 +424,16 @@ if ($_POST) {
                         repuesta = 1;
                     } else {
                         document.form_reg_dato.CANTIDADENVASEDRECEPCION.style.borderColor = "#4AF575";
+                        repuesta = 0;
+                    }
+                    
+                    if (KILOSBRUTODRECEPCION == null || KILOSBRUTODRECEPCION == 0) {
+                        document.form_reg_dato.KILOSBRUTODRECEPCION.focus();
+                        document.form_reg_dato.KILOSBRUTODRECEPCION.style.borderColor = "#FF0000";
+                        document.getElementById('val_kilosbruto').innerHTML = "NO HA INGRESADO DATOS";
+                        repuesta = 1;
+                    } else {
+                        document.form_reg_dato.KILOSBRUTODRECEPCION.style.borderColor = "#4AF575";
                         repuesta = 0;
                     }
 
