@@ -1388,6 +1388,28 @@ class EXIEXPORTACION_ADO
 
 
 
+    public function buscarPorRecepcionIngresado($IDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                            FROM fruta_exiexportacion 
+                                            WHERE ID_RECEPCION= '" . $IDRECEPCION . "'  
+                                            AND ESTADO = 1
+                                            AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function buscarPorRecepcion($IDRECEPCION)
     {
@@ -1447,6 +1469,27 @@ class EXIEXPORTACION_ADO
                                             FROM fruta_exiexportacion 
                                             WHERE ID_PCDESPACHO= '" . $IDPCDESPACHO . "'                                              
                                             AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorProcesoIngresando($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiexportacion 
+                                                WHERE ID_PROCESO= '" . $IDPROCESO . "'                                            
+                                                 AND ESTADO = 1
+                                                 AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

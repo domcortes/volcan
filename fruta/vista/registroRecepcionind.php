@@ -7,6 +7,8 @@ include_once "../config/validarUsuario.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../controlador/FOLIO_ADO.php';
+include_once '../controlador/TDOCUMENTO_ADO.php';
+include_once '../controlador/BODEGA_ADO.php';
 
 
 include_once '../controlador/EINDUSTRIAL_ADO.php';
@@ -20,15 +22,24 @@ include_once '../controlador/RECEPCIONIND_ADO.php';
 include_once '../controlador/DRECEPCIONIND_ADO.php';
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
 
+include_once '../controlador/RECEPCIONE_ADO.php';
+include_once '../controlador/INVENTARIOE_ADO.php';
+
+
 include_once '../modelo/RECEPCIONIND.php';
 include_once '../modelo/DRECEPCIONIND.php';
 include_once '../modelo/EXIINDUSTRIAL.php';
+
+include_once '../modelo/RECEPCIONE.php';
+include_once '../modelo/INVENTARIOE.php';
 
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
 $FOLIO_ADO = new FOLIO_ADO();
+$TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
+$BODEGA_ADO = new BODEGA_ADO();
 
 
 $EINDUSTRIAL_ADO = new EINDUSTRIAL_ADO();
@@ -38,6 +49,9 @@ $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
 
+$RECEPCIONE_ADO =  new RECEPCIONE_ADO();
+$INVENTARIOE_ADO =  new INVENTARIOE_ADO();
+
 $EXIINDUSTRIAL_ADO = new EXIINDUSTRIAL_ADO();
 $RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 $DRECEPCIONIND_ADO =  new DRECEPCIONIND_ADO();
@@ -46,6 +60,10 @@ $DRECEPCIONIND_ADO =  new DRECEPCIONIND_ADO();
 $DRECEPCIONIND =  new DRECEPCIONIND();
 $RECEPCIONIND =  new RECEPCIONIND();
 $EXIINDUSTRIAL =  new EXIINDUSTRIAL();
+
+
+$RECEPCIONE =  new RECEPCIONE();
+$INVENTARIOE =  new INVENTARIOE();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -192,8 +210,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $ARRAYDRECEPCIONTOTALES2 = $DRECEPCIONIND_ADO->obtenerTotales2($IDOP);
 
     $KILOSNETORECEPCION = $ARRAYDRECEPCIONTOTALES[0]['NETO'];
-
     $KILOSNETORECEPCION2 = $ARRAYDRECEPCIONTOTALES2[0]['NETO'];
+    
+    $ARRAYRECEPCIONE=$RECEPCIONE_ADO->listarRecepcionPorRecepcionMpCBX($IDOP);
+    if($ARRAYRECEPCIONE){        
+        $BODEGA= $ARRAYRECEPCIONE[0]['ID_BODEGA'];
+        $TDOCUMENTO =$ARRAYRECEPCIONE[0]['ID_TDOCUMENTO'];
+    }
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -713,7 +736,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php //include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -1078,7 +1101,6 @@ if (isset($_POST)) {
                                 </div>
                             </div>
                         </form>
-
                         <?php if (isset($_GET['op'])): ?>
                             <div class="card">
                                 <div class="card-header bg-success">
@@ -1218,7 +1240,7 @@ if (isset($_POST)) {
                 $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONIND_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                 if ($ARRAYRECEPCIONBUSCARGPETP) {
                     $SINO = "1";
-                    $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
+                   // $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
                     echo '<script>
                             Swal.fire({
                                 icon:"warning",
@@ -1227,9 +1249,6 @@ if (isset($_POST)) {
                                 showConfirmButton: true,
                                 confirmButtonText:"Cerrar",
                                 closeOnConfirm:false
-                            }).then((result)=>{
-                                if(result.value){                            
-                                }
                             })
                         </script>';
                 } else {
@@ -1241,7 +1260,7 @@ if (isset($_POST)) {
                 $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONIND_ADO->buscarRecepcionPorPlantaExternaGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                 if ($ARRAYRECEPCIONBUSCARGPETP) {
                     $SINO = "1";
-                    $MENSAJE3 = "LA GUIA DE LA PLANTA ORIGEN SE ENCUENTRA DUPLICADA";
+                   // $MENSAJE3 = "LA GUIA DE LA PLANTA ORIGEN SE ENCUENTRA DUPLICADA";
                     echo '<script>
                             Swal.fire({
                                 icon:"warning",
@@ -1250,9 +1269,6 @@ if (isset($_POST)) {
                                 showConfirmButton: true,
                                 confirmButtonText:"Cerrar",
                                 closeOnConfirm:false
-                            }).then((result)=>{
-                                if(result.value){                            
-                                }
                             })
                         </script>';
                 } else {
@@ -1300,24 +1316,24 @@ if (isset($_POST)) {
                     $_REQUEST['PLANTA'],
                     $_REQUEST['TEMPORADA'],
                 );
-
+            
                 //REDIRECCIONAR A PAGINA registroRecepcionind.php
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
                 $_SESSION["parametro1"] = "crear";
                 echo '<script>
-                Swal.fire({
-                    icon:"success",
-                    title:"Recepcion creada",
-                    text:"El encabezado de recepcion se ha creado correctamente",
-                    showConfirmButton: true,
-                    confirmButtonText:"Cerrar",
-                    closeOnConfirm:false
-                }).then((result)=>{
-                    if(result.value){
-                        location.href = "registroRecepcionind.php?op";
-                    }
-                })
-            </script>';
+                    Swal.fire({
+                        icon:"success",
+                        title:"Recepcion creada",
+                        text:"El encabezado de recepcion se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "registroRecepcionind.php?op";
+                        }
+                    })
+                </script>';
             }
         }
 
@@ -1379,7 +1395,7 @@ if (isset($_POST)) {
                 $RECEPCIONIND_ADO->cerrado($RECEPCIONIND);
 
 
-                $ARRAYEXISENCIARECEPCION = $EXIINDUSTRIAL_ADO->buscarPorRecepcion($_REQUEST['IDP']);
+                $ARRAYEXISENCIARECEPCION = $EXIINDUSTRIAL_ADO->buscarPorRecepcionIngresado($_REQUEST['IDP']);
                 foreach ($ARRAYEXISENCIARECEPCION as $r) :
                     $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

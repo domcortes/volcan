@@ -1202,7 +1202,27 @@ class EXIINDUSTRIAL_ADO
 
 
     //BUSCAR
+    public function buscarPorRecepcionIngresado($IDRECEPCION)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_exiindustrial 
+                                      WHERE ID_RECEPCION= '" . $IDRECEPCION . "'  
+                                      AND ESTADO = 1
+                                      AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorRecepcion($IDRECEPCION)
     {
         try {
@@ -1368,6 +1388,30 @@ class EXIINDUSTRIAL_ADO
         }
     }
     //BUSQUEDA POR PROCESO
+
+    public function buscarPorProcesoIngresando($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                                FROM fruta_exiindustrial 
+                                                WHERE ID_PROCESO= '" . $IDPROCESO . "'   
+                                                AND ESTADO = 1
+                                                AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function buscarPorProceso($IDPROCESO)
     {
         try {

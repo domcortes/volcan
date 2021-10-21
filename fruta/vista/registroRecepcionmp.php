@@ -1324,9 +1324,12 @@ if (isset($_POST)) {
                         $SINO = "1";
                         echo '<script>
                             Swal.fire({
-                                icon:"info",
-                                title:"Accion restringida",
-                                text:"La Guía del productor se encuentra duplicadoa"
+                                icon:"warning",
+                                title:"Numero Guía",
+                                text:"Del productor Se encuentra Duplicada",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             })
                         </script>';
                     } else {
@@ -1340,9 +1343,12 @@ if (isset($_POST)) {
                         $SINO = "1";
                         echo '<script>
                             Swal.fire({
-                                icon:"info",
-                                title:"Accion restringida",
-                                text:"La Guía del planta origen se encuentra duplicadoa"
+                                icon:"warning",
+                                title:"Numero Guía",
+                                text:"Del productor Se encuentra Duplicada",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             })
                         </script>';
                     } else {
@@ -1653,7 +1659,7 @@ if (isset($_POST)) {
                     $RECEPCIONMP_ADO->cerrado($RECEPCIONMP);
 
 
-                    $ARRAYEXISENCIARECEPCION = $EXIMATERIAPRIMA_ADO->buscarPorRecepcion($_REQUEST['IDP']);
+                    $ARRAYEXISENCIARECEPCION = $EXIMATERIAPRIMA_ADO->buscarPorRecepcionIngresado($_REQUEST['IDP']);
                     foreach ($ARRAYEXISENCIARECEPCION as $r) :
                         $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR

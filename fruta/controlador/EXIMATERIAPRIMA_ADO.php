@@ -748,12 +748,31 @@ class EXIMATERIAPRIMA_ADO
 
     //BUSCAR
 
+    public function buscarPorRecepcionIngresado($IDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM fruta_eximateriaprima 
+                                              WHERE ID_RECEPCION= '" . $IDRECEPCION . "' AND ESTADO = 1   AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorRecepcion($IDRECEPCION)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT * FROM fruta_eximateriaprima 
-                                              WHERE ID_RECEPCION= '" . $IDRECEPCION . "'  AND ESTADO_REGISTRO = 1;");
+                                              WHERE ID_RECEPCION= '" . $IDRECEPCION . "'    AND ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

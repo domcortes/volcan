@@ -1479,8 +1479,8 @@ if (isset($_POST)) {
 
                 $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->buscarPorProceso($_REQUEST['IDP']);
 
-                $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorProceso($_REQUEST['IDP']);
-                $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorProceso($_REQUEST['IDP']);
+                $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorProcesoIngresando($_REQUEST['IDP']);
+                $ARRAYEXIINDUSTRIAL = $EXIINDUSTRIAL_ADO->buscarPorProcesoIngresando($_REQUEST['IDP']);
 
 
 
