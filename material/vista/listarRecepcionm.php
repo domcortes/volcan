@@ -190,6 +190,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Operaciónes</th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
+                                                    <th>Origen Recepción</th>
                                                     <th>Tipo Documento </th>
                                                     <th>Número Documento </th>
                                                     <th>Total Cantidad</th>
@@ -207,14 +208,34 @@ include_once "../config/datosUrLP.php";
                                                     <?php
                                                     if ($r['TRECEPCION'] == "1") {
                                                         $TRECEPCION = "Desde Proveedor";
+                                                        $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
+                                                        if ($ARRAYPROVEEDOR) {
+                                                            $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                        } else {
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                        }
                                                     } else if ($r['TRECEPCION'] == "2") {
                                                         $TRECEPCION = "Desde Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                        } else {
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                        }
                                                     } else if ($r['TRECEPCION'] == "3") {
                                                         $TRECEPCION = "Planta Externa";
+                                                        $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA2"]);
+                                                        if ($ARRAYPLANTAEXTERNA) {
+                                                            $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                        } else {
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                        }
                                                     } else if ($r['TRECEPCION'] == "4") {
-                                                        $TRECEPCION = "Inventario Inicial";
+                                                        $TRECEPCION = "Inventario Inicial";                                                    
+                                                        $NOMBREORIGEN = "Sin Datos";                                                        
                                                     } else {
                                                         $TRECEPCION = "Sin Datos";
+                                                        $NOMBREORIGEN = "Sin Datos";
                                                     }
                                                     $ARRAYVERTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($r['ID_TDOCUMENTO']);
                                                     if ($ARRAYVERTDOCUMENTO) {
@@ -299,6 +320,7 @@ include_once "../config/datosUrLP.php";
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $TRECEPCION; ?></td>
+                                                        <td><?php echo $NOMBREORIGEN; ?></td>
                                                         <td><?php echo $TDOCUMENTO; ?></td>
                                                         <td><?php echo $r['NUMERO_DOCUMENTO_RECEPCION']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>

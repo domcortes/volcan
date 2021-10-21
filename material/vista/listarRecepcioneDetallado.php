@@ -254,13 +254,9 @@ include_once "../config/datosUrLP.php";
                                                             $NOMBREORIGEN = "Sin Datos";
                                                         }
                                                     } else if ($r['TRECEPCION'] == "4") {
-                                                        $TRECEPCION = "Inventario Inicial";
-                                                        $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
-                                                        if ($ARRAYPROVEEDOR) {
-                                                            $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
-                                                        } else {
-                                                            $NOMBREORIGEN = "Sin Datos";
-                                                        }
+                                                        $TRECEPCION = "Inventario Inicial";                                                  
+                                                        $NOMBREORIGEN = "Sin Datos";
+                                                        
                                                     } else {
                                                         $TRECEPCION = "Sin Datos";
                                                         $NOMBREORIGEN = "Sin Datos";
