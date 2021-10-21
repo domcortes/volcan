@@ -447,7 +447,27 @@ class OCOMPRA_ADO {
         }
         
     }
-
+    public function completatado(OCOMPRA $OCOMPRA){
+        try{
+            $query = "
+                    UPDATE material_ocompra SET				
+                            MODIFICACION= SYSDATE(),	
+                            ID_USUARIOM  = ? ,
+                            ESTADO_OCOMPRA = 5
+                    WHERE ID_OCOMPRA= ?;";
+            $this->conexion->prepare($query)
+            ->execute(
+                    array(           
+                        $OCOMPRA->__GET('ID_USUARIOM')  ,            
+                        $OCOMPRA->__GET('ID_OCOMPRA')                    
+                    )                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     public function buscarID($FECHAOCOMPRA, $OBSERVACIONESOCOMPRA,  $EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

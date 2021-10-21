@@ -224,15 +224,14 @@ include_once "../config/datosUrLP.php";
                                                     <?php
                                                     if ($r['ESTADO_OCOMPRA'] == "1") {
                                                         $ESTADOOCOMPRA = "Creado";
-                                                    } else 
-                                                            if ($r['ESTADO_OCOMPRA'] == "2") {
+                                                    } else  if ($r['ESTADO_OCOMPRA'] == "2") {
                                                         $ESTADOOCOMPRA = "Pendiente Aprobación";
-                                                    } else 
-                                                            if ($r['ESTADO_OCOMPRA'] == "3") {
+                                                    } else   if ($r['ESTADO_OCOMPRA'] == "3") {
                                                         $ESTADOOCOMPRA = "Rechazado";
-                                                    } else
-                                                            if ($r['ESTADO_OCOMPRA'] == "4") {
+                                                    } else  if ($r['ESTADO_OCOMPRA'] == "4") {
                                                         $ESTADOOCOMPRA = "Aprobado";
+                                                    } else  if ($r['ESTADO_OCOMPRA'] == "5") {
+                                                        $ESTADOOCOMPRA = "Orden Completada";
                                                     } else {
                                                         $ESTADOOCOMPRA = "Sin Datos";
                                                     }

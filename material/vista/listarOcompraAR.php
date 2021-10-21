@@ -69,12 +69,18 @@ if (isset($_REQUEST['APROBARURL'])) {
     $_SESSION["urlO"] = $_REQUEST['URLO'];
     echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLA'].".php?op';</script>";
 }
-
 if (isset($_REQUEST['RECHAZARURL'])) {
     $_SESSION["parametro"] = $_REQUEST['ID'];
     $_SESSION["parametro1"] = "";    
     $_SESSION["urlO"] = $_REQUEST['URLO'];
     echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLM'].".php?op';</script>";
+}
+if (isset($_REQUEST['COMPLETAURL'])) { 
+    $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['ID']);
+    $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
+    $OCOMPRA_ADO->completatado($OCOMPRA);
+    $_SESSION["urlO"] = $_REQUEST['URLO'];
+    echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLA'].".php?op';</script>";
 }
 
 ?>
@@ -218,15 +224,14 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                                     <?php
                                                     if ($r['ESTADO_OCOMPRA'] == "1") {
                                                         $ESTADOOCOMPRA = "Creado";
-                                                    } else 
-                                                            if ($r['ESTADO_OCOMPRA'] == "2") {
+                                                    } else  if ($r['ESTADO_OCOMPRA'] == "2") {
                                                         $ESTADOOCOMPRA = "Pendiente Aprobación";
-                                                    } else 
-                                                            if ($r['ESTADO_OCOMPRA'] == "3") {
+                                                    } else   if ($r['ESTADO_OCOMPRA'] == "3") {
                                                         $ESTADOOCOMPRA = "Rechazado";
-                                                    } else
-                                                            if ($r['ESTADO_OCOMPRA'] == "4") {
+                                                    } else  if ($r['ESTADO_OCOMPRA'] == "4") {
                                                         $ESTADOOCOMPRA = "Aprobado";
+                                                    } else  if ($r['ESTADO_OCOMPRA'] == "5") {
+                                                        $ESTADOOCOMPRA = "Orden Completada";
                                                     } else {
                                                         $ESTADOOCOMPRA = "Sin Datos";
                                                     }
@@ -295,6 +300,11 @@ if (isset($_REQUEST['RECHAZARURL'])) {
 
                                                                         <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" id="RECHAZARURL" name="RECHAZARURL" title="Rechazar">
                                                                             <i class="fa fa-close"></i>
+                                                                        </button>
+                                                                    <?php } ?>                                                                    
+                                                                    <?php if ($r['ESTADO_OCOMPRA'] == "4") { ?>
+                                                                        <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" id="COMPLETAURL" name="COMPLETAURL" title="Orden Completada">
+                                                                            <i class="mdi mdi-check-all"></i>                                                                    
                                                                         </button>
                                                                     <?php } ?>
                                                                     <?php if ($ARRAYMOCOMPRA) { ?>
