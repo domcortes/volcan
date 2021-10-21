@@ -13,6 +13,7 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/FOLIO_ADO.php';
 
 include_once '../controlador/RECEPCIONE_ADO.php';
+include_once '../controlador/RECEPCIONMP_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -27,6 +28,7 @@ $FOLIO_ADO =  new FOLIO_ADO();
 
 
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -199,6 +201,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
+                                                    <th>Recepción Materia Prima</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                 </tr>
@@ -240,6 +243,12 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRECONDUCTOR= $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
                                                     } else {
                                                         $NOMBRECONDUCTOR = "Sin Datos";
+                                                    }
+                                                    $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($r['ID_RECEPCIONMP']);
+                                                    if($ARRAYRECEPCIONMP){
+                                                        $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+                                                    }else{
+                                                        $NUMERORECEPCIONMP="No Aplica";
                                                     }
                                                     ?>
 
@@ -303,6 +312,7 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                        <td><?php echo $NUMERORECEPCIONMP; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
 
