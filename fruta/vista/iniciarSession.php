@@ -76,11 +76,11 @@ $ARRAYTEMPORADA = "";
     <body class="hold-transition sidebar-collapse sidebar-mini login-page">
         <div class="login-box">
             <div class="login-logo">
-                <img src="/img/volcan-foods-logo-original.png" alt="" height="50px">
+                <img src="../../img/volcan-foods-logo-original.png" alt="" height="50px">
             </div>
             <div class="card border-0">
                 <div class="card-header bg-info text-white text-center text-uppercase">
-                    <img src="/img/favicon.png" alt="" height="20px">
+                    <img src="../..//img/favicon.png" alt="" height="20px">
                     Inicio de sesion <strong id="title_section"></strong>
                 </div>
 
@@ -177,7 +177,7 @@ $ARRAYTEMPORADA = "";
                         confirmButtonText:"OK"
                     }).then((result)=>{
                         if(result.value){
-                            location.href = "/fruta/vista/iniciarSession.php";
+                            location.href = "iniciarSession.php";
                         }
                     })
                 </script>';
