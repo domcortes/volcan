@@ -301,7 +301,13 @@ include_once "../config/datosUrLP.php";
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
                                                                                     <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i> Informe
+                                                                                        <i class="fa fa-file-pdf-o"></i> Carga Real
+                                                                                    </button>
+                                                                                </span>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Reporte Carga Real">
+                                                                                    <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                      <i class="fa fa-file-excel-o"></i> Carga Real
                                                                                     </button>
                                                                                 </span>
                                                                             </div>

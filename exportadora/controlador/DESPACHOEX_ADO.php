@@ -814,9 +814,9 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                            SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION) AS 'TOTAL_ENVASE',
-                                            SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION) AS 'TOTAL_NETO',
-                                            fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION AS 'FECHA_EMBALADO' ,
+                                            SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION) AS 'ENVASE',
+                                            SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION) AS 'NETO',
+                                            DATE_FORMAT(fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y')  AS 'EMBALADO' ,
                                             fruta_exiexportacion.ID_PRODUCTOR,fruta_exiexportacion.ID_VESPECIES,
                                             fruta_exiexportacion.ID_ESTANDAR,fruta_exiexportacion.ID_FOLIO
                                         FROM fruta_despachoex, fruta_exiexportacion 
@@ -849,9 +849,9 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'TOTAL_ENVASE',
-                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'TOTAL_NETO',
-                                            DATE_FORMAT(fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y')  AS 'FECHA_EMBALADO' ,
+                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
+                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
+                                            DATE_FORMAT(fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y')  AS 'EMBALADO' ,
                                             fruta_exiexportacion.ID_PRODUCTOR,fruta_exiexportacion.ID_VESPECIES,
                                             fruta_exiexportacion.ID_ESTANDAR,fruta_exiexportacion.ID_FOLIO
                                         FROM fruta_despachoex, fruta_exiexportacion 

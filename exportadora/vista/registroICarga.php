@@ -3126,9 +3126,9 @@ if (isset($_POST)) {
 
                                                         ?>
                                                         <tr class="text-left">
-                                                            <td><?php echo $s['TOTAL_ENVASE']; ?></td>
-                                                            <td><?php echo $s['TOTAL_NETO']; ?></td>
-                                                            <td><?php echo $s['FECHA_EMBALADO']; ?></td>
+                                                            <td><?php echo $s['ENVASE']; ?></td>
+                                                            <td><?php echo $s['NETO']; ?></td>
+                                                            <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td> <?php echo $CSGPRODUCTOR  ?> </td>
                                                             <td> <?php echo $NOMBREPRODUCTOR  ?> </td>
                                                             <td> <?php echo $NOMBRESTANDAR  ?> </td>

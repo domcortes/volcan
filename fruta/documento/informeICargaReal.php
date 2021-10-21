@@ -70,7 +70,8 @@ if($_REQUEST['parametro']){
  $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYCARGAREAL = $DESPACHOEX_ADO->DespachoExistencia($IDOP);
+$ARRAYCARGAREAL = $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
+
 $ARRAYCARGAREALTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoExistencia($IDOP);
 $TOTALENVASE = $ARRAYCARGAREALTOTALES[0]['ENVASE'];
 $TOTALNETO = $ARRAYCARGAREALTOTALES[0]['NETO'];
@@ -175,17 +176,14 @@ $html='
             <th colspan="11" class="center"></th>
           </tr>
           <tr>            
-            <th class="color left">Folio</th>
-            <th class="color center">Fecha Embalado</th>
-            <th class="color center ">CSG </th>
-            <th class="color center ">Productor </th>
-            <th class="color center">Envase/Estandar</th>
+            <th class="color center ">Fecha Embalado </th>
+            <th class="color center ">Código Estandar </th>
+            <th class="color center ">Envase/Estandar </th>
+            <th class="color center ">CSG Productor </th>
+            <th class="color center ">Nombre Productor </th>
             <th class="color center ">Variedad </th>
-            <th class="color center">Embolsado</th>
-            <th class="color center">Calibre</th>
-            <th class="color center">Cant. Envase</th>
-            <th class="color center">Kilos Neto</th>
-            <th class="color center">Kilos Con Deshi.</th>
+            <th class="color center ">Cantidad Envase</th>
+            <th class="color center ">Kilos Neto</th>
           </tr>
         </thead>
          <tbody>
@@ -194,46 +192,46 @@ $html='
         
         foreach ($ARRAYCARGAREAL as $r) : 
             
-            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-            $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);   
-            $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-            if($r['EMBOLSADO']=="1"){
-              $EMBOLSADO="SI";
+          $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+          if ($ARRAYPRODUCTOR) {
+              $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+              $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+          } else {
+              $CSGPRODUCTOR = "Sin Datos";
+              $NOMBREPRODUCTOR = "Sin Datos";
           }
-          if($r['EMBOLSADO']=="0"){
-              $EMBOLSADO="NO";
+          $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+          if ($ARRAYEEXPORTACION) {
+              $CODIGOSTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
+              $NOMBRESTANDAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+          } else {
+              $CODIGOSTANDAR = "Sin Datos";
+              $NOMBRESTANDAR = "Sin Datos";
           }
-
-          
-    $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_CALIBRE']);
-    if ($ARRAYCALIBRE) {
-      $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_CALIBRE'];
-    } else {
-      $CALIBRE  = "Sin Calibre";
-    }
+          $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+          if ($ARRAYVERVESPECIESID) {
+              $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+          } else {
+              $NOMBREVARIEDAD = "Sin Datos";
+          }
+      
 
         $html=$html.'    
             <tr class="center">      
-                <td>'. $r['FOLIO_AUXILIAR_EXIEXPORTACION'].'</td>
-                <td>'. $r['FECHA_EMBALADO_EXIEXPORTACION'].'</td>              
-                <td> '. $ARRAYVERPRODUCTOR[0]['CSG_PRODUCTOR'].' </td>
-                <td>  '. $ARRAYVERPRODUCTOR[0]['NOMBRE_PRODUCTOR'].'</td>
-                <td> '.$ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'].'</td>
-                <td> '.$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'].' </td>
-                <td>'. $EMBOLSADO.'</td>
-                <td>'. $CALIBRE.'</td>
-                <td>'. $r['CANTIDAD_ENVASE_EXIEXPORTACION'].'</td>
-                <td>'. $r['KILOS_NETO_EXIEXPORTACION'].'</td>
-                <td>'. $r['KILOS_DESHIRATACION_EXIEXPORTACION'].'</td>
+              <td class="center">' . $r['EMBALADO'] . '</td>
+              <td class="center">' . $CODIGOSTANDAR . '</td>
+              <td class="center">' . $NOMBRESTANDAR . '</td>
+              <td class="center">' . $CSGPRODUCTOR . ' </td>
+              <td class="center">' . $NOMBREPRODUCTOR . '</td>
+              <td class="center">' . $NOMBREVARIEDAD . '</td>
+              <td class="center">' . $r['ENVASE'] . '</td>
+              <td class="center">' . $r['NETO'] . '</td> 
             </tr>
             ';
         endforeach; 
         $html=$html.'    
         <tr>
-            <th class="color left"> </th>
             <th class="color center"> </th>
-            <th class="color center ">  </th>
             <th class="color center ">  </th>
             <th class="color center ">  </th>
             <th class="color center ">  </th>
@@ -241,7 +239,6 @@ $html='
             <th class="color right">Sub Total </th>
             <th class="color right"> '.$TOTALENVASE.'</th>
             <th class="color right">'.$TOTALNETO.' </th>
-            <th class="color right "> '.$TOTALDESHIDRATACION.' </th>
         </tr>
         ';
         

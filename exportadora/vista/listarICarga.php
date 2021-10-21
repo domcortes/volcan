@@ -157,7 +157,7 @@ include_once "../config/datosUrLP.php";
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Logistica</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="listarICarga.php">Agrupado Instructivo Carga </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Instructivo Carga </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -194,7 +194,7 @@ include_once "../config/datosUrLP.php";
                                         <div class="table-responsive">
                                             <table id="modulo" class="table table-hover " style="width: 100%;">
                                                 <thead>
-                                                    <tr>
+                                                    <tr class="text-left">
                                                         <th>Número </th>
                                                         <th>Estado</th>
                                                         <th>Fecha Instructivo</th>
@@ -242,7 +242,6 @@ include_once "../config/datosUrLP.php";
                                                         if ($r['TEMBARQUE_ICARGA'] == "3") {
                                                             $TEMBARQUE = "Maritimo";
                                                         }
-
                                                         $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
                                                         if ($ARRAYTCONTENEDOR) {
                                                             $NOMBRETCONTENEDOR = $ARRAYTCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
@@ -257,12 +256,8 @@ include_once "../config/datosUrLP.php";
                                                         }
 
                                                         ?>
-                                                        <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['NUMERO_ICARGA']; ?>
-                                                                </a>
-                                                            </td>
+                                                        <tr class="text-left">
+                                                            <td> <?php echo $r['NUMERO_ICARGA']; ?>  </td>
                                                             <td>
                                                                 <?php if ($r['ESTADO'] == "0") { ?>
                                                                     <button type="button" class="btn btn-block btn-danger">Cerrado</button>
@@ -285,29 +280,34 @@ include_once "../config/datosUrLP.php";
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroICarga" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarICarga" />
                                                                                 <?php if ($r['ESTADO'] == "0") { ?>
-
                                                                                     <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                         <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                            <i class="ti-eye"></i>
+                                                                                            <i class="ti-eye"></i> Ver
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO'] == "1") { ?>
                                                                                     <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                         <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                            <i class="ti-pencil-alt"></i>
+                                                                                            <i class="ti-pencil-alt"></i> Informe
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
-                                                                                    <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                    <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Carga Real
+                                                                                    </button>
+                                                                                </span>
+                                                                                <hr>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Reporte Carga Real">
+                                                                                    <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                      <i class="fa fa-file-excel-o"></i> Carga Real
                                                                                     </button>
                                                                                 </span>
                                                                             </div>
@@ -330,7 +330,6 @@ include_once "../config/datosUrLP.php";
                                                             <td> <?php echo $r['US'];  ?> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -362,7 +361,6 @@ include_once "../config/datosUrLP.php";
                                             <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
                                         </div>
                                     </div>
-
                                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <label>Total US </label>
@@ -371,7 +369,6 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- /.box -->
 
