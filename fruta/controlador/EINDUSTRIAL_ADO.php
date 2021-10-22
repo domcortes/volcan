@@ -146,6 +146,9 @@ class EINDUSTRIAL_ADO
     {
         try {
 
+            if ($EINDUSTRIAL->__GET('ID_PRODUCTO') == NULL) {
+                $EINDUSTRIAL->__SET('ID_PRODUCTO', NULL);
+            }
 
             $query =
                 "INSERT INTO estandar_eindustrial (
@@ -154,6 +157,7 @@ class EINDUSTRIAL_ADO
                                                     PESO_NETO_ESTANDAR,
                                                     ID_ESPECIES,
                                                     ID_EMPRESA,
+                                                    ID_PRODUCTO,  
                                                     ID_USUARIOI,
                                                     ID_USUARIOM,
                                                     INGRESO ,
@@ -161,7 +165,7 @@ class EINDUSTRIAL_ADO
                                                     TFRUTA_ESTANDAR, 
                                                     ESTADO_REGISTRO 
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  3, 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  3, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -170,6 +174,7 @@ class EINDUSTRIAL_ADO
                         $EINDUSTRIAL->__GET('PESO_NETO_ESTANDAR'),
                         $EINDUSTRIAL->__GET('ID_ESPECIES'),
                         $EINDUSTRIAL->__GET('ID_EMPRESA'),
+                        $EINDUSTRIAL->__GET('ID_PRODUCTO'),
                         $EINDUSTRIAL->__GET('ID_USUARIOI'),
                         $EINDUSTRIAL->__GET('ID_USUARIOM')
                     )
@@ -195,6 +200,11 @@ class EINDUSTRIAL_ADO
     //ACTUALIZAR INFORMACION DE LA FILA
     public function actualizarEstandar(EINDUSTRIAL $EINDUSTRIAL)
     {
+        
+        if ($EINDUSTRIAL->__GET('ID_PRODUCTO') == NULL) {
+            $EINDUSTRIAL->__SET('ID_PRODUCTO', NULL);
+        }
+
         try {
             $query = "
 		UPDATE estandar_eindustrial SET
@@ -203,6 +213,7 @@ class EINDUSTRIAL_ADO
             PESO_NETO_ESTANDAR= ?,   
             ID_ESPECIES= ?  ,   
             ID_EMPRESA= ?  ,   
+            ID_PRODUCTO= ?  ,  
             ID_USUARIOM= ?     
 		WHERE ID_ESTANDAR= ?;";
             $this->conexion->prepare($query)
@@ -213,6 +224,7 @@ class EINDUSTRIAL_ADO
                         $EINDUSTRIAL->__GET('PESO_NETO_ESTANDAR'),
                         $EINDUSTRIAL->__GET('ID_ESPECIES'),
                         $EINDUSTRIAL->__GET('ID_EMPRESA'),
+                        $EINDUSTRIAL->__GET('ID_PRODUCTO'),
                         $EINDUSTRIAL->__GET('ID_USUARIOM'),
                         $EINDUSTRIAL->__GET('ID_ESTANDAR')
                     )
