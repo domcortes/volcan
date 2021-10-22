@@ -256,6 +256,7 @@ if (isset($_REQUEST['CREAR'])) {
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
     
+    $ARRAYDRECEPCIONSIDOCOMPRA = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcionSiDocompra2CBX($_REQUEST['IDP']);    
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
     $RECEPCIONM->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
@@ -266,13 +267,24 @@ if (isset($_REQUEST['EDITAR'])) {
     $RECEPCIONM->__SET('TOTAL_CANTIDAD_RECEPCION', $_REQUEST['TOTALCANTIDAD']);
     $RECEPCIONM->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
     if ($_REQUEST['TRECEPCIONE'] == "1") {
-        if (isset($_REQUEST['SNOCOMPRA']) == "on") {
-            $SNOCOMPRAR = "1";          
-            $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRA']);
-            $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
-        } else {
-            $SNOCOMPRAR = "0";
-            $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
+        if(empty($ARRAYDRECEPCIONSIDOCOMPRA)){
+            if (isset($_REQUEST['SNOCOMPRA']) == "on") {
+                $SNOCOMPRAR = "1";          
+                $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRA']);
+                $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+            } else {
+                $SNOCOMPRAR = "0";            
+                $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
+            }
+        }else{
+            if (isset($_REQUEST['SNOCOMPRAE']) == "on") {
+                $SNOCOMPRAR = "1";          
+                $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRAE']);
+                $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+            } else {
+                $SNOCOMPRAR = "0";            
+                $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
+            }
         }
         $RECEPCIONM->__SET('SNOCOMPRA', $SNOCOMPRAR);
     }
@@ -311,6 +323,8 @@ if (isset($_REQUEST['CERRAR'])) {
     }
 
     if ($SINO == "0") {
+        
+        $ARRAYDRECEPCIONSIDOCOMPRA = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcionSiDocompra2CBX($_REQUEST['IDP']);
         $RECEPCIONM->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
         $RECEPCIONM->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMERODOCUMENTOE']);
         $RECEPCIONM->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
@@ -319,21 +333,26 @@ if (isset($_REQUEST['CERRAR'])) {
         $RECEPCIONM->__SET('TOTAL_CANTIDAD_RECEPCION', $_REQUEST['TOTALCANTIDAD']);
         $RECEPCIONM->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
         if ($_REQUEST['TRECEPCIONE'] == "1") {
-            if (isset($_REQUEST['SNOCOMPRA']) == "on") {
-                $SNOCOMPRAR = "1";
-                $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRA']);
-                $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
-            } else {
-                $SNOCOMPRAR = "0";
-                $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
+            if(empty($ARRAYDRECEPCIONSIDOCOMPRA)){
+                if (isset($_REQUEST['SNOCOMPRA']) == "on") {
+                    $SNOCOMPRAR = "1";          
+                    $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRA']);
+                    $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+                } else {
+                    $SNOCOMPRAR = "0";            
+                    $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
+                }
+            }else{
+                if (isset($_REQUEST['SNOCOMPRAE']) == "on") {
+                    $SNOCOMPRAR = "1";          
+                    $RECEPCIONM->__SET('ID_OCOMPRA', $_REQUEST['OCOMPRAE']);
+                    $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+                } else {
+                    $SNOCOMPRAR = "0";            
+                    $RECEPCIONM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
+                }
             }
             $RECEPCIONM->__SET('SNOCOMPRA', $SNOCOMPRAR);
-        }
-        if ($_REQUEST['TRECEPCIONE'] == "2") {
-            $RECEPCIONM->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-        }
-        if ($_REQUEST['TRECEPCIONE'] == "3") {
-            $RECEPCIONM->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
         }
         $RECEPCIONM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
         $RECEPCIONM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
@@ -598,7 +617,6 @@ if (isset($_POST)) {
             if (isset($_REQUEST['PROVEEDOR'])) {
                 $PROVEEDOR = "" . $_REQUEST['PROVEEDOR'];
             }
-
             if (isset($_REQUEST['OCOMPRA'])) {
                 $OCOMPRA = "" . $_REQUEST['OCOMPRA'];
                 $ARRAYVEROCOMPRA = $OCOMPRA_ADO->verOcompra($OCOMPRA);
@@ -933,7 +951,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php //include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
