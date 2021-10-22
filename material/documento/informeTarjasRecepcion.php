@@ -472,12 +472,10 @@ foreach ($ARRAYTARJAM as $s) :
         <div class="' . $TAMAÑOPRODUCTO . ' center">
             <b> ' . $NOMBREPRODUCTO . ' </b> 
         </div>
-        <br>
 		<div class="subtitulo2"></div>      
         <div class=" ' . $TAMAÑO . ' center">
            <b > ' . $EMPRESA . '  </b>
-        </div>        
-        <br>
+        </div>  
       </div>  
 	  <div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
     ';
