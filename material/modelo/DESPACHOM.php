@@ -28,7 +28,6 @@ class DESPACHOM {
     private   $ID_TDOCUMENTO;
     private   $ID_TRANSPORTE;
     private   $ID_CONDUCTOR;
-    private   $ID_RESPONSABLE;
     private   $ID_BODEGA;
     private   $ID_PLANTA2;
     private   $ID_BODEGA2;

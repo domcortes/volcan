@@ -1095,7 +1095,7 @@ class INVENTARIOM_ADO {
                                             FROM material_inventariom
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DESPACHO = '".$IDDESPACHO."' 
-                                                AND ESTADO BETWEEN 3 AND 5 ;	");
+                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -1118,7 +1118,7 @@ class INVENTARIOM_ADO {
                                              FROM material_inventariom
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_DESPACHO = '".$IDDESPACHO."'  
-                                                AND ESTADO BETWEEN 3 AND 5;	");
+                                                ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -1323,7 +1323,6 @@ class INVENTARIOM_ADO {
                                                 FROM material_inventariom 
                                                     WHERE ID_DESPACHO= '" . $IDDESPACHO . "' 
                                                     AND ESTADO_REGISTRO = 1
-                                                    AND ESTADO BETWEEN 3 AND 5
                                                     ;");
             $datos->execute();
             $resultado = $datos->fetchAll();

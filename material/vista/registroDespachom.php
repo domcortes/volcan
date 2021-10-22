@@ -121,17 +121,11 @@ $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYPROVEEDOR = $PROVEEDOR_ADO->listarProveedorPorEmpresaCBX($EMPRESAS);
 $ARRAYPLANTAEXTERNA = $PLANTA_ADO->listarPlantaExternaCBX();
 $ARRAYCLIENTE = $CLIENTE_ADO->listarClientePorEmpresaCBX($EMPRESAS);
-$ARRAYRESPONSABLE = $RESPONSABLE_ADO->listarResponsablePorEmpresaCBX($EMPRESAS);
 $ARRAYFECHAACTUAL = $DESPACHOM_ADO->obtenerFecha();
 $FECHADESPACHO = $ARRAYFECHAACTUAL[0]['FECHA'];
 
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrlD.php";
-
-$ARRAYRESPONSABLEUSUARIO = $RESPONSABLE_ADO->listarResponsablePorEmpresaUsuarioCBX($EMPRESAS, $IDUSUARIOS);
-if ($ARRAYRESPONSABLEUSUARIO) {
-    $RESPONSABLE = $ARRAYRESPONSABLEUSUARIO[0]["ID_RESPONSABLE"];
-}
 
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
@@ -151,7 +145,6 @@ if (isset($_REQUEST['CREAR'])) {
     $DESPACHOM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
     $DESPACHOM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
     $DESPACHOM->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-    $DESPACHOM->__SET('ID_RESPONSABLE', $_REQUEST['RESPONSABLE']);
     if ($_REQUEST['TDESPACHO'] == "1") {
         $DESPACHOM->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
     }
@@ -208,7 +201,6 @@ if (isset($_REQUEST['EDITAR'])) {
     $DESPACHOM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
     $DESPACHOM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
     $DESPACHOM->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-    $DESPACHOM->__SET('ID_RESPONSABLE', $_REQUEST['RESPONSABLEE']);
     if ($_REQUEST['TDESPACHOE'] == "1") {
         $DESPACHOM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
     }
@@ -263,7 +255,6 @@ if (isset($_REQUEST['CERRAR'])) {
         $DESPACHOM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
         $DESPACHOM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
         $DESPACHOM->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $DESPACHOM->__SET('ID_RESPONSABLE', $_REQUEST['RESPONSABLEE']);
         if ($_REQUEST['TDESPACHOE'] == "1") {
             $DESPACHOM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
         }
@@ -425,7 +416,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
-            $RESPONSABLE = "" . $r['ID_RESPONSABLE'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
 
@@ -486,7 +476,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
-            $RESPONSABLE = "" . $r['ID_RESPONSABLE'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
 
@@ -548,7 +537,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
-            $RESPONSABLE = "" . $r['ID_RESPONSABLE'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
 
@@ -664,9 +652,6 @@ if (isset($_POST)) {
     }
     if (isset($_REQUEST['CONDUCTOR'])) {
         $CONDUCTOR = "" . $_REQUEST['CONDUCTOR'];
-    }
-    if (isset($_REQUEST['RESPONSABLE'])) {
-        $RESPONSABLE = "" . $_REQUEST['RESPONSABLE'];
     }
 }
 ?>
@@ -1326,25 +1311,6 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         <?php } ?>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Responsable</label>
-                                                <input type="hidden" class="form-control" placeholder="RESPONSABLEE" id="RESPONSABLEE" name="RESPONSABLEE" value="<?php echo $RESPONSABLE; ?>" />
-                                                <select class="form-control select2" id="RESPONSABLE" name="RESPONSABLE" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYRESPONSABLE as $r) : ?>
-                                                        <?php if ($ARRAYRESPONSABLE) {    ?>
-                                                            <option value="<?php echo $r['ID_RESPONSABLE']; ?>" <?php if ($RESPONSABLE == $r['ID_RESPONSABLE']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_RESPONSABLE'] ?> </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                                <label id="val_cliente" class="validacion"> </label>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">

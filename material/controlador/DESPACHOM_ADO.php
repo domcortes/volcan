@@ -190,7 +190,6 @@ class DESPACHOM_ADO
                                                 ID_TRANSPORTE, 
                                                 ID_CONDUCTOR, 
 
-                                                ID_RESPONSABLE, 
                                                 ID_BODEGA, 
                                                 ID_PLANTA2, 
                                                 ID_BODEGA2, 
@@ -214,7 +213,7 @@ class DESPACHOM_ADO
                                                 ESTADO_REGISTRO
                                             )
              VALUES
-               (  ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?,   ?, ?, ?, ?, ?,   0,  SYSDATE(),  SYSDATE(), 1, 1, 1);";
+               (  ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?,  ?, ?, ?,   ?, ?, ?, ?, ?,   0,  SYSDATE(),  SYSDATE(), 1, 1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
@@ -232,7 +231,6 @@ class DESPACHOM_ADO
                         $DESPACHOM->__GET('ID_TRANSPORTE'),
                         $DESPACHOM->__GET('ID_CONDUCTOR'),
 
-                        $DESPACHOM->__GET('ID_RESPONSABLE'),
                         $DESPACHOM->__GET('ID_BODEGA'),
                         $DESPACHOM->__GET('ID_PLANTA2'),
                         $DESPACHOM->__GET('ID_BODEGA2'),
@@ -311,7 +309,6 @@ class DESPACHOM_ADO
                         ID_TRANSPORTE = ?,
                         ID_CONDUCTOR = ?,
 
-                        ID_RESPONSABLE = ?,
                         ID_BODEGA = ?,
                         ID_PLANTA2 = ?,
                         ID_BODEGA2 = ?,
@@ -342,7 +339,6 @@ class DESPACHOM_ADO
                         $DESPACHOM->__GET('ID_TRANSPORTE'),
                         $DESPACHOM->__GET('ID_CONDUCTOR'),
 
-                        $DESPACHOM->__GET('ID_RESPONSABLE'),
                         $DESPACHOM->__GET('ID_BODEGA'),
                         $DESPACHOM->__GET('ID_PLANTA2'),
                         $DESPACHOM->__GET('ID_BODEGA2'),

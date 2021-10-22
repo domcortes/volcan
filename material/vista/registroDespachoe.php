@@ -6,7 +6,6 @@ include_once "../config/validarUsuario.php";
 include_once '../controlador/TDOCUMENTO_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/RESPONSABLE_ADO.php';
 include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/PROVEEDOR_ADO.php';
@@ -27,7 +26,6 @@ include_once "../modelo/DESPACHOE.php";
 $TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
 $TRANSPORTE_ADO = new TRANSPORTE_ADO();
 $CONDUCTOR_ADO = new CONDUCTOR_ADO();
-$RESPONSABLE_ADO = new RESPONSABLE_ADO();
 $BODEGA_ADO = new BODEGA_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $PROVEEDOR_ADO = new PROVEEDOR_ADO();
@@ -119,17 +117,12 @@ $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYPROVEEDOR = $PROVEEDOR_ADO->listarProveedorPorEmpresaCBX($EMPRESAS);
 $ARRAYPLANTAEXTERNA = $PLANTA_ADO->listarPlantaExternaCBX();
 $ARRAYCLIENTE = $CLIENTE_ADO->listarClientePorEmpresaCBX($EMPRESAS);
-$ARRAYRESPONSABLE = $RESPONSABLE_ADO->listarResponsablePorEmpresaCBX($EMPRESAS);
 $ARRAYFECHAACTUAL = $DESPACHOE_ADO->obtenerFecha();
 $FECHADESPACHO = $ARRAYFECHAACTUAL[0]['FECHA'];
 
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrlD.php";
 
-$ARRAYRESPONSABLEUSUARIO = $RESPONSABLE_ADO->listarResponsablePorEmpresaUsuarioCBX($EMPRESAS, $IDUSUARIOS);
-if ($ARRAYRESPONSABLEUSUARIO) {
-    $RESPONSABLE = $ARRAYRESPONSABLEUSUARIO[0]["ID_RESPONSABLE"];
-}
 
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
@@ -149,7 +142,6 @@ if (isset($_REQUEST['CREAR'])) {
     $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
     $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
     $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-    $DESPACHOE->__SET('ID_RESPONSABLE', $_REQUEST['RESPONSABLE']);
     if ($_REQUEST['TDESPACHO'] == "1") {
         $DESPACHOE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
     }
@@ -206,7 +198,6 @@ if (isset($_REQUEST['EDITAR'])) {
     $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
     $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
     $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-    $DESPACHOE->__SET('ID_RESPONSABLE', $_REQUEST['RESPONSABLEE']);
     if ($_REQUEST['TDESPACHOE'] == "1") {
         $DESPACHOE->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
     }
@@ -261,7 +252,6 @@ if (isset($_REQUEST['CERRAR'])) {
         $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
         $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
         $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $DESPACHOE->__SET('ID_RESPONSABLE', $_REQUEST['RESPONSABLEE']);
         if ($_REQUEST['TDESPACHOE'] == "1") {
             $DESPACHOE->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
         }
@@ -398,7 +388,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
-            $RESPONSABLE = "" . $r['ID_RESPONSABLE'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
 
@@ -459,7 +448,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
-            $RESPONSABLE = "" . $r['ID_RESPONSABLE'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
 
@@ -521,7 +509,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
-            $RESPONSABLE = "" . $r['ID_RESPONSABLE'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
 
@@ -637,9 +624,6 @@ if (isset($_POST)) {
     }
     if (isset($_REQUEST['CONDUCTOR'])) {
         $CONDUCTOR = "" . $_REQUEST['CONDUCTOR'];
-    }
-    if (isset($_REQUEST['RESPONSABLE'])) {
-        $RESPONSABLE = "" . $_REQUEST['RESPONSABLE'];
     }
 }
 ?>
@@ -1299,25 +1283,6 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         <?php } ?>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Responsable</label>
-                                                <input type="hidden" class="form-control" placeholder="RESPONSABLEE" id="RESPONSABLEE" name="RESPONSABLEE" value="<?php echo $RESPONSABLE; ?>" />
-                                                <select class="form-control select2" id="RESPONSABLE" name="RESPONSABLE" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYRESPONSABLE as $r) : ?>
-                                                        <?php if ($ARRAYRESPONSABLE) {    ?>
-                                                            <option value="<?php echo $r['ID_RESPONSABLE']; ?>" <?php if ($RESPONSABLE == $r['ID_RESPONSABLE']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_RESPONSABLE'] ?> </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                                <label id="val_cliente" class="validacion"> </label>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">

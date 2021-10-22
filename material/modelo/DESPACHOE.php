@@ -28,7 +28,6 @@ class DESPACHOE {
     private   $ID_TDOCUMENTO;
     private   $ID_TRANSPORTE;
     private   $ID_CONDUCTOR;
-    private   $ID_RESPONSABLE;
     private   $ID_BODEGA;
     private   $ID_PLANTA2;
     private   $ID_BODEGA2;
@@ -36,6 +35,7 @@ class DESPACHOE {
     private   $ID_PROVEEDOR;
     private   $ID_PLANTA3;
     private   $ID_CLIENTE;
+    private   $ID_DESPACHOMP;
     private   $ID_USUARIOI;
     private   $ID_USUARIOM;
     
