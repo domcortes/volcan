@@ -562,10 +562,7 @@ if (isset($_POST)) {
                     win.focus();
                 }
 
-                function abrirPestana(url) {
-                    var win = window.open(url, '_blank');
-                    win.focus();
-                }
+                
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
                     location.href = "" + url;

@@ -320,8 +320,8 @@ foreach ($ARRAYDOCOMPRA as $d) :
                           <th class="left">' . $NOMBREPRODUCTO . '</th>
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>
-                          <td class="left">$ ' . $d['VALOR_UNITARIO'] . '</td>
-                          <td class="left">$ ' . $d['VALOR_TOTAL'] . '</td>
+                          <td class="left">$ ' . $d['VALOR'] . '</td>
+                          <td class="left">$ ' . $d['TOTAL'] . '</td>
                       </tr>
               ';
 
