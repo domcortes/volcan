@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2021 a las 21:46:38
+-- Tiempo de generación: 22-10-2021 a las 16:57:26
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -88,7 +88,7 @@ CREATE TABLE `estandar_ecomercial` (
 --
 
 INSERT INTO `estandar_ecomercial` (`ID_ECOMERCIAL`, `CODIGO_ECOMERCIAL`, `NOMBRE_ECOMERCIAL`, `DESCRIPCION_ECOMERCIAL`, `PESO_NETO_ECOMERCIAL`, `PESO_BRUTO_ECOMERCIAL`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '1', 'Prueba', '', '1.02', '1.02', 1, NULL, NULL, 1, 1, 1);
+(1, '1', 'prueba Estandar Comercial', '', '1.02', '1.02', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,7 @@ CREATE TABLE `estandar_eindustrial` (
 --
 
 INSERT INTO `estandar_eindustrial` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `PESO_NETO_ESTANDAR`, `TFRUTA_ESTANDAR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_ESPECIES`, `ID_PRODUCTO`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '11', 'Prueba', '1.00', 3, 1, '2021-09-14', '2021-09-14', 1, 25, NULL, 1, 1);
+(1, '11', 'prueba estandar industrial', '1.00', 3, 1, '2021-09-14', '2021-09-14', 1, 25, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -228,7 +228,7 @@ CREATE TABLE `fruta_aaduana` (
 --
 
 INSERT INTO `fruta_aaduana` (`ID_AADUANA`, `RUT_AADUANA`, `DV_AADUANA`, `NUMERO_AADUANA`, `NOMBRE_AADUANA`, `RAZON_SOCIAL_AADUANA`, `GIRO_AADUANA`, `DIRECCION_AADUANA`, `CONTACTO_AADUANA`, `EMAIL_AADUANA`, `TELEFONO_AADUANA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(2, '1', '1', '1', 'Prueba', 'pp', 'pp', 'pp', '', '', 0, 1, NULL, NULL, 1, NULL, 1, 1);
+(2, '1', '1', '1', 'Agente aduana 1', 'pp', 'pp', 'pp', '', '', 0, 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +253,7 @@ CREATE TABLE `fruta_acarga` (
 --
 
 INSERT INTO `fruta_acarga` (`ID_ACARGA`, `NUMERO_ACARGA`, `NOMBRE_ACARGA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(2, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(2, 1, 'Aeropuerto carga', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -278,7 +278,7 @@ CREATE TABLE `fruta_adestino` (
 --
 
 INSERT INTO `fruta_adestino` (`ID_ADESTINO`, `NUMERO_ADESTINO`, `NOMBRE_ADESTINO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, '2021-09-06', '2021-09-06', 1, 1, 1);
+(1, 1, 'Aeropuerto destino', 1, '2021-09-06', '2021-09-06', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -313,7 +313,7 @@ CREATE TABLE `fruta_agcarga` (
 --
 
 INSERT INTO `fruta_agcarga` (`ID_AGCARGA`, `NUMERO_AGCARGA`, `RUT_AGCARGA`, `DV_AGCARGA`, `NOMBRE_AGCARGA`, `RAZON_SOCIAL_AGCARGA`, `GIRO_AGCARGA`, `CODIGO_SAG_AGCARGA`, `DIRECCION_AGCARGA`, `CONTACTO_AGCARGA`, `EMAIL_AGCARGA`, `TELEFONO_AGCARGA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '1', NULL, 'Prueba', 'Prueba', 'Prueba', 1, '1', '', '', 0, 1, NULL, NULL, 1, NULL, 1, 1);
+(1, 1, '1', '1', 'agente carga 1', 'Prueba', 'Prueba', 1, '1', '', '', 0, 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -338,7 +338,7 @@ CREATE TABLE `fruta_atmosfera` (
 --
 
 INSERT INTO `fruta_atmosfera` (`ID_ATMOSFERA`, `NUMERO_ATMOSFERA`, `NOMBRE_ATMOSFERA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'Prueba atmosfera', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -375,7 +375,7 @@ CREATE TABLE `fruta_broker` (
 --
 
 INSERT INTO `fruta_broker` (`ID_BROKER`, `NUMERO_BROKER`, `NOMBRE_BROKER`, `EORI_BROKER`, `DIRECCION_BROKER`, `CONTACTO1_BROKER`, `CARGO1_BROKER`, `EMAIL1_BROKER`, `CONTACTO2_BROKER`, `CARGO2_BROKER`, `EMAIL2_BROKER`, `CONTACTO3_BROKER`, `CARGO3_BROKER`, `EMAIL3_BROKER`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(2, 1, 'Prueba', '1', 'Pp', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1);
+(2, 1, 'Prueba broker 1', '1', 'Pp', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -433,8 +433,8 @@ CREATE TABLE `fruta_comprador` (
 --
 
 INSERT INTO `fruta_comprador` (`ID_COMPRADOR`, `NUMERO_COMPRADOR`, `RUT_COMPRADOR`, `DV_COMPRADOR`, `NOMBRE_COMPRADOR`, `DIRECCION_COMPRADOR`, `TELEFONO_COMPRADOR`, `EMAIL_COMPRADOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(2, 1, '1', '1', 'Prueba', '', 0, '', 1, NULL, NULL, 1, NULL, 1, 1),
-(3, 2, '1', '1', '1', '', 0, '', 1, NULL, NULL, 1, NULL, 1, 1);
+(2, 1, '1', '1', 'Prueba comprador', '', 0, '', 1, NULL, NULL, 1, NULL, 1, 1),
+(3, 2, '1', '1', 'comprador 2', '', 0, '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -470,8 +470,8 @@ CREATE TABLE `fruta_consignatario` (
 --
 
 INSERT INTO `fruta_consignatario` (`ID_CONSIGNATARIO`, `NUMERO_CONSIGNATARIO`, `NOMBRE_CONSIGNATARIO`, `DIRECCION_CONSIGNATARIO`, `CONTACTO1_CONSIGNATARIO`, `CARGO1_CONSIGNATARIO`, `EMAIL1_CONSIGNATARIO`, `CONTACTO2_CONSIGNATARIO`, `CARGO2_CONSIGNATARIO`, `EMAIL2_CONSIGNATARIO`, `CONTACTO3_CONSIGNATARIO`, `CARGO3_CONSIGNATARIO`, `EMAIL3_CONSIGNATARIO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(2, 1, 'Prueba', 'prueba', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1),
-(3, 2, '1', '1', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1);
+(2, 1, 'Prueba', 'consignarario 1', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1),
+(3, 2, '1', 'consignarario 1', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -500,9 +500,9 @@ CREATE TABLE `fruta_contraparte` (
 --
 
 INSERT INTO `fruta_contraparte` (`ID_CONTRAPARTE`, `NUMERO_CONTRAPARTE`, `NOMBRE_CONTRAPARTE`, `DIRECCION_CONTRAPARTE`, `TELEFONO_CONTRAPARTE`, `EMAIL_CONTRAPARTE`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 'pp', 0, '', 0, NULL, NULL, 1, NULL, 1, 1),
-(2, 2, 'Prueba', 'pp', 0, '', 1, NULL, NULL, 1, NULL, 1, 1),
-(3, 3, '1', '1', 0, '', 1, NULL, NULL, 1, NULL, 1, 1);
+(1, 1, 'contraparte 1', 'pp', 0, '', 0, NULL, NULL, 1, NULL, 1, 1),
+(2, 2, 'contraparte 2', 'pp', 0, '', 1, NULL, NULL, 1, NULL, 1, 1),
+(3, 3, 'contraparte 3', '1', 0, '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -533,7 +533,7 @@ CREATE TABLE `fruta_cuartel` (
 --
 
 INSERT INTO `fruta_cuartel` (`ID_CUARTEL`, `NUMERO_CUARTEL`, `NOMBRE_CUARTEL`, `TIEMPO_PRODUCCION_ANO_CUARTEL`, `ANO_PLANTACION_CUARTEL`, `HECTAREAS_CUARTEL`, `PLANTAS_EN_HECTAREAS`, `DISTANCIA_PLANTA_CUARTEL`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_VESPECIES`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 2010, 2010, 100, 100, '10', 1, NULL, NULL, 1, 1, 1, 1);
+(1, 1, 'Prueba cuartel', 2010, 2010, 100, 100, '10', 1, NULL, NULL, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -559,7 +559,7 @@ CREATE TABLE `fruta_cventa` (
 --
 
 INSERT INTO `fruta_cventa` (`ID_CVENTA`, `NUMERO_CVENTA`, `NOMBRE_CVENTA`, `NOTA_CVENTA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', '', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'c venta prueba 1', '', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -790,7 +790,7 @@ CREATE TABLE `fruta_dfinal` (
 --
 
 INSERT INTO `fruta_dfinal` (`ID_DFINAL`, `NUMERO_DFINAL`, `NOMBRE_DFINAL`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'destino final 1', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1063,7 +1063,8 @@ INSERT INTO `fruta_drecepcionpt` (`ID_DRECEPCION`, `FOLIO_DRECEPCION`, `FOLIO_MA
 (11, 11220013, 0, '2021-10-06', 390, 0, 390, 600, '585.00', '1023.25', '5.00', '614.25', NULL, 0, 0, '0', '0.00', 0, '', 1, 1, '2021-10-06 22:58:26', '2021-10-06 22:58:26', 2, 1, 1, 1, 7, 1, 1, 1),
 (12, 11220014, 0, '2021-10-06', 390, 0, 390, 600, '585.00', '1023.25', '5.00', '614.25', NULL, 0, 0, '0', '0.00', 0, '', 1, 1, '2021-10-06 22:58:30', '2021-10-06 22:58:30', 2, 1, 1, 1, 7, 1, 1, 1),
 (13, 11220015, 0, '2021-10-06', 390, 0, 390, 600, '585.00', '1023.25', '5.00', '614.25', NULL, 0, 0, '0', '0.00', 0, '', 1, 1, '2021-10-06 22:58:34', '2021-10-06 22:58:34', 2, 1, 1, 1, 7, 1, 1, 1),
-(14, 11220019, 0, '2021-10-21', 240, 0, 240, 0, '360.00', '637.00', '5.00', '378.00', NULL, 0, 0, '0', '0.00', 0, '', 1, 1, '2021-10-21 11:09:06', '2021-10-21 11:12:02', 3, 1, 1, 1, 7, 1, 1, 1);
+(14, 11220019, 0, '2021-10-21', 240, 0, 240, 0, '360.00', '637.00', '5.00', '378.00', NULL, 0, 0, '0', '0.00', 0, '', 1, 0, '2021-10-21 11:09:06', '2021-10-22 10:52:49', 3, 1, 1, 1, 7, 1, 1, 1),
+(15, 11220025, 0, '2021-10-22', 240, 0, 240, 3600, '360.00', '637.00', '5.00', '378.00', NULL, 0, 0, '0', '0.00', 0, '', 1, 1, '2021-10-22 10:53:46', '2021-10-22 10:53:46', 3, 1, 1, 1, 7, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1599,7 +1600,8 @@ INSERT INTO `fruta_exiexportacion` (`ID_EXIEXPORTACION`, `FOLIO_EXIEXPORTACION`,
 (44, 11220022, 11220022, 0, '2021-10-20', 6, '9.00', '5.00', '9.45', '34.45', NULL, 'EMPRESA:1_PLANTA:1_TEMPORADA:2_TIPO_FOLIO:PRODUCTO TERMINADO_PROCESO:3_FOLIO:11220022', '11220022', NULL, 0, NULL, NULL, NULL, NULL, 0, NULL, '2021-10-13', NULL, '2021-10-18', NULL, NULL, 0, 0, '2021-10-20 13:46:59', '2021-10-20 15:42:49', 1, 1, 1, 7, 1, 1, 1, 1, 1, 2, NULL, 3, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (45, 11220023, 11220023, 0, '2021-10-20', 240, '360.00', '5.00', '378.00', '637.00', NULL, 'EMPRESA:1_PLANTA:1_TEMPORADA:2_TIPO_FOLIO:PRODUCTO TERMINADO_PROCESO:3_FOLIO:11220023', '11220023', NULL, 0, NULL, NULL, NULL, NULL, 0, NULL, '2021-10-13', NULL, NULL, NULL, NULL, 2, 1, '2021-10-20 18:09:17', '2021-10-20 18:09:17', 1, 1, 1, 7, 1, 1, 1, 1, 1, 2, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (46, 11220024, 11220024, 0, '2021-10-20', 240, '360.00', '5.00', '378.00', '637.00', NULL, 'EMPRESA:1_PLANTA:1_TEMPORADA:2_TIPO_FOLIO:PRODUCTO TERMINADO_PROCESO:3_FOLIO:11220024', '11220024', NULL, 0, NULL, NULL, NULL, NULL, 0, NULL, '2021-10-13', NULL, NULL, NULL, NULL, 7, 1, '2021-10-20 18:10:31', '2021-10-21 14:49:40', 1, 1, 1, 7, 1, 1, 1, 1, 1, 2, NULL, 3, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL),
-(47, 11220019, 11220019, 0, '2021-10-21', 240, '360.00', '5.00', '378.00', '637.00', '', 'EMPRESA:1_PLANTA:1_TEMPORADA:2_TIPO_FOLIO:PRODUCTO TERMINADO_RECEPCION:3_FOLIO:11220019', '11220019', '0', 0, 0, 0, NULL, NULL, 0, '2021-10-21', NULL, NULL, NULL, NULL, NULL, 1, 1, '2021-10-21 11:09:06', '2021-10-21 11:12:02', 1, 1, 1, 7, 1, 1, 1, 1, 1, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(47, 11220019, 11220019, 0, '2021-10-21', 240, '360.00', '5.00', '378.00', '637.00', '', 'EMPRESA:1_PLANTA:1_TEMPORADA:2_TIPO_FOLIO:PRODUCTO TERMINADO_RECEPCION:3_FOLIO:11220019', '11220019', '0', 0, 0, 0, NULL, NULL, 0, '2021-10-21', NULL, NULL, NULL, NULL, NULL, 0, 0, '2021-10-21 11:09:06', '2021-10-22 10:52:49', 1, 1, 1, 7, 1, 1, 1, 1, 1, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 11220025, 11220025, 0, '2021-10-22', 240, '360.00', '5.00', '378.00', '637.00', '', 'EMPRESA:1_PLANTA:1_TEMPORADA:2_TIPO_FOLIO:PRODUCTO TERMINADO_RECEPCION:3_FOLIO:11220025', '11220025', '0', 0, 0, 0, NULL, NULL, 0, '2021-10-21', NULL, NULL, NULL, NULL, NULL, 1, 1, '2021-10-22 10:53:46', '2021-10-22 10:53:46', 1, 1, 1, 7, 1, 1, 1, 1, 1, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1854,7 +1856,7 @@ CREATE TABLE `fruta_fpago` (
 --
 
 INSERT INTO `fruta_fpago` (`ID_FPAGO`, `NUMERO_FPAGO`, `NOMBRE_FPAGO`, `FECHA_PAGO_FPAGO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', '2021-08-17', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'prueba formato pago', '2021-08-17', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1969,8 +1971,8 @@ CREATE TABLE `fruta_inpector` (
 --
 
 INSERT INTO `fruta_inpector` (`ID_INPECTOR`, `NUMERO_INPECTOR`, `NOMBRE_INPECTOR`, `DIRECCION_INPECTOR`, `TELEFONO_INPECTOR`, `EMAIL_INPECTOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(2, 1, 'Prueba', 'pp', 0, '', 1, NULL, NULL, 1, NULL, 1, 1),
-(3, 2, '1', '1', 0, '', 1, NULL, NULL, 1, NULL, 1, 1);
+(2, 1, 'prueba inspector 1', 'pp', 0, '', 1, NULL, NULL, 1, NULL, 1, 1),
+(3, 2, 'inspector 2', '1', 0, '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2037,7 +2039,7 @@ CREATE TABLE `fruta_lcarga` (
 --
 
 INSERT INTO `fruta_lcarga` (`ID_LCARGA`, `NUMERO_LCARGA`, `NOMBRE_LCARGA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'lugar carga 1', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2062,7 +2064,7 @@ CREATE TABLE `fruta_ldestino` (
 --
 
 INSERT INTO `fruta_ldestino` (`ID_LDESTINO`, `NUMERO_LDESTINO`, `NOMBRE_LDESTINO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'lugar destino 1', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2087,7 +2089,7 @@ CREATE TABLE `fruta_mercado` (
 --
 
 INSERT INTO `fruta_mercado` (`ID_MERCADO`, `NUMERO_MERCADO`, `NOMBRE_MERCADO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'mercado prueba', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2182,7 +2184,7 @@ CREATE TABLE `fruta_mventa` (
 --
 
 INSERT INTO `fruta_mventa` (`ID_MVENTA`, `NUMERO_MVENTA`, `NOMBRE_MVENTA`, `NOTA_MVENTA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', '', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'Prueba modalidad venta', '', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2219,8 +2221,8 @@ CREATE TABLE `fruta_notificador` (
 --
 
 INSERT INTO `fruta_notificador` (`ID_NOTIFICADOR`, `NUMERO_NOTIFICADOR`, `NOMBRE_NOTIFICADOR`, `EORI_NOTIFICADOR`, `DIRECCION_NOTIFICADOR`, `CONTACTO1_NOTIFICADOR`, `CARGO1_NOTIFICADOR`, `EMAIL1_NOTIFICADOR`, `CONTACTO2_NOTIFICADOR`, `CARGO2_NOTIFICADOR`, `EMAIL2_NOTIFICADOR`, `CONTACTO3_NOTIFICADOR`, `CARGO3_NOTIFICADOR`, `EMAIL3_NOTIFICADOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, NULL, 'Prueba', '1', 'Prueba', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, 1, NULL, 1, 1),
-(2, 1, 'Prueba', '1', 'Ppp', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1);
+(1, NULL, 'notificador 1', '1', 'Prueba', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, 1, NULL, 1, 1),
+(2, 1, 'notificador 2', '1', 'Ppp', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2245,7 +2247,7 @@ CREATE TABLE `fruta_pcarga` (
 --
 
 INSERT INTO `fruta_pcarga` (`ID_PCARGA`, `NUMERO_PCARGA`, `NOMBRE_PCARGA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(4, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(4, 1, 'puerto carga 1', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2298,8 +2300,8 @@ CREATE TABLE `fruta_pdestino` (
 --
 
 INSERT INTO `fruta_pdestino` (`ID_PDESTINO`, `NUMERO_PDESTINO`, `NOMBRE_PDESTINO`, `INGRESO`, `MODIFICACION`, `ESTADO_REGISTRO`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, NULL, 'Prueba', NULL, NULL, 0, 1, 1, 1),
-(2, 1, 'Prueba', NULL, NULL, 1, 1, 1, 1);
+(1, NULL, 'puerto destino 1', NULL, NULL, 0, 1, 1, 1),
+(2, 1, 'puerto destino 2', NULL, NULL, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2379,8 +2381,8 @@ CREATE TABLE `fruta_productor` (
 --
 
 INSERT INTO `fruta_productor` (`ID_PRODUCTOR`, `NUMERO_PRODUCTOR`, `RUT_PRODUCTOR`, `DV_PRODUCTOR`, `NOMBRE_PRODUCTOR`, `DIRECCION_PRODUCTOR`, `TELEFONO_PRODUCTOR`, `EMAIL_PRODUCTOR`, `GIRO_PRODUCTOR`, `CSG_PRODUCTOR`, `SDP_PRODUCTOR`, `PRB_PRODUCTOR`, `CODIGO_ASOCIADO_PRODUCTOR`, `NOMBRE_ASOCIADO_PRODUCTOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_TPRODUCTOR`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '1', '1', 'Prueba', '1', 0, '1@1.cl', '1', 1, 1, 1, 1, '1', 1, '2021-07-30', '2021-08-16', 1, 1, 1, 1, 1),
-(2, 2, '111', '1', 'Prueba', 'pp', 0, '', 'pp', 1515, 0, 0, 0, '', 1, '2021-08-16', '2021-08-16', 1, 1, 1, 1, 1);
+(1, 1, '1', '1', 'producto prueba 1', '1', 0, '1@1.cl', '1', 1, 1, 1, 1, '1', 1, '2021-07-30', '2021-08-16', 1, 1, 1, 1, 1),
+(2, 2, '111', '1', '2', 'pp', 0, '', 'pp', 1515, 0, 0, 0, '', 1, '2021-08-16', '2021-08-16', 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2651,7 +2653,7 @@ CREATE TABLE `fruta_rfinal` (
 --
 
 INSERT INTO `fruta_rfinal` (`ID_RFINAL`, `NUMERO_RFINAL`, `NOMBRE_RFINAL`, `DIRECCION_RFINAL`, `CONTACTO1_RFINAL`, `CARGO1_RFINAL`, `EMAIL1_RFINAL`, `CONTACTO2_RFINAL`, `CARGO2_RFINAL`, `EMAIL2_RFINAL`, `CONTACTO3_RFINAL`, `CARGO3_RFINAL`, `EMAIL3_RFINAL`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(2, 1, 'Prubea', '1', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1);
+(2, 1, 'recibirdor final 1', '1', '', '', '', '', '', '', '', '', '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2705,7 +2707,7 @@ CREATE TABLE `fruta_seguro` (
 --
 
 INSERT INTO `fruta_seguro` (`ID_SEGURO`, `NUMERO_SEGURO`, `NOMBRE_SEGURO`, `ESTIMADO_SEGURO`, `REAL_SEGURO`, `SUMA_SEGURO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', '1.00', '0.00', '1.00', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'Prueba seguro 1', '1.00', '0.00', '1.00', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2730,8 +2732,8 @@ CREATE TABLE `fruta_tcalibre` (
 --
 
 INSERT INTO `fruta_tcalibre` (`ID_TCALIBRE`, `NUMERO_TCALIBRE`, `NOMBRE_TCALIBRE`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba 1', 1, NULL, NULL, 1, 1, 1),
-(2, 2, 'Prueba 2', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'calibre 1', 1, NULL, NULL, 1, 1, 1),
+(2, 2, 'calibre 2', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2788,7 +2790,7 @@ CREATE TABLE `fruta_tcontenedor` (
 --
 
 INSERT INTO `fruta_tcontenedor` (`ID_TCONTENEDOR`, `NUMERO_TCONTENEDOR`, `NOMBRE_TCONTENEDOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba 1', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'prueba tipo contenedor 1', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2865,8 +2867,8 @@ CREATE TABLE `fruta_tflete` (
 --
 
 INSERT INTO `fruta_tflete` (`ID_TFLETE`, `NUMERO_TFLETE`, `NOMBRE_TFLETE`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Pruieba 1', 1, NULL, NULL, 1, 1, 1),
-(2, 2, 'Pruieba 2', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'tipo flete 1', 1, NULL, NULL, 1, 1, 1),
+(2, 2, 'Pruieba tipo flete 2', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2889,7 +2891,7 @@ CREATE TABLE `fruta_tinpsag` (
 --
 
 INSERT INTO `fruta_tinpsag` (`ID_TINPSAG`, `NOMBRE_TINPSAG`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'Prueba', 1, NULL, NULL, 1, 1);
+(1, 'inspecion 1', 1, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2937,7 +2939,7 @@ CREATE TABLE `fruta_tmoneda` (
 --
 
 INSERT INTO `fruta_tmoneda` (`ID_TMONEDA`, `NUMERO_TMONEDA`, `NOMBRE_TMONEDA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'moneda 1', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2960,7 +2962,7 @@ CREATE TABLE `fruta_tproceso` (
 --
 
 INSERT INTO `fruta_tproceso` (`ID_TPROCESO`, `NOMBRE_TPROCESO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'Prueba 1', '1', NULL, NULL, 1, 1);
+(1, 'tipo proceso 1', '1', NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2985,7 +2987,7 @@ CREATE TABLE `fruta_tproductor` (
 --
 
 INSERT INTO `fruta_tproductor` (`ID_TPRODUCTOR`, `NUMERO_TPRODUCTOR`, `NOMBRE_TPRODUCTOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba 1', 1, '2021-07-30', '2021-10-19', 1, 1, 1);
+(1, 1, 'tipo productor 1', 1, '2021-07-30', '2021-10-19', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3040,7 +3042,7 @@ CREATE TABLE `fruta_treembalaje` (
 --
 
 INSERT INTO `fruta_treembalaje` (`ID_TREEMBALAJE`, `NOMBRE_TREEMBALAJE`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'Prueba 1', '1', NULL, NULL, 1, 1);
+(1, 'tipo reembalaje 1', '1', NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3065,7 +3067,7 @@ CREATE TABLE `fruta_tservicio` (
 --
 
 INSERT INTO `fruta_tservicio` (`ID_TSERVICIO`, `NUMERO_TSERVICIO`, `NOMBRE_TSERVICIO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1);
+(1, 1, 'tipo servicio 1', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3162,7 +3164,7 @@ CREATE TABLE `material_cliente` (
 --
 
 INSERT INTO `material_cliente` (`ID_CLIENTE`, `RUT_CLIENTE`, `DV_CLIENTE`, `RAZON_CLIENTE`, `NUMERO_CLIENTE`, `NOMBRE_CLIENTE`, `GIRO_CLIENTE`, `DIRECCION_CLIENTE`, `TELEFONO_CLIENTE`, `EMAIL_CLIENTE`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '1', '1', '1', 1, 'Prueba', '1', '1', '1', '1@1.cl', 1, '2021-07-30', '2021-07-30', 1, 1, 1, 1);
+(1, '1', '1', '1', 1, 'cliente 1', '1', '1', '1', '1@1.cl', 1, '2021-07-30', '2021-07-30', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3192,7 +3194,6 @@ CREATE TABLE `material_despachoe` (
   `ID_TDOCUMENTO` bigint(20) NOT NULL,
   `ID_TRANSPORTE` bigint(20) NOT NULL,
   `ID_CONDUCTOR` bigint(20) NOT NULL,
-  `ID_RESPONSABLE` bigint(20) NOT NULL,
   `ID_BODEGA` bigint(20) DEFAULT NULL,
   `ID_PLANTA2` bigint(20) DEFAULT NULL,
   `ID_BODEGA2` bigint(20) DEFAULT NULL,
@@ -3209,15 +3210,16 @@ CREATE TABLE `material_despachoe` (
 -- Volcado de datos para la tabla `material_despachoe`
 --
 
-INSERT INTO `material_despachoe` (`ID_DESPACHO`, `NUMERO_DESPACHO`, `FECHA_DESPACHO`, `NUMERO_DOCUMENTO`, `CANTIDAD_DESPACHO`, `PATENTE_CAMION`, `PATENTE_CARRO`, `TDESPACHO`, `OBSERVACIONES`, `REGALO_DESPACHO`, `INGRESO`, `MODIFICACION`, `ESTADO`, `ESTADO_DESPACHO`, `ESTADO_REGISTRO`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_TDOCUMENTO`, `ID_TRANSPORTE`, `ID_CONDUCTOR`, `ID_RESPONSABLE`, `ID_BODEGA`, `ID_PLANTA2`, `ID_BODEGA2`, `ID_PRODUCTOR`, `ID_PROVEEDOR`, `ID_PLANTA3`, `ID_CLIENTE`, `ID_DESPACHOMP`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '2021-09-21', '11', 100, '0', '', 1, '', NULL, '2021-09-21 14:00:50', '2021-09-22 16:18:19', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
-(2, 2, '2021-09-21', '11', 500, 'ss', '', 2, '', NULL, '2021-09-21 14:01:45', '2021-09-22 17:33:39', 0, 4, 1, 1, 1, 2, 1, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 1, 1),
-(3, 3, '2021-09-21', '11', 100, '11', '', 3, '', NULL, '2021-09-21 14:01:59', '2021-09-22 16:19:58', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 1),
-(4, 4, '2021-09-21', '11', 100, '111', '', 4, '', NULL, '2021-09-21 14:02:13', '2021-09-22 16:20:15', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1),
-(5, 5, '2021-09-21', '11', 50, '111', '', 5, '', NULL, '2021-09-21 14:02:29', '2021-09-22 16:20:29', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, 1, 1),
-(6, 6, '2021-09-21', '11', 50, '11', '', 6, '', NULL, '2021-09-21 14:02:42', '2021-09-22 16:20:42', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 1),
-(7, 7, '2021-09-21', '11', 50, '11', '', 7, '', '11', '2021-09-21 14:03:03', '2021-09-22 16:20:56', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
-(8, 8, '2021-09-22', '1515', 500, '1515', '', 3, '', NULL, '2021-09-22 23:19:02', '2021-09-22 23:20:01', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `material_despachoe` (`ID_DESPACHO`, `NUMERO_DESPACHO`, `FECHA_DESPACHO`, `NUMERO_DOCUMENTO`, `CANTIDAD_DESPACHO`, `PATENTE_CAMION`, `PATENTE_CARRO`, `TDESPACHO`, `OBSERVACIONES`, `REGALO_DESPACHO`, `INGRESO`, `MODIFICACION`, `ESTADO`, `ESTADO_DESPACHO`, `ESTADO_REGISTRO`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_TDOCUMENTO`, `ID_TRANSPORTE`, `ID_CONDUCTOR`, `ID_BODEGA`, `ID_PLANTA2`, `ID_BODEGA2`, `ID_PRODUCTOR`, `ID_PROVEEDOR`, `ID_PLANTA3`, `ID_CLIENTE`, `ID_DESPACHOMP`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, 1, '2021-09-21', '11', 100, '0', '', 1, '', NULL, '2021-09-21 14:00:50', '2021-09-22 16:18:19', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(2, 2, '2021-09-21', '11', 500, 'ss', '', 2, '', NULL, '2021-09-21 14:01:45', '2021-09-22 17:33:39', 0, 4, 1, 1, 1, 2, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(3, 3, '2021-09-21', '11', 100, '11', '', 3, '', NULL, '2021-09-21 14:01:59', '2021-09-22 16:19:58', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 1),
+(4, 4, '2021-09-21', '11', 100, '111', '', 4, '', NULL, '2021-09-21 14:02:13', '2021-09-22 16:20:15', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1),
+(5, 5, '2021-09-21', '11', 50, '111', '', 5, '', NULL, '2021-09-21 14:02:29', '2021-09-22 16:20:29', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, 1, 1),
+(6, 6, '2021-09-21', '11', 50, '11', '', 6, '', NULL, '2021-09-21 14:02:42', '2021-09-22 16:20:42', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, 1),
+(7, 7, '2021-09-21', '11', 50, '11', '', 7, '', '11', '2021-09-21 14:03:03', '2021-09-22 16:20:56', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(8, 8, '2021-09-22', '1515', 500, '1515', '', 3, '', NULL, '2021-09-22 23:19:02', '2021-09-22 23:20:01', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 1),
+(9, 9, '2021-10-22', '344', 100, '11', '', 3, '', NULL, '2021-10-22 11:44:36', '2021-10-22 11:45:35', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3247,7 +3249,6 @@ CREATE TABLE `material_despachom` (
   `ID_TDOCUMENTO` bigint(20) NOT NULL,
   `ID_TRANSPORTE` bigint(20) NOT NULL,
   `ID_CONDUCTOR` bigint(20) NOT NULL,
-  `ID_RESPONSABLE` bigint(20) NOT NULL,
   `ID_BODEGA` bigint(20) DEFAULT NULL,
   `ID_PLANTA2` bigint(20) DEFAULT NULL,
   `ID_BODEGA2` bigint(20) DEFAULT NULL,
@@ -3263,17 +3264,18 @@ CREATE TABLE `material_despachom` (
 -- Volcado de datos para la tabla `material_despachom`
 --
 
-INSERT INTO `material_despachom` (`ID_DESPACHO`, `NUMERO_DESPACHO`, `FECHA_DESPACHO`, `NUMERO_DOCUMENTO`, `CANTIDAD_DESPACHO`, `PATENTE_CAMION`, `PATENTE_CARRO`, `TDESPACHO`, `OBSERVACIONES`, `REGALO_DESPACHO`, `INGRESO`, `MODIFICACION`, `ESTADO`, `ESTADO_DESPACHO`, `ESTADO_REGISTRO`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_TDOCUMENTO`, `ID_TRANSPORTE`, `ID_CONDUCTOR`, `ID_RESPONSABLE`, `ID_BODEGA`, `ID_PLANTA2`, `ID_BODEGA2`, `ID_PRODUCTOR`, `ID_PROVEEDOR`, `ID_PLANTA3`, `ID_CLIENTE`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '2021-09-21', '11', 1000, '11', '', 1, '', NULL, '2021-09-21 09:58:38', '2021-09-21 17:42:31', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
-(2, 2, '2021-09-21', '11', 1000, '11', '', 2, '', NULL, '2021-09-21 10:00:04', '2021-09-22 09:46:51', 0, 4, 1, 1, 1, 2, 1, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, 1, 1),
-(3, 3, '2021-09-21', '11', 1000, '11', '', 3, '', NULL, '2021-09-21 10:00:38', '2021-09-21 12:38:30', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1),
-(4, 4, '2021-09-21', '11', 500, '11', '', 4, '', NULL, '2021-09-21 10:00:47', '2021-09-21 12:39:10', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
-(5, 5, '2021-09-21', '11', 500, '11', '', 6, '', NULL, '2021-09-21 10:02:27', '2021-09-21 12:39:22', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1),
-(6, 6, '2021-09-21', '11', 500, '11', '', 5, '', NULL, '2021-09-21 10:02:32', '2021-09-21 12:56:20', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 3, NULL, 1, 1),
-(11, 7, '2021-09-21', '15', 500, 'ppp', '', 4, '', NULL, '2021-09-21 12:39:46', '2021-09-21 12:50:25', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
-(12, 8, '2021-09-21', '111', 500, '111', '', 4, '', NULL, '2021-09-21 12:41:42', '2021-09-21 12:50:37', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
-(13, 9, '2021-09-21', '111', 500, 'sss', '', 5, '', NULL, '2021-09-21 12:56:41', '2021-09-21 12:57:19', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 3, NULL, 1, 1),
-(14, 10, '2021-09-22', '151', 12, 'jjj', '', 2, '', NULL, '2021-09-22 23:21:55', '2021-09-22 23:24:00', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `material_despachom` (`ID_DESPACHO`, `NUMERO_DESPACHO`, `FECHA_DESPACHO`, `NUMERO_DOCUMENTO`, `CANTIDAD_DESPACHO`, `PATENTE_CAMION`, `PATENTE_CARRO`, `TDESPACHO`, `OBSERVACIONES`, `REGALO_DESPACHO`, `INGRESO`, `MODIFICACION`, `ESTADO`, `ESTADO_DESPACHO`, `ESTADO_REGISTRO`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_TDOCUMENTO`, `ID_TRANSPORTE`, `ID_CONDUCTOR`, `ID_BODEGA`, `ID_PLANTA2`, `ID_BODEGA2`, `ID_PRODUCTOR`, `ID_PROVEEDOR`, `ID_PLANTA3`, `ID_CLIENTE`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, 1, '2021-09-21', '11', 1000, '11', '', 1, '', NULL, '2021-09-21 09:58:38', '2021-09-21 17:42:31', 0, 2, 1, 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(2, 2, '2021-09-21', '11', 1000, '11', '', 2, '', NULL, '2021-09-21 10:00:04', '2021-09-22 09:46:51', 0, 4, 1, 1, 1, 2, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, 1, 1),
+(3, 3, '2021-09-21', '11', 1000, '11', '', 3, '', NULL, '2021-09-21 10:00:38', '2021-09-21 12:38:30', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1),
+(4, 4, '2021-09-21', '11', 500, '11', '', 4, '', NULL, '2021-09-21 10:00:47', '2021-09-21 12:39:10', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
+(5, 5, '2021-09-21', '11', 500, '11', '', 6, '', NULL, '2021-09-21 10:02:27', '2021-09-21 12:39:22', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1),
+(6, 6, '2021-09-21', '11', 500, '11', '', 5, '', NULL, '2021-09-21 10:02:32', '2021-09-21 12:56:20', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 3, NULL, 1, 1),
+(11, 7, '2021-09-21', '15', 500, 'ppp', '', 4, '', NULL, '2021-09-21 12:39:46', '2021-09-21 12:50:25', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
+(12, 8, '2021-09-21', '111', 500, '111', '', 4, '', NULL, '2021-09-21 12:41:42', '2021-09-21 12:50:37', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1),
+(13, 9, '2021-09-21', '111', 500, 'sss', '', 5, '', NULL, '2021-09-21 12:56:41', '2021-09-21 12:57:19', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 3, NULL, 1, 1),
+(14, 10, '2021-09-22', '151', 12, 'jjj', '', 2, '', NULL, '2021-09-22 23:21:55', '2021-09-22 23:24:00', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, 2, 2, NULL, NULL, NULL, NULL, 1, 1),
+(15, 11, '2021-10-22', '1123', 5000, 'aa', '', 3, '', NULL, '2021-10-22 11:44:10', '2021-10-22 11:44:17', 0, 2, 1, 1, 1, 2, 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3380,9 +3382,13 @@ INSERT INTO `material_drecepcionm` (`ID_DRECEPCION`, `NUMERO_DRECEPCION`, `DESCR
 (9, NULL, '', NULL, 500, '0.00000', 0, 1, '2021-10-05 15:13:20', '2021-10-18 16:13:56', 4, 2, 1, NULL),
 (10, NULL, '', NULL, 100, '15.03000', 1, 0, '2021-10-05 15:14:32', '2021-10-18 13:43:11', 5, 2, 1, 5),
 (11, NULL, '', NULL, 500, '0.00000', 0, 1, '2021-10-05 15:16:42', '2021-10-18 16:14:19', 5, 2, 1, NULL),
-(12, NULL, '', NULL, 500, '0.00000', 1, 1, '2021-10-18 15:51:43', '2021-10-18 15:51:43', 7, 2, 1, NULL),
+(12, NULL, '', NULL, 500, '0.00000', 0, 1, '2021-10-18 15:51:43', '2021-10-22 09:47:39', 7, 2, 1, NULL),
 (13, NULL, 'ssss', NULL, 500, '0.00000', 0, 1, '2021-10-18 20:34:23', '2021-10-18 20:34:54', 6, 2, 1, NULL),
-(14, NULL, '', NULL, 500, '0.00000', 1, 1, '2021-10-18 22:00:40', '2021-10-18 22:00:40', 7, 1, 1, NULL);
+(14, NULL, '', NULL, 500, '0.00000', 0, 1, '2021-10-18 22:00:40', '2021-10-22 09:47:39', 7, 1, 1, NULL),
+(15, NULL, '', NULL, 5000, '0.00000', 0, 1, '2021-10-22 09:12:48', '2021-10-22 09:44:14', 10, 1, 1, NULL),
+(16, NULL, NULL, NULL, 0, '15.03000', 1, 0, '2021-10-22 09:13:12', '2021-10-22 09:14:05', 10, 2, 1, 5),
+(17, NULL, '', NULL, 10000, '15.00000', 0, 1, '2021-10-22 09:20:05', '2021-10-22 09:44:14', 10, 1, 1, 6),
+(18, NULL, NULL, NULL, 0, '15.03000', 1, 1, '2021-10-22 11:13:16', '2021-10-22 11:13:16', 8, 2, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -3407,8 +3413,8 @@ CREATE TABLE `material_familia` (
 --
 
 INSERT INTO `material_familia` (`ID_FAMILIA`, `NUMERO_FAMILIA`, `NOMBRE_FAMILIA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, '2021-07-30', '2021-07-30', 1, 1, 1),
-(2, 2, 'Pruebas2', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
+(1, 1, 'familia 1', 1, '2021-07-30', '2021-07-30', 1, 1, 1),
+(2, 2, 'familia 2', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3493,8 +3499,8 @@ CREATE TABLE `material_fpago` (
 --
 
 INSERT INTO `material_fpago` (`ID_FPAGO`, `NUMERO_FPAGO`, `NOMBRE_FPAGO`, `FECHA_FPAGO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Pruebas', NULL, 1, '2021-07-31', '2021-08-18', 1, 1, 1),
-(2, 2, 'Prueba', NULL, 1, '2021-08-18', '2021-08-18', 1, 1, 1);
+(1, 1, 'formato pago 1', NULL, 1, '2021-07-31', '2021-08-18', 1, 1, 1),
+(2, 2, 'formato pago 2', NULL, 1, '2021-08-18', '2021-08-18', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3560,7 +3566,8 @@ INSERT INTO `material_inventarioe` (`ID_INVENTARIO`, `TRECEPCION`, `VALOR_UNITAR
 (39, 1, '0.00000', 1300, 0, 1, 1, '2021-10-21 12:07:15', '2021-10-21 12:07:15', 1, 1, 2, 1, 1, 1, 17, NULL, NULL, NULL, NULL),
 (40, 1, '0.00000', 240, 0, 1, 1, '2021-10-21 12:09:25', '2021-10-21 12:09:25', 1, 1, 2, 1, 1, 1, 16, NULL, NULL, NULL, NULL),
 (41, 1, '0.00000', 240, 0, 1, 1, '2021-10-21 12:10:11', '2021-10-21 12:10:11', 1, 1, 2, 1, 2, 1, 14, NULL, NULL, NULL, NULL),
-(42, 1, '0.00000', 240, 0, 1, 1, '2021-10-21 12:11:50', '2021-10-21 12:11:50', 1, 1, 2, 2, 1, 1, 15, NULL, NULL, NULL, NULL);
+(42, 1, '0.00000', 240, 0, 1, 1, '2021-10-21 12:11:50', '2021-10-21 12:11:50', 1, 1, 2, 2, 1, 1, 15, NULL, NULL, NULL, NULL),
+(43, NULL, NULL, 0, 100, 1, 1, '2021-10-22 11:44:54', '2021-10-22 11:44:54', 1, 1, 2, 1, 1, 1, NULL, 9, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4140,13 +4147,16 @@ INSERT INTO `material_inventariom` (`ID_INVENTARIO`, `FOLIO_INVENTARIO`, `FOLIO_
 (530, 11120523, 11120523, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120523', '11120523', 1, '0.00000', 500, NULL, NULL, '2021-10-18 16:14:14', '2021-10-18 16:14:19', 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 5, NULL, NULL, 1, NULL, NULL, NULL),
 (531, 11120524, 11120524, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120524', '11120524', 2, '0.00000', 250, NULL, NULL, '2021-10-18 20:34:38', '2021-10-18 20:34:54', 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 6, NULL, NULL, NULL, NULL, 1, NULL),
 (532, 11120525, 11120525, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120525', '11120525', 2, '0.00000', 250, NULL, NULL, '2021-10-18 20:34:38', '2021-10-18 20:34:54', 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 6, NULL, NULL, NULL, NULL, 1, NULL),
-(533, 11120526, 11120526, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120526', '11120526', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:13', '2021-10-18 22:00:13', 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
-(534, 11120527, 11120527, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120527', '11120527', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:25', '2021-10-18 22:00:25', 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
-(535, 11120528, 11120528, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120528', '11120528', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:25', '2021-10-18 22:00:25', 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
-(536, 11120529, 11120529, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120529', '11120529', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:25', '2021-10-18 22:00:25', 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
-(537, 11120530, 11120530, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120530', '11120530', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:25', '2021-10-18 22:00:25', 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
-(538, 11120531, 11120531, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120531', '11120531', 1, '0.00000', 250, NULL, NULL, '2021-10-18 22:00:54', '2021-10-18 22:00:54', 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
-(539, 11120532, 11120532, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120532', '11120532', 1, '0.00000', 250, NULL, NULL, '2021-10-18 22:00:54', '2021-10-18 22:00:54', 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 7, NULL, NULL, 1, NULL, NULL, NULL);
+(533, 11120526, 11120526, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120526', '11120526', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:13', '2021-10-22 09:47:39', 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
+(534, 11120527, 11120527, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120527', '11120527', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:25', '2021-10-22 09:47:39', 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
+(535, 11120528, 11120528, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120528', '11120528', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:25', '2021-10-22 09:47:39', 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
+(536, 11120529, 11120529, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120529', '11120529', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:25', '2021-10-22 09:47:39', 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
+(537, 11120530, 11120530, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120530', '11120530', 1, '0.00000', 100, NULL, NULL, '2021-10-18 22:00:25', '2021-10-22 09:47:39', 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
+(538, 11120531, 11120531, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120531', '11120531', 1, '0.00000', 250, NULL, NULL, '2021-10-18 22:00:54', '2021-10-22 09:47:39', 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
+(539, 11120532, 11120532, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120532', '11120532', 1, '0.00000', 250, NULL, NULL, '2021-10-18 22:00:54', '2021-10-22 09:47:39', 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 7, NULL, NULL, 1, NULL, NULL, NULL),
+(540, 11120533, 11120533, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120533', '11120533', 1, '15.00000', 5000, NULL, NULL, '2021-10-22 09:43:43', '2021-10-22 09:44:14', 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 10, NULL, NULL, 1, NULL, NULL, NULL),
+(541, 11120534, 11120534, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120534', '11120534', 1, '15.00000', 5000, NULL, NULL, '2021-10-22 09:43:43', '2021-10-22 09:44:14', 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 10, NULL, NULL, 1, NULL, NULL, NULL),
+(542, 11120535, 11120535, '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120535', '11120535', 1, '0.00000', 5000, NULL, NULL, '2021-10-22 09:44:05', '2021-10-22 11:44:17', 4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 10, NULL, NULL, 1, NULL, NULL, 15);
 
 -- --------------------------------------------------------
 
@@ -4308,8 +4318,8 @@ CREATE TABLE `material_producto` (
 --
 
 INSERT INTO `material_producto` (`ID_PRODUCTO`, `CODIGO_PRODUCTO`, `NUMERO_PRODUCTO`, `NOMBRE_PRODUCTO`, `OPTIMO`, `CRITICO`, `BAJO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_TEMPORADA`, `ID_TUMEDIDA`, `ID_FAMILIA`, `ID_SUBFAMILIA`, `ID_ESPECIES`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'F1S1C1001', 1, '11', 1000, 0, 500, 1, '2021-07-30', '2021-08-01', 1, 1, 1, 1, 1, 25, 1, 1),
-(2, 'F1S1C1002', 2, 'Prueba 1', 1, 3, 2, 1, '2021-08-18', '2021-10-07', 1, 2, 1, 1, 1, 25, 1, 1);
+(1, 'F1S1C1001', 1, 'producto 1', 1000, 0, 500, 1, '2021-07-30', '2021-08-01', 1, 1, 1, 1, 1, 25, 1, 1),
+(2, 'F1S1C1002', 2, 'Prueba producto 2', 1, 3, 2, 1, '2021-08-18', '2021-10-07', 1, 2, 1, 1, 1, 25, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4342,7 +4352,7 @@ CREATE TABLE `material_proveedor` (
 --
 
 INSERT INTO `material_proveedor` (`ID_PROVEEDOR`, `RUT_PROVEEDOR`, `DV_PROVEEDOR`, `RAZON_PROVEEDOR`, `NUMERO_PROVEEDOR`, `NOMBRE_PROVEEDOR`, `GIRO_PROVEEDOR`, `DIRECCION_PROVEEDOR`, `TELEFONO_PROVEEDOR`, `EMAIL_PROVEEDOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '1', '1', '1', 1, 'Pruebas', '1', '1', '1', '1@1.cl', 1, '2021-07-30', '2021-08-20', 1, 1, 1, 1);
+(1, '1', '1', '1', 1, 'proveedor 1', '1', '1', '1', '1@1.cl', 1, '2021-07-30', '2021-08-20', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4450,8 +4460,10 @@ INSERT INTO `material_recepcionm` (`ID_RECEPCION`, `NUMERO_RECEPCION`, `FECHA_RE
 (4, 4, '2021-09-23', 4, NULL, '1515', '15', '', 1000, '', 0, 1, '2021-09-23 09:39:50', '2021-10-18 16:13:56', 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, 1),
 (5, 5, '2021-10-05', 1, 1, '155', 'ppp', '', 500, '', 0, 1, '2021-10-05 15:14:22', '2021-10-18 16:14:19', 1, 1, 2, 1, 1, 1, 1, 1, 2, NULL, NULL, 1, 1),
 (6, 6, '2021-10-13', 2, NULL, '15115', 'sss', '', 500, 'sss', 0, 1, '2021-10-13 17:06:34', '2021-10-18 20:34:54', 1, 1, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, 1, 1),
-(7, 7, '2021-10-18', 1, 0, '1515', '15', '', 0, 'aasss', 1, 1, '2021-10-18 13:52:06', '2021-10-18 20:55:06', 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, 1, 1),
-(8, 8, '2021-10-18', 1, 0, '111', '11', '', 0, '', 1, 1, '2021-10-18 20:50:08', '2021-10-18 20:50:08', 1, 1, 2, 1, 1, 2, 1, 1, NULL, NULL, NULL, 1, 1);
+(7, 7, '2021-10-18', 1, 0, '1515', '15', '', 1000, 'aasss', 0, 1, '2021-10-18 13:52:06', '2021-10-22 09:47:39', 1, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, 1, 1),
+(8, 8, '2021-10-18', 1, 1, '111', '11', '', 0, '', 1, 1, '2021-10-18 20:50:08', '2021-10-22 11:13:24', 1, 1, 2, 1, 1, 2, 1, 1, 2, NULL, NULL, 1, 1),
+(9, 9, '2021-10-22', 1, 0, '15', 'xxx', '', 0, '', 1, 1, '2021-10-22 09:11:06', '2021-10-22 09:11:06', 1, 1, 2, 2, 1, 1, 1, 1, NULL, NULL, NULL, 1, 1),
+(10, 10, '2021-10-22', 1, 1, '1515', '1515', '', 15000, '', 0, 1, '2021-10-22 09:12:03', '2021-10-22 09:44:14', 1, 1, 2, 1, 1, 1, 1, 1, 3, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4509,7 +4521,7 @@ CREATE TABLE `material_subfamilia` (
 --
 
 INSERT INTO `material_subfamilia` (`ID_SUBFAMILIA`, `NUMERO_SUBFAMILIA`, `NOMBRE_SUBFAMILIA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_FAMILIA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Pruebas', 1, '2021-07-30', '2021-07-30', 1, 1, 1, 1);
+(1, 1, 'sub familia 1', 1, '2021-07-30', '2021-07-30', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5073,13 +5085,16 @@ INSERT INTO `material_tarjam` (`ID_TARJA`, `FOLIO_TARJA`, `ALIAS_DINAMICO_TARJA`
 (527, '11120523', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120523', '11120523', 500, 0, 500, '2021-10-18 16:14:14', '2021-10-18 16:14:19', 0, 1, 5, 2, 1, 1, 1, 11),
 (528, '11120524', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120524', '11120524', 500, 0, 250, '2021-10-18 20:34:38', '2021-10-18 20:34:54', 0, 1, 6, 2, 1, 1, 1, 13),
 (529, '11120525', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120525', '11120525', 500, 0, 250, '2021-10-18 20:34:38', '2021-10-18 20:34:54', 0, 1, 6, 2, 1, 1, 1, 13),
-(530, '11120526', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120526', '11120526', 500, 0, 100, '2021-10-18 22:00:13', '2021-10-18 22:00:13', 1, 1, 7, 2, 1, 1, 1, 12),
-(531, '11120527', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120527', '11120527', 500, 0, 100, '2021-10-18 22:00:25', '2021-10-18 22:00:25', 1, 1, 7, 2, 1, 1, 1, 12),
-(532, '11120528', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120528', '11120528', 500, 0, 100, '2021-10-18 22:00:25', '2021-10-18 22:00:25', 1, 1, 7, 2, 1, 1, 1, 12),
-(533, '11120529', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120529', '11120529', 500, 0, 100, '2021-10-18 22:00:25', '2021-10-18 22:00:25', 1, 1, 7, 2, 1, 1, 1, 12),
-(534, '11120530', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120530', '11120530', 500, 0, 100, '2021-10-18 22:00:25', '2021-10-18 22:00:25', 1, 1, 7, 2, 1, 1, 1, 12),
-(535, '11120531', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120531', '11120531', 500, 0, 250, '2021-10-18 22:00:54', '2021-10-18 22:00:54', 1, 1, 7, 1, 2, 1, 1, 14),
-(536, '11120532', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120532', '11120532', 500, 0, 250, '2021-10-18 22:00:54', '2021-10-18 22:00:54', 1, 1, 7, 1, 2, 1, 1, 14);
+(530, '11120526', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120526', '11120526', 500, 0, 100, '2021-10-18 22:00:13', '2021-10-22 09:47:39', 0, 1, 7, 2, 1, 1, 1, 12),
+(531, '11120527', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120527', '11120527', 500, 0, 100, '2021-10-18 22:00:25', '2021-10-22 09:47:39', 0, 1, 7, 2, 1, 1, 1, 12),
+(532, '11120528', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120528', '11120528', 500, 0, 100, '2021-10-18 22:00:25', '2021-10-22 09:47:39', 0, 1, 7, 2, 1, 1, 1, 12),
+(533, '11120529', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120529', '11120529', 500, 0, 100, '2021-10-18 22:00:25', '2021-10-22 09:47:39', 0, 1, 7, 2, 1, 1, 1, 12),
+(534, '11120530', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120530', '11120530', 500, 0, 100, '2021-10-18 22:00:25', '2021-10-22 09:47:39', 0, 1, 7, 2, 1, 1, 1, 12),
+(535, '11120531', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120531', '11120531', 500, 0, 250, '2021-10-18 22:00:54', '2021-10-22 09:47:39', 0, 1, 7, 1, 2, 1, 1, 14),
+(536, '11120532', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120532', '11120532', 500, 0, 250, '2021-10-18 22:00:54', '2021-10-22 09:47:39', 0, 1, 7, 1, 2, 1, 1, 14),
+(537, '11120533', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120533', '11120533', 10000, 15, 5000, '2021-10-22 09:43:43', '2021-10-22 09:44:14', 0, 1, 10, 1, 1, 1, 1, 17),
+(538, '11120534', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120534', '11120534', 10000, 15, 5000, '2021-10-22 09:43:43', '2021-10-22 09:44:14', 0, 1, 10, 1, 1, 1, 1, 17),
+(539, '11120535', '11120000_EMPRESA:Pruebas_PLANTA:Prueba Planta_TIPO_FOLIO:MATERIALES_TEMPORADA:2020-2021_NUMEROFOLIO:11120535', '11120535', 5000, 0, 5000, '2021-10-22 09:44:05', '2021-10-22 09:44:14', 0, 1, 10, 1, 1, 1, 1, 15);
 
 -- --------------------------------------------------------
 
@@ -5104,7 +5119,7 @@ CREATE TABLE `material_tcontenedor` (
 --
 
 INSERT INTO `material_tcontenedor` (`ID_TCONTENEDOR`, `NUMERO_TCONTENEDOR`, `NOMBRE_TCONTENEDOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'contenedor', 1, '2021-07-30', '2021-10-18', 1, 1, 1),
+(1, 1, 'contenedor 1', 1, '2021-07-30', '2021-10-18', 1, 1, 1),
 (2, 2, 'contenedor 2', 1, '2021-10-18', '2021-10-18', 1, 1, 1);
 
 -- --------------------------------------------------------
@@ -5130,7 +5145,7 @@ CREATE TABLE `material_tdocumento` (
 --
 
 INSERT INTO `material_tdocumento` (`ID_TDOCUMENTO`, `NUMERO_TDOCUMENTO`, `NOMBRE_TDOCUMENTO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
+(1, 1, 'tipo documento 1', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5155,7 +5170,7 @@ CREATE TABLE `material_tmoneda` (
 --
 
 INSERT INTO `material_tmoneda` (`ID_TMONEDA`, `NUMERO_TMONEDA`, `NOMBRE_TMONEDA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
+(1, 1, 'tipo moneda 1', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5180,7 +5195,7 @@ CREATE TABLE `material_tumedida` (
 --
 
 INSERT INTO `material_tumedida` (`ID_TUMEDIDA`, `NUMERO_TUMEDIDA`, `NOMBRE_TUMEDIDA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
+(1, 1, 'tipo unidad medida', 1, '2021-07-30', '2021-07-30', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5207,8 +5222,8 @@ CREATE TABLE `principal_bodega` (
 --
 
 INSERT INTO `principal_bodega` (`ID_BODEGA`, `NOMBRE_BODEGA`, `NOMBRE_CONTACTO_BODEGA`, `PRINCIPAL`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_PLANTA`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'Prueba Planta', '-', 1, 1, '2021-07-30', '2021-10-12', 1, 1, 1, 1),
-(2, 'Prueba el alamo', 'Prueba', 0, 1, '2021-09-21', '2021-10-12', 2, 1, 1, 1);
+(1, 'bodega 1', '-', 1, 1, '2021-07-30', '2021-10-12', 1, 1, 1, 1),
+(2, 'bodega 2', 'Prueba', 0, 1, '2021-09-21', '2021-10-12', 2, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5240,8 +5255,8 @@ CREATE TABLE `principal_empresa` (
 --
 
 INSERT INTO `principal_empresa` (`ID_EMPRESA`, `RUT_EMPRESA`, `DV_EMPRESA`, `NOMBRE_EMPRESA`, `RAZON_SOCIAL_EMPRESA`, `DIRECCION_EMPRESA`, `GIRO_EMPRESA`, `TELEFONO_EMPRESA`, `ENCARGADO_COMPRA_EMPRESA`, `LOGO_EMPRESA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '1', 'Pruebas', 'Prueba Sistema', '-', '-', '1', '-', '', 1, '2021-07-20', '2021-08-17', 1, 1, 1),
-(2, 111, '1', 'Pruebas2S', '1', '1', '1', '1', '1', '', 1, '2021-07-30', '2021-08-18', 1, 1, 1);
+(1, 1, '1', 'prueba 1', 'Prueba Sistema', '-', '-', '1', '-', '', 1, '2021-07-20', '2021-08-17', 1, 1, 1),
+(2, 111, '1', 'prueba 2', '1', '1', '1', '1', '1', '', 1, '2021-07-30', '2021-08-18', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5273,7 +5288,7 @@ INSERT INTO `principal_planta` (`ID_PLANTA`, `NOMBRE_PLANTA`, `RAZON_SOCIAL_PLAN
 (1, 'Prueba Planta', 'Prueba', '-', 1, 1, 1, 1, '2021-07-20', '2021-07-30', 1, 1, 1),
 (2, 'Planta El Alamo', '-', '-', 1, 1, 1, 1, '2021-07-30', '2021-07-30', 1, 1, 1),
 (3, 'Prueba Externa', '11', '1', 1, 1, 2, 1, '2021-09-12', '2021-09-12', 1, 1, 1),
-(5, '1', '1', '1', 1, 1, 2, 1, '2021-09-18', '2021-09-18', 1, 1, 1);
+(5, 'prueba planta 2', '1', '1', 1, 1, 2, 1, '2021-09-18', '2021-09-18', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5326,7 +5341,7 @@ CREATE TABLE `transporte_aeronave` (
 --
 
 INSERT INTO `transporte_aeronave` (`ID_AERONAVE`, `NUMERO_AERONAVE`, `NOMBRE_AERONAVE`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_LAEREA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'Prueba', 1, NULL, NULL, 1, 1, 1, 1);
+(1, 1, 'prueba nave', 1, NULL, NULL, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5356,8 +5371,8 @@ CREATE TABLE `transporte_conductor` (
 --
 
 INSERT INTO `transporte_conductor` (`ID_CONDUCTOR`, `NUMERO_CONDUCTOR`, `RUT_CONDUCTOR`, `DV_CONDUCTOR`, `NOMBRE_CONDUCTOR`, `TELEFONO_CONDUCTOR`, `EMAIL_CONDUCTOR`, `NOTA_CONDUCTOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '1', '1', 'Pruebas', 1, '1@1.cl', '', 1, '2021-07-30', '2021-08-16', 1, 1, 1),
-(2, 2, '1', '1', '1', 0, '', '', 1, '2021-09-18', '2021-09-20', 1, 1, 1);
+(1, 1, '1', '1', 'conductor 1', 1, '1@1.cl', '', 1, '2021-07-30', '2021-08-16', 1, 1, 1),
+(2, 2, '1', '1', 'conductor 2', 0, '', '', 1, '2021-09-18', '2021-09-20', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5392,7 +5407,7 @@ CREATE TABLE `transporte_laerea` (
 --
 
 INSERT INTO `transporte_laerea` (`ID_LAEREA`, `NUMERO_LAEREA`, `RUT_LAEREA`, `DV_LAEREA`, `NOMBRE_LAEREA`, `GIRO_LAEREA`, `RAZON_SOCIAL_LAEREA`, `DIRECCION_LAEREA`, `CONTACTO_LAEREA`, `TELEFONO_LAEREA`, `EMAIL_LAEREA`, `NOTA_LAEREA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '1', '1', '1', '1', '1', '1', '', 0, '', '', 1, NULL, NULL, 1, NULL, 1, 1);
+(1, 1, '1', '1', 'linea aerea 1', '1', '1', '1', '', 0, '', '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5425,8 +5440,8 @@ CREATE TABLE `transporte_naviera` (
 --
 
 INSERT INTO `transporte_naviera` (`ID_NAVIERA`, `NUMERO_NAVIERA`, `NOMBRE_NAVIERA`, `GIRO_NAVIERA`, `RAZON_SOCIAL_NAVIERA`, `DIRECCION_NAVIERA`, `CONTACTO_NAVIERA`, `TELEFONO_NAVIERA`, `EMAIL_NAVIERA`, `NOTA_NAVIERA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, NULL, '1', '1', '1', '1', '', 0, '', '', 0, NULL, NULL, 1, NULL, 1, 1),
-(2, 1, '1', '1', '1', '1', '', 0, '', '', 1, NULL, NULL, 1, NULL, 1, 1);
+(1, 1, 'naviera 1', '1', '1', '1', '', 0, '', '', 0, NULL, NULL, 1, NULL, 1, 1),
+(2, 2, 'naviera 2', '1', '1', '1', '', 0, '', '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5461,8 +5476,8 @@ CREATE TABLE `transporte_transporte` (
 --
 
 INSERT INTO `transporte_transporte` (`ID_TRANSPORTE`, `NUMERO_TRANSPORTE`, `RUT_TRANSPORTE`, `DV_TRANSPORTE`, `NOMBRE_TRANSPORTE`, `GIRO_TRANSPORTE`, `RAZON_SOCIAL_TRANSPORTE`, `DIRECCION_TRANSPORTE`, `CONTACTO_TRANSPORTE`, `TELEFONO_TRANSPORTE`, `EMAIL_TRANSPORTE`, `NOTA_TRANSPORTE`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '1', '1', 'Pruebas', '1', '1', '1', '1', 1, '1@1.cl', '', 1, '2021-07-30', '2021-08-16', 1, 1, 1, 1),
-(2, 2, '1', '1', '1', '1', '1', '1', '', 0, '', '', 1, '2021-09-18', '2021-09-18', 1, 1, 1, 1);
+(1, 1, '1', '1', 'trasnporte 1', '1', '1', '1', '1', 1, '1@1.cl', '', 1, '2021-07-30', '2021-08-16', 1, 1, 1, 1),
+(2, 2, '1', '1', 'trasnporte 2', '1', '1', '1', '', 0, '', '', 1, '2021-09-18', '2021-09-18', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -7332,7 +7347,6 @@ ALTER TABLE `material_despachoe`
   ADD KEY `fk_material_despachoe_transporte_transporte_idx` (`ID_TRANSPORTE`),
   ADD KEY `fk_material_despachoe_transporte_conductor_idx` (`ID_CONDUCTOR`),
   ADD KEY `fk_material_despachoe_materiales_proveedor_idx` (`ID_PROVEEDOR`),
-  ADD KEY `fk_material_despachoe_materiales_responsable_idx` (`ID_RESPONSABLE`),
   ADD KEY `fk_material_despachoe_usuario_usuarioi_idx` (`ID_USUARIOI`),
   ADD KEY `fk_material_despachoe_usuario_usuariom_idx` (`ID_USUARIOM`),
   ADD KEY `fk_material_despachoe_principal_planta2_idx` (`ID_PLANTA2`),
@@ -7355,7 +7369,6 @@ ALTER TABLE `material_despachom`
   ADD KEY `fk_material_despachom_transporte_transporte_idx` (`ID_TRANSPORTE`),
   ADD KEY `fk_material_despachom_transporte_conductor_idx` (`ID_CONDUCTOR`),
   ADD KEY `fk_material_despachom_materiales_proveedor_idx` (`ID_PROVEEDOR`),
-  ADD KEY `fk_material_despachom_transporte_responsable_idx` (`ID_RESPONSABLE`),
   ADD KEY `fk_material_despachom_usuario_usuarioi_idx` (`ID_USUARIOI`),
   ADD KEY `fk_material_despachom_usuario_usuariom_idx` (`ID_USUARIOM`),
   ADD KEY `fk_material_despachom_principal_planta2_idx` (`ID_PLANTA2`),
@@ -7978,7 +7991,7 @@ ALTER TABLE `fruta_drecepcionmp`
 -- AUTO_INCREMENT de la tabla `fruta_drecepcionpt`
 --
 ALTER TABLE `fruta_drecepcionpt`
-  MODIFY `ID_DRECEPCION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID_DRECEPCION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `fruta_drepaletizajeex`
@@ -8014,7 +8027,7 @@ ALTER TABLE `fruta_especies`
 -- AUTO_INCREMENT de la tabla `fruta_exiexportacion`
 --
 ALTER TABLE `fruta_exiexportacion`
-  MODIFY `ID_EXIEXPORTACION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `ID_EXIEXPORTACION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `fruta_exiindustrial`
@@ -8320,13 +8333,13 @@ ALTER TABLE `material_cliente`
 -- AUTO_INCREMENT de la tabla `material_despachoe`
 --
 ALTER TABLE `material_despachoe`
-  MODIFY `ID_DESPACHO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_DESPACHO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `material_despachom`
 --
 ALTER TABLE `material_despachom`
-  MODIFY `ID_DESPACHO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID_DESPACHO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `material_dficha`
@@ -8344,7 +8357,7 @@ ALTER TABLE `material_docompra`
 -- AUTO_INCREMENT de la tabla `material_drecepcionm`
 --
 ALTER TABLE `material_drecepcionm`
-  MODIFY `ID_DRECEPCION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID_DRECEPCION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `material_familia`
@@ -8374,13 +8387,13 @@ ALTER TABLE `material_fpago`
 -- AUTO_INCREMENT de la tabla `material_inventarioe`
 --
 ALTER TABLE `material_inventarioe`
-  MODIFY `ID_INVENTARIO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `ID_INVENTARIO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `material_inventariom`
 --
 ALTER TABLE `material_inventariom`
-  MODIFY `ID_INVENTARIO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=540;
+  MODIFY `ID_INVENTARIO` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=543;
 
 --
 -- AUTO_INCREMENT de la tabla `material_mguiae`
@@ -8428,7 +8441,7 @@ ALTER TABLE `material_recepcione`
 -- AUTO_INCREMENT de la tabla `material_recepcionm`
 --
 ALTER TABLE `material_recepcionm`
-  MODIFY `ID_RECEPCION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_RECEPCION` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `material_responsable`
@@ -8446,7 +8459,7 @@ ALTER TABLE `material_subfamilia`
 -- AUTO_INCREMENT de la tabla `material_tarjam`
 --
 ALTER TABLE `material_tarjam`
-  MODIFY `ID_TARJA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=537;
+  MODIFY `ID_TARJA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=540;
 
 --
 -- AUTO_INCREMENT de la tabla `material_tcontenedor`
@@ -9495,7 +9508,6 @@ ALTER TABLE `material_despachoe`
   ADD CONSTRAINT `fk_material_despachoe_fruta_productor` FOREIGN KEY (`ID_PRODUCTOR`) REFERENCES `fruta_productor` (`ID_PRODUCTOR`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachoe_materiales_cliente` FOREIGN KEY (`ID_CLIENTE`) REFERENCES `material_cliente` (`ID_CLIENTE`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachoe_materiales_proveedor` FOREIGN KEY (`ID_PROVEEDOR`) REFERENCES `material_proveedor` (`ID_PROVEEDOR`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_material_despachoe_materiales_responsable` FOREIGN KEY (`ID_RESPONSABLE`) REFERENCES `material_responsable` (`ID_RESPONSABLE`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachoe_materiales_tdocumento` FOREIGN KEY (`ID_TDOCUMENTO`) REFERENCES `material_tdocumento` (`ID_TDOCUMENTO`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachoe_principal_bodega` FOREIGN KEY (`ID_BODEGA`) REFERENCES `principal_bodega` (`ID_BODEGA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachoe_principal_bodega2` FOREIGN KEY (`ID_BODEGA2`) REFERENCES `principal_bodega` (`ID_BODEGA`) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -9526,7 +9538,6 @@ ALTER TABLE `material_despachom`
   ADD CONSTRAINT `fk_material_despachom_principal_planta3` FOREIGN KEY (`ID_PLANTA3`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachom_principal_temporada` FOREIGN KEY (`ID_TEMPORADA`) REFERENCES `principal_temporada` (`ID_TEMPORADA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachom_transporte_conductor` FOREIGN KEY (`ID_CONDUCTOR`) REFERENCES `transporte_conductor` (`ID_CONDUCTOR`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_material_despachom_transporte_responsable` FOREIGN KEY (`ID_RESPONSABLE`) REFERENCES `material_responsable` (`ID_RESPONSABLE`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachom_transporte_transporte` FOREIGN KEY (`ID_TRANSPORTE`) REFERENCES `transporte_transporte` (`ID_TRANSPORTE`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachom_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_despachom_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
