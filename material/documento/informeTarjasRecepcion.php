@@ -397,7 +397,7 @@ foreach ($ARRAYTARJAM as $s) :
 		$TAMAÑOPRODUCTO = "f20";
 	}
 	if (strlen($NOMBREPRODUCTO) > "25" && strlen($NOMBREPRODUCTO) <= "42") {
-		$TAMAÑOPRODUCTO = "f25";
+		$TAMAÑOPRODUCTO = "f15";
 	}
 	if (strlen($NOMBREPRODUCTO) > "42" && strlen($NOMBREPRODUCTO) <= "61") {
 		$TAMAÑOPRODUCTO = "f10";
@@ -416,7 +416,7 @@ foreach ($ARRAYTARJAM as $s) :
 		$TAMAÑOEMPRESA = "f20";
 	}
 	if (strlen($EMPRESA) > "25" && strlen($EMPRESA) <= "42") {
-		$TAMAÑOEMPRESA = "f25";
+		$TAMAÑOEMPRESA = "f15";
 	}
 	if (strlen($EMPRESA) > "42" && strlen($EMPRESA) <= "61") {
 		$TAMAÑOEMPRESA = "f10";
@@ -427,21 +427,8 @@ foreach ($ARRAYTARJAM as $s) :
 	$html = $html . '
 		<div class="' . $TAMAÑO . ' center " width="100%">
 			<b > ' . $NOMBREORIGEN . '  </b> 
-		</div>
-       
-		<br>
-
-		<div class="subtitulo2"></div>
-
-		<br>
-		<div class="info justify">
-			<b> Tipo Contenedor : </b>  ' . $NOMBRETCONTEDOR . '
-		</div>
-        <br>
-		<div class="info justify">
-			<b> Unidad Medida : </b>  ' . $NOMBRETUMEDIDA . '
-		</div>
-		<br>
+		</div>       
+		<br>	
 		<div class="subtitulo2"></div>	
 		<div class="info justify">
 			<b> Nota Trazabilidad : </b>  
@@ -475,7 +462,7 @@ foreach ($ARRAYTARJAM as $s) :
 		<div class="subtitulo2"></div>      
         <div class=" ' . $TAMAÑO . ' center">
            <b > ' . $EMPRESA . '  </b>
-        </div>  
+        </div> 
       </div>  
 	  <div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
     ';
