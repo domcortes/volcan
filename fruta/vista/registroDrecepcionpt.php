@@ -159,7 +159,7 @@ if (isset($_REQUEST['CREAR'])) {
     if ($FOLIOMANUAL != "on") {
         $FOLIOMANUALR = "0";
         $SINO = "0";
-        $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolio($FOLIO);
+        $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolioRecepción($FOLIO);
         if ($ARRAYULTIMOFOLIO) {
             if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
                 $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
