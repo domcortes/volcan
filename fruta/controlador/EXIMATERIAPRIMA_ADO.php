@@ -597,6 +597,10 @@ class EXIMATERIAPRIMA_ADO
     //LISTAS 
     //BUSCAR POR LA RECEPCION ASOCIADA A LA EXIMATERIAPRIMA
 
+
+
+
+
     public function listarEximateriaprimaEmpresaPlantaTemporadaDisponible($EMPRESA,  $PLANTA, $TEMPORADA)
     {
         try {
@@ -745,9 +749,38 @@ class EXIMATERIAPRIMA_ADO
 
 
 
+ 
 
     //BUSCAR
+    public function buscarPorDespachoAgrupadoEstandarProducto($IDDESPACHO)
+    {
+        try {
 
+            $datos = $this->conexion->prepare(" SELECT                                                     
+                                                    estandar.ID_PRODUCTO,
+                                                    producto.ID_TUMEDIDA, 
+                                                    IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIMATERIAPRIMA),0) AS 'ENVASE'
+                                                FROM fruta_eximateriaprima existencia, estandar_erecepcion estandar, material_producto producto 
+                                                WHERE existencia.ID_ESTANDAR= estandar.ID_ESTANDAR 
+                                                AND estandar.ID_PRODUCTO=producto.ID_PRODUCTO 
+                                                AND existencia.ESTADO_REGISTRO = 1
+                                                AND existencia.ID_DESPACHO= '" . $IDDESPACHO . "'  
+                                                GROUP BY estandar.ID_PRODUCTO  
+                                                
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorRecepcionIngresado($IDRECEPCION)
     {
         try {

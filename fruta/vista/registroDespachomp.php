@@ -12,6 +12,10 @@ include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 
+include_once '../controlador/TDOCUMENTO_ADO.php';
+include_once '../controlador/BODEGA_ADO.php';
+include_once '../controlador/CLIENTE_ADO.php';
+
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
@@ -21,6 +25,12 @@ include_once '../controlador/COMPRADOR_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 
+
+include_once '../controlador/INVENTARIOE_ADO.php';
+include_once '../controlador/DESPACHOE_ADO.php';
+
+include_once "../modelo/INVENTARIOE.php";
+include_once "../modelo/DESPACHOE.php";
 
 
 include_once '../modelo/DESPACHOMP.php';
@@ -33,6 +43,9 @@ $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
+$TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
+$BODEGA_ADO = new BODEGA_ADO();
+$CLIENTE_ADO = new CLIENTE_ADO();
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
@@ -47,9 +60,16 @@ $COMPRADOR_ADO =  new COMPRADOR_ADO();
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 
+
+$INVENTARIOE_ADO = new INVENTARIOE_ADO();
+$DESPACHOE_ADO = new DESPACHOE_ADO();
+
 //INIICIALIZAR MODELO EXIMATERIAPRIMA
 $DESPACHOMP =  new DESPACHOMP();
 $EXIMATERIAPRIMA =  new EXIMATERIAPRIMA();
+
+$INVENTARIOE = new INVENTARIOE();
+$DESPACHOE = new DESPACHOE();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -90,14 +110,16 @@ $TOTALPRECIOV = 0;
 $IDEMPRESA = "";
 $IDPLANTA = "";
 $IDTEMPORADA = "";
-
+$TDOCUMENTO="";
+$BODEGAD="";
+$BODEGA="";
 
 $IDOP = "";
 $OP = "";
-
+$TDESPACHOE;
 
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 
@@ -149,6 +171,8 @@ $ARRAYIDPRECIO = "";
 $ARRAYIDDESPACHO = "";
 $ARRAYCONTEO = "";
 
+$ARRAYDESPACHOE = "";
+$ARRAYTOMADOAGRUPADO="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -158,7 +182,9 @@ $ARRAYTRANSPORTITA = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYCOMPRADOR = $COMPRADOR_ADO->listarCompradorPorEmpresaCBX($EMPRESAS);
 
-
+$ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->listarTdocumentoPorEmpresaCBX($EMPRESAS);
+$ARRAYCLIENTE = $CLIENTE_ADO->listarClientePorEmpresaCBX($EMPRESAS);
+$ARRAYBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaCBX($EMPRESAS, $PLANTAS);
 
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
@@ -186,6 +212,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $ARRAYDESPACHOTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho($IDOP);
     $ARRAYDESPACHOTOTAL2 = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho2($IDOP);
 
+    $ARRAYDESPACHOE=$DESPACHOE_ADO->listarDespachoePorDespachoMPCBX($IDOP);
+    if($ARRAYDESPACHOE){
+        $TDOCUMENTO=$ARRAYDESPACHOE[0]["ID_TDOCUMENTO"];
+        $CLIENTE=$ARRAYDESPACHOE[0]["ID_CLIENTE"];
+        $BODEGAD=$ARRAYDESPACHOE[0]["ID_BODEGA2"];
+        $BODEGA=$ARRAYDESPACHOE[0]["ID_BODEGAO"];
+
+    }
 
     $TOTALENVASEV = $ARRAYDESPACHOTOTAL2[0]['ENVASE'];
     $TOTALNETOV = $ARRAYDESPACHOTOTAL2[0]['NETO'];
@@ -235,6 +269,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
             if ($TDESPACHO == "1") {
                 $PLANTADESTINO = "" . $r['ID_PLANTA2'];
+                $ARRAYBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaCBX($EMPRESAS, $PLANTADESTINO);
             }
             if ($TDESPACHO == "2") {
                 $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
@@ -288,6 +323,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAMODIFCIACIONDESPACHO = "" . $r['MODIFICACION'];
             if ($TDESPACHO == "1") {
                 $PLANTADESTINO = "" . $r['ID_PLANTA2'];
+                $ARRAYBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaCBX($EMPRESAS, $PLANTADESTINO);
             }
             if ($TDESPACHO == "2") {
                 $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
@@ -340,10 +376,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $ESTADO = "" . $r['ESTADO'];
             $FECHAINGRESODESPACHO = "" . $r['INGRESO'];
             $FECHAMODIFCIACIONDESPACHO = "" . $r['MODIFICACION'];
-
-
             if ($TDESPACHO == "1") {
                 $PLANTADESTINO = "" . $r['ID_PLANTA2'];
+                $ARRAYBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaCBX($EMPRESAS, $PLANTADESTINO);
             }
             if ($TDESPACHO == "2") {
                 $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
@@ -357,9 +392,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if ($TDESPACHO == "5") {
                 $PLANTAEXTERNA = "" . $r['ID_PLANTA3'];
             }
-
-
-
         endforeach;
     }
 }
@@ -425,7 +457,8 @@ if (isset($_POST)) {
         if ($TDESPACHO == "1") {
 
             if (isset($_REQUEST['PLANTADESTINO'])) {
-                $PLANTADESTINO = "" . $_REQUEST['PLANTADESTINO'];
+                $PLANTADESTINO = "" . $_REQUEST['PLANTADESTINO'];                
+                $ARRAYBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaCBX($EMPRESAS, $PLANTADESTINO);
             }
         }
         if ($TDESPACHO == "2") {
@@ -452,18 +485,19 @@ if (isset($_POST)) {
     }
 
 
-
+    if (isset($_REQUEST['TDOCUMENTO'])) {
+        $TDOCUMENTO = "" . $_REQUEST['TDOCUMENTO'];
+    }    
+    if (isset($_REQUEST['BODEGAD'])) {
+        $BODEGAD = "" . $_REQUEST['BODEGAD'];
+    }
     if (isset($_REQUEST['EMPRESA'])) {
-
         $EMPRESA = "" . $_REQUEST['EMPRESA'];
     }
     if (isset($_REQUEST['PLANTA'])) {
-
         $PLANTA = "" . $_REQUEST['PLANTA'];
     }
-
     if (isset($_REQUEST['TEMPORADA'])) {
-
         $TEMPORADA = "" . $_REQUEST['TEMPORADA'];
     }
 }
@@ -498,6 +532,8 @@ if (isset($_POST)) {
                     PATENTEVEHICULO = document.getElementById("PATENTEVEHICULO").value;
                     PATENTECARRO = document.getElementById("PATENTECARRO").value;
                     //OBSERVACIONDESPACHOMP = document.getElementById("OBSERVACIONDESPACHOMP").value;
+                    TDOCUMENTO = document.getElementById("TDOCUMENTO").selectedIndex;
+                    BODEGA = document.getElementById("BODEGA").selectedIndex;
 
                     document.getElementById('val_fecha').innerHTML = "";
                     document.getElementById('val_numeroguia').innerHTML = "";
@@ -507,6 +543,8 @@ if (isset($_POST)) {
                     document.getElementById('val_patentevehiculo').innerHTML = "";
                     document.getElementById('val_patentecarro').innerHTML = "";
                     //  document.getElementById('val_observacion').innerHTML = "";
+                    document.getElementById('val_tdocumento').innerHTML = "";
+                    document.getElementById('val_bodega').innerHTML = "";
 
                     if (FECHADESPACHO == null || FECHADESPACHO.length == 0 || /^\s+$/.test(FECHADESPACHO)) {
                         document.form_reg_dato.FECHADESPACHO.focus();
@@ -656,6 +694,52 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.OBSERVACIONDESPACHOMP.style.borderColor = "#4AF575"; 
                     */
+
+                    
+                    if (TDOCUMENTO == null || TDOCUMENTO == 0) {
+                        document.form_reg_dato.TDOCUMENTO.focus();
+                        document.form_reg_dato.TDOCUMENTO.style.borderColor = "#FF0000";
+                        document.getElementById('val_tdocumento').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.TDOCUMENTO.style.borderColor = "#4AF575";
+
+
+                    if (BODEGA == null || BODEGA == 0) {
+                        document.form_reg_dato.BODEGA.focus();
+                        document.form_reg_dato.BODEGA.style.borderColor = "#FF0000";
+                        document.getElementById('val_bodega').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false
+                    }
+                    document.form_reg_dato.BODEGA.style.borderColor = "#4AF575";
+                    
+                    if (TDESPACHO == 1) {
+                        
+                        BODEGAD = document.getElementById("BODEGAD").selectedIndex;
+                        document.getElementById('val_bodegad').innerHTML = "";
+
+                        if (BODEGAD == null || BODEGAD == 0) {
+                            document.form_reg_dato.BODEGAD.focus();
+                            document.form_reg_dato.BODEGAD.style.borderColor = "#FF0000";
+                            document.getElementById('val_bodegad').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false
+                        }
+                        document.form_reg_dato.BODEGAD.style.borderColor = "#4AF575";
+
+                    }                    
+                    if (TDESPACHO == 3) {
+                    
+                        CLIENTE = document.getElementById("CLIENTE").selectedIndex;
+                        document.getElementById('val_cliente').innerHTML = "";
+
+                        if (CLIENTE == null || CLIENTE == 0) {
+                            document.form_reg_dato.CLIENTE.focus();
+                            document.form_reg_dato.CLIENTE.style.borderColor = "#FF0000";
+                            document.getElementById('val_cliente').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false
+                        }
+                        document.form_reg_dato.CLIENTE.style.borderColor = "#4AF575";
+                    }
                 }
 
                 //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE DESPACHOMP
@@ -826,7 +910,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Despacho </label>
                                                 <input type="hidden" class="Despachoform-control" placeholder="Fecha Despachomp" id="FECHADESPACHOE" name="FECHADESPACHOE" value="<?php echo $FECHADESPACHO; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Despacho" id="FECHADESPACHO" name="FECHADESPACHO" value="<?php echo $FECHADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control"  placeholder="Fecha Despacho" id="FECHADESPACHO" name="FECHADESPACHO" value="<?php echo $FECHADESPACHO; ?>" <?php echo $DISABLED2; ?>  />
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -849,7 +933,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Guía </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control"  placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_numeroguia" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -907,7 +991,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Camión</label>
                                                 <input type="hidden" class="form-control" placeholder="Patente Vehiculo" id="PATENTEVEHICULOE" name="PATENTEVEHICULOE" value="<?php echo $PATENTEVEHICULO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Camión" id="PATENTEVEHICULO" name="PATENTEVEHICULO" value="<?php echo $PATENTEVEHICULO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control"  placeholder="Patente Camión" id="PATENTEVEHICULO" name="PATENTEVEHICULO" value="<?php echo $PATENTEVEHICULO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentevehiculo" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -915,7 +999,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Carro</label>
                                                 <input type="hidden" class="form-control" placeholder="Patente Carro" id="PATENTECARROE" name="PATENTECARROE" value="<?php echo $PATENTECARRO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control"  placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecarro" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -924,7 +1008,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Planta Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTADESTINOE" id="PLANTADESTINOE" name="PLANTADESTINOE" value="<?php echo $PLANTADESTINO; ?>" />
-                                                    <select class="form-control select2" id="PLANTADESTINO" name="PLANTADESTINO" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                                                    <select class="form-control select2" id="PLANTADESTINO" name="PLANTADESTINO" onchange="this.form.submit()" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                                                         <option></option>
                                                         <?php foreach ($ARRAYPLANTADESTINO as $r) : ?>
                                                             <?php if ($ARRAYPLANTADESTINO) {    ?>
@@ -989,7 +1073,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Regalo</label>
                                                     <input type="hidden" class="form-control" placeholder="REGALOE" id="REGALOE" name="REGALOE" value="<?php echo $REGALO; ?>" />
-                                                    <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Para Quien o Quienes" id="REGALO" name="REGALO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $REGALO; ?></textarea>
+                                                    <textarea class="form-control" rows="1"  placeholder="Ingrese Para Quien o Quienes" id="REGALO" name="REGALO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $REGALO; ?></textarea>
                                                     <label id="val_regalo" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1021,13 +1105,93 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         <?php } ?>
-                                    </div>
+                                    </div>                                    
+                                        <p class="text-muted"><i class="fas fa-info-circle"></i> Datos necesarios para el despacho de envases</p>               
+                                    
+                                    <div class="row">                     
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Tipo Documento</label>
+                                                <input type="hidden" class="form-control" placeholder="Transportita" id="TDOCUMENTOE" name="TDOCUMENTOE" value="<?php echo $TDOCUMENTO; ?>" />
+                                                <select class="form-control select2" id="TDOCUMENTO" name="TDOCUMENTO" style="width: 100%;" <?php echo $DISABLED2; ?> >
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYTDOCUMENTO as $r) : ?>
+                                                        <?php if ($ARRAYTDOCUMENTO) {    ?>
+                                                            <option value="<?php echo $r['ID_TDOCUMENTO']; ?>" <?php if ($TDOCUMENTO == $r['ID_TDOCUMENTO']) {
+                                                                                                                    echo "selected";
+                                                                                                                } ?>> <?php echo $r['NOMBRE_TDOCUMENTO'] ?> </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_tdocumento" class="validacion"> </label>
+                                            </div>
+                                        </div>                                            
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Bodega Origen</label>
+                                                <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
+                                                <select class="form-control select2" id="BODEGA" name="BODEGA" style="width: 100%;" <?php echo $DISABLED2; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYBODEGA as $r) : ?>
+                                                        <?php if ($ARRAYBODEGA) {    ?>
+                                                            <option value="<?php echo $r['ID_BODEGA']; ?>" <?php if ($BODEGA == $r['ID_BODEGA']) {
+                                                                                                                echo "selected";
+                                                                                                            } ?>> <?php echo $r['NOMBRE_BODEGA'] ?> </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_bodega" class="validacion"> </label>
+                                            </div>
+                                        </div>                                         
+                                        <?php if ($TDESPACHO == "1") { ?>                                   
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Bodega Destino</label>
+                                                    <input type="hidden" class="form-control" placeholder="BODEGADE" id="BODEGADE" name="BODEGADE" value="<?php echo $BODEGAD; ?>" />
+                                                    <select class="form-control select2" id="BODEGAD" name="BODEGAD" style="width: 100%;" <?php echo $DISABLED2; ?> >
+                                                        <option value="0"></option>
+                                                        <?php foreach ($ARRAYBODEGA2 as $r) : ?>
+                                                            <?php if ($ARRAYBODEGA2) {    ?>
+                                                                <option value="<?php echo $r['ID_BODEGA']; ?>" <?php if ($BODEGAD == $r['ID_BODEGA']) {    echo "selected";    } ?>> <?php echo $r['NOMBRE_BODEGA'] ?> </option>
+                                                            <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_bodegad" class="validacion"> </label>
+                                                </div>
+                                            </div>                                          
+                                        <?php } ?>               
+                                        <?php if ($TDESPACHO == "3") { ?>                                             
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Cliente</label>
+                                                    <input type="hidden" class="form-control" placeholder="CLIENTEE" id="CLIENTEE" name="CLIENTEE" value="<?php echo $CLIENTE; ?>" />
+                                                    <select class="form-control select2" id="CLIENTE" name="CLIENTE" style="width: 100%;" <?php echo $DISABLED2; ?> >
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYCLIENTE as $r) : ?>
+                                                            <?php if ($ARRAYCLIENTE) {    ?>
+                                                                <option value="<?php echo $r['ID_CLIENTE']; ?>" <?php if ($CLIENTE == $r['ID_CLIENTE']) {  echo "selected";  } ?>> <?php echo $r['NOMBRE_CLIENTE'] ?> </option>
+                                                            <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_cliente" class="validacion"> </label>
+                                                </div>
+                                            </div>                                      
+                                        <?php } ?>   
+                                    </div> 
                                     <div class="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="OBSERVACIONDESPACHOE" name="OBSERVACIONDESPACHOE" value="<?php echo $OBSERVACIONDESPACHO; ?>" />
-                                                <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACIONDESPACHO" name="OBSERVACIONDESPACHO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACIONDESPACHO; ?></textarea>
+                                                <textarea class="form-control" rows="1"  placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACIONDESPACHO" name="OBSERVACIONDESPACHO" <?php echo $DISABLED2; ?>><?php echo $OBSERVACIONDESPACHO; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1227,7 +1391,7 @@ if (isset($_POST)) {
         <?php include_once "../config/urlBase.php"; ?>
         <?php
             //OPERACION DE REGISTRO DE FILA
-                if (isset($_REQUEST['CREAR'])) {
+            if (isset($_REQUEST['CREAR'])) {
 
                     $ARRAYNUMERO = $DESPACHOMP_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                     $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
@@ -1272,10 +1436,57 @@ if (isset($_POST)) {
                         $_REQUEST['EMPRESA'],
                         $_REQUEST['PLANTA'],
                         $_REQUEST['TEMPORADA'],
-                    );
-
+                    );     
+                    $ARRAYDESPACHOE = $DESPACHOE_ADO->listarDespachoePorDespachoMPCBX($ARRYAOBTENERID[0]['ID_DESPACHO']);
+                    if(empty($ARRAYDESPACHOE)){
+                        $ARRAYNUMERO = $DESPACHOE_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                        $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                        //UTILIZACION METODOS SET DEL MODELO
+                        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO       
+                        $DESPACHOE->__SET('NUMERO_DESPACHO', $NUMERO);
+                        $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHO']);
+                        $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
+                        $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+                        $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
+                        $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+                        $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+                        if ($_REQUEST['TDESPACHO'] == "1") {
+                            $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
+                            $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                            $TDESPACHOE ="2";
+                        }
+                        if ($_REQUEST['TDESPACHO'] == "2") {
+                            $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                            $TDESPACHOE ="3";
+                        }
+                        if ($_REQUEST['TDESPACHO'] == "3") {
+                            $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                            $TDESPACHOE ="6";
+                        }
+                        if ($_REQUEST['TDESPACHO'] == "4") {
+                            $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
+                            $TDESPACHOE ="7";
+                        }
+                        if ($_REQUEST['TDESPACHO'] == "5") {
+                            $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
+                            $TDESPACHOE ="5";
+                        }                   
+                        $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
+                        $DESPACHOE->__SET('ID_BODEGAO', $_REQUEST['BODEGA']);
+                        $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
+                        $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                        $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                        $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                        $DESPACHOE->__SET('ID_DESPACHOMP', $ARRYAOBTENERID[0]['ID_DESPACHO']);
+                        $DESPACHOE->__SET('ID_USUARIOI', $IDUSUARIOS);
+                        $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $DESPACHOE_ADO->agregarDespachoe($DESPACHOE);
+    
+                    }
                     //REDIRECCIONAR A PAGINA registroDespachomp.php
-
+                
                     $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
                     $_SESSION["parametro1"] = "crear";
                     echo '<script>
@@ -1291,18 +1502,17 @@ if (isset($_POST)) {
                                 }
                             })
                         </script>';
-                // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
+                // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";            
             }
-
             if (isset($_REQUEST['EDITAR'])) {
-                $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
                 $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 $DESPACHOMP->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
                 $DESPACHOMP->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
                 $DESPACHOMP->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
                 $DESPACHOMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
                 $DESPACHOMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-                $DESPACHOMP->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
+                $DESPACHOMP->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
                 $DESPACHOMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
                 $DESPACHOMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                 $DESPACHOMP->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
@@ -1327,8 +1537,95 @@ if (isset($_POST)) {
                 $DESPACHOMP->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $DESPACHOMP_ADO->actualizarDespachomp($DESPACHOMP);
+                $DESPACHOMP_ADO->actualizarDespachomp($DESPACHOMP);     
 
+                $ARRAYDESPACHOE = $DESPACHOE_ADO->listarDespachoePorDespachoMPCBX($_REQUEST['IDP']);
+                if(empty($ARRAYDESPACHOE)){
+                    $ARRAYNUMERO = $DESPACHOE_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                    //UTILIZACION METODOS SET DEL MODELO
+                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO       
+                    $DESPACHOE->__SET('NUMERO_DESPACHO', $NUMERO);
+                    $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                    $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                    $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                    $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                    $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
+                    $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                    $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                    if ($_REQUEST['TDESPACHOE'] == "1") {
+                        $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                        $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                        $TDESPACHOE ="2";
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "2") {
+                        $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                        $TDESPACHOE ="3";
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "3") {
+                        $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                        $TDESPACHOE ="6";
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "4") {
+                        $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                        $TDESPACHOE ="7";
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "5") {
+                        $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                        $TDESPACHOE ="5";
+                    }                  
+                    $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
+                    $DESPACHOE->__SET('ID_BODEGAO', $_REQUEST['BODEGA']);
+                    $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
+                    $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                    $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                    $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                    $DESPACHOE->__SET('ID_DESPACHOMP', $_REQUEST['IDP']);
+                    $DESPACHOE->__SET('ID_USUARIOI', $IDUSUARIOS);
+                    $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $DESPACHOE_ADO->agregarDespachoe($DESPACHOE);
+                }else{             
+                    $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                    $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                    $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                    $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                    $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
+                    $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                    $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                    if ($_REQUEST['TDESPACHOE'] == "1") {
+                        $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                        $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                        $TDESPACHOE ="2";
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "2") {
+                        $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $TDESPACHOE ="3";
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "3") {
+                        $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                        $TDESPACHOE ="6";
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "4") {
+                        $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                        $TDESPACHOE ="7";
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "5") {
+                        $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                        $TDESPACHOE ="5";
+                    }                     
+                    $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
+                    $DESPACHOE->__SET('ID_BODEGAO', $_REQUEST['BODEGA']);
+                    $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
+                    $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                    $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                    $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                    $DESPACHOE->__SET('ID_DESPACHOMP', $_REQUEST['IDP']);
+                    $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $DESPACHOE_ADO->actualizarDespachoe($DESPACHOE);
+                }
                 echo '<script>
                         Swal.fire({
                             icon:"info",
@@ -1343,7 +1640,6 @@ if (isset($_POST)) {
                         })
                     </script>';
             }
-
             //OPERACION PARA CERRAR LA DESPACHOMP
             if (isset($_REQUEST['CERRAR'])) {
                 //UTILIZACION METODOS SET DEL MODELO
@@ -1405,7 +1701,7 @@ if (isset($_POST)) {
 
                     $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                    $DESPACHOMP_ADO->Confirmado($DESPACHOMP);
+                   $DESPACHOMP_ADO->Confirmado($DESPACHOMP);
 
                     $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
                     foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
@@ -1421,9 +1717,151 @@ if (isset($_POST)) {
                             $EXIMATERIAPRIMA_ADO->despachado($EXIMATERIAPRIMA);
                         }
                     endforeach;
+
+              
+                    $ARRAYDESPACHOE = $DESPACHOE_ADO->listarDespachoePorDespachoMPCBX($_REQUEST['IDP']);
+                    if(empty($ARRAYDESPACHOE)){
+                        $ARRAYNUMERO = $DESPACHOE_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                        $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                        //UTILIZACION METODOS SET DEL MODELO
+                        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO       
+                        $DESPACHOE->__SET('NUMERO_DESPACHO', $NUMERO);
+                        $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                        $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                        $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                        $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
+                        $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                        $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                        if ($_REQUEST['TDESPACHOE'] == "1") {
+                            $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                            $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                            $TDESPACHOE ="2";
+                        }
+                        if ($_REQUEST['TDESPACHOE'] == "2") {
+                            $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $TDESPACHOE ="3";
+                        }
+                        if ($_REQUEST['TDESPACHOE'] == "3") {
+                            $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                            $TDESPACHOE ="6";
+                        }
+                        if ($_REQUEST['TDESPACHOE'] == "4") {
+                            $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                            $TDESPACHOE ="7";
+                        }
+                        if ($_REQUEST['TDESPACHOE'] == "5") {
+                            $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                            $TDESPACHOE ="5";
+                        }                  
+                        $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
+                        $DESPACHOE->__SET('ID_BODEGAO', $_REQUEST['BODEGA']);
+                        $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
+                        $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                        $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                        $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                        $DESPACHOE->__SET('ID_DESPACHOMP', $_REQUEST['IDP']);
+                        $DESPACHOE->__SET('ID_USUARIOI', $IDUSUARIOS);
+                        $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $DESPACHOE_ADO->agregarDespachoe($DESPACHOE);
+
+                        $ARRYAOBTENERIDE = $DESPACHOE_ADO->obtenerId(
+                            $_REQUEST['FECHADESPACHO'],
+                            $_REQUEST['EMPRESA'],
+                            $_REQUEST['PLANTA'],
+                            $_REQUEST['TEMPORADA'],
+                        );                        
+                        $ARRAYINVENTARIOE = $INVENTARIOE_ADO->buscarPorDespacho2($ARRYAOBTENERIDE[0]["ID_DESPACHO"]);
+                        if(empty($ARRAYINVENTARIOE)){
+                            $ARRAYTOMADOAGRUPADO=$EXIMATERIAPRIMA_ADO->buscarPorDespachoAgrupadoEstandarProducto($_REQUEST['IDP']);
+                            foreach ($ARRAYTOMADOAGRUPADO as $r ) {                            
+                                $INVENTARIOE->__SET('TDESPACHOE',  $_REQUEST['TDESPACHOE']);
+                                $INVENTARIOE->__SET('CANTIDAD_SALIDA', $r["ENVASE"]);
+                                $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
+                                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                                $INVENTARIOE->__SET('ID_PRODUCTO', $r["ID_PRODUCTO"]);
+                                $INVENTARIOE->__SET('ID_TUMEDIDA', $r["ID_TUMEDIDA"]);
+                                $INVENTARIOE->__SET('ID_DESPACHO', $ARRYAOBTENERIDE[0]["ID_DESPACHO"]);
+                               $INVENTARIOE_ADO->agregarInventarioDespacho($INVENTARIOE);
+                            } 
+                        }                        
+                        $ARRAYINVENTARIOETOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorDespachoCBX($ARRYAOBTENERIDE[0]["ID_DESPACHO"]);   
+                        $DESPACHOE->__SET('CANTIDAD_DESPACHO', $ARRAYINVENTARIOETOTALES[0]["CANTIDAD"]);
+                        $DESPACHOE->__SET('ID_DESPACHO', $ARRYAOBTENERIDE[0]["ID_DESPACHO"]);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $DESPACHOE_ADO->cerrarActualizarcantidad($DESPACHOE);
+                    }else{             
+                        $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                        $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                        $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                        $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
+                        $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                        $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                        if ($_REQUEST['TDESPACHOE'] == "1") {
+                            $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                            $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                            $TDESPACHOE ="2";
+                        }
+                        if ($_REQUEST['TDESPACHOE'] == "2") {
+                            $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $TDESPACHOE ="3";
+                        }
+                        if ($_REQUEST['TDESPACHOE'] == "3") {
+                            $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                            $TDESPACHOE ="6";
+                        }
+                        if ($_REQUEST['TDESPACHOE'] == "4") {
+                            $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                            $TDESPACHOE ="7";
+                        }
+                        if ($_REQUEST['TDESPACHOE'] == "5") {
+                            $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                            $TDESPACHOE ="5";
+                        }                  
+                        $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
+                        $DESPACHOE->__SET('ID_BODEGAO', $_REQUEST['BODEGA']);
+                        $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
+                        $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                        $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                        $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                        $DESPACHOE->__SET('ID_DESPACHOMP', $_REQUEST['IDP']);
+                        $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
+                        $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $DESPACHOE_ADO->actualizarDespachoe($DESPACHOE);
+                        
+                        $ARRAYINVENTARIOE = $INVENTARIOE_ADO->buscarPorDespacho2($ARRAYDESPACHOE[0]["ID_DESPACHO"]);
+                        if(empty($ARRAYINVENTARIOE)){
+                            $ARRAYTOMADOAGRUPADO=$EXIMATERIAPRIMA_ADO->buscarPorDespachoAgrupadoEstandarProducto($_REQUEST['IDP']);
+                            foreach ($ARRAYTOMADOAGRUPADO as $r ) {                            
+                                $INVENTARIOE->__SET('TDESPACHOE',  $_REQUEST['TDESPACHOE']);
+                                $INVENTARIOE->__SET('CANTIDAD_SALIDA', $r["ENVASE"]);
+                                $INVENTARIOE->__SET('VALOR_UNITARIO', 0);
+                                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                                $INVENTARIOE->__SET('ID_PRODUCTO', $r["ID_PRODUCTO"]);
+                                $INVENTARIOE->__SET('ID_TUMEDIDA', $r["ID_TUMEDIDA"]);
+                                $INVENTARIOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
+                                $INVENTARIOE_ADO->agregarInventarioDespacho($INVENTARIOE);
+                            } 
+                        }                        
+                        $ARRAYINVENTARIOETOTALES = $INVENTARIOE_ADO->obtenerTotalesInventarioPorDespachoCBX($ARRAYDESPACHOE[0]["ID_DESPACHO"]);   
+                        $DESPACHOE->__SET('CANTIDAD_DESPACHO', $ARRAYINVENTARIOETOTALES[0]["CANTIDAD"]);
+                        $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $DESPACHOE_ADO->cerrarActualizarcantidad($DESPACHOE);
+                    }
+
+
                     //REDIRECCIONAR A PAGINA registroDespachomp.php
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-
                     if ($_SESSION['parametro1'] == "crear") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
                         $_SESSION["parametro1"] = "ver";
@@ -1461,9 +1899,9 @@ if (isset($_POST)) {
                             </script>';
                         // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
                     }
+                    
                 }
             }
-
             if (isset($_REQUEST['QUITAR'])) {
                 $IDQUITAR = $_REQUEST['IDQUITAR'];
                 $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $IDQUITAR);
