@@ -1746,7 +1746,7 @@ if (isset($_POST)) {
 
                     $DESPACHOMP->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                   $DESPACHOMP_ADO->Confirmado($DESPACHOMP);
+                    $DESPACHOMP_ADO->Confirmado($DESPACHOMP);
 
                     $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
                     foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
@@ -1843,6 +1843,11 @@ if (isset($_POST)) {
                         $DESPACHOE->__SET('ID_DESPACHO', $ARRYAOBTENERIDE[0]["ID_DESPACHO"]);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $DESPACHOE_ADO->cerrarActualizarcantidad($DESPACHOE);
+
+                        
+                        $DESPACHOE->__SET('ID_DESPACHO', $ARRYAOBTENERIDE[0]["ID_DESPACHO"]);
+                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                        $DESPACHOE_ADO->Confirmado($DESPACHOE);
                     }else{             
                         $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
                         $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
@@ -1910,6 +1915,10 @@ if (isset($_POST)) {
                         $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $DESPACHOE_ADO->cerrarActualizarcantidad($DESPACHOE);
+                        
+                        $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
+                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                        $DESPACHOE_ADO->Confirmado($DESPACHOE);
                     }
 
                     
