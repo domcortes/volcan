@@ -49,9 +49,9 @@ $ARRAYTEMPORADA = "";
 <html lang="es">
 
 <head>
-    <title>INICIAR SESSION</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruticola Volcan</title>
 
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
     <?php include_once "../config/urlHead.php"; ?>
