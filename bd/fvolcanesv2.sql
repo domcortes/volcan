@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2021 a las 02:02:15
+-- Tiempo de generación: 25-10-2021 a las 14:13:24
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -5231,6 +5231,7 @@ CREATE TABLE `principal_bodega` (
   `NOMBRE_BODEGA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `NOMBRE_CONTACTO_BODEGA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `PRINCIPAL` int(11) DEFAULT 0,
+  `ENVASES` int(11) DEFAULT 0,
   `ESTADO_REGISTRO` int(11) DEFAULT NULL,
   `INGRESO` date DEFAULT NULL,
   `MODIFICACION` date DEFAULT NULL,
@@ -5244,9 +5245,9 @@ CREATE TABLE `principal_bodega` (
 -- Volcado de datos para la tabla `principal_bodega`
 --
 
-INSERT INTO `principal_bodega` (`ID_BODEGA`, `NOMBRE_BODEGA`, `NOMBRE_CONTACTO_BODEGA`, `PRINCIPAL`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_PLANTA`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'bodega 1', '-', 1, 1, '2021-07-30', '2021-10-12', 1, 1, 1, 1),
-(2, 'bodega 2', 'Prueba', 0, 1, '2021-09-21', '2021-10-12', 2, 1, 1, 1);
+INSERT INTO `principal_bodega` (`ID_BODEGA`, `NOMBRE_BODEGA`, `NOMBRE_CONTACTO_BODEGA`, `PRINCIPAL`, `ENVASES`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_PLANTA`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, 'bodega 1', '-', 1, 1, 1, '2021-07-30', '2021-10-25', 1, 1, 1, 1),
+(2, 'bodega 2', 'Prueba', 0, 0, 1, '2021-09-21', '2021-10-25', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
