@@ -11,6 +11,7 @@
         private	  $NOMBRE_BODEGA;
         private	  $NOMBRE_CONTACTO_BODEGA;
         private	  $PRINCIPAL;
+        private	  $ENVASES;
         private   $ESTADO_REGISTRO; 
         private   $INGRESO;
         private   $MODIFICACION;
