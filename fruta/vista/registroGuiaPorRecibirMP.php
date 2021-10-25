@@ -11,14 +11,20 @@ include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 
+include_once '../controlador/MGUIAMP_ADO.php';
 
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
-include_once '../controlador/MGUIAMP_ADO.php';
+
+include_once '../controlador/INVENTARIOE_ADO.php';
+include_once '../controlador/DESPACHOE_ADO.php';
 
 
 include_once '../modelo/EXIMATERIAPRIMA.php';
 include_once '../modelo/DESPACHOMP.php';
+
+include_once '../modelo/INVENTARIOE.php';
+include_once '../modelo/DESPACHOE.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -38,11 +44,15 @@ $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $MGUIAMP_ADO =  new MGUIAMP_ADO();
 
 
+$INVENTARIOE_ADO =  new INVENTARIOE_ADO();
+$DESPACHOE_ADO =  new DESPACHOE_ADO();
 
 //INIICIALIZAR MODELO
 $DESPACHOMP =  new DESPACHOMP();
 $EXIMATERIAPRIMA =  new EXIMATERIAPRIMA();
 
+$INVENTARIOE =  new INVENTARIOE();
+$DESPACHOE =  new DESPACHOE();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -66,6 +76,9 @@ $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
 $ARRAYMGUIAPT = "";
+
+$ARRAYDESPACHOE="";
+$ARRAYEXISENCIADESPACHOEP="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -103,6 +116,7 @@ if (isset($_REQUEST['APROBARURL'])) {
     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
     $DESPACHOMP_ADO->Aprobado($DESPACHOMP);
 
+
     $ARRAYEXISENCIADESPACHOMP = $EXIMATERIAPRIMA_ADO->verExistenciaPorDespachoEnTransito($_REQUEST['ID']);
     foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
         $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $r['ID_EXIMATERIAPRIMA']);
@@ -138,10 +152,35 @@ if (isset($_REQUEST['APROBARURL'])) {
         $EXIMATERIAPRIMA->__SET('ID_PLANTA', $PLANTAS);
         $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);
         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaGuia($EXIMATERIAPRIMA);
+     //   $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaGuia($EXIMATERIAPRIMA);
     endforeach;
 
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    $ARRAYDESPACHOE=$DESPACHOE_ADO->listarDespachoePorDespachoMPCBX($_REQUEST['ID']);
+    if($ARRAYDESPACHOE){
+        $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]['ID_DESPACHO']);
+        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+        $DESPACHOE_ADO->cerrado($DESPACHOE);
+        
+        $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]['ID_DESPACHO']);
+        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+        $DESPACHOE_ADO->Aprobado($DESPACHOE);
+        
+        $ARRAYEXISENCIADESPACHOEP = $INVENTARIOE_ADO->buscarPorDespacho($ARRAYDESPACHOE[0]['ID_DESPACHO']);
+        foreach ($ARRAYEXISENCIADESPACHOEP as $r) :
+            $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r['CANTIDAD_SALIDA']);
+            $INVENTARIOE->__SET('CANTIDAD_SALIDA', $r['CANTIDAD_ENTRADA']);
+            $INVENTARIOE->__SET('VALOR_UNITARIO', $r['VALOR_UNITARIO']);
+            $INVENTARIOE->__SET('ID_BODEGA',  $ARRAYDESPACHOE[0]['ID_BODEGA2']);
+            $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
+            $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
+            $INVENTARIOE->__SET('ID_PLANTA2', $r['ID_PLANTA']);
+            $INVENTARIOE->__SET('ID_EMPRESA', $EMPRESAS);
+            $INVENTARIOE->__SET('ID_PLANTA', $PLANTAS);
+            $INVENTARIOE->__SET('ID_TEMPORADA', $TEMPORADAS);
+            $INVENTARIOE_ADO->agregarInventarioGuia($INVENTARIOE);
+        endforeach;
+    }
+   echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
 }
 
 
