@@ -128,7 +128,9 @@ $DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 $DISABLEDFOLIO = "";
+$DISABLEENVASE="";
 $MENSAJEFOLIO = "";
+$MENSAJEENVASE="";
 
 
 
@@ -180,7 +182,7 @@ $ARRAYCONDUCTOR = $CONDUCTOR_ADO->listarConductorPorEmpresaCBX($EMPRESAS);
 $ARRAYVESPECIES = $VESPECIES_ADO->listarVespeciesPorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->listarTdocumentoPorEmpresaCBX($EMPRESAS);
-$ARRAYBODEGA =  $BODEGA_ADO->listarBodegaPorEmpresaCBX($EMPRESAS);
+//$ARRAYBODEGA =  $BODEGA_ADO->listarBodegaPorEmpresaCBX($EMPRESAS);
 $ARRAYPLANTA2 = $PLANTA_ADO->listarPlantaExternaCBX();
 
 
@@ -198,8 +200,14 @@ $ARRAYFOLIO3 = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTmateriaprima($EMPRE
 if (empty($ARRAYFOLIO3)) {
     $DISABLEDFOLIO = "disabled";
     $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS MP </b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
+}  
+$ARRAYBODEGAENVASES=$BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesCBX($EMPRESAS, $PLANTAS);
+if (empty($ARRAYBODEGAENVASES)) {
+    $DISABLEENVASE = "disabled";
+    $MENSAJEENVASE = " NECESITA <b> TIENE QUE HABER BODEGA DE ENVASES</b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
+}else{
+    $BODEGA=$ARRAYBODEGAENVASES[0]["ID_BODEGA"];    
 }
-
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -666,20 +674,13 @@ if (isset($_POST)) {
 
 
                 if (TDOCUMENTO == null || TDOCUMENTO == 0) {
-                        document.form_reg_dato.TDOCUMENTO.focus();
-                        document.form_reg_dato.TDOCUMENTO.style.borderColor = "#FF0000";
-                        document.getElementById('val_tdocumento').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false
-                    }
-                    document.form_reg_dato.TDOCUMENTO.style.borderColor = "#4AF575";
+                    document.form_reg_dato.TDOCUMENTO.focus();
+                    document.form_reg_dato.TDOCUMENTO.style.borderColor = "#FF0000";
+                    document.getElementById('val_tdocumento').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    return false
+                }
+                document.form_reg_dato.TDOCUMENTO.style.borderColor = "#4AF575";
                 
-                    if (BODEGA == null || BODEGA == 0) {
-                        document.form_reg_dato.BODEGA.focus();
-                        document.form_reg_dato.BODEGA.style.borderColor = "#FF0000";
-                        document.getElementById('val_bodega').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false
-                    }
-                    document.form_reg_dato.BODEGA.style.borderColor = "#4AF575";
 
 
             }  
@@ -1092,21 +1093,7 @@ if (isset($_POST)) {
                                         </div>
                                         <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
-                                                <label>Bodega Destino</label>
-                                                <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
-                                                <select class="form-control select2" id="BODEGA" name="BODEGA" style="width: 100%;"  <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYBODEGA as $r) : ?>
-                                                        <?php if ($ARRAYBODEGA) {    ?>
-                                                            <option value="<?php echo $r['ID_BODEGA']; ?>" <?php if ($BODEGA == $r['ID_BODEGA']) { echo "selected";   } ?>> 
-                                                                <?php echo $r['NOMBRE_BODEGA'] ?> 
-                                                            </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                                <label id="val_bodega" class="validacion"> </label>
+                                                <input type="hidden" class="form-control" placeholder="BODEGA" id="BODEGA" name="BODEGA" value="<?php echo $BODEGA; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -1120,7 +1107,7 @@ if (isset($_POST)) {
                                                 <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionmp.php');">
                                                     <i class="ti-trash"></i> Borrar
                                                 </button>
-                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?>  <?php echo $DISABLEENVASE; ?>  onclick="return validacion()">
                                                     <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
@@ -1128,10 +1115,10 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionmp.php'); ">
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
-                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLEENVASE; ?>  onclick="return validacion()">
                                                     <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
-                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return  validacion()">
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>  <?php echo $DISABLEENVASE; ?>  onclick="return  validacion()">
                                                     <i class="ti-save-alt"></i> Cerrar
                                                 </button>
                                             <?php } ?>
