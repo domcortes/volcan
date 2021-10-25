@@ -174,263 +174,8 @@ include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrlD.php";
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-
-    $ARRAYNUMERO = $DESPACHOPT_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $DESPACHOPT->__SET('NUMERO_DESPACHO', $NUMERO);
-    $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-    $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
-    $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
-    $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-    $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
-    $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHO']);
-    $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-    $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-    $DESPACHOPT->__SET('VGM', $_REQUEST['VGM']);
-    $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
-    if ($_REQUEST['TDESPACHO'] == "1") {
-        $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
-    }
-    if ($_REQUEST['TDESPACHO'] == "2") {
-        $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    }
-    if ($_REQUEST['TDESPACHO'] == "3") {
-        $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
-    }
-    if ($_REQUEST['TDESPACHO'] == "4") {
-        $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
-    }
-    if ($_REQUEST['TDESPACHO'] == "5") {
-        $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
-    }
-    $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $DESPACHOPT->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DESPACHOPT_ADO->agregarDespachopt($DESPACHOPT);
 
 
-    //OBTENER EL ID DE LA DESPACHOPT CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-    $ARRYAOBTENERID = $DESPACHOPT_ADO->obtenerId(
-        $_REQUEST['FECHADESPACHO'],
-        $_REQUEST['EMPRESA'],
-        $_REQUEST['PLANTA'],
-        $_REQUEST['TEMPORADA'],
-    );
-
-    //REDIRECCIONAR A PAGINA registroDespachoPT.php
-
-    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
-    $_SESSION["parametro1"] = "crear";
-    echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
-}
-if (isset($_REQUEST['EDITAR'])) {
-    $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-    $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
-    $DESPACHOPT->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
-    $DESPACHOPT->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
-    $DESPACHOPT->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
-    $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
-    $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-    $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
-    $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHOE']);
-    $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-    $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-    $DESPACHOPT->__SET('VGM', $_REQUEST['VGME']);
-    $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-    if ($_REQUEST['TDESPACHOE'] == "1") {
-        $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
-    }
-    if ($_REQUEST['TDESPACHOE'] == "2") {
-        $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-    }
-    if ($_REQUEST['TDESPACHOE'] == "3") {
-        $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
-        $DESPACHOPT->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
-    }
-    if ($_REQUEST['TDESPACHOE'] == "4") {
-        $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
-    }
-    if ($_REQUEST['TDESPACHOE'] == "5") {
-        $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
-    }
-    $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DESPACHOPT_ADO->actualizarDespachopt($DESPACHOPT);
-}
-//OPERACION PARA CERRAR LA DESPACHOPT
-if (isset($_REQUEST['CERRAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
-    if (empty($ARRAYDDESPACHOMP2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-    if ($_REQUEST['TDESPACHOE'] == "3") {
-        $ARRAYCONTEO = $EXIEXPORTACION_ADO->contarExistenciaPorDespachoPrecioNulo($_REQUEST['IDP']);
-        if ($ARRAYCONTEO) {
-            if ($ARRAYCONTEO[0]["CONTEO"] != 0) {
-                $MENSAJE = "ES OBLIGATORIO TENER PRECIOS EN TODAS LAS EXISTENCIA SELECCIONADA";
-                $SINO = "1";
-            } else {
-                $MENSAJE = "";
-                $SINO = "0";
-            }
-        }
-    }
-    if ($SINO == "0") {
-        $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-        $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
-        $DESPACHOPT->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
-        $DESPACHOPT->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
-        $DESPACHOPT->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
-        $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
-        $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
-        $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHOE']);
-        $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-        $DESPACHOPT->__SET('VGM', $_REQUEST['VGME']);
-        $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-        if ($_REQUEST['TDESPACHOE'] == "1") {
-            $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "2") {
-            $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "3") {
-            $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
-            $DESPACHOPT->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "4") {
-            $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
-        }
-        if ($_REQUEST['TDESPACHOE'] == "5") {
-            $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
-        }
-        $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $DESPACHOPT_ADO->actualizarDespachopt($DESPACHOPT);
-
-        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $DESPACHOPT_ADO->cerrado($DESPACHOPT);
-
-        $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $DESPACHOPT_ADO->Confirmado($DESPACHOPT);
-
-        $ARRAYEXISENCIADESPACHOMP = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
-        foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
-            if ($_REQUEST['TDESPACHOE'] == "1") {
-                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
-                $EXIEXPORTACION->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIEXPORTACION_ADO->enTransito($EXIEXPORTACION);
-
-                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
-                $EXIEXPORTACION->__SET('VGM', $_REQUEST['VGME']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIEXPORTACION_ADO->vgm($EXIEXPORTACION);
-            } else {
-                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
-                $EXIEXPORTACION->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIEXPORTACION_ADO->despachado($EXIEXPORTACION);
-
-
-                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
-                $EXIEXPORTACION->__SET('VGM', $_REQUEST['VGME']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $EXIEXPORTACION_ADO->vgm($EXIEXPORTACION);
-            }
-        endforeach;
-        //REDIRECCIONAR A PAGINA registroDespachopt.php 
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        if ($_SESSION['parametro1'] == "crear") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
-        }
-        if ($_SESSION['parametro1'] == "editar") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
-        }
-    }
-}
-if (isset($_REQUEST['QUITAR'])) {
-    $IDQUITAR = $_REQUEST['IDQUITAR'];
-    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
-    // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIEXPORTACION);
-}
-if (isset($_REQUEST['PRECIOS'])) {
-    $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
-    if (empty($ARRAYDDESPACHOMP2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-    if ($SINO == 0) {
-        $ARRAYIDDESPACHO = $_REQUEST['IDDESPACHO'];
-        $ARRAYIDEXIEXPORTACIONPRECIO = $_REQUEST['IDEXIEXPORTACIONPRECIO'];
-        $ARRAYFOLIOEXIEXPORTACIONPRECIO = $_REQUEST['FOLIOEXIEXPORTACIONPRECIO'];
-        $ARRAYPRECIO = $_REQUEST['PRECIO'];
-        $ARRAYIDPRECIO = $_REQUEST['IDPRECIO'];
-
-        foreach ($ARRAYIDPRECIO as $ID) :
-            $IDPRECIO = $ID - 1;
-            $IDDESPACHO = $ARRAYIDDESPACHO[$IDPRECIO];
-            $IDEXIEXPORTACIONPRECIO = $ARRAYIDEXIEXPORTACIONPRECIO[$IDPRECIO];
-            $FOLIOEXIEXPORTACIONPRECIO = $ARRAYFOLIOEXIEXPORTACIONPRECIO[$IDPRECIO];
-            $PRECIO = $ARRAYPRECIO[$IDPRECIO];
-
-            if ($PRECIO != "") {
-                $SINOPRECIO = 0;
-                $MENSAJEPRECIO = $MENSAJEPRECIO;
-                if ($PRECIO <= 0) {
-                    $SINOPRECIO = 1;
-                    $MENSAJEPRECIO = $MENSAJEPRECIO . " <br> " . $FOLIOEXIEXPORTACIONPRECIO . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
-                } else {
-                    $SINOPRECIO = 0;
-                    $MENSAJEPRECIO = $MENSAJEPRECIO;
-                }
-            } else {
-                $SINOPRECIO = 1;
-                $MENSAJEPRECIO = $MENSAJEPRECIO . " <br> " . $FOLIOEXIEXPORTACIONPRECIO . ": SE DEBE INGRESAR UN DATO";
-            }
-            if ($SINOPRECIO == 0) {
-
-                $EXIEXPORTACION->__SET('ID_DESPACHO', $IDDESPACHO);
-                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACIONPRECIO);
-                $EXIEXPORTACION->__SET('PRECIO_PALLET', $PRECIO);
-                // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $EXIEXPORTACION_ADO->actualizarDespachoAgregarPrecio($EXIEXPORTACION);
-            }
-        endforeach;
-    }
-}
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -1393,7 +1138,7 @@ if (isset($_POST)) {
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
                                                 <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                    <i class="ti-pencil-alt"></i> Editar
+                                                    <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
                                                 <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                     <i class="ti-save-alt"></i> Cerrar
@@ -1659,6 +1404,361 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                $ARRAYNUMERO = $DESPACHOPT_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                $DESPACHOPT->__SET('NUMERO_DESPACHO', $NUMERO);
+                $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+                $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
+                $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
+                $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+                $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
+                $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHO']);
+                $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+                $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+                $DESPACHOPT->__SET('VGM', $_REQUEST['VGM']);
+                $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
+                if ($_REQUEST['TDESPACHO'] == "1") {
+                    $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
+                }
+                if ($_REQUEST['TDESPACHO'] == "2") {
+                    $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                }
+                if ($_REQUEST['TDESPACHO'] == "3") {
+                    $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                }
+                if ($_REQUEST['TDESPACHO'] == "4") {
+                    $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
+                }
+                if ($_REQUEST['TDESPACHO'] == "5") {
+                    $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
+                }
+                $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $DESPACHOPT->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DESPACHOPT_ADO->agregarDespachopt($DESPACHOPT);
+
+
+                //OBTENER EL ID DE LA DESPACHOPT CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+                $ARRYAOBTENERID = $DESPACHOPT_ADO->obtenerId(
+                    $_REQUEST['FECHADESPACHO'],
+                    $_REQUEST['EMPRESA'],
+                    $_REQUEST['PLANTA'],
+                    $_REQUEST['TEMPORADA'],
+                );
+
+                //REDIRECCIONAR A PAGINA registroDespachoPT.php
+
+                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
+                $_SESSION["parametro1"] = "crear";
+                // echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
+
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Rgistro de despacho creado",
+                        text:"El registro fue creado correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href="/fruta/vista/registroDespachopt.php?op";
+                        }
+                    })
+                </script>';
+            }
+
+            if (isset($_REQUEST['EDITAR'])) {
+                $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                $DESPACHOPT->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
+                $DESPACHOPT->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
+                $DESPACHOPT->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
+                $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
+                $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHOE']);
+                $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                $DESPACHOPT->__SET('VGM', $_REQUEST['VGME']);
+                $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+                if ($_REQUEST['TDESPACHOE'] == "1") {
+                    $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "2") {
+                    $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "3") {
+                    $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                    $DESPACHOPT->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "4") {
+                    $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                }
+                if ($_REQUEST['TDESPACHOE'] == "5") {
+                    $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                }
+                $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DESPACHOPT_ADO->actualizarDespachopt($DESPACHOPT);
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Rgistro de despacho actualizado",
+                        text:"El registro fue actualizado correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href="/fruta/vista/registroDespachopt.php?op";
+                        }
+                    })
+                </script>';
+            }
+
+            //OPERACION PARA CERRAR LA DESPACHOPT
+            if (isset($_REQUEST['CERRAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
+                if (empty($ARRAYDDESPACHOMP2)) {
+                    $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
+                    $SINO = "1";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Advertencia",
+                            text:"TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO",
+                            showConfirmButton:true,
+                            confirmButtonText:"OK"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href="/fruta/vista/registroDespachopt.php?op";
+                            }
+                        })
+                    </script>';
+                } else {
+                    $MENSAJE = "";
+                    $SINO = "0";
+                }
+                if ($_REQUEST['TDESPACHOE'] == "3") {
+                    $ARRAYCONTEO = $EXIEXPORTACION_ADO->contarExistenciaPorDespachoPrecioNulo($_REQUEST['IDP']);
+                    if ($ARRAYCONTEO) {
+                        if ($ARRAYCONTEO[0]["CONTEO"] != 0) {
+                            $MENSAJE = "ES OBLIGATORIO TENER PRECIOS EN TODAS LAS EXISTENCIA SELECCIONADA";
+                            $SINO = "1";
+                            echo '<script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Advertencia",
+                                    text:"ES OBLIGATORIO TENER PRECIOS EN TODAS LAS EXISTENCIA SELECCIONADA",
+                                    showConfirmButton:true,
+                                    confirmButtonText:"OK"
+                                }).then((result)=>{
+                                    if(result.value){
+                                        location.href="/fruta/vista/registroDespachopt.php?op";
+                                    }
+                                })
+                            </script>';
+                        } else {
+                            $MENSAJE = "";
+                            $SINO = "0";
+                        }
+                    }
+                }
+                if ($SINO == "0") {
+                    $DESPACHOPT->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                    $DESPACHOPT->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                    $DESPACHOPT->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
+                    $DESPACHOPT->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
+                    $DESPACHOPT->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
+                    $DESPACHOPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
+                    $DESPACHOPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                    $DESPACHOPT->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
+                    $DESPACHOPT->__SET('NUMERO_SELLO_DESPACHO', $_REQUEST['NUMEROSELLODESPACHOE']);
+                    $DESPACHOPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                    $DESPACHOPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                    $DESPACHOPT->__SET('VGM', $_REQUEST['VGME']);
+                    $DESPACHOPT->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+                    if ($_REQUEST['TDESPACHOE'] == "1") {
+                        $DESPACHOPT->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "2") {
+                        $DESPACHOPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "3") {
+                        $DESPACHOPT->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                        $DESPACHOPT->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "4") {
+                        $DESPACHOPT->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+                    }
+                    if ($_REQUEST['TDESPACHOE'] == "5") {
+                        $DESPACHOPT->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                    }
+                    $DESPACHOPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $DESPACHOPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $DESPACHOPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $DESPACHOPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $DESPACHOPT_ADO->actualizarDespachopt($DESPACHOPT);
+
+                    $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $DESPACHOPT_ADO->cerrado($DESPACHOPT);
+
+                    $DESPACHOPT->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $DESPACHOPT_ADO->Confirmado($DESPACHOPT);
+
+                    $ARRAYEXISENCIADESPACHOMP = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
+                    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+                        if ($_REQUEST['TDESPACHOE'] == "1") {
+                            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+                            $EXIEXPORTACION->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                            $EXIEXPORTACION_ADO->enTransito($EXIEXPORTACION);
+
+                            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+                            $EXIEXPORTACION->__SET('VGM', $_REQUEST['VGME']);
+                            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                            $EXIEXPORTACION_ADO->vgm($EXIEXPORTACION);
+                        } else {
+                            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+                            $EXIEXPORTACION->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                            $EXIEXPORTACION_ADO->despachado($EXIEXPORTACION);
+
+
+                            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+                            $EXIEXPORTACION->__SET('VGM', $_REQUEST['VGME']);
+                            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                            $EXIEXPORTACION_ADO->vgm($EXIEXPORTACION);
+                        }
+                    endforeach;
+                    //REDIRECCIONAR A PAGINA registroDespachopt.php
+                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+                    if ($_SESSION['parametro1'] == "crear") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        // echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
+                        echo '<script>
+                                Swal.fire({
+                                    icon:"info",
+                                    title:"Informacion importante de Registro de despacho",
+                                    text:"Este registro se encuentra cerrado",
+                                    showConfirmButton:true,
+                                    confirmButtonText:"OK"
+                                }).then((result)=>{
+                                    if(result.value){
+                                        location.href="/fruta/vista/registroDespachopt.php?op";
+                                    }
+                                })
+                            </script>';
+                    }
+                    if ($_SESSION['parametro1'] == "editar") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        // echo "<script type='text/javascript'> location.href ='registroDespachopt.php?op';</script>";
+                        echo '<script>
+                                Swal.fire({
+                                    icon:"info",
+                                    title:"Informacion importante de Registro de despacho",
+                                    text:"Este registro se encuentra cerrado",
+                                    showConfirmButton:true,
+                                    confirmButtonText:"OK"
+                                }).then((result)=>{
+                                    if(result.value){
+                                        location.href="/fruta/vista/registroDespachopt.php?op";
+                                    }
+                                })
+                            </script>';
+                    }
+                }
+            }
+
+            if (isset($_REQUEST['QUITAR'])) {
+                $IDQUITAR = $_REQUEST['IDQUITAR'];
+                $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
+                // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIEXPORTACION);
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Rgistro de despacho actualizado",
+                        text:"La linea seleccionada fue quitada correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href="/fruta/vista/registroDespachopt.php?op";
+                        }
+                    })
+                </script>';
+            }
+
+            if (isset($_REQUEST['PRECIOS'])) {
+                $ARRAYDDESPACHOMP2 = $EXIEXPORTACION_ADO->verExistenciaPorDespacho($_REQUEST['IDP']);
+                if (empty($ARRAYDDESPACHOMP2)) {
+                    $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
+                    $SINO = "1";
+                } else {
+                    $MENSAJE = "";
+                    $SINO = "0";
+                }
+                if ($SINO == 0) {
+                    $ARRAYIDDESPACHO = $_REQUEST['IDDESPACHO'];
+                    $ARRAYIDEXIEXPORTACIONPRECIO = $_REQUEST['IDEXIEXPORTACIONPRECIO'];
+                    $ARRAYFOLIOEXIEXPORTACIONPRECIO = $_REQUEST['FOLIOEXIEXPORTACIONPRECIO'];
+                    $ARRAYPRECIO = $_REQUEST['PRECIO'];
+                    $ARRAYIDPRECIO = $_REQUEST['IDPRECIO'];
+
+                    foreach ($ARRAYIDPRECIO as $ID) :
+                        $IDPRECIO = $ID - 1;
+                        $IDDESPACHO = $ARRAYIDDESPACHO[$IDPRECIO];
+                        $IDEXIEXPORTACIONPRECIO = $ARRAYIDEXIEXPORTACIONPRECIO[$IDPRECIO];
+                        $FOLIOEXIEXPORTACIONPRECIO = $ARRAYFOLIOEXIEXPORTACIONPRECIO[$IDPRECIO];
+                        $PRECIO = $ARRAYPRECIO[$IDPRECIO];
+
+                        if ($PRECIO != "") {
+                            $SINOPRECIO = 0;
+                            $MENSAJEPRECIO = $MENSAJEPRECIO;
+                            if ($PRECIO <= 0) {
+                                $SINOPRECIO = 1;
+                                $MENSAJEPRECIO = $MENSAJEPRECIO . " <br> " . $FOLIOEXIEXPORTACIONPRECIO . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
+                            } else {
+                                $SINOPRECIO = 0;
+                                $MENSAJEPRECIO = $MENSAJEPRECIO;
+                            }
+                        } else {
+                            $SINOPRECIO = 1;
+                            $MENSAJEPRECIO = $MENSAJEPRECIO . " <br> " . $FOLIOEXIEXPORTACIONPRECIO . ": SE DEBE INGRESAR UN DATO";
+                        }
+                        if ($SINOPRECIO == 0) {
+
+                            $EXIEXPORTACION->__SET('ID_DESPACHO', $IDDESPACHO);
+                            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDEXIEXPORTACIONPRECIO);
+                            $EXIEXPORTACION->__SET('PRECIO_PALLET', $PRECIO);
+                            // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                            $EXIEXPORTACION_ADO->actualizarDespachoAgregarPrecio($EXIEXPORTACION);
+                        }
+                    endforeach;
+                }
+            }
+        ?>
 </body>
 
 </html>
