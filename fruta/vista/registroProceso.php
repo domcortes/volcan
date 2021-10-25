@@ -1429,27 +1429,6 @@ if (isset($_POST)) {
                 $SINO = "0";
                 $MENSAJEINDUSTRIAL = "";
             }
-            if ($_REQUEST['DIFERENCIAKILOSNETOEX'] > 0) {
-                $SINO = "1";
-                $MENSAJEDIFERENCIA = "LA DIFERENCIA NO PUEDE SER MENOR A ZERO";
-                echo
-                    '<script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Advertencia de cierre de proceso",
-                            text:"La diferencia no puede ser menor a lo ingresado",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroProceso.php?op";
-                            }
-                        });
-                    </script>';
-            }  else {
-                $SINO = "0";
-                $MENSAJEPORCENTAJE = "";
-            }
 
             //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
             if ($SINO == "0") {
