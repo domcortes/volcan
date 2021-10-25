@@ -128,7 +128,7 @@ if ($TDESPACHO == "1") {
   $TDESPACHON = "Interplanta";
 }
 if ($TDESPACHO == "2") {
-  $TDESPACHON = "Devolución Productor";
+  $TDESPACHON = "Devolución a Productor";
 }
 if ($TDESPACHO == "3") {
   $TDESPACHON = "Venta";
@@ -136,11 +136,12 @@ if ($TDESPACHO == "3") {
 if ($TDESPACHO == "4") {
   $TDESPACHON = "Regalo";
 }
-
 if ($TDESPACHO == "5") {
   $TDESPACHON = "Planta Externa";
 }
-
+if ($TDESPACHO == "6") {
+  $TDESPACHON = "Despacho a Productor";
+}
 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA2']);
 if ($ARRAYPLANTA2) {
   $PLANTA2 = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
@@ -328,6 +329,11 @@ if ($TDESPACHO == "5") {
             ';
 }
 
+if ($TDESPACHO == "6") {
+  $html .= '
+            <div class="address"><b>Planta Destino:  </b>' . $PRODUCTOR . '</div>
+            ';
+}
 $html .= '
   </div>        
 </div>

@@ -18,7 +18,9 @@ include_once '../controlador/TUMEDIDA_ADO.php';
 include_once '../controlador/OCOMPRA_ADO.php';
 include_once '../controlador/INVENTARIOE_ADO.php';
 include_once '../controlador/RECEPCIONE_ADO.php';
+include_once '../controlador/MGUIAE_ADO.php';
 include_once '../controlador/DESPACHOE_ADO.php';
+include_once '../controlador/DESPACHOMP_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -40,6 +42,8 @@ $OCOMPRA_ADO = new OCOMPRA_ADO();
 $INVENTARIOE_ADO = new INVENTARIOE_ADO();
 $RECEPCIONE_ADO = new RECEPCIONE_ADO();
 $DESPACHOE_ADO = new DESPACHOE_ADO();
+$MGUIAE_ADO =  new MGUIAE_ADO();
+$DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -266,6 +270,8 @@ include_once "../config/datosUrLP.php";
                                                         $ESTADODESPACHO = "Sin Datos";
                                                     }
 
+
+                                                 
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
                                                         $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA"]);
@@ -274,8 +280,7 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
                                                         }
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "2") {
+                                                    }else if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Interplanta";
                                                         $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA2"]);
                                                         $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA2"]);
@@ -284,8 +289,7 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
                                                         }
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "3") {
+                                                    }else if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Devolución a Productor";
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
                                                         if ($ARRAYPRODUCTOR) {
@@ -293,8 +297,7 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
                                                         }
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "4") {
+                                                    }else if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Devolución a Proveedor";
                                                         $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
                                                         if ($ARRAYPROVEEDOR) {
@@ -302,17 +305,7 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
                                                         }
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "5") {
-                                                        $TDESPACHO = "Planta Externa";
-                                                        $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA3"]);
-                                                        if ($ARRAYPLANTAEXTERNA) {
-                                                            $NOMBRDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
-                                                        } else {
-                                                            $NOMBRDESTINO = "Sin Datos";
-                                                        }
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "6") {
+                                                    }else if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Venta";
                                                         $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($r["ID_CLIENTE"]);
                                                         if ($ARRAYVERCLIENTE) {
@@ -320,15 +313,28 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
                                                         }
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "7") {
+                                                    }else if ($r['TDESPACHO'] == "6") {
                                                         $TDESPACHO = "Regalo";
                                                         $REGALO = $r['REGALO_DESPACHO'];
-                                                    } else {
+                                                    }else if ($r['TDESPACHO'] == "7") {
+                                                        $TDESPACHO = "Planta Externa";
+                                                        $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA3"]);
+                                                        if ($ARRAYPLANTAEXTERNA) {
+                                                            $NOMBRDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
+                                                    }else if ($r['TDESPACHO'] == "8") {
+                                                        $TDESPACHO = "Despacho a Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
+                                                    }else {
                                                         $TDESPACHO = "Sin Datos";
-                                                        $NOMBRDESTINO = "Sin Datos";
-                                                    }
-
+                                                    }    
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
