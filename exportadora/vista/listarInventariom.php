@@ -177,7 +177,6 @@ include_once "../config/reporteUrl.php";
                                                 <tr>
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
-                                                    <th>Tipo Contenedor</th>
                                                     <th>Unidad Medida</th>
                                                     <th>Total Cantidad</th>
                                                     <th>Bodega</th>
@@ -207,19 +206,12 @@ include_once "../config/reporteUrl.php";
                                                         $CODIGOPRODUCTO = "Sin Datos";
                                                         $NOMBREPRODUCTO = "Sin Datos";
                                                     }
-                                                    $ARRAYTVERCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
-                                                    if ($ARRAYTVERCONTENEDOR) {
-                                                        $NOMBRETCONTENEDOR = $ARRAYTVERCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
-                                                    } else {
-                                                        $NOMBRETCONTENEDOR = "Sin Datos";
-                                                    }
                                                     $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
                                                     if ($ARRAYVERTUMEDIDA) {
                                                         $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
                                                     } else {
                                                         $NOMBRETUMEDIDA = "Sin Datos";
                                                     }
-
                                                     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYEMPRESA) {
                                                         $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -244,7 +236,6 @@ include_once "../config/reporteUrl.php";
                                                     <tr class="center">
                                                         <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTO; ?></td>
-                                                        <td><?php echo $NOMBRETCONTENEDOR; ?></td>
                                                         <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
                                                         <td><?php echo $NOMBREBODEGA; ?></td>

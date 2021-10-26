@@ -334,7 +334,8 @@ class INVENTARIOE_ADO
             $query =
                 "INSERT INTO material_inventarioe (   
                                                         CANTIDAD_ENTRADA,     
-                                                        CANTIDAD_SALIDA,  
+                                                        CANTIDAD_SALIDA,   
+                                                        VALOR_UNITARIO,  
                                                         ID_BODEGA,
                                                         ID_PRODUCTO,
 
@@ -350,13 +351,14 @@ class INVENTARIOE_ADO
                                                         ESTADO,
                                                         ESTADO_REGISTRO
                                                     ) VALUES
-	       	( ?, ?, ?, ?,    ?, ?, ?, ?,   ?,   SYSDATE(),  SYSDATE(),  1, 1);";
+	       	( ?, ?, ?, ?,  ?,     ?, ?, ?, ?,   ?,   SYSDATE(),  SYSDATE(),  1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(                      
 
                         $INVENTARIOE->__GET('CANTIDAD_ENTRADA'),
                         $INVENTARIOE->__GET('CANTIDAD_SALIDA'),
+                        $INVENTARIOE->__GET('VALOR_UNITARIO'),
                         $INVENTARIOE->__GET('ID_BODEGA'),
                         $INVENTARIOE->__GET('ID_PRODUCTO'),
 

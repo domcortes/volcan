@@ -303,8 +303,8 @@ if (isset($_REQUEST['COMPLETAURL'])) {
                                                                         </button>
                                                                     <?php } ?>                                                                    
                                                                     <?php if ($r['ESTADO_OCOMPRA'] == "4") { ?>
-                                                                        <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" id="COMPLETAURL" name="COMPLETAURL" title="Orden Completada">
-                                                                            <i class="mdi mdi-check-all"></i>                                                                    
+                                                                        <button type="submit" class="btn btn-warning btn-sm" data-toggle="tooltip" id="COMPLETAURL" name="COMPLETAURL" title="Orden Completada">
+                                                                             <i class="mdi mdi-folder-remove"></i>                                                                  
                                                                         </button>
                                                                     <?php } ?>
                                                                     <?php if ($ARRAYMOCOMPRA) { ?>

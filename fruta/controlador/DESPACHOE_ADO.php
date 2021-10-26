@@ -198,6 +198,8 @@ class DESPACHOE_ADO
                                                 ID_PROVEEDOR, 
                                                 ID_PLANTA3,  
                                                 ID_COMPRADOR,  
+                                                ID_DESPACHOMP,  
+                                                ID_BODEGAO,  
 
                                                 ID_EMPRESA, 
                                                 ID_PLANTA, 
@@ -213,7 +215,7 @@ class DESPACHOE_ADO
                                                 ESTADO_REGISTRO
                                             )
              VALUES
-               (  ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?,  ?, ?, ?,   ?, ?, ?, ?, ?,   0,  SYSDATE(),  SYSDATE(), 1, 1, 1);";
+               (  ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?,  ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   0,  SYSDATE(),  SYSDATE(), 0, 1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
@@ -239,6 +241,8 @@ class DESPACHOE_ADO
                         $DESPACHOE->__GET('ID_PROVEEDOR'),
                         $DESPACHOE->__GET('ID_PLANTA3'),
                         $DESPACHOE->__GET('ID_COMPRADOR'),
+                        $DESPACHOE->__GET('ID_DESPACHOMP'),
+                        $DESPACHOE->__GET('ID_BODEGAO'),
 
                         $DESPACHOE->__GET('ID_EMPRESA'),
                         $DESPACHOE->__GET('ID_PLANTA'),
@@ -296,7 +300,6 @@ class DESPACHOE_ADO
                 UPDATE material_despachoe SET
                         MODIFICACION = SYSDATE(),
 
-                        CANTIDAD_DESPACHO = ?,
                         FECHA_DESPACHO = ?,
                         NUMERO_DOCUMENTO = ?,        
                         PATENTE_CAMION = ?,
@@ -317,6 +320,8 @@ class DESPACHOE_ADO
                         ID_PROVEEDOR = ?,
                         ID_PLANTA3 = ?,
                         ID_COMPRADOR = ?,
+                        ID_DESPACHOMP = ?,
+                        ID_BODEGAO = ?,
 
                         ID_EMPRESA = ?,
                         ID_PLANTA = ?, 
@@ -326,7 +331,6 @@ class DESPACHOE_ADO
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $DESPACHOE->__GET('CANTIDAD_DESPACHO'),
                         $DESPACHOE->__GET('FECHA_DESPACHO'),
                         $DESPACHOE->__GET('NUMERO_DOCUMENTO'),
                         $DESPACHOE->__GET('PATENTE_CAMION'),
@@ -347,6 +351,8 @@ class DESPACHOE_ADO
                         $DESPACHOE->__GET('ID_PROVEEDOR'),
                         $DESPACHOE->__GET('ID_PLANTA3'),
                         $DESPACHOE->__GET('ID_COMPRADOR'),
+                        $DESPACHOE->__GET('ID_DESPACHOMP'),
+                        $DESPACHOE->__GET('ID_BODEGAO'),
 
                         $DESPACHOE->__GET('ID_EMPRESA'),
                         $DESPACHOE->__GET('ID_PLANTA'),
@@ -445,6 +451,27 @@ class DESPACHOE_ADO
             die($e->getMessage());
         }
     }
+    
+    public function  cerrarActualizarcantidad(DESPACHOE $DESPACHOE)
+    {
+        try {
+            $query = "
+                    UPDATE material_despachoe SET			
+                            ESTADO = 0,		
+                            CANTIDAD_DESPACHO = ?
+                    WHERE ID_DESPACHO= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $DESPACHOE->__GET('CANTIDAD_DESPACHO'),
+                        $DESPACHOE->__GET('ID_DESPACHO')
+                    )
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     //CAMBIAR ESTADO DESPACHO
     /**
@@ -525,7 +552,26 @@ class DESPACHOE_ADO
     }
 
     //LISTAR
-  
+    public function listarDespachoePorDespachoMPCBX($DESPACHOMP)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *
+                                            FROM material_despachoe                                                                           
+                                            WHERE ID_DESPACHOMP = '" . $DESPACHOMP . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarDespachoeEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

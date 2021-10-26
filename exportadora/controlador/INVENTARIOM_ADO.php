@@ -896,7 +896,6 @@ class INVENTARIOM_ADO {
             $datos=$this->conexion->prepare("SELECT 
                                                 inventario.ID_BODEGA AS 'ID_BODEGA',
                                                 inventario.ID_PRODUCTO AS 'ID_PRODUCTO',
-                                                inventario.ID_TCONTENEDOR AS 'ID_TCONTENEDOR',
                                                 inventario.ID_TUMEDIDA AS 'ID_TUMEDIDA',
                                                 inventario.ID_EMPRESA AS 'ID_EMPRESA',
                                                 inventario.ID_PLANTA  AS 'ID_PLANTA',

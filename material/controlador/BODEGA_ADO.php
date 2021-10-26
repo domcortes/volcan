@@ -46,7 +46,7 @@ class BODEGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `principal_bodega` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  principal_bodega  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class BODEGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `principal_bodega` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  principal_bodega  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -86,7 +86,7 @@ class BODEGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `principal_bodega`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  principal_bodega   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -107,8 +107,8 @@ class BODEGA_ADO
 
             $datos = $this->conexion->prepare("SELECT
                                                  * 
-                                              FROM `principal_bodega` 
-                                              WHERE `ID_BODEGA`= '" . $ID . "';");
+                                              FROM  principal_bodega  
+                                              WHERE  ID_BODEGA = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -132,8 +132,8 @@ class BODEGA_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                 * 
-                                               FROM `principal_bodega` 
-                                               WHERE `NOMBRE_BODEGA` LIKE '%" . $NOMBRE . "%';");
+                                               FROM  principal_bodega  
+                                               WHERE  NOMBRE_BODEGA  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -155,19 +155,20 @@ class BODEGA_ADO
 
 
             $query =
-                "INSERT INTO `principal_bodega` (
-                                                    `NOMBRE_BODEGA`,
-                                                    `NOMBRE_CONTACTO_BODEGA`,
-                                                    `PRINCIPAL`,
-                                                    `ID_EMPRESA`,
-                                                    `ID_PLANTA`,
-                                                    `ID_USUARIOI`,
-                                                    `ID_USUARIOM`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`,
-                                                    `ESTADO_REGISTRO`
+                "INSERT INTO  principal_bodega  (
+                                                     NOMBRE_BODEGA ,
+                                                     NOMBRE_CONTACTO_BODEGA ,
+                                                     PRINCIPAL ,
+                                                     ENVASES ,
+                                                     ID_EMPRESA ,
+                                                     ID_PLANTA ,
+                                                     ID_USUARIOI ,
+                                                     ID_USUARIOM ,
+                                                     INGRESO ,
+                                                     MODIFICACION ,
+                                                     ESTADO_REGISTRO 
                                                 ) VALUES
-	       	(?, ?, ?, ?, ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -175,6 +176,7 @@ class BODEGA_ADO
                         $BODEGA->__GET('NOMBRE_BODEGA'),
                         $BODEGA->__GET('NOMBRE_CONTACTO_BODEGA'),
                         $BODEGA->__GET('PRINCIPAL'),
+                        $BODEGA->__GET('ENVASES'),
                         $BODEGA->__GET('ID_EMPRESA'),
                         $BODEGA->__GET('ID_PLANTA'),
                         $BODEGA->__GET('ID_USUARIOI'),
@@ -191,7 +193,7 @@ class BODEGA_ADO
     public function eliminarBodega($id)
     {
         try {
-            $sql = "DELETE FROM `principal_bodega` WHERE `ID_BODEGA`=" . $id . ";";
+            $sql = "DELETE FROM  principal_bodega  WHERE  ID_BODEGA =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -209,16 +211,17 @@ class BODEGA_ADO
 
 
             $query = "
-		UPDATE `principal_bodega` SET
-            `MODIFICACION`= SYSDATE(),
-            `NOMBRE_BODEGA`= ?,
-            `NOMBRE_CONTACTO_BODEGA`= ?,
-            `PRINCIPAL`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_PLANTA`= ?,
-            `ID_USUARIOM`= ?
+		UPDATE  principal_bodega  SET
+             MODIFICACION = SYSDATE(),
+             NOMBRE_BODEGA = ?,
+             NOMBRE_CONTACTO_BODEGA = ?,
+             PRINCIPAL = ?,
+             ENVASES = ?,
+             ID_EMPRESA = ?,
+             ID_PLANTA = ?,
+             ID_USUARIOM = ?
         WHERE 
-          `ID_BODEGA`= ?;
+           ID_BODEGA = ?;
             ";
             $this->conexion->prepare($query)
                 ->execute(
@@ -226,6 +229,7 @@ class BODEGA_ADO
                         $BODEGA->__GET('NOMBRE_BODEGA'),
                         $BODEGA->__GET('NOMBRE_CONTACTO_BODEGA'),
                         $BODEGA->__GET('PRINCIPAL'),
+                        $BODEGA->__GET('ENVASES'),
                         $BODEGA->__GET('ID_EMPRESA'),
                         $BODEGA->__GET('ID_PLANTA'),
                         $BODEGA->__GET('ID_USUARIOM'),
@@ -247,10 +251,10 @@ class BODEGA_ADO
 
         try{
             $query = "
-		UPDATE `principal_bodega` SET					
-            `MODIFICACION`= SYSDATE(),
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_BODEGA`= ?;";
+		UPDATE  principal_bodega  SET					
+             MODIFICACION = SYSDATE(),
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_BODEGA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -269,10 +273,10 @@ class BODEGA_ADO
 
         try{
             $query = "
-		UPDATE `principal_bodega` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_BODEGA`= ?;";
+		UPDATE  principal_bodega  SET				
+             MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_BODEGA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -286,15 +290,16 @@ class BODEGA_ADO
         }
         
     }
-    public function listarBodegaPorEmpresaCBX($IDEMPRESA)
+    public function listarBodegaPorEmpresaPlantaCBX($IDEMPRESA, $IDPLANTA)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT 
                                                 * 
-                                             FROM `principal_bodega` 
-                                             WHERE `ESTADO_REGISTRO` = 1 
-                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
+                                             FROM  principal_bodega  
+                                             WHERE  ESTADO_REGISTRO  = 1 
+                                             AND ID_EMPRESA = '".$IDEMPRESA."'
+                                             AND ID_PLANTA = '".$IDPLANTA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -308,17 +313,15 @@ class BODEGA_ADO
             die($e->getMessage());
         }
     }
-    
-    public function listarBodegaPorEmpresaPlantaCBX($IDEMPRESA, $IDPLANTA)
+    public function listarBodegaPorEmpresaCBX($IDEMPRESA)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT 
                                                 * 
-                                             FROM `principal_bodega` 
-                                             WHERE `ESTADO_REGISTRO` = 1 
-                                             AND ID_EMPRESA = '".$IDEMPRESA."'
-                                             AND ID_PLANTA = '".$IDPLANTA."';	");
+                                             FROM  principal_bodega  
+                                             WHERE  ESTADO_REGISTRO  = 1 
+                                             AND ID_EMPRESA = '".$IDEMPRESA."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -338,8 +341,8 @@ class BODEGA_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT * 
-                                                FROM `principal_bodega` 
-                                                WHERE `ESTADO_REGISTRO` = 1                                              
+                                                FROM  principal_bodega  
+                                                WHERE  ESTADO_REGISTRO  = 1                                              
                                                     AND ID_EMPRESA = '".$IDEMPRESA."'
                                                     AND ID_PLANTA = '".$IDPLANTA."'
                                                     AND PRINCIPAL = 1
@@ -363,12 +366,64 @@ class BODEGA_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT * 
-                                                FROM `principal_bodega` 
-                                                WHERE `ESTADO_REGISTRO` = 1                                              
+                                                FROM  principal_bodega  
+                                                WHERE  ESTADO_REGISTRO  = 1                                              
                                                     AND ID_EMPRESA = '".$IDEMPRESA."'
                                                     AND ID_PLANTA = '".$IDPLANTA."'
                                                     AND ID_BODEGA != '".$IDBODEGA."'
                                                     AND PRINCIPAL = 1
+                                              ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    
+    public function listarBodegaPorEmpresaPlantaEnvasesCBX($IDEMPRESA,$IDPLANTA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * 
+                                                FROM  principal_bodega  
+                                                WHERE  ESTADO_REGISTRO  = 1                                              
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."'
+                                                    AND ID_PLANTA = '".$IDPLANTA."'
+                                                    AND ENVASES = 1
+                                              ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function listarBodegaPorEmpresaPlantaEnvasesDistinoActualCBX($IDEMPRESA,$IDPLANTA, $IDBODEGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * 
+                                                FROM  principal_bodega  
+                                                WHERE  ESTADO_REGISTRO  = 1                                              
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."'
+                                                    AND ID_PLANTA = '".$IDPLANTA."'
+                                                    AND ID_BODEGA != '".$IDBODEGA."'
+                                                    AND ENVASES = 1
                                               ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();

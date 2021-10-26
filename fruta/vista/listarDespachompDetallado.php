@@ -336,6 +336,15 @@ include_once "../config/datosUrLP.php";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
+                                                    if ($r['TDESPACHO'] == "6") {
+                                                        $TDESPACHO = "Despacho a Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $DESTINO = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $DESTINO = "Sin Datos";
+                                                        }
+                                                    }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];

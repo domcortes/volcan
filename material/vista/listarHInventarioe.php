@@ -9,7 +9,7 @@ include_once '../controlador/TUMEDIDA_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 include_once '../controlador/PROVEEDOR_ADO.php';
 
 include_once '../controlador/DESPACHOE_ADO.php';
@@ -26,7 +26,7 @@ $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PROVEEDOR_ADO =  new PROVEEDOR_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$CLIENTE_ADO =  new CLIENTE_ADO();
+$COMPRADOR_ADO =  new COMPRADOR_ADO();
 
 $DESPACHOE_ADO =  new DESPACHOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
@@ -285,42 +285,70 @@ include_once "../config/reporteUrl.php";
                                                             $ORIGEN = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
                                                         }
                                                         $DESTINO = "";
+                                            
                                                         if ($TOPERACION == "1") {
                                                             $NOMBREOPERACION = " A Sub Bodega";
                                                             $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($ARRAYDESPACHO[0]["ID_BODEGA"]);
-                                                            $DESTINO = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
-                                                        } else
-                                                          if ($TOPERACION == "2") {
+                                                            if ($ARRAYVERBODEGA) {
+                                                                $NOMBRDESTINO = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                            }
+                                                        }else if ($TOPERACION == "2") {
                                                             $NOMBREOPERACION = "Interplanta";
                                                             $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]["ID_PLANTA2"]);
-                                                            $DESTINO = $ARRAYPLANTAINTERNA[0]["NOMBRE_PLANTA"];
-                                                        } else
-                                                          if ($TOPERACION == "3") {
+                                                            $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($ARRAYDESPACHO[0]["ID_BODEGA2"]);
+                                                            if ($ARRAYVERBODEGA && $ARRAYPLANTAINTERNA) {
+                                                                $NOMBRDESTINO = "" . $ARRAYPLANTAINTERNA[0]["NOMBRE_PLANTA"] . " - " . $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                            }
+                                                        }else if ($TOPERACION == "3") {
                                                             $NOMBREOPERACION = "Devolución a Productor";
                                                             $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]["ID_PRODUCTOR"]);
-                                                            $DESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
-                                                        } else
-                                                          if ($TOPERACION == "4") {
+                                                            if ($ARRAYPRODUCTOR) {
+                                                                $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                            }
+                                                        }else if ($TOPERACION == "4") {
                                                             $NOMBREOPERACION = "Devolución a Proveedor";
                                                             $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($ARRAYDESPACHO[0]["ID_PROVEEDOR"]);
-                                                            $DESTINO = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
-                                                        } else
-                                                          if ($TOPERACION == "5") {
+                                                            if ($ARRAYPROVEEDOR) {
+                                                                $NOMBRDESTINO = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                            }
+                                                        }else if ($TOPERACION == "5") {
+                                                            $NOMBREOPERACION = "Venta";
+                                                            $ARRAYVERCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]["ID_COMPRADOR"]);
+                                                            if ($ARRAYVERCOMPRADOR) {
+                                                                $NOMBRDESTINO = $ARRAYVERCOMPRADOR[0]["NOMBRE_COMPRADOR"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                            }
+                                                        }else if ($TOPERACION == "6") {
+                                                            $NOMBREOPERACION = "Regalo";
+                                                            $REGALO = $r['REGALO_DESPACHO'];
+                                                        }else if ($TOPERACION == "7") {
                                                             $NOMBREOPERACION = "Planta Externa";
                                                             $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]["ID_PLANTA3"]);
-                                                            $DESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
-                                                        } else
-                                                          if ($TOPERACION == "6") {
-                                                            $NOMBREOPERACION = "Venta";
-                                                            $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($ARRAYDESPACHO[0]["ID_CLIENTE"]);
-                                                            $DESTINO = $ARRAYVERCLIENTE[0]["NOMBRE_CLIENTE"];
-                                                        } else
-                                                          if ($TOPERACION == "7") {
-                                                            $NOMBREOPERACION = "Regalo";
-                                                            $DESTINO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
-                                                        } else {
+                                                            if ($ARRAYPLANTAEXTERNA) {
+                                                                $NOMBRDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                            }
+                                                        }else if ($TOPERACION == "8") {
+                                                            $NOMBREOPERACION = "Despacho a Productor";
+                                                            $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]["ID_PRODUCTOR"]);
+                                                            if ($ARRAYPRODUCTOR) {
+                                                                $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                            }
+                                                        }else {
                                                             $NOMBREOPERACION = "Sin Datos";
-                                                        }
+                                                        } 
                                                     } else {
                                                         $NUMERODOCUMENTO = "Sin Datos";
                                                         $FECHAOPERACION = "Sin Datos";
@@ -363,7 +391,7 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $PATENTECAMION; ?></td>
                                                         <td><?php echo $ORIGEN; ?></td>
-                                                        <td><?php echo $DESTINO; ?></td>
+                                                        <td><?php echo $NOMBRDESTINO; ?></td>
                                                         <td><?php echo $r['ENTRADA']; ?></td>
                                                         <td><?php echo $r['SALIDA']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>

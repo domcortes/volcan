@@ -24,6 +24,7 @@ $IDOP = "";
 $OP = "";
 $DISABLED = "";
 $PRINCIPAL = "";
+$ENVASES="";
 
 $NOMBREBODEGA = "";
 $NOMBRECONTACTO = "";
@@ -31,7 +32,7 @@ $PLANTA = "";
 $FNOMBRE = "";
 $NOMBREPLANTA = "";
 $ESTADO = "";
-
+$SINO="";
 
 
 $NOMBRE = "";
@@ -44,6 +45,7 @@ $BORDER = "";
 //INICIALIZAR ARREGLOS
 $ARRAYBODEGA = "";
 $ARRAYVALIDARBODEGA = "";
+$ARRAYVALIDARBODEGA2 = "";
 $ARRAYBODEGAID = "";
 $ARRAYPLANTA = "";
 $ARRAYPLANTA2 = "";
@@ -65,19 +67,29 @@ include_once "../config/datosUrl.php";
 if (isset($_REQUEST['GUARDAR'])) {
 
     $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA']);
+    $ARRAYVALIDARBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA']);
     if ($ARRAYVALIDARBODEGA) {
         $SINO = 1;
         $MENSAJE = "YA EXISTE UNA BODEGA PRINCIPAL EN LA PLANTA SELECIONADA";
-    } else {
+    }else {
         $SINO = 0;
         $MENSAJE = "";
     }
+    if($ARRAYVALIDARBODEGA2){
+        $SINO = 1;
+        $MENSAJE = "YA EXISTE UNA BODEGA ENVASES EN LA PLANTA SELECIONADA";
+    }else {
+        $SINO = 0;
+        $MENSAJE = "";
+    }
+
     if ($SINO == 0) {
         //UTILIZACION METODOS SET DEL MODELO
         //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
         $BODEGA->__SET('NOMBRE_BODEGA', $_REQUEST['NOMBREBODEGA']);
         $BODEGA->__SET('NOMBRE_CONTACTO_BODEGA', $_REQUEST['NOMBRECONTACTO']);
         $BODEGA->__SET('PRINCIPAL', $_REQUEST['PRINCIPAL']);
+        $BODEGA->__SET('ENVASES', $_REQUEST['ENVASES']);
         $BODEGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
         $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
         $BODEGA->__SET('ID_USUARIOI', $IDUSUARIOS);
@@ -92,6 +104,8 @@ if (isset($_REQUEST['GUARDAR'])) {
 //OPERACION DE EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
 
+   
+
     if ($_REQUEST['PRINCIPAL'] == 1) {
         $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalDistinoActualCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['ID']);
         if ($ARRAYVALIDARBODEGA) {
@@ -101,10 +115,18 @@ if (isset($_REQUEST['EDITAR'])) {
             $SINO = 0;
             $MENSAJE = "";
         }
-    } else {
-        $SINO = 0;
-        $MENSAJE = "";
     }
+    if ($_REQUEST['ENVASES'] == 1) {
+        $ARRAYVALIDARBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesDistinoActualCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['ID']);
+        if($ARRAYVALIDARBODEGA2){
+            $SINO = 1;
+            $MENSAJE = "YA EXISTE UNA BODEGA ENVASES EN LA PLANTA SELECIONADA";
+        } else {
+            $SINO = 0;
+            $MENSAJE = "";
+        }
+    }
+
 
 
     if ($SINO == 0) {
@@ -113,6 +135,7 @@ if (isset($_REQUEST['EDITAR'])) {
         $BODEGA->__SET('NOMBRE_BODEGA', $_REQUEST['NOMBREBODEGA']);
         $BODEGA->__SET('NOMBRE_CONTACTO_BODEGA', $_REQUEST['NOMBRECONTACTO']);
         $BODEGA->__SET('PRINCIPAL', $_REQUEST['PRINCIPAL']);
+        $BODEGA->__SET('ENVASES', $_REQUEST['ENVASES']);
         $BODEGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
         $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
         $BODEGA->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -163,6 +186,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NOMBREBODEGA = "" . $r['NOMBRE_BODEGA'];
             $NOMBRECONTACTO = "" . $r['NOMBRE_CONTACTO_BODEGA'];
             $PRINCIPAL = "" . $r['PRINCIPAL'];
+            $ENVASES = "" . $r['ENVASES'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $ESTADO = "" . $r['ESTADO_REGISTRO'];
@@ -185,6 +209,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NOMBREBODEGA = "" . $r['NOMBRE_BODEGA'];
             $NOMBRECONTACTO = "" . $r['NOMBRE_CONTACTO_BODEGA'];
             $PRINCIPAL = "" . $r['PRINCIPAL'];
+            $ENVASES = "" . $r['ENVASES'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $ESTADO = "" . $r['ESTADO_REGISTRO'];
@@ -217,6 +242,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 NOMBRECONTACTO = document.getElementById("NOMBRECONTACTO").value;
                 PLANTA = document.getElementById("PLANTA").selectedIndex;
                 PRINCIPAL = document.getElementById("PRINCIPAL").selectedIndex;
+                ENVASES = document.getElementById("ENVASES").selectedIndex;
 
 
 
@@ -224,6 +250,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 document.getElementById('val_nombrec').innerHTML = "";
                 document.getElementById('val_planta').innerHTML = "";
                 document.getElementById('val_bprincipal').innerHTML = "";
+                document.getElementById('val_benvases').innerHTML = "";
 
 
                 if (NOMBREBODEGA == null || NOMBREBODEGA.length == 0 || /^\s+$/.test(NOMBREBODEGA)) {
@@ -258,7 +285,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_bprincipal').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                     return false;
                 }
-                document.form_reg_dato.PRINCIPAL.style.borderColor = "#4AF575";
+                document.form_reg_dato.PRINCIPAL.style.borderColor = "#4AF575";                
+
+                if (ENVASES == null || ENVASES == 0) {
+                    document.form_reg_dato.ENVASES.focus();
+                    document.form_reg_dato.ENVASES.style.borderColor = "#FF0000";
+                    document.getElementById('val_benvases').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                    return false;
+                }
+                document.form_reg_dato.ENVASES.style.borderColor = "#4AF575";
+
             }
 
 
@@ -398,9 +434,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYPLANTA as $r) : ?>
                                                                 <?php if ($ARRAYPLANTA) {    ?>
-                                                                    <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
+                                                                    <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) { echo "selected"; } ?>>
                                                                         <?php echo $r['NOMBRE_PLANTA'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -413,17 +447,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label>Bodega Principal</label>
+                                                        <label>Bodega Material</label>
                                                         <select class="form-control select2" id="PRINCIPAL" name="PRINCIPAL" style="width: 100%;" value="<?php echo $PRINCIPAL; ?>" <?php echo $DISABLED; ?>>
                                                             <option> </option>
-                                                            <option value="0" <?php if ($PRINCIPAL == "0") {
-                                                                                    echo "selected";
-                                                                                } ?>> No</option>
-                                                            <option value="1" <?php if ($PRINCIPAL == "1") {
-                                                                                    echo "selected";
-                                                                                } ?>> Si</option>
+                                                            <option value="0" <?php if ($PRINCIPAL == "0") {  echo "selected"; } ?>> No</option>
+                                                            <option value="1" <?php if ($PRINCIPAL == "1") {  echo "selected"; } ?>> Si</option>
                                                         </select>
                                                         <label id="val_bprincipal" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">                                                
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Bodega Envases</label>
+                                                        <select class="form-control select2" id="ENVASES" name="ENVASES" style="width: 100%;" value="<?php echo $ENVASES; ?>" <?php echo $DISABLED; ?>>
+                                                            <option> </option>
+                                                            <option value="0" <?php if ($ENVASES == "0") {  echo "selected"; } ?>> No</option>
+                                                            <option value="1" <?php if ($ENVASES == "1") {  echo "selected"; } ?>> Si</option>
+                                                        </select>
+                                                        <label id="val_benvases" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>
