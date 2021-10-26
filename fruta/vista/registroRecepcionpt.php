@@ -174,182 +174,7 @@ if (empty($ARRAYFOLIO3)) {
     $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS PT </b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
 }
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
 
-
-    if ($_REQUEST['TRECEPCION'] == "1") {
-        $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-        if ($ARRAYRECEPCIONBUSCARGPETP) {
-            $SINO = "1";
-            $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
-        } else {
-            $SINO = "0";
-            $MENSAJE3 = "";
-        }
-    }    
-    if ($_REQUEST['TRECEPCION'] == "2") {
-        $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-        if ($ARRAYRECEPCIONBUSCARGPETP) {
-            $SINO = "1";
-            $MENSAJE3 = "LA GUIA DE LA PLANTA EXTERNA SE ENCUENTRA DUPLICADA";
-        } else {
-            $SINO = "0";
-            $MENSAJE3 = "";
-        }
-    }
-
-    if ($SINO == "0") {
-        $ARRAYNUMERO = $RECEPCIONPT_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-        $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-        //UTILIZACION METODOS SET DEL MODELO
-        //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-
-        $RECEPCIONPT->__SET('NUMERO_RECEPCION', $NUMERO);
-        $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-        $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCION']);
-        $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
-        $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
-        $RECEPCIONPT->__SET('CANTIDAD_ENVASE_RECEPCION', 0);
-        $RECEPCIONPT->__SET('KILOS_NETO_RECEPCION', 0);
-        $RECEPCIONPT->__SET('KILOS_BRUTO_RECEPCION', 0);
-        $RECEPCIONPT->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIA']);
-        $RECEPCIONPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
-        $RECEPCIONPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-        $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
-        $RECEPCIONPT->__SET('TRECEPCION', $_REQUEST['TRECEPCION']);
-        if ($_REQUEST['TRECEPCION'] == "1") {
-            $RECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        }
-        if ($_REQUEST['TRECEPCION'] == "2") {
-            $RECEPCIONPT->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-        }
-        $RECEPCIONPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-        $RECEPCIONPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-        $RECEPCIONPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $RECEPCIONPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $RECEPCIONPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $RECEPCIONPT->__SET('ID_USUARIOI', $IDUSUARIOS);
-        $RECEPCIONPT->__SET('ID_USUARIOM', $IDUSUARIOS);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $RECEPCIONPT_ADO->agregarRecepcion($RECEPCIONPT);
-
-        //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-        $ARRYAOBTENERID = $RECEPCIONPT_ADO->obtenerID(
-            $_REQUEST['OBSERVACION'],
-            $_REQUEST['TRECEPCION'],
-            $_REQUEST['EMPRESA'],
-            $_REQUEST['PLANTA'],
-            $_REQUEST['TEMPORADA'],
-        );
-
-        //REDIRECCIONAR A PAGINA registroRecepcionpt.php 
-        $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
-        $_SESSION["parametro1"] = "crear";
-        echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
-    }
-}
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-    $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
-    $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-    $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
-    $RECEPCIONPT->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
-    $RECEPCIONPT->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
-    $RECEPCIONPT->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
-    $RECEPCIONPT->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
-    $RECEPCIONPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-    $RECEPCIONPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-    $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
-    $RECEPCIONPT->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
-    if ($_REQUEST['TRECEPCIONE'] == "1") {
-        $RECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-    }
-    if ($_REQUEST['TRECEPCIONE'] == "2") {
-        $RECEPCIONPT->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-    }
-    $RECEPCIONPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-    $RECEPCIONPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-    $RECEPCIONPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-    $RECEPCIONPT->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-    $RECEPCIONPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-    $RECEPCIONPT->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $RECEPCIONPT_ADO->actualizarRecepcion($RECEPCIONPT);
-}
-//OPERACION PARA CERRAR LA RECEPCION
-if (isset($_REQUEST['CERRAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $ARRAYDRECEPCION2 = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion($_REQUEST['IDP']);
-    if (empty($ARRAYDRECEPCION2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-    if ($SINO == "0") {
-
-        $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-        $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
-        $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-        $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
-        $RECEPCIONPT->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
-        $RECEPCIONPT->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
-        $RECEPCIONPT->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
-        $RECEPCIONPT->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
-        $RECEPCIONPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-        $RECEPCIONPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
-        $RECEPCIONPT->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
-        if ($_REQUEST['TRECEPCIONE'] == "1") {
-            $RECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-        }
-        if ($_REQUEST['TRECEPCIONE'] == "2") {
-            $RECEPCIONPT->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-        }
-        $RECEPCIONPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-        $RECEPCIONPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $RECEPCIONPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-        $RECEPCIONPT->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-        $RECEPCIONPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-        $RECEPCIONPT->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $RECEPCIONPT_ADO->actualizarRecepcion($RECEPCIONPT);
-
-        $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $RECEPCIONPT_ADO->cerrado($RECEPCIONPT);
-
-
-        $ARRAYEXISENCIARECEPCION = $EXIEXPORTACION_ADO->buscarPorRecepcion($_REQUEST['IDP']);
-
-        foreach ($ARRAYEXISENCIARECEPCION as $r) :
-            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->vigente($EXIEXPORTACION);
-        endforeach;
-
-        //REDIRECCIONAR A PAGINA registroRecepcionpt.php 
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        if ($_SESSION['parametro1'] == "crear") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
-        }
-        if ($_SESSION['parametro1'] == "editar") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
-        }
-    }
-}
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -1233,46 +1058,100 @@ if (isset($_POST)) {
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionpt.php');">
-                                                <i class="ti-trash"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
-                                            </button>
-                                        <?php } ?>
-                                        <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionpt.php'); ">
-                                                <i class="ti-back-left "></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcionpt.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcionpt.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-
-                                        <?php } ?>
+                                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
+                                        <div class="btn-group col-sm-6" role="group" aria-label="acciones">
+                                            <?php if ($OP == "") { ?>
+                                                <button type=" button" class="btn btn-danger " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionpt.php');">
+                                                    <i class="ti-trash"></i> Cancelar
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Crear
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP != "") { ?>
+                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionpt.php'); ">
+                                                    <i class="ti-back-left "></i> Volver
+                                                </button>
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                    <i class="ti-pencil-alt"></i> Guardar
+                                                </button>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Cerrar
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="btn-group col-sm-4">
+                                            <?php if ($OP!=""): ?>
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcionpt.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Informe
+                                                </button>
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcionpt.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
+                                                </button>
+                                            <?php endif ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                         <div class="box">
+                            <div class="card-header bg-success">
+                                <h4 class="card-title">Detalle Recepcion </h4>
+                            </div>
 
-                            <div class="box-header with-border">
-                                <h4 class="box-title">Detalle Recepcion </h4>
+                            <div class="card-header">
+                                <div class="form-row">
+                                    <div class="col-auto">
+                                        <form method="post" id="form2" name="form2">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONPT" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP RECEPCIONPT" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL RECEPCIONPT" id="URLP" name="URLP" value="registroRecepcionpt" />
+                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionpt" />
+                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL"
+                                                    <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>
+                                                    <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
+                                                    Agregar Detalle de recepcion
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Envase</div>
+                                            </div>
+                                            <input type="hidden" name="CANTIDADENVASERECEPCION" id="CANTIDADENVASERECEPCION" value="<?php echo $CANTIDADENVASERECEPCION; ?>" />
+                                            <input type="text" class="form-control" placeholder="Total Envase" id="CANTIDADENVASERECEPCIONv" name="CANTIDADENVASERECEPCIONv" value="<?php echo $CANTIDADENVASERECEPCION2; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Neto</div>
+                                            </div>
+                                            <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
+                                            <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Bruto</div>
+                                            </div>
+                                            <input type="hidden" name="KILOSBRUTORECEPCION" id="KILOSBRUTORECEPCION" value="<?php echo $KILOSBRUTORECEPCION; ?>" />
+                                            <input type="text" class="form-control" placeholder="Total Bruto" id="KILOSBRUTORECEPCIONV" name="KILOSBRUTORECEPCIONV" value="<?php echo $KILOSBRUTORECEPCION2; ?>" disabled />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="box-body ">
                                 <label id="val_drecepcion" class="validacion "><?php echo $MENSAJE; ?> </label>
                                 <div class="row">
-                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
+                                    <div class="col-12">
                                         <div class=" table-responsive">
                                             <table id="detalle" class="table table-hover " style="width: 100%;">
                                                 <thead>
@@ -1350,18 +1229,18 @@ if (isset($_POST)) {
                                                                         <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionpt" />
                                                                         <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                             <?php if ($ESTADO == "0") { ?>
-                                                                                <button type="submit" class="btn btn-rounded btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
+                                                                                <button type="submit" class="btn btn-sm btn-info " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
                                                                                     <i class="ti-eye"></i>
                                                                                 </button>
                                                                             <?php } ?>
                                                                             <?php if ($ESTADO == "1") { ?>
-                                                                                <button type="submit" class="btn  btn-rounded   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                                <button type="submit" class="btn  btn-sm btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLED2; ?>>
                                                                                     <i class="ti-pencil-alt"></i>
                                                                                 </button>
-                                                                                <button type="submit" class="btn btn-rounded  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                                <button type="submit" class="btn btn-sm btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLED2; ?>>
                                                                                     <i class="fa fa-fw fa-copy"></i>
                                                                                 </button>
-                                                                                <button type="submit" class="btn btn-rounded   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                                <button type="submit" class="btn btn-sm btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLED2; ?>>
                                                                                     <i class="ti-close"></i>
                                                                                 </button>
                                                                             <?php } ?>
@@ -1387,56 +1266,6 @@ if (isset($_POST)) {
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <form method="post" id="form2" name="form2">
-                                                            <div class="form-group">
-                                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONPT" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                <input type="hidden" class="form-control" placeholder="OP RECEPCIONPT" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                                <input type="hidden" class="form-control" placeholder="URL RECEPCIONPT" id="URLP" name="URLP" value="registroRecepcionpt" />
-                                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionpt" />
-                                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                                        } ?>>
-                                                                    <i class=" glyphicon glyphicon-plus"></i>
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th> Total Envase</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input type="hidden" name="CANTIDADENVASERECEPCION" id="CANTIDADENVASERECEPCION" value="<?php echo $CANTIDADENVASERECEPCION; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Total Envase" id="CANTIDADENVASERECEPCIONv" name="CANTIDADENVASERECEPCIONv" value="<?php echo $CANTIDADENVASERECEPCION2; ?>" disabled />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Total Neto </th>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Total Bruto </th>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input type="hidden" name="KILOSBRUTORECEPCION" id="KILOSBRUTORECEPCION" value="<?php echo $KILOSBRUTORECEPCION; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Total Bruto" id="KILOSBRUTORECEPCIONV" name="KILOSBRUTORECEPCIONV" value="<?php echo $KILOSBRUTORECEPCION2; ?>" disabled />
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1451,6 +1280,262 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+                if ($_REQUEST['TRECEPCION'] == "1") {
+                    $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    if ($ARRAYRECEPCIONBUSCARGPETP) {
+                        $SINO = "1";
+                        $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Informacion importante",
+                                text:"LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            })
+                            </script>';
+
+                    } else {
+                        $SINO = "0";
+                        $MENSAJE3 = "";
+                    }
+                }
+                if ($_REQUEST['TRECEPCION'] == "2") {
+                    $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    if ($ARRAYRECEPCIONBUSCARGPETP) {
+                        $SINO = "1";
+                        $MENSAJE3 = "LA GUIA DE LA PLANTA EXTERNA SE ENCUENTRA DUPLICADA";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Informacion importante",
+                                text:"LA GUIA DE LA PLANTA EXTERNA SE ENCUENTRA DUPLICADA",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            })
+                            </script>';
+                    } else {
+                        $SINO = "0";
+                        $MENSAJE3 = "";
+                    }
+                }
+
+                if ($SINO == "0") {
+                    $ARRAYNUMERO = $RECEPCIONPT_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+                    //UTILIZACION METODOS SET DEL MODELO
+                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+
+                    $RECEPCIONPT->__SET('NUMERO_RECEPCION', $NUMERO);
+                    $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                    $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCION']);
+                    $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
+                    $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
+                    $RECEPCIONPT->__SET('CANTIDAD_ENVASE_RECEPCION', 0);
+                    $RECEPCIONPT->__SET('KILOS_NETO_RECEPCION', 0);
+                    $RECEPCIONPT->__SET('KILOS_BRUTO_RECEPCION', 0);
+                    $RECEPCIONPT->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIA']);
+                    $RECEPCIONPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
+                    $RECEPCIONPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+                    $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
+                    $RECEPCIONPT->__SET('TRECEPCION', $_REQUEST['TRECEPCION']);
+                    if ($_REQUEST['TRECEPCION'] == "1") {
+                        $RECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    }
+                    if ($_REQUEST['TRECEPCION'] == "2") {
+                        $RECEPCIONPT->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+                    }
+                    $RECEPCIONPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+                    $RECEPCIONPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+                    $RECEPCIONPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $RECEPCIONPT->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $RECEPCIONPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $RECEPCIONPT->__SET('ID_USUARIOI', $IDUSUARIOS);
+                    $RECEPCIONPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $RECEPCIONPT_ADO->agregarRecepcion($RECEPCIONPT);
+
+                    //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+                    $ARRYAOBTENERID = $RECEPCIONPT_ADO->obtenerID(
+                        $_REQUEST['OBSERVACION'],
+                        $_REQUEST['TRECEPCION'],
+                        $_REQUEST['EMPRESA'],
+                        $_REQUEST['PLANTA'],
+                        $_REQUEST['TEMPORADA'],
+                    );
+
+                    //REDIRECCIONAR A PAGINA registroRecepcionpt.php
+                    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
+                    $_SESSION["parametro1"] = "crear";
+                    // echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
+                    echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Registro de recepcion creado",
+                                text:"Se ha creado el registro correctamente",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href="/fruta/vista/registroRecepcionpt.php?op";
+                                }
+                            })
+                        </script>';
+
+                }
+            }
+            //OPERACION EDICION DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+                $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
+                $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
+                $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                $RECEPCIONPT->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
+                $RECEPCIONPT->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
+                $RECEPCIONPT->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
+                $RECEPCIONPT->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
+                $RECEPCIONPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+                $RECEPCIONPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
+                $RECEPCIONPT->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
+                if ($_REQUEST['TRECEPCIONE'] == "1") {
+                    $RECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                }
+                if ($_REQUEST['TRECEPCIONE'] == "2") {
+                    $RECEPCIONPT->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+                }
+                $RECEPCIONPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                $RECEPCIONPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                $RECEPCIONPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                $RECEPCIONPT->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                $RECEPCIONPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                $RECEPCIONPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $RECEPCIONPT_ADO->actualizarRecepcion($RECEPCIONPT);
+                echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Registro de recepcion guardado",
+                                text:"Se ha actualizado el registro correctamente",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href="/fruta/vista/registroRecepcionpt.php?op";
+                                }
+                            })
+                            </script>';
+            }
+            //OPERACION PARA CERRAR LA RECEPCION
+            if (isset($_REQUEST['CERRAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                $ARRAYDRECEPCION2 = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion($_REQUEST['IDP']);
+                if (empty($ARRAYDRECEPCION2)) {
+                    $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
+                    echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Informacion importante",
+                                text:"TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            })
+                            </script>';
+                    $SINO = "1";
+                } else {
+                    $MENSAJE = "";
+                    $SINO = "0";
+                }
+                if ($SINO == "0") {
+
+                    $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+                    $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
+                    $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
+                    $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                    $RECEPCIONPT->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
+                    $RECEPCIONPT->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
+                    $RECEPCIONPT->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
+                    $RECEPCIONPT->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
+                    $RECEPCIONPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+                    $RECEPCIONPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                    $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
+                    $RECEPCIONPT->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
+                    if ($_REQUEST['TRECEPCIONE'] == "1") {
+                        $RECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                    }
+                    if ($_REQUEST['TRECEPCIONE'] == "2") {
+                        $RECEPCIONPT->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+                    }
+                    $RECEPCIONPT->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                    $RECEPCIONPT->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                    $RECEPCIONPT->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+                    $RECEPCIONPT->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+                    $RECEPCIONPT->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+                    $RECEPCIONPT->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $RECEPCIONPT_ADO->actualizarRecepcion($RECEPCIONPT);
+
+                    $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $RECEPCIONPT_ADO->cerrado($RECEPCIONPT);
+
+
+                    $ARRAYEXISENCIARECEPCION = $EXIEXPORTACION_ADO->buscarPorRecepcion($_REQUEST['IDP']);
+
+                    foreach ($ARRAYEXISENCIARECEPCION as $r) :
+                        $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                        $EXIEXPORTACION_ADO->vigente($EXIEXPORTACION);
+                    endforeach;
+
+                    //REDIRECCIONAR A PAGINA registroRecepcionpt.php
+                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+                    if ($_SESSION['parametro1'] == "crear") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        // echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
+                         echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Registro de recepcion cerrado",
+                                text:"Se ha cerrado el registro correctamente",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href="/fruta/vista/registroRecepcionpt.php?op";
+                                }
+                            })</script>';
+
+                    }
+                    if ($_SESSION['parametro1'] == "editar") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        // echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
+                         echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Registro de recepcion cerrado",
+                                text:"Se ha cerrado el registro correctamente",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href="/fruta/vista/registroRecepcionpt.php?op";
+                                }
+                            })</script>';
+                    }
+                }
+            }
+        ?>
 </body>
 
 </html>
