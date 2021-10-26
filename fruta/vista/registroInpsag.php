@@ -855,7 +855,7 @@ if (isset($_POST)) {
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
                                                 <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                    <i class="ti-pencil-alt"></i> Editar
+                                                    <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
                                                 <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                     <i class="ti-save-alt"></i> Cerrar
@@ -1090,7 +1090,7 @@ if (isset($_POST)) {
                 $INPSAG_ADO->agregarInpsag($INPSAG);
 
 
-                //OBTENER EL ID DE LA INPSAG CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+                // //OBTENER EL ID DE LA INPSAG CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
                 $ARRYAOBTENERID = $INPSAG_ADO->obtenerId(
                     $_REQUEST['FECHAINPSAG'],
                     $_REQUEST['OBSERVACIONINPSAG'],
@@ -1099,7 +1099,7 @@ if (isset($_POST)) {
                     $_REQUEST['TEMPORADA'],
                 );
 
-                //REDIRECCIONAR A PAGINA registroInpsag.php
+                // //REDIRECCIONAR A PAGINA registroInpsag.php
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_INPSAG'];
                 $_SESSION["parametro1"] = "crear";
                 // echo "<script type='text/javascript'> location.href ='registroInpsag.php?op';</script>";
@@ -1138,6 +1138,16 @@ if (isset($_POST)) {
                 $INPSAG->__SET('ID_INPSAG', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $INPSAG_ADO->actualizarInpsag($INPSAG);
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro actualizado",
+                        text:"El encabezado fue actualizado exitosamente"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "/fruta/vista/registroInpsag.php?op";
+                        }
+                    })</script>';
             }
             //OPERACION PARA CERRAR LA INPSAG
             if (isset($_REQUEST['CERRAR'])) {
