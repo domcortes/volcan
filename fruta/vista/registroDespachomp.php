@@ -14,13 +14,12 @@ include_once '../controlador/TEMBALAJE_ADO.php';
 
 include_once '../controlador/TDOCUMENTO_ADO.php';
 include_once '../controlador/BODEGA_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/COMPRADOR_ADO.php';
 
 include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
@@ -45,7 +44,7 @@ $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
 $TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
 $BODEGA_ADO = new BODEGA_ADO();
-$CLIENTE_ADO = new CLIENTE_ADO();
+$COMPRADOR_ADO = new COMPRADOR_ADO();
 
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
@@ -54,7 +53,6 @@ $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$COMPRADOR_ADO =  new COMPRADOR_ADO();
 
 
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
@@ -113,7 +111,7 @@ $IDTEMPORADA = "";
 $TDOCUMENTO="";
 $BODEGAD="";
 $BODEGA="";
-$CLIENTE="";
+$COMPRADOR="";
 
 $IDOP = "";
 $OP = "";
@@ -190,7 +188,6 @@ $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYCOMPRADOR = $COMPRADOR_ADO->listarCompradorPorEmpresaCBX($EMPRESAS);
 
 $ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->listarTdocumentoPorEmpresaCBX($EMPRESAS);
-$ARRAYCLIENTE = $CLIENTE_ADO->listarClientePorEmpresaCBX($EMPRESAS);
 
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
@@ -230,7 +227,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $ARRAYDESPACHOE=$DESPACHOE_ADO->listarDespachoePorDespachoMPCBX($IDOP);
     if($ARRAYDESPACHOE){
         $TDOCUMENTO=$ARRAYDESPACHOE[0]["ID_TDOCUMENTO"];
-        $CLIENTE=$ARRAYDESPACHOE[0]["ID_CLIENTE"];
+        $COMPRADOR=$ARRAYDESPACHOE[0]["ID_COMPRADOR"];
         $BODEGAD=$ARRAYDESPACHOE[0]["ID_BODEGA2"];
         $BODEGA=$ARRAYDESPACHOE[0]["ID_BODEGAO"];
 
@@ -756,20 +753,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TDOCUMENTO.style.borderColor = "#4AF575";
             
-                               
-                    if (TDESPACHO == 3) {
-                    
-                        CLIENTE = document.getElementById("CLIENTE").selectedIndex;
-                        document.getElementById('val_cliente').innerHTML = "";
-
-                        if (CLIENTE == null || CLIENTE == 0) {
-                            document.form_reg_dato.CLIENTE.focus();
-                            document.form_reg_dato.CLIENTE.style.borderColor = "#FF0000";
-                            document.getElementById('val_cliente').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                            return false
-                        }
-                        document.form_reg_dato.CLIENTE.style.borderColor = "#4AF575";
-                    }
+               
                 }
 
                 //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE DESPACHOMP
@@ -1184,25 +1168,6 @@ if (isset($_POST)) {
                                                     <input type="hidden" class="form-control" placeholder="BODEGAD" id="BODEGAD" name="BODEGAD" value="<?php echo $BODEGAD; ?>" />                                          
                                                 </div>
                                             </div>                                          
-                                        <?php } ?>               
-                                        <?php if ($TDESPACHO == "3") { ?>                                             
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
-                                                <div class="form-group">
-                                                    <label>Cliente</label>
-                                                    <input type="hidden" class="form-control" placeholder="CLIENTEE" id="CLIENTEE" name="CLIENTEE" value="<?php echo $CLIENTE; ?>" />
-                                                    <select class="form-control select2" id="CLIENTE" name="CLIENTE" style="width: 100%;" <?php echo $DISABLED2; ?> >
-                                                        <option></option>
-                                                        <?php foreach ($ARRAYCLIENTE as $r) : ?>
-                                                            <?php if ($ARRAYCLIENTE) {    ?>
-                                                                <option value="<?php echo $r['ID_CLIENTE']; ?>" <?php if ($CLIENTE == $r['ID_CLIENTE']) {  echo "selected";  } ?>> <?php echo $r['NOMBRE_CLIENTE'] ?> </option>
-                                                            <?php } else { ?>
-                                                                    <option>No Hay Datos Registrados </option>
-                                                            <?php } ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <label id="val_cliente" class="validacion"> </label>
-                                                </div>
-                                            </div>                                      
                                         <?php } ?>                                                                                 
                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
@@ -1488,7 +1453,7 @@ if (isset($_POST)) {
                             $TDESPACHOE ="3";
                         }
                         if ($_REQUEST['TDESPACHO'] == "3") {
-                            $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                            $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
                             $TDESPACHOE ="5";
                         }
                         if ($_REQUEST['TDESPACHO'] == "4") {
@@ -1597,7 +1562,7 @@ if (isset($_POST)) {
                         $TDESPACHOE ="3";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "3") {
-                        $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                        $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
                         $TDESPACHOE ="5";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "4") {
@@ -1641,7 +1606,7 @@ if (isset($_POST)) {
                         $TDESPACHOE ="3";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "3") {
-                        $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                        $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
                         $TDESPACHOE ="5";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "4") {
@@ -1788,7 +1753,7 @@ if (isset($_POST)) {
                             $TDESPACHOE ="3";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "3") {
-                            $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                            $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
                             $TDESPACHOE ="5";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "4") {
@@ -1866,7 +1831,7 @@ if (isset($_POST)) {
                             $TDESPACHOE ="3";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "3") {
-                            $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+                            $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
                             $TDESPACHOE ="5";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "4") {

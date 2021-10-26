@@ -9,7 +9,7 @@ include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 include_once '../controlador/PRODUCTO_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
@@ -30,7 +30,7 @@ $CONDUCTOR_ADO = new CONDUCTOR_ADO();
 $BODEGA_ADO = new BODEGA_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $PROVEEDOR_ADO = new PROVEEDOR_ADO();
-$CLIENTE_ADO = new CLIENTE_ADO();
+$COMPRADOR_ADO = new COMPRADOR_ADO();
 
 $PRODUCTO_ADO = new PRODUCTO_ADO();
 $TUMEDIDA_ADO = new TUMEDIDA_ADO();
@@ -71,7 +71,7 @@ $BODEGAD = "";
 $PRODUCTOR = "";
 $PROVEEDOR = "";
 $PLANTA3 = "";
-$CLIENTE = "";
+$COMPRADOR = "";
 $NUMERODESPACHOMP="";
 $CONTADOR = 0;
 $ESTADO = "";
@@ -104,7 +104,7 @@ $ARRAYPLANTADESTINO = "";
 $ARRAYPLANTAEXTERNA = "";
 $ARRAYPRODUCTOR = "";
 $ARRAYPROVEEDOR = "";
-$ARRAYCLIENTE = "";
+$ARRAYCOMPRADOR = "";
 $ARRAYRESPONSABLE = "";
 $ARRAYRESPONSABLEUSUARIO = "";
 $ARRAYVALIDARINGRESO = "";
@@ -119,7 +119,7 @@ $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTAS)
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYPROVEEDOR = $PROVEEDOR_ADO->listarProveedorPorEmpresaCBX($EMPRESAS);
 $ARRAYPLANTAEXTERNA = $PLANTA_ADO->listarPlantaExternaCBX();
-$ARRAYCLIENTE = $CLIENTE_ADO->listarClientePorEmpresaCBX($EMPRESAS);
+$ARRAYCOMPRADOR = $COMPRADOR_ADO->listarCompradorPorEmpresaCBX($EMPRESAS);
 $ARRAYFECHAACTUAL = $DESPACHOE_ADO->obtenerFecha();
 $FECHADESPACHO = $ARRAYFECHAACTUAL[0]['FECHA'];
 
@@ -159,7 +159,7 @@ if (isset($_REQUEST['CREAR'])) {
         $DESPACHOE->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
     }    
     if ($_REQUEST['TDESPACHO'] == "5") {
-        $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+        $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
     }
     if ($_REQUEST['TDESPACHO'] == "6") {
         $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
@@ -218,7 +218,7 @@ if (isset($_REQUEST['EDITAR'])) {
         $DESPACHOE->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
     }
     if ($_REQUEST['TDESPACHOE'] == "5") {
-        $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTEE']);
+        $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
     }
     if ($_REQUEST['TDESPACHOE'] == "6") {
         $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
@@ -275,7 +275,7 @@ if (isset($_REQUEST['CERRAR'])) {
             $DESPACHOE->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
         }
         if ($_REQUEST['TDESPACHOE'] == "5") {
-            $DESPACHOE->__SET('ID_CLIENTE', $_REQUEST['CLIENTEE']);
+            $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
         }
         if ($_REQUEST['TDESPACHOE'] == "6") {
             $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
@@ -418,7 +418,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $PROVEEDOR = "" . $r['ID_PROVEEDOR'];
             }            
             if ($TDESPACHO == "5") {
-                $CLIENTE = "" . $r['ID_CLIENTE'];
+                $COMPRADOR = "" . $r['ID_COMPRADOR'];
             }            
             if ($TDESPACHO == "6") {
                 $REGALO = "" . $r['REGALO_DESPACHO'];
@@ -484,7 +484,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $PROVEEDOR = "" . $r['ID_PROVEEDOR'];
             }            
             if ($TDESPACHO == "5") {
-                $CLIENTE = "" . $r['ID_CLIENTE'];
+                $COMPRADOR = "" . $r['ID_COMPRADOR'];
             }            
             if ($TDESPACHO == "6") {
                 $REGALO = "" . $r['REGALO_DESPACHO'];
@@ -551,7 +551,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $PROVEEDOR = "" . $r['ID_PROVEEDOR'];
             }            
             if ($TDESPACHO == "5") {
-                $CLIENTE = "" . $r['ID_CLIENTE'];
+                $COMPRADOR = "" . $r['ID_COMPRADOR'];
             }            
             if ($TDESPACHO == "6") {
                 $REGALO = "" . $r['REGALO_DESPACHO'];
@@ -637,8 +637,8 @@ if (isset($_POST)) {
             }
         }
         if ($TDESPACHO == "6") {
-            if (isset($_REQUEST['CLIENTE'])) {
-                $CLIENTE = "" . $_REQUEST['CLIENTE'];
+            if (isset($_REQUEST['COMPRADOR'])) {
+                $COMPRADOR = "" . $_REQUEST['COMPRADOR'];
             }
         }
         if ($TDESPACHO == "7") {
@@ -825,16 +825,16 @@ if (isset($_POST)) {
 
                     }
                     if (TDESPACHO == 5) {
-                        CLIENTE = document.getElementById("CLIENTE").selectedIndex;
+                        COMPRADOR = document.getElementById("COMPRADOR").selectedIndex;
                         document.getElementById('val_cliente').innerHTML = "";
 
-                        if (CLIENTE == null || CLIENTE == 0) {
-                            document.form_reg_dato.CLIENTE.focus();
-                            document.form_reg_dato.CLIENTE.style.borderColor = "#FF0000";
+                        if (COMPRADOR == null || COMPRADOR == 0) {
+                            document.form_reg_dato.COMPRADOR.focus();
+                            document.form_reg_dato.COMPRADOR.style.borderColor = "#FF0000";
                             document.getElementById('val_cliente').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
                             return false
                         }
-                        document.form_reg_dato.CLIENTE.style.borderColor = "#4AF575";
+                        document.form_reg_dato.COMPRADOR.style.borderColor = "#4AF575";
                     }
                     if (TDESPACHO == 6) {
                         REGALO = document.getElementById("REGALO").value;
@@ -1322,15 +1322,15 @@ if (isset($_POST)) {
                                         <?php if ($TDESPACHO == "5") { ?>
                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label>Cliente</label>
-                                                    <input type="hidden" class="form-control" placeholder="CLIENTEE" id="CLIENTEE" name="CLIENTEE" value="<?php echo $CLIENTE; ?>" />
-                                                    <select class="form-control select2" id="CLIENTE" name="CLIENTE" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                                                    <label>Comprador</label>
+                                                    <input type="hidden" class="form-control" placeholder="COMPRADORE" id="COMPRADORE" name="COMPRADORE" value="<?php echo $COMPRADOR; ?>" />
+                                                    <select class="form-control select2" id="COMPRADOR" name="COMPRADOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                                                         <option></option>
-                                                        <?php foreach ($ARRAYCLIENTE as $r) : ?>
-                                                            <?php if ($ARRAYCLIENTE) {    ?>
-                                                                <option value="<?php echo $r['ID_CLIENTE']; ?>" <?php if ($CLIENTE == $r['ID_CLIENTE']) {
+                                                        <?php foreach ($ARRAYCOMPRADOR as $r) : ?>
+                                                            <?php if ($ARRAYCOMPRADOR) {    ?>
+                                                                <option value="<?php echo $r['ID_COMPRADOR']; ?>" <?php if ($COMPRADOR == $r['ID_COMPRADOR']) {
                                                                                                                     echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_CLIENTE'] ?> </option>
+                                                                                                                } ?>> <?php echo $r['NOMBRE_COMPRADOR'] ?> </option>
                                                             <?php } else { ?>
                                                                 <option>No Hay Datos Registrados </option>
                                                             <?php } ?>

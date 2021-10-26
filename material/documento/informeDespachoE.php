@@ -13,7 +13,7 @@ include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 include_once '../controlador/PRODUCTO_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
@@ -40,7 +40,7 @@ $CONDUCTOR_ADO = new CONDUCTOR_ADO();
 $BODEGA_ADO = new BODEGA_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $PROVEEDOR_ADO = new PROVEEDOR_ADO();
-$CLIENTE_ADO = new CLIENTE_ADO();
+$COMPRADOR_ADO = new COMPRADOR_ADO();
 
 $PRODUCTO_ADO = new PRODUCTO_ADO();
 $TUMEDIDA_ADO = new TUMEDIDA_ADO();
@@ -137,8 +137,8 @@ if ($ARRAYRECEPCION) {
     $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
   }  else  if ($TDESPACHO == "5") {
     $NOMBRETDESPACHO = "Venta";
-    $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($ARRAYRECEPCION[0]["ID_CLIENTE"]);
-    $NOMBREORIGEN = $ARRAYVERCLIENTE[0]["NOMBRE_CLIENTE"];
+    $ARRAYVERCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYRECEPCION[0]["ID_COMPRADOR"]);
+    $NOMBREORIGEN = $ARRAYVERCOMPRADOR[0]["NOMBRE_COMPRADOR"];
   }  else  if ($TDESPACHO == "6") {
     $NOMBRETDESPACHO = "Regalo";
     $REGALO == $ARRAYRECEPCION[0]['REGALO_DESPACHO'];
@@ -314,19 +314,20 @@ if ($TDESPACHO == "4") {
 }
 if ($TDESPACHO == "5") {
   $html = $html . ' 
-  <div class="address"><b> Planta Destino : </b> ' . $NOMBREORIGEN . ' </div>
+  <div class="address"><b> Comprador Destino : </b> ' . $NOMBREORIGEN . ' </div>
   ';
 }
 if ($TDESPACHO == "6") {
   $html = $html . ' 
-  <div class="address"><b> Cliente Destino : </b> ' . $NOMBREORIGEN . ' </div>
+  <div class="address"><b> Regalo  : </b> ' . $NOMBREORIGEN . ' </div>
   ';
 }
 if ($TDESPACHO == "7") {
   $html = $html . ' 
-  <div class="address"><b> Regalo  : </b> ' . $NOMBREORIGEN . ' </div>
+  <div class="address"><b> Planta Destino : </b> ' . $NOMBREORIGEN . ' </div>
   ';
 }
+
 if ($TDESPACHO == "8") {
   $html = $html . ' 
   <div class="address"><b> Productor Destino : </b> ' . $NOMBREORIGEN . ' </div>

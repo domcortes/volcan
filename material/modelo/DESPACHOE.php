@@ -34,7 +34,7 @@ class DESPACHOE {
     private   $ID_PRODUCTOR;
     private   $ID_PROVEEDOR;
     private   $ID_PLANTA3;
-    private   $ID_CLIENTE;
+    private   $ID_COMPRADOR;
     private   $ID_DESPACHOMP;
     private   $ID_BODEGAO;
     private   $ID_USUARIOI;

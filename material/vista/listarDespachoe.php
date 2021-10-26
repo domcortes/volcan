@@ -11,7 +11,7 @@ include_once '../controlador/RESPONSABLE_ADO.php';
 include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 include_once '../controlador/PRODUCTO_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
@@ -33,7 +33,7 @@ $RESPONSABLE_ADO = new RESPONSABLE_ADO();
 $BODEGA_ADO = new BODEGA_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $PROVEEDOR_ADO = new PROVEEDOR_ADO();
-$CLIENTE_ADO = new CLIENTE_ADO();
+$COMPRADOR_ADO = new COMPRADOR_ADO();
 
 $PRODUCTO_ADO = new PRODUCTO_ADO();
 $TUMEDIDA_ADO = new TUMEDIDA_ADO();
@@ -299,9 +299,9 @@ include_once "../config/datosUrLP.php";
                                                         }
                                                     }else if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Venta";
-                                                        $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($r["ID_CLIENTE"]);
-                                                        if ($ARRAYVERCLIENTE) {
-                                                            $NOMBRDESTINO = $ARRAYVERCLIENTE[0]["NOMBRE_CLIENTE"];
+                                                        $ARRAYVERCOMPRADOR = $COMPRADOR_ADO->verComprador($r["ID_COMPRADOR"]);
+                                                        if ($ARRAYVERCOMPRADOR) {
+                                                            $NOMBRDESTINO = $ARRAYVERCOMPRADOR[0]["NOMBRE_COMPRADOR"];
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
                                                         }

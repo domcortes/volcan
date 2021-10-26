@@ -172,8 +172,8 @@ class DESPACHOE_ADO
             if ($DESPACHOE->__GET('ID_PLANTA3') == NULL) {
                 $DESPACHOE->__SET('ID_PLANTA3', NULL);
             }
-            if ($DESPACHOE->__GET('ID_CLIENTE') == NULL) {
-                $DESPACHOE->__SET('ID_CLIENTE', NULL);
+            if ($DESPACHOE->__GET('ID_COMPRADOR') == NULL) {
+                $DESPACHOE->__SET('ID_COMPRADOR', NULL);
             }
             $query =
                 "INSERT INTO material_despachoe ( 
@@ -197,7 +197,7 @@ class DESPACHOE_ADO
 
                                                 ID_PROVEEDOR, 
                                                 ID_PLANTA3,  
-                                                ID_CLIENTE,  
+                                                ID_COMPRADOR,  
                                                 ID_DESPACHOMP,  
                                                 ID_BODEGAO,  
 
@@ -240,7 +240,7 @@ class DESPACHOE_ADO
 
                         $DESPACHOE->__GET('ID_PROVEEDOR'),
                         $DESPACHOE->__GET('ID_PLANTA3'),
-                        $DESPACHOE->__GET('ID_CLIENTE'),
+                        $DESPACHOE->__GET('ID_COMPRADOR'),
                         $DESPACHOE->__GET('ID_DESPACHOMP'),
                         $DESPACHOE->__GET('ID_BODEGAO'),
 
@@ -293,8 +293,8 @@ class DESPACHOE_ADO
             if ($DESPACHOE->__GET('ID_PLANTA3') == NULL) {
                 $DESPACHOE->__SET('ID_PLANTA3', NULL);
             }
-            if ($DESPACHOE->__GET('ID_CLIENTE') == NULL) {
-                $DESPACHOE->__SET('ID_CLIENTE', NULL);
+            if ($DESPACHOE->__GET('ID_COMPRADOR') == NULL) {
+                $DESPACHOE->__SET('ID_COMPRADOR', NULL);
             }
             $query = "
                 UPDATE material_despachoe SET
@@ -319,7 +319,7 @@ class DESPACHOE_ADO
 
                         ID_PROVEEDOR = ?,
                         ID_PLANTA3 = ?,
-                        ID_CLIENTE = ?,
+                        ID_COMPRADOR = ?,
                         ID_DESPACHOMP = ?,
                         ID_BODEGAO = ?,
 
@@ -350,7 +350,7 @@ class DESPACHOE_ADO
 
                         $DESPACHOE->__GET('ID_PROVEEDOR'),
                         $DESPACHOE->__GET('ID_PLANTA3'),
-                        $DESPACHOE->__GET('ID_CLIENTE'),
+                        $DESPACHOE->__GET('ID_COMPRADOR'),
                         $DESPACHOE->__GET('ID_DESPACHOMP'),
                         $DESPACHOE->__GET('ID_BODEGAO'),
 
