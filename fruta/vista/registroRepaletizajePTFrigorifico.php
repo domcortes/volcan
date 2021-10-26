@@ -864,11 +864,12 @@ if ($_POST) {
                                                                         <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDREPALETIZAJEAUX" name="IDREPALETIZAJEAUX" value="<?php echo $IDREPALETIZAJE; ?>" />
                                                                         <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                         <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar  Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ARRAYDREPALETIZAJEBOLSA) {
-                                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                                } ?> <?php if ($ESTADO == "0") {
-                                                                                                                                                                                                                                                            echo "disabled";
-                                                                                                                                                                                                                                                        } ?>>
+                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar  Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ARRAYDREPALETIZAJEBOLSA) { echo "disabled"; } ?>
+                                                                            <?php
+                                                                                if ($ESTADO == "0") {
+                                                                                    echo "disabled";
+                                                                                }
+                                                                            ?>>
                                                                                 <i class="ti-close  "></i>
                                                                             </button>
                                                                         </div>
@@ -910,9 +911,7 @@ if ($_POST) {
                                                             <input type="hidden" class="form-control" placeholder="URL REPALETIZAJE" id="URLP" name="URLP" value="registroRepaletizajePTFrigorifico" />
                                                             <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTRepaletizaje" />
 
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                            } ?>>
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
                                                                 <i class=" glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
@@ -1041,9 +1040,10 @@ if ($_POST) {
                                                                     <input type="hidden" class="form-control" id="REPALETIZAJE" name="REPALETIZAJE" value="<?php echo $r['ID_REPALETIZAJE']; ?>" />
                                                                     <input type="hidden" class="form-control" id="IDDREPALETIZAJE" name="IDDREPALETIZAJE" value="<?php echo $r['ID_DREPALETIZAJE']; ?>" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <button type="submit" class="btn btn-rounded btn-danger " id="ELIMINAR" name="ELIMINAR" data-toggle="tooltip" title="Eliminar" <?php echo $DISABLED2; ?> <?php if ($ESTADO == "0") {
-                                                                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                                                                    } ?>>
+                                                                        <button type="submit" class="btn btn-rounded btn-danger " id="ELIMINAR" name="ELIMINAR" data-toggle="tooltip" title="Eliminar" <?php echo $DISABLED2; ?>
+                                                                        <?php if ($ESTADO == "0") {
+                                                                            echo "disabled";
+                                                                        } ?>>
                                                                             <i class="ti-close"></i>
                                                                         </button>
                                                                     </div>
@@ -1080,9 +1080,7 @@ if ($_POST) {
                                                             <input type="hidden" class="form-control" placeholder="OP REPALETIZAJE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="URL REPALETIZAJE" id="URLP" name="URLP" value="registroRepaletizajePTFrigorifico" />
                                                             <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroDrepaletizajePTSeleccionCaja" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Repaletizaj" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                        echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                                    } ?>>
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Repaletizaj" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
                                                                 <i class=" glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </div>
