@@ -482,14 +482,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
-          <span>Historial Existencia</span>
+          <span>Kardex</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="listarHInventariom.php">Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarHInventarioe.php">Envases<i class="ti-more"></i></a></li>
+          <li><a href="#">Kardex Materiales<i class="ti-more"></i></a></li>
+          <li><a href="listarHInventarioe.php">Kardex Envases<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="header">Configuraciones</li>
