@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2021 a las 17:46:32
+-- Tiempo de generación: 27-10-2021 a las 21:15:26
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -73,8 +73,8 @@ CREATE TABLE `estandar_ecomercial` (
   `CODIGO_ECOMERCIAL` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `NOMBRE_ECOMERCIAL` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DESCRIPCION_ECOMERCIAL` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `PESO_NETO_ECOMERCIAL` decimal(10,2) DEFAULT NULL,
-  `PESO_BRUTO_ECOMERCIAL` decimal(10,2) DEFAULT NULL,
+  `PESO_NETO_ECOMERCIAL` decimal(20,5) DEFAULT NULL,
+  `PESO_BRUTO_ECOMERCIAL` decimal(20,5) DEFAULT NULL,
   `ESTADO_REGISTRO` int(11) DEFAULT NULL,
   `INGRESO` date DEFAULT NULL,
   `MODIFICACION` date DEFAULT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE `estandar_ecomercial` (
 --
 
 INSERT INTO `estandar_ecomercial` (`ID_ECOMERCIAL`, `CODIGO_ECOMERCIAL`, `NOMBRE_ECOMERCIAL`, `DESCRIPCION_ECOMERCIAL`, `PESO_NETO_ECOMERCIAL`, `PESO_BRUTO_ECOMERCIAL`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '1', 'prueba Estandar Comercial', '', '1.02', '1.02', 1, NULL, NULL, 1, 1, 1);
+(1, '1', 'prueba Estandar Comercial', '', '1.02000', '1.02000', 1, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -101,10 +101,10 @@ CREATE TABLE `estandar_eexportacion` (
   `CODIGO_ESTANDAR` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `NOMBRE_ESTANDAR` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `CANTIDAD_ENVASE_ESTANDAR` int(11) DEFAULT NULL,
-  `PESO_NETO_ESTANDAR` decimal(10,2) DEFAULT NULL,
+  `PESO_NETO_ESTANDAR` decimal(20,5) DEFAULT NULL,
   `PDESHIDRATACION_ESTANDAR` decimal(10,2) DEFAULT NULL,
-  `PESO_BRUTO_ESTANDAR` decimal(10,2) DEFAULT NULL,
-  `PESO_ENVASE_ESTANDAR` decimal(10,2) DEFAULT NULL,
+  `PESO_BRUTO_ESTANDAR` decimal(20,5) DEFAULT NULL,
+  `PESO_ENVASE_ESTANDAR` decimal(20,5) DEFAULT NULL,
   `PESO_PALLET_ESTANDAR` decimal(10,2) DEFAULT NULL,
   `TFRUTA_ESTANDAR` int(11) DEFAULT NULL,
   `EMBOLSADO` int(11) DEFAULT NULL,
@@ -128,8 +128,8 @@ CREATE TABLE `estandar_eexportacion` (
 --
 
 INSERT INTO `estandar_eexportacion` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `CANTIDAD_ENVASE_ESTANDAR`, `PESO_NETO_ESTANDAR`, `PDESHIDRATACION_ESTANDAR`, `PESO_BRUTO_ESTANDAR`, `PESO_ENVASE_ESTANDAR`, `PESO_PALLET_ESTANDAR`, `TFRUTA_ESTANDAR`, `EMBOLSADO`, `STOCK`, `TCATEGORIA`, `TCOLOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_ESPECIES`, `ID_TETIQUETA`, `ID_TEMBALAJE`, `ID_ECOMERCIAL`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '6100', 'Blueberries 4 x 4 oz  240', 240, '1.50', '5.00', '2.50', '1.00', '19.00', 2, 0, 1, 0, 0, 1, NULL, NULL, 25, 1, 1, 1, 1, 1, 1),
-(2, '5100', 'Blueberries 4x4 oz 312', 312, '2.00', '2.00', '2.04', '0.04', '15.00', 2, 0, 0, 0, 0, 1, NULL, NULL, 25, 2, 1, 1, 1, 1, 1);
+(1, '6100', 'Blueberries 4 x 4 oz  240', 240, '1.50000', '5.00', '2.50000', '1.00000', '19.00', 2, 0, 1, 0, 0, 1, NULL, NULL, 25, 1, 1, 1, 1, 1, 1),
+(2, '5100', 'Blueberries 4x4 oz 312', 312, '2.00000', '2.00', '2.04000', '0.04000', '15.00', 2, 0, 0, 0, 0, 1, NULL, NULL, 25, 2, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,7 @@ CREATE TABLE `estandar_eindustrial` (
   `ID_ESTANDAR` bigint(20) NOT NULL,
   `CODIGO_ESTANDAR` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `NOMBRE_ESTANDAR` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `PESO_NETO_ESTANDAR` decimal(10,2) DEFAULT NULL,
+  `PESO_NETO_ESTANDAR` decimal(20,5) DEFAULT NULL,
   `TFRUTA_ESTANDAR` int(11) DEFAULT NULL,
   `ESTADO_REGISTRO` int(11) DEFAULT NULL,
   `INGRESO` date DEFAULT NULL,
@@ -158,7 +158,7 @@ CREATE TABLE `estandar_eindustrial` (
 --
 
 INSERT INTO `estandar_eindustrial` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `PESO_NETO_ESTANDAR`, `TFRUTA_ESTANDAR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_ESPECIES`, `ID_PRODUCTO`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '11', 'prueba estandar industrial', '1.00', 3, 1, '2021-09-14', '2021-09-14', 1, 25, NULL, 1, 1);
+(1, '11', 'prueba estandar industrial', '1.00000', 3, 1, '2021-09-14', '2021-09-14', 1, 25, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -171,7 +171,7 @@ CREATE TABLE `estandar_erecepcion` (
   `CODIGO_ESTANDAR` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `NOMBRE_ESTANDAR` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `CANTIDAD_ENVASE_ESTANDAR` int(11) DEFAULT NULL,
-  `PESO_ENVASE_ESTANDAR` decimal(10,3) DEFAULT NULL,
+  `PESO_ENVASE_ESTANDAR` decimal(20,5) DEFAULT NULL,
   `PESO_PALLET_ESTANDAR` decimal(10,2) DEFAULT NULL,
   `TFRUTA_ESTANDAR` int(11) DEFAULT NULL,
   `TRATAMIENTO1` int(11) DEFAULT 0,
@@ -191,10 +191,10 @@ CREATE TABLE `estandar_erecepcion` (
 --
 
 INSERT INTO `estandar_erecepcion` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `CANTIDAD_ENVASE_ESTANDAR`, `PESO_ENVASE_ESTANDAR`, `PESO_PALLET_ESTANDAR`, `TFRUTA_ESTANDAR`, `TRATAMIENTO1`, `TRATAMIENTO2`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_ESPECIES`, `ID_PRODUCTO`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '1001', '5 Envases de 1.8 Kilos', 5, '1.800', '15.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 1, 1, 1),
-(2, '1002', 'Rejilla Cosechera Verde', 204, '0.500', '15.00', 1, 0, 0, 0, NULL, NULL, 1, 25, NULL, 1, 1),
-(3, '1003', 'Rejilla Cosehera Blanca', 240, '2.500', '15.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 2, 1, 1),
-(4, '1002', 'Rejilla Cosechera Verde', 204, '1.800', '19.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 2, 1, 1);
+(1, '1001', '5 Envases de 1.8 Kilos', 5, '1.80000', '15.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 1, 1, 1),
+(2, '1002', 'Rejilla Cosechera Verde', 204, '0.50000', '15.00', 1, 0, 0, 0, NULL, NULL, 1, 25, NULL, 1, 1),
+(3, '1003', 'Rejilla Cosehera Blanca', 240, '2.50000', '15.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 2, 1, 1),
+(4, '1002', 'Rejilla Cosechera Verde', 204, '1.80000', '19.00', 1, 0, 0, 1, NULL, NULL, 1, 25, 2, 1, 1);
 
 -- --------------------------------------------------------
 
