@@ -183,11 +183,13 @@ include_once "../config/reporteUrl.php";
                                                     <th>Código Producto</th>
                                                     <th>Producto</th>
                                                     <th>Unidad Medida</th>
-
                                                     <th>Tipo Movimineto</th>
                                                     <th>Fecha Movimineto</th>
                                                     <th>Origen Movimineto</th>
                                                     <th>Destino Movimineto</th>
+
+                                                    <th>N° Registro</th>
+                                                    <th>N° Documento</th>
 
                                                                           
                                                     <th>Entrada</th>
@@ -256,7 +258,7 @@ include_once "../config/reporteUrl.php";
                                                                 $NOMBREDESTINO = "Sin Datos";
                                                             }
                                                         }else if ($TOPERACION == "2") {
-                                                            $NOMBREOPERACION = "Despacho a Interplanta";
+                                                            $NOMBREOPERACION = "Interplanta";
                                                             $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]["ID_PLANTA2"]);
                                                             $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($ARRAYDESPACHO[0]["ID_BODEGA2"]);
                                                             if ($ARRAYVERBODEGA && $ARRAYPLANTAINTERNA) {
@@ -290,7 +292,7 @@ include_once "../config/reporteUrl.php";
                                                             }
                                                         }else if ($TOPERACION == "6") {
                                                             $NOMBREOPERACION = "Regalo";
-                                                            $REGALO = $r['REGALO_DESPACHO'];
+                                                            $REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
                                                         }else if ($TOPERACION == "7") {
                                                             $NOMBREOPERACION = "Despacho a Planta Externa";
                                                             $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]["ID_PLANTA3"]);
@@ -311,10 +313,18 @@ include_once "../config/reporteUrl.php";
                                                             $NOMBREOPERACION = "Sin Datos";
                                                         } 
                                                     }else if($r['PLANTA2']){
-                                                        $NUMERODOCUMENTO = "Sin Datos";
-                                                        $FECHAOPERACION = "Sin Datos";
+                                                        $ARRAYVERDESPACHO=$DESPACHOE_ADO->verDespachoe2($r['DESPACHO2']);
+                                                        if($ARRAYVERDESPACHO){
+                                                            $NUMERODOCUMENTO = $ARRAYVERDESPACHO[0]["NUMERO_DESPACHO"];
+                                                            $NUMEROPERACION = $ARRAYVERDESPACHO[0]['NUMERO_DESPACHO'];
+                                                            $FECHAOPERACION = $ARRAYVERDESPACHO[0]["FECHA"];
+                                                        }else{
+                                                            $NUMERODOCUMENTO = "Sin Datos";
+                                                            $NUMEROPERACION = "Sin Datos";
+                                                            $FECHAOPERACION = "Sin Datos";
+                                                        }
                                                         $NOMBREOPERACION = "Interplanta";                                               
-                                                        $NOMBREDESTINO= $r['BODEGA'];      
+                                                        $NOMBREDESTINO= $r['BODEGA'];                                                              
                                                         $ARRAYVERPLANTA=$PLANTA_ADO->verPlanta($r['PLANTA2']);    
                                                         if($ARRAYVERPLANTA){
                                                             $NOMBREORIGEN = $ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];        
@@ -324,6 +334,7 @@ include_once "../config/reporteUrl.php";
                                                         
                                                     }else {
                                                         $NUMERODOCUMENTO = "Sin Datos";
+                                                        $NUMEROPERACION = "Sin Datos";
                                                         $FECHAOPERACION = "Sin Datos";
                                                         $NOMBREOPERACION = "Sin Datos";
                                                         $NOMBREORIGEN = "Sin Datos";
@@ -340,8 +351,8 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $FECHAOPERACION; ?></td>
                                                         <td><?php echo $NOMBREORIGEN; ?></td>
                                                         <td><?php echo $NOMBREDESTINO; ?></td>
-
-
+                                                        <td><?php echo $NUMEROPERACION; ?></td>
+                                                        <td><?php echo $NUMERODOCUMENTO; ?></td>
                                                         <td><?php echo $r['ENTRADA']; ?></td>
                                                         <td><?php echo $r['SALIDA']; ?></td>
                                                         <td><?php echo $r['SALDO']; ?></td>

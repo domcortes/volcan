@@ -25,6 +25,7 @@ class INVENTARIOE {
     private   $ID_RECEPCION;
     private   $ID_DESPACHO;
     private   $ID_PLANTA2;
+    private   $ID_DESPACHO2;
     private   $ID_DOCOMPRA;
     
     

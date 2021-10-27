@@ -341,9 +341,10 @@ class INVENTARIOE_ADO
 
                                                         ID_TUMEDIDA,
                                                         ID_PLANTA2,
-                                                        ID_EMPRESA,
-                                                        ID_PLANTA,
+                                                        ID_DESPACHO2,
 
+                                                        ID_EMPRESA,
+                                                        ID_PLANTA, 
                                                         ID_TEMPORADA,                                               
 
                                                         INGRESO,   
@@ -351,7 +352,7 @@ class INVENTARIOE_ADO
                                                         ESTADO,
                                                         ESTADO_REGISTRO
                                                     ) VALUES
-	       	( ?, ?, ?, ?,  ,     ?, ?, ?, ?,   ?,   SYSDATE(),  SYSDATE(),  1, 1);";
+	       	( ?, ?, ?, ?,  ?,     ?, ?, ?,   ?, ?, ?,   SYSDATE(),  SYSDATE(),  1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(                      
@@ -364,9 +365,10 @@ class INVENTARIOE_ADO
 
                         $INVENTARIOE->__GET('ID_TUMEDIDA'),
                         $INVENTARIOE->__GET('ID_PLANTA2'),
+                        $INVENTARIOE->__GET('ID_DESPACHO2'),
+
                         $INVENTARIOE->__GET('ID_EMPRESA'),
                         $INVENTARIOE->__GET('ID_PLANTA'),
-
                         $INVENTARIOE->__GET('ID_TEMPORADA')
                     )
 
@@ -1031,6 +1033,7 @@ class INVENTARIOE_ADO
                                                     ) AS 'BODEGA',
                                                     inventario.ID_RECEPCION AS 'RECEPCION',
                                                     inventario.ID_DESPACHO AS 'DESPACHO',
+                                                    inventario.ID_DESPACHO2 AS 'DESPACHO2',
                                                     inventario.ID_PLANTA2 AS 'PLANTA2',
                                                     (   SELECT  empresa.NOMBRE_EMPRESA
                                                         FROM principal_empresa empresa

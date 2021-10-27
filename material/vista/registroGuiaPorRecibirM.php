@@ -103,10 +103,11 @@ if (isset($_REQUEST['APROBARURL'])) {
         $INVENTARIOM->__SET('ID_PLANTA2', $r['ID_PLANTA']);
         $INVENTARIOM->__SET('ID_PROVEEDOR', $r['ID_PROVEEDOR']);
         $INVENTARIOM->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
+        $INVENTARIOM->__SET('ID_DESPACHO2',$_REQUEST['ID']);
         $INVENTARIOM->__SET('ID_EMPRESA', $EMPRESAS);
         $INVENTARIOM->__SET('ID_PLANTA', $PLANTAS);
         $INVENTARIOM->__SET('ID_TEMPORADA', $TEMPORADAS);
-     //   $INVENTARIOM_ADO->agregarInventarioGuia($INVENTARIOM);
+       $INVENTARIOM_ADO->agregarInventarioGuia($INVENTARIOM);
     endforeach;
 
     echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";

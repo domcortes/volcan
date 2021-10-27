@@ -346,12 +346,13 @@ class INVENTARIOM_ADO {
                                                         ID_PROVEEDOR,
 
                                                         ID_PRODUCTOR,
+                                                        ID_DESPACHO2,
                                                         INGRESO,
                                                         MODIFICACION,     
                                                         ESTADO,
                                                         ESTADO_REGISTRO
                                                     ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,    SYSDATE() , SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?,   ?, ?,     SYSDATE() , SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -377,7 +378,8 @@ class INVENTARIOM_ADO {
                     $INVENTARIOM->__GET('ID_PLANTA3') ,     
                     $INVENTARIOM->__GET('ID_PROVEEDOR') ,
 
-                    $INVENTARIOM->__GET('ID_PRODUCTOR')      
+                    $INVENTARIOM->__GET('ID_PRODUCTOR') ,     
+                    $INVENTARIOM->__GET('ID_DESPACHO2')      
                 )
                 
                 );

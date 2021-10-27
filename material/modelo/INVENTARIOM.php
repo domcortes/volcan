@@ -35,7 +35,8 @@ class INVENTARIOM {
     private   $ID_PROVEEDOR;
     private   $ID_OCOMPRA;
     private   $ID_PRODUCTOR;
-    private   $ID_DESOPACHO;
+    private   $ID_DESPACHO;
+    private   $ID_DESPACHO2;
     
     
     //FUNCIONES GET Y SET
