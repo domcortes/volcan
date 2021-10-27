@@ -204,14 +204,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     NOMBRESTANDAR = document.getElementById("NOMBRESTANDAR").value;
                     PESONETOESTANDAR = document.getElementById("PESONETOESTANDAR").value;
                     ESPECIES = document.getElementById("ESPECIES").selectedIndex;
-                    PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
+                   // PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
 
 
                     document.getElementById('val_codigo').innerHTML = "";
                     document.getElementById('val_nombre').innerHTML = "";
                     document.getElementById('val_netoee').innerHTML = "";
                     document.getElementById('val_especies').innerHTML = "";
-                    document.getElementById('val_producto').innerHTML = "";
+                   // document.getElementById('val_producto').innerHTML = "";
 
 
                     if (CODIGOESTANDAR == null || CODIGOESTANDAR == 0) {
@@ -390,7 +390,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Peso Neto</label>
-                                                        <input type="number" step="any" class="form-control" placeholder="Peso Neto" id="PESONETOESTANDAR" name="PESONETOESTANDAR" value="<?php echo $PESONETOESTANDAR; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" step="0.00001" class="form-control" placeholder="Peso Neto" id="PESONETOESTANDAR" name="PESONETOESTANDAR" value="<?php echo $PESONETOESTANDAR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_netoee" class="validacion"> </label>
                                                     </div>
                                                 </div>

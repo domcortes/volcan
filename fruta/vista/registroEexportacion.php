@@ -524,24 +524,23 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Peso Neto</label>
-                                                        <input type="number" step="0.01" class="form-control" placeholder="Peso Neto" id="PESONETOESTANDAR" name="PESONETOESTANDAR" value="<?php echo $PESONETOESTANDAR; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" step="0.00001" class="form-control" placeholder="Peso Neto" id="PESONETOESTANDAR" name="PESONETOESTANDAR" value="<?php echo $PESONETOESTANDAR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_netoee" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Peso Bruto </label>
-                                                        <input type="number" step="0.01" class="form-control" placeholder="Peso Bruto" id="PESOBRUTOESTANDAR" name="PESOBRUTOESTANDAR" value="<?php echo $PESOBRUTOESTANDAR ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" step="0.00001" class="form-control" placeholder="Peso Bruto" id="PESOBRUTOESTANDAR" name="PESOBRUTOESTANDAR" value="<?php echo $PESOBRUTOESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_bruto" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Peso Envase</label>
-                                                        <input type="number" step="0.01" class="form-control" placeholder="Peso Envase" id="PESOENVASESTANDAR" name="PESOENVASESTANDAR" value="<?php echo $PESOENVASESTANDAR ?>" <?php echo $DISABLED; ?> disabled />
+                                                        <input type="number" step="0.00001" class="form-control" placeholder="Peso Envase" id="PESOENVASESTANDAR" name="PESOENVASESTANDAR" value="<?php echo $PESOENVASESTANDAR ?>" <?php echo $DISABLED; ?> disabled />
                                                         <label id="val_envase" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -564,7 +563,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Peso Pallet</label>
-                                                        <input type="number" class="form-control" placeholder="Peso Pallet" id="PESOPALLETESTANDAR" name="PESOPALLETESTANDAR" value="<?php echo $PESOPALLETESTANDAR ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" class="form-control" step="0.01" placeholder="Peso Pallet" id="PESOPALLETESTANDAR" name="PESOPALLETESTANDAR" value="<?php echo $PESOPALLETESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_pallet" class="validacion"> </label>
                                                     </div>
                                                 </div>

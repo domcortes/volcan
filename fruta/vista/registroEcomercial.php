@@ -373,14 +373,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Peso Neto </label>
-                                                        <input type="number" step="0.01" class="form-control" placeholder="Peso Neto Estandar Comercial" id="PESONETOECOMERCIAL" name="PESONETOECOMERCIAL" value="<?php echo $PESONETOECOMERCIAL; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" step="0.00001" class="form-control" placeholder="Peso Neto Estandar Comercial" id="PESONETOECOMERCIAL" name="PESONETOECOMERCIAL" value="<?php echo $PESONETOECOMERCIAL; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_neto" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Peso Bruto </label>
-                                                        <input type="number" step="0.01"  class="form-control" placeholder="Peso Bruto Estandar Comercial" id="PESOBRUTOECOMERCIAL" name="PESOBRUTOECOMERCIAL" value="<?php echo $PESOBRUTOECOMERCIAL; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" step="0.00001"  class="form-control" placeholder="Peso Bruto Estandar Comercial" id="PESOBRUTOECOMERCIAL" name="PESOBRUTOECOMERCIAL" value="<?php echo $PESOBRUTOECOMERCIAL; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_bruto" class="validacion"> </label>
                                                     </div>
                                                 </div>
