@@ -424,7 +424,7 @@ include_once "../config/validarDatosUrlD.php";
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href="/fruta/vista/'.$_REQUEST['URLO'].'.php?op";
+                                    location.href="'.$_REQUEST['URLO'].'.php?op";
                                 }
                             })
                         </script>';
