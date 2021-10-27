@@ -527,7 +527,6 @@ if (isset($_POST)) {
                 function validacion() {
 
                     FECHADESPACHO = document.getElementById("FECHADESPACHO").value;
-                    NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
                     TDESPACHO = document.getElementById("TDESPACHO").selectedIndex;
                     TRANSPORTE = document.getElementById("TRANSPORTE").selectedIndex;
                     CONDUCTOR = document.getElementById("CONDUCTOR").selectedIndex;
@@ -537,7 +536,6 @@ if (isset($_POST)) {
                     //OBSERVACIONDESPACHOMP = document.getElementById("OBSERVACIONDESPACHOMP").value;
 
                     document.getElementById('val_fecha').innerHTML = "";
-                    document.getElementById('val_numeroguia').innerHTML = "";
                     document.getElementById('val_tdespacho').innerHTML = "";
                     document.getElementById('val_transportita').innerHTML = "";
                     document.getElementById('val_conductor').innerHTML = "";
@@ -563,13 +561,63 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TDESPACHO.style.borderColor = "#4AF575";
 
-                    if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
-                        document.form_reg_dato.NUMEROGUIADESPACHO.focus();
-                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
-                        document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
-                        return false
+
+                    if (TDESPACHO == 1) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
+                    
                     }
-                    document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
+
+                    if (TDESPACHO == 2) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
+                        
+                    }
+                    
+                    if (TDESPACHO == 3) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
+                        
+                    }
+                    
+                    if (TDESPACHO == 4) {
+                        
+                    }
+                    
+                    if (TDESPACHO == 5) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";                    
+                    }
+
+
 
                     if (TRANSPORTE == null || TRANSPORTE == 0) {
                         document.form_reg_dato.TRANSPORTE.focus();
@@ -874,34 +922,29 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="TDESPACHOE" id="TDESPACHOE" name="TDESPACHOE" value="<?php echo $TDESPACHO; ?>" />
                                                 <select class="form-control select2" id="TDESPACHO" name="TDESPACHO" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                                                     <option></option>
-                                                    <option value="1" <?php if ($TDESPACHO == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> Interplanta</option>
-                                                    <option value="2" <?php if ($TDESPACHO == "2") {
-                                                                            echo "selected";
-                                                                        } ?>> Devolución Productor </option>
-                                                    <option value="3" <?php if ($TDESPACHO == "3") {
-                                                                            echo "selected";
-                                                                        } ?>> Venta</option>
-                                                    <option value="4" <?php if ($TDESPACHO == "4") {
-                                                                            echo "selected";
-                                                                        } ?>> Regalo</option>
-                                                    <option value="5" <?php if ($TDESPACHO == "5") {
-                                                                            echo "selected";
-                                                                        } ?>> Planta Externa</option>
-
+                                                    <option value="1" <?php if ($TDESPACHO == "1") { echo "selected"; } ?>> Interplanta</option>
+                                                    <option value="2" <?php if ($TDESPACHO == "2") { echo "selected"; } ?>> Devolución Productor </option>
+                                                    <option value="3" <?php if ($TDESPACHO == "3") { echo "selected"; } ?>> Venta</option>
+                                                    <option value="4" <?php if ($TDESPACHO == "4") { echo "selected"; } ?>> Despacho de Descarte</option>
+                                                    <option value="5" <?php if ($TDESPACHO == "5") { echo "selected"; } ?>> Planta Externa</option>
                                                 </select>
                                                 <label id="val_tdespacho" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Número Guía </label>
-                                                <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
-                                                <label id="val_numeroguia" class="validacion"> </label>
+                                        <?php if ($TDESPACHO != "4") { ?> 
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Número Guía </label>
+                                                    <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
+                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <label id="val_numeroguia" class="validacion"> </label>
+                                                </div>
+                                            </div>                                               
+                                        <?php } ?> 
+                                        <?php if ($TDESPACHO == "4") { ?>                                            
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             </div>
-                                        </div>
+                                        <?php } ?> 
                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Transporte</label>
@@ -1036,7 +1079,7 @@ if (isset($_POST)) {
                                         <?php if ($TDESPACHO == "4") { ?>
                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label>Regalo</label>
+                                                    <label>Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="REGALOE" id="REGALOE" name="REGALOE" value="<?php echo $REGALO; ?>" />
                                                     <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Para Quien o Quienes" id="REGALO" name="REGALO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $REGALO; ?></textarea>
                                                     <label id="val_regalo" class="validacion"> </label>
@@ -1317,7 +1360,6 @@ if (isset($_POST)) {
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
                 $DESPACHOIND->__SET('NUMERO_DESPACHO', $NUMERO);
                 $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
                 $DESPACHOIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
                 $DESPACHOIND->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
@@ -1326,18 +1368,22 @@ if (isset($_POST)) {
                 $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
                 if ($_REQUEST['TDESPACHO'] == "1") {
                     $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
                 if ($_REQUEST['TDESPACHO'] == "2") {
                     $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
                 if ($_REQUEST['TDESPACHO'] == "3") {
                     $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
                 if ($_REQUEST['TDESPACHO'] == "4") {
                     $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
                 }
                 if ($_REQUEST['TDESPACHO'] == "5") {
                     $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
                 $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1369,7 +1415,7 @@ if (isset($_POST)) {
                         confirmButtonText:"OK"
                     }).then((result)=>{
                         if(result.value){
-                            location.href = "/fruta/vista/registroDespachoind.php?op";
+                            location.href = "registroDespachoind.php?op";
                         }
                     })
                 </script>';
@@ -1378,7 +1424,6 @@ if (isset($_POST)) {
 
             if (isset($_REQUEST['EDITAR'])) {
                 $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 $DESPACHOIND->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
                 $DESPACHOIND->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
                 $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
@@ -1389,18 +1434,22 @@ if (isset($_POST)) {
                 $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
                 if ($_REQUEST['TDESPACHOE'] == "1") {
                     $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "2") {
                     $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "3") {
                     $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "4") {
                     $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "5") {
                     $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1418,7 +1467,7 @@ if (isset($_POST)) {
                         confirmButtonText:"OK"
                     }).then((result)=>{
                         if(result.value){
-                            location.href = "/fruta/vista/registroDespachoind.php?op";
+                            location.href = "registroDespachoind.php?op";
                         }
                     })
                 </script>';
@@ -1469,7 +1518,6 @@ if (isset($_POST)) {
                 }
                 if ($SINO == "0") {
                     $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     $DESPACHOIND->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
                     $DESPACHOIND->__SET('TOTAL_PRECIO', $_REQUEST['TOTALPRECIO']);
                     $DESPACHOIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
@@ -1480,18 +1528,22 @@ if (isset($_POST)) {
                     $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
                     if ($_REQUEST['TDESPACHOE'] == "1") {
                         $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "2") {
                         $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "3") {
                         $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "4") {
                         $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "5") {
                         $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                     $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1538,7 +1590,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href = "/fruta/vista/registroDespachoind.php?op";
+                                    location.href = "registroDespachoind.php?op";
                                 }
                             })
                         </script>';
@@ -1556,7 +1608,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href = "/fruta/vista/registroDespachoind.php?op";
+                                    location.href = "registroDespachoind.php?op";
                                 }
                             })
                         </script>';
@@ -1579,7 +1631,7 @@ if (isset($_POST)) {
                         confirmButtonText:"OK"
                     }).then((result)=>{
                         if(result.value){
-                            location.href = "/fruta/vista/registroDespachoind.php?op";
+                            location.href = "registroDespachoind.php?op";
                         }
                     })
                 </script>';

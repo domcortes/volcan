@@ -14,6 +14,7 @@ include_once '../controlador/TPROCESO_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
@@ -30,6 +31,7 @@ $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $TPROCESO_ADO =  new TPROCESO_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
+$COMPRADOR_ADO =  new COMPRADOR_ADO();
 
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 
@@ -203,8 +205,8 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         <th>Tipo Proceso </th>
                                                         <th>Número Despacho </th>
                                                         <th>Fecha Despacho </th>
-                                                        <th>Tipo Despacho </th>
                                                         <th>Número Guía Despacho </th>
+                                                        <th>Tipo Despacho </th>
                                                         <th>Destino </th>
                                                         <th>Tipo Manejo</th>
                                                         <th>Gasificacion</th>
@@ -302,11 +304,10 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         if ($ARRAYDESPACHO) {
                                                             $NUMERODESPACHO = $ARRAYDESPACHO[0]["NUMERO_DESPACHO"];
                                                             $FECHADESPACHO = $ARRAYDESPACHO[0]["FECHA"];
-                                                            $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
-                                                            $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
 
                                                             if ($ARRAYDESPACHO[0]['TDESPACHO'] == "1") {
                                                                 $TDESPACHO = "Interplanta";
+                                                                $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
                                                                 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA2']);
                                                                 if ($ARRAYPLANTA2) {
                                                                     $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
@@ -316,6 +317,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                             if ($ARRAYDESPACHO[0]['TDESPACHO'] == "2") {
                                                                 $TDESPACHO = "Devolución Productor";
+                                                                $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
                                                                 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]['ID_PRODUCTOR']);
                                                                 if ($ARRAYPRODUCTOR) {
                                                                     $DESTINO = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
@@ -325,7 +327,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                             if ($ARRAYDESPACHO[0]['TDESPACHO'] == "3") {
                                                                 $TDESPACHO = "Venta";
-
+                                                                $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
                                                                 $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]['ID_COMPRADOR']);
                                                                 if ($ARRAYCOMPRADOR) {
                                                                     $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
@@ -334,11 +336,13 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                                 }
                                                             }
                                                             if ($ARRAYDESPACHO[0]['TDESPACHO'] == "4") {
-                                                                $TDESPACHO = "Regalo";
+                                                                $TDESPACHO = "Despacho de Descarte";
+                                                                $NUMEROGUIADESPACHO = "No Aplica";
                                                                 $DESTINO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
                                                             }
                                                             if ($ARRAYDESPACHO[0]['TDESPACHO'] == "5") {
                                                                 $TDESPACHO = "Planta Externa";
+                                                                $NUMEROGUIADESPACHO = $ARRAYDESPACHO[0]["NUMERO_GUIA_DESPACHO"];
                                                                 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA3']);
                                                                 if ($ARRAYPLANTA2) {
                                                                     $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
@@ -444,8 +448,8 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             <td><?php echo $TPROCESO; ?></td>
                                                             <td><?php echo $NUMERODESPACHO; ?></td>
                                                             <td><?php echo $FECHADESPACHO; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NUMEROGUIADESPACHO; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
@@ -485,8 +489,8 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         <th>Tipo Proceso </th>
                                                         <th>Número Despacho </th>
                                                         <th>Fecha Despacho </th>
-                                                        <th>Tipo Despacho </th>
                                                         <th>Número Guía Despacho </th>
+                                                        <th>Tipo Despacho </th>
                                                         <th>Destino </th>
                                                         <th>Tipo Manejo</th>
                                                         <th>Gasificacion</th>

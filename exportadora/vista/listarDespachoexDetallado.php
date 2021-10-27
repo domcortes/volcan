@@ -279,8 +279,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Tipo Reembalaje </th>
                                                     <th>Número Despacho </th>
                                                     <th>Fecha Despacho </th>
-                                                    <th>Tipo Despacho </th>
                                                     <th>Número Guía Despacho </th>
+                                                    <th>Tipo Despacho </th>
                                                     <th>Destino </th>
                                                     <th>Tipo Manejo</th>
                                                     <th>Tipo Calibre </th>
@@ -524,8 +524,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>                                                    
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
+                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>

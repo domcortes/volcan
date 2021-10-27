@@ -561,7 +561,6 @@ if (isset($_POST)) {
                 function validacion() {
 
                     FECHADESPACHO = document.getElementById("FECHADESPACHO").value;
-                    NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
                     TDESPACHO = document.getElementById("TDESPACHO").selectedIndex;
                     TRANSPORTE = document.getElementById("TRANSPORTE").selectedIndex;
                     CONDUCTOR = document.getElementById("CONDUCTOR").selectedIndex;
@@ -571,8 +570,8 @@ if (isset($_POST)) {
                     //OBSERVACIONDESPACHOMP = document.getElementById("OBSERVACIONDESPACHOMP").value;
                     TDOCUMENTO = document.getElementById("TDOCUMENTO").selectedIndex;
 
+
                     document.getElementById('val_fecha').innerHTML = "";
-                    document.getElementById('val_numeroguia').innerHTML = "";
                     document.getElementById('val_tdespacho').innerHTML = "";
                     document.getElementById('val_transportita').innerHTML = "";
                     document.getElementById('val_conductor').innerHTML = "";
@@ -599,14 +598,73 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TDESPACHO.style.borderColor = "#4AF575";
 
-                    if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
-                        document.form_reg_dato.NUMEROGUIADESPACHO.focus();
-                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
-                        document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
-                        return false
+                    
+                    if (TDESPACHO == 1) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
+                    
                     }
-                    document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
 
+                    if (TDESPACHO == 2) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
+                        
+                    }
+                    
+                    if (TDESPACHO == 3) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";
+                        
+                    }
+                    
+                    if (TDESPACHO == 4) {
+                        
+                    }
+                    
+                    if (TDESPACHO == 5) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";                        
+                    }
+
+                    if (TDESPACHO == 6) {
+                        NUMEROGUIADESPACHO = document.getElementById("NUMEROGUIADESPACHO").value;
+                        document.getElementById('val_numeroguia').innerHTML = "";
+                        if (NUMEROGUIADESPACHO == null || NUMEROGUIADESPACHO.length == 0 || /^\s+$/.test(NUMEROGUIADESPACHO)) {
+                            document.form_reg_dato.NUMEROGUIADESPACHO.focus();
+                            document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#FF0000";
+                            document.getElementById('val_numeroguia').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.NUMEROGUIADESPACHO.style.borderColor = "#4AF575";                        
+                    }
                     if (TRANSPORTE == null || TRANSPORTE == 0) {
                         document.form_reg_dato.TRANSPORTE.focus();
                         document.form_reg_dato.TRANSPORTE.style.borderColor = "#FF0000";
@@ -939,21 +997,27 @@ if (isset($_POST)) {
                                                     <option value="1" <?php if ($TDESPACHO == "1") { echo "selected"; } ?>> Interplanta</option>
                                                     <option value="2" <?php if ($TDESPACHO == "2") { echo "selected"; } ?>> Devolución a Productor </option>
                                                     <option value="3" <?php if ($TDESPACHO == "3") { echo "selected"; } ?>> Venta</option>
-                                                    <option value="4" <?php if ($TDESPACHO == "4") { echo "selected"; } ?>> Regalo</option>
+                                                    <option value="4" <?php if ($TDESPACHO == "4") { echo "selected"; } ?>> Despacho de Descarte</option>
                                                     <option value="5" <?php if ($TDESPACHO == "5") { echo "selected"; } ?>> Planta Externa</option>
                                                     <option value="6" <?php if ($TDESPACHO == "6") { echo "selected"; } ?>> Despacho a Productor </option>
                                                 </select>
                                                 <label id="val_tdespacho" class="validacion"> </label>
                                             </div>
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Número Guía </label>
-                                                <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
-                                                <input type="text" class="form-control"  placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
-                                                <label id="val_numeroguia" class="validacion"> </label>
+                                        </div>                                        
+                                        <?php if ($TDESPACHO != "4") { ?>
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Número Guía </label>
+                                                    <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
+                                                    <input type="text" class="form-control"  placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <label id="val_numeroguia" class="validacion"> </label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php } ?>          
+                                        <?php if ($TDESPACHO == "4") { ?>                                            
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            </div>
+                                        <?php } ?>     
                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Transporte</label>
@@ -1088,7 +1152,7 @@ if (isset($_POST)) {
                                         <?php if ($TDESPACHO == "4") { ?>
                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label>Regalo</label>
+                                                    <label>Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="REGALOE" id="REGALOE" name="REGALOE" value="<?php echo $REGALO; ?>" />
                                                     <textarea class="form-control" rows="1"  placeholder="Ingrese Para Quien o Quienes" id="REGALO" name="REGALO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $REGALO; ?></textarea>
                                                     <label id="val_regalo" class="validacion"> </label>
@@ -1388,7 +1452,6 @@ if (isset($_POST)) {
                     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
                     $DESPACHOMP->__SET('NUMERO_DESPACHO', $NUMERO);
                     $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                    $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     $DESPACHOMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
                     $DESPACHOMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
                     $DESPACHOMP->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
@@ -1397,21 +1460,26 @@ if (isset($_POST)) {
                     $DESPACHOMP->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
                     if ($_REQUEST['TDESPACHO'] == "1") {
                         $DESPACHOMP->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     if ($_REQUEST['TDESPACHO'] == "2") {
                         $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     if ($_REQUEST['TDESPACHO'] == "3") {
                         $DESPACHOMP->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     if ($_REQUEST['TDESPACHO'] == "4") {
                         $DESPACHOMP->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
                     }
                     if ($_REQUEST['TDESPACHO'] == "5") {
                         $DESPACHOMP->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     if ($_REQUEST['TDESPACHO'] == "6") {
                         $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     $DESPACHOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                     $DESPACHOMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1437,7 +1505,6 @@ if (isset($_POST)) {
                         //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO       
                         $DESPACHOE->__SET('NUMERO_DESPACHO', $NUMERO);
                         $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHO']);
                         $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULO']);
                         $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
                         $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
@@ -1446,14 +1513,17 @@ if (isset($_POST)) {
                         if ($_REQUEST['TDESPACHO'] == "1") {
                             $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINO']);
                             $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHO']);
                             $TDESPACHOE ="2";
                         }
                         if ($_REQUEST['TDESPACHO'] == "2") {
                             $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHO']);
                             $TDESPACHOE ="3";
                         }
                         if ($_REQUEST['TDESPACHO'] == "3") {
                             $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHO']);
                             $TDESPACHOE ="5";
                         }
                         if ($_REQUEST['TDESPACHO'] == "4") {
@@ -1462,10 +1532,12 @@ if (isset($_POST)) {
                         }
                         if ($_REQUEST['TDESPACHO'] == "5") {
                             $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNA']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHO']);
                             $TDESPACHOE ="7";
                         }  
                         if ($_REQUEST['TDESPACHO'] == "6") {
                             $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHO']);
                             $TDESPACHOE ="8";
                         }                 
                         $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
@@ -1502,7 +1574,6 @@ if (isset($_POST)) {
             }
             if (isset($_REQUEST['EDITAR'])) {
                 $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 $DESPACHOMP->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
                 $DESPACHOMP->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
                 $DESPACHOMP->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
@@ -1514,21 +1585,26 @@ if (isset($_POST)) {
                 $DESPACHOMP->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
                 if ($_REQUEST['TDESPACHOE'] == "1") {
                     $DESPACHOMP->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                    $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "2") {
                     $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                    $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "3") {
                     $DESPACHOMP->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                    $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "4") {
                     $DESPACHOMP->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "5") {
                     $DESPACHOMP->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                    $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "6") {
                     $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                    $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                 }
                 $DESPACHOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $DESPACHOMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1546,7 +1622,6 @@ if (isset($_POST)) {
                     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO       
                     $DESPACHOE->__SET('NUMERO_DESPACHO', $NUMERO);
                     $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                    $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
                     $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                     $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
@@ -1555,14 +1630,17 @@ if (isset($_POST)) {
                     if ($_REQUEST['TDESPACHOE'] == "1") {
                         $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
                         $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="2";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "2") {
                         $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="3";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "3") {
                         $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="5";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "4") {
@@ -1571,10 +1649,12 @@ if (isset($_POST)) {
                     }
                     if ($_REQUEST['TDESPACHOE'] == "5") {
                         $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="7";
                     }   
                     if ($_REQUEST['TDESPACHOE'] == "6") {
                         $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="8";
                     }               
                     $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
@@ -1590,7 +1670,6 @@ if (isset($_POST)) {
                     $DESPACHOE_ADO->agregarDespachoe($DESPACHOE);
                 }else{             
                     $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                    $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
                     $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                     $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
@@ -1599,14 +1678,17 @@ if (isset($_POST)) {
                     if ($_REQUEST['TDESPACHOE'] == "1") {
                         $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
                         $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="2";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "2") {
                         $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="3";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "3") {
                         $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="5";
                     }
                     if ($_REQUEST['TDESPACHOE'] == "4") {
@@ -1615,10 +1697,12 @@ if (isset($_POST)) {
                     }
                     if ($_REQUEST['TDESPACHOE'] == "5") {
                         $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="7";
                     }         
                     if ($_REQUEST['TDESPACHOE'] == "6") {
                         $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $TDESPACHOE ="8";
                     }                
                     $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
@@ -1669,7 +1753,6 @@ if (isset($_POST)) {
                 }
                 if ($SINO == "0") {
                     $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-                    $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     $DESPACHOMP->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
                     $DESPACHOMP->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
                     $DESPACHOMP->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
@@ -1681,21 +1764,26 @@ if (isset($_POST)) {
                     $DESPACHOMP->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
                     if ($_REQUEST['TDESPACHOE'] == "1") {
                         $DESPACHOMP->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "2") {
                         $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "3") {
                         $DESPACHOMP->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "4") {
                         $DESPACHOMP->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "5") {
                         $DESPACHOMP->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "6") {
                         $DESPACHOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $DESPACHOMP->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
                     }
                     $DESPACHOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                     $DESPACHOMP->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1737,7 +1825,6 @@ if (isset($_POST)) {
                         //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO       
                         $DESPACHOE->__SET('NUMERO_DESPACHO', $NUMERO);
                         $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
                         $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                         $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
@@ -1746,14 +1833,17 @@ if (isset($_POST)) {
                         if ($_REQUEST['TDESPACHOE'] == "1") {
                             $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
                             $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="2";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "2") {
                             $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="3";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "3") {
                             $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="5";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "4") {
@@ -1762,10 +1852,12 @@ if (isset($_POST)) {
                         }
                         if ($_REQUEST['TDESPACHOE'] == "5") {
                             $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="7";
                         }         
                         if ($_REQUEST['TDESPACHOE'] == "6") {
                             $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="8";
                         }         
                         $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);
@@ -1815,7 +1907,6 @@ if (isset($_POST)) {
                         $DESPACHOE_ADO->Confirmado($DESPACHOE);
                     }else{             
                         $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                         $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
                         $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                         $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONDESPACHO']);
@@ -1824,14 +1915,17 @@ if (isset($_POST)) {
                         if ($_REQUEST['TDESPACHOE'] == "1") {
                             $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
                             $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="2";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "2") {
                             $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="3";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "3") {
                             $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="5";
                         }
                         if ($_REQUEST['TDESPACHOE'] == "4") {
@@ -1840,10 +1934,12 @@ if (isset($_POST)) {
                         }
                         if ($_REQUEST['TDESPACHOE'] == "5") {
                             $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="7";
                         }  
                         if ($_REQUEST['TDESPACHOE'] == "6") {
                             $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIADESPACHOE']);
                             $TDESPACHOE ="8";
                         }                  
                         $DESPACHOE->__SET('TDESPACHO', $TDESPACHOE);

@@ -239,8 +239,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Tipo Reembalaje </th>
                                                         <th>Número Despacho </th>
                                                         <th>Fecha Despacho </th>
-                                                        <th>Tipo Despacho </th>
                                                         <th>Número Guía Despacho </th>
+                                                        <th>Tipo Despacho </th>
                                                         <th>Destino </th>
                                                         <th>Tipo Manejo</th>
                                                         <th>Tipo Calibre </th>
@@ -388,11 +388,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         if ($ARRAYVERDESPACHOPT) {
                                                             $NUMERODESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_DESPACHO"];
                                                             $FECHADESPACHO = $ARRAYVERDESPACHOPT[0]["FECHA"];
-                                                            $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                            $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
 
                                                             if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "1") {
                                                                 $TDESPACHO = "Interplanta";
+                                                                $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
                                                                 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYVERDESPACHOPT[0]['ID_PLANTA2']);
                                                                 if ($ARRAYPLANTA2) {
                                                                     $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
@@ -402,6 +401,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             }
                                                             if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "2") {
                                                                 $TDESPACHO = "Devolución Productor";
+                                                                $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
                                                                 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYVERDESPACHOPT[0]['ID_PRODUCTOR']);
                                                                 if ($ARRAYPRODUCTOR) {
                                                                     $DESTINO = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
@@ -411,7 +411,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             }
                                                             if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "3") {
                                                                 $TDESPACHO = "Venta";
-
+                                                                $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
                                                                 $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYVERDESPACHOPT[0]['ID_COMPRADOR']);
                                                                 if ($ARRAYCOMPRADOR) {
                                                                     $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
@@ -420,11 +420,13 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 }
                                                             }
                                                             if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "4") {
-                                                                $TDESPACHO = "Regalo";
+                                                                $TDESPACHO = "Despacho de Decarte";
+                                                                $NUMEROGUIADESPACHO = "No Aplica";
                                                                 $DESTINO = $ARRAYVERDESPACHOPT[0]['REGALO_DESPACHO'];
                                                             }
                                                             if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "5") {
                                                                 $TDESPACHO = "Planta Externa";
+                                                                $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
                                                                 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYVERDESPACHOPT[0]['ID_PLANTA3']);
                                                                 if ($ARRAYPLANTA2) {
                                                                     $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
@@ -580,8 +582,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $NUMERODESPACHO; ?></td>
                                                             <td><?php echo $FECHADESPACHO; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NUMEROGUIADESPACHO; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -634,8 +636,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Tipo Reembalaje </th>
                                                         <th>Número Despacho </th>
                                                         <th>Fecha Despacho </th>
-                                                        <th>Tipo Despacho </th>
                                                         <th>Número Guía Despacho </th>
+                                                        <th>Tipo Despacho </th>
                                                         <th>Destino </th>
                                                         <th>Tipo Manejo</th>
                                                         <th>Tipo Calibre </th>

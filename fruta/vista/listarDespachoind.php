@@ -5,26 +5,63 @@ include_once "../config/validarUsuario.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 
+include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TEMBALAJE_ADO.php';
+
+
+include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 
+include_once '../controlador/TPROCESO_ADO.php';
+include_once '../controlador/TREEMBALAJE_ADO.php';
+
+include_once '../controlador/RECEPCIONIND_ADO.php';
+include_once '../controlador/PROCESO_ADO.php';
+include_once '../controlador/REEMBALAJE_ADO.php';
+
+include_once '../controlador/EINDUSTRIAL_ADO.php';
 include_once '../controlador/DESPACHOIND_ADO.php';
+include_once '../controlador/EXIINDUSTRIAL_ADO.php';
 include_once '../controlador/MGUIAIND_ADO.php';
+
+
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
+$ESPECIES_ADO =  new ESPECIES_ADO();
+$VESPECIES_ADO =  new VESPECIES_ADO();
+$PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+
+
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
-
-$VESPECIES_ADO =  new VESPECIES_ADO();
-$PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$COMPRADOR_ADO =  new COMPRADOR_ADO();
 
 
-$DESPACHOIND_ADO =  new DESPACHOIND_ADO();
+
+$TPROCESO_ADO =  new TPROCESO_ADO();
+$TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
+
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
+$PROCESO_ADO =  new PROCESO_ADO();
+$REEMBALAJE_ADO =  new REEMBALAJE_ADO();
+
+
+
+
+$EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$DESPACHOIND_ADO =  new DESPACHOIND_ADO(); 
+$EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
 $MGUIAIND_ADO =  new MGUIAIND_ADO();
 
 
@@ -214,6 +251,7 @@ include_once "../config/datosUrLP.php";
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
                                                     <th>Tipo Despacho</th>
+                                                    <th>Destino Despacho</th>
                                                     <th>Fecha Despacho </th>
                                                     <th>Número Guía </th>
                                                     <th>Kilos Neto</th>
@@ -245,18 +283,48 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = "Interplanta";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Devolución Productor";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $DESTINO = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Venta";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($r['ID_COMPRADOR']);
+                                                        if ($ARRAYCOMPRADOR) {
+                                                            $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
+                                                        } else {
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "4") {
-                                                        $TDESPACHO = "Regalo";
+                                                        $TDESPACHO = "Despacho de Descarte";
+                                                        $NUMEROGUIADEPACHO="No Aplica";
+                                                        $DESTINO = $r['REGALO_DESPACHO'];
                                                     }
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA3']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -351,8 +419,9 @@ include_once "../config/datosUrLP.php";
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
+                                                        <td><?php echo $DESTINO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
+                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>

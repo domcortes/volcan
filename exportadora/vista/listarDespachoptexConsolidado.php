@@ -284,8 +284,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Tipo Reembalaje </th>
                                                     <th>Número Despacho </th>
                                                     <th>Fecha Despacho </th>
-                                                    <th>Tipo Despacho </th>
                                                     <th>Número Guía Despacho </th>
+                                                    <th>Tipo Despacho </th>
                                                     <th>Destino </th>
                                                     <th>Tipo Manejo</th>
                                                     <th>Tipo Calibre </th>
@@ -320,6 +320,7 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = "Interplanta";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
                                                         if ($ARRAYPLANTA2) {
                                                             $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
@@ -328,6 +329,7 @@ include_once "../config/datosUrLP.php";
                                                         }
                                                     }
                                                     if ($r['TDESPACHO'] == "2") {
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $TDESPACHO = "Devolución Productor";
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYPRODUCTOR) {
@@ -338,6 +340,7 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Venta";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($r['ID_COMPRADOR']);
                                                         if ($ARRAYCOMPRADOR) {
                                                             $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
@@ -346,11 +349,13 @@ include_once "../config/datosUrLP.php";
                                                         }
                                                     }
                                                     if ($r['TDESPACHO'] == "4") {
-                                                        $TDESPACHO = "Regalo";
+                                                        $TDESPACHO = "Despacho de Descarte";
+                                                        $NUMEROGUIADEPACHO="No Aplica";
                                                         $DESTINO = $r['REGALO_DESPACHO'];
                                                     }
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA3']);
                                                         if ($ARRAYPLANTA2) {
                                                             $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
@@ -577,8 +582,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
+                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
-                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>     
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -823,8 +828,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>                                                    
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
+                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>

@@ -100,95 +100,113 @@ if (isset($_REQUEST['parametro'])) {
 }
 $ARRAYDESPACHO = $DESPACHOMP_ADO->verDespachomp2($NUMERODESPACHO);
 
-//$ARRAYDESPACHOTOTAL = $DESPACHOMP_ADO->obtenerTotalesDespachompCBX2($IDOP);
+if($ARRAYDESPACHO){
+
+  //$ARRAYDESPACHOTOTAL = $DESPACHOMP_ADO->obtenerTotalesDespachompCBX2($IDOP);
 
 
-$ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPordespacho2($NUMERODESPACHO);
-$ARRAYDESPACHOTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho2($IDOP);
-$TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
-$TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
+  $ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPordespacho2($NUMERODESPACHO);
+  $ARRAYDESPACHOTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho2($IDOP);
+  $TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
+  $TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
 
 
-$NUMERO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
-$FECHA = $ARRAYDESPACHO[0]['FECHA'];
-$FECHAINGRESO = $ARRAYDESPACHO[0]['INGRESO'];
-$FECHAMODIFCACION = $ARRAYDESPACHO[0]['MODIFICACION'];
-$NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
-$TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
-$PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
-$PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
-$REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
-$OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
+  $NUMERO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
+  $FECHA = $ARRAYDESPACHO[0]['FECHA'];
+  $FECHAINGRESO = $ARRAYDESPACHO[0]['INGRESO'];
+  $FECHAMODIFCACION = $ARRAYDESPACHO[0]['MODIFICACION'];
+  $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
+  $PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
+  $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
+  $OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
 
-$IDUSUARIOI = $ARRAYDESPACHO[0]['ID_USUARIOI'];  
-$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
-$NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
+  $IDUSUARIOI = $ARRAYDESPACHO[0]['ID_USUARIOI'];  
+  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+  $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
 
-if ($TDESPACHO == "1") {
-  $TDESPACHON = "Interplanta";
-}
-if ($TDESPACHO == "2") {
-  $TDESPACHON = "Devolución a Productor";
-}
-if ($TDESPACHO == "3") {
-  $TDESPACHON = "Venta";
-}
-if ($TDESPACHO == "4") {
-  $TDESPACHON = "Regalo";
-}
-if ($TDESPACHO == "5") {
-  $TDESPACHON = "Planta Externa";
-}
-if ($TDESPACHO == "6") {
-  $TDESPACHON = "Despacho a Productor";
-}
-$ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA2']);
-if ($ARRAYPLANTA2) {
-  $PLANTA2 = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-} else {
-  $PLANTA2 = "";
-}
+  if ($TDESPACHO == "1") {
+    $TDESPACHON = "Interplanta";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA2']);
+    if ($ARRAYPLANTA2) {
+      $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+    } else {
+      $DESTINO = "";
+    }
+  }
+  if ($TDESPACHO == "2") {
+    $TDESPACHON = "Devolución a Productor";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]['ID_PRODUCTOR']);
+    if ($ARRAYPRODUCTOR) {
+      $CODIGOPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+      $DESTINO = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+    } else {
+      $CODIGOPRODUCTOR = "";
+      $DESTINO = "";
+    }
+  }
+  if ($TDESPACHO == "3") {
+    $TDESPACHON = "Venta";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]['ID_COMPRADOR']);
+    if ($ARRAYCOMPRADOR) {
+      $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
+    } else {
+      $DESTINO = "";
+    }
+  }
+  if ($TDESPACHO == "4") {
+    $TDESPACHON = "Regalo";
+    $TDESPACHON = "Despacho de Descarte";
+    $NUMEROGUIA = "No Aplica";
+    $DESTINO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
+  }
+  if ($TDESPACHO == "5") {
+    $TDESPACHON = "Planta Externa";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $ARRAYPLANTA3= $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA3']);
+    if ($ARRAYPLANTA3) {
+      $DESTINO = $ARRAYPLANTA3[0]['NOMBRE_PLANTA'];
+    } else {
+      $DESTINO = "";
+    }
+  }
+  if ($TDESPACHO == "6") {
+    $TDESPACHON = "Despacho a Productor";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]['ID_PRODUCTOR']);
+    if ($ARRAYPRODUCTOR) {
+      $CODIGOPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+      $DESTINO = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+    } else {
+      $CODIGOPRODUCTOR = "";
+      $DESTINO = "";
+    }
+  }
 
-$ARRAYPLANTA3= $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA3']);
-if ($ARRAYPLANTA3) {
-  $PLANTA3 = $ARRAYPLANTA3[0]['NOMBRE_PLANTA'];
-} else {
-  $PLANTA3 = "";
-}
-$ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]['ID_PRODUCTOR']);
-if ($ARRAYPRODUCTOR) {
-  $CODIGOPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-  $PRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-} else {
-  $CODIGOPRODUCTOR = "";
-  $PRODUCTOR = "";
-}
-$ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]['ID_COMPRADOR']);
-if ($ARRAYCOMPRADOR) {
-  $COMPRADOR = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
-} else {
-  $COMPRADOR = "";
-}
 
 
-$ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYDESPACHO[0]['ID_TRANSPORTE']);
-$ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYDESPACHO[0]['ID_CONDUCTOR']);;
+  $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYDESPACHO[0]['ID_TRANSPORTE']);
+  $ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYDESPACHO[0]['ID_CONDUCTOR']);;
 
-$TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-$CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+  $TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+  $CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
 
-$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA']);
-$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYDESPACHO[0]['ID_TEMPORADA']);
-$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYDESPACHO[0]['ID_EMPRESA']);
+  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA']);
+  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYDESPACHO[0]['ID_TEMPORADA']);
+  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYDESPACHO[0]['ID_EMPRESA']);
 
-$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+  $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
 
-$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+  $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+  $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
 
-if ($EMPRESAURL == "") {
-  $EMPRESAURL = "img/empresa/no_disponible.png";
+  if ($EMPRESAURL == "") {
+    $EMPRESAURL = "img/empresa/no_disponible.png";
+  }
+
 }
 
 
@@ -303,35 +321,37 @@ $html = '
     ';
 if ($TDESPACHO == "1") {
   $html .= '
-      <div class="address"><b> Planta Destino:  </b>' . $PLANTA2 . '</div>
+      <div class="address"><b> Planta Destino:  </b>' . $DESTINO . '</div>
       ';
 }
 if ($TDESPACHO == "2") {
   $html .= '
-      <div class="address"><b>Productor Destino:  </b>' . $PRODUCTOR . '</div>
+      <div class="address"><b>CSG:  </b>' . $CODIGOPRODUCTOR . '</div>
+      <div class="address"><b>Productor Destino:  </b>' . $DESTINO . '</div>
       ';
 }
 
 if ($TDESPACHO == "3") {
   $html .= '
-      <div class="address"><b>Comprador Destino:  </b>' . $COMPRADOR . '</div>
+      <div class="address"><b>Comprador Destino:  </b>' . $DESTINO . '</div>
       ';
 }
 
 if ($TDESPACHO == "4") {
   $html .= '
-            <div class="address"><b>Regalo Para:  </b>' . $REGALO . '</div>
+            <div class="address"><b>Destino:  </b>' . $DESTINO . '</div>
             ';
 }
 if ($TDESPACHO == "5") {
   $html .= '
-            <div class="address"><b>Planta Destino:  </b>' . $PLANTA3 . '</div>
+            <div class="address"><b>Planta Destino:  </b>' . $DESTINO . '</div>
             ';
 }
 
 if ($TDESPACHO == "6") {
   $html .= '
-            <div class="address"><b>Planta Destino:  </b>' . $PRODUCTOR . '</div>
+            <div class="address"><b>CSG:  </b>' . $CODIGOPRODUCTOR . '</div>
+            <div class="address"><b>Productor Destino:  </b>' . $DESTINO . '</div>
             ';
 }
 $html .= '
@@ -407,6 +427,11 @@ $html = $html . '
       <div class="address"><b>Observaciones</b></div>
       <div class="address">  ' . $OBSERVACIONES . ' </div>
     </div>
+    <div id="invoice">
+      <div class="date"><b><hr></b></div>
+      <div class="date center">  Firma Responsable</div>
+      <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
+    </div>
   </div>
   
 </main>
@@ -464,18 +489,7 @@ $PDF->SetHTMLHeader('
 ');
 
 $PDF->SetHTMLFooter('
-  <table width="100%" >
-      <tr>
-        <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> <hr> </td>
-        <td class="color2 right" style="width: 30%;"> </td>
-      </tr>
-      <tr>
-        <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
-        <td class="color2 center" style="width: 30%;"> </td>
-      </tr>    
-    </table>
+
 
     <table width="100%" >
         <tbody>
