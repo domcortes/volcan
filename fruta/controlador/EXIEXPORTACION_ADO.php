@@ -3491,6 +3491,31 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    
+    public function obtenerFolioRepaletizaje($IDFOLIO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT IFNULL(MAX(FOLIO_AUXILIAR_EXIEXPORTACION),0) AS 'ULTIMOFOLIO'
+                                                FROM fruta_exiexportacion  
+                                                WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
+                                                AND FOLIO_MANUAL = 0
+                                                AND ESTADO !=0
+                                                AND ESTADO_REGISTRO =1
+                                                ORDER BY ULTIMOFOLIO; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function obtenerFolioRecepción($IDFOLIO)
     {
         try {

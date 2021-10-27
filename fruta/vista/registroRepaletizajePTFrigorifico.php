@@ -123,7 +123,7 @@ $MENSAJE3 = "";
 
 $DISABLEDFOLIO = "";
 $MENSAJEFOLIO = "";
-
+$NODATO="";
 
 $IDOP = "";
 $OP = "";
@@ -284,6 +284,7 @@ if (isset($_REQUEST['CERRAR'])) {
         // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
         $REPALETIZAJEEX_ADO->cerrado($REPALETIZAJEEX);
 
+        $ARRAYEXIEXPORTACIONTOMADO = $EXIEXPORTACION_ADO->buscarPorRepaletizaje($_REQUEST['IDP']);
         foreach ($ARRAYEXIEXPORTACIONTOMADO as $s) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -291,12 +292,7 @@ if (isset($_REQUEST['CERRAR'])) {
         endforeach;
 
 
-        foreach ($ARRAYDREPALETIZAJE as $s) :
-            $DREPALETIZAJEEX->__SET('ID_DREPALETIZAJE', $s['ID_DREPALETIZAJE']);
-            // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $DREPALETIZAJEEX_ADO->cerrado($DREPALETIZAJEEX);
-        endforeach;
-
+        $ARRAYEXIEXPORTACIONINGRESANDOREPALETIZADO = $EXIEXPORTACION_ADO->buscarPorRepaletizajeIngresando($_REQUEST['IDP']);
         foreach ($ARRAYEXIEXPORTACIONINGRESANDOREPALETIZADO as $s) :
             $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
             // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -854,7 +850,17 @@ if ($_POST) {
                                                             } else {
                                                                 $NOMBRETEMBALAJE = "Sin Datos";
                                                             }
-                                                            $ARRAYDREPALETIZAJEBOLSA = $DREPALETIZAJEEX_ADO->buscarDrepaletizajeBolsa($r['ID_FOLIO'], $r['FECHA_EMBALADO_EXIEXPORTACION'],  $r['ID_ESTANDAR'], $r['ID_PRODUCTOR'], $r['ID_VESPECIES'], $r['ID_TMANEJO'],  $r['ID_TCALIBRE'], $r['ID_TEMBALAJE'], $r['STOCK'],   $IDOP);
+                                                            $ARRAYDREPALETIZAJEBOLSA = $DREPALETIZAJEEX_ADO->obtenerTotalesDrepaletizajePorExistencia2($r['ID_EXIEXPORTACION']);
+                                                            if($ARRAYDREPALETIZAJEBOLSA){
+                                                                if($ARRAYDREPALETIZAJEBOLSA[0]["ENVASE"]=="0"){
+                                                                    $NODATO="1";
+                                                                }else{                                                                    
+                                                                    $NODATO="0";
+                                                                }
+                                                            }else{
+                                                                $NODATO="1";
+                                                            }
+                                                            
                                                             ?>
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
@@ -864,7 +870,7 @@ if ($_POST) {
                                                                         <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDREPALETIZAJEAUX" name="IDREPALETIZAJEAUX" value="<?php echo $IDREPALETIZAJE; ?>" />
                                                                         <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                         <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar  Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ARRAYDREPALETIZAJEBOLSA) { echo "disabled"; } ?>
+                                                                            <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar  Existencia PT" <?php echo $DISABLED2; ?> <?php if ($NODATO =="0") { echo "disabled"; } ?>
                                                                             <?php
                                                                                 if ($ESTADO == "0") {
                                                                                     echo "disabled";
