@@ -332,7 +332,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>N° Folio Original</th>
                                                     <th>% Exportación Proceso</th>
                                                     <th>% Industrial Proceso</th>
-                                                    <th>% Total Proceso</th>
+                                                    <th>Total Procesado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
