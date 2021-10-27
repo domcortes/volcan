@@ -312,8 +312,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Tipo Reembalaje </th>
                                                     <th>Número Despacho </th>
                                                     <th>Fecha Despacho </th>
-                                                    <th>Número Guía Despacho </th>
                                                     <th>Tipo Despacho </th>
+                                                    <th>Número Guía Despacho </th>
                                                     <th>Destino </th>
                                                     <th>Tipo Manejo</th>
                                                     <th>Tipo Calibre </th>
@@ -329,6 +329,10 @@ include_once "../config/datosUrLP.php";
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
+                                                    <th>N° Folio Original</th>
+                                                    <th>% Exportación Proceso</th>
+                                                    <th>% Industrial Proceso</th>
+                                                    <th>% Total Proceso</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -548,12 +552,18 @@ include_once "../config/datosUrLP.php";
                                                         if ($ARRAYPROCESO) {
                                                             $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
                                                             $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA"];
+                                                            $PORCENTAJEEXPO = number_format($ARRAYPROCESO[0]["PDEXPORTACION_PROCESO"], 2);
+                                                            $PORCENTAJEINDUSTRIAL = number_format($ARRAYPROCESO[0]["PDINDUSTRIAL_PROCESO"], 2);
+                                                            $PORCENTAJETOTAL = number_format($ARRAYPROCESO[0]["PORCENTAJE_PROCESO"], 2);
                                                             $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
+                                                            $PORCENTAJEEXPO = "Sin datos";
+                                                            $PORCENTAJEINDUSTRIAL = "Sin datos";
+                                                            $PORCENTAJETOTAL = "Sin datos";
                                                             $FECHAPROCESO = "Sin datos";
                                                             $TPROCESO = "Sin datos";
                                                         }
@@ -611,8 +621,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>     
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -628,9 +638,12 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIEXPORTACION']; ?> </td>
+                                                            <td><?php echo $PORCENTAJEEXPO; ?></td>
+                                                            <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
+                                                            <td><?php echo $PORCENTAJETOTAL; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
-
                                                 <?php endforeach; ?>
                                                 <?php foreach ($ARRAYDESPACHOEX as $r) : ?>
                                                     <?php
@@ -795,6 +808,9 @@ include_once "../config/datosUrLP.php";
                                                         if ($ARRAYPROCESO) {
                                                             $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
                                                             $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA"];
+                                                            $PORCENTAJEEXPO = number_format($ARRAYPROCESO[0]["PDEXPORTACION_PROCESO"], 2);
+                                                            $PORCENTAJEINDUSTRIAL = number_format($ARRAYPROCESO[0]["PDINDUSTRIAL_PROCESO"], 2);
+                                                            $PORCENTAJETOTAL = number_format($ARRAYPROCESO[0]["PORCENTAJE_PROCESO"], 2);
                                                             $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
@@ -802,6 +818,9 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
                                                             $FECHAPROCESO = "Sin datos";
+                                                            $PORCENTAJEEXPO = "Sin datos";
+                                                            $PORCENTAJEINDUSTRIAL = "Sin datos";
+                                                            $PORCENTAJETOTAL = "Sin datos";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
@@ -858,8 +877,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>                                                    
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
                                                             <td><?php echo "Exportación"; ?></td>
+                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -875,6 +894,10 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIEXPORTACION']; ?> </td>
+                                                            <td><?php echo $PORCENTAJEEXPO; ?></td>
+                                                            <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
+                                                            <td><?php echo $PORCENTAJETOTAL; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
@@ -1072,8 +1095,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
@@ -1089,6 +1112,10 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIMATERIAPRIMA']; ?> </td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
@@ -1228,6 +1255,9 @@ include_once "../config/datosUrLP.php";
                                                         if ($ARRAYPROCESO) {
                                                             $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
                                                             $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA"];
+                                                            $PORCENTAJEEXPO = number_format($ARRAYPROCESO[0]["PDEXPORTACION_PROCESO"], 2);
+                                                            $PORCENTAJEINDUSTRIAL = number_format($ARRAYPROCESO[0]["PDINDUSTRIAL_PROCESO"], 2);
+                                                            $PORCENTAJETOTAL = number_format($ARRAYPROCESO[0]["PORCENTAJE_PROCESO"], 2);
                                                             $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
@@ -1235,6 +1265,9 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
                                                             $FECHAPROCESO = "Sin datos";
+                                                            $PORCENTAJEEXPO = "Sin datos";
+                                                            $PORCENTAJEINDUSTRIAL = "Sin datos";
+                                                            $PORCENTAJETOTAL = "Sin datos";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
@@ -1304,8 +1337,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
@@ -1321,6 +1354,10 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIINDUSTRIAL']; ?> </td>
+                                                            <td><?php echo $PORCENTAJEEXPO; ?></td>
+                                                            <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
+                                                            <td><?php echo $PORCENTAJETOTAL; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
