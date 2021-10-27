@@ -79,7 +79,7 @@ $ARRAYVERCONDUCTOR = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYRECEPCION = $RECEPCIONM_ADO->listarRecepcionPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYRECEPCION = $RECEPCIONM_ADO->listarRecepcionPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYRECEPCIONTOTALES = $RECEPCIONM_ADO->obtenerTotalesRecepcionPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYRECEPCIONTOTALES[0]['CANTIDAD'];
 }
@@ -211,6 +211,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Cantidad</th>
                                                     <th>Cantidad En Tarjas</th>
                                                     <th>Unidad Medida</th>
+                                                    <th>Planta</th>
                                                     <th>Bodega</th>
                                                     <th>Número Recepción </th>
                                                     <th>Fecha Recepción </th>
@@ -226,7 +227,6 @@ include_once "../config/datosUrLP.php";
                                                     <th>Numero Oc</th>
                                                     <th>Numero Oc Interno</th>
                                                     <th>Empresa</th>
-                                                    <th>Planta</th>
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
@@ -349,7 +349,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TOTALTARJADR; ?></td>
                                                             <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $NOMBREBODEGA; ?></td>
-                                                            <td> <?php echo $r['NUMERO_RECEPCION']; ?> </td>
+                                                            <td><?php echo $NOMBREPLANTA; ?></td>
+                                                            <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION; ?></td>
                                                             <td><?php echo $NOMBREORIGEN; ?></td>
@@ -363,7 +364,6 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NUMEROOCOMPRA; ?></td>
                                                             <td><?php echo $NUMEROIOCOMPRA; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
-                                                            <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
