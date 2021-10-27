@@ -3259,7 +3259,7 @@ class EXIEXPORTACION_ADO
             $this->conexion->prepare($query)
                 ->execute(
                     array(
-                        $EXIEXPORTACION->__GET('FECHA_DESPACHO') .
+                            $EXIEXPORTACION->__GET('FECHA_DESPACHO') ,
                             $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
                     )
 

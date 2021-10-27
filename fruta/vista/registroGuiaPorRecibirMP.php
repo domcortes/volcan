@@ -152,7 +152,7 @@ if (isset($_REQUEST['APROBARURL'])) {
         $EXIMATERIAPRIMA->__SET('ID_PLANTA', $PLANTAS);
         $EXIMATERIAPRIMA->__SET('ID_TEMPORADA', $TEMPORADAS);
         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-     //   $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaGuia($EXIMATERIAPRIMA);
+        $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaGuia($EXIMATERIAPRIMA);
     endforeach;
 
     $ARRAYDESPACHOE=$DESPACHOE_ADO->listarDespachoePorDespachoMPCBX($_REQUEST['ID']);
@@ -174,6 +174,7 @@ if (isset($_REQUEST['APROBARURL'])) {
             $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
             $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
             $INVENTARIOE->__SET('ID_PLANTA2', $r['ID_PLANTA']);
+            $INVENTARIOE->__SET('ID_DESPACHO2',$ARRAYDESPACHOE[0]['ID_DESPACHO']);
             $INVENTARIOE->__SET('ID_EMPRESA', $EMPRESAS);
             $INVENTARIOE->__SET('ID_PLANTA', $PLANTAS);
             $INVENTARIOE->__SET('ID_TEMPORADA', $TEMPORADAS);
@@ -275,7 +276,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; 
+        <?php //include_once "../config/menu.php"; 
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
