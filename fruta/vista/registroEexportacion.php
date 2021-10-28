@@ -48,6 +48,8 @@ $TEMBALAJE = "";
 $ECOMERCIAL = "";
 $EMBOLSADO = "";
 $STOCK = "";
+$CATEGORIA="";
+$COLOR="";
 $ESTADO = "";
 
 
@@ -91,6 +93,8 @@ if (isset($_REQUEST['GUARDAR'])) {
     $EEXPORTACION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
     $EEXPORTACION->__SET('PDESHIDRATACION_ESTANDAR', $_REQUEST['DESHIDRATACIONESTANDAR']);
     $EEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+    $EEXPORTACION->__SET('TCATEGORIA', $_REQUEST['CATEGORIA']);
+    $EEXPORTACION->__SET('TCOLOR', $_REQUEST['COLOR']);
     $EEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
     $EEXPORTACION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $EEXPORTACION->__SET('ID_TETIQUETA', $_REQUEST['ETIQUETA']);
@@ -121,6 +125,8 @@ if (isset($_REQUEST['EDITAR'])) {
     $EEXPORTACION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
     $EEXPORTACION->__SET('PDESHIDRATACION_ESTANDAR', $_REQUEST['DESHIDRATACIONESTANDAR']);
     $EEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+    $EEXPORTACION->__SET('TCATEGORIA', $_REQUEST['CATEGORIA']);
+    $EEXPORTACION->__SET('TCOLOR', $_REQUEST['COLOR']);
     $EEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
     $EEXPORTACION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $EEXPORTACION->__SET('ID_TETIQUETA', $_REQUEST['ETIQUETA']);
@@ -183,6 +189,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PESOENVASESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
             $EMBOLSADO = "" . $r['EMBOLSADO'];
             $STOCK = "" . $r['STOCK'];
+            $CATEGORIA = "" . $r['TCATEGORIA'];
+            $COLOR = "" . $r['TCOLOR'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $ETIQUETA = "" . $r['ID_TETIQUETA'];
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
@@ -215,6 +223,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PESOENVASESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
             $EMBOLSADO = "" . $r['EMBOLSADO'];
             $STOCK = "" . $r['STOCK'];
+            $CATEGORIA = "" . $r['TCATEGORIA'];
+            $COLOR = "" . $r['TCOLOR'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $ETIQUETA = "" . $r['ID_TETIQUETA'];
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
@@ -243,6 +253,44 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
+
+
+                function envases(){
+                    var pesoenvase
+                    var repuesta;
+                    PESONETOESTANDAR = document.getElementById("PESONETOESTANDAR").value;
+                    PESOBRUTOESTANDAR = document.getElementById("PESOBRUTOESTANDAR").value;
+                    
+                    document.getElementById('val_netoee').innerHTML = "";
+                    document.getElementById('val_bruto').innerHTML = "";
+
+                    
+                    if (PESONETOESTANDAR == null || PESONETOESTANDAR == "" || PESONETOESTANDAR < 0) {
+                        document.form_reg_dato.PESONETOESTANDAR.focus();
+                        document.form_reg_dato.PESONETOESTANDAR.style.borderColor = "#FF0000";
+                        document.getElementById('val_netoee').innerHTML = "NO A INGRESADO DATO";
+                        repuesta = 1;
+                    }else{
+                        repuesta = 0;
+                        document.form_reg_dato.PESONETOESTANDAR.style.borderColor = "#4AF575";
+                    }
+                    if (PESOBRUTOESTANDAR == null || PESOBRUTOESTANDAR == "" || PESOBRUTOESTANDAR < 0) {
+                        document.form_reg_dato.PESOBRUTOESTANDAR.focus();
+                        document.form_reg_dato.PESOBRUTOESTANDAR.style.borderColor = "#FF0000";
+                        document.getElementById('val_bruto').innerHTML = "NO A INGRESADO DATO";   
+                        repuesta = 1;
+                    }else{
+                        repuesta = 0;
+                        document.form_reg_dato.PESONETOESTANDAR.style.borderColor = "#4AF575";
+                    }                    
+                    if (repuesta == 0) {
+
+                        PESONETOESTANDAR = parseFloat(document.getElementById("PESONETOESTANDAR").value);
+                        PESOBRUTOESTANDAR = parseFloat(document.getElementById("PESOBRUTOESTANDAR").value);
+                        pesoenvase=PESOBRUTOESTANDAR-PESONETOESTANDAR;
+                    }
+                    document.getElementById('PESOENVASESTANDAR').value = pesoenvase;
+                }
                 function validacion() {
 
 
@@ -258,7 +306,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     ESPECIES = document.getElementById("ESPECIES").selectedIndex;
                     ETIQUETA = document.getElementById("ETIQUETA").selectedIndex;
                     EMBOLSADO = document.getElementById("EMBOLSADO").selectedIndex;
+
+
+                    CATEGORIA = document.getElementById("STOCK").selectedIndex;
+                    COLOR = document.getElementById("STOCK").selectedIndex;
                     STOCK = document.getElementById("STOCK").selectedIndex;
+
+
                     TEMBALAJE = document.getElementById("TEMBALAJE").selectedIndex;
                     ECOMERCIAL = document.getElementById("ECOMERCIAL").selectedIndex;
 
@@ -274,7 +328,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                     document.getElementById('val_etiqueta').innerHTML = "";
                     document.getElementById('val_embolsado').innerHTML = "";
+
+                    document.getElementById('val_categoria').innerHTML = "";
+                    document.getElementById('val_color').innerHTML = "";
                     document.getElementById('val_stock').innerHTML = "";
+
                     document.getElementById('val_embalaje').innerHTML = "";
                     document.getElementById('val_ec').innerHTML = "";
 
@@ -368,7 +426,23 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         document.getElementById('val_embolsado').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                         return false;
                     }
-                    document.form_reg_dato.EMBOLSADO.style.borderColor = "#4AF575";
+                    document.form_reg_dato.EMBOLSADO.style.borderColor = "#4AF575";    
+
+                    if (CATEGORIA == null || CATEGORIA == 0) {
+                        document.form_reg_dato.CATEGORIA.focus();
+                        document.form_reg_dato.CATEGORIA.style.borderColor = "#FF0000";
+                        document.getElementById('val_categoria').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.CATEGORIA.style.borderColor = "#4AF575";
+
+                    if (COLOR == null || COLOR == 0) {
+                        document.form_reg_dato.COLOR.focus();
+                        document.form_reg_dato.COLOR.style.borderColor = "#FF0000";
+                        document.getElementById('val_color').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.COLOR.style.borderColor = "#4AF575";
 
                     if (STOCK == null || STOCK == 0) {
                         document.form_reg_dato.STOCK.focus();
@@ -518,20 +592,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Peso Neto</label>
-                                                        <input type="number" step="0.00001" class="form-control" placeholder="Peso Neto" id="PESONETOESTANDAR" name="PESONETOESTANDAR" value="<?php echo $PESONETOESTANDAR; ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" step="0.00001" class="form-control" onchange="envases()" placeholder="Peso Neto" id="PESONETOESTANDAR" name="PESONETOESTANDAR" value="<?php echo $PESONETOESTANDAR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_netoee" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Peso Bruto </label>
-                                                        <input type="number" step="0.00001" class="form-control" placeholder="Peso Bruto" id="PESOBRUTOESTANDAR" name="PESOBRUTOESTANDAR" value="<?php echo $PESOBRUTOESTANDAR ?>" <?php echo $DISABLED; ?> />
+                                                        <input type="number" step="0.00001" class="form-control" onchange="envases()" placeholder="Peso Bruto" id="PESOBRUTOESTANDAR" name="PESOBRUTOESTANDAR" value="<?php echo $PESOBRUTOESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_bruto" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -576,18 +649,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYESPECIES as $r) : ?>
                                                                 <?php if ($ARRAYESPECIES) {    ?>
-                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" <?php if ($ESPECIES == $r['ID_ESPECIES']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" <?php if ($ESPECIES == $r['ID_ESPECIES']) {  echo "selected";  } ?>>
                                                                         <?php echo $r['NOMBRE_ESPECIES'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
-
                                                             <?php endforeach; ?>
-
-
                                                         </select>
                                                         <label id="val_especies" class="validacion"> </label>
                                                     </div>
@@ -599,15 +667,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYTEMBALAJE as $r) : ?>
                                                                 <?php if ($ARRAYTEMBALAJE) {    ?>
-                                                                    <option value="<?php echo $r['ID_TEMBALAJE']; ?>" <?php if ($TEMBALAJE == $r['ID_TEMBALAJE']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_TEMBALAJE']; ?>" <?php if ($TEMBALAJE == $r['ID_TEMBALAJE']) {  echo "selected";   } ?>>
                                                                         <?php echo $r['NOMBRE_TEMBALAJE'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
-
                                                             <?php endforeach; ?>
                                                         </select>
                                                         <label id="val_embalaje" class="validacion"> </label>
@@ -622,9 +687,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYETIQUETA as $r) : ?>
                                                                 <?php if ($ARRAYETIQUETA) {    ?>
-                                                                    <option value="<?php echo $r['ID_TETIQUETA']; ?>" <?php if ($ETIQUETA == $r['ID_TETIQUETA']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_TETIQUETA']; ?>" <?php if ($ETIQUETA == $r['ID_TETIQUETA']) {  echo "selected";  } ?>>
                                                                         <?php echo $r['NOMBRE_TETIQUETA'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -637,43 +700,54 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_etiqueta" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label>Embolsado</label>
                                                         <select class="form-control select2" id="EMBOLSADO" name="EMBOLSADO" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <option value="0" <?php if ($EMBOLSADO == "0") {
-                                                                                    echo "selected";
-                                                                                } ?>>No</option>
-                                                            <option value="1" <?php if ($EMBOLSADO == "1") {
-                                                                                    echo "selected";
-                                                                                } ?>> Si </option>
+                                                            <option value="0" <?php if ($EMBOLSADO == "0") { echo "selected"; } ?>>No</option>
+                                                            <option value="1" <?php if ($EMBOLSADO == "1") { echo "selected"; } ?>> Si </option>
                                                         </select>
                                                         <label id="val_embolsado" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                             </div>
-
-
+                                            <div class="row">                                            
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Categoria</label>
+                                                        <select class="form-control select2" id="CATEGORIA" name="CATEGORIA" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <option value="0" <?php if ($CATEGORIA == "0") { echo "selected";  } ?>>No</option>
+                                                            <option value="1" <?php if ($CATEGORIA == "1") { echo "selected"; } ?>> Si </option>
+                                                        </select>
+                                                        <label id="val_categoria" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Color</label>
+                                                        <select class="form-control select2" id="COLOR" name="COLOR" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <option value="0" <?php if ($COLOR == "0") { echo "selected";  } ?>>No</option>
+                                                            <option value="1" <?php if ($COLOR == "1") { echo "selected"; } ?>> Si </option>
+                                                        </select>
+                                                        <label id="val_color" class="validacion"> </label>
+                                                    </div>
+                                                </div>                                        
+                                            </div>
                                             <div class="row">
-
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label>Stock</label>
                                                         <select class="form-control select2" id="STOCK" name="STOCK" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <option value="0" <?php if ($STOCK == "0") {
-                                                                                    echo "selected";
-                                                                                } ?>>No</option>
-                                                            <option value="1" <?php if ($STOCK == "1") {
-                                                                                    echo "selected";
-                                                                                } ?>> Si </option>
+                                                            <option value="0" <?php if ($STOCK == "0") { echo "selected";  } ?>>No</option>
+                                                            <option value="1" <?php if ($STOCK == "1") { echo "selected"; } ?>> Si </option>
                                                         </select>
                                                         <label id="val_stock" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label>Estandar Comercial</label>

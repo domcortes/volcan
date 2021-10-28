@@ -21,6 +21,8 @@
         private   $TFRUTA_ESTANDAR;
         private   $EMBOLSADO;        
         private   $STOCK;
+        private   $TCATEGORIA;        
+        private   $TCOLOR;        
         private   $ESTADO_REGISTRO;
         private   $ID_ESPECIES;
         private   $ID_ETIQUETA;

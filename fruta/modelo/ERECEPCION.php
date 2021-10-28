@@ -16,6 +16,8 @@
         private   $PESO_ENVASE_ESTANDAR;
         private   $PESO_PALLET_ESTANDAR;
         private   $TFRUTA_ESTANDAR;
+        private   $TRATAMIENTO1;
+        private   $TRATAMIENTO2;
         private   $ESTADO_REGISTRO;
         private   $ID_ESPECIES;
         private	  $ID_EMPRESA; 

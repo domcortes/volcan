@@ -32,6 +32,8 @@ $PESOPALLETESTANDAR = "";
 $ESPECIES = "";
 $ESTADO = "";
 $PRODUCTO="";
+$TRATAMIENTO1="";
+$TRATAMIENTO2="";
 $IDOP = "";
 $OP = "";
 $DISABLED = "";
@@ -64,6 +66,8 @@ if (isset($_REQUEST['GUARDAR'])) {
     $ERECEPCION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
     $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
     $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
+    $ERECEPCION->__SET('TRATAMIENTO1',$_REQUEST['TRATAMIENTO1']);
+    $ERECEPCION->__SET('TRATAMIENTO2',$_REQUEST['TRATAMIENTO2']);
     $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $ERECEPCION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
@@ -86,6 +90,8 @@ if (isset($_REQUEST['EDITAR'])) {
     $ERECEPCION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
     $ERECEPCION->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
     $ERECEPCION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
+    $ERECEPCION->__SET('TRATAMIENTO1',$_REQUEST['TRATAMIENTO1']);
+    $ERECEPCION->__SET('TRATAMIENTO2',$_REQUEST['TRATAMIENTO2']);
     $ERECEPCION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $ERECEPCION->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $ERECEPCION->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -140,6 +146,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $ENVASEESTANDAR = "" . $r['CANTIDAD_ENVASE_ESTANDAR'];
             $PESOENVASEESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
             $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
+            $TRATAMIENTO1 = "" . $r['TRATAMIENTO1'];
+            $TRATAMIENTO2 = "" . $r['TRATAMIENTO2'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
         endforeach;
@@ -159,6 +167,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $ENVASEESTANDAR = "" . $r['CANTIDAD_ENVASE_ESTANDAR'];
             $PESOENVASEESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
             $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
+            $TRATAMIENTO1 = "" . $r['TRATAMIENTO1'];
+            $TRATAMIENTO2 = "" . $r['TRATAMIENTO2'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
 
@@ -193,6 +203,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     ENVASEESTANDAR = document.getElementById("ENVASEESTANDAR").value;
                     PESOPALLETESTANDAR = document.getElementById("PESOPALLETESTANDAR").value;
                     PESOENVASEESTANDAR = document.getElementById("PESOENVASEESTANDAR").value;
+                    TRATAMIENTO1 = document.getElementById("TRATAMIENTO1").selectedIndex;
+                    TRATAMIENTO2 = document.getElementById("TRATAMIENTO2").selectedIndex;
                     ESPECIES = document.getElementById("ESPECIES").selectedIndex;
                     PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
 
@@ -202,6 +214,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_cajapee').innerHTML = "";
                     document.getElementById('val_envase').innerHTML = "";
                     document.getElementById('val_pallet').innerHTML = "";
+                    document.getElementById('val_tratamiento1').innerHTML = "";
+                    document.getElementById('val_tratamiento2').innerHTML = "";
                     document.getElementById('val_especies').innerHTML = "";
                     document.getElementById('val_producto').innerHTML = "";
 
@@ -247,6 +261,24 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     }
                     document.form_reg_dato.PESOPALLETESTANDAR.style.borderColor = "#4AF575";
 
+
+
+                    if (TRATAMIENTO1 == null || TRATAMIENTO1 == 0) {
+                        document.form_reg_dato.TRATAMIENTO1.focus();
+                        document.form_reg_dato.TRATAMIENTO1.style.borderColor = "#FF0000";
+                        document.getElementById('val_tratamiento1').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.TRATAMIENTO1.style.borderColor = "#4AF575";
+
+                    if (TRATAMIENTO2 == null || TRATAMIENTO2 == 0) {
+                        document.form_reg_dato.TRATAMIENTO2.focus();
+                        document.form_reg_dato.TRATAMIENTO2.style.borderColor = "#FF0000";
+                        document.getElementById('val_tratamiento2').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.TRATAMIENTO2.style.borderColor = "#4AF575";                      
+  
                     if (ESPECIES == null || ESPECIES == 0) {
                         document.form_reg_dato.ESPECIES.focus();
                         document.form_reg_dato.ESPECIES.style.borderColor = "#FF0000";
@@ -419,7 +451,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <input type="number" class="form-control" step="0.01" placeholder="Peso Envase Estandar" id="PESOPALLETESTANDAR" name="PESOPALLETESTANDAR" value="<?php echo $PESOPALLETESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_pallet" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div>                      
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label> Especies</label>
@@ -427,9 +459,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYESPECIES as $r) : ?>
                                                                 <?php if ($ARRAYESPECIES) {    ?>
-                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" <?php if ($ESPECIES == $r['ID_ESPECIES']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" <?php if ($ESPECIES == $r['ID_ESPECIES']) { echo "selected"; } ?>>
                                                                         <?php echo $r['NOMBRE_ESPECIES'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -439,7 +469,29 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         </select>
                                                         <label id="val_especies" class="validacion"> </label>
                                                     </div>
-                                                </div>                                                
+                                                </div> 
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Tratamiento 1</label>
+                                                        <select class="form-control select2" id="TRATAMIENTO1" name="TRATAMIENTO1" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <option value="0" <?php if ($TRATAMIENTO1 == "0") { echo "selected";  } ?>>No</option>
+                                                            <option value="1" <?php if ($TRATAMIENTO1 == "1") { echo "selected"; } ?>> Si </option>
+                                                        </select>
+                                                        <label id="val_tratamiento1" class="validacion"> </label>
+                                                    </div>
+                                                </div>                                                                      
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Tratamineto 2</label>
+                                                        <select class="form-control select2" id="TRATAMIENTO2" name="TRATAMIENTO2" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <option value="0" <?php if ($TRATAMIENTO2 == "0") { echo "selected";  } ?>>No</option>
+                                                            <option value="1" <?php if ($TRATAMIENTO2 == "1") { echo "selected"; } ?>> Si </option>
+                                                        </select>
+                                                        <label id="val_tratamiento2" class="validacion"> </label>
+                                                    </div>
+                                                </div>                                               
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label> Producto</label>
@@ -447,9 +499,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYPRODUCTO as $r) : ?>
                                                                 <?php if ($ARRAYPRODUCTO) {    ?>
-                                                                    <option value="<?php echo $r['ID_PRODUCTO']; ?>" <?php if ($PRODUCTO == $r['ID_PRODUCTO']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_PRODUCTO']; ?>" <?php if ($PRODUCTO == $r['ID_PRODUCTO']) { echo "selected"; } ?>>
                                                                         <?php echo $r['NOMBRE_PRODUCTO'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -460,6 +510,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_producto" class="validacion"> </label>
                                                     </div>
                                                 </div>
+
+
                                             </div>
                                         </div>
                                         <!-- /.box-body -->

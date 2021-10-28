@@ -44,7 +44,7 @@ class EEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `estandar_eexportacion` limit 8;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  estandar_eexportacion  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -64,7 +64,7 @@ class EEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare(" SELECT * FROM `estandar_eexportacion` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos = $this->conexion->prepare(" SELECT * FROM  estandar_eexportacion  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -83,7 +83,7 @@ class EEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `estandar_eexportacion` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM  estandar_eexportacion  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class EEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `estandar_eexportacion` WHERE `ID_ESTANDAR`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM  estandar_eexportacion  WHERE  ID_ESTANDAR = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -126,7 +126,7 @@ class EEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `estandar_eexportacion` WHERE `NOMBRE_ESTANDAR` LIKE '%" . $NOMBRE . "%';");
+            $datos = $this->conexion->prepare("SELECT * FROM  estandar_eexportacion  WHERE  NOMBRE_ESTANDAR  LIKE '%" . $NOMBRE . "%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,30 +149,33 @@ class EEXPORTACION_ADO
 
 
             $query =
-                "INSERT INTO `estandar_eexportacion` (  `CODIGO_ESTANDAR`, 
-                                                        `NOMBRE_ESTANDAR`, 
-                                                        `CANTIDAD_ENVASE_ESTANDAR`,
-                                                        `PESO_NETO_ESTANDAR`,
-                                                        `PESO_BRUTO_ESTANDAR`,
+                "INSERT INTO  estandar_eexportacion  (   CODIGO_ESTANDAR , 
+                                                         NOMBRE_ESTANDAR , 
+                                                         CANTIDAD_ENVASE_ESTANDAR ,
+                                                         PESO_NETO_ESTANDAR ,
+                                                         PESO_BRUTO_ESTANDAR ,
 
-                                                        `PESO_PALLET_ESTANDAR`,
-                                                        `PESO_ENVASE_ESTANDAR`,
-                                                        `PDESHIDRATACION_ESTANDAR`,
-                                                        `EMBOLSADO`,
-                                                        `STOCK`,
+                                                         PESO_PALLET_ESTANDAR ,
+                                                         PESO_ENVASE_ESTANDAR ,
+                                                         PDESHIDRATACION_ESTANDAR ,
+                                                         EMBOLSADO ,
+                                                         STOCK ,
 
-                                                        `ID_ESPECIES`,
-                                                        `ID_TETIQUETA`,
-                                                        `ID_TEMBALAJE` ,
-                                                        `ID_ECOMERCIAL`,
-                                                        `ID_EMPRESA`, 
+                                                         TCATEGORIA ,
+                                                         TCOLOR ,
+
+                                                         ID_ESPECIES ,
+                                                         ID_TETIQUETA ,
+                                                         ID_TEMBALAJE  ,
+                                                         ID_ECOMERCIAL ,
+                                                         ID_EMPRESA , 
                                                         
-                                                        `ID_USUARIOI`, 
-                                                        `ID_USUARIOM`, 
+                                                         ID_USUARIOI , 
+                                                         ID_USUARIOM , 
 
-                                                        `TFRUTA_ESTANDAR`, 
-                                                        `ESTADO_REGISTRO`) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   2, 1);";
+                                                         TFRUTA_ESTANDAR , 
+                                                         ESTADO_REGISTRO ) VALUES
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,  ?, ?, ?, ?, ?,   ?, ?,   2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -180,12 +183,17 @@ class EEXPORTACION_ADO
                         $EEXPORTACION->__GET('NOMBRE_ESTANDAR'),
                         $EEXPORTACION->__GET('CANTIDAD_ENVASE_ESTANDAR'),
                         $EEXPORTACION->__GET('PESO_NETO_ESTANDAR'),
-                        $EEXPORTACION->__GET('PESO_BRUTO_ESTANDAR'),
+                        $EEXPORTACION->__GET('PESO_BRUTO_ESTANDAR'), 
+
                         $EEXPORTACION->__GET('PESO_PALLET_ESTANDAR'),
                         $EEXPORTACION->__GET('PESO_ENVASE_ESTANDAR'),
                         $EEXPORTACION->__GET('PDESHIDRATACION_ESTANDAR'),
                         $EEXPORTACION->__GET('EMBOLSADO'),
                         $EEXPORTACION->__GET('STOCK'),
+
+                        $EEXPORTACION->__GET('TCATEGORIA'),
+                        $EEXPORTACION->__GET('TCOLOR'),
+
                         $EEXPORTACION->__GET('ID_ESPECIES'),
                         $EEXPORTACION->__GET('ID_TETIQUETA'),
                         $EEXPORTACION->__GET('ID_TEMBALAJE'),
@@ -206,7 +214,7 @@ class EEXPORTACION_ADO
     public function eliminarEstandar($id)
     {
         try {
-            $sql = "DELETE FROM `estandar_eexportacion` WHERE `ID_ESTANDAR`=" . $id . ";";
+            $sql = "DELETE FROM  estandar_eexportacion  WHERE  ID_ESTANDAR =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -219,23 +227,25 @@ class EEXPORTACION_ADO
     {
         try {
             $query = "
-		UPDATE `estandar_eexportacion` SET
-            `CODIGO_ESTANDAR`= ?, 
-            `NOMBRE_ESTANDAR`= ?,   
-            `CANTIDAD_ENVASE_ESTANDAR`= ?,  
-            `PESO_NETO_ESTANDAR`= ?,  
-            `PESO_BRUTO_ESTANDAR`= ?,  
-            `PESO_PALLET_ESTANDAR`= ?,  
-            `PESO_ENVASE_ESTANDAR`= ?,  
-            `PDESHIDRATACION_ESTANDAR`= ?,  
-            `EMBOLSADO`= ?,  
-            `STOCK`= ?,  
-            `ID_ESPECIES`= ?,  
-            `ID_TETIQUETA`= ?,   
-            `ID_TEMBALAJE`= ?,  
-            `ID_ECOMERCIAL`= ?  ,  
-            `ID_USUARIOM`= ?         
-		WHERE `ID_ESTANDAR`= ?;";
+		UPDATE  estandar_eexportacion  SET
+             CODIGO_ESTANDAR = ?, 
+             NOMBRE_ESTANDAR = ?,   
+             CANTIDAD_ENVASE_ESTANDAR = ?,  
+             PESO_NETO_ESTANDAR = ?,  
+             PESO_BRUTO_ESTANDAR = ?,  
+             PESO_PALLET_ESTANDAR = ?,  
+             PESO_ENVASE_ESTANDAR = ?,  
+             PDESHIDRATACION_ESTANDAR = ?,  
+             EMBOLSADO = ?,  
+             STOCK = ?,  
+             TCATEGORIA = ?,  
+             TCOLOR = ?,  
+             ID_ESPECIES = ?,  
+             ID_TETIQUETA = ?,   
+             ID_TEMBALAJE = ?,  
+             ID_ECOMERCIAL = ?  ,  
+             ID_USUARIOM = ?         
+		WHERE  ID_ESTANDAR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -249,6 +259,8 @@ class EEXPORTACION_ADO
                         $EEXPORTACION->__GET('PDESHIDRATACION_ESTANDAR'),
                         $EEXPORTACION->__GET('EMBOLSADO'),
                         $EEXPORTACION->__GET('STOCK'),
+                        $EEXPORTACION->__GET('TCATEGORIA'),
+                        $EEXPORTACION->__GET('TCOLOR'),
                         $EEXPORTACION->__GET('ID_ESPECIES'),
                         $EEXPORTACION->__GET('ID_TETIQUETA'),
                         $EEXPORTACION->__GET('ID_TEMBALAJE'),
@@ -271,9 +283,9 @@ class EEXPORTACION_ADO
 
         try {
             $query = "
-    UPDATE `estandar_eexportacion` SET			
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_ESTANDAR`= ?;";
+    UPDATE  estandar_eexportacion  SET			
+             ESTADO_REGISTRO  = 0
+    WHERE  ID_ESTANDAR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -290,9 +302,9 @@ class EEXPORTACION_ADO
     {
         try {
             $query = "
-    UPDATE `estandar_eexportacion` SET			
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_ESTANDAR`= ?;";
+    UPDATE  estandar_eexportacion  SET			
+             ESTADO_REGISTRO  = 1
+    WHERE  ID_ESTANDAR = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -308,7 +320,7 @@ class EEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `estandar_eexportacion` WHERE `ID_ESPECIES`= '" . $IDESPECIES . "' ;");
+            $datos = $this->conexion->prepare("SELECT * FROM  estandar_eexportacion  WHERE  ID_ESPECIES = '" . $IDESPECIES . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -328,8 +340,8 @@ class EEXPORTACION_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare(" SELECT * FROM `estandar_eexportacion` 
-                                              WHERE `ESTADO_REGISTRO` = 1
+            $datos = $this->conexion->prepare(" SELECT * FROM  estandar_eexportacion  
+                                              WHERE  ESTADO_REGISTRO  = 1
                                               AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();

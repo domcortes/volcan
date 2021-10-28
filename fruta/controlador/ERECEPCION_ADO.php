@@ -159,16 +159,20 @@ class ERECEPCION_ADO {
                                                     CANTIDAD_ENVASE_ESTANDAR,
                                                     PESO_ENVASE_ESTANDAR, 
                                                     PESO_PALLET_ESTANDAR,
+
+                                                    TRATAMIENTO1,
+                                                    TRATAMIENTO2,
                                                     ID_ESPECIES,
                                                     ID_EMPRESA, 
                                                     ID_PRODUCTO, 
+
                                                     ID_USUARIOI, 
                                                     ID_USUARIOM, 
                                                     TFRUTA_ESTANDAR, 
                                                     ESTADO_REGISTRO 
                                             ) 
                                             VALUES
-	       	( ?, ?, ?, ?, ?, ?,  ?,  ?,  ?,  ?, 1,  1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?,  1,  1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -177,6 +181,8 @@ class ERECEPCION_ADO {
                     $ERECEPCION->__GET('CANTIDAD_ENVASE_ESTANDAR')  ,
                     $ERECEPCION->__GET('PESO_ENVASE_ESTANDAR')  ,
                     $ERECEPCION->__GET('PESO_PALLET_ESTANDAR')  ,
+                    $ERECEPCION->__GET('TRATAMIENTO1')  ,
+                    $ERECEPCION->__GET('TRATAMIENTO2')  ,
                     $ERECEPCION->__GET('ID_ESPECIES') ,
                     $ERECEPCION->__GET('ID_EMPRESA') ,
                     $ERECEPCION->__GET('ID_PRODUCTO') ,
@@ -213,6 +219,8 @@ class ERECEPCION_ADO {
             CANTIDAD_ENVASE_ESTANDAR= ?,  
             PESO_ENVASE_ESTANDAR= ?,  
             PESO_PALLET_ESTANDAR= ?,  
+            TRATAMIENTO1= ?,  
+            TRATAMIENTO2= ?,  
             ID_ESPECIES= ?  ,  
             ID_PRODUCTO= ?  ,  
             ID_USUARIOM= ?  
@@ -225,6 +233,8 @@ class ERECEPCION_ADO {
                     $ERECEPCION->__GET('CANTIDAD_ENVASE_ESTANDAR')  ,
                     $ERECEPCION->__GET('PESO_ENVASE_ESTANDAR')  ,
                     $ERECEPCION->__GET('PESO_PALLET_ESTANDAR')  ,
+                    $ERECEPCION->__GET('TRATAMIENTO1')  ,
+                    $ERECEPCION->__GET('TRATAMIENTO2')  ,
                     $ERECEPCION->__GET('ID_ESPECIES')   ,
                     $ERECEPCION->__GET('ID_PRODUCTO') ,
                     $ERECEPCION->__GET('ID_USUARIOM'),    
@@ -245,9 +255,9 @@ class ERECEPCION_ADO {
 
         try{
             $query = "
-    UPDATE estandar_erecepcion SET			
-            ESTADO_REGISTRO = 0
-    WHERE ID_ESTANDAR= ?;";
+                UPDATE estandar_erecepcion SET			
+                        ESTADO_REGISTRO = 0
+                WHERE ID_ESTANDAR= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -265,9 +275,9 @@ class ERECEPCION_ADO {
     public function habilitar(ERECEPCION $ERECEPCION){
         try{
             $query = "
-    UPDATE estandar_erecepcion SET			
-            ESTADO_REGISTRO = 1
-    WHERE ID_ESTANDAR= ?;";
+            UPDATE estandar_erecepcion SET			
+                    ESTADO_REGISTRO = 1
+            WHERE ID_ESTANDAR= ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
