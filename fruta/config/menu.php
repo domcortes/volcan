@@ -650,6 +650,42 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarHExiexportacion.php"> Producto Terminado<i class="ti-more"></i></a></li>
           <li><a href="listarHExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
         </ul>
+      </li>      
+      <li class="treeview">
+        <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/icons.svg" class="svg-icon" alt="">
+          <span> Gestión Envases</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#">Recepcion  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="listarRecepcione.php">Agrupado Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcioneDetallado.php">Detallado Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcioneInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Despacho  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                    <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+          <li><a href="listarInventarioe.php">Existencia<i class="ti-more"></i></a></li>
+          <li><a href="listarHInventarioe.php">Kardex <i class="ti-more"></i></a></li>
+        </ul>
       </li>
       <li class="treeview">
         <a href="#">

@@ -1072,7 +1072,64 @@ class INVENTARIOE_ADO
             die($e->getMessage());
         }
     }
+    public function listarKardexPorEmpresaTemporadaCBX($IDEMPRESA,  $IDTEMPORADA)
+    {
+        try {
 
+                $datos = $this->conexion->prepare("SELECT
+                                                    producto.CODIGO_PRODUCTO AS 'CODIGO',
+                                                    producto.NOMBRE_PRODUCTO AS 'NOMBRE', 
+                                                    (   SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                        FROM material_tumedida tumedida
+                                                        WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                    ) AS 'TUMEDIDA',    
+                                                    IFNULL(SUM(inventario.CANTIDAD_ENTRADA),0) AS 'ENTRADA', 
+                                                    IFNULL(SUM(inventario.CANTIDAD_SALIDA),0) AS 'SALIDA', 
+                                                    IFNULL(SUM(inventario.CANTIDAD_ENTRADA-CANTIDAD_SALIDA),0) AS 'SALDO',
+                                                    (  SELECT  bodega.NOMBRE_BODEGA
+                                                        FROM principal_bodega bodega
+                                                        WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                    ) AS 'BODEGA',
+                                                    inventario.ID_RECEPCION AS 'RECEPCION',
+                                                    inventario.ID_DESPACHO AS 'DESPACHO',
+                                                    inventario.ID_DESPACHO2 AS 'DESPACHO2',
+                                                    inventario.ID_PLANTA2 AS 'PLANTA2',
+                                                    (   SELECT  empresa.NOMBRE_EMPRESA
+                                                        FROM principal_empresa empresa
+                                                        WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                    ) AS 'EMPRESA',
+                                                    (   SELECT  planta.NOMBRE_PLANTA
+                                                        FROM principal_planta planta
+                                                        WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                    ) AS 'PLANTA',    
+                                                    (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                        FROM principal_temporada temporada
+                                                        WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                    ) AS 'TEMPORADA'
+                                                FROM material_inventarioe inventario,  material_producto producto   
+                                                WHERE inventario.ID_PRODUCTO=producto.ID_PRODUCTO
+                                                AND inventario.ESTADO_REGISTRO = 1
+                                                AND inventario.ID_EMPRESA = '" . $IDEMPRESA . "' 
+                                                AND inventario.ID_TEMPORADA = '" . $IDTEMPORADA . "' 
+                                                GROUP BY 
+                                                    inventario.ID_PRODUCTO, inventario.ID_EMPRESA, 
+                                                    inventario.ID_PLANTA, inventario.ID_TEMPORADA, 
+                                                    inventario.ID_RECEPCION, inventario.ID_DESPACHO,
+                                                    inventario.ID_PLANTA2                                                
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //BUSCAR
 
     public function buscarPorRecepcion($IDRECEPCION)

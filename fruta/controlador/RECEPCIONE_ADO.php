@@ -571,6 +571,33 @@ class RECEPCIONE_ADO {
         }
         
     }
+    
+    public function listarRecepcionPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
+                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                            IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD' 
+                                             FROM  material_recepcione 
+                                             WHERE ESTADO_REGISTRO = 1 
+                                             AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                             AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     public function listarRecepcionPorEmpresaPlantaTemporada2CBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
@@ -603,12 +630,36 @@ class RECEPCIONE_ADO {
     public function obtenerTotalesRecepcionPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * 
+            $datos=$this->conexion->prepare("SELECT 
                                                 IFNULL(SUM( TOTAL_CANTIDAD_RECEPCION ),0) AS 'CANTIDAD'
                                             FROM  material_recepcione 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
+    public function obtenerTotalesRecepcionPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT  
+                                                IFNULL(SUM( TOTAL_CANTIDAD_RECEPCION ),0) AS 'CANTIDAD'
+                                            FROM  material_recepcione 
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
