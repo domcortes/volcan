@@ -204,7 +204,7 @@ if (empty($ARRAYFOLIO3)) {
 $ARRAYBODEGAENVASES=$BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesCBX($EMPRESAS, $PLANTAS);
 if (empty($ARRAYBODEGAENVASES)) {
     $DISABLEENVASE = "disabled";
-    $MENSAJEENVASE = " NECESITA <b> TIENE QUE HABER BODEGA DE ENVASES</b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
+    $MENSAJEENVASE = " NECESITA <b> TEBER UNA BODEGA DE ENVASES</b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
 }else{
     $BODEGA=$ARRAYBODEGAENVASES[0]["ID_BODEGA"];    
 }
@@ -797,6 +797,7 @@ if (isset($_POST)) {
                     </div>
 
                     <label id="val_mensaje" class="validacion"><?php echo $MENSAJEFOLIO; ?> </label>
+                    <label id="val_mensaje" class="validacion"><?php echo $MENSAJEENVASE; ?> </label>
                     <!-- Main content -->
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
@@ -1252,13 +1253,13 @@ if (isset($_POST)) {
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
-                                                                            <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLEENVASE; ?>  <?php echo $DISABLED2; ?>>
                                                                                 <i class="ti-pencil-alt"></i>
                                                                             </button>
-                                                                            <button type="submit" class="btn btn-secondary btn-sm " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <button type="submit" class="btn btn-secondary btn-sm " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLEENVASE; ?>  <?php echo $DISABLED2; ?>>
                                                                                 <i class="fa fa-fw fa-copy"></i>
                                                                             </button>
-                                                                            <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLED2; ?>>
+                                                                            <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLEENVASE; ?>  <?php echo $DISABLED2; ?>>
                                                                                 <i class="ti-close"></i>
                                                                             </button>
                                                                         <?php } ?>
@@ -1423,7 +1424,7 @@ if (isset($_POST)) {
                         $RECEPCIONE->__SET('ID_USUARIOI', $IDUSUARIOS);
                         $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $RECEPCIONE_ADO->agregarRecepcion($RECEPCIONE);
+                        $RECEPCIONE_ADO->agregarRecepcionMateriaPrima($RECEPCIONE);
     
     
                         //OBTENER EL ID DE LA RECEPCIONE CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
@@ -1523,7 +1524,7 @@ if (isset($_POST)) {
                     $RECEPCIONE->__SET('ID_USUARIOI', $IDUSUARIOS);
                     $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $RECEPCIONE_ADO->agregarRecepcion($RECEPCIONE);
+                    $RECEPCIONE_ADO->agregarRecepcionMateriaPrima($RECEPCIONE);
 
 
                     //OBTENER EL ID DE LA RECEPCIONE CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
@@ -1562,7 +1563,7 @@ if (isset($_POST)) {
                     $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $RECEPCIONE_ADO->actualizarRecepcion($RECEPCIONE);
+                    $RECEPCIONE_ADO->actualizarRecepcionMateriaPrima($RECEPCIONE);
                 }
 
                 if ($_SESSION['parametro1'] == "crear") {
@@ -1745,7 +1746,7 @@ if (isset($_POST)) {
                         $RECEPCIONE->__SET('ID_USUARIOM', $IDUSUARIOS);
                         $RECEPCIONE->__SET('ID_RECEPCION', $ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $RECEPCIONE_ADO->actualizarRecepcion($RECEPCIONE);                        
+                        $RECEPCIONE_ADO->actualizarRecepcionMateriaPrima($RECEPCIONE);                        
                         $ARRAYINVENTARIOE=$INVENTARIOE_ADO->buscarPorRecepcion($ARRAYRECEPCIONE[0]["ID_RECEPCION"]);
                         if(empty($ARRAYINVENTARIOE)){
                             $ARRAYDRECEPCIONAGRUPADO = $DRECEPCIONMP_ADO->buscarPorRecepcionAgrupadoEstandarproducto($_REQUEST['IDP']);
@@ -1806,7 +1807,6 @@ if (isset($_POST)) {
                     
                 }
             }
-
 
             ?>
 </body>

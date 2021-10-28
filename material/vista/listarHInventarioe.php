@@ -187,11 +187,8 @@ include_once "../config/reporteUrl.php";
                                                     <th>Fecha Movimineto</th>
                                                     <th>Origen Movimineto</th>
                                                     <th>Destino Movimineto</th>
-
                                                     <th>N° Registro</th>
-                                                    <th>N° Documento</th>
-
-                                                                          
+                                                    <th>N° Documento</th>                                                                          
                                                     <th>Entrada</th>
                                                     <th>Salida</th>
                                                     <th>Saldo</th>

@@ -120,25 +120,35 @@ class EXIINDUSTRIAL_ADO
                                                     FOLIO_EXIINDUSTRIAL,
                                                     FOLIO_AUXILIAR_EXIINDUSTRIAL,
                                                     FECHA_EMBALADO_EXIINDUSTRIAL,   
-                                                    KILOS_NETO_EXIINDUSTRIAL,       
-                                                    ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
-                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,        
+
+                                                    CANTIDAD_ENVASE_EXIINDUSTRIAL,   
+                                                    KILOS_NETO_EXIINDUSTRIAL,    
+                                                    KILOS_BRUTO_EXIINDUSTRIAL,    
+                                                    KILOS_PROMEDIO_EXIINDUSTRIAL,  
+                                                    PESO_PALLET_EXIINDUSTRIAL,        
+
+                                                    GASIFICADO,     
+                                                    ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL, 
+                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,   
                                                     FECHA_RECEPCION,    
+
                                                     ID_TMANEJO, 
                                                     ID_FOLIO,
                                                     ID_ESTANDAR,
                                                     ID_PRODUCTOR,
+
                                                     ID_VESPECIES,
                                                     ID_EMPRESA, 
                                                     ID_PLANTA, 
                                                     ID_TEMPORADA,
                                                     ID_RECEPCION,
+
                                                     INGRESO,
                                                     MODIFICACION,
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(),  1, 1);";
+	       	( ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(),  1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -146,14 +156,23 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FOLIO_AUXILIAR_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
+
+                        $EXIINDUSTRIAL->__GET('CANTIDAD_ENVASE_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_BRUTO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_PROMEDIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('PESO_PALLET_EXIINDUSTRIAL'),
+                        
+                        $EXIINDUSTRIAL->__GET('GASIFICADO'),
                         $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FECHA_RECEPCION'),
+
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_FOLIO'),
                         $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
+
                         $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
                         $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
                         $EXIINDUSTRIAL->__GET('ID_PLANTA'),
@@ -434,11 +453,20 @@ class EXIINDUSTRIAL_ADO
 		UPDATE fruta_exiindustrial SET
                 MODIFICACION =  SYSDATE(),
                 FECHA_EMBALADO_EXIINDUSTRIAL = ?,
+
+                CANTIDAD_ENVASE_EXIINDUSTRIAL = ?,
                 KILOS_NETO_EXIINDUSTRIAL = ?,
+                KILOS_BRUTO_EXIINDUSTRIAL = ?,
+                KILOS_PROMEDIO_EXIINDUSTRIAL = ?,
+                PESO_PALLET_EXIINDUSTRIAL = ?,
+
+                GASIFICADO = ?,
                 FECHA_RECEPCION = ?,
+
                 ID_TMANEJO = ?, 
                 ID_ESTANDAR = ?, 
                 ID_PRODUCTOR = ?,
+
                 ID_VESPECIES = ?,
                 ID_EMPRESA = ?,
                 ID_PLANTA = ?, 
@@ -449,11 +477,20 @@ class EXIINDUSTRIAL_ADO
                 ->execute(
                     array(
                         $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
+
+                        $EXIINDUSTRIAL->__GET('CANTIDAD_ENVASE_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_BRUTO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('KILOS_PROMEDIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('PESO_PALLET_EXIINDUSTRIAL'),
+                        
+                        $EXIINDUSTRIAL->__GET('GASIFICADO'),
                         $EXIINDUSTRIAL->__GET('FECHA_RECEPCION'),
+
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
+
                         $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
                         $EXIINDUSTRIAL->__GET('ID_EMPRESA'),
                         $EXIINDUSTRIAL->__GET('ID_PLANTA'),

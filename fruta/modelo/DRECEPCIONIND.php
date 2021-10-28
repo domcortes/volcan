@@ -11,7 +11,12 @@
         private	  $ID_DRECEPCION; 
         private	  $FOLIO_DRECEPCION;
         private   $FECHA_EMBALADO_DRECEPCION;
+        private   $CANTIDAD_ENVASE_DRECEPCION;
         private   $KILOS_NETO_DRECEPCION;
+        private   $KILOS_BRUTO_DRECEPCION;
+        private   $KILOS_PROMEDIO_DRECEPCION;
+        private   $PESO_PALLET_DRECEPCION;
+        private   $GASIFICADO_DRECEPCION;
         private   $ESTADO; 
         private   $ESTADO_REGISTRO; 
         private   $INGRESO; 

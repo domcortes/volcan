@@ -154,24 +154,35 @@ class EINDUSTRIAL_ADO
                 "INSERT INTO estandar_eindustrial (
                                                     CODIGO_ESTANDAR,
                                                     NOMBRE_ESTANDAR,
-                                                    PESO_NETO_ESTANDAR,
+                                                    CANTIDAD_ENVASE_ESTANDAR,
+                                                    PESO_ENVASE_ESTANDAR,
+                                                    PESO_PALLET_ESTANDAR,
+
+                                                    TESTANDAR,
+
                                                     ID_ESPECIES,
                                                     ID_EMPRESA,
                                                     ID_PRODUCTO,  
                                                     ID_USUARIOI,
                                                     ID_USUARIOM,
+                                                    
                                                     INGRESO ,
                                                     MODIFICACION ,
                                                     TFRUTA_ESTANDAR, 
                                                     ESTADO_REGISTRO 
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  3, 1);";
+	       	( ?, ?, ?, ?, ?,    ?,  ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  3, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $EINDUSTRIAL->__GET('CODIGO_ESTANDAR'),
                         $EINDUSTRIAL->__GET('NOMBRE_ESTANDAR'),
-                        $EINDUSTRIAL->__GET('PESO_NETO_ESTANDAR'),
+                        $EINDUSTRIAL->__GET('CANTIDAD_ENVASE_ESTANDAR'),
+                        $EINDUSTRIAL->__GET('PESO_ENVASE_ESTANDAR'),
+                        $EINDUSTRIAL->__GET('PESO_PALLET_ESTANDAR'),
+
+                        $EINDUSTRIAL->__GET('TESTANDAR'),
+
                         $EINDUSTRIAL->__GET('ID_ESPECIES'),
                         $EINDUSTRIAL->__GET('ID_EMPRESA'),
                         $EINDUSTRIAL->__GET('ID_PRODUCTO'),
@@ -210,7 +221,12 @@ class EINDUSTRIAL_ADO
 		UPDATE estandar_eindustrial SET
             CODIGO_ESTANDAR= ?, 
             NOMBRE_ESTANDAR= ?,  
-            PESO_NETO_ESTANDAR= ?,   
+            CANTIDAD_ENVASE_ESTANDAR= ?,   
+            PESO_ENVASE_ESTANDAR= ?,   
+            PESO_PALLET_ESTANDAR= ?,   
+
+            TESTANDAR= ?,   
+            
             ID_ESPECIES= ?  ,   
             ID_EMPRESA= ?  ,   
             ID_PRODUCTO= ?  ,  
@@ -221,7 +237,12 @@ class EINDUSTRIAL_ADO
                     array(
                         $EINDUSTRIAL->__GET('CODIGO_ESTANDAR'),
                         $EINDUSTRIAL->__GET('NOMBRE_ESTANDAR'),
-                        $EINDUSTRIAL->__GET('PESO_NETO_ESTANDAR'),
+                        $EINDUSTRIAL->__GET('CANTIDAD_ENVASE_ESTANDAR'),
+                        $EINDUSTRIAL->__GET('PESO_ENVASE_ESTANDAR'),
+                        $EINDUSTRIAL->__GET('PESO_PALLET_ESTANDAR'),
+
+                        $EINDUSTRIAL->__GET('TESTANDAR'),
+
                         $EINDUSTRIAL->__GET('ID_ESPECIES'),
                         $EINDUSTRIAL->__GET('ID_EMPRESA'),
                         $EINDUSTRIAL->__GET('ID_PRODUCTO'),
@@ -242,9 +263,9 @@ class EINDUSTRIAL_ADO
 
         try {
             $query = "
-    UPDATE estandar_eindustrial SET			
-            ESTADO_REGISTRO = 0
-    WHERE ID_ESTANDAR= ?;";
+                UPDATE estandar_eindustrial SET			
+                        ESTADO_REGISTRO = 0
+                WHERE ID_ESTANDAR= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -261,9 +282,9 @@ class EINDUSTRIAL_ADO
     {
         try {
             $query = "
-    UPDATE estandar_eindustrial SET			
-            ESTADO_REGISTRO = 1
-    WHERE ID_ESTANDAR= ?;";
+                    UPDATE estandar_eindustrial SET			
+                            ESTADO_REGISTRO = 1
+                    WHERE ID_ESTANDAR= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -298,5 +319,50 @@ class EINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
+    
+    public function listarEstandarProcesoPorEmpresaCBX($IDEMPRESA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT * 
+                                            FROM estandar_eindustrial 
+                                            WHERE ESTADO_REGISTRO = 1
+                                            AND ID_EMPRESA = '".$IDEMPRESA."'
+                                            AND TESTANDAR = 0 ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function listarEstandarRecepcionPorEmpresaCBX($IDEMPRESA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                            FROM estandar_eindustrial 
+                                            WHERE ESTADO_REGISTRO = 1
+                                            AND ID_EMPRESA = '".$IDEMPRESA."'
+                                            AND TESTANDAR = 1 ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }

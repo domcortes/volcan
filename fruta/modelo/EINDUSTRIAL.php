@@ -12,7 +12,10 @@
         private   $ID_ESTANDAR;
         private   $CODIGO_ESTANDAR;
         private   $NOMBRE_ESTANDAR;
-        private   $PESO_NETO_ESTANDAR;
+        private   $CANTIDAD_ENVASE_ESTANDAR;
+        private   $PESO_ENVASE_ESTANDAR;
+        private   $PESO_PALLET_ESTANDAR;
+        private   $TESTANDAR;
         private   $TFRUTA_ESTANDAR;
         private   $ESTADO_REGISTRO;
         private   $ID_ESPECIES;

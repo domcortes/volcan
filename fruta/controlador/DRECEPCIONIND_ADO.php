@@ -128,28 +128,45 @@ class DRECEPCIONIND_ADO
                                             (
                                                 FOLIO_DRECEPCION, 
                                                 FECHA_EMBALADO_DRECEPCION, 
+
+                                                CANTIDAD_ENVASE_DRECEPCION, 
                                                 KILOS_NETO_DRECEPCION, 
+                                                KILOS_BRUTO_DRECEPCION, 
+                                                KILOS_PROMEDIO_DRECEPCION, 
+                                                PESO_PALLET_DRECEPCION, 
+
+                                                GASIFICADO_DRECEPCION,
                                                 ID_TMANEJO,
+
                                                 ID_FOLIO,    
                                                 ID_ESTANDAR, 
                                                 ID_PRODUCTOR, 
                                                 ID_VESPECIES, 
                                                 ID_RECEPCION,  
+
                                                 INGRESO,
                                                 MODIFICACION,
                                                 ESTADO,
                                                 ESTADO_REGISTRO
                                             ) 
              VALUES
-               (?, ?, ?, ?, ?,    ?, ?, ?, ?,  SYSDATE(), SYSDATE(), 1, 1);";
+               (?, ?,    ?, ?, ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?,   SYSDATE(), SYSDATE(), 1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $DRECEPCIONIND->__GET('FOLIO_DRECEPCION'),
                         $DRECEPCIONIND->__GET('FECHA_EMBALADO_DRECEPCION'),
+
+                        $DRECEPCIONIND->__GET('CANTIDAD_ENVASE_DRECEPCION'),
                         $DRECEPCIONIND->__GET('KILOS_NETO_DRECEPCION'),
+                        $DRECEPCIONIND->__GET('KILOS_BRUTO_DRECEPCION'),
+                        $DRECEPCIONIND->__GET('KILOS_PROMEDIO_DRECEPCION'),
+                        $DRECEPCIONIND->__GET('PESO_PALLET_DRECEPCION'),
+
+                        $DRECEPCIONIND->__GET('GASIFICADO_DRECEPCION'),
                         $DRECEPCIONIND->__GET('ID_TMANEJO'),
+
                         $DRECEPCIONIND->__GET('ID_FOLIO'),                        
                         $DRECEPCIONIND->__GET('ID_ESTANDAR'),
                         $DRECEPCIONIND->__GET('ID_PRODUCTOR'),
@@ -183,7 +200,12 @@ class DRECEPCIONIND_ADO
                         UPDATE fruta_drecepcionind SET                             
                                 MODIFICACION = SYSDATE(), 
                                 FECHA_EMBALADO_DRECEPCION  = ?,
+                                CANTIDAD_ENVASE_DRECEPCION  = ?  ,
                                 KILOS_NETO_DRECEPCION  = ?  ,
+                                KILOS_BRUTO_DRECEPCION  = ?  ,
+                                KILOS_PROMEDIO_DRECEPCION  = ?  ,
+                                PESO_PALLET_DRECEPCION  = ?  ,
+                                GASIFICADO_DRECEPCION = ? ,
                                 ID_TMANEJO = ? ,
                                 ID_ESTANDAR = ?,   
                                 ID_PRODUCTOR = ?,  
@@ -194,7 +216,12 @@ class DRECEPCIONIND_ADO
                 ->execute(
                     array(
                         $DRECEPCIONIND->__GET('FECHA_EMBALADO_DRECEPCION'),
+                        $DRECEPCIONIND->__GET('CANTIDAD_ENVASE_DRECEPCION'),
                         $DRECEPCIONIND->__GET('KILOS_NETO_DRECEPCION'),
+                        $DRECEPCIONIND->__GET('KILOS_BRUTO_DRECEPCION'),
+                        $DRECEPCIONIND->__GET('KILOS_PROMEDIO_DRECEPCION'),
+                        $DRECEPCIONIND->__GET('PESO_PALLET_DRECEPCION'),
+                        $DRECEPCIONIND->__GET('GASIFICADO_DRECEPCION'),
                         $DRECEPCIONIND->__GET('ID_TMANEJO'),                        
                         $DRECEPCIONIND->__GET('ID_ESTANDAR'),
                         $DRECEPCIONIND->__GET('ID_PRODUCTOR'),
@@ -216,13 +243,46 @@ class DRECEPCIONIND_ADO
 
 
     //BUSCAR
+    public function buscarPorRecepcionAgrupadoEstandarproducto($IDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT 
+                                                        estandar.ID_PRODUCTO,
+                                                        producto.ID_TUMEDIDA, 
+                                                        IFNULL(SUM(detalle.CANTIDAD_ENVASE_DRECEPCION),0) AS 'ENVASE' 
+                                                FROM fruta_drecepcionind detalle, estandar_erecepcion estandar, material_producto producto 
+                                                WHERE detalle.ID_ESTANDAR= estandar.ID_ESTANDAR 
+                                                    AND estandar.ID_PRODUCTO=producto.ID_PRODUCTO 
+                                                    AND detalle.ESTADO_REGISTRO = 1 
+                                                    AND   ID_RECEPCION = '" . $IDRECEPCION . "' 
+                                                GROUP BY estandar.ID_PRODUCTO     
+                                             
+                                             ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function buscarPorRecepcion($IDRECEPCION)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
                                                         DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
-                                                        IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO'
+                                                        IFNULL(CANTIDAD_ENVASE_DRECEPCION,0) AS 'ENVASE', 
+                                                        IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO', 
+                                                        IFNULL(KILOS_PROMEDIO_DRECEPCION,0) AS 'PROMEDIO' , 
+                                                        IFNULL(KILOS_BRUTO_DRECEPCION,0)  AS 'BRUTO'  
                                             FROM fruta_drecepcionind 
                                             WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                             AND ESTADO_REGISTRO = 1 ;");
@@ -245,7 +305,10 @@ class DRECEPCIONIND_ADO
 
             $datos = $this->conexion->prepare("SELECT * , 
                                                         DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
-                                                        FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO'
+                                                        FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),0,'de_DE') AS 'ENVASE', 
+                                                        FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO', 
+                                                        FORMAT(IFNULL(KILOS_PROMEDIO_DRECEPCION,0),3,'de_DE') AS 'PROMEDIO' , 
+                                                        FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),2,'de_DE')  AS 'BRUTO'  
                                              FROM fruta_drecepcionind
                                              WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                              AND ESTADO_REGISTRO = 1 ;");

@@ -14,6 +14,7 @@ include_once '../controlador/FOLIO_ADO.php';
 
 include_once '../controlador/RECEPCIONE_ADO.php';
 include_once '../controlador/RECEPCIONMP_ADO.php';
+include_once '../controlador/RECEPCIONIND_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -29,6 +30,7 @@ $FOLIO_ADO =  new FOLIO_ADO();
 
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 $RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -60,9 +62,9 @@ $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-if ($EMPRESAS   && $TEMPORADAS) {
-    $ARRAYRECEPCION = $RECEPCIONE_ADO->listarRecepcionPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYRECEPCIONTOTALES = $RECEPCIONE_ADO->obtenerTotalesRecepcionPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+    $ARRAYRECEPCION = $RECEPCIONE_ADO->listarRecepcionPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYRECEPCIONTOTALES = $RECEPCIONE_ADO->obtenerTotalesRecepcionPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYRECEPCIONTOTALES[0]['CANTIDAD'];
 }
 include_once "../config/validarDatosUrl.php";
@@ -166,7 +168,8 @@ include_once "../config/datosUrLP.php";
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Gestión Envases</li>
+                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                        <li class="breadcrumb-item" aria-current="page">Envases</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Recepción </a>
                                         </li>
                                     </ol>
@@ -202,6 +205,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
                                                     <th>Recepción Materia Prima</th>
+                                                    <th>Recepción Producto Industrial</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                 </tr>
@@ -271,6 +275,12 @@ include_once "../config/datosUrLP.php";
                                                     }else{
                                                         $NUMERORECEPCIONMP="No Aplica";
                                                     }
+                                                    $ARRAYRECEPCIONIND=$RECEPCIONIND_ADO->verRecepcion($r['ID_RECEPCIONIND']);
+                                                    if($ARRAYRECEPCIONIND){
+                                                        $NUMERORECEPCIONIND=$ARRAYRECEPCIONIND[0]["NUMERO_RECEPCION"];
+                                                    }else{
+                                                        $NUMERORECEPCIONIND="No Aplica";
+                                                    }
                                                     ?>
 
                                                     <tr class="center">
@@ -297,7 +307,22 @@ include_once "../config/datosUrLP.php";
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_RECEPCION']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRecepcione" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcione" />                                                                     
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcione" />
+                                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcione.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe
@@ -320,6 +345,7 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                         <td><?php echo $NUMERORECEPCIONMP; ?></td>
+                                                        <td><?php echo $NUMERORECEPCIONIND; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
 

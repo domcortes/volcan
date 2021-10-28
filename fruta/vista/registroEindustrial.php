@@ -28,12 +28,15 @@ $EINDUSTRIAL =  new EINDUSTRIAL();
 
 $CODIGOESTANDAR = "";
 $NOMBRESTANDAR = "";
-$PESONETOESTANDAR = "";
 $ESPECIES = "";
 $TAINDUSTRIAL = "";
 $ESTADO = "";
 $PRODUCTO="";
 
+$TESTANDAR="";
+$ENVASEESTANDAR = "";
+$PESOENVASESTANDAR = "";
+$PESOPALLETESTANDAR = "";
 
 $IDOP = "";
 $OP = "";
@@ -72,7 +75,12 @@ if (isset($_REQUEST['GUARDAR'])) {
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
     $EINDUSTRIAL->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
     $EINDUSTRIAL->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBRESTANDAR']);
-    $EINDUSTRIAL->__SET('PESO_NETO_ESTANDAR', $_REQUEST['PESONETOESTANDAR']);
+    $EINDUSTRIAL->__SET('TESTANDAR', $_REQUEST['TESTANDAR']);
+    if($_REQUEST['TESTANDAR']==1){
+        $EINDUSTRIAL->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
+        $EINDUSTRIAL->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
+        $EINDUSTRIAL->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
+    }
     $EINDUSTRIAL->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $EINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $EINDUSTRIAL->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
@@ -91,10 +99,15 @@ if (isset($_REQUEST['EDITAR'])) {
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
     $EINDUSTRIAL->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
     $EINDUSTRIAL->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBRESTANDAR']);
-    $EINDUSTRIAL->__SET('PESO_NETO_ESTANDAR', $_REQUEST['PESONETOESTANDAR']);
+    $EINDUSTRIAL->__SET('TESTANDAR', $_REQUEST['TESTANDAR']);
+    if($_REQUEST['TESTANDAR']==1){
+        $EINDUSTRIAL->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
+        $EINDUSTRIAL->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
+        $EINDUSTRIAL->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
+    }
     $EINDUSTRIAL->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-    $EINDUSTRIAL->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $EINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $EINDUSTRIAL->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $EINDUSTRIAL->__SET('ID_USUARIOM', $IDUSUARIOS);
     $EINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -143,7 +156,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
             $CODIGOESTANDAR = "" . $r['CODIGO_ESTANDAR'];
             $NOMBRESTANDAR = "" . $r['NOMBRE_ESTANDAR'];
-            $PESONETOESTANDAR = "" . $r['PESO_NETO_ESTANDAR'];
+            $ENVASEESTANDAR = "" . $r['CANTIDAD_ENVASE_ESTANDAR'];
+            $PESOENVASEESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
+            $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
+            $TESTANDAR = "" . $r['TESTANDAR'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
 
@@ -166,7 +182,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
             $CODIGOESTANDAR = "" . $r['CODIGO_ESTANDAR'];
             $NOMBRESTANDAR = "" . $r['NOMBRE_ESTANDAR'];
-            $PESONETOESTANDAR = "" . $r['PESO_NETO_ESTANDAR'];
+            $ENVASEESTANDAR = "" . $r['CANTIDAD_ENVASE_ESTANDAR'];
+            $PESOENVASESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
+            $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
+            $TESTANDAR = "" . $r['TESTANDAR'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
 
@@ -174,6 +193,40 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         endforeach;
     }
 }
+
+if (isset($_POST)) {
+
+    if (isset($_REQUEST['CODIGOESTANDAR'])) {
+        $CODIGOESTANDAR = "" . $_REQUEST['CODIGOESTANDAR'];
+    }
+    if (isset($_REQUEST['NOMBRESTANDAR'])) {
+        $NOMBRESTANDAR = "" . $_REQUEST['NOMBRESTANDAR'];
+    }
+    if (isset($_REQUEST['TESTANDAR'])) {
+        $TESTANDAR = "" . $_REQUEST['TESTANDAR'];
+        if($TESTANDAR==1){
+            if (isset($_REQUEST['PESOENVASEESTANDAR'])) {
+                $PESOENVASEESTANDAR = "" . $_REQUEST['PESOENVASEESTANDAR'];
+            }
+            if (isset($_REQUEST['ENVASEESTANDAR'])) {
+                $ENVASEESTANDAR = "" . $_REQUEST['ENVASEESTANDAR'];
+            }
+            if (isset($_REQUEST['PESOPALLETESTANDAR'])) {
+                $PESOPALLETESTANDAR = "" . $_REQUEST['PESOPALLETESTANDAR'];
+            }
+        }
+    }
+    if (isset($_REQUEST['PRODUCTO'])) {
+        $PRODUCTO = "" . $_REQUEST['PRODUCTO'];
+    }
+    if (isset($_REQUEST['ESPECIES'])) {
+        $ESPECIES = "" . $_REQUEST['ESPECIES'];
+    }
+
+
+
+}
+
 
 
 
@@ -195,6 +248,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
+
+
+               
+
                 function validacion() {
 
 
@@ -202,16 +259,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                     CODIGOESTANDAR = document.getElementById("CODIGOESTANDAR").value;
                     NOMBRESTANDAR = document.getElementById("NOMBRESTANDAR").value;
-                    PESONETOESTANDAR = document.getElementById("PESONETOESTANDAR").value;
+                    TESTANDAR = document.getElementById("TESTANDAR").selectedIndex;
                     ESPECIES = document.getElementById("ESPECIES").selectedIndex;
-                   // PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
+                    PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
 
 
                     document.getElementById('val_codigo').innerHTML = "";
                     document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_netoee').innerHTML = "";
+                    document.getElementById('val_testandar').innerHTML = "";
                     document.getElementById('val_especies').innerHTML = "";
-                   // document.getElementById('val_producto').innerHTML = "";
+                    document.getElementById('val_producto').innerHTML = "";
 
 
                     if (CODIGOESTANDAR == null || CODIGOESTANDAR == 0) {
@@ -230,15 +287,43 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     }
                     document.form_reg_dato.NOMBRESTANDAR.style.borderColor = "#4AF575";
 
+                    if(TESTANDAR==1){
+                        ENVASEESTANDAR = document.getElementById("ENVASEESTANDAR").value;
+                        PESOPALLETESTANDAR = document.getElementById("PESOPALLETESTANDAR").value;
+                        PESOENVASEESTANDAR = document.getElementById("PESOENVASEESTANDAR").value;
+                        
+                        document.getElementById('val_cajapee').innerHTML = "";
+                        document.getElementById('val_envase').innerHTML = "";
+                        document.getElementById('val_pallet').innerHTML = "";
 
-                    if (PESONETOESTANDAR == null || PESONETOESTANDAR == "" || PESONETOESTANDAR < 0) {
-                        document.form_reg_dato.PESONETOESTANDAR.focus();
-                        document.form_reg_dato.PESONETOESTANDAR.style.borderColor = "#FF0000";
-                        document.getElementById('val_netoee').innerHTML = "NO A INGRESADO DATO";
-                        return false;
+                        if (ENVASEESTANDAR == null || ENVASEESTANDAR == "") {
+                            document.form_reg_dato.ENVASEESTANDAR.focus();
+                            document.form_reg_dato.ENVASEESTANDAR.style.borderColor = "#FF0000";
+                            document.getElementById('val_cajapee').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.ENVASEESTANDAR.style.borderColor = "#4AF575";
+
+
+                        if (PESOENVASEESTANDAR == null || PESOENVASEESTANDAR == "" || PESOENVASEESTANDAR < 0) {
+                            document.form_reg_dato.PESOENVASEESTANDAR.focus();
+                            document.form_reg_dato.PESOENVASEESTANDAR.style.borderColor = "#FF0000";
+                            document.getElementById('val_envase').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.PESOENVASEESTANDAR.style.borderColor = "#4AF575";
+
+
+                        if (PESOPALLETESTANDAR == null || PESOPALLETESTANDAR == "" || PESOPALLETESTANDAR < 0) {
+                            document.form_reg_dato.PESOPALLETESTANDAR.focus();
+                            document.form_reg_dato.PESOPALLETESTANDAR.style.borderColor = "#FF0000";
+                            document.getElementById('val_pallet').innerHTML = "NO A INGRESADO DATO";
+                            return false;
+                        }
+                        document.form_reg_dato.PESOPALLETESTANDAR.style.borderColor = "#4AF575";
+
                     }
-                    document.form_reg_dato.PESONETOESTANDAR.style.borderColor = "#4AF575";
-
+                    
                     if (ESPECIES == null || ESPECIES == 0) {
                         document.form_reg_dato.ESPECIES.focus();
                         document.form_reg_dato.ESPECIES.style.borderColor = "#FF0000";
@@ -246,7 +331,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.ESPECIES.style.borderColor = "#4AF575";
-                    /*
+                    
                     if (PRODUCTO == null || PRODUCTO == 0) {
                         document.form_reg_dato.PRODUCTO.focus();
                         document.form_reg_dato.PRODUCTO.style.borderColor = "#FF0000";
@@ -254,7 +339,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                         return false;
                     }
                     document.form_reg_dato.PRODUCTO.style.borderColor = "#4AF575";
-                    */
+                    
 
 
 
@@ -371,7 +456,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Codigo </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -380,20 +465,46 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_codigo" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
                                                         <input type="text" class="form-control" placeholder="Nombre Estandar " id="NOMBRESTANDAR" name="NOMBRESTANDAR" value="<?php echo $NOMBRESTANDAR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Peso Neto</label>
-                                                        <input type="number" step="0.00001" class="form-control" placeholder="Peso Neto" id="PESONETOESTANDAR" name="PESONETOESTANDAR" value="<?php echo $PESONETOESTANDAR; ?>" <?php echo $DISABLED; ?> />
-                                                        <label id="val_netoee" class="validacion"> </label>
+                                                        <label>Tipo Estandar</label>
+                                                        <select class="form-control select2" id="TESTANDAR" name="TESTANDAR" style="width: 100%;" onchange="this.form.submit()" value="<?php echo $TESTANDAR; ?>" <?php echo $DISABLED; ?>>                                                            
+                                                            <option value="0" <?php if ($TESTANDAR == 0) { echo "selected";  } ?>>  Proceso  </option>              
+                                                            <option value="1" <?php if ($TESTANDAR == 1) { echo "selected";  } ?>>  Recepción  </option>                                                                                                                 
+                                                        </select>  
+                                                        <label id="val_testandar" class="validacion"> </label>
                                                     </div>
-                                                </div>
+                                                </div>   
+                                                <?php if ($TESTANDAR==1) {    ?>                                  
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Cantidad Envase</label>
+                                                            <input type="number" class="form-control" placeholder="Cantidad Envase Estandar" id="ENVASEESTANDAR" name="ENVASEESTANDAR" value="<?php echo $ENVASEESTANDAR ?>" <?php echo $DISABLED; ?> />
+                                                            <label id="val_cajapee" class="validacion"> </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Peso Envase</label>
+                                                            <input type="number"  step="0.00001" class="form-control" placeholder="Peso Envase Estandar" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR ?>" <?php echo $DISABLED; ?> />
+                                                            <label id="val_envase" class="validacion"> </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Peso Pallet</label>
+                                                            <input type="number" class="form-control" step="0.01" placeholder="Peso Envase Estandar" id="PESOPALLETESTANDAR" name="PESOPALLETESTANDAR" value="<?php echo $PESOPALLETESTANDAR ?>" <?php echo $DISABLED; ?> />
+                                                            <label id="val_pallet" class="validacion"> </label>
+                                                        </div>
+                                                    </div>   
+                                                <?php } ?>
                                             </div>
                                             <div class="row">            
                                                 <div class="col-md-6 col-12">
@@ -403,15 +514,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                             <option></option>
                                                             <?php foreach ($ARRAYESPECIES as $r) : ?>
                                                                 <?php if ($ARRAYESPECIES) {    ?>
-                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" <?php if ($ESPECIES == $r['ID_ESPECIES']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
+                                                                    <option value="<?php echo $r['ID_ESPECIES']; ?>" <?php if ($ESPECIES == $r['ID_ESPECIES']) { echo "selected";  } ?>>
                                                                         <?php echo $r['NOMBRE_ESPECIES'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
-
                                                             <?php endforeach; ?>
                                                         </select>
                                                         <label id="val_especies" class="validacion"> </label>

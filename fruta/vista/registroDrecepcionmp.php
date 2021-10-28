@@ -904,7 +904,6 @@ if ($_POST) {
                                                 <label>Peso Pallet</label>
                                                 <input type="number" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCION" name="PESOPALLETRECEPCION" onchange="neto()" value="<?php echo $PESOPALLETRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_pesopallet" class="validacion"> </label>
-
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">

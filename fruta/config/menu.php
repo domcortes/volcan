@@ -653,7 +653,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
       </li>      
       <li class="treeview">
         <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/icons.svg" class="svg-icon" alt="">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/cards.svg" class="svg-icon" alt="">
           <span> Gestión Envases</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>

@@ -103,7 +103,7 @@ $ARRAYDPROCESOINDUSTRIAL2 = "";
 
 $ARRAYVERFOLIOPOIND = "";
 
-$ARRAYESTANDAR = $EINDUSTRIAL_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
+$ARRAYESTANDAR = $EINDUSTRIAL_ADO->listarEstandarRecepcionPorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 $ARRAYFECHAACTUAL = $DRECEPCIONIND_ADO->obtenerFecha();
@@ -159,22 +159,30 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $ARRAYDPROCESOINDUSTRIAL = $DRECEPCIONIND_ADO->verDrecepcion($IDOP);
         foreach ($ARRAYDPROCESOINDUSTRIAL as $r) :
             // $NUMEROFOLIODINDUSTRIAL = "" . $r['FOLIO_DRECEPCION'];
+            $NUMEROFOLIODINDUSTRIAL = "" . $r['FOLIO_DRECEPCION'];
             $FECHAEMBALADODINDUSTRIAL = "" . $r['FECHA_EMBALADO_DRECEPCION'];
-            $KILOSNETO = "" . $r['KILOS_NETO_DRECEPCION'];
-            $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $VESPECIES = "" . $r['ID_VESPECIES'];
+            /*
+            $CANTIDADENVASEDRECEPCION = "" . $r['CANTIDAD_ENVASE_DRECEPCION'];
+            $KILOSBRUTODRECEPCION = "" . $r['KILOS_BRUTO_DRECEPCION'];
+            $KILOSNETODRECEPCION = "" . $r['KILOS_NETO_DRECEPCION'];
+            $KILOSPROMEDIODRECEPCION = "" . $r['KILOS_PROMEDIO_DRECEPCION'];
+            */
+            $PESOPALLETRECEPCION = "" . $r['PESO_PALLET_DRECEPCION'];
+            $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-            }
-            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+            }            $TMANEJO = "" . $r['ID_TMANEJO'];
+            $ESTANDAR = "" . $r['ID_ESTANDAR'];
+            $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] .  ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+            $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -187,21 +195,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         foreach ($ARRAYDPROCESOINDUSTRIAL as $r) :
             $NUMEROFOLIODINDUSTRIAL = "" . $r['FOLIO_DRECEPCION'];
             $FECHAEMBALADODINDUSTRIAL = "" . $r['FECHA_EMBALADO_DRECEPCION'];
-            $KILOSNETO = "" . $r['KILOS_NETO_DRECEPCION'];
-            $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $VESPECIES = "" . $r['ID_VESPECIES'];
+            $CANTIDADENVASEDRECEPCION = "" . $r['CANTIDAD_ENVASE_DRECEPCION'];
+            $KILOSBRUTODRECEPCION = "" . $r['KILOS_BRUTO_DRECEPCION'];
+            $KILOSNETODRECEPCION = "" . $r['KILOS_NETO_DRECEPCION'];
+            $KILOSPROMEDIODRECEPCION = "" . $r['KILOS_PROMEDIO_DRECEPCION'];
+            $PESOPALLETRECEPCION = "" . $r['PESO_PALLET_DRECEPCION'];
+            $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-            }
-            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+            }            $TMANEJO = "" . $r['ID_TMANEJO'];
+            $ESTANDAR = "" . $r['ID_ESTANDAR'];
+            $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] .  ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+            $ESTADO = "" . $r['ESTADO'];
 
         endforeach;
     }
@@ -217,21 +230,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         foreach ($ARRAYDPROCESOINDUSTRIAL as $r) :
             $NUMEROFOLIODINDUSTRIAL = "" . $r['FOLIO_DRECEPCION'];
             $FECHAEMBALADODINDUSTRIAL = "" . $r['FECHA_EMBALADO_DRECEPCION'];
-            $KILOSNETO = "" . $r['KILOS_NETO_DRECEPCION'];
-            $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $VESPECIES = "" . $r['ID_VESPECIES'];
+            $CANTIDADENVASEDRECEPCION = "" . $r['CANTIDAD_ENVASE_DRECEPCION'];
+            $KILOSBRUTODRECEPCION = "" . $r['KILOS_BRUTO_DRECEPCION'];
+            $KILOSNETODRECEPCION = "" . $r['KILOS_NETO_DRECEPCION'];
+            $KILOSPROMEDIODRECEPCION = "" . $r['KILOS_PROMEDIO_DRECEPCION'];
+            $PESOPALLETRECEPCION = "" . $r['PESO_PALLET_DRECEPCION'];
+            $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-            }
-            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+            }            $TMANEJO = "" . $r['ID_TMANEJO'];
+            $ESTANDAR = "" . $r['ID_ESTANDAR'];
+            $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] .  ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+            $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
     //ver =  OBTENCION DE DATOS PARA LA VISUALIZACION DEL REGISTRO
@@ -246,21 +264,26 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         foreach ($ARRAYDPROCESOINDUSTRIAL as $r) :
             $NUMEROFOLIODINDUSTRIAL = "" . $r['FOLIO_DRECEPCION'];
             $FECHAEMBALADODINDUSTRIAL = "" . $r['FECHA_EMBALADO_DRECEPCION'];
-            $KILOSNETO = "" . $r['KILOS_NETO_DRECEPCION'];
-            $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ESTANDAR = "" . $r['ID_ESTANDAR'];
-            $VESPECIES = "" . $r['ID_VESPECIES'];
+            $CANTIDADENVASEDRECEPCION = "" . $r['CANTIDAD_ENVASE_DRECEPCION'];
+            $KILOSBRUTODRECEPCION = "" . $r['KILOS_BRUTO_DRECEPCION'];
+            $KILOSNETODRECEPCION = "" . $r['KILOS_NETO_DRECEPCION'];
+            $KILOSPROMEDIODRECEPCION = "" . $r['KILOS_PROMEDIO_DRECEPCION'];
+            $PESOPALLETRECEPCION = "" . $r['PESO_PALLET_DRECEPCION'];
+            $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-            }
-            $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+            }            $TMANEJO = "" . $r['ID_TMANEJO'];
+            $ESTANDAR = "" . $r['ID_ESTANDAR'];
+            $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] .  ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+            $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
 }
@@ -269,25 +292,46 @@ if ($_POST) {
     if (isset($_REQUEST['FECHAEMBALADODINDUSTRIAL'])) {
         $FECHAEMBALADODINDUSTRIAL = $_REQUEST['FECHAEMBALADODINDUSTRIAL'];
     }
-    if (isset($_REQUEST['ESTANDAR'])) {
-        $ESTANDAR = $_REQUEST['ESTANDAR'];
-        $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
-        if ($ARRAYVERESTANDAR) {
-            $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
-        }
+    if (isset($_REQUEST['PRODUCTOR'])) {
+        $PRODUCTOR = $_REQUEST['PRODUCTOR'];
+    }
+    if (isset($_REQUEST['GASIFICADORECEPCION'])) {
+        $GASIFICADORECEPCION = $_REQUEST['GASIFICADORECEPCION'];
     }
     if (isset($_REQUEST['VESPECIES'])) {
         $VESPECIES = $_REQUEST['VESPECIES'];
     }
-    if (isset($_REQUEST['PRODUCTOR'])) {
-        $PRODUCTOR = $_REQUEST['PRODUCTOR'];
-    }
-    if (isset($_REQUEST['KILOSNETO'])) {
-        $KILOSNETO = $_REQUEST['KILOSNETO'];
-    }
+    if (isset($_REQUEST['ESTANDAR'])) {
+        $ESTANDAR = $_REQUEST['ESTANDAR'];
+        $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
+        if ($ARRAYVERESTANDAR) {
+            $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+            $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+            if ($_REQUEST['PESOPALLETRECEPCION']) {
+                $PESOPALLETRECEPCION = $_REQUEST['PESOPALLETRECEPCION'];
+            } else {
+                if ($ARRAYVERESTANDAR) {
+                    $PESOPALLETRECEPCION = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                } else {
+                    $PESOPALLETRECEPCION = "";
+                }
+            } 
+            if ($_REQUEST['KILOSBRUTODRECEPCION'] > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
+                $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
+                $KILOSNETODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'] - $PESOENVASE - $PESOPALLETRECEPCION;
+            }
+        }
+    }  
     if (isset($_REQUEST['TMANEJO'])) {
         $TMANEJO = $_REQUEST['TMANEJO'];
     }
+    if (isset($_REQUEST['CANTIDADENVASEDRECEPCION'])) {
+        $CANTIDADENVASEDRECEPCION = $_REQUEST['CANTIDADENVASEDRECEPCION'];
+    }
+    if (isset($_REQUEST['KILOSBRUTODRECEPCION'])) {
+        $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
+    }
+    
 }
 
 ?>
@@ -306,76 +350,180 @@ if ($_POST) {
         <?php include_once "../config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
         <script type="text/javascript">
-            function validacion() {
-                FECHAEMBALADODINDUSTRIAL = document.getElementById("FECHAEMBALADODINDUSTRIAL").value;
-                TRECEPCION = document.getElementById("TRECEPCION").value;
-                ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;
-                VESPECIES = document.getElementById("VESPECIES").selectedIndex;
-                KILOSNETO = document.getElementById("KILOSNETO").value;
-                TMANEJO = document.getElementById("TMANEJO").selectedIndex;
 
-                document.getElementById('val_fechaembalado').innerHTML = "";
-                document.getElementById('val_estandar').innerHTML = "";
-                document.getElementById('val_vespecies').innerHTML = "";
-                document.getElementById('val_neto').innerHTML = "";
-                document.getElementById('val_tmanejo').innerHTML = "";
+                function neto() {
+                    var repuesta;
+                    var pesoenvase = 0;
+                    var pesoneto = 0;
 
-                if (FECHAEMBALADODINDUSTRIAL == null || FECHAEMBALADODINDUSTRIAL.length == 0 || /^\s+$/.test(FECHAEMBALADODINDUSTRIAL)) {
-                    document.form_reg_dato.FECHAEMBALADODINDUSTRIAL.focus();
-                    document.form_reg_dato.FECHAEMBALADODINDUSTRIAL.style.borderColor = "#FF0000";
-                    document.getElementById('val_fechaembalado').innerHTML = "NO HA INGRESADO DATOS";
-                    return false;
+                    ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;
+                    CANTIDADENVASEDRECEPCION = document.getElementById("CANTIDADENVASEDRECEPCION").value;
+                    KILOSBRUTODRECEPCION = document.getElementById("KILOSBRUTODRECEPCION").value;
+
+
+                    document.getElementById('val_estandar').innerHTML = "";
+                    document.getElementById('val_cantidadenvase').innerHTML = "";
+                    document.getElementById('val_kilosbruto').innerHTML = "";
+
+                    if (ESTANDAR == null || ESTANDAR == 0) {
+                        document.form_reg_dato.ESTANDAR.focus();
+                        document.form_reg_dato.ESTANDAR.style.borderColor = "#FF0000";
+                        document.getElementById('val_estandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        repuesta = 1;
+                    } else {
+                        document.form_reg_dato.ESTANDAR.style.borderColor = "#4AF575";
+                        repuesta = 0;
+                    }
+
+                    if (CANTIDADENVASEDRECEPCION == null || CANTIDADENVASEDRECEPCION == 0) {
+                        document.form_reg_dato.CANTIDADENVASEDRECEPCION.focus();
+                        document.form_reg_dato.CANTIDADENVASEDRECEPCION.style.borderColor = "#FF0000";
+                        document.getElementById('val_cantidadenvase').innerHTML = "NO HA INGRESADO DATOS";
+                        repuesta = 1;
+                    } else {
+                        document.form_reg_dato.CANTIDADENVASEDRECEPCION.style.borderColor = "#4AF575";
+                        repuesta = 0;
+                    }
+                    
+                    if (KILOSBRUTODRECEPCION == null || KILOSBRUTODRECEPCION == 0) {
+                        document.form_reg_dato.KILOSBRUTODRECEPCION.focus();
+                        document.form_reg_dato.KILOSBRUTODRECEPCION.style.borderColor = "#FF0000";
+                        document.getElementById('val_kilosbruto').innerHTML = "NO HA INGRESADO DATOS";
+                        repuesta = 1;
+                    } else {
+                        document.form_reg_dato.KILOSBRUTODRECEPCION.style.borderColor = "#4AF575";
+                        repuesta = 0;
+                    }
+
+                    if (repuesta == 0) {
+                        PESOENVASEESTANDAR = parseFloat(document.getElementById("PESOENVASEESTANDAR").value);
+                        CANTIDADENVASEDRECEPCION = parseInt(document.getElementById("CANTIDADENVASEDRECEPCION").value);
+                        PESOPALLETRECEPCION = parseFloat(document.getElementById("PESOPALLETRECEPCION").value);
+                        KILOSBRUTODRECEPCION = parseFloat(document.getElementById("KILOSBRUTODRECEPCION").value);
+
+                        pesoenvase = PESOENVASEESTANDAR * CANTIDADENVASEDRECEPCION;
+                        pesoneto = KILOSBRUTODRECEPCION - PESOPALLETRECEPCION - pesoenvase;
+                        pesoneto = pesoneto.toFixed(2);
+                    }
+                    //document.getElementById('val_kilosneto').innerHTML = pesoneto;
+                    document.getElementById('KILOSNETODRECEPCIONV').value = pesoneto;
                 }
-                document.form_reg_dato.FECHAEMBALADODINDUSTRIAL.style.borderColor = "#4AF575";
 
-                if (TRECEPCION == 2) {
-                    PRODUCTOR = document.getElementById("PRODUCTOR").selectedIndex;
-                    document.getElementById('val_productor').innerHTML = "";
+         
+                function validacion() {
 
-                    if (PRODUCTOR == null || PRODUCTOR == 0) {
-                        document.form_reg_dato.PRODUCTOR.focus();
-                        document.form_reg_dato.PRODUCTOR.style.borderColor = "#FF0000";
-                        document.getElementById('val_productor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                    FECHAEMBALADODINDUSTRIAL = document.getElementById("FECHAEMBALADODINDUSTRIAL").value;                   
+                    TRECEPCION = document.getElementById("TRECEPCION").value;
+                    ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;
+                    GASIFICADORECEPCION = document.getElementById("GASIFICADORECEPCION").selectedIndex;
+                    VESPECIES = document.getElementById("VESPECIES").selectedIndex;
+                    TMANEJO = document.getElementById("TMANEJO").selectedIndex;
+                    PESOPALLETRECEPCION = document.getElementById("PESOPALLETRECEPCION").value;
+                    CANTIDADENVASEDRECEPCION = document.getElementById("CANTIDADENVASEDRECEPCION").value;
+                    KILOSBRUTODRECEPCION = document.getElementById("KILOSBRUTODRECEPCION").value;
+                    //NOTADRECEPCION = document.getElementById("NOTADRECEPCION").value;
+
+                    document.getElementById('val_fechaembalado').innerHTML = "";                  
+                    document.getElementById('val_estandar').innerHTML = "";
+                    document.getElementById('val_gasificacion').innerHTML = "";
+                    document.getElementById('val_vespecies').innerHTML = "";
+                    document.getElementById('val_tmanejo').innerHTML = "";
+                    document.getElementById('val_pesopallet').innerHTML = "";
+                    document.getElementById('val_cantidadenvase').innerHTML = "";
+                    document.getElementById('val_kilosbruto').innerHTML = "";
+                    //document.getElementById('val_nota').innerHTML = "";
+
+                 
+                    if (FECHAEMBALADODINDUSTRIAL == null || FECHAEMBALADODINDUSTRIAL.length == 0 || /^\s+$/.test(FECHAEMBALADODINDUSTRIAL)) {
+                        document.form_reg_dato.FECHAEMBALADODINDUSTRIAL.focus();
+                        document.form_reg_dato.FECHAEMBALADODINDUSTRIAL.style.borderColor = "#FF0000";
+                        document.getElementById('val_fechaembalado').innerHTML = "NO HA INGRESADO DATOS";
                         return false;
                     }
-                    document.form_reg_dato.PRODUCTOR.style.borderColor = "#4AF575";
+                    document.form_reg_dato.FECHAEMBALADODINDUSTRIAL.style.borderColor = "#4AF575";
 
+                 
+                    if (TRECEPCION == 2) {
+                        PRODUCTOR = document.getElementById("PRODUCTOR").selectedIndex;
+                        document.getElementById('val_productor').innerHTML = "";
+
+                        if (PRODUCTOR == null || PRODUCTOR == 0) {
+                            document.form_reg_dato.PRODUCTOR.focus();
+                            document.form_reg_dato.PRODUCTOR.style.borderColor = "#FF0000";
+                            document.getElementById('val_productor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.PRODUCTOR.style.borderColor = "#4AF575";
+
+                    }
+                    if (ESTANDAR == null || ESTANDAR == 0) {
+                        document.form_reg_dato.ESTANDAR.focus();
+                        document.form_reg_dato.ESTANDAR.style.borderColor = "#FF0000";
+                        document.getElementById('val_estandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.ESTANDAR.style.borderColor = "#4AF575";
+
+                    if (GASIFICADORECEPCION == null || GASIFICADORECEPCION == 0) {
+                        document.form_reg_dato.GASIFICADORECEPCION.focus();
+                        document.form_reg_dato.GASIFICADORECEPCION.style.borderColor = "#FF0000";
+                        document.getElementById('val_gasificacion').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.GASIFICADORECEPCION.style.borderColor = "#4AF575";
+   
+                    if (VESPECIES == null || VESPECIES == 0) {
+                        document.form_reg_dato.VESPECIES.focus();
+                        document.form_reg_dato.VESPECIES.style.borderColor = "#FF0000";
+                        document.getElementById('val_vespecies').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.VESPECIES.style.borderColor = "#4AF575";
+
+                    if (TMANEJO == null || TMANEJO == 0) {
+                        document.form_reg_dato.TMANEJO.focus();
+                        document.form_reg_dato.TMANEJO.style.borderColor = "#FF0000";
+                        document.getElementById('val_tmanejo').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.TMANEJO.style.borderColor = "#4AF575";
+
+                    if (PESOPALLETRECEPCION == null || PESOPALLETRECEPCION == 0) {
+                        document.form_reg_dato.PESOPALLETRECEPCION.focus();
+                        document.form_reg_dato.PESOPALLETRECEPCION.style.borderColor = "#FF0000";
+                        document.getElementById('val_pesopallet').innerHTML = "NO HA INGRESADO DATOS";
+                        return false;
+                    }
+                    document.form_reg_dato.PESOPALLETRECEPCION.style.borderColor = "#4AF575";
+
+                    if (CANTIDADENVASEDRECEPCION == null || CANTIDADENVASEDRECEPCION == 0) {
+                        document.form_reg_dato.CANTIDADENVASEDRECEPCION.focus();
+                        document.form_reg_dato.CANTIDADENVASEDRECEPCION.style.borderColor = "#FF0000";
+                        document.getElementById('val_cantidadenvase').innerHTML = "NO HA INGRESADO DATOS";
+                        return false;
+                    }
+                    document.form_reg_dato.CANTIDADENVASEDRECEPCION.style.borderColor = "#4AF575";
+
+                    if (KILOSBRUTODRECEPCION == null || KILOSBRUTODRECEPCION == 0) {
+                        document.form_reg_dato.KILOSBRUTODRECEPCION.focus();
+                        document.form_reg_dato.KILOSBRUTODRECEPCION.style.borderColor = "#FF0000";
+                        document.getElementById('val_kilosbruto').innerHTML = "NO HA INGRESADO DATOS";
+                        return false;
+                    }
+                    document.form_reg_dato.KILOSBRUTODRECEPCION.style.borderColor = "#4AF575";      
+
+
+
+                    /*
+                        if (NOTADRECEPCION == null || NOTA.length == 0 || /^\s+$/.test(NOTADRECEPCION)) {
+                            document.form_reg_dato.NOTADRECEPCION.focus();
+                            document.form_reg_dato.NOTADRECEPCION.style.borderColor = "#FF0000";
+                            document.getElementById('val_nota').innerHTML = "NO HA INGRESADO DATOS";
+                            return false;
+                        }
+                        document.form_reg_dato.NOTADRECEPCION.style.borderColor = "#4AF575";
+                    */
                 }
-
-                if (ESTANDAR == null || ESTANDAR == 0) {
-                    document.form_reg_dato.ESTANDAR.focus();
-                    document.form_reg_dato.ESTANDAR.style.borderColor = "#FF0000";
-                    document.getElementById('val_estandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                    return false;
-                }
-                document.form_reg_dato.ESTANDAR.style.borderColor = "#4AF575";
-
-                if (VESPECIES == null || VESPECIES == 0) {
-                    document.form_reg_dato.VESPECIES.focus();
-                    document.form_reg_dato.VESPECIES.style.borderColor = "#FF0000";
-                    document.getElementById('val_vespecies').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                    return false;
-                }
-                document.form_reg_dato.VESPECIES.style.borderColor = "#4AF575";
-
-                if (KILOSNETO == null || KILOSNETO == 0) {
-                    document.form_reg_dato.KILOSNETO.focus();
-                    document.form_reg_dato.KILOSNETO.style.borderColor = "#FF0000";
-                    document.getElementById('val_neto').innerHTML = "NO HA INGRESADO DATOS";
-                    return false;
-                }
-                document.form_reg_dato.KILOSNETO.style.borderColor = "#4AF575";
-
-                if (TMANEJO == null || TMANEJO == 0) {
-                    document.form_reg_dato.TMANEJO.focus();
-                    document.form_reg_dato.TMANEJO.style.borderColor = "#FF0000";
-                    document.getElementById('val_tmanejo').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                    return false;
-                }
-                document.form_reg_dato.TMANEJO.style.borderColor = "#4AF575";
-
-
-            }
 
             function mueveReloj() {
 
@@ -487,7 +635,7 @@ if ($_POST) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-2">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6  ">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID DRECEPCION" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID RECEPCION" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
@@ -502,14 +650,14 @@ if ($_POST) {
                                                 <input type="text" class="form-control" id="NUMEROFOLIODINDUSTRIALV" name="NUMEROFOLIODINDUSTRIALV" value="<?php echo $NUMEROFOLIODINDUSTRIAL; ?>" disabled style="background-color: #eeeeee;" />
                                             </div>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Fecha Embalado </label>
                                                 <input type="date" class="form-control" placeholder="Fecha Embalado" id="FECHAEMBALADODINDUSTRIAL" name="FECHAEMBALADODINDUSTRIAL" value="<?php echo $FECHAEMBALADODINDUSTRIAL; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_fechaembalado" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-7">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="TRECEPCION" id="TRECEPCION" name="TRECEPCION" value="<?php echo $TRECEPCION; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="FOLIO" id="FOLIO" name="FOLIO" value="<?php echo $FOLIO; ?>" />
@@ -519,12 +667,12 @@ if ($_POST) {
                                                     <input type="hidden" class="form-control" placeholder="PRODUCTOR" id="PRODUCTOR" name="PRODUCTOR" value="<?php echo $PRODUCTOR; ?>" />
                                                     <input type="text" class="form-control" placeholder="Productor" id="PRODUCTORV" name="PRODUCTORV" value="<?php echo $PRODUCTORDATOS; ?>" disabled style='background-color: #eeeeee;'"/>
                                                  <?php } ?>
-                                                <?php if ($TRECEPCION == 2) { ?>                                                    
+                                                <?php if ($TRECEPCION == 2) { ?>
                                                     <select class=" form-control select2" id="PRODUCTOR" name="PRODUCTOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                         <?php if ($ARRAYPRODUCTOR) {    ?>
-                                                            <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) { echo "selected"; } ?>>
+                                                            <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {  echo "selected";   } ?>>
                                                                 <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
                                                             </option>
                                                         <?php } else { ?>
@@ -536,14 +684,17 @@ if ($_POST) {
                                                 <label id="val_productor" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Estandar </label>
-                                                <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
+                                                <input type="hidden" class="form-control" placeholder="PESOENVASEESTANDAR" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR; ?>" />
+                                                <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit();" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
                                                         <?php if ($ARRAYESTANDAR) {    ?>
-                                                            <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($ESTANDAR == $r['ID_ESTANDAR']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_ESTANDAR'] ?> </option>
+                                                            <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($ESTANDAR == $r['ID_ESTANDAR']) {  echo "selected";  } ?>>
+                                                                <?php echo $r['CODIGO_ESTANDAR'] ?> : <?php echo $r['NOMBRE_ESTANDAR'] ?>
+                                                            </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
                                                         <?php } ?>
@@ -552,15 +703,26 @@ if ($_POST) {
                                                 <label id="val_estandar" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                            <div class="form-group">
+                                                <label>Gasificacion</label>
+                                                <select class="form-control select2" id="GASIFICADORECEPCION" name="GASIFICADORECEPCION" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                    <option></option>
+                                                    <option value="0" <?php if ($GASIFICADORECEPCION == "0") { echo "selected"; } ?>>No</option>
+                                                    <option value="1" <?php if ($GASIFICADORECEPCION == "1") { echo "selected";  } ?>> Si </option>
+                                                </select>
+                                                <label id="val_gasificacion" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Variedad</label><br>
                                                 <select class="form-control select2" id="VESPECIES" name="VESPECIES" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYVESPECIES as $r) : ?>
                                                         <?php if ($ARRAYVESPECIES) {    ?>
-                                                            <option value="<?php echo $r['ID_VESPECIES']; ?>" <?php if ($VESPECIES == $r['ID_VESPECIES']) { echo "selected";} ?>>
-                                                                <?php echo $r['NOMBRE_VESPECIES'];?>
+                                                            <option value="<?php echo $r['ID_VESPECIES']; ?>" <?php if ($VESPECIES == $r['ID_VESPECIES']) {  echo "selected";  } ?>>
+                                                               <?php   echo $r['NOMBRE_VESPECIES'];   ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
@@ -570,23 +732,15 @@ if ($_POST) {
                                                 <label id="val_vespecies" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label>Kilos Neto </label>
-                                                <input type="number" class="form-control" step="0.01" placeholder="Kilos Neto" id="KILOSNETO" name="KILOSNETO" value="<?php echo $KILOSNETO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
-                                                <label id="val_neto" class="validacion"> </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Tipo Manejo</label><br>
                                                 <select class="form-control select2" id="TMANEJO" name="TMANEJO" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYTMANEJO as $r) : ?>
                                                         <?php if ($ARRAYTMANEJO) {    ?>
-                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TMANEJO'];  ?>
+                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) {  echo "selected";  } ?>> 
+                                                                <?php  echo $r['NOMBRE_TMANEJO'];  ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
@@ -594,6 +748,37 @@ if ($_POST) {
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label id="val_tmanejo" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                            <div class="form-group">
+                                                <label>Peso Pallet</label>
+                                                <input type="number" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCION" name="PESOPALLETRECEPCION" onchange="neto()" value="<?php echo $PESOPALLETRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <label id="val_pesopallet" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                            <div class="form-group">
+                                                <label>Cantidad Envase</label>
+                                                <input type="number" class="form-control" placeholder="Cantidad Envase" id="CANTIDADENVASEDRECEPCION" name="CANTIDADENVASEDRECEPCION" onchange="neto()" value="<?php echo $CANTIDADENVASEDRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <label id="val_cantidadenvase" class="validacion"> </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                            <div class="form-group">
+                                                <label>Kilo Bruto</label>
+                                                <input type="number" class="form-control" placeholder="Kilo Bruto" id="KILOSBRUTODRECEPCION" name="KILOSBRUTODRECEPCION" onchange="neto()" value="<?php echo $KILOSBRUTODRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <label id="val_kilosbruto" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                            <div class="form-group">
+                                                <label>Kilo Neto</label>
+                                                <input type="hidden" class="form-control" placeholder="KILOSPROMEDIODRECEPCION" id="KILOSPROMEDIODRECEPCION" name="KILOSPROMEDIODRECEPCION" value="<?php echo $KILOSPROMEDIODRECEPCION; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="KILOSNETODRECEPCION" id="KILOSNETODRECEPCION" name="KILOSNETODRECEPCION" value="<?php echo $KILOSNETODRECEPCION; ?>" />
+                                                <input type="number" step="0.00" class="form-control" placeholder="Kilo Neto" id="KILOSNETODRECEPCIONV" name="KILOSNETODRECEPCIONV" value="<?php echo $KILOSNETODRECEPCION; ?>" disabled style='background-color: #eeeeee;'" />
+                                                <label id=" val_kilosneto" class="validacion"> </label>
                                             </div>
                                         </div>
                                     </div>
@@ -645,92 +830,144 @@ if ($_POST) {
         <?php include_once "../config/urlBase.php"; ?>
         <?php 
             if (isset($_REQUEST['CREAR'])){
-            //OPERACION DE REGISTRO DE FILA
-            //OBTENER EL FOLIO DEL DETALLE DE EXPORTACION DEL PROCESO
-                $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-                $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-                $ARRAYULTIMOFOLIO = $EXIINDUSTRIAL_ADO->obtenerFolio($FOLIO);
-                if ($ARRAYULTIMOFOLIO) {
-                    if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
-                        $FOLIODRECEPCIONIND = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-                    } else {
-                        $FOLIODRECEPCIONIND =  $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'];
-                    }
-                } else {
-                    $FOLIODRECEPCIONIND = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-                }
-                $NUMEROFOLIODINDUSTRIAL = $FOLIODRECEPCIONIND + 1;
-
-
-                $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
-                $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-                    "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
-
-                $DRECEPCIONIND->__SET('FOLIO_DRECEPCION', $NUMEROFOLIODINDUSTRIAL);
-                $DRECEPCIONIND->__SET('FECHA_EMBALADO_DRECEPCION', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-                $DRECEPCIONIND->__SET('KILOS_NETO_DRECEPCION', $_REQUEST['KILOSNETO']);
-                $DRECEPCIONIND->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-                $DRECEPCIONIND->__SET('ID_FOLIO', $FOLIO);
-                $DRECEPCIONIND->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-                $DRECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                $DRECEPCIONIND->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
-                $DRECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                $DRECEPCIONIND_ADO->agregarDrecepcion($DRECEPCIONIND);
-
-                //UTILIZACION METODOS SET DEL MODELO
-                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-                $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-                $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-                $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-                $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
-                $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
-                $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
-                $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-                $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
-                $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-                $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-                $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                $EXIINDUSTRIAL->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $EXIINDUSTRIAL_ADO->agregarExiindustrialRecepcion($EXIINDUSTRIAL);
-
-                //REDIRECCIONAR A PAGINA registroProceso.php
-                $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                echo '
-                    <script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Registro creado",
-                        text:"Se ha creado una fila para el detalle de recepcion",
-                        showConfirmButton:true,
-                        confirmButtonText:"Volver a Recepción"
-                    }).then((result)=>{
-                        if (result.value) {
-                            location.href = "'.$_REQUEST['URLO'].'.php?op";
+                //OPERACION DE REGISTRO DE FILA
+                //OBTENER EL FOLIO DEL DETALLE DE EXPORTACION DEL PROCESO
+                    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+                    $ARRAYULTIMOFOLIO = $EXIINDUSTRIAL_ADO->obtenerFolio($FOLIO);
+                    if ($ARRAYULTIMOFOLIO) {
+                        if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
+                            $FOLIODRECEPCIONIND = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                        } else {
+                            $FOLIODRECEPCIONIND =  $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'];
                         }
-                    })
-                </script>
-                ';
+                    } else {
+                        $FOLIODRECEPCIONIND = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                    }
+                    $NUMEROFOLIODINDUSTRIAL = $FOLIODRECEPCIONIND + 1;
 
-
-                // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
+                    //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION
+                    $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($_REQUEST['ESTANDAR']);
+                    //OBTENCIONS DE LOS DATOS, OBTENIDOS EN LA CONSULTA
+                    if ($KILOSBRUTODRECEPCION > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
+                        if ($ARRAYVERESTANDAR) {
+                            $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                            if ($_REQUEST['PESOPALLETRECEPCION']) {
+                                $PESOPALLETEESTANDAR = $_REQUEST['PESOPALLETRECEPCION'];
+                            } else {
+                                $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                            }
         
-         } 
-        ?>
-        <?php         
-            if (isset($_REQUEST['EDITAR'])) {
+                            $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
+        
+                            //OPERACIONES DE OBTENER NETO Y PROMEDIO  DEL DETALLE
+                            $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASE - $PESOPALLETEESTANDAR;
+                            $KILOSPROMEDIODRECEPCION = $KILOSNETODRECEPCION / $_REQUEST['CANTIDADENVASEDRECEPCION'];
+                        }
+                    }
 
+                    $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
+                    $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] . "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
+
+
+
+
+                    $DRECEPCIONIND->__SET('FOLIO_DRECEPCION', $NUMEROFOLIODINDUSTRIAL);
+                    $DRECEPCIONIND->__SET('FECHA_EMBALADO_DRECEPCION', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                    $DRECEPCIONIND->__SET('CANTIDAD_ENVASE_DRECEPCION', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                    $DRECEPCIONIND->__SET('KILOS_NETO_DRECEPCION', $KILOSNETODRECEPCION);
+                    $DRECEPCIONIND->__SET('KILOS_BRUTO_DRECEPCION', $_REQUEST['KILOSBRUTODRECEPCION']);
+                    $DRECEPCIONIND->__SET('KILOS_PROMEDIO_DRECEPCION', $KILOSPROMEDIODRECEPCION);
+                    $DRECEPCIONIND->__SET('PESO_PALLET_DRECEPCION', $_REQUEST['PESOPALLETRECEPCION']);
+                    $DRECEPCIONIND->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
+                    $DRECEPCIONIND->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                    $DRECEPCIONIND->__SET('ID_FOLIO', $FOLIO);      
+                    $DRECEPCIONIND->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                    $DRECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $DRECEPCIONIND->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
+                    $DRECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    $DRECEPCIONIND_ADO->agregarDrecepcion($DRECEPCIONIND);
+
+                    //UTILIZACION METODOS SET DEL MODELO
+                    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+                    $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                    $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                    $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                    $EXIINDUSTRIAL->__SET('CANTIDAD_ENVASE_EXIINDUSTRIAL', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $KILOSNETODRECEPCION);
+                    $EXIINDUSTRIAL->__SET('KILOS_BRUTO_EXIINDUSTRIAL', $_REQUEST['KILOSBRUTODRECEPCION']);
+                    $EXIINDUSTRIAL->__SET('KILOS_PROMEDIO_EXIINDUSTRIAL', $KILOSPROMEDIODRECEPCION);
+                    $EXIINDUSTRIAL->__SET('PESO_PALLET_EXIINDUSTRIAL', $_REQUEST['PESOPALLETRECEPCION']);                    
+                    $EXIINDUSTRIAL->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
+                    $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
+                    $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
+                    $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                    $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                    $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
+                    $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                    $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $EXIINDUSTRIAL->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $EXIINDUSTRIAL_ADO->agregarExiindustrialRecepcion($EXIINDUSTRIAL);
+                    
+                    //REDIRECCIONAR A PAGINA registroProceso.php
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '
+                        <script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro creado",
+                            text:"Se ha creado una fila para el detalle de recepcion",
+                            showConfirmButton:true,
+                            confirmButtonText:"Volver a Recepción"
+                        }).then((result)=>{
+                            if (result.value) {
+                                location.href = "'.$_REQUEST['URLO'].'.php?op";
+                            }
+                        })
+                    </script>
+                    ';    
+                    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+            
+            }                
+            if (isset($_REQUEST['EDITAR'])) {
+                $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
+                //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION
+                $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($_REQUEST['ESTANDAR']);
+                //OBTENCIONS DE LOS DATOS, OBTENIDOS EN LA CONSULTA
+                if ($KILOSBRUTODRECEPCION > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
+                    if ($ARRAYVERESTANDAR) {
+                        $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                        if ($_REQUEST['PESOPALLETRECEPCION']) {
+                            $PESOPALLETEESTANDAR = $_REQUEST['PESOPALLETRECEPCION'];
+                        } else {
+                            $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                        }
+    
+                        $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
+    
+                        //OPERACIONES DE OBTENER NETO Y PROMEDIO  DEL DETALLE
+                        $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASE - $PESOPALLETEESTANDAR;
+                        $KILOSPROMEDIODRECEPCION = $KILOSNETODRECEPCION / $_REQUEST['CANTIDADENVASEDRECEPCION'];
+                    }
+                }
                 $DRECEPCIONIND->__SET('FECHA_EMBALADO_DRECEPCION', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-                $DRECEPCIONIND->__SET('KILOS_NETO_DRECEPCION', $_REQUEST['KILOSNETO']);
+                $DRECEPCIONIND->__SET('CANTIDAD_ENVASE_DRECEPCION', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                $DRECEPCIONIND->__SET('KILOS_NETO_DRECEPCION', $KILOSNETODRECEPCION);
+                $DRECEPCIONIND->__SET('KILOS_BRUTO_DRECEPCION', $_REQUEST['KILOSBRUTODRECEPCION']);
+                $DRECEPCIONIND->__SET('KILOS_PROMEDIO_DRECEPCION', $KILOSPROMEDIODRECEPCION);
+                $DRECEPCIONIND->__SET('PESO_PALLET_DRECEPCION', $_REQUEST['PESOPALLETRECEPCION']);
+                $DRECEPCIONIND->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
                 $DRECEPCIONIND->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-                $DRECEPCIONIND->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
                 $DRECEPCIONIND->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
                 $DRECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $DRECEPCIONIND->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
                 $DRECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 $DRECEPCIONIND->__SET('ID_DRECEPCION', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -740,7 +977,12 @@ if ($_POST) {
 
                 if ($ARRAYVERFOLIOEXISTENCIA) {
                     $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                    $EXIINDUSTRIAL->__SET('CANTIDAD_ENVASE_EXIINDUSTRIAL', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $KILOSNETODRECEPCION);
+                    $EXIINDUSTRIAL->__SET('KILOS_BRUTO_EXIINDUSTRIAL', $_REQUEST['KILOSBRUTODRECEPCION']);
+                    $EXIINDUSTRIAL->__SET('KILOS_PROMEDIO_EXIINDUSTRIAL', $KILOSPROMEDIODRECEPCION);
+                    $EXIINDUSTRIAL->__SET('PESO_PALLET_EXIINDUSTRIAL', $_REQUEST['PESOPALLETRECEPCION']);                    
+                    $EXIINDUSTRIAL->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
                     $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
                     $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
                     $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
@@ -761,10 +1003,16 @@ if ($_POST) {
                     $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
                         "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
 
+
                     $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
                     $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
                     $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                    $EXIINDUSTRIAL->__SET('CANTIDAD_ENVASE_EXIINDUSTRIAL', $_REQUEST['CANTIDADENVASEDRECEPCION']);
+                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $KILOSNETODRECEPCION);
+                    $EXIINDUSTRIAL->__SET('KILOS_BRUTO_EXIINDUSTRIAL', $_REQUEST['KILOSBRUTODRECEPCION']);
+                    $EXIINDUSTRIAL->__SET('KILOS_PROMEDIO_EXIINDUSTRIAL', $KILOSPROMEDIODRECEPCION);
+                    $EXIINDUSTRIAL->__SET('PESO_PALLET_EXIINDUSTRIAL', $_REQUEST['PESOPALLETRECEPCION']);                    
+                    $EXIINDUSTRIAL->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
                     $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
                     $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
                     $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
@@ -780,6 +1028,7 @@ if ($_POST) {
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $EXIINDUSTRIAL_ADO->agregarExiindustrialRecepcion($EXIINDUSTRIAL);
                 }
+                
                 //REDIRECCIONAR A PAGINA registroProceso.php 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -799,9 +1048,7 @@ if ($_POST) {
                         })
                     </script>
                 ';
-            }
-        ?>
-        <?php
+            }     
             if (isset($_REQUEST['ELIMINAR'])) {
                 $IDELIMINAR = $_REQUEST['ID'];
                 $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODINDUSTRIALE'];
@@ -829,15 +1076,9 @@ if ($_POST) {
                             location.href = "'. $_REQUEST['URLO'].'.php?op";
                         }
                     })
-                </script>'
-
-                // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-                ?>
-        
-        <?php } ?>
-
-
+                </script>';
+                // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>"; 
+            }   
+         ?>
 </body>
-
-
 </html>

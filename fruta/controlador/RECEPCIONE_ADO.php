@@ -153,8 +153,87 @@ class RECEPCIONE_ADO {
   
     
     //REGISTRO DE UNA NUEVA FILA    
-
     public function agregarRecepcion(RECEPCIONE $RECEPCIONE){
+        try{
+            
+            if($RECEPCIONE->__GET('ID_PROVEEDOR')==NULL){
+                $RECEPCIONE->__SET('ID_PROVEEDOR', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_OCOMPRA')==NULL){
+                $RECEPCIONE->__SET('ID_OCOMPRA', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_PLANTA2')==NULL){
+                $RECEPCIONE->__SET('ID_PLANTA2', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_PRODUCTOR')==NULL){
+                $RECEPCIONE->__SET('ID_PRODUCTOR', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_RECEPCIONMP')==NULL){
+                $RECEPCIONE->__SET('ID_RECEPCIONMP', NULL);
+            }
+            $query=
+            "INSERT INTO  material_recepcione  (
+                                                     NUMERO_RECEPCION ,
+                                                     FECHA_RECEPCION ,
+                                                     TRECEPCION ,
+                                                     SNOCOMPRA ,
+                                                     NUMERO_DOCUMENTO_RECEPCION ,
+                                                     PATENTE_CAMION ,
+                                                     PATENTE_CARRO ,
+                                                     OBSERVACIONES_RECEPCION ,                                                
+                                                     ID_EMPRESA ,
+                                                     ID_PLANTA ,
+                                                     ID_TEMPORADA ,
+                                                     ID_BODEGA ,
+                                                     ID_TDOCUMENTO ,
+                                                     ID_TRANSPORTE ,
+                                                     ID_CONDUCTOR ,
+                                                     ID_PROVEEDOR ,
+                                                     ID_OCOMPRA ,
+                                                     ID_PLANTA2 ,
+                                                     ID_PRODUCTOR ,
+                                                     ID_USUARIOI ,
+                                                     ID_USUARIOM ,
+                                                     INGRESO ,
+                                                     MODIFICACION ,
+                                                     TOTAL_CANTIDAD_RECEPCION ,
+                                                     ESTADO ,
+                                                     ESTADO_REGISTRO 
+                                                ) VALUES
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?,  SYSDATE() , SYSDATE(), 0,  1, 1);";
+            $this->conexion->prepare($query)
+            ->execute(
+                array(                 
+                    $RECEPCIONE->__GET('NUMERO_RECEPCION')  ,   
+                    $RECEPCIONE->__GET('FECHA_RECEPCION')  ,    
+                    $RECEPCIONE->__GET('TRECEPCION')  ,        
+                    $RECEPCIONE->__GET('SNOCOMPRA')  ,   
+                    $RECEPCIONE->__GET('NUMERO_DOCUMENTO_RECEPCION')  ,       
+                    $RECEPCIONE->__GET('PATENTE_CAMION')  ,       
+                    $RECEPCIONE->__GET('PATENTE_CARRO')  ,        
+                    $RECEPCIONE->__GET('OBSERVACIONES_RECEPCION')  ,     
+                    $RECEPCIONE->__GET('ID_EMPRESA')  ,  
+                    $RECEPCIONE->__GET('ID_PLANTA')  ,  
+                    $RECEPCIONE->__GET('ID_TEMPORADA')  ,  
+                    $RECEPCIONE->__GET('ID_BODEGA')  ,     
+                    $RECEPCIONE->__GET('ID_TDOCUMENTO')  ,       
+                    $RECEPCIONE->__GET('ID_TRANSPORTE')  ,       
+                    $RECEPCIONE->__GET('ID_CONDUCTOR')  ,          
+                    $RECEPCIONE->__GET('ID_PROVEEDOR')  ,         
+                    $RECEPCIONE->__GET('ID_OCOMPRA')  ,     
+                    $RECEPCIONE->__GET('ID_PLANTA2')  ,       
+                    $RECEPCIONE->__GET('ID_PRODUCTOR')    ,        
+                    $RECEPCIONE->__GET('ID_USUARIOI')  ,       
+                    $RECEPCIONE->__GET('ID_USUARIOM')      
+                )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    } 
+    public function agregarRecepcionMateriaPrima(RECEPCIONE $RECEPCIONE){
         try{
             
             if($RECEPCIONE->__GET('ID_PROVEEDOR')==NULL){
@@ -237,6 +316,88 @@ class RECEPCIONE_ADO {
         }
     } 
     
+    public function agregarRecepcionIndustrial(RECEPCIONE $RECEPCIONE){
+        try{
+            
+            if($RECEPCIONE->__GET('ID_PROVEEDOR')==NULL){
+                $RECEPCIONE->__SET('ID_PROVEEDOR', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_OCOMPRA')==NULL){
+                $RECEPCIONE->__SET('ID_OCOMPRA', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_PLANTA2')==NULL){
+                $RECEPCIONE->__SET('ID_PLANTA2', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_PRODUCTOR')==NULL){
+                $RECEPCIONE->__SET('ID_PRODUCTOR', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_RECEPCIONMP')==NULL){
+                $RECEPCIONE->__SET('ID_RECEPCIONMP', NULL);
+            }
+            $query=
+            "INSERT INTO  material_recepcione  (
+                                                     NUMERO_RECEPCION ,
+                                                     FECHA_RECEPCION ,
+                                                     TRECEPCION ,
+                                                     SNOCOMPRA ,
+                                                     NUMERO_DOCUMENTO_RECEPCION ,
+                                                     PATENTE_CAMION ,
+                                                     PATENTE_CARRO ,
+                                                     OBSERVACIONES_RECEPCION ,                                                
+                                                     ID_EMPRESA ,
+                                                     ID_PLANTA ,
+                                                     ID_TEMPORADA ,
+                                                     ID_BODEGA ,
+                                                     ID_TDOCUMENTO ,
+                                                     ID_TRANSPORTE ,
+                                                     ID_CONDUCTOR ,
+                                                     ID_PROVEEDOR ,
+                                                     ID_OCOMPRA ,
+                                                     ID_PLANTA2 ,
+                                                     ID_PRODUCTOR ,
+                                                     ID_RECEPCIONIND ,
+                                                     ID_USUARIOI ,
+                                                     ID_USUARIOM ,
+                                                     INGRESO ,
+                                                     MODIFICACION ,
+                                                     TOTAL_CANTIDAD_RECEPCION ,
+                                                     ESTADO ,
+                                                     ESTADO_REGISTRO 
+                                                ) VALUES
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?,  SYSDATE() , SYSDATE(), 0,  1, 1);";
+            $this->conexion->prepare($query)
+            ->execute(
+                array(                 
+                    $RECEPCIONE->__GET('NUMERO_RECEPCION')  ,   
+                    $RECEPCIONE->__GET('FECHA_RECEPCION')  ,    
+                    $RECEPCIONE->__GET('TRECEPCION')  ,        
+                    $RECEPCIONE->__GET('SNOCOMPRA')  ,   
+                    $RECEPCIONE->__GET('NUMERO_DOCUMENTO_RECEPCION')  ,       
+                    $RECEPCIONE->__GET('PATENTE_CAMION')  ,       
+                    $RECEPCIONE->__GET('PATENTE_CARRO')  ,        
+                    $RECEPCIONE->__GET('OBSERVACIONES_RECEPCION')  ,     
+                    $RECEPCIONE->__GET('ID_EMPRESA')  ,  
+                    $RECEPCIONE->__GET('ID_PLANTA')  ,  
+                    $RECEPCIONE->__GET('ID_TEMPORADA')  ,  
+                    $RECEPCIONE->__GET('ID_BODEGA')  ,     
+                    $RECEPCIONE->__GET('ID_TDOCUMENTO')  ,       
+                    $RECEPCIONE->__GET('ID_TRANSPORTE')  ,       
+                    $RECEPCIONE->__GET('ID_CONDUCTOR')  ,          
+                    $RECEPCIONE->__GET('ID_PROVEEDOR')  ,         
+                    $RECEPCIONE->__GET('ID_OCOMPRA')  ,     
+                    $RECEPCIONE->__GET('ID_PLANTA2')  ,       
+                    $RECEPCIONE->__GET('ID_PRODUCTOR')    ,   
+                    $RECEPCIONE->__GET('ID_RECEPCIONIND')    ,      
+                    $RECEPCIONE->__GET('ID_USUARIOI')  ,       
+                    $RECEPCIONE->__GET('ID_USUARIOM')      
+                )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    } 
      
     
     //ELIMINAR FILA, NO SE UTILIZA
@@ -322,6 +483,148 @@ class RECEPCIONE_ADO {
         
     }
     
+
+    public function actualizarRecepcionMateriaPrima(RECEPCIONE $RECEPCIONE){
+        try{
+            if($RECEPCIONE->__GET('ID_PROVEEDOR')==NULL){
+                $RECEPCIONE->__SET('ID_PROVEEDOR', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_OCOMPRA')==NULL){
+                $RECEPCIONE->__SET('ID_OCOMPRA', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_PLANTA2')==NULL){
+                $RECEPCIONE->__SET('ID_PLANTA2', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_PRODUCTOR')==NULL){
+                $RECEPCIONE->__SET('ID_PRODUCTOR', NULL);
+            }
+            $query = "
+                UPDATE  material_recepcione  SET
+                    MODIFICACION = SYSDATE(),
+                    FECHA_RECEPCION = ?,
+                    TRECEPCION = ?,
+                    NUMERO_DOCUMENTO_RECEPCION = ?,
+                    PATENTE_CAMION = ?,
+                    PATENTE_CARRO = ?,
+                    OBSERVACIONES_RECEPCION = ?,
+                    TOTAL_CANTIDAD_RECEPCION = ?,
+                    ID_EMPRESA = ?,
+                    ID_PLANTA = ?,
+                    ID_TEMPORADA = ?,
+                    ID_BODEGA = ?,
+                    ID_TDOCUMENTO = ?,
+                    ID_TRANSPORTE = ?,
+                    ID_CONDUCTOR = ?,
+                    ID_PROVEEDOR = ?,
+                    ID_OCOMPRA = ?,
+                    ID_PLANTA2 = ?,
+                    ID_PRODUCTOR = ?,
+                    ID_USUARIOM = ?     
+                WHERE  ID_RECEPCION = ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(   
+                        $RECEPCIONE->__GET('FECHA_RECEPCION')  ,    
+                        $RECEPCIONE->__GET('TRECEPCION')  ,    
+                        $RECEPCIONE->__GET('NUMERO_DOCUMENTO_RECEPCION')  ,    
+                        $RECEPCIONE->__GET('PATENTE_CAMION')  ,       
+                        $RECEPCIONE->__GET('PATENTE_CARRO')  ,        
+                        $RECEPCIONE->__GET('OBSERVACIONES_RECEPCION')  ,    
+                        $RECEPCIONE->__GET('TOTAL_CANTIDAD_RECEPCION')  ,    
+                        $RECEPCIONE->__GET('ID_EMPRESA')  ,  
+                        $RECEPCIONE->__GET('ID_PLANTA')  ,  
+                        $RECEPCIONE->__GET('ID_TEMPORADA')  ,  
+                        $RECEPCIONE->__GET('ID_BODEGA')  ,     
+                        $RECEPCIONE->__GET('ID_TDOCUMENTO')  ,       
+                        $RECEPCIONE->__GET('ID_TRANSPORTE')  ,       
+                        $RECEPCIONE->__GET('ID_CONDUCTOR')  ,         
+                        $RECEPCIONE->__GET('ID_PROVEEDOR')  ,         
+                        $RECEPCIONE->__GET('ID_OCOMPRA')  ,     
+                        $RECEPCIONE->__GET('ID_PLANTA2')  ,       
+                        $RECEPCIONE->__GET('ID_PRODUCTOR')  ,      
+                        $RECEPCIONE->__GET('ID_USUARIOM') ,     
+                        $RECEPCIONE->__GET('ID_RECEPCION')
+                        
+                    )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+    public function actualizarRecepcionIndustrial(RECEPCIONE $RECEPCIONE){
+        try{
+            if($RECEPCIONE->__GET('ID_PROVEEDOR')==NULL){
+                $RECEPCIONE->__SET('ID_PROVEEDOR', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_OCOMPRA')==NULL){
+                $RECEPCIONE->__SET('ID_OCOMPRA', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_PLANTA2')==NULL){
+                $RECEPCIONE->__SET('ID_PLANTA2', NULL);
+            }
+            if($RECEPCIONE->__GET('ID_PRODUCTOR')==NULL){
+                $RECEPCIONE->__SET('ID_PRODUCTOR', NULL);
+            }
+            $query = "
+                UPDATE  material_recepcione  SET
+                    MODIFICACION = SYSDATE(),
+                    FECHA_RECEPCION = ?,
+                    TRECEPCION = ?,
+                    NUMERO_DOCUMENTO_RECEPCION = ?,
+                    PATENTE_CAMION = ?,
+                    PATENTE_CARRO = ?,
+                    OBSERVACIONES_RECEPCION = ?,
+                    TOTAL_CANTIDAD_RECEPCION = ?,
+                    ID_EMPRESA = ?,
+                    ID_PLANTA = ?,
+                    ID_TEMPORADA = ?,
+                    ID_BODEGA = ?,
+                    ID_TDOCUMENTO = ?,
+                    ID_TRANSPORTE = ?,
+                    ID_CONDUCTOR = ?,
+                    ID_PROVEEDOR = ?,
+                    ID_OCOMPRA = ?,
+                    ID_PLANTA2 = ?,
+                    ID_PRODUCTOR = ?,
+                    ID_USUARIOM = ?     
+                WHERE  ID_RECEPCION = ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(   
+                        $RECEPCIONE->__GET('FECHA_RECEPCION')  ,    
+                        $RECEPCIONE->__GET('TRECEPCION')  ,    
+                        $RECEPCIONE->__GET('NUMERO_DOCUMENTO_RECEPCION')  ,    
+                        $RECEPCIONE->__GET('PATENTE_CAMION')  ,       
+                        $RECEPCIONE->__GET('PATENTE_CARRO')  ,        
+                        $RECEPCIONE->__GET('OBSERVACIONES_RECEPCION')  ,    
+                        $RECEPCIONE->__GET('TOTAL_CANTIDAD_RECEPCION')  ,    
+                        $RECEPCIONE->__GET('ID_EMPRESA')  ,  
+                        $RECEPCIONE->__GET('ID_PLANTA')  ,  
+                        $RECEPCIONE->__GET('ID_TEMPORADA')  ,  
+                        $RECEPCIONE->__GET('ID_BODEGA')  ,     
+                        $RECEPCIONE->__GET('ID_TDOCUMENTO')  ,       
+                        $RECEPCIONE->__GET('ID_TRANSPORTE')  ,       
+                        $RECEPCIONE->__GET('ID_CONDUCTOR')  ,         
+                        $RECEPCIONE->__GET('ID_PROVEEDOR')  ,         
+                        $RECEPCIONE->__GET('ID_OCOMPRA')  ,     
+                        $RECEPCIONE->__GET('ID_PLANTA2')  ,       
+                        $RECEPCIONE->__GET('ID_PRODUCTOR')  ,      
+                        $RECEPCIONE->__GET('ID_USUARIOM') ,     
+                        $RECEPCIONE->__GET('ID_RECEPCION')
+                        
+                    )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     
     //FUNCIONES ESPECIALIZADAS 
 
@@ -530,6 +833,28 @@ class RECEPCIONE_ADO {
                                             FROM  material_recepcione  
                                             WHERE ESTADO_REGISTRO = 1
                                             AND ID_RECEPCIONMP= '".$IDRECEPCIONMP."';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    
+    public function listarRecepcionPorRecepcionINDCBX($IDRECEPCIONIND){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * 
+                                            FROM  material_recepcione  
+                                            WHERE ESTADO_REGISTRO = 1
+                                            AND ID_RECEPCIONIND= '".$IDRECEPCIONIND."';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

@@ -14,6 +14,7 @@ include_once '../controlador/FOLIO_ADO.php';
 
 include_once '../controlador/RECEPCIONE_ADO.php';
 include_once '../controlador/RECEPCIONMP_ADO.php';
+include_once '../controlador/RECEPCIONIND_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -29,6 +30,7 @@ $FOLIO_ADO =  new FOLIO_ADO();
 
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 $RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -203,6 +205,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
                                                     <th>Recepción Materia Prima</th>
+                                                    <th>Recepción Producto Industrial</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                 </tr>
@@ -272,6 +275,12 @@ include_once "../config/datosUrLP.php";
                                                     }else{
                                                         $NUMERORECEPCIONMP="No Aplica";
                                                     }
+                                                    $ARRAYRECEPCIONIND=$RECEPCIONIND_ADO->verRecepcion($r['ID_RECEPCIONIND']);
+                                                    if($ARRAYRECEPCIONIND){
+                                                        $NUMERORECEPCIONIND=$ARRAYRECEPCIONIND[0]["NUMERO_RECEPCION"];
+                                                    }else{
+                                                        $NUMERORECEPCIONIND="No Aplica";
+                                                    }
                                                     ?>
 
                                                     <tr class="center">
@@ -336,6 +345,7 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                         <td><?php echo $NUMERORECEPCIONMP; ?></td>
+                                                        <td><?php echo $NUMERORECEPCIONIND; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
 
