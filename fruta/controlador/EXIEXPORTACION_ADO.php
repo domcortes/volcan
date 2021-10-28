@@ -3476,7 +3476,6 @@ class EXIEXPORTACION_ADO
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
                                                 AND ESTADO_REGISTRO !=0
-                                                GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION
                                                 ORDER BY ULTIMOFOLIO; ");
             $datos->execute();
             $resultado = $datos->fetchAll();

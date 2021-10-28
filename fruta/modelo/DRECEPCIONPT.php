@@ -37,6 +37,8 @@
         private   $ID_FOLIO;
         private   $ID_TMANEJO;
         private   $ID_TCALIBRE;
+        private   $ID_TCATEGORIA;
+        private   $ID_TCOLOR;
 
         //FUNCIONES GET Y SET
         public function __GET($k){ return $this->$k; }

@@ -123,7 +123,12 @@ class DRECEPCIONMP_ADO
     public function agregarDrecepcion(DRECEPCIONMP $DRECEPCIONMP)
     {
         try {
-
+            if ($DRECEPCIONMP->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $DRECEPCIONMP->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($DRECEPCIONMP->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $DRECEPCIONMP->__SET('ID_TTRATAMIENTO2', NULL);
+            }
             $query =
                 "INSERT INTO fruta_drecepcionmp 
                                             (
@@ -132,24 +137,31 @@ class DRECEPCIONMP_ADO
                                                 FECHA_COSECHA_DRECEPCION, 
                                                 CANTIDAD_ENVASE_DRECEPCION, 
                                                 KILOS_NETO_DRECEPCION, 
+
                                                 KILOS_BRUTO_DRECEPCION, 
                                                 KILOS_PROMEDIO_DRECEPCION, 
                                                 PESO_PALLET_DRECEPCION, 
                                                 NOTA_DRECEPCION, 
                                                 GASIFICADO_DRECEPCION,
+
                                                 ID_PRODUCTOR, 
                                                 ID_VESPECIES, 
                                                 ID_ESTANDAR, 
                                                 ID_FOLIO, 
                                                 ID_TMANEJO,   
-                                                ID_RECEPCION,                                                 
+
+                                                ID_TTRATAMIENTO1,
+                                                ID_TTRATAMIENTO2,
+
+                                                ID_RECEPCION,     
+
                                                 INGRESO,
                                                 MODIFICACION,
                                                 ESTADO,
                                                 ESTADO_REGISTRO
                                             ) 
              VALUES
-               (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
+               (?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  ?, SYSDATE(), SYSDATE(), 1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
@@ -159,16 +171,22 @@ class DRECEPCIONMP_ADO
                         $DRECEPCIONMP->__GET('FECHA_COSECHA_DRECEPCION'),
                         $DRECEPCIONMP->__GET('CANTIDAD_ENVASE_DRECEPCION'),
                         $DRECEPCIONMP->__GET('KILOS_NETO_DRECEPCION'),
+
                         $DRECEPCIONMP->__GET('KILOS_BRUTO_DRECEPCION'),
                         $DRECEPCIONMP->__GET('KILOS_PROMEDIO_DRECEPCION'),
                         $DRECEPCIONMP->__GET('PESO_PALLET_DRECEPCION'),
                         $DRECEPCIONMP->__GET('NOTA_DRECEPCION'),
                         $DRECEPCIONMP->__GET('GASIFICADO_DRECEPCION'),
+
                         $DRECEPCIONMP->__GET('ID_PRODUCTOR'),
                         $DRECEPCIONMP->__GET('ID_VESPECIES'),
                         $DRECEPCIONMP->__GET('ID_ESTANDAR'),
                         $DRECEPCIONMP->__GET('ID_FOLIO'),
                         $DRECEPCIONMP->__GET('ID_TMANEJO'),
+
+                        $DRECEPCIONMP->__GET('ID_TTRATAMIENTO1'),
+                        $DRECEPCIONMP->__GET('ID_TTRATAMIENTO2'),
+
                         $DRECEPCIONMP->__GET('ID_RECEPCION')
                     )
 
@@ -194,6 +212,12 @@ class DRECEPCIONMP_ADO
     public function actualizarDrecepcion(DRECEPCIONMP $DRECEPCIONMP)
     {
         try {
+            if ($DRECEPCIONMP->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $DRECEPCIONMP->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($DRECEPCIONMP->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $DRECEPCIONMP->__SET('ID_TTRATAMIENTO2', NULL);
+            }
             $query = "
                         UPDATE fruta_drecepcionmp SET     
                         
@@ -210,6 +234,8 @@ class DRECEPCIONMP_ADO
                                 ID_VESPECIES = ?,   
                                 ID_ESTANDAR = ?,   
                                 ID_TMANEJO = ? ,
+                                ID_TTRATAMIENTO1 = ? ,
+                                ID_TTRATAMIENTO2 = ? ,
                                 ID_RECEPCION = ?
                         WHERE  ID_DRECEPCION= ?";
             $this->conexion->prepare($query)
@@ -227,6 +253,8 @@ class DRECEPCIONMP_ADO
                         $DRECEPCIONMP->__GET('ID_VESPECIES'),
                         $DRECEPCIONMP->__GET('ID_ESTANDAR'),
                         $DRECEPCIONMP->__GET('ID_TMANEJO'),
+                        $DRECEPCIONMP->__GET('ID_TTRATAMIENTO1'),
+                        $DRECEPCIONMP->__GET('ID_TTRATAMIENTO2'),
                         $DRECEPCIONMP->__GET('ID_RECEPCION'),
                         $DRECEPCIONMP->__GET('ID_DRECEPCION')
 

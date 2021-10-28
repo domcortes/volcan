@@ -174,33 +174,41 @@ class DRECEPCIONPT_ADO
                                                         FECHA_EMBALADO_DRECEPCION,
                                                         CANTIDAD_ENVASE_RECIBIDO_DRECEPCION,
                                                         CANTIDAD_ENVASE_RECHAZADO_DRECEPCION,
+
                                                         CANTIDAD_ENVASE_APROBADO_DRECEPCION ,                
                                                         KILOS_NETO_REAL_DRECEPCION,
                                                         KILOS_NETO_DRECEPCION ,
                                                         KILOS_BRUTO_DRECEPCION ,
                                                         PDESHIDRATACION_DRECEPCION ,
+
                                                         KILOS_DESHIDRATACION_DRECEPCION ,
                                                         EMBOLSADO_DRECEPCION ,
                                                         TEMPERATURA_DRECEPCION,
                                                         STOCK_DRECEPCION,
                                                         GASIFICADO_DRECEPCION,
+
                                                         PREFRIO_DRECEPCION,
                                                         NOTA_DRECEPCION,
                                                         ID_RECEPCION, 
                                                         ID_PRODUCTOR, 
                                                         ID_VESPECIES,  
+                                                        
+                                                        ID_TCATEGORIA,                                                          
+                                                        ID_TCOLOR,  
+
                                                         ID_ESTANDAR,   
                                                         ID_FOLIO,   
                                                         ID_TEMBALAJE,   
                                                         ID_TMANEJO,   
                                                         ID_TCALIBRE,  
+
                                                         INGRESO,
                                                         MODIFICACION,
                                                         ESTADO,
                                                         ESTADO_REGISTRO
                                                 ) 
              VALUES
-               (  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?,  ?, SYSDATE(), SYSDATE(), 1, 1);";
+               (  ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,  ?, ?, ?, ?,  ?,   SYSDATE(), SYSDATE(), 1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
@@ -210,21 +218,28 @@ class DRECEPCIONPT_ADO
                         $DRECEPCIONPT->__GET('FECHA_EMBALADO_DRECEPCION'),
                         $DRECEPCIONPT->__GET('CANTIDAD_ENVASE_RECIBIDO_DRECEPCION'),
                         $DRECEPCIONPT->__GET('CANTIDAD_ENVASE_RECHAZADO_DRECEPCION'),
+
                         $DRECEPCIONPT->__GET('CANTIDAD_ENVASE_APROBADO_DRECEPCION'),
                         $DRECEPCIONPT->__GET('KILOS_NETO_REAL_DRECEPCION'),
                         $DRECEPCIONPT->__GET('KILOS_NETO_DRECEPCION'),
                         $DRECEPCIONPT->__GET('KILOS_BRUTO_DRECEPCION'),
                         $DRECEPCIONPT->__GET('PDESHIDRATACION_DRECEPCION'),
+
                         $DRECEPCIONPT->__GET('KILOS_DESHIDRATACION_DRECEPCION'),
                         $DRECEPCIONPT->__GET('EMBOLSADO_DRECEPCION'),
                         $DRECEPCIONPT->__GET('TEMPERATURA_DRECEPCION'),
                         $DRECEPCIONPT->__GET('STOCK_DRECEPCION'),
                         $DRECEPCIONPT->__GET('GASIFICADO_DRECEPCION'),
+
                         $DRECEPCIONPT->__GET('PREFRIO_DRECEPCION'),
                         $DRECEPCIONPT->__GET('NOTA_DRECEPCION'),
                         $DRECEPCIONPT->__GET('ID_RECEPCION'),
                         $DRECEPCIONPT->__GET('ID_PRODUCTOR'),
                         $DRECEPCIONPT->__GET('ID_VESPECIES'),
+
+                        $DRECEPCIONPT->__GET('ID_TCATEGORIA'),
+                        $DRECEPCIONPT->__GET('ID_TCOLOR'),
+
                         $DRECEPCIONPT->__GET('ID_ESTANDAR'),
                         $DRECEPCIONPT->__GET('ID_FOLIO'),
                         $DRECEPCIONPT->__GET('ID_TEMBALAJE'),
@@ -278,6 +293,8 @@ class DRECEPCIONPT_ADO
           ID_RECEPCION = ?, 
           ID_PRODUCTOR = ?, 
           ID_VESPECIES = ?, 
+          ID_TCATEGORIA = ?, 
+          ID_TCOLOR = ?, 
           ID_ESTANDAR = ?,   
           ID_TEMBALAJE = ? ,
           ID_TMANEJO = ? ,
@@ -304,6 +321,8 @@ class DRECEPCIONPT_ADO
                         $DRECEPCIONPT->__GET('ID_RECEPCION'),
                         $DRECEPCIONPT->__GET('ID_PRODUCTOR'),
                         $DRECEPCIONPT->__GET('ID_VESPECIES'),
+                        $DRECEPCIONPT->__GET('ID_TCATEGORIA'),
+                        $DRECEPCIONPT->__GET('ID_TCOLOR'),
                         $DRECEPCIONPT->__GET('ID_ESTANDAR'),
                         $DRECEPCIONPT->__GET('ID_TEMBALAJE'),
                         $DRECEPCIONPT->__GET('ID_TMANEJO'),

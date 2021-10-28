@@ -10,6 +10,8 @@ include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 
 
+include_once '../controlador/TTRATAMIENTO1_ADO.php';
+include_once '../controlador/TTRATAMIENTO2_ADO.php';
 
 include_once '../controlador/RECEPCIONMP_ADO.php';
 include_once '../controlador/DRECEPCIONMP_ADO.php';
@@ -27,6 +29,9 @@ $VESPECIES_ADO =  new VESPECIES_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
+
+$TTRATAMIENTO1_ADO =  new TTRATAMIENTO1_ADO();
+$TTRATAMIENTO2_ADO =  new TTRATAMIENTO2_ADO();
 
 $RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 $DRECEPCIONMP_ADO =  new DRECEPCIONMP_ADO();
@@ -67,7 +72,10 @@ $PLANTA = "";
 $TEMPORADA = "";
 $FECHARECEPCION = "";
 $TRECEPCION = "";
-
+$TRATAMIENTO1="";
+$TRATAMIENTO2="";
+$TTRATAMIENTO1="";
+$TTRATAMIENTO2="";
 
 $PESOENVASEESTANDAR = 0;
 $PESOPALLETRECEPCION = 0;
@@ -112,6 +120,8 @@ $ARRAYVERFOLIOEXISTENCIA = "";
 $ARRAYESTANDAR = $ERECEPCION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
+$ARRAYTTRATAMIENTO1=$TTRATAMIENTO1_ADO->listarTtratamientoCBX();
+$ARRAYTTRATAMIENTO2=$TTRATAMIENTO2_ADO->listarTtratamientoCBX();
 //$ARRAYPRODUCTOR = 
 $ARRAYFECHAACTUAL = $DRECEPCIONMP_ADO->obtenerFecha();
 $FECHACOSECHADRECEPCION = $ARRAYFECHAACTUAL[0]['FECHA'];
@@ -183,6 +193,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $TRATAMIENTO1 = $ARRAYVERESTANDAR[0]['TRATAMIENTO1'];
+                $TRATAMIENTO2 = $ARRAYVERESTANDAR[0]['TRATAMIENTO2'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             }
             $FOLIO = "" . $r['ID_FOLIO'];
@@ -194,6 +206,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " .  $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+            $TTRATAMIENTO1 = "" . $r['ID_TTRATAMIENTO1'];
+            $TTRATAMIENTO2 = "" . $r['ID_TTRATAMIENTO2'];
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -224,6 +238,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $TRATAMIENTO1 = $ARRAYVERESTANDAR[0]['TRATAMIENTO1'];
+                $TRATAMIENTO2 = $ARRAYVERESTANDAR[0]['TRATAMIENTO2'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             }
             $FOLIO = "" . $r['ID_FOLIO'];
@@ -235,6 +251,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " .  $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+            $TTRATAMIENTO1 = "" . $r['ID_TTRATAMIENTO1'];
+            $TTRATAMIENTO2 = "" . $r['ID_TTRATAMIENTO2'];
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -263,6 +281,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $TRATAMIENTO1 = $ARRAYVERESTANDAR[0]['TRATAMIENTO1'];
+                $TRATAMIENTO2 = $ARRAYVERESTANDAR[0]['TRATAMIENTO2'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             }
             $FOLIO = "" . $r['ID_FOLIO'];
@@ -275,6 +295,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " .  $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+            $TTRATAMIENTO1 = "" . $r['ID_TTRATAMIENTO1'];
+            $TTRATAMIENTO2 = "" . $r['ID_TTRATAMIENTO2'];
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -304,6 +326,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                $TRATAMIENTO1 = $ARRAYVERESTANDAR[0]['TRATAMIENTO1'];
+                $TRATAMIENTO2 = $ARRAYVERESTANDAR[0]['TRATAMIENTO2'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             }
             $FOLIO = "" . $r['ID_FOLIO'];
@@ -315,6 +339,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             if ($ARRAYVERPRODUCTOR) {
                 $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " .  $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
+            $TTRATAMIENTO1 = "" . $r['ID_TTRATAMIENTO1'];
+            $TTRATAMIENTO2 = "" . $r['ID_TTRATAMIENTO2'];
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -342,6 +368,8 @@ if ($_POST) {
         $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($ESTANDAR);
         if ($ARRAYVERESTANDAR) {
             $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+            $TRATAMIENTO1 = $ARRAYVERESTANDAR[0]['TRATAMIENTO1'];
+            $TRATAMIENTO2 = $ARRAYVERESTANDAR[0]['TRATAMIENTO2'];
             $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             if ($_REQUEST['PESOPALLETRECEPCION']) {
                 $PESOPALLETRECEPCION = $_REQUEST['PESOPALLETRECEPCION'];
@@ -351,6 +379,11 @@ if ($_POST) {
                 } else {
                     $PESOPALLETRECEPCION = "";
                 }
+            } 
+            if (isset($_REQUEST['TTRATAMIENTO1'])) {
+                $TTRATAMIENTO1 = $_REQUEST['TTRATAMIENTO1'];
+            } if (isset($_REQUEST['TTRATAMIENTO2'])) {
+                $TTRATAMIENTO2 = $_REQUEST['TTRATAMIENTO2'];
             }
             if ($_REQUEST['KILOSBRUTODRECEPCION'] > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
                 $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
@@ -402,6 +435,7 @@ if ($_POST) {
                     ESTANDAR = document.getElementById("ESTANDAR").selectedIndex;
                     CANTIDADENVASEDRECEPCION = document.getElementById("CANTIDADENVASEDRECEPCION").value;
                     KILOSBRUTODRECEPCION = document.getElementById("KILOSBRUTODRECEPCION").value;
+
 
                     document.getElementById('val_estandar').innerHTML = "";
                     document.getElementById('val_cantidadenvase').innerHTML = "";
@@ -583,6 +617,37 @@ if ($_POST) {
                     }
                     document.form_reg_dato.KILOSBRUTODRECEPCION.style.borderColor = "#4AF575";
 
+                    TRATAMIENTO1 = document.getElementById("TRATAMIENTO1").value;
+                    TRATAMIENTO2 = document.getElementById("TRATAMIENTO2").value;
+                    
+                    if (TRATAMIENTO1 == 1) {
+                        
+                        TTRATAMIENTO1 = document.getElementById("TTRATAMIENTO1").selectedIndex;
+                        document.getElementById('val_ttratamiento1').innerHTML = "";
+
+                        if (TTRATAMIENTO1 == null || TTRATAMIENTO1 == 0) {
+                            document.form_reg_dato.TTRATAMIENTO1.focus();
+                            document.form_reg_dato.TTRATAMIENTO1.style.borderColor = "#FF0000";
+                            document.getElementById('val_ttratamiento1').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.TTRATAMIENTO1.style.borderColor = "#4AF575";
+                    }
+
+                    if (TRATAMIENTO2 == 1) {
+                        
+                        TTRATAMIENTO2 = document.getElementById("TTRATAMIENTO2").selectedIndex;
+                        document.getElementById('val_ttratamiento2').innerHTML = "";
+
+                        if (TTRATAMIENTO2 == null || TTRATAMIENTO2 == 0) {
+                            document.form_reg_dato.TTRATAMIENTO2.focus();
+                            document.form_reg_dato.TTRATAMIENTO2.style.borderColor = "#FF0000";
+                            document.getElementById('val_ttratamiento2').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.TTRATAMIENTO2.style.borderColor = "#4AF575";
+                    }
+
 
 
                     /*
@@ -751,10 +816,8 @@ if ($_POST) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                         <?php if ($ARRAYPRODUCTOR) {    ?>
-                                                            <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
-                                                                <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['RUT_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
+                                                            <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {  echo "selected";   } ?>>
+                                                                <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
@@ -768,14 +831,16 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Estandar </label>
+                                                <input type="hidden" class="form-control" placeholder="TRATAMIENTO1" id="TRATAMIENTO1" name="TRATAMIENTO1" value="<?php echo $TRATAMIENTO1; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="TRATAMIENTO2" id="TRATAMIENTO2" name="TRATAMIENTO2" value="<?php echo $TRATAMIENTO2; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="PESOENVASEESTANDAR" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR; ?>" />
                                                 <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit();" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
                                                         <?php if ($ARRAYESTANDAR) {    ?>
-                                                            <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($ESTANDAR == $r['ID_ESTANDAR']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $r['CODIGO_ESTANDAR'] ?> : <?php echo $r['NOMBRE_ESTANDAR'] ?> </option>
+                                                            <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($ESTANDAR == $r['ID_ESTANDAR']) {  echo "selected";  } ?>>
+                                                                <?php echo $r['CODIGO_ESTANDAR'] ?> : <?php echo $r['NOMBRE_ESTANDAR'] ?>
+                                                            </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
                                                         <?php } ?>
@@ -789,12 +854,8 @@ if ($_POST) {
                                                 <label>Gasificacion</label>
                                                 <select class="form-control select2" id="GASIFICADORECEPCION" name="GASIFICADORECEPCION" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                     <option></option>
-                                                    <option value="0" <?php if ($GASIFICADORECEPCION == "0") {
-                                                                            echo "selected";
-                                                                        } ?>>No</option>
-                                                    <option value="1" <?php if ($GASIFICADORECEPCION == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> Si </option>
+                                                    <option value="0" <?php if ($GASIFICADORECEPCION == "0") { echo "selected"; } ?>>No</option>
+                                                    <option value="1" <?php if ($GASIFICADORECEPCION == "1") { echo "selected";  } ?>> Si </option>
                                                 </select>
                                                 <label id="val_gasificacion" class="validacion"> </label>
                                             </div>
@@ -806,13 +867,8 @@ if ($_POST) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYVESPECIES as $r) : ?>
                                                         <?php if ($ARRAYVESPECIES) {    ?>
-                                                            <option value="<?php echo $r['ID_VESPECIES']; ?>" <?php if ($VESPECIES == $r['ID_VESPECIES']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php
-
-                                                                                                                        echo $r['NOMBRE_VESPECIES'];
-
-                                                                                                                        ?>
+                                                            <option value="<?php echo $r['ID_VESPECIES']; ?>" <?php if ($VESPECIES == $r['ID_VESPECIES']) {  echo "selected";  } ?>>
+                                                               <?php   echo $r['NOMBRE_VESPECIES'];   ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
@@ -831,13 +887,8 @@ if ($_POST) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYTMANEJO as $r) : ?>
                                                         <?php if ($ARRAYTMANEJO) {    ?>
-                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php
-
-                                                                                                                    echo $r['NOMBRE_TMANEJO'];
-
-                                                                                                                    ?>
+                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) {  echo "selected";  } ?>> 
+                                                                <?php  echo $r['NOMBRE_TMANEJO'];  ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
@@ -879,6 +930,48 @@ if ($_POST) {
                                                 <label id=" val_kilosneto" class="validacion"> </label>
                                             </div>
                                         </div>
+                                        <?php if ($TRATAMIENTO1 == "1") { ?>
+                                            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Tratamiento 1</label>
+                                                    <input type="hidden" id="TTRATAMIENTO1E" name="TTRATAMIENTO1E" value="<?php echo $TTRATAMIENTO1; ?>" />
+                                                    <select class="form-control select2" id="TTRATAMIENTO1" name="TTRATAMIENTO1" style="width: 100%;"  <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYTTRATAMIENTO1 as $r) : ?>
+                                                            <?php if ($ARRAYTTRATAMIENTO1) {    ?>
+                                                                <option value="<?php echo $r['ID_TTRATAMIENTO']; ?>" <?php if ($TTRATAMIENTO1 == $r['ID_TTRATAMIENTO']) {  echo "selected";  } ?>>
+                                                                     <?php echo $r['NOMBRE_TTRATAMIENTO'] ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados</option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>                                                  
+                                                    <label id="val_ttratamiento1" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php }  ?>
+                                        <?php if ($TRATAMIENTO2 == "1") { ?>
+                                            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Tratamiento 2</label>
+                                                    <input type="hidden" id="TTRATAMIENTO2E" name="TTRATAMIENTO2E" value="<?php echo $TTRATAMIENTO2; ?>" />                                                  
+                                                    <select class="form-control select2" id="TTRATAMIENTO2" name="TTRATAMIENTO2" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYTTRATAMIENTO2 as $r) : ?>
+                                                            <?php if ($ARRAYTTRATAMIENTO2) {    ?>
+                                                                <option value="<?php echo $r['ID_TTRATAMIENTO']; ?>" <?php if ($TTRATAMIENTO2 == $r['ID_TTRATAMIENTO']) {  echo "selected";  } ?>>
+                                                                     <?php echo $r['NOMBRE_TTRATAMIENTO'] ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados</option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>    
+                                                    <label id="val_ttratamiento2" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php }  ?>
                                     </div>
                                     <div class="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
@@ -1028,6 +1121,12 @@ if ($_POST) {
                 $DRECEPCIONMP->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
                 $DRECEPCIONMP->__SET('ID_FOLIO', $FOLIO);
                 $DRECEPCIONMP->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                if($_REQUEST['TRATAMIENTO1']==1){
+                    $DRECEPCIONMP->__SET('ID_TTRATAMIENTO1', $_REQUEST['TTRATAMIENTO1']);
+                }
+                if($_REQUEST['TRATAMIENTO2']==1){
+                    $DRECEPCIONMP->__SET('ID_TTRATAMIENTO2', $_REQUEST['TTRATAMIENTO2']);
+                }
                 $DRECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $DRECEPCIONMP_ADO->agregarDrecepcion($DRECEPCIONMP);
@@ -1112,6 +1211,12 @@ if ($_POST) {
             $DRECEPCIONMP->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
             $DRECEPCIONMP->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
             $DRECEPCIONMP->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+            if($_REQUEST['TRATAMIENTO1']==1){
+                $DRECEPCIONMP->__SET('ID_TTRATAMIENTO1', $_REQUEST['TTRATAMIENTO1']);
+            }
+            if($_REQUEST['TRATAMIENTO2']==1){
+                $DRECEPCIONMP->__SET('ID_TTRATAMIENTO2', $_REQUEST['TTRATAMIENTO2']);
+            }
             $DRECEPCIONMP->__SET('ID_RECEPCION', $_REQUEST['IDP']);
             $DRECEPCIONMP->__SET('ID_DRECEPCION', $_REQUEST['ID']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
@@ -1176,6 +1281,7 @@ if ($_POST) {
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIMATERIAPRIMA_ADO->agregarEximateriaprimaRecepcion($EXIMATERIAPRIMA);
             }
+            
             //REDIRECCIONAR A PAGINA registroRecepcionmp.php 
             $_SESSION["parametro"] =  $_REQUEST['IDP'];
             $_SESSION["parametro1"] =  $_REQUEST['OPP'];

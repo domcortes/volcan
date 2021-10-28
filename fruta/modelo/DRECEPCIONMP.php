@@ -29,6 +29,8 @@
         private   $ID_RECEPCION;
         private   $ID_FOLIO;
         private   $ID_TMANEJO;
+        private   $ID_TTRATAMIENTO1;
+        private   $ID_TTRATAMIENTO2;
 
         //FUNCIONES GET Y SET
         public function __GET($k){ return $this->$k; }

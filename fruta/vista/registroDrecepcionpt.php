@@ -9,6 +9,8 @@ include_once '../controlador/FOLIO_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TCOLOR_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 include_once '../controlador/RECEPCIONPT_ADO.php';
 include_once '../controlador/DRECEPCIONPT_ADO.php';
@@ -27,6 +29,8 @@ $FOLIO_ADO =  new FOLIO_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
+$TCOLOR_ADO =  new TCOLOR_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 $RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
 $DRECEPCIONPT_ADO =  new DRECEPCIONPT_ADO();
@@ -64,7 +68,10 @@ $PLANTA = "";
 $TEMPORADA = "";
 $FECHARECEPCION = "";
 $TRECEPCION = "";
-
+$COLORESTANDAR="";
+$CATEGORIAESTANDAR="";
+$TCOLOR="";
+$TCATEGORIA="";
 
 $CANTIDADENVASERECIBIDO = 0;
 $CANTIDADENVASERECHAZADO = 0;
@@ -120,7 +127,8 @@ $ARRAYVERESTANDAR = "";
 $ARRAYVERFOLIO = "";
 $ARRAYVERFOLIOEXISTENCIA = "";
 $ARRAYFECHAACTUAL = "";
-
+$ARRAYTCATEGORIA="";
+$ARRAYTCOLOR="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
@@ -128,6 +136,9 @@ $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 $ARRAYTCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
+
+$ARRAYTCATEGORIA=$TCATEGORIA_ADO->listarTcategoriaCBX();;
+$ARRAYTCOLOR=$TCOLOR_ADO->listarTcolorCBX();
 
 $ARRAYFECHAACTUAL = $DRECEPCIONPT_ADO->obtenerFecha();
 $FECHAEMBALADORECEPCION = $ARRAYFECHAACTUAL[0]['FECHA'];
@@ -150,7 +161,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $FECHARECEPCION = "" . $r['FECHA_RECEPCION'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": "  . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
         }
         if ($TRECEPCION == "2") {
@@ -203,17 +214,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $EMBOLSADO = "" . $r['EMBOLSADO_DRECEPCION'];
             $TEMPERATURA = "" . $r['TEMPERATURA_DRECEPCION'];
             $STOCK = "" . $r['STOCK_DRECEPCION'];
+            $TCOLOR = "" . $r['ID_TCOLOR'];
+            $TCATEGORIA = "" . $r['ID_TCATEGORIA'];
             $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $PREFRIO = "" . $r['PREFRIO_DRECEPCION'];
             $NOTADRECEPCION = "" . $r['NOTA_DRECEPCION'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": "  . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $COLORESTANDAR = $ARRAYVERESTANDAR[0]['TCOLOR'];
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
+                $STOCKESTANDAR = $ARRAYVERESTANDAR[0]['STOCK'];
                 $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
                 $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
@@ -262,17 +278,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $EMBOLSADO = "" . $r['EMBOLSADO_DRECEPCION'];
             $TEMPERATURA = "" . $r['TEMPERATURA_DRECEPCION'];
             $STOCK = "" . $r['STOCK_DRECEPCION'];
+            $TCOLOR = "" . $r['ID_TCOLOR'];
+            $TCATEGORIA = "" . $r['ID_TCATEGORIA'];
             $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $PREFRIO = "" . $r['PREFRIO_DRECEPCION'];
             $NOTADRECEPCION = "" . $r['NOTA_DRECEPCION'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": "  . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $COLORESTANDAR = $ARRAYVERESTANDAR[0]['TCOLOR'];
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
+                $STOCKESTANDAR = $ARRAYVERESTANDAR[0]['STOCK'];
                 $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
                 $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
@@ -321,17 +342,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $EMBOLSADO = "" . $r['EMBOLSADO_DRECEPCION'];
             $TEMPERATURA = "" . $r['TEMPERATURA_DRECEPCION'];
             $STOCK = "" . $r['STOCK_DRECEPCION'];
+            $TCOLOR = "" . $r['ID_TCOLOR'];
+            $TCATEGORIA = "" . $r['ID_TCATEGORIA'];
             $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $PREFRIO = "" . $r['PREFRIO_DRECEPCION'];
             $NOTADRECEPCION = "" . $r['NOTA_DRECEPCION'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": "  . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $COLORESTANDAR = $ARRAYVERESTANDAR[0]['TCOLOR'];
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
+                $STOCKESTANDAR = $ARRAYVERESTANDAR[0]['STOCK'];
                 $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
                 $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
@@ -379,17 +405,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $EMBOLSADO = "" . $r['EMBOLSADO_DRECEPCION'];
             $TEMPERATURA = "" . $r['TEMPERATURA_DRECEPCION'];
             $STOCK = "" . $r['STOCK_DRECEPCION'];
+            $TCOLOR = "" . $r['ID_TCOLOR'];
+            $TCATEGORIA = "" . $r['ID_TCATEGORIA'];
             $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $PREFRIO = "" . $r['PREFRIO_DRECEPCION'];
             $NOTADRECEPCION = "" . $r['NOTA_DRECEPCION'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
             if ($ARRAYVERPRODUCTOR) {
-                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["RUT_PRODUCTOR"] . "-" . $ARRAYVERPRODUCTOR[0]["DV_PRODUCTOR"] . ":" . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
             }
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $COLORESTANDAR = $ARRAYVERESTANDAR[0]['TCOLOR'];
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
+                $STOCKESTANDAR = $ARRAYVERESTANDAR[0]['STOCK'];
                 $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
                 $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
@@ -429,6 +460,8 @@ if ($_POST) {
         if ($ARRAYVERESTANDAR) {
             $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $STOCKESTANDAR = $ARRAYVERESTANDAR[0]['STOCK'];
+            $COLORESTANDAR = $ARRAYVERESTANDAR[0]['TCOLOR'];
+            $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
             $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
             $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
             $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
@@ -438,6 +471,12 @@ if ($_POST) {
             $TEMBALAJE = $ARRAYVERESTANDAR[0]['ID_TEMBALAJE'];
             if (isset($_REQUEST['STOCK'])) {
                 $STOCK = $_REQUEST['STOCK'];
+            }
+            if (isset($_REQUEST['TCATEGORIA'])) {
+                $TCATEGORIA = $_REQUEST['TCATEGORIA'];
+            }
+            if (isset($_REQUEST['TCOLOR'])) {
+                $TCOLOR = $_REQUEST['TCOLOR'];
             }
             if ($_REQUEST['CANTIDADENVASERECIBIDO'] != "" && $_REQUEST['CANTIDADENVASERECHAZADO'] != "") {
                 $CANTIDADENVASEAPROBADO = $_REQUEST['CANTIDADENVASERECIBIDO'] - $_REQUEST['CANTIDADENVASERECHAZADO'];
@@ -587,8 +626,12 @@ if ($_POST) {
                     TCALIBRE = document.getElementById("TCALIBRE").selectedIndex;
                     TMANEJO = document.getElementById("TMANEJO").selectedIndex;
                     PREFRIO = document.getElementById("PREFRIO").selectedIndex;
-                    STOCKESTANDAR = document.getElementById("STOCKESTANDAR").value;
                     TEMPERATURA = document.getElementById("TEMPERATURA").value;
+                    STOCKESTANDAR = document.getElementById("STOCKESTANDAR").value;
+                    COLORESTANDAR = document.getElementById("COLORESTANDAR").value;
+                    CATEGORIAESTANDAR = document.getElementById("CATEGORIAESTANDAR").value;
+
+
                     NOTADRECEPCION = document.getElementById("NOTADRECEPCION").selectedIndex;
 
 
@@ -765,7 +808,35 @@ if ($_POST) {
                         }
                         document.form_reg_dato.STOCK.style.borderColor = "#4AF575";
                     }
+                      
+  
 
+
+                    if (CATEGORIAESTANDAR == 1) {
+                        TCATEGORIA = document.getElementById("TCATEGORIA").value;
+                        document.getElementById('val_tcategoria').innerHTML = "";                       
+
+                        if (TCATEGORIA == null || TCATEGORIA == 0) {
+                            document.form_reg_dato.TCATEGORIA.focus();
+                            document.form_reg_dato.TCATEGORIA.style.borderColor = "#FF0000";
+                            document.getElementById('val_tcategoria').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.TCATEGORIA.style.borderColor = "#4AF575";
+                    }
+                    
+                    if (COLORESTANDAR == 1) {
+                        TCOLOR = document.getElementById("TCOLOR").value;
+                        document.getElementById('val_tcolor').innerHTML = "";                        
+
+                        if (TCOLOR == null || TCOLOR == 0) {
+                            document.form_reg_dato.TCOLOR.focus();
+                            document.form_reg_dato.TCOLOR.style.borderColor = "#FF0000";
+                            document.getElementById('val_tcolor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.TCOLOR.style.borderColor = "#4AF575";
+                    }
 
 
                 }
@@ -915,6 +986,8 @@ if ($_POST) {
                                                 <input type="hidden" id="PESOPALLETEESTANDAR" name="PESOPALLETEESTANDAR" value="<?php echo $PESOPALLETEESTANDAR; ?>" />
                                                 <input type="hidden" id="PDESHIDRATACIONEESTANDAR" name="PDESHIDRATACIONEESTANDAR" value="<?php echo $PDESHIDRATACIONEESTANDAR; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="STOCKESTANDAR" id="STOCKESTANDAR" name="STOCKESTANDAR" value="<?php echo $STOCKESTANDAR; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="CATEGORIAESTANDAR" id="CATEGORIAESTANDAR" name="CATEGORIAESTANDAR" value="<?php echo $CATEGORIAESTANDAR; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="COLORESTANDAR" id="COLORESTANDAR" name="COLORESTANDAR" value="<?php echo $COLORESTANDAR; ?>" />
                                                 <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
@@ -1020,9 +1093,8 @@ if ($_POST) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYTCALIBRE as $r) : ?>
                                                         <?php if ($ARRAYTCALIBRE) {    ?>
-                                                            <option value="<?php echo $r['ID_TCALIBRE']; ?>" <?php if ($TCALIBRE == $r['ID_TCALIBRE']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_TCALIBRE'] ?> </option>
+                                                            <option value="<?php echo $r['ID_TCALIBRE']; ?>" <?php if ($TCALIBRE == $r['ID_TCALIBRE']) {  echo "selected";  } ?>> 
+                                                                <?php echo $r['NOMBRE_TCALIBRE'] ?> </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
                                                         <?php } ?>
@@ -1038,9 +1110,8 @@ if ($_POST) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYTMANEJO as $r) : ?>
                                                         <?php if ($ARRAYTMANEJO) {    ?>
-                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TMANEJO'];  ?>
+                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) { echo "selected";   } ?>> 
+                                                                <?php echo $r['NOMBRE_TMANEJO'];  ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados</option>
@@ -1056,12 +1127,8 @@ if ($_POST) {
                                                 <input type="hidden" id="PREFRIOE" name="PREFRIOE" value="<?php echo $PREFRIO; ?>" />
                                                 <select class="form-control select2" id="PREFRIO" name="PREFRIO" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                     <option></option>
-                                                    <option value="0" <?php if ($PREFRIO == "0") {
-                                                                            echo "selected";
-                                                                        } ?>>No</option>
-                                                    <option value="1" <?php if ($PREFRIO == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> Si </option>
+                                                    <option value="0" <?php if ($PREFRIO == "0") { echo "selected"; } ?>>No</option>
+                                                    <option value="1" <?php if ($PREFRIO == "1") { echo "selected"; } ?>> Si </option>
                                                 </select>
                                                 <label id="val_prefrio" class="validacion"> </label>
                                             </div>
@@ -1083,15 +1150,50 @@ if ($_POST) {
                                                     <label id="val_stock" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                        <?php } else { ?>
+                                        <?php } ?>
+                                        
+                                        <?php if ($CATEGORIAESTANDAR == "1") { ?>
                                             <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <input type="hidden" id="STOCKE" name="STOCKE" value="<?php echo $STOCK; ?>" />
-                                                    <input type="hidden" class="form-control" placeholder="Stock" id="STOCK" name="STOCK" value="<?php echo $STOCK; ?>" />
-                                                    <label id="val_stock" class="validacion"> </label>
+                                                    <label>Tippo Categoria</label>
+                                                    <input type="hidden" id="TCATEGORIAE" name="TCATEGORIAE" value="<?php echo $TCATEGORIA; ?>" />                                                   
+                                                    <select class="form-control select2" id="TCATEGORIA" name="TCATEGORIA" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYTCATEGORIA as $r) : ?>
+                                                            <?php if ($ARRAYTCATEGORIA) {    ?>
+                                                                <option value="<?php echo $r['ID_TCATEGORIA']; ?>" <?php if ($TCATEGORIA == $r['ID_TCATEGORIA']) { echo "selected";   } ?>> 
+                                                                    <?php echo $r['NOMBRE_TCATEGORIA'];  ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados</option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_tcategoria" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                        <?php  } ?>
+                                        <?php } ?>                                        
+                                        <?php if ($COLORESTANDAR == "1") { ?>
+                                            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Color</label>
+                                                    <input type="hidden" id="TCOLORE" name="TCOLORE" value="<?php echo $TCOLOR; ?>" />                                  
+                                                    <select class="form-control select2" id="TCOLOR" name="TCOLOR" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYTCOLOR as $r) : ?>
+                                                            <?php if ($ARRAYTCOLOR) {    ?>
+                                                                <option value="<?php echo $r['ID_TCOLOR']; ?>" <?php if ($TCOLOR == $r['ID_TCOLOR']) { echo "selected";   } ?>> 
+                                                                    <?php echo $r['NOMBRE_TCOLOR'];  ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados</option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>                                                   
+                                                    <label id="val_tcolor" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                     <div class="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
@@ -1173,7 +1275,7 @@ if ($_POST) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href="/fruta/vista/registroDrecepcionpt.php?op";
+                                location.href="registroDrecepcionpt.php?op";
                             }
                         })</script>';
                     } else {
@@ -1184,7 +1286,7 @@ if ($_POST) {
                 if ($FOLIOMANUAL != "on") {
                     $FOLIOMANUALR = "0";
                     $SINO = "0";
-                    $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolio($FOLIO);
+                    $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolioRecepción($FOLIO);
                     if ($ARRAYULTIMOFOLIO) {
                         if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
                             $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
@@ -1242,7 +1344,15 @@ if ($_POST) {
 
                     $DRECEPCIONPT->__SET('EMBOLSADO_DRECEPCION', $_REQUEST['EMBOLSADO']);
                     $DRECEPCIONPT->__SET('TEMPERATURA_DRECEPCION', $_REQUEST['TEMPERATURA']);
-                    $DRECEPCIONPT->__SET('STOCK_DRECEPCION', $_REQUEST['STOCK']);
+                    if($_REQUEST['STOCKESTANDAR']==1){
+                        $DRECEPCIONPT->__SET('STOCK_DRECEPCION', $_REQUEST['STOCK']);
+                    }
+                    if($_REQUEST['CATEGORIAESTANDAR']==1){
+                        $DRECEPCIONPT->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                    }
+                    if($_REQUEST['COLORESTANDAR']==1){
+                        $DRECEPCIONPT->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                    }                    
                     $DRECEPCIONPT->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
                     $DRECEPCIONPT->__SET('PREFRIO_DRECEPCION', $_REQUEST['PREFRIO']);
                     $DRECEPCIONPT->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
@@ -1272,7 +1382,9 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $FOLIOALIASDIANAMICO);
                     $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $FOLIOALIASESTACTICO);
                     $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                    $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                    if($_REQUEST['STOCKESTANDAR']==1){
+                        $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                    }
                     $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
                     $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
                     $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
@@ -1291,7 +1403,7 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                     }
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
+                  $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
 
                     //REDIRECCIONAR A PAGINA registroRecepcionmp.php
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -1304,7 +1416,7 @@ if ($_POST) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href="/fruta/vista/'.$_REQUEST['URLO'].'.php?op";
+                                location.href="'.$_REQUEST['URLO'].'.php?op";
                             }
                         })</script>';
                     // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
@@ -1341,7 +1453,16 @@ if ($_POST) {
 
                 $DRECEPCIONPT->__SET('EMBOLSADO_DRECEPCION', $_REQUEST['EMBOLSADO']);
                 $DRECEPCIONPT->__SET('TEMPERATURA_DRECEPCION', $_REQUEST['TEMPERATURA']);
-                $DRECEPCIONPT->__SET('STOCK_DRECEPCION', $_REQUEST['STOCK']);
+                if($_REQUEST['STOCKESTANDAR']==1){
+                    $DRECEPCIONPT->__SET('STOCK_DRECEPCION', $_REQUEST['STOCK']);
+                }
+                if($_REQUEST['CATEGORIAESTANDAR']==1){
+                    $DRECEPCIONPT->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                }
+                if($_REQUEST['COLORESTANDAR']==1){
+                    $DRECEPCIONPT->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                }
+                
                 $DRECEPCIONPT->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
                 $DRECEPCIONPT->__SET('PREFRIO_DRECEPCION', $_REQUEST['PREFRIO']);
                 $DRECEPCIONPT->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
@@ -1370,7 +1491,9 @@ if ($_POST) {
 
                     $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $_REQUEST['NOTADRECEPCION']);
                     $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                    $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                    if($_REQUEST['STOCKESTANDAR']==1){
+                        $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                    }
                     $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
                     $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
                     $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
@@ -1416,7 +1539,9 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $FOLIOALIASDIANAMICO);
                     $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $FOLIOALIASESTACTICO);
                     $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                    $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                    if($_REQUEST['STOCKESTANDAR']==1){
+                        $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                    }
                     $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
                     $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
                     $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
@@ -1449,7 +1574,7 @@ if ($_POST) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href="/fruta/vista/'.$_REQUEST['URLO'].'.php?op";
+                                location.href="'.$_REQUEST['URLO'].'.php?op";
                             }
                         })</script>';
                 // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
@@ -1477,7 +1602,7 @@ if ($_POST) {
                             confirmButtonText:"OK"
                         }).then((result)=>{
                             if(result.value){
-                                location.href="/fruta/vista/'.$_REQUEST['URLO'].'.php?op";
+                                location.href="'.$_REQUEST['URLO'].'.php?op";
                             }
                         })</script>';
                 // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
