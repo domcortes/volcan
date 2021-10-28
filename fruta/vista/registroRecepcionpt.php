@@ -1057,35 +1057,6 @@ if (isset($_POST)) {
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-<<<<<<< HEAD
-                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionpt.php');">
-                                                <i class="ti-trash"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
-                                            </button>
-                                        <?php } ?>
-                                        <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-rounded  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionpt.php'); ">
-                                                <i class="ti-back-left "></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-pencil-alt"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcionpt.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-rounded  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcionpt.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-
-                                        <?php } ?>
-=======
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
                                         <div class="btn-group col-sm-6" role="group" aria-label="acciones">
                                             <?php if ($OP == "") { ?>
@@ -1118,7 +1089,6 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php endif ?>
                                         </div>
->>>>>>> dev_daniel
                                     </div>
                                 </div>
                             </div>
@@ -1409,7 +1379,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href="/fruta/vista/registroRecepcionpt.php?op";
+                                    location.href="registroRecepcionpt.php?op";
                                 }
                             })
                         </script>';
@@ -1456,7 +1426,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href="/fruta/vista/registroRecepcionpt.php?op";
+                                    location.href="registroRecepcionpt.php?op";
                                 }
                             })
                             </script>';
@@ -1540,7 +1510,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href="/fruta/vista/registroRecepcionpt.php?op";
+                                    location.href="registroRecepcionpt.php?op";
                                 }
                             })</script>';
 
@@ -1558,7 +1528,7 @@ if (isset($_POST)) {
                                 confirmButtonText:"OK"
                             }).then((result)=>{
                                 if(result.value){
-                                    location.href="/fruta/vista/registroRecepcionpt.php?op";
+                                    location.href="registroRecepcionpt.php?op";
                                 }
                             })</script>';
                     }
