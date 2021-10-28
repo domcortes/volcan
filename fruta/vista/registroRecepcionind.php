@@ -838,7 +838,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Recepción</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Recepción" id="FECHARECEPCIONE" name="FECHARECEPCIONE" value="<?php echo $FECHARECEPCION; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Recepcion" id="FECHARECEPCION" name="FECHARECEPCION" value="<?php echo $FECHARECEPCION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control"  placeholder="Fecha Recepcion" id="FECHARECEPCION" name="FECHARECEPCION" value="<?php echo $FECHARECEPCION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_fechar" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -846,7 +846,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Hora </label>
                                                 <input type="hidden" class="form-control" placeholder="Hora Recepción" id="HORARECEPCIONE" name="HORARECEPCIONE" value="<?php echo $HORARECEPCION; ?>" />
-                                                <input type="time" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="HORA RECEPCIONIND" id="HORARECEPCION" name="HORARECEPCION" value="<?php echo $HORARECEPCION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="time" class="form-control"  placeholder="HORA RECEPCIONIND" id="HORARECEPCION" name="HORARECEPCION" value="<?php echo $HORARECEPCION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_horar" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -856,12 +856,8 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="Tipo Recepción" id="TRECEPCIONE" name="TRECEPCIONE" value="<?php echo $TRECEPCION; ?>" />
                                                 <select class="form-control select2" id="TRECEPCION" name="TRECEPCION" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
                                                     <option> </option>
-                                                    <option value="1" <?php if ($TRECEPCION == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> Desde Productor </option>
-                                                    <option value="2" <?php if ($TRECEPCION == "2") {
-                                                                            echo "selected";
-                                                                        } ?>> Planta Externa </option>
+                                                    <option value="1" <?php if ($TRECEPCION == "1") { echo "selected"; } ?>> Desde Productor </option>
+                                                    <option value="2" <?php if ($TRECEPCION == "2") { echo "selected"; } ?>> Planta Externa </option>
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -870,7 +866,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Guía</label>
                                                 <input type="hidden" class="form-control" placeholder="Número Guía" id="NUMEROGUIAE" name="NUMEROGUIAE" value="<?php echo $NUMEROGUIA; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control"  placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_numerog" class="validacion"><?php echo $MENSAJE3; ?> </label>
                                             </div>
                                         </div>
@@ -878,7 +874,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Guía</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Guía" id="FECHAGUIAE" name="FECHAGUIAE" value="<?php echo $FECHAGUIA; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Guia" id="FECHAGUIA" name="FECHAGUIA" value="<?php echo $FECHAGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control"  placeholder="Fecha Guia" id="FECHAGUIA" name="FECHAGUIA" value="<?php echo $FECHAGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_fechag" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -886,7 +882,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Total Kilo Guia</label>
                                                 <input type="hidden" class="form-control" placeholder="Total Guia" id="TOTALGUIAE" name="TOTALGUIAE" value="<?php echo $TOTALGUIA; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Total Guia" id="TOTALGUIA" name="TOTALGUIA" value="<?php echo $TOTALGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control"  placeholder="Total Guia" id="TOTALGUIA" name="TOTALGUIA" value="<?php echo $TOTALGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_totalg" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -897,9 +893,8 @@ if (isset($_POST)) {
                                                 <option></option>
                                                 <?php foreach ($ARRAYTRANSPORTE as $r) : ?>
                                                     <?php if ($ARRAYTRANSPORTE) {    ?>
-                                                        <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
+                                                        <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {  echo "selected"; } ?>> 
+                                                        <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
                                                     <?php } else { ?>
                                                         <option>No Hay Datos Registrados </option>
                                                     <?php } ?>
@@ -923,9 +918,7 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYCONDUCTOR as $r) : ?>
                                                         <?php if ($ARRAYCONDUCTOR) {    ?>
-                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) {  echo "selected";  } ?>>
                                                                 <?php echo $r['NOMBRE_CONDUCTOR'] ?>
                                                             </option>
                                                         <?php } else { ?>
@@ -948,7 +941,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Camión</label>
                                                 <input type="hidden" class="form-control" placeholder="PATENTECAMIONE" id="PATENTECAMIONE" name="PATENTECAMIONE" value="<?php echo $PATENTECAMION; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Camion" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control"  placeholder="Patente Camion" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecamion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -956,7 +949,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Carro</label>
                                                 <input type="hidden" class="form-control" placeholder="PATENTECARROE" id="PATENTECARROE" name="PATENTECARROE" value="<?php echo $PATENTECARRO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control"  placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecarro" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -988,9 +981,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                             <?php if ($ARRAYPRODUCTOR) {    ?>
-                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
+                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) { echo "selected"; } ?>>
                                                                     <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -1058,7 +1049,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1"  placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1080,7 +1071,7 @@ if (isset($_POST)) {
                                             <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionind.php'); ">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                 <i class="ti-pencil-alt"></i> Guardar
                                             </button>
                                             <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
@@ -1107,17 +1098,29 @@ if (isset($_POST)) {
                                     <h4 class="card-title">Detalle de recepcion</h4>
                                 </div>
                                 <div class="card-header">
-                                    <form method="post" id="form2" name="form2">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONIND" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="OP RECEPCIONIND" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="URL RECEPCION" id="URLP" name="URLP" value="registroRecepcionind" />
-                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCION" id="URLD" name="URLD" value="registroDrecepcionind" />
-                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>
-                                                <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; }?>> Agregar Detalle
-                                            </button>
+                                    <div class="form-row align-items-center">
+                                        <form method="post" id="form2" name="form2">
+                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONIND" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP RECEPCIONIND" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL RECEPCION" id="URLP" name="URLP" value="registroRecepcionind" />
+                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCION" id="URLD" name="URLD" value="registroDrecepcionind" />
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) : ?> disabled style='background-color: #eeeeee;' <?php endif ?>> 
+                                                        Agregar Detalle
+                                                </button>
+                                            </div>
+                                        </form>                                
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup"></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                </div>
+                                                <input type="hidden" name="KILOSBRUTORECEPCION" id="KILOSBRUTORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Bruto" id="KILOSBRUTORECEPCIONV" name="KILOSBRUTORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
+                                            </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class=" table-responsive">
@@ -1170,7 +1173,7 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDrecepcionind" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
-                                                                            <button type="submit" class="btn btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
+                                                                            <button type="submit" class="btn btn-info  btn-sm " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
                                                                                 <i class="ti-eye"></i> Ver
                                                                             </button>
                                                                         <?php } ?>
@@ -1203,17 +1206,6 @@ if (isset($_POST)) {
                                 <div class="card-footer">
                                     <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                         <div class="form-row align-items-center" role="group" aria-label="Datos">
-                                            <div class="col-auto">
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Total Neto</div>
-                                                        <!-- input -->
-                                                        <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
-                                                        <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
-                                                        <!-- /input -->
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1253,10 +1245,9 @@ if (isset($_POST)) {
                         </script>';
                 } else {
                     $SINO = "0";
-                    $MENSAJE3 = "";
+                    $MENSAJE = "";
                 }
-            }
-            if ($_REQUEST['TRECEPCION'] == "2") {
+            }else if ($_REQUEST['TRECEPCION'] == "2") {
                 $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONIND_ADO->buscarRecepcionPorPlantaExternaGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                 if ($ARRAYRECEPCIONBUSCARGPETP) {
                     $SINO = "1";
@@ -1273,7 +1264,7 @@ if (isset($_POST)) {
                         </script>';
                 } else {
                     $SINO = "0";
-                    $MENSAJE3 = "";
+                    $MENSAJE = "";
                 }
             }
 
@@ -1335,6 +1326,46 @@ if (isset($_POST)) {
                     })
                 </script>';
             }
+        }
+
+        if (isset($_REQUEST['GUARDAR'])) {
+            //UTILIZACION METODOS SET DEL MODELO
+            //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+            $RECEPCIONIND->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+            $RECEPCIONIND->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
+            $RECEPCIONIND->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
+            $RECEPCIONIND->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+            $RECEPCIONIND->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
+            $RECEPCIONIND->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
+            $RECEPCIONIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+            $RECEPCIONIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+            $RECEPCIONIND->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
+            $RECEPCIONIND->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
+            if ($_REQUEST['TRECEPCIONE'] == "1") {
+                $RECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+            }
+            if ($_REQUEST['TRECEPCIONE'] == "2") {
+                $RECEPCIONIND->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+            }
+            $RECEPCIONIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+            $RECEPCIONIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+            $RECEPCIONIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+            $RECEPCIONIND->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+            $RECEPCIONIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+            $RECEPCIONIND->__SET('ID_USUARIOM', $IDUSUARIOS);
+            $RECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $RECEPCIONIND_ADO->actualizarRecepcion($RECEPCIONIND);
+            echo
+                '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro guardado",
+                        text:"Se ha guardado el registro correctamente"
+                    }).then((result)=>{
+                        location.href = "registroRecepcionind.php?op";
+                    })
+                </script>';
         }
 
         //OPERACION PARA CERRAR LA RECEPCION
@@ -1435,46 +1466,6 @@ if (isset($_POST)) {
                     </script>';
                 }
             }
-        }
-
-        if (isset($_REQUEST['GUARDAR'])) {
-            //UTILIZACION METODOS SET DEL MODELO
-            //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-            $RECEPCIONIND->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
-            $RECEPCIONIND->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
-            $RECEPCIONIND->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-            $RECEPCIONIND->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
-            $RECEPCIONIND->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
-            $RECEPCIONIND->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
-            $RECEPCIONIND->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-            $RECEPCIONIND->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-            $RECEPCIONIND->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
-            $RECEPCIONIND->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
-            if ($_REQUEST['TRECEPCIONE'] == "1") {
-                $RECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-            }
-            if ($_REQUEST['TRECEPCIONE'] == "2") {
-                $RECEPCIONIND->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-            }
-            $RECEPCIONIND->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-            $RECEPCIONIND->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-            $RECEPCIONIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-            $RECEPCIONIND->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-            $RECEPCIONIND->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-            $RECEPCIONIND->__SET('ID_USUARIOM', $IDUSUARIOS);
-            $RECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $RECEPCIONIND_ADO->actualizarRecepcion($RECEPCIONIND);
-            echo
-                '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Registro guardado",
-                        text:"Se ha guardado el registro correctamente"
-                    }).then((result)=>{
-                        location.href = "/fruta/vista/registroRecepcionind.php?op";
-                    })
-                </script>';
         }
 
         ?>

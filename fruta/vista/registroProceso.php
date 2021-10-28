@@ -798,7 +798,7 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarProceso.php'); ">
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
-                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
                                                     <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
                                                 <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
@@ -809,7 +809,7 @@ if (isset($_POST)) {
                                         <div class="btn-group col-sm-4">
                                             <?php if ($OP != "") : ?>
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                    <i class="fa fa-file-pdf-o"></i> Proceso
+                                                    <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
                                                 <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $IDOP; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Tarjas
@@ -915,9 +915,8 @@ if (isset($_POST)) {
                                                             <form method="post" id="form1">
                                                                 <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
                                                                 <div class="btn-group btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                    <button type="submit" class="btn btn-sm btn-danger " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                    echo "disabled";
-                                                                                                                                                                                                                                } ?>><i class="ti-close"></i></button>
+                                                                    <button type="submit" class="btn btn-sm btn-danger " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {  echo "disabled"; } ?>>
+                                                                        <i class="ti-close"></i></button>
                                                                 </div>
                                                             </form>
                                                         </td>
@@ -1305,25 +1304,6 @@ if (isset($_POST)) {
                     })
                 </script>';
         }
-
-        if (isset($_REQUEST['QUITAR'])) {
-            $IDQUITAR = $_REQUEST['IDQUITAR'];
-            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIMATERIAPRIMA_ADO->actualizarDeselecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
-            echo
-            '<script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Folio eliminado"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroProceso.php?op";
-                            }
-                        });
-                    </script>';
-        }
-
         //OPERACION EDICION DE FILA
         if (isset($_REQUEST['GUARDAR'])) {
             $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
@@ -1359,7 +1339,6 @@ if (isset($_POST)) {
                     });
                 </script>';
         }
-
         //OPERACION CERRAR DE FILA
         if (isset($_REQUEST['CERRAR'])) {
             //UTILIZACION METODOS SET DEL MODELO
@@ -1519,6 +1498,24 @@ if (isset($_POST)) {
                     // echo "<script type='text/javascript'> location.href ='registroProceso.php?op';</script>";
                 }
             }
+        }        
+        if (isset($_REQUEST['QUITAR'])) {
+            $IDQUITAR = $_REQUEST['IDQUITAR'];
+            $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $EXIMATERIAPRIMA_ADO->actualizarDeselecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
+            echo
+            '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Accion realizada",
+                            text:"Se ha quitado la existencia."
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href = "registroProceso.php?op";
+                            }
+                        });
+                    </script>';
         }
 
         ?>

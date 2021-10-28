@@ -365,6 +365,40 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             })
         </script>
         <?php
+
+        if (isset($_REQUEST['AGREGAR'])) {
+            $IDDESPACHO = $_REQUEST['IDP'];
+            if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
+
+                $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
+
+                //var_dump($SELECIONAREXISTENCIA);
+                foreach ($SELECIONAREXISTENCIA as $r) :
+                    $IDEXISMATERIAPRIMA = $r;
+                    $EXIINDUSTRIAL->__SET('ID_DESPACHO', $IDDESPACHO);
+                    $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDEXISMATERIAPRIMA);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $EXIINDUSTRIAL_ADO->actualizarSelecionarDespachoCambiarEstado($EXIINDUSTRIAL);
+                endforeach;
+
+
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo
+                "<script>
+                        Swal.fire({
+                            icon:'info',
+                            title:'Folios agregados al despacho',
+                            showConfirmButton:true,
+                            confirmButtonText:'Volver al despacho'
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href ='" . $_REQUEST['URLO'] . ".php?op';
+                            }
+                        });
+                    </script>";
+            }
+        }
         if (isset($_REQUEST['DIVIDIR'])) {
             $IDDESPACHO = $_REQUEST['IDP'];
             $ARRAYFOLIO = $_REQUEST['FOLIO'];
@@ -388,11 +422,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         $MENSAJEPRECIO = $MENSAJE;
                         if ($NETO <= 0) {
                             $SINONETO = 1;
-                            $MENSAJE = $MENSAJE . " <br> " . $FOLIOORIGINAL . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
+                            $MENSAJE = $MENSAJE . "  " . $FOLIOORIGINAL . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
                         } else {
                             if ($NETO >= $NETOORIGINAL) {
                                 $SINONETO = 1;
-                                $MENSAJE = $MENSAJE . " <br> " . $FOLIOORIGINAL . ": LOS KILOS DESPACHADOS NO PUEDE SER MAYOR O IGUAL A LOS KILOS NETO";
+                                $MENSAJE = $MENSAJE . "  " . $FOLIOORIGINAL . ": LOS KILOS DESPACHADOS NO PUEDE SER MAYOR O IGUAL A LOS KILOS NETO";
                             } else {
                                 $SINONETO = 0;
                                 $MENSAJE = $MENSAJE;
@@ -442,75 +476,47 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIINDUSTRIAL_ADO->agregarExiindustrialDespacho($EXIINDUSTRIAL);
                         endforeach;
-                        $SINNO=0;
+                        $SINO=0;
                     }
                 endforeach;
 
-                if ($SINNO == 0) {
-
-                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                
+                if ($SINO == 0) {    
+                    if ($MENSAJE == "") {                
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo
+                        "<script>
+                                Swal.fire({
+                                    icon:'info',
+                                    title:'Folios agregados al despacho',
+                                    showConfirmButton:true,
+                                    confirmButtonText:'Volver al despacho'
+                                }).then((result)=>{
+                                    if(result.value){
+                                        location.href ='" . $_REQUEST['URLO'] . ".php?op';
+                                    }
+                                });
+                            </script>";
+                             //  echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    }
                 }
                 if ($SINONETO == 1) {
                     if ($MENSAJE != "") {
-                        echo
-                        '<script>
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            timer: 5000,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            showCloseButton: true,
-                            focusConfirm: false,                  
-                        })
-                        Toast.fire({
-                        icon: "alert", 
-                        title: "",
-                        html:"' . $MENSAJE . '"
-                        })
-                    </script>';
+                        echo '
+                            <script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Accion restringida",
+                                    text:"' . $MENSAJE . '"
+                                })
+                        </script>';
                     }
                 }
+
             }
         }
 
-        if (isset($_REQUEST['AGREGAR'])) {
-            $IDDESPACHO = $_REQUEST['IDP'];
-            if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
-
-                $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
-
-                //var_dump($SELECIONAREXISTENCIA);
-                foreach ($SELECIONAREXISTENCIA as $r) :
-                    $IDEXISMATERIAPRIMA = $r;
-                    $EXIINDUSTRIAL->__SET('ID_DESPACHO', $IDDESPACHO);
-                    $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDEXISMATERIAPRIMA);
-                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $EXIINDUSTRIAL_ADO->actualizarSelecionarDespachoCambiarEstado($EXIINDUSTRIAL);
-                endforeach;
-
-
-                $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                echo
-                "<script>
-                        Swal.fire({
-                            icon:'info',
-                            title:'Folios agregados al despacho'
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href ='" . $_REQUEST['URLO'] . ".php?op';
-                            }
-                        });
-                    </script>";
-                /*
-                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";*/
-            }
-        }
 
         ?>
 

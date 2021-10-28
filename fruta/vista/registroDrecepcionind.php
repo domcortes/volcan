@@ -115,70 +115,6 @@ include_once "../config/validarDatosUrlD.php";
 //OPERACIONES
 
 
-if (isset($_REQUEST['EDITAR'])) {
-
-    $DRECEPCIONIND->__SET('FECHA_EMBALADO_DRECEPCION', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-    $DRECEPCIONIND->__SET('KILOS_NETO_DRECEPCION', $_REQUEST['KILOSNETO']);
-    $DRECEPCIONIND->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-    $DRECEPCIONIND->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
-    $DRECEPCIONIND->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-    $DRECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    $DRECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $DRECEPCIONIND->__SET('ID_DRECEPCION', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DRECEPCIONIND_ADO->actualizarDrecepcion($DRECEPCIONIND);
-
-    $ARRAYVERFOLIOEXISTENCIA = $EXIINDUSTRIAL_ADO->buscarPorRecepcionNumeroFolio($_REQUEST['IDP'],  $_REQUEST["NUMEROFOLIODINDUSTRIALE"]);
-
-    if ($ARRAYVERFOLIOEXISTENCIA) {
-        $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
-        $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-        $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-        $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-        $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-        $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $EXIINDUSTRIAL->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $ARRAYVERFOLIOEXISTENCIA[0]['ID_EXIINDUSTRIAL']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIINDUSTRIAL_ADO->actualizarExiindustrialRecepcion($EXIINDUSTRIAL);
-    } else {
-        $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-        $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-        $NUMEROFOLIODINDUSTRIAL = $_REQUEST["NUMEROFOLIODINDUSTRIALE"];
-        $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
-        $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-            "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
-
-        $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-        $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-        $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
-        $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
-        $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
-        $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-        $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-        $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
-        $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-        $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-        $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $EXIINDUSTRIAL->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIINDUSTRIAL_ADO->agregarExiindustrialRecepcion($EXIINDUSTRIAL);
-    }
-
-    //REDIRECCIONAR A PAGINA registroProceso.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -707,7 +643,8 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
-        <?php if (isset($_REQUEST['CREAR'])){
+        <?php 
+            if (isset($_REQUEST['CREAR'])){
             //OPERACION DE REGISTRO DE FILA
             //OBTENER EL FOLIO DEL DETALLE DE EXPORTACION DEL PROCESO
                 $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
@@ -764,22 +701,106 @@ if ($_POST) {
                 //REDIRECCIONAR A PAGINA registroProceso.php
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '
+                    <script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro creado",
+                        text:"Se ha creado una fila para el detalle de recepcion",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a Recepción"
+                    }).then((result)=>{
+                        if (result.value) {
+                            location.href = "'.$_REQUEST['URLO'].'.php?op";
+                        }
+                    })
+                </script>
+                ';
+
+
                 // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-            ?>
-            <script>
-                Swal.fire({
-                    icon:"success",
-                    title:"Detalle creado",
-                    text:"El detalle fue creado correctamente",
-                    showConfirmButton:true,
-                    confirmButtonText:"Ok"
-                }).then((result)=>{
-                    if (result.value) {
-                        location.href = "<?php echo $_REQUEST['URLO'];?>.php?op";
-                    }
-                })
-            </script>
-        <?php } ?>
+        
+         } 
+        ?>
+        <?php         
+            if (isset($_REQUEST['EDITAR'])) {
+
+                $DRECEPCIONIND->__SET('FECHA_EMBALADO_DRECEPCION', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                $DRECEPCIONIND->__SET('KILOS_NETO_DRECEPCION', $_REQUEST['KILOSNETO']);
+                $DRECEPCIONIND->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                $DRECEPCIONIND->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
+                $DRECEPCIONIND->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $DRECEPCIONIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $DRECEPCIONIND->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $DRECEPCIONIND->__SET('ID_DRECEPCION', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DRECEPCIONIND_ADO->actualizarDrecepcion($DRECEPCIONIND);
+
+                $ARRAYVERFOLIOEXISTENCIA = $EXIINDUSTRIAL_ADO->buscarPorRecepcionNumeroFolio($_REQUEST['IDP'],  $_REQUEST["NUMEROFOLIODINDUSTRIALE"]);
+
+                if ($ARRAYVERFOLIOEXISTENCIA) {
+                    $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                    $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                    $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                    $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                    $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $EXIINDUSTRIAL->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $ARRAYVERFOLIOEXISTENCIA[0]['ID_EXIINDUSTRIAL']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $EXIINDUSTRIAL_ADO->actualizarExiindustrialRecepcion($EXIINDUSTRIAL);
+                } else {
+                    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+                    $NUMEROFOLIODINDUSTRIAL = $_REQUEST["NUMEROFOLIODINDUSTRIALE"];
+                    $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
+                    $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                        "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
+
+                    $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                    $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                    $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                    $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
+                    $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
+                    $EXIINDUSTRIAL->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                    $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                    $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
+                    $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                    $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $EXIINDUSTRIAL->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $EXIINDUSTRIAL_ADO->agregarExiindustrialRecepcion($EXIINDUSTRIAL);
+                }
+                //REDIRECCIONAR A PAGINA registroProceso.php 
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    echo '                
+                    <script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Modificado",
+                            text:"Se ha Modificado una fila en el detalle de recepcion",
+                            showConfirmButton:true,
+                            confirmButtonText:"Volver a Recepción",
+                        }).then((result)=>{
+                            if (result.value) {
+                                location.href = "'. $_REQUEST['URLO'].'.php?op";
+                            }
+                        })
+                    </script>
+                ';
+            }
+        ?>
         <?php
             if (isset($_REQUEST['ELIMINAR'])) {
                 $IDELIMINAR = $_REQUEST['ID'];
@@ -795,21 +816,24 @@ if ($_POST) {
                 //REDIRECCIONAR A PAGINA registroProceso.php
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '  
+                    <script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro eliminado",
+                        text:"Se ha eliminado una fila en el detalle de recepcion",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a Recepción"
+                    }).then((result)=>{
+                        if (result.value) {
+                            location.href = "'. $_REQUEST['URLO'].'.php?op";
+                        }
+                    })
+                </script>'
+
                 // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
                 ?>
-            <script>
-                Swal.fire({
-                    icon:"success",
-                    title:"Detalle eliminado",
-                    text:"El detalle fue eliminado correctamente ❌",
-                    showConfirmButton:true,
-                    confirmButtonText:"Ok"
-                }).then((result)=>{
-                    if (result.value) {
-                        location.href = "<?php echo $_REQUEST['URLO'];?>.php?op";
-                    }
-                })
-            </script>
+        
         <?php } ?>
 
 

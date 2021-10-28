@@ -234,7 +234,6 @@ include_once "../config/datosUrLP.php";
                                                 <tr class="text-left">
                                                     <th>N° Folio </th>
                                                     <th>Fecha Embalado/Cosecha </th>
-                                                    <th>Tipo Producto</th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
                                                     <th>CSG</th>
@@ -247,6 +246,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
+                                                    <th>Origen Recepcion</th>
                                                     <th>Número Guía Recepción</th>
                                                     <th>Fecha Guía Recepción </th>
                                                     <th>Tipo Manejo</th>
@@ -367,7 +367,6 @@ include_once "../config/datosUrLP.php";
                                                         <tr class="text-left">
                                                             <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
                                                             <td><?php echo $s['COSECHA']; ?></td>
-                                                            <td><?php echo "Materia Prima"; ?> </td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
@@ -380,6 +379,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION; ?></td>
+                                                            <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                             <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>

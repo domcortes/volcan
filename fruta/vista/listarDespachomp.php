@@ -217,9 +217,9 @@ include_once "../config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
+                                                    <th>Fecha Despacho </th>
                                                     <th>Tipo Despacho</th>
                                                     <th>Destino Despacho</th>
-                                                    <th>Fecha Despacho </th>
                                                     <th>Número Guía </th>
                                                     <th>Cantidad Envase</th>
                                                     <th>Kilos Neto</th>
@@ -381,7 +381,7 @@ include_once "../config/datosUrLP.php";
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
                                                                                     <button type="submit" class="btn btn-primary btn-block " id="VERMOTIVOSRURL" name="VERMOTIVOSRURL">
-                                                                                        <i class="ti-eye"></i> Ver
+                                                                                        <i class="ti-eye"></i> Ver Motivos
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
@@ -397,9 +397,9 @@ include_once "../config/datosUrLP.php";
                                                             </form>
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
+                                                        <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $DESTINO; ?></td>
-                                                        <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $r['ENVASE']; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>

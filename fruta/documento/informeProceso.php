@@ -146,8 +146,8 @@ $TOTALNETOSF = $ARRAYEXISTENCIATOMADATOTALES[0]['NETOSF'];
 
 
 $ARRAYDEXPORTACION = $DPEXPORTACION_ADO->buscarPorProceso2($IDOP);
-$ARRAYDEXPORTACIONCALIBRE = $DPEXPORTACION_ADO->buscarPorProcesoAgrupadoCalibre($IDOP);
 $ARRAYDEXPORTACIONTOTALES = $DPEXPORTACION_ADO->obtenerTotales2($IDOP);
+$ARRAYDEXPORTACIONCALIBRE = $DPEXPORTACION_ADO->buscarPorProcesoAgrupadoCalibre($IDOP);
 $TOTALENVASEDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['ENVASE']; //TOTAL_DESHIDRATACION
 $TOTALNETODEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['NETO'];
 $TOTALDESHIDRATACIONDEXPORTACION = $ARRAYDEXPORTACIONTOTALES[0]['DESHIDRATACION'];
@@ -586,7 +586,7 @@ $html = $html . '
           <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
           <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
           <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
-          <div class="address">EXPO. CON DESH.: ' . $PDTOTAL . '%</div>
+          <div class="address">EXPO. CON DESH.: ' . number_format($PEXPORTACIONEXPOEXDESHI, 2, ",", ".") . '%</div>
         </div>
         
       </div>

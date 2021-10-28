@@ -262,13 +262,14 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
+                                                    <th>Origen Recepción</th>
                                                     <th>Número Guía Recepción</th>
                                                     <th>Fecha Guía Recepción </th>
                                                     <th>Número Despacho</th>
                                                     <th>Fecha Despacho </th>
-                                                    <th>Número Guía Despacho</th>
                                                     <th>Tipo Despacho</th>
                                                     <th>Destino Despacho</th>
+                                                    <th>Número Guía Despacho</th>
                                                     <th>Tipo Manejo</th>
                                                     <th>Gasificacion</th>
                                                     <th>Transporte </th>
@@ -427,11 +428,25 @@ include_once "../config/datosUrLP.php";
                                                             $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
                                                             $NUMEROGUIARECEPCION = $ARRAYRECEPCION[0]["NUMERO_GUIA_RECEPCION"];
                                                             $FECHAGUIARECEPCION = $ARRAYRECEPCION[0]["GUIA"];
-                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == 1) {
-                                                                $TIPORECEPCION = "Desde Productor";
-                                                            }
-                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == 2) {
+                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == "1") {
+                                                                $TIPORECEPCION = "Desde Productor ";
+                                                                $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+                                                                if ($ARRAYPRODUCTOR2) {
+                                                                    $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                }
+                                                            } else if ($ARRAYRECEPCION[0]["TRECEPCION"] == "2") {
                                                                 $TIPORECEPCION = "Planta Externa";
+                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
+                                                                if ($ARRAYPLANTA2) {
+                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                }
+                                                            } else {
+                                                                $TIPORECEPCION = "Sin Datos";
+                                                                $ORIGEN = "Sin Datos";
                                                             }
                                                         } else {
                                                             $FECHARECEPCION = "Sin Datos";
@@ -439,6 +454,7 @@ include_once "../config/datosUrLP.php";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
                                                             $FECHAGUIARECEPCION = "Sin Datos";
                                                             $TIPORECEPCION = "Sin Datos";
+                                                            $ORIGEN = "Sin Datos";
                                                         }
 
                                                         ?>
@@ -457,13 +473,14 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
+                                                            <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
+                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>

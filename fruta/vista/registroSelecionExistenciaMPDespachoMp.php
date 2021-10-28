@@ -415,9 +415,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 echo '<script>
                             Swal.fire({
                                 icon:"info",
-                                title:"Folios agregados al proceso",
+                                title:"Folios agregados al despacho",
                                 showConfirmButton:true,
-                                confirmButtonText:"OK"
+                                confirmButtonText:"Volver al despacho"
                             }).then((result)=>{
                                 if(result.value){
                                     location.href="' . $_REQUEST['URLO'] . '.php?op";
@@ -458,11 +458,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         $MENSAJE = $MENSAJE;
                         if ($ENVASE <= 0) {
                             $SINOENVASE = 1;
-                            $MENSAJE = $MENSAJE . " <br> <b>" . $FOLIOORIGINAL . "</b>: SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
+                            $MENSAJE = $MENSAJE . "" . $FOLIOORIGINAL . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
                         } else {
                             if ($ENVASE >= $ENVASEORIGINAL) {
                                 $SINOENVASE = 1;
-                                $MENSAJE = $MENSAJE . " <br> <b>" . $FOLIOORIGINAL . "</b: LA CANTIDAD DE ENVASES NO PUEDE SER MAYOR O IGUAL A LOS ENVASES ORIGINAL";
+                                $MENSAJE = $MENSAJE . " " . $FOLIOORIGINAL . ": LA CANTIDAD DE ENVASES NO PUEDE SER MAYOR O IGUAL A LOS ENVASES ORIGINAL";
                             } else {
                                 $SINOENVASE = 0;
                                 $MENSAJE = $MENSAJE;
@@ -537,44 +537,37 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     }
                 endforeach;
 
-                if ($SINO == 0) {
-                    
-                    
-                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                    echo
-                    "<script>
-                            Swal.fire({
-                                icon:'info',
-                                title:'Folios agregados al proceso'
-                            }).then((result)=>{
-                                if(result.value){
-                                   location.href ='" . $_REQUEST['URLO'] . ".php?op';
-                                }                          
-                            });
-                    </script>";
-                   //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-                   
+                if ($SINO == 0) {    
+                    if ($MENSAJE == "") { 
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo '
+                                <script>
+                                    Swal.fire({
+                                        icon:"info",
+                                        title:"Folios agregados al despacho",
+                                        showConfirmButton:true,
+                                        confirmButtonText:"Volver al despacho"
+                                    }).then((result)=>{
+                                        if(result.value){
+                                            location.href="' . $_REQUEST['URLO'] . '.php?op";
+                                        }
+                                    })
+                                </script>';
+                        //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    }                   
                 }
                 if ($SINOENVASE == 1) {
                     if ($MENSAJE != "") {
-                        echo
-                        '<script>
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            timer: 5000,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            showCloseButton: true,
-                            focusConfirm: false,                  
-                        })
-                        Toast.fire({
-                        icon: "alert", 
-                        title: "",
-                        html:"' . $MENSAJE . '"
-                        })
-                    </script>';
+
+                        echo '
+                            <script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Accion restringida",
+                                    text:"' . $MENSAJE . '"
+                                })
+                        </script>';
                     }
                 }
             }

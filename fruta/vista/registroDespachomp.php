@@ -1287,151 +1287,153 @@ if (isset($_POST)) {
                         </form>
                         <!--.row -->
 
-                        <div class="box">
-                            <div class="box-header bg-info">
-                                <h4 class="card-title">Detalle de Despacho de Materia Prima</h4>
-                            </div>
-                            <div class="card-header">
-                                     <div class="form-row align-items-center">
-                                        <form method="post" id="form1">
-                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachomp" />
-                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaMPDespachoMp" />
+                        <?php if (isset($_GET['op'])): ?>
+                            <div class="card">                            
+                                <div class="card-header bg-info">
+                                    <h4 class="card-title">Detalle de Despacho de Materia Prima</h4>
+                                </div>
+                                <div class="card-header">
+                                        <div class="form-row align-items-center">
+                                            <form method="post" id="form1">
+                                                <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachomp" />
+                                                <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaMPDespachoMp" />
+                                                <div class="col-auto">
+                                                    <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
+                                                        <?php echo $DISABLED2; ?>
+                                                        <?php
+                                                            if ($ESTADO == 0) {
+                                                                echo "disabled style='background-color: #eeeeee;'";
+                                                            }
+                                                        ?>
+                                                        > Selector Existencias
+                                                    </button>
+                                                </form>
+                                            </div>
                                             <div class="col-auto">
-                                                <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
-                                                    <?php echo $DISABLED2; ?>
-                                                    <?php
-                                                        if ($ESTADO == 0) {
-                                                            echo "disabled style='background-color: #eeeeee;'";
-                                                        }
-                                                    ?>
-                                                    > Selector Existencias
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="col-auto">
-                                            <label class="sr-only" for=""></label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Envase</div>
+                                                <label class="sr-only" for=""></label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Envase</div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEV; ?>" disabled />
                                                 </div>
-                                                <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
-                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEV; ?>" disabled />
+                                            </div>
+                                            <div class="col-auto">
+                                                <label class="sr-only" for=""></label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Neto</div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <label class="sr-only" for=""></label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Bruto</div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control" id="TOTALBRUTO" name="TOTALBRUTO" value="<?php echo $TOTALBRUTO; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTOV; ?>" disabled />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <label class="sr-only" for=""></label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Neto</div>
-                                                </div>
-                                                 <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
-                                                 <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <label class="sr-only" for=""></label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Bruto</div>
-                                                </div>
-                                                <input type="hidden" class="form-control" id="TOTALBRUTO" name="TOTALBRUTO" value="<?php echo $TOTALBRUTO; ?>" />
-                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTOV; ?>" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="table-responsive">
-                                                <table id="detalle" class="table table-hover " style="width: 150%;">
-                                                    <thead>
-                                                        <tr class="text-left">
-                                                            <th> N° Folio </th>
-                                                            <th class="text-center">Operaciónes</th>
-                                                            <th>Fecha Cosecha </th>
-                                                            <th>Código Estandar</th>
-                                                            <th>Envase/Estandar</th>
-                                                            <th>Variedad</th>
-                                                            <th>Cantidad Envase</th>
-                                                            <th>Kilos Neto</th>
-                                                            <th>Kilos Promedio</th>
-                                                            <th>Kilos Bruto</th>
-                                                            <th>CSG</th>
-                                                            <th>Productor</th>
-                                                            <th>Tipo Manejo</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php if ($ARRAYTOMADO) { ?>
-                                                            <?php foreach ($ARRAYTOMADO as $r) : ?>
-                                                                <?php
-                                                                $CONTADOR = $CONTADOR + 1;
-                                                                $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                                if ($ARRAYVERPRODUCTORID) {
-                                                                    $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                    $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                                } else {
-                                                                    $CSGPRODUCTOR = "Sin Datos";
-                                                                    $NOMBREPRODUCTOR = "Sin Datos";
-                                                                }
-                                                                $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                                if ($ARRAYVERVESPECIESID) {
-                                                                    $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                                } else {
-                                                                    $NOMBREVARIEDAD = "Sin Datos";
-                                                                }
-                                                                $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                                if ($ARRAYEVERERECEPCIONID) {
-                                                                    $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                                    $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                                } else {
-                                                                    $NOMBREESTANDAR = "Sin Datos";
-                                                                    $CODIGOESTANDAR = "Sin Datos";
-                                                                }
-                                                                $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                                if ($ARRAYTMANEJO) {
-                                                                    $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                                } else {
-                                                                    $NOMBRETMANEJO = "Sin Datos";
-                                                                }
+                                </div>
+                                <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table id="detalle" class="table table-hover " style="width: 150%;">
+                                                        <thead>
+                                                            <tr class="text-left">
+                                                                <th> N° Folio </th>
+                                                                <th class="text-center">Operaciónes</th>
+                                                                <th>Fecha Cosecha </th>
+                                                                <th>Código Estandar</th>
+                                                                <th>Envase/Estandar</th>
+                                                                <th>Variedad</th>
+                                                                <th>Cantidad Envase</th>
+                                                                <th>Kilos Neto</th>
+                                                                <th>Kilos Promedio</th>
+                                                                <th>Kilos Bruto</th>
+                                                                <th>CSG</th>
+                                                                <th>Productor</th>
+                                                                <th>Tipo Manejo</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php if ($ARRAYTOMADO) { ?>
+                                                                <?php foreach ($ARRAYTOMADO as $r) : ?>
+                                                                    <?php
+                                                                    $CONTADOR = $CONTADOR + 1;
+                                                                    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                    if ($ARRAYVERPRODUCTORID) {
+                                                                        $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                        $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                                    } else {
+                                                                        $CSGPRODUCTOR = "Sin Datos";
+                                                                        $NOMBREPRODUCTOR = "Sin Datos";
+                                                                    }
+                                                                    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                                    if ($ARRAYVERVESPECIESID) {
+                                                                        $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                                    } else {
+                                                                        $NOMBREVARIEDAD = "Sin Datos";
+                                                                    }
+                                                                    $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                                    if ($ARRAYEVERERECEPCIONID) {
+                                                                        $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                                        $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                                    } else {
+                                                                        $NOMBREESTANDAR = "Sin Datos";
+                                                                        $CODIGOESTANDAR = "Sin Datos";
+                                                                    }
+                                                                    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                                    if ($ARRAYTMANEJO) {
+                                                                        $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                                    } else {
+                                                                        $NOMBRETMANEJO = "Sin Datos";
+                                                                    }
 
-                                                                ?>
-                                                                <tr class="text-left">
-                                                                    <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
-                                                                    <td class="text-center">
-                                                                      <form method="post" id="form2">
-                                                                            <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
-                                                                            <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
-                                                                                <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
-                                                                                    <i class="ti-close"></i>
-                                                                                </button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </td>
-                                                                    <td><?php echo $r['COSECHA']; ?></td>
-                                                                    <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                                    <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                    <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                                    <td><?php echo $r['ENVASE']; ?></td>
-                                                                    <td><?php echo $r['NETO']; ?></td>
-                                                                    <td><?php echo $r['PROMEDIO']; ?></td>
-                                                                    <td><?php echo $r['BRUTO']; ?></td>
-                                                                    <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                                    <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                                    <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                                </tr>
-                                                            <?php endforeach; ?>
-                                                        <?php } ?>
-                                                    </tbody>
-                                                </table>
+                                                                    ?>
+                                                                    <tr class="text-left">
+                                                                        <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
+                                                                        <td class="text-center">
+                                                                        <form method="post" id="form2">
+                                                                                <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
+                                                                                <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
+                                                                                    <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
+                                                                                        <i class="ti-close"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </td>
+                                                                        <td><?php echo $r['COSECHA']; ?></td>
+                                                                        <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                        <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                        <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                                        <td><?php echo $r['ENVASE']; ?></td>
+                                                                        <td><?php echo $r['NETO']; ?></td>
+                                                                        <td><?php echo $r['PROMEDIO']; ?></td>
+                                                                        <td><?php echo $r['BRUTO']; ?></td>
+                                                                        <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                        <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                        <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                                    </tr>
+                                                                <?php endforeach; ?>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif ?>
                     </section>
                     <!-- /.content -->
                 </div>
@@ -2035,7 +2037,7 @@ if (isset($_POST)) {
                             Swal.fire({
                                 icon:"info",
                                 title:"Accion realizada",
-                                text:"Se ha eliminado la existencia."
+                                text:"Se ha quitado la existencia."
                             }).then((result)=>{
                                 if(result.value){
                                     location.href="registroDespachomp.php?op";

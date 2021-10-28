@@ -422,7 +422,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 "<script>
                         Swal.fire({
                             icon:'info',
-                            title:'Folios agregados al proceso'
+                            title:'Folios agregados al proceso',
+                            showConfirmButton:true,
+                            confirmButtonText:'Volver al proceso'
                         }).then((result)=>{
                             if(result.value){
                                 location.href ='" . $_REQUEST['URLO'] . ".php?op';
@@ -545,41 +547,36 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 endforeach;
 
                 if ($SINO == 0) {
-                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                    echo
-                    "<script>
-                            Swal.fire({
-                                icon:'info',
-                                title:'Folios agregados al proceso'
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href ='" . $_REQUEST['URLO'] . ".php?op';
-                                }
-                            });
-                        </script>";
-                   //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-                }
-                if ($SINOENVASE == 1) {
-                   
-                    if ($MENSAJE != "") {
+                    
+                    if ($MENSAJE == "") { 
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                         echo
-                        '<script>
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            timer: 5000,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            showCloseButton: true,
-                            focusConfirm: false,                  
-                        })
-                        Toast.fire({
-                        icon: "alert", 
-                        title: "",
-                        html:"' . $MENSAJE . '"
-                        })
-                    </script>';
+                        "<script>
+                                Swal.fire({
+                                    icon:'info',
+                                    title:'Folios agregados al proceso',
+                                    showConfirmButton:true,
+                                    confirmButtonText:'Volver al proceso'
+                                }).then((result)=>{
+                                    if(result.value){
+                                        location.href ='" . $_REQUEST['URLO'] . ".php?op';
+                                    }
+                                });
+                            </script>";
+                          //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    }
+                }
+                if ($SINOENVASE == 1) {                   
+                    if ($MENSAJE != "") {
+                        echo '
+                            <script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Accion restringida",
+                                    text:"' . $MENSAJE . '"
+                                })
+                        </script>';
                     }
                 }
             }

@@ -433,15 +433,17 @@ if (isset($_REQUEST['RECHAZARURL'])) {
 
                             </div>
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 col-xs-10">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

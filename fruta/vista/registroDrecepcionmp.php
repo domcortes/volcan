@@ -183,10 +183,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             if ($r['FOLIO_MANUAL'] == "0") {
                 $FOLIOMANUAL = "off";
             }*/
-            $CANTIDADENVASEDRECEPCION = "" . $r['CANTIDAD_ENVASE_DRECEPCION'];
+            $CANTIDADENVASEDRECEPCION = 0;
+            /*
             $KILOSBRUTODRECEPCION = "" . $r['KILOS_BRUTO_DRECEPCION'];
             $KILOSNETODRECEPCION = "" . $r['KILOS_NETO_DRECEPCION'];
-            $KILOSPROMEDIODRECEPCION = "" . $r['KILOS_PROMEDIO_DRECEPCION'];
+            $KILOSPROMEDIODRECEPCION = "" . $r['KILOS_PROMEDIO_DRECEPCION'];*/
             $PESOPALLETRECEPCION = "" . $r['PESO_PALLET_DRECEPCION'];
             $GASIFICADORECEPCION = "" . $r['GASIFICADO_DRECEPCION'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
@@ -1288,7 +1289,7 @@ if ($_POST) {
             echo '<script>
                     Swal.fire({
                         icon:"success",
-                        title:"Fila registrada",
+                        title:"Fila Modificado",
                         text:"Se ha Modificado una fila en el detalle de recepcion",
                         showConfirmButton:true,
                         confirmButtonText:"Volver a recepcion"

@@ -11,7 +11,7 @@ $(function () {
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
-        'searching': true, //buscador
+        'searching': false, //buscador
         'ordering': true,
         'info': true,
         'autoWidth': true,
@@ -43,7 +43,7 @@ $(function () {
         "scrollX": true,
         'paging': false,
         'lengthChange': true, //ordernar por 10 25 100 500
-        'searching': true, //buscador
+        'searching': false, //buscador
         'ordering': true,
         'info': true,
         'autoWidth': false,
@@ -122,7 +122,7 @@ $(function () {
         "scrollX": true,
         'paging': false,
         'lengthChange': true, //ordernar por 10 25 100 500
-        'searching': true, //buscador
+        'searching': false, //buscador
         'ordering': true,
         'info': true,
         'autoWidth': false,
@@ -159,7 +159,7 @@ $(function () {
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
-        'searching': true, //buscador
+        'searching': false, //buscador
         'ordering': true,
         'info': true,
         'autoWidth': true,
@@ -191,7 +191,7 @@ $(function () {
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
-        'searching': true, //buscador
+        'searching': false, //buscador
         'ordering': true,
         'info': true,
         'autoWidth': true,
@@ -223,7 +223,7 @@ $(function () {
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
-        'searching': true, //buscador
+        'searching': false, //buscador
         'ordering': true,
         'info': true,
         'autoWidth': false,

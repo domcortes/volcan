@@ -217,6 +217,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Fecha Recepcion </th>
                                                     <th>Hora Recepcion </th>
                                                     <th>Tipo Recepcion</th>
+                                                    <th>Origen Recepcion</th>
                                                     <th>Numero Guia </th>
                                                     <th>Fecha Guia </th>
                                                     <th>Total Kilos Guia</th>
@@ -240,9 +241,23 @@ include_once "../config/datosUrLP.php";
                                                     <?php
                                                     if ($r['TRECEPCION'] == "1") {
                                                         $TRECEPCION = "Desde Productor ";
-                                                    }
-                                                    if ($r['TRECEPCION'] == "2") {
+                                                        $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if($ARRAYPRODUCTOR2){
+                                                            $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'].":".$ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                        }else{
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
+                                                    } else if ($r['TRECEPCION'] == "2") {
                                                         $TRECEPCION = "Planta Externa";
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if($ARRAYPLANTA2){
+                                                            $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        }else{
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
+                                                    } else {
+                                                        $TRECEPCION = "Sin Datos";
+                                                        $ORIGEN = "Sin Datos";
                                                     }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -302,26 +317,26 @@ include_once "../config/datosUrLP.php";
 
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
+                                                                                        <i class="ti-eye"></i>Ver
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($r['ESTADO'] == "1") { ?>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                     <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
+                                                                                        <i class="ti-pencil-alt"></i>Editar
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcionpt.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                    <i class="fa fa-file-pdf-o"></i>Informe
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
                                                                                 <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcionpt.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                    <i class="fa fa-file-pdf-o"></i>Tarja
                                                                                 </button>
                                                                             </span>
                                                                         </div>
@@ -332,6 +347,7 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $r['HORA_RECEPCION']; ?></td>
                                                         <td><?php echo $TRECEPCION;  ?></td>
+                                                        <td><?php echo $ORIGEN;  ?></td>
                                                         <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                         <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                         <td><?php echo $r['GUIA']; ?></td>
