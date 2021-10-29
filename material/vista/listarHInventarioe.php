@@ -293,7 +293,7 @@ include_once "../config/reporteUrl.php";
                                                                 $NOMBREDESTINO = "Sin Datos";
                                                             }
                                                         }else if ($TOPERACION == "5") {
-                                                            $NOMBREOPERACION = " Venta".$TIPO;
+                                                            $NOMBREOPERACION = " Venta ".$TIPO;
                                                             $ARRAYVERCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]["ID_COMPRADOR"]);
                                                             if ($ARRAYVERCOMPRADOR) {
                                                                 $NOMBREDESTINO = $ARRAYVERCOMPRADOR[0]["NOMBRE_COMPRADOR"];
