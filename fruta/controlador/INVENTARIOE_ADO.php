@@ -1063,7 +1063,6 @@ class INVENTARIOE_ADO
                                                     inventario.ID_RECEPCION AS 'RECEPCION',
                                                     inventario.ID_DESPACHO AS 'DESPACHO',
                                                     inventario.ID_DESPACHO2 AS 'DESPACHO2',
-                                                    inventario.ID_PLANTA2 AS 'PLANTA2',
                                                     (   SELECT  empresa.NOMBRE_EMPRESA
                                                         FROM principal_empresa empresa
                                                         WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
@@ -1086,7 +1085,7 @@ class INVENTARIOE_ADO
                                                     inventario.ID_PRODUCTO, inventario.ID_EMPRESA, 
                                                     inventario.ID_PLANTA, inventario.ID_TEMPORADA, 
                                                     inventario.ID_RECEPCION, inventario.ID_DESPACHO,
-                                                    inventario.ID_PLANTA2                                                
+                                                    inventario.ID_DESPACHO2                                                
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -1123,7 +1122,6 @@ class INVENTARIOE_ADO
                                                     inventario.ID_RECEPCION AS 'RECEPCION',
                                                     inventario.ID_DESPACHO AS 'DESPACHO',
                                                     inventario.ID_DESPACHO2 AS 'DESPACHO2',
-                                                    inventario.ID_PLANTA2 AS 'PLANTA2',
                                                     (   SELECT  empresa.NOMBRE_EMPRESA
                                                         FROM principal_empresa empresa
                                                         WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
@@ -1145,7 +1143,7 @@ class INVENTARIOE_ADO
                                                     inventario.ID_PRODUCTO, inventario.ID_EMPRESA, 
                                                     inventario.ID_PLANTA, inventario.ID_TEMPORADA, 
                                                     inventario.ID_RECEPCION, inventario.ID_DESPACHO,
-                                                    inventario.ID_PLANTA2                                                
+                                                    inventario.ID_DESPACHO2                                                
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();

@@ -60,7 +60,7 @@ $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarKardexPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarKardexPorEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrl.php";
 include_once "../config/reporteUrl.php";
@@ -202,6 +202,7 @@ include_once "../config/reporteUrl.php";
                                                     <?php                                            
                                                     $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($r['RECEPCION']);
                                                     $ARRAYDESPACHO = $DESPACHOE_ADO->verDespachoe2($r['DESPACHO']);
+                                                    $ARRAYDESPACHO2=$DESPACHOE_ADO->verDespachoe2($r['DESPACHO2']);
                                                     if ($ARRAYRECEPCION) {
                                                         $NUMEROPERACION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
                                                         $NUMERODOCUMENTO = $ARRAYRECEPCION[0]['NUMERO_DOCUMENTO_RECEPCION'];
@@ -322,31 +323,30 @@ include_once "../config/reporteUrl.php";
                                                         }else {
                                                             $NOMBREOPERACION = "Sin Datos";
                                                         } 
-                                                    }else if($r['PLANTA2']){
-                                                        $ARRAYVERDESPACHO=$DESPACHOE_ADO->verDespachoe2($r['DESPACHO2']);
-                                                        if($ARRAYVERDESPACHO){
-                                                            $NUMERODOCUMENTO = $ARRAYVERDESPACHO[0]["NUMERO_DOCUMENTO"];
-                                                            $NUMEROPERACION = $ARRAYVERDESPACHO[0]['NUMERO_DESPACHO'];
-                                                            $FECHAOPERACION = $ARRAYVERDESPACHO[0]["FECHA"];
-                                                            $DESPACHOORIGEN = $ARRAYVERDESPACHO[0]['ID_DESPACHOMP'];    
+                                                    }else if($ARRAYDESPACHO2){
+                                                        if($ARRAYDESPACHO2){
+                                                            $NUMERODOCUMENTO = $ARRAYDESPACHO2[0]["NUMERO_DOCUMENTO"];
+                                                            $NUMEROPERACION = $ARRAYDESPACHO2[0]['NUMERO_DESPACHO'];
+                                                            $FECHAOPERACION = $ARRAYDESPACHO2[0]["FECHA"];
+                                                            $DESPACHOORIGEN = $ARRAYDESPACHO2[0]['ID_DESPACHOMP'];  
+                                                            $NOMBREDESTINO= $r['BODEGA'];    
+                                                            $ARRAYVERPLANTA=$PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);    
                                                             if($DESPACHOORIGEN){
                                                                 $TIPO="Materia Prima";
                                                             }else{
                                                                 $TIPO="Envase";
                                                             }
+                                                            $NOMBREOPERACION = "Interplanta ".$TIPO;                  
+                                                            if($ARRAYVERPLANTA){
+                                                                $NOMBREORIGEN = $ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];        
+                                                            }else{                                                            
+                                                                $NOMBREORIGEN = "Sin Datos";
+                                                            }                                                        
                                                         }else{
                                                             $NUMERODOCUMENTO = "Sin Datos";
                                                             $NUMEROPERACION = "Sin Datos";
                                                             $FECHAOPERACION = "Sin Datos";
-                                                        }
-                                                        $NOMBREOPERACION = "Interplanta ".$TIPO;                                               
-                                                        $NOMBREDESTINO= $r['BODEGA'];                                                              
-                                                        $ARRAYVERPLANTA=$PLANTA_ADO->verPlanta($r['PLANTA2']);    
-                                                        if($ARRAYVERPLANTA){
-                                                            $NOMBREORIGEN = $ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];        
-                                                        }else{                                                            
-                                                            $NOMBREORIGEN = "Sin Datos";
-                                                        }                                                        
+                                                        }                                                  
                                                     }else {
                                                         $NUMERODOCUMENTO = "Sin Datos";
                                                         $NUMEROPERACION = "Sin Datos";
