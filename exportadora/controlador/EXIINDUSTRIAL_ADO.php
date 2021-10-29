@@ -1294,8 +1294,6 @@ class EXIINDUSTRIAL_ADO
                                                     IFNULL(DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y'),'Sin Datos') AS 'REEMBALAJE',
                                                     IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
                                                     IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO'  ,  
-                                                    IFNULL(NETO_DESPACHO,0) AS 'NETOD'  ,  
-                                                    IFNULL(KILOS_NETO_EXIINDUSTRIAL-NETO_DESPACHO,0) AS 'DELTA',  
                                                     IFNULL(PRECIO_KILO,0) AS 'KILOP'  ,  
                                                     IFNULL(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO,0) AS 'PRECIO'   
                                         FROM fruta_exiindustrial 
