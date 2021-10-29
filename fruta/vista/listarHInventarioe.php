@@ -185,19 +185,15 @@ include_once "../config/reporteUrl.php";
                                                     <th>Unidad Medida</th>
                                                     <th>Tipo Movimineto</th>
                                                     <th>Fecha Movimineto</th>
-                                                    <th>Origen Movimineto</th>
-                                                    <th>Destino Movimineto</th>
-
+                                                    <th>Empresa</th>
+                                                    <th>Planta</th>
+                                                    <th>Origen </th>
+                                                    <th>Destino </th>
                                                     <th>N° Registro</th>
-                                                    <th>N° Documento</th>
-
-                                                                          
+                                                    <th>N° Documento</th>                                                                          
                                                     <th>Entrada</th>
                                                     <th>Salida</th>
                                                     <th>Saldo</th>
-                                                    <th>Empresa</th>
-                                                    <th>Planta</th>
-                                                    <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -315,7 +311,7 @@ include_once "../config/reporteUrl.php";
                                                     }else if($r['PLANTA2']){
                                                         $ARRAYVERDESPACHO=$DESPACHOE_ADO->verDespachoe2($r['DESPACHO2']);
                                                         if($ARRAYVERDESPACHO){
-                                                            $NUMERODOCUMENTO = $ARRAYVERDESPACHO[0]["NUMERO_DESPACHO"];
+                                                            $NUMERODOCUMENTO = $ARRAYVERDESPACHO[0]["NUMERO_DOCUMENTO"];
                                                             $NUMEROPERACION = $ARRAYVERDESPACHO[0]['NUMERO_DESPACHO'];
                                                             $FECHAOPERACION = $ARRAYVERDESPACHO[0]["FECHA"];
                                                         }else{
@@ -349,6 +345,8 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $r['TUMEDIDA']; ?></td>
                                                         <td><?php echo $NOMBREOPERACION; ?></td>
                                                         <td><?php echo $FECHAOPERACION; ?></td>
+                                                        <td><?php echo $r['EMPRESA']; ?></td>
+                                                        <td><?php echo $r['PLANTA']; ?></td>
                                                         <td><?php echo $NOMBREORIGEN; ?></td>
                                                         <td><?php echo $NOMBREDESTINO; ?></td>
                                                         <td><?php echo $NUMEROPERACION; ?></td>
@@ -356,9 +354,6 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $r['ENTRADA']; ?></td>
                                                         <td><?php echo $r['SALIDA']; ?></td>
                                                         <td><?php echo $r['SALDO']; ?></td>
-                                                        <td><?php echo $r['EMPRESA']; ?></td>
-                                                        <td><?php echo $r['PLANTA']; ?></td>
-                                                        <td><?php echo $r['TEMPORADA']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

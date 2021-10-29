@@ -251,7 +251,7 @@ class DRECEPCIONIND_ADO
                                                         estandar.ID_PRODUCTO,
                                                         producto.ID_TUMEDIDA, 
                                                         IFNULL(SUM(detalle.CANTIDAD_ENVASE_DRECEPCION),0) AS 'ENVASE' 
-                                                FROM fruta_drecepcionind detalle, estandar_erecepcion estandar, material_producto producto 
+                                                FROM fruta_drecepcionind detalle, estandar_eindustrial estandar, material_producto producto 
                                                 WHERE detalle.ID_ESTANDAR= estandar.ID_ESTANDAR 
                                                     AND estandar.ID_PRODUCTO=producto.ID_PRODUCTO 
                                                     AND detalle.ESTADO_REGISTRO = 1 

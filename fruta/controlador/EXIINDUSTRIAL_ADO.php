@@ -1322,9 +1322,7 @@ class EXIINDUSTRIAL_ADO
                                                     DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y ') AS 'PROCESO',
                                                     DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y ') AS 'REEMBALAJE',
                                                     DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y ') AS 'DESPACHO',
-                                                    FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL,0),2,'de_DE') AS 'NETO'  ,  
-                                                    FORMAT(IFNULL(NETO_DESPACHO,0),2,'de_DE') AS 'NETOD'  ,  
-                                                    FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL-NETO_DESPACHO,0),2,'de_DE') AS 'DELTA',  
+                                                    FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL,0),2,'de_DE') AS 'NETO'  ,   
                                                     FORMAT(IFNULL(PRECIO_KILO,0),2,'de_DE') AS 'KILOP'  ,  
                                                     FORMAT(IFNULL(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO,0),2,'de_DE') AS 'PRECIO'   
                                         FROM fruta_exiindustrial 
@@ -1650,7 +1648,6 @@ class EXIINDUSTRIAL_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0) AS 'NETO' ,
-                                                    IFNULL(SUM(NETO_DESPACHO),0) AS 'NETOD' ,
                                                     IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO),0) AS 'PRECIO' 
                                              FROM fruta_exiindustrial
                                              WHERE 
@@ -1676,8 +1673,6 @@ class EXIINDUSTRIAL_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0),2,'de_DE') AS 'NETO' ,
-                                                    FORMAT(IFNULL(SUM(NETO_DESPACHO),0),2,'de_DE') AS 'NETOD' ,
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL-NETO_DESPACHO),0),2,'de_DE') AS 'DELTA' ,
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO),0),2,'de_DE') AS 'PRECIO' 
                                              FROM fruta_exiindustrial
                                              WHERE 
