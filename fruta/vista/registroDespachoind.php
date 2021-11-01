@@ -108,6 +108,7 @@ $MENSAJEVALIDATO = "";
 $SINO = "";
 $SINOPRECIO = "";
 $MENSAJEPRECIO = "";
+$MENSAJEPRECIO2 = "";
 $MENSAJENETO = "";
 $DISABLEDFOLIO = "";
 $MENSAJEFOLIO = "";
@@ -176,47 +177,6 @@ include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrlD.php";
 
 
-
-//OPERACIONES
-
-if (isset($_REQUEST['PRECIOS'])) {
-    $IDDESPACHO= $_REQUEST['IDP'];
-    $ARRAYIDDESPACHO = $_REQUEST['IDDESPACHO'];
-    $ARRAYIDEXIINDUSTRIALPRECIO = $_REQUEST['IDEXIINDUSTRIALPRECIO'];
-    $ARRAYFOLIOEXIINDUSTRIALPRECIO = $_REQUEST['FOLIOEXIINDUSTRIALPRECIO'];
-    $ARRAYPRECIO = $_REQUEST['PRECIO'];
-    $ARRAYIDPRECIO = $_REQUEST['IDPRECIO'];
-
-    foreach ($ARRAYIDPRECIO as $ID) :
-        $IDPRECIO = $ID - 1;
-        //$IDDESPACHO = $ARRAYIDDESPACHO[$IDPRECIO];
-        $IDEXIINDUSTRIALPRECIO = $ARRAYIDEXIINDUSTRIALPRECIO[$IDPRECIO];
-        $FOLIOEXIINDUSTRIALPRECIO = $ARRAYFOLIOEXIINDUSTRIALPRECIO[$IDPRECIO];
-        $PRECIO = $ARRAYPRECIO[$IDPRECIO];
-
-        if ($PRECIO != "") {
-            $SINOPRECIO = 0;
-            $MENSAJEPRECIO = $MENSAJEPRECIO;
-            if ($PRECIO <= 0) {
-                $SINOPRECIO = 1;
-                $MENSAJEPRECIO = $MENSAJEPRECIO . " <br> " . $FOLIOEXIINDUSTRIALPRECIO . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
-            } else {
-                $SINOPRECIO = 0;
-                $MENSAJEPRECIO = $MENSAJEPRECIO;
-            }
-        } else {
-            $SINOPRECIO = 1;
-            $MENSAJEPRECIO = $MENSAJEPRECIO . " <br> " . $FOLIOEXIINDUSTRIALPRECIO . ": SE DEBE INGRESAR UN DATO EN PRECIO POR KILOS";
-        }
-        if ($SINOPRECIO == 0) {
-            $EXIINDUSTRIAL->__SET('ID_DESPACHO', $IDDESPACHO);
-            $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDEXIINDUSTRIALPRECIO);
-            $EXIINDUSTRIAL->__SET('PRECIO_KILO', $PRECIO);
-            // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIINDUSTRIAL_ADO->actualizarSelecionarDespachoAgregarPrecio($EXIINDUSTRIAL);
-        }
-    endforeach;
-}
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -1168,35 +1128,44 @@ if (isset($_POST)) {
                                     <h4 class="card-title">Detalle de Despacho de Producto Industrial</h4>
                                 </div>
                                 <div class="card-header">
-                                        <div class="form-row align-items-center">
-                                            <form method="post" id="form1">
+                                    <div class="form-row align-items-center">
+                                        <form method="post" id="form1">
+                                            <div class="col-auto">
                                                 <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoind" />
-                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaINDDespachoIND" />
-                                                <div class="col-auto">
-                                                    <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
+                                                <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoind" />
+                                                <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaINDDespachoIND" />
+                                                 <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
                                                         <?php echo $DISABLED2; ?>  <?php  if ($ESTADO == 0) {  echo "disabled style='background-color: #eeeeee;'";  }   ?>  >
-                                                         Selector Existencias
-                                                    </button>
-                                                </form>
+                                                        Selector Existencias
+                                                </button>
                                             </div>
+                                        </form>   
+                                        <?php if ($TDESPACHO == "3"): ?>
                                             <div class="col-auto">
-                                                <label class="sr-only" for=""></label>
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Total Neto</div>
-                                                    </div>
-                                                    <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
-                                                </div>
+                                                    <button type="submit" form="form2" class="btn btn-primary btn-block" data-toggle="tooltip" title="Agregar Precios" name="PRECIOS" value="PRECIOS"
+                                                        <?php echo $DISABLED2; ?> <?php if (empty($ARRAYTOMADO)) { echo "disabled style='background-color: #eeeeee;'"; } ?>
+                                                        <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
+                                                             Agregar Precio(s)
+                                                    </button>
+                                            </div>
+                                        <?php endif ?>                                                
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                 </div>
+                                                <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="table-responsive">                                                    
+                                            <div class="table-responsive">                                                
                                                 <form method="post" id="form2">
                                                     <table id="detalle" class="table table-hover " style="width: 150%;">
                                                             <thead>
@@ -1266,18 +1235,18 @@ if (isset($_POST)) {
                                                                                         </div>
                                                                                     </td>
                                                                                 </form>
-                                                                                <?php if ($TDESPACHO == "3") { ?>
-                                                                                    <td>
-                                                                                        <div class="form-group">
-                                                                                            <input type="hidden" class="form-control" name="IDDESPACHO[]" value="<?php echo $r['ID_DESPACHO']; ?>" />
-                                                                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                                            <input type="hidden" class="form-control" name="FOLIOEXIINDUSTRIALPRECIO[]" value="<?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>" />
-                                                                                            <input type="hidden" class="form-control" name="IDEXIINDUSTRIALPRECIO[]" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>" />
-                                                                                            <input type="hidden" class="form-control" name="IDPRECIO[]" value="<?php echo  $CONTADOR; ?>" />
-                                                                                            <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" placeholder="0.00" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0)
-                                                                                                { echo "disabled"; } ?> value="<?php echo $r['PRECIO_KILO']; ?>" />
-                                                                                        </div>
-                                                                                    </td>
+                                                                                <?php if ($TDESPACHO == "3") { ?>    
+                                                                                        <td>
+                                                                                            <div class="form-group">
+                                                                                                <input type="hidden" class="form-control" name="IDDESPACHO[]" value="<?php echo $r['ID_DESPACHO']; ?>" />
+                                                                                                <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                                                                <input type="hidden" class="form-control" name="FOLIOEXIINDUSTRIALPRECIO[]" value="<?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>" />
+                                                                                                <input type="hidden" class="form-control" name="IDEXIINDUSTRIALPRECIO[]" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>" />
+                                                                                                <input type="hidden" class="form-control" name="IDPRECIO[]" value="<?php echo  $CONTADOR; ?>" />
+                                                                                                <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" placeholder="0.00" class="form-control" name="PRECIO[]" <?php if ($ESTADO == 0)
+                                                                                                    { echo "disabled"; } ?> value="<?php echo $r['PRECIO_KILO']; ?>" />
+                                                                                            </div>
+                                                                                        </td>
                                                                                 <?php } ?>
                                                                                 <td><?php echo $r['EMBALADO']; ?></td>
                                                                                 <td><?php echo $CODIGOESTANDAR; ?></td>
@@ -1294,8 +1263,8 @@ if (isset($_POST)) {
                                                                         <?php endforeach; ?>
                                                                     <?php } ?>
                                                             </tbody>
-                                                    </table>
-                                                </form>
+                                                    </table>                                                    
+                                                </form>  
                                             </div>
                                         </div>
                                     </div>
@@ -1437,7 +1406,6 @@ if (isset($_POST)) {
             if (isset($_REQUEST['CERRAR'])) {
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-
                 $ARRAYDDESPACHOMP2 = $EXIINDUSTRIAL_ADO->buscarPorDespacho($_REQUEST['IDP']);
                 if (empty($ARRAYDDESPACHOMP2)) {
                     // $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO";
@@ -1451,14 +1419,10 @@ if (isset($_POST)) {
                             confirmButtonText:"OK"
                         })
                     </script>';
-                } else {
-                    $MENSAJE = "";
-                    $SINO = "0";
-                }
-                if ($_REQUEST['TDESPACHOE'] == "3") {
+                }else   if ($_REQUEST['TDESPACHOE'] == "3") {
                     $ARRAYCONTEOPRECIO = $EXIINDUSTRIAL_ADO->contarExistenciaPorDespachoPrecioNulo($_REQUEST['IDP']);
                     if ($ARRAYCONTEOPRECIO) {
-                        if ($ARRAYCONTEOPRECIO[0]["CONTEO"] != 0) {
+                        if ($ARRAYCONTEOPRECIO[0]["CONTEO"] != 0) {                        
                             // $MENSAJEPRECIO = "ES OBLIGATORIO TENER PRECIOS POR KILOS EN TODAS LAS EXISTENCIA SELECCIONADA";
                             $SINO = "1";
                             echo '<script>
@@ -1472,9 +1436,12 @@ if (isset($_POST)) {
                             </script>';
                         } else {
                             $MENSAJEPRECIO = "";
-                            $SINO = "0";
+                            $SINO = "0";  
                         }
                     }
+                } else {
+                    $MENSAJE = "";
+                    $SINO = "0";
                 }
                 if ($SINO == "0") {
                     $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
@@ -1576,7 +1543,60 @@ if (isset($_POST)) {
                     }
                 }
             }
-
+            if (isset($_REQUEST['PRECIOS'])) {
+                $IDDESPACHO= $_REQUEST['IDP'];
+                $ARRAYIDDESPACHO = $_REQUEST['IDDESPACHO'];
+                $ARRAYIDEXIINDUSTRIALPRECIO = $_REQUEST['IDEXIINDUSTRIALPRECIO'];
+                $ARRAYFOLIOEXIINDUSTRIALPRECIO = $_REQUEST['FOLIOEXIINDUSTRIALPRECIO'];
+                $ARRAYPRECIO = $_REQUEST['PRECIO'];
+                $ARRAYIDPRECIO = $_REQUEST['IDPRECIO'];
+            
+                foreach ($ARRAYIDPRECIO as $ID) :
+                    $IDPRECIO = $ID - 1;
+                    //$IDDESPACHO = $ARRAYIDDESPACHO[$IDPRECIO];
+                    $IDEXIINDUSTRIALPRECIO = $ARRAYIDEXIINDUSTRIALPRECIO[$IDPRECIO];
+                    $FOLIOEXIINDUSTRIALPRECIO = $ARRAYFOLIOEXIINDUSTRIALPRECIO[$IDPRECIO];
+                    $PRECIO = $ARRAYPRECIO[$IDPRECIO];
+            
+                    if ($PRECIO != "") {
+                        $SINOPRECIO = 0;
+                        $MENSAJEPRECIO2 = $MENSAJEPRECIO2;
+                        if ($PRECIO <= 0) {
+                            $SINOPRECIO = 1;
+                            $MENSAJEPRECIO2 = $MENSAJEPRECIO2 . "" . $FOLIOEXIINDUSTRIALPRECIO . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO. ";
+                        } else {
+                            $SINOPRECIO = 0;
+                            $MENSAJEPRECIO2 = $MENSAJEPRECIO2;
+                        }
+                    } else {
+                        $SINOPRECIO = 1;
+                        $MENSAJEPRECIO2 = $MENSAJEPRECIO2 . "" . $FOLIOEXIINDUSTRIALPRECIO . ": SE DEBE INGRESAR UN DATO EN PRECIO POR KILOS. ";                       
+                    }
+                    if ($SINOPRECIO == 0) {
+                        $EXIINDUSTRIAL->__SET('ID_DESPACHO', $IDDESPACHO);
+                        $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDEXIINDUSTRIALPRECIO);
+                        $EXIINDUSTRIAL->__SET('PRECIO_KILO', $PRECIO);
+                        // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $EXIINDUSTRIAL_ADO->actualizarSelecionarDespachoAgregarPrecio($EXIINDUSTRIAL);
+                    }
+                endforeach;
+                if($MENSAJEPRECIO2!=""){                
+                    echo '
+                        <script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"' . $MENSAJEPRECIO2 . '",
+                                showConfirmButton:true,
+                                confirmButtonText:"OK"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href ="registroDespachoind.php?op";
+                                }
+                            });
+                    </script>';
+                }
+            }
             if (isset($_REQUEST['QUITAR'])) {
                 $IDQUITAR = $_REQUEST['IDQUITAR'];
                 $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $IDQUITAR);
@@ -1598,5 +1618,4 @@ if (isset($_POST)) {
             }
         ?>
 </body>
-
 </html>
