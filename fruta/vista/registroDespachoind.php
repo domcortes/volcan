@@ -1383,7 +1383,6 @@ if (isset($_POST)) {
                 </script>';
                 // echo "<script type='text/javascript'> location.href ='registroDespachoind.php?op';</script>";
             }
-
             if (isset($_REQUEST['EDITAR'])) {
                 $DESPACHOIND->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
                 $DESPACHOIND->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
@@ -1434,7 +1433,6 @@ if (isset($_POST)) {
                     })
                 </script>';
             }
-
             //OPERACION PARA CERRAR LA DESPACHOIND
             if (isset($_REQUEST['CERRAR'])) {
                 //UTILIZACION METODOS SET DEL MODELO

@@ -498,7 +498,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     }
                                 });
                             </script>";
-                             //  echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                         //  echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    }else{
+                        echo '
+                            <script>
+                                Swal.fire({
+                                    icon:"warning",
+                                    title:"Accion restringida",
+                                    text:"' . $MENSAJE . '",
+                                    showConfirmButton:true,
+                                    confirmButtonText:"Volver al despacho"
+                                }).then((result)=>{
+                                    if(result.value){
+                                        location.href ="' . $_REQUEST['URLO'] . '.php?op";
+                                    }
+                                });
+                        </script>';
                     }
                 }
                 if ($SINONETO == 1) {
@@ -508,20 +523,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 Swal.fire({
                                     icon:"warning",
                                     title:"Accion restringida",
-                                    text:"' . $MENSAJE . '"
-                                })
+                                    text:"' . $MENSAJE . '",
+                                    showConfirmButton:true,
+                                    confirmButtonText:"OK"
+                                }).then((result)=>{
+                                    if(result.value){
+                                        location.href ="registroSelecionExistenciaINDDespachoIND.php?op";
+                                    }
+                                });
                         </script>';
                     }
                 }
 
             }
         }
-
-
         ?>
-
-
-
 </body>
-
 </html>

@@ -912,14 +912,12 @@ class EXIINDUSTRIAL_ADO
             $query = "
 		UPDATE fruta_exiindustrial SET
             MODIFICACION = SYSDATE(),      
-            ID_DESPACHO = ? ,      
-            NETO_DESPACHO = ?          
+            ID_DESPACHO = ?           
 		WHERE ID_EXIINDUSTRIAL= ? ;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $EXIINDUSTRIAL->__GET('ID_DESPACHO'),
-                        $EXIINDUSTRIAL->__GET('NETO_DESPACHO'),
                         $EXIINDUSTRIAL->__GET('ID_EXIINDUSTRIAL')
 
                     )
@@ -1014,7 +1012,6 @@ class EXIINDUSTRIAL_ADO
             ESTADO = 2,          
             MODIFICACION = SYSDATE(), 
             ID_DESPACHO = null, 
-            NETO_DESPACHO = null, 
             PRECIO_KILO = null          
 		WHERE ID_EXIINDUSTRIAL= ? ;";
             $this->conexion->prepare($query)
@@ -1290,9 +1287,7 @@ class EXIINDUSTRIAL_ADO
                                                     IFNULL(DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y'),'Sin Datos') AS 'PROCESO',
                                                     IFNULL(DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y'),'Sin Datos') AS 'REEMBALAJE',
                                                     IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
-                                                    IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO'  ,  
-                                                    IFNULL(NETO_DESPACHO,0) AS 'NETOD'  ,  
-                                                    IFNULL(KILOS_NETO_EXIINDUSTRIAL-NETO_DESPACHO,0) AS 'DELTA',  
+                                                    IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO'  ,
                                                     IFNULL(PRECIO_KILO,0) AS 'KILOP'  ,  
                                                     IFNULL(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO,0) AS 'PRECIO'   
                                         FROM fruta_exiindustrial 
@@ -1720,29 +1715,6 @@ class EXIINDUSTRIAL_ADO
     }
 
 
-    public function contarExistenciaPorDespachonNetoNulo($IDDESPACHO)
-    {
-        try {
-            $datos = $this->conexion->prepare("SELECT 
-                                                    IFNULL(COUNT(ID_EXIINDUSTRIAL),0)  AS 'CONTEO'
-                                                FROM fruta_exiindustrial 
-                                                WHERE ID_DESPACHO= '" . $IDDESPACHO . "'                                           
-                                                    AND ESTADO_REGISTRO = 1
-                                                    AND NETO_DESPACHO IS  NULL
-                                        ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
 
     //OBTENER EL ULTIMO FOLIO OCUPADO DEL DETALLE DE  RECEPCIONS
