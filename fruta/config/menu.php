@@ -639,6 +639,91 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
       </li>
       <li class="treeview">
         <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/reports.svg" class="svg-icon" alt="">
+          <span> Calidad de la fruta</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+           <li class="treeview">
+                <a href="#">Rechazo  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li class="treeview">
+                    <a href="#">Materia Prima
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="registroRechazomp.php">Registro Rechazo<i class="ti-more"></i></a></li>
+                      <li><a href="listarRechazomp.php">Agrupado Rechazo<i class="ti-more"></i></a></li>
+                      <li><a href="listarRechazompDetallado.php">Detallado Rechazo<i class="ti-more"></i></a></li>
+                    </ul>
+                  </li>
+                  <!--
+                  <li class="treeview">
+                    <a href="#">Producto Terminado
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="#">Registro Rechazo<i class="ti-more"></i></a></li>
+                      <li><a href="#">Agrupado Rechazo<i class="ti-more"></i></a></li>
+                      <li><a href="#">Detallado Rechazo<i class="ti-more"></i></a></li>
+                    </ul>
+                  </li>
+                -->
+                </ul>
+              </li>
+              <!--
+              <li class="treeview">
+                <a href="#">Levantamiento  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li class="treeview">
+                      <a href="#">Materia Prima
+                        <span class="pull-left-container">
+                          <i class=" fa fa-angle-right pull-right"></i>
+                        </span>
+                      </a>
+                      <ul class="treeview-menu">
+                        <li><a href="#">Registro Levantamiento<i class="ti-more"></i></a></li>
+                        <li><a href="#">Agrupado Levantamiento<i class="ti-more"></i></a></li>
+                        <li><a href="#">Detallado Levantamiento<i class="ti-more"></i></a></li>
+                      </ul>
+                    </li>
+                    <li class="treeview">
+                      <a href="#">Producto Terminado
+                        <span class="pull-left-container">
+                          <i class=" fa fa-angle-right pull-right"></i>
+                        </span>
+                      </a>
+                      <ul class="treeview-menu">
+                        <li><a href="#">Registro Levantamiento<i class="ti-more"></i></a></li>
+                        <li><a href="#">Agrupado Levantamiento<i class="ti-more"></i></a></li>
+                        <li><a href="#">Detallado Levantamiento<i class="ti-more"></i></a></li>
+                      </ul>
+                    </li>
+                </ul>
+              </li>
+                -->
+              <!--
+            <li><a href="#">Materia Prima<i class="ti-more"></i></a></li>
+            <li><a href="#">Producto Terminado<i class="ti-more"></i></a></li>
+            <li><a href="#">Producto Industrial<i class="ti-more"></i></a></li>-->
+        </ul>
+      </li>  
+      <li class="treeview">
+        <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
           <span> Hitorial Existencia</span>
           <span class="pull-right-container">
@@ -650,7 +735,43 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarHExiexportacion.php"> Producto Terminado<i class="ti-more"></i></a></li>
           <li><a href="listarHExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
         </ul>
-      </li>      
+      </li>     
+      <li class="treeview">
+        <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms1.svg" class="svg-icon" alt="">
+          <span>Envases</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#">Recepcion  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="#">Agrupado Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="#">Detallado Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="#">Agrupado Interplanta<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Despacho  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#">Agrupado Despacho<i class="ti-more"></i></a></li>
+                    <li><a href="#">Detallado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+          <li><a href="#">Existencia<i class="ti-more"></i></a></li>
+          <li><a href="#">Kardex <i class="ti-more"></i></a></li>
+        </ul>
+      </li>     
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/cards.svg" class="svg-icon" alt="">
@@ -909,9 +1030,21 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroInpector.php"><i class="ti-more"></i>Inpector</a></li>
               <li><a href="registroComprador.php"><i class="ti-more"></i>Comprador</a></li>
             </ul>
-          </li>
+          </li>      
         </ul>
-      </li>
+      </li>      
+          <li class="treeview">
+            <a href="#">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/members.svg" class="svg-icon" alt="">
+              <span>Usuario</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="registroPtusuario.php">Privilegio Tipo Usuario<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
     </ul>
   </section>
 </aside>
