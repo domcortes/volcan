@@ -189,10 +189,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
-                                                        <th>Código Estandar</th>
-                                                        <th>Envase/Estandar</th>
                                                         <th>CSG</th>
                                                         <th>Productor</th>
+                                                        <th>Código Estandar</th>
+                                                        <th>Envase/Estandar</th>
                                                         <th>Especies</th>
                                                         <th>Variedad</th>
                                                         <th>Kilos Neto</th>
@@ -256,9 +256,17 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         }
 
                                                         $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                        $ARRAYEVERERECEPCIONID2 = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDARMP']);
+                                                        $ARRAYEVERERECEPCIONID3 = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDARPT']);
                                                         if ($ARRAYEVERERECEPCIONID) {
                                                             $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                        }else  if ($ARRAYEVERERECEPCIONID2) {
+                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID2[0]['CODIGO_ESTANDAR'];
+                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID2[0]['NOMBRE_ESTANDAR'];
+                                                        }else  if ($ARRAYEVERERECEPCIONID3) {
+                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID3[0]['CODIGO_ESTANDAR'];
+                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID3[0]['NOMBRE_ESTANDAR'];
                                                         } else {
                                                             $CODIGOESTANDAR = "Sin Datos";
                                                             $NOMBREESTANDAR = "Sin Datos";
@@ -465,10 +473,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
-                                                        <th>Código Estandar</th>
-                                                        <th>Envase/Estandar</th>
                                                         <th>CSG</th>
                                                         <th>Productor</th>
+                                                        <th>Código Estandar</th>
+                                                        <th>Envase/Estandar</th>
                                                         <th>Especies</th>
                                                         <th>Variedad</th>
                                                         <th>Kilos Neto</th>
