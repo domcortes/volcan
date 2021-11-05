@@ -259,7 +259,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
 
                                                         if($r['COLOR']==1){
-                                                            $TRECHAZOCOLOR="badge badge-Danger ";
+                                                            $TRECHAZOCOLOR="badge badge-danger ";
                                                             $COLOR="Rechazado";
                                                         }else if($r['COLOR']==2){
                                                             $TRECHAZOCOLOR="badge badge-warning ";
