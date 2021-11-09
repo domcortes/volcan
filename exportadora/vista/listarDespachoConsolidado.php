@@ -312,8 +312,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Tipo Reembalaje </th>
                                                     <th>Número Despacho </th>
                                                     <th>Fecha Despacho </th>
-                                                    <th>Tipo Despacho </th>
                                                     <th>Número Guía Despacho </th>
+                                                    <th>Tipo Despacho </th>
                                                     <th>Destino </th>
                                                     <th>Tipo Manejo</th>
                                                     <th>Tipo Calibre </th>
@@ -621,8 +621,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NUMEROGUIADEPACHO; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>     
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -877,8 +877,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>                                                    
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
+                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -1063,8 +1063,6 @@ include_once "../config/datosUrLP.php";
 
                                                         ?>
                                                         <tr class="text-left">
-
-
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo $s['COSECHA']; ?></td>
                                                             <td><?php echo "Materia Prima"; ?> </td>
@@ -1095,8 +1093,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NUMEROGUIADEPACHO; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
@@ -1305,8 +1303,6 @@ include_once "../config/datosUrLP.php";
 
                                                         ?>
                                                         <tr class="text-left">
-
-
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td><?php echo "Producto Industrial"; ?> </td>
@@ -1337,8 +1333,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $NUMEROGUIADEPACHO; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
