@@ -159,6 +159,7 @@ class EINDUSTRIAL_ADO
                                                     PESO_PALLET_ESTANDAR,
 
                                                     TESTANDAR,
+                                                    COBRO,
 
                                                     ID_ESPECIES,
                                                     ID_EMPRESA,
@@ -171,7 +172,7 @@ class EINDUSTRIAL_ADO
                                                     TFRUTA_ESTANDAR, 
                                                     ESTADO_REGISTRO 
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?,  ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  3, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(),  3, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -182,6 +183,7 @@ class EINDUSTRIAL_ADO
                         $EINDUSTRIAL->__GET('PESO_PALLET_ESTANDAR'),
 
                         $EINDUSTRIAL->__GET('TESTANDAR'),
+                        $EINDUSTRIAL->__GET('COBRO'),
 
                         $EINDUSTRIAL->__GET('ID_ESPECIES'),
                         $EINDUSTRIAL->__GET('ID_EMPRESA'),
@@ -226,6 +228,7 @@ class EINDUSTRIAL_ADO
             PESO_PALLET_ESTANDAR= ?,   
 
             TESTANDAR= ?,   
+            COBRO= ?,   
             
             ID_ESPECIES= ?  ,   
             ID_EMPRESA= ?  ,   
@@ -242,6 +245,7 @@ class EINDUSTRIAL_ADO
                         $EINDUSTRIAL->__GET('PESO_PALLET_ESTANDAR'),
 
                         $EINDUSTRIAL->__GET('TESTANDAR'),
+                        $EINDUSTRIAL->__GET('COBRO'),
 
                         $EINDUSTRIAL->__GET('ID_ESPECIES'),
                         $EINDUSTRIAL->__GET('ID_EMPRESA'),

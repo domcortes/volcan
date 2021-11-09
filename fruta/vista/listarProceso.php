@@ -57,10 +57,10 @@ $ARRAYEXISMATERIPRIMAPROCESO = "";
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
     $ARRAYPROCESO = $PROCESO_ADO->listarProcesoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYTOTALPROCESO = $PROCESO_ADO->obtenerTotalesEmpresaPlantaTemporadaLista($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYTOTALPROCESOENTRADA = $EXIMATERIAPRIMA_ADO->obtenerTotalProcesoEmpresaPlantaTemporada($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYTOTALPROCESO = $PROCESO_ADO->obtenerTotalesEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
-    $TOTALNETOENTRADA = $ARRAYTOTALPROCESOENTRADA[0]['NETO'];
+    
+    $TOTALNETOENTRADA = $ARRAYTOTALPROCESO[0]['ENTRADA'];
     $TOTALNETO = $ARRAYTOTALPROCESO[0]['NETO'];
     $TOTALEXPORTACION = $ARRAYTOTALPROCESO[0]['EXPORTACION'];
     $TOTALINDUSTRIAL = $ARRAYTOTALPROCESO[0]['INDUSTRIAL'];
@@ -207,19 +207,26 @@ include_once "../config/datosUrLP.php";
                                                 <tr class="text-left">
                                                     <th>Numero</th>
                                                     <th>Estado</th>
-                                                    <th class="text-center">Operaciones</th>
+                                                    <th class="text-center">Operaciónes</th>
                                                     <th>Fecha Proceso</th>
                                                     <th>Tipo Proceso</th>
                                                     <th>Turno </th>
+                                                    <th>CSG Productor</th>
+                                                    <th>Nombre Productor</th>
                                                     <th>Especie</th>
                                                     <th>Variedad</th>
                                                     <th>Kg. Neto Entrada</th>
-                                                    <th>Kg. Neto Expo</th>
+                                                    <th>Kg. Neto Expo.</th>
+                                                    <th>Kg. Deshi. </th>
                                                     <th>Kg. Con Deshi. </th>
+                                                    <th>Kg. IQF</th>
+                                                    <th>Kg. Merma/Desecho</th>
                                                     <th>Kg. Industrial</th>
                                                     <th>Kg. Diferencia</th>
-                                                    <th>CSG Productor</th>
-                                                    <th>Nombre Productor</th>
+                                                    <th>% Exportación</th>
+                                                    <th>% Deshitación</th>
+                                                    <th>% Industrial</th>
+                                                    <th>% Total</th>                                                    
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificacion</th>
                                                     <th>Empresa</th>
@@ -352,15 +359,24 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $TPROCESO; ?></td>
                                                         <td><?php echo $TURNO; ?> </td>
-                                                        <td><?php echo $NOMBRESPECIES; ?></td>
-                                                        <td><?php echo $NOMBREVESPECIES; ?></td>
-                                                        <td><?php echo $NETOENTRADA; ?></td>
-                                                        <td><?php echo $r['NETO']-$r['INDUSTRIAL']; ?></td>
-                                                        <td><?php echo $r['EXPORTACION']; ?></td>
-                                                        <td><?php echo $r['INDUSTRIAL']; ?></td>
-                                                        <td><?php echo number_format( $NETOENTRADA-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>
                                                         <td><?php echo $CSGPRODUCTOR; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                        <td><?php echo $NOMBRESPECIES; ?></td>
+                                                        <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                        <td><?php echo $r['ENTRADA']; ?></td>
+                                                        <td><?php echo $r['NETO']; ?></td>
+                                                        <td><?php echo $r['EXPORTACION']-$r['NETO']; ?></td>
+                                                        <td><?php echo $r['EXPORTACION']; ?></td>
+                                                        <td><?php echo $r['INDUSTRIALSC']; ?></td>
+                                                        <td><?php echo $r['INDUSTRIALNC']; ?></td>
+                                                        <td><?php echo $r['INDUSTRIAL']; ?></td>
+                                                        <td><?php echo number_format( $r['ENTRADA']-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>
+                                                        
+                                                        <td><?php echo $r['PDEXPORTACION_PROCESO']; ?></td>
+                                                        <td><?php echo $r['PDEXPORTACIONCD_PROCESO']-$r['PDEXPORTACION_PROCESO']; ?></td>
+                                                        <td><?php echo $r['PDINDUSTRIAL_PROCESO']; ?></td>
+                                                        <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ",", ".");  ?></td>
+
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -391,6 +407,14 @@ include_once "../config/datosUrLP.php";
                                                 <div class="input-group-text">Total Kg. Neto Expo</div>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Total Kg. Neto Expo" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Kg. Con Deshi.</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Kg. Con Deshi." id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
                                         </div>
                                     </div>
                                     <div class="col-auto">

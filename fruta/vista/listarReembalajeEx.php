@@ -51,11 +51,13 @@ $ARRAYTOTALREEMBALAJE = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYREEMBALAJE = $REEMBALAJE_ADO->listarReembalajeEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYREEMBALAJE = $REEMBALAJE_ADO->listarReembalajeEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYTOTALREEMBALAJE = $REEMBALAJE_ADO->obtenerTotalEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+   
+    $TOTALNETOENTRADA = $ARRAYTOTALREEMBALAJE[0]['ENTRADA'];
     $TOTALNETO = $ARRAYTOTALREEMBALAJE[0]['NETO'];
-    $TOTALINDUSTRIAL = $ARRAYTOTALREEMBALAJE[0]['INDUSTRIAL'];
     $TOTALEXPORTACION = $ARRAYTOTALREEMBALAJE[0]['EXPORTACION'];
+    $TOTALINDUSTRIAL = $ARRAYTOTALREEMBALAJE[0]['INDUSTRIAL'];
 }
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
@@ -196,17 +198,26 @@ include_once "../config/datosUrLP.php";
                                                 <tr>
                                                     <th>Numero</th>
                                                     <th>Estado</th>
-                                                    <th>Operaciones</th>
+                                                    <th class="text-center">Operaciónes</th>
                                                     <th>Fecha Reembalaje</th>
                                                     <th>Tipo Reembalaje</th>
                                                     <th>Turno </th>
-                                                    <th>Especie</th>
-                                                    <th>Variedad</th>                                                    
-                                                    <th>Kg. Neto Entrada</th>
-                                                    <th>Kg. Neto Expo</th>
-                                                    <th>Kg. Industrial</th>
                                                     <th>CSG Productor</th>
                                                     <th>Nombre Productor</th>
+                                                    <th>Especie</th>
+                                                    <th>Variedad</th>
+                                                    <th>Kg. Neto Entrada</th>
+                                                    <th>Kg. Neto Expo.</th>
+                                                    <th>Kg. Deshi. </th>
+                                                    <th>Kg. Con Deshi. </th>
+                                                    <th>Kg. IQF</th>
+                                                    <th>Kg. Merma/Desecho</th>
+                                                    <th>Kg. Industrial</th>
+                                                    <th>Kg. Diferencia</th>
+                                                    <th>% Exportación</th>
+                                                    <th>% Deshitación</th>
+                                                    <th>% Industrial</th>
+                                                    <th>% Total</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificacion</th>
                                                     <th>Empresa</th>
@@ -336,13 +347,24 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $TREEMBALAJE; ?> </td>
                                                         <td><?php echo $TURNO; ?> </td>
-                                                        <td><?php echo $NOMBRESPECIES; ?></td>
-                                                        <td><?php echo $NOMBREVESPECIES; ?></td>
-                                                        <td><?php echo $r['NETO']; ?></td>
-                                                        <td><?php echo $r['EXPORTACION']; ?></td>
-                                                        <td><?php echo $r['INDUSTRIAL']; ?></td>
                                                         <td><?php echo $CSGPRODUCTOR; ?></td>
                                                         <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                        <td><?php echo $NOMBRESPECIES; ?></td>
+                                                        <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                        <td><?php echo $r['ENTRADA']; ?></td>
+                                                        <td><?php echo $r['NETO']; ?></td>
+                                                        <td><?php echo $r['EXPORTACION']-$r['NETO']; ?></td>
+                                                        <td><?php echo $r['EXPORTACION']; ?></td>
+                                                        <td><?php echo $r['INDUSTRIALSC']; ?></td>
+                                                        <td><?php echo $r['INDUSTRIALNC']; ?></td>
+                                                        <td><?php echo $r['INDUSTRIAL']; ?></td>
+                                                        <td><?php echo number_format( $r['ENTRADA']-$r['EXPORTACION']-$r['INDUSTRIAL'],2,".",""); ?></td>
+
+                                                        <td><?php echo $r['PDEXPORTACION_REEMBALAJE']; ?></td>
+                                                        <td><?php echo $r['PDEXPORTACIONCD_REEMBALAJE']-$r['PDEXPORTACION_REEMBALAJE']; ?></td>
+                                                        <td><?php echo $r['PDINDUSTRIAL_REEMBALAJE']; ?></td>
+                                                        <td><?php echo number_format($r['PORCENTAJE_REEMBALAJE'], 2, ",", ".");  ?></td>
+
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -355,32 +377,40 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>                 
                         <div class="box-footer">
                             <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                 <div class="form-row align-items-center" role="group" aria-label="Datos">
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Kg. Neto Entrada</div>    
+                                                <div class="input-group-text">Total Kg. Neto Entrada</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Kg. Neto Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Total Kg. Neto Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOENTRADA; ?>" disabled />
                                         </div>
                                     </div>
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Kg. Neto Expo</div>
+                                                <div class="input-group-text">Total Kg. Neto Expo</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Exportacion" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Total Kg. Neto Expo" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
                                     </div>
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Kg. Industrial</div>
+                                                <div class="input-group-text">Total Kg. Con Deshi.</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Kg. Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
+                                            <input type="text" class="form-control" placeholder="Total Kg. Con Deshi." id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Total Kg. Industrial</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Total Kg. Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
                                         </div>
                                     </div>
                                 </div>

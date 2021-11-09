@@ -337,14 +337,71 @@ class DPINDUSTRIAL_ADO
 
     //TOTALES
     //BUSQUEDA DE LOS TOTALES ASOCIADOS AL ID PROCESO
+
+
+    public function obtenerTotalesSC($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT  
+                                                    IFNULL(SUM(detalle.KILOS_NETO_DPINDUSTRIAL),0) AS 'NETO' 
+                                                FROM fruta_dpindustrial detalle, estandar_eindustrial estandar 
+                                                WHERE   
+                                                        detalle.ID_ESTANDAR= estandar.ID_ESTANDAR
+                                                        AND  detalle.ESTADO_REGISTRO = 1
+                                                        AND estandar.COBRO =1     
+                                                        AND detalle.ID_PROCESO = '" . $IDPROCESO . "' 
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesNC($IDPROCESO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT  
+                                                    IFNULL(SUM(detalle.KILOS_NETO_DPINDUSTRIAL),0) AS 'NETO' 
+                                                FROM fruta_dpindustrial detalle, estandar_eindustrial estandar 
+                                                WHERE   
+                                                        detalle.ID_ESTANDAR= estandar.ID_ESTANDAR
+                                                        AND  detalle.ESTADO_REGISTRO = 1
+                                                        AND estandar.COBRO =0     
+                                                        AND detalle.ID_PROCESO = '" . $IDPROCESO . "' 
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
     public function obtenerTotales($IDPROCESO)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(KILOS_NETO_DPINDUSTRIAL),0) AS 'NETO' 
-                                          FROM fruta_dpindustrial
-                                          WHERE ID_PROCESO = '" . $IDPROCESO . "' 
-                                          AND  ESTADO_REGISTRO = 1;");
+                                                FROM fruta_dpindustrial
+                                                WHERE ID_PROCESO = '" . $IDPROCESO . "' 
+                                                AND  ESTADO_REGISTRO = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

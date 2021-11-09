@@ -153,18 +153,25 @@ class REEMBALAJE_ADO
                                                     ID_USUARIOI, 
                                                     ID_USUARIOM, 
 
+                                                    KILOS_NETO_ENTRADA, 
                                                     KILOS_NETO_REEMBALAJE, 
                                                     KILOS_EXPORTACION_REEMBALAJE, 
                                                     KILOS_INDUSTRIAL_REEMBALAJE,
+                                                    KILOS_INDUSTRIALSC_REEMBALAJE,
+                                                    KILOS_INDUSTRIALNC_REEMBALAJE,
                                                     PDEXPORTACION_REEMBALAJE, 
+                                                    PDEXPORTACIONCD_REEMBALAJE, 
                                                     PDINDUSTRIAL_REEMBALAJE, 
+                                                    PDINDUSTRIALSC_REEMBALAJE, 
+                                                    PDINDUSTRIALNC_REEMBALAJE, 
                                                     PORCENTAJE_REEMBALAJE,
+
                                                     INGRESO, 
                                                     MODIFICACION,
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	(?, ?, ?,   ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    0, 0, 0, 0, 0, 0,  SYSDATE(),  SYSDATE(), 1, 1 );";
+	       	(?, ?, ?,   ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0,  SYSDATE(),  SYSDATE(), 1, 1 );";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -202,19 +209,29 @@ class REEMBALAJE_ADO
                         MODIFICACION = SYSDATE(), 
                         FECHA_REEMBALAJE=?,
                         TURNO =?,
-                        OBSERVACIONE_REEMBALAJE =?,
+                        OBSERVACIONE_REEMBALAJE =?,     
+
+                        KILOS_NETO_ENTRADA =?,
                         KILOS_NETO_REEMBALAJE =?,
                         KILOS_EXPORTACION_REEMBALAJE =?,
                         KILOS_INDUSTRIAL_REEMBALAJE =?, 
+                        KILOS_INDUSTRIALSC_REEMBALAJE =?, 
+                        KILOS_INDUSTRIALNC_REEMBALAJE =?, 
+
                         PDEXPORTACION_REEMBALAJE =?, 
+                        PDEXPORTACIONCD_REEMBALAJE =?, 
                         PDINDUSTRIAL_REEMBALAJE =?, 
-                        PORCENTAJE_REEMBALAJE =?, 
+                        PDINDUSTRIALSC_REEMBALAJE =?, 
+                        PDINDUSTRIALNC_REEMBALAJE =?, 
+                        PORCENTAJE_REEMBALAJE =?,
+
                         ID_TREEMBALAJE =?,
                         ID_VESPECIES =?,
                         ID_PRODUCTOR =?,
                         ID_EMPRESA =?, 
                         ID_PLANTA =?, 
                         ID_TEMPORADA =?, 
+
                         ID_USUARIOM =?
                     WHERE ID_REEMBALAJE= ?;";
             $this->conexion->prepare($query)
@@ -224,19 +241,30 @@ class REEMBALAJE_ADO
                         $REEMBALAJE->__GET('FECHA_REEMBALAJE'),
                         $REEMBALAJE->__GET('TURNO'),
                         $REEMBALAJE->__GET('OBSERVACIONE_REEMBALAJE'),
+
+                        $REEMBALAJE->__GET('KILOS_NETO_ENTRADA'),
                         $REEMBALAJE->__GET('KILOS_NETO_REEMBALAJE'),
                         $REEMBALAJE->__GET('KILOS_EXPORTACION_REEMBALAJE'),
                         $REEMBALAJE->__GET('KILOS_INDUSTRIAL_REEMBALAJE'),
+                        $REEMBALAJE->__GET('KILOS_INDUSTRIALSC_REEMBALAJE'),
+                        $REEMBALAJE->__GET('KILOS_INDUSTRIALNC_REEMBALAJE'),
+
                         $REEMBALAJE->__GET('PDEXPORTACION_REEMBALAJE'),
+                        $REEMBALAJE->__GET('PDEXPORTACIONCD_REEMBALAJE'),
                         $REEMBALAJE->__GET('PDINDUSTRIAL_REEMBALAJE'),
+                        $REEMBALAJE->__GET('PDINDUSTRIALSC_REEMBALAJE'),
+                        $REEMBALAJE->__GET('PDINDUSTRIALNC_REEMBALAJE'),
                         $REEMBALAJE->__GET('PORCENTAJE_REEMBALAJE'),
+
                         $REEMBALAJE->__GET('ID_TREEMBALAJE'),
                         $REEMBALAJE->__GET('ID_VESPECIES'),
                         $REEMBALAJE->__GET('ID_PRODUCTOR'),
                         $REEMBALAJE->__GET('ID_EMPRESA'),
                         $REEMBALAJE->__GET('ID_PLANTA'),
                         $REEMBALAJE->__GET('ID_TEMPORADA'),
+
                         $REEMBALAJE->__GET('ID_USUARIOM'),
+
                         $REEMBALAJE->__GET('ID_REEMBALAJE')
 
                     )
@@ -347,7 +375,16 @@ class REEMBALAJE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
+            $datos = $this->conexion->prepare("SELECT * ,  
+                                                IFNULL(KILOS_EXPORTACION_REEMBALAJE,0) AS 'EXPORTACION'   ,                                                 
+                                                IFNULL(KILOS_INDUSTRIAL_REEMBALAJE,0) AS 'INDUSTRIAL'    ,                                                
+                                                IFNULL(KILOS_INDUSTRIALSC_REEMBALAJE,0) AS 'INDUSTRIALSC'    ,                                               
+                                                IFNULL(KILOS_INDUSTRIALNC_REEMBALAJE,0) AS 'INDUSTRIALNC'    ,                                                
+                                                IFNULL(KILOS_NETO_REEMBALAJE,0) AS 'NETO',                                        
+                                                IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',      
+                                                DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y') AS 'FECHA'
                                         FROM fruta_reembalaje                                                                               
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
@@ -370,13 +407,16 @@ class REEMBALAJE_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *,    
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',      
-                                                DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y') AS 'FECHA',                                                  
+            $datos = $this->conexion->prepare("SELECT *,                                                    
                                                 FORMAT(IFNULL(KILOS_EXPORTACION_REEMBALAJE,0),2,'de_DE') AS 'EXPORTACION',
                                                 FORMAT(IFNULL(KILOS_INDUSTRIAL_REEMBALAJE,0),2,'de_DE') AS 'INDUSTRIAL'  ,
-                                                FORMAT(IFNULL(KILOS_NETO_REEMBALAJE,0),2,'de_DE') AS 'NETO'  
+                                                FORMAT(IFNULL(KILOS_INDUSTRIALSC_REEMBALAJE,0),2,'de_DE') AS 'INDUSTRIALSC'  ,
+                                                FORMAT(IFNULL(KILOS_INDUSTRIALNC_REEMBALAJE,0),2,'de_DE') AS 'INDUSTRIALNC'  ,
+                                                FORMAT(IFNULL(KILOS_NETO_REEMBALAJE,0),2,'de_DE') AS 'NETO'  ,
+                                                FORMAT(IFNULL(KILOS_NETO_ENTRADA,0),2,'de_DE') AS 'ENTRADA'  ,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',      
+                                                DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y') AS 'FECHA' 
                                         FROM fruta_reembalaje                                                                               
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
@@ -419,15 +459,20 @@ class REEMBALAJE_ADO
             die($e->getMessage());
         }
     }
-    public function obtenerTotaleLista()
+
+    public function obtenerTotalEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                             FORMAT(IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE),0),2,'de_DE') AS 'EXPORTACION',
-                                             FORMAT(IFNULL(SUM(KILOS_INDUSTRIAL_REEMBALAJE),0),2,'de_DE') AS 'INDUSTRIAL'  ,
-                                             FORMAT(IFNULL(SUM(KILOS_NETO_REEMBALAJE),0),2,'de_DE') AS 'NETO'                                                   
-                                         FROM fruta_reembalaje 
+                                                IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE),0) AS 'EXPORTACION'   ,                                                 
+                                                IFNULL(SUM(KILOS_INDUSTRIAL_REEMBALAJE),0) AS 'INDUSTRIAL'   ,                                                 
+                                                IFNULL(SUM(KILOS_NETO_REEMBALAJE),0) AS 'NETO'                ,                                                 
+                                                IFNULL(SUM(KILOS_NETO_ENTRADA),0) AS 'ENTRADA'       
+                                         FROM fruta_reembalaje                                                                                              
+                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_PLANTA = '" . $PLANTA . "'
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                          ");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -447,9 +492,10 @@ class REEMBALAJE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                             FORMAT(IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE),0),2,'de_DE') AS 'EXPORTACION',
-                                             FORMAT(IFNULL(SUM(KILOS_INDUSTRIAL_REEMBALAJE),0),2,'de_DE') AS 'INDUSTRIAL'  ,
-                                             FORMAT(IFNULL(SUM(KILOS_NETO_REEMBALAJE),0),2,'de_DE') AS 'NETO'                                                   
+                                                 FORMAT(IFNULL(SUM(KILOS_EXPORTACION_REEMBALAJE),0),2,'de_DE') AS 'EXPORTACION'   ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_INDUSTRIAL_REEMBALAJE),0),2,'de_DE') AS 'INDUSTRIAL'   ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_NETO_REEMBALAJE),0),2,'de_DE') AS 'NETO'                ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_NETO_ENTRADA),0),2,'de_DE') AS 'ENTRADA'        
                                          FROM fruta_reembalaje                                                                                              
                                          WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'

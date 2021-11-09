@@ -368,6 +368,62 @@ class DRINDUSTRIAL_ADO
         }
     }
     //BUSQUEDA DE LOS TOTALES ASOCIADOS AL ID PROCESO
+
+
+    public function obtenerTotalesSC($IDREEMBALAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT  
+                                                    IFNULL(SUM(detalle.KILOS_NETO_DRINDUSTRIAL),0) AS 'NETO' 
+                                                FROM fruta_drindustrial detalle, estandar_eindustrial estandar 
+                                                WHERE   
+                                                        detalle.ID_ESTANDAR= estandar.ID_ESTANDAR
+                                                        AND  detalle.ESTADO_REGISTRO = 1
+                                                        AND estandar.COBRO =1     
+                                                        AND detalle.ID_REEMBALAJE = '" . $IDREEMBALAJE . "' 
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesNC($IDREEMBALAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT  
+                                                    IFNULL(SUM(detalle.KILOS_NETO_DRINDUSTRIAL),0) AS 'NETO' 
+                                                FROM fruta_drindustrial detalle, estandar_eindustrial estandar 
+                                                WHERE   
+                                                        detalle.ID_ESTANDAR= estandar.ID_ESTANDAR
+                                                        AND  detalle.ESTADO_REGISTRO = 1
+                                                        AND estandar.COBRO =0     
+                                                        AND detalle.ID_REEMBALAJE = '" . $IDREEMBALAJE . "' 
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
     public function obtenerTotales($IDPROCESO)
     {
         try {

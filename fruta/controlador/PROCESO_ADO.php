@@ -149,18 +149,24 @@ class PROCESO_ADO
                                                 ID_TEMPORADA, 
                                                 ID_USUARIOI, 
                                                 ID_USUARIOM, 
-                                                KILOS_NETO_PROCESO, 
-                                                KILOS_EXPORTACION_PROCESO,                                                 
-                                                KILOS_INDUSTRIAL_PROCESO,
+                                                KILOS_NETO_ENTRADA, 
+                                                KILOS_NETO_PROCESO,                                           
+                                                KILOS_INDUSTRIAL_PROCESO,                                               
+                                                KILOS_INDUSTRIALSC_PROCESO,                                               
+                                                KILOS_INDUSTRIALNC_PROCESO,
+                                                KILOS_EXPORTACION_PROCESO,       
                                                 PDEXPORTACION_PROCESO, 
+                                                PDEXPORTACIONCD_PROCESO, 
                                                 PDINDUSTRIAL_PROCESO, 
+                                                PDINDUSTRIALSC_PROCESO, 
+                                                PDINDUSTRIALNC_PROCESO, 
                                                 PORCENTAJE_PROCESO,
                                                 INGRESO, 
                                                 MODIFICACION,  
                                                 ESTADO,  
                                                 ESTADO_REGISTRO
                                             ) VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 0, SYSDATE(),  SYSDATE(), 1, 1 );";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, SYSDATE(),  SYSDATE(), 1, 1 );";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -193,15 +199,25 @@ class PROCESO_ADO
             $query = "
 		UPDATE fruta_proceso SET
             MODIFICACION = SYSDATE(), 
+
             FECHA_PROCESO=?,
             TURNO =?,
             OBSERVACIONE_PROCESO =?,
+
+            KILOS_NETO_ENTRADA =?,
             KILOS_NETO_PROCESO =?,
-            KILOS_EXPORTACION_PROCESO =?,
-            KILOS_INDUSTRIAL_PROCESO =?, 
+            KILOS_INDUSTRIAL_PROCESO =?,    
+            KILOS_INDUSTRIALSC_PROCESO =?,   
+            KILOS_INDUSTRIALNC_PROCESO =?,   
+            KILOS_EXPORTACION_PROCESO =?,           
+
             PDEXPORTACION_PROCESO =?, 
+            PDEXPORTACIONCD_PROCESO =?, 
             PDINDUSTRIAL_PROCESO =?, 
+            PDINDUSTRIALSC_PROCESO =?, 
+            PDINDUSTRIALNC_PROCESO =?, 
             PORCENTAJE_PROCESO =?, 
+
             ID_VESPECIES =?,
             ID_PRODUCTOR =?,
             ID_TPROCESO =?,
@@ -209,6 +225,7 @@ class PROCESO_ADO
             ID_PLANTA =?, 
             ID_TEMPORADA =?, 
             ID_USUARIOM =?
+
 		WHERE ID_PROCESO= ?;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -217,12 +234,21 @@ class PROCESO_ADO
                         $PROCESO->__GET('FECHA_PROCESO'),
                         $PROCESO->__GET('TURNO'),
                         $PROCESO->__GET('OBSERVACIONE_PROCESO'),
+
+                        $PROCESO->__GET('KILOS_NETO_ENTRADA'),
                         $PROCESO->__GET('KILOS_NETO_PROCESO'),
-                        $PROCESO->__GET('KILOS_EXPORTACION_PROCESO'),
                         $PROCESO->__GET('KILOS_INDUSTRIAL_PROCESO'),
+                        $PROCESO->__GET('KILOS_INDUSTRIALSC_PROCESO'),
+                        $PROCESO->__GET('KILOS_INDUSTRIALNC_PROCESO'),
+                        $PROCESO->__GET('KILOS_EXPORTACION_PROCESO'),
+
                         $PROCESO->__GET('PDEXPORTACION_PROCESO'),
+                        $PROCESO->__GET('PDEXPORTACIONCD_PROCESO'),
                         $PROCESO->__GET('PDINDUSTRIAL_PROCESO'),
+                        $PROCESO->__GET('PDINDUSTRIALSC_PROCESO'),
+                        $PROCESO->__GET('PDINDUSTRIALNC_PROCESO'),
                         $PROCESO->__GET('PORCENTAJE_PROCESO'),
+
                         $PROCESO->__GET('ID_VESPECIES'),
                         $PROCESO->__GET('ID_PRODUCTOR'),
                         $PROCESO->__GET('ID_TPROCESO'),
@@ -230,6 +256,7 @@ class PROCESO_ADO
                         $PROCESO->__GET('ID_PLANTA'),
                         $PROCESO->__GET('ID_TEMPORADA'),
                         $PROCESO->__GET('ID_USUARIOM'),
+
                         $PROCESO->__GET('ID_PROCESO')
 
                     )
@@ -339,8 +366,11 @@ class PROCESO_ADO
 
             $datos = $this->conexion->prepare("SELECT * ,  
                                                     IFNULL(KILOS_EXPORTACION_PROCESO,0) AS 'EXPORTACION'   ,                                                 
-                                                    IFNULL(KILOS_INDUSTRIAL_PROCESO,0) AS 'INDUSTRIAL'    ,                                                 
-                                                    IFNULL(KILOS_NETO_PROCESO,0) AS 'NETO',
+                                                    IFNULL(KILOS_INDUSTRIAL_PROCESO,0) AS 'INDUSTRIAL'    ,                                                
+                                                    IFNULL(KILOS_INDUSTRIALSC_PROCESO,0) AS 'INDUSTRIALSC'    ,                                               
+                                                    IFNULL(KILOS_INDUSTRIALNC_PROCESO,0) AS 'INDUSTRIALNC'    ,                                                
+                                                    IFNULL(KILOS_NETO_PROCESO,0) AS 'NETO',                                        
+                                                    IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',
                                                     DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y') AS 'FECHA', 
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
@@ -369,7 +399,8 @@ class PROCESO_ADO
             $datos = $this->conexion->prepare("SELECT * ,  
                                                     FORMAT(IFNULL(KILOS_EXPORTACION_PROCESO,0),2,'de_DE') AS 'EXPORTACION'   ,                                                 
                                                     FORMAT(IFNULL(KILOS_INDUSTRIAL_PROCESO,0),2,'de_DE') AS 'INDUSTRIAL'    ,                                                 
-                                                    FORMAT(IFNULL(KILOS_NETO_PROCESO,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_NETO_PROCESO,0),2,'de_DE') AS 'NETO',                                                
+                                                    FORMAT(IFNULL(KILOS_NETO_ENTRADA,0),2,'de_DE') AS 'ENTRADA',
                                                     DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y') AS 'FECHA', 
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
@@ -397,7 +428,8 @@ class PROCESO_ADO
             $datos = $this->conexion->prepare("SELECT * ,  
                                                     FORMAT(IFNULL(KILOS_EXPORTACION_PROCESO,0),2,'de_DE') AS 'EXPORTACION'   ,                                                 
                                                     FORMAT(IFNULL(KILOS_INDUSTRIAL_PROCESO,0),2,'de_DE') AS 'INDUSTRIAL'    ,                                                 
-                                                    FORMAT(IFNULL(KILOS_NETO_PROCESO,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_NETO_PROCESO,0),2,'de_DE') AS 'NETO',                                       
+                                                    FORMAT(IFNULL(KILOS_NETO_ENTRADA,0),2,'de_DE') AS 'ENTRADA',
                                                     DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y') AS 'FECHA', 
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
@@ -448,14 +480,15 @@ class PROCESO_ADO
         }
     }
 
-    public function obtenerTotalesEmpresaPlantaTemporadaLista($EMPRESA, $PLANTA, $TEMPORADA)
+    public function obtenerTotalesEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                                 FORMAT(IFNULL(SUM(KILOS_EXPORTACION_PROCESO),0),2,'de_DE') AS 'EXPORTACION'   ,                                                 
-                                                 FORMAT(IFNULL(SUM(KILOS_INDUSTRIAL_PROCESO),0),2,'de_DE') AS 'INDUSTRIAL'    ,                                                 
-                                                 FORMAT(IFNULL(SUM(KILOS_NETO_PROCESO-KILOS_INDUSTRIAL_PROCESO),0),2,'de_DE') AS 'NETO'                                                 
+                                                 IFNULL(SUM(KILOS_EXPORTACION_PROCESO),0) AS 'EXPORTACION'   ,                                                 
+                                                 IFNULL(SUM(KILOS_INDUSTRIAL_PROCESO),0) AS 'INDUSTRIAL'   ,                                                 
+                                                 IFNULL(SUM(KILOS_NETO_PROCESO),0) AS 'NETO'                ,                                                 
+                                                 IFNULL(SUM(KILOS_NETO_ENTRADA),0) AS 'ENTRADA'                                                 
                                              FROM fruta_proceso                                                                                         
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -476,6 +509,34 @@ class PROCESO_ADO
         }
     }
 
+    public function obtenerTotalesEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                 FORMAT(IFNULL(SUM(KILOS_EXPORTACION_PROCESO),0),2,'de_DE') AS 'EXPORTACION'   ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_INDUSTRIAL_PROCESO),0),2,'de_DE') AS 'INDUSTRIAL'   ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_NETO_PROCESO),0),2,'de_DE') AS 'NETO'                ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_NETO_ENTRADA),0),2,'de_DE') AS 'ENTRADA'                                                 
+                                             FROM fruta_proceso                                                                                         
+                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_PLANTA = '" . $PLANTA . "'
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                            
+                                             ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //OTRAS FUNCIONALIDADES
 

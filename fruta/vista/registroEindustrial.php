@@ -33,6 +33,7 @@ $TAINDUSTRIAL = "";
 $ESTADO = "";
 $PRODUCTO="";
 
+$COBRO="";
 $TESTANDAR="";
 $ENVASEESTANDAR = "";
 $PESOENVASESTANDAR = "";
@@ -75,12 +76,15 @@ if (isset($_REQUEST['GUARDAR'])) {
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
     $EINDUSTRIAL->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
     $EINDUSTRIAL->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBRESTANDAR']);
-    $EINDUSTRIAL->__SET('TESTANDAR', $_REQUEST['TESTANDAR']);
+    $EINDUSTRIAL->__SET('TESTANDAR', $_REQUEST['TESTANDAR']); 
+    if($_REQUEST['TESTANDAR']==0){
+        $EINDUSTRIAL->__SET('COBRO', $_REQUEST['COBRO']); 
+    }
     if($_REQUEST['TESTANDAR']==1){
         $EINDUSTRIAL->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
         $EINDUSTRIAL->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
         $EINDUSTRIAL->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
-    }
+    }   
     $EINDUSTRIAL->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $EINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $EINDUSTRIAL->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
@@ -100,6 +104,9 @@ if (isset($_REQUEST['EDITAR'])) {
     $EINDUSTRIAL->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
     $EINDUSTRIAL->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBRESTANDAR']);
     $EINDUSTRIAL->__SET('TESTANDAR', $_REQUEST['TESTANDAR']);
+    if($_REQUEST['TESTANDAR']==0){
+        $EINDUSTRIAL->__SET('COBRO', $_REQUEST['COBRO']); 
+    }
     if($_REQUEST['TESTANDAR']==1){
         $EINDUSTRIAL->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEESTANDAR']);
         $EINDUSTRIAL->__SET('PESO_ENVASE_ESTANDAR', $_REQUEST['PESOENVASEESTANDAR']);
@@ -160,6 +167,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PESOENVASEESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
             $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
             $TESTANDAR = "" . $r['TESTANDAR'];
+            $COBRO = "" . $r['COBRO'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
 
@@ -186,6 +194,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PESOENVASESTANDAR = "" . $r['PESO_ENVASE_ESTANDAR'];
             $PESOPALLETESTANDAR = "" . $r['PESO_PALLET_ESTANDAR'];
             $TESTANDAR = "" . $r['TESTANDAR'];
+            $COBRO = "" . $r['COBRO'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $PRODUCTO = "" . $r['ID_PRODUCTO'];
 
@@ -204,6 +213,11 @@ if (isset($_POST)) {
     }
     if (isset($_REQUEST['TESTANDAR'])) {
         $TESTANDAR = "" . $_REQUEST['TESTANDAR'];
+        if($TESTANDAR==0){            
+            if (isset($_REQUEST['COBRO'])) {
+                $COBRO = "" . $_REQUEST['COBRO'];
+            }
+        }
         if($TESTANDAR==1){
             if (isset($_REQUEST['PESOENVASEESTANDAR'])) {
                 $PESOENVASEESTANDAR = "" . $_REQUEST['PESOENVASEESTANDAR'];
@@ -215,6 +229,7 @@ if (isset($_POST)) {
                 $PESOPALLETESTANDAR = "" . $_REQUEST['PESOPALLETESTANDAR'];
             }
         }
+        
     }
     if (isset($_REQUEST['PRODUCTO'])) {
         $PRODUCTO = "" . $_REQUEST['PRODUCTO'];
@@ -286,7 +301,18 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.NOMBRESTANDAR.style.borderColor = "#4AF575";
-
+                    if(TESTANDAR==0){                        
+                        COBRO = document.getElementById("COBRO").selectedIndex;
+                        document.getElementById('val_cobro').innerHTML = "";
+                    
+                        if (COBRO == null ) {
+                            document.form_reg_dato.COBRO.focus();
+                            document.form_reg_dato.COBRO.style.borderColor = "#FF0000";
+                            document.getElementById('val_cobro').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.COBRO.style.borderColor = "#4AF575";
+                    }
                     if(TESTANDAR==1){
                         ENVASEESTANDAR = document.getElementById("ENVASEESTANDAR").value;
                         PESOPALLETESTANDAR = document.getElementById("PESOPALLETESTANDAR").value;
@@ -482,6 +508,18 @@ if (isset($_POST)) {
                                                         <label id="val_testandar" class="validacion"> </label>
                                                     </div>
                                                 </div>   
+                                                <?php if ($TESTANDAR==0) {    ?>  
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Cobro</label>
+                                                            <select class="form-control select2" id="COBRO" name="COBRO" style="width: 100%;"  value="<?php echo $COBRO; ?>" <?php echo $DISABLED; ?>>                                                            
+                                                                <option value="0" <?php if ($COBRO == 0) { echo "selected";  } ?>>  No  </option>              
+                                                                <option value="1" <?php if ($COBRO == 1) { echo "selected";  } ?>>  Si  </option>                                                                                                                 
+                                                            </select>  
+                                                            <label id="val_cobro" class="validacion"> </label>
+                                                        </div>
+                                                </div>   
+                                                <?php } ?>
                                                 <?php if ($TESTANDAR==1) {    ?>                                  
                                                     <div class="col-md-6">
                                                         <div class="form-group">

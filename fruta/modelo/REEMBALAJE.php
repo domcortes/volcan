@@ -11,17 +11,25 @@
         private	  $ID_REEMBALAJE; 
         private	  $NUMERO_REEMBALAJE; 
         private	  $FECHA_REEMBALAJE; 
-        private   $FECHA_INGRESO_REEMBALAJE;
-        private   $FECHA_MODFICACION_REEMBALAJE;
         private   $TURNO;
-        private   $OBSERVACIONES_REEMBALAJE;
+        
+        private   $KILOS_NETO_ENTRADA;
         private   $KILOS_NETO_REEMBALAJE;
         private   $KILOS_EXPORTACION_REEMBALAJE;
         private   $KILOS_INDUSTRIAL_REEMBALAJE;
+        private   $KILOS_INDUSTRIALSC_REEMBALAJE;
+        private   $KILOS_INDUSTRIALNC_REEMBALAJE;
+
         private   $PDEXPORTACION_REEMBALAJE;
+        private   $PDEXPORTACIONCD_REEMBALAJE;
         private   $PDINDUSTRIAL_REEMBALAJE;
+        private   $PDINDUSTRIALSC_REEMBALAJE;
+        private   $PDINDUSTRIALNC_REEMBALAJE;
         private   $PORCENTAJE_REEMBALAJE;
-        private   $OBSERVACIONE_REEMBALAJE;
+
+        private   $OBSERVACIONES_REEMBALAJE;
+        private   $INGRESO;
+        private   $MODFICACION;
         private   $ESTADO;
         private   $ESTADO_REGISTRO;
         private   $ID_PVESPECIES;
