@@ -28,7 +28,7 @@ $ENVASES="";
 
 $NOMBREBODEGA = "";
 $NOMBRECONTACTO = "";
-$PLANTA = "";
+$PLANTABODEGA = "";
 $FNOMBRE = "";
 $NOMBREPLANTA = "";
 $ESTADO = "";
@@ -55,7 +55,7 @@ $ARRAYEMPRESA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaCBX($EMPRESAS);
-$ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
+$ARRAYPLANTA = $PLANTA_ADO->listarPlantaPropiaCBX();
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
@@ -66,8 +66,8 @@ include_once "../config/datosUrl.php";
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['GUARDAR'])) {
 
-    $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA']);
-    $ARRAYVALIDARBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA']);
+    $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA']);
+    $ARRAYVALIDARBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA']);
     if ($ARRAYVALIDARBODEGA) {
         $SINO = 1;
         $MENSAJE = "YA EXISTE UNA BODEGA PRINCIPAL EN LA PLANTA SELECIONADA";
@@ -91,7 +91,7 @@ if (isset($_REQUEST['GUARDAR'])) {
         $BODEGA->__SET('PRINCIPAL', $_REQUEST['PRINCIPAL']);
         $BODEGA->__SET('ENVASES', $_REQUEST['ENVASES']);
         $BODEGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+        $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTABODEGA']);
         $BODEGA->__SET('ID_USUARIOI', $IDUSUARIOS);
         $BODEGA->__SET('ID_USUARIOM', $IDUSUARIOS);
         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -107,7 +107,7 @@ if (isset($_REQUEST['EDITAR'])) {
    
 
     if ($_REQUEST['PRINCIPAL'] == 1) {
-        $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalDistinoActualCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['ID']);
+        $ARRAYVALIDARBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaPrincipalDistinoActualCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA'], $_REQUEST['ID']);
         if ($ARRAYVALIDARBODEGA) {
             $SINO = 1;
             $MENSAJE = "YA EXISTE UNA BODEGA PRINCIPAL EN LA PLANTA SELECIONADA";
@@ -117,7 +117,7 @@ if (isset($_REQUEST['EDITAR'])) {
         }
     }
     if ($_REQUEST['ENVASES'] == 1) {
-        $ARRAYVALIDARBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesDistinoActualCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['ID']);
+        $ARRAYVALIDARBODEGA2 = $BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesDistinoActualCBX($_REQUEST['EMPRESA'], $_REQUEST['PLANTABODEGA'], $_REQUEST['ID']);
         if($ARRAYVALIDARBODEGA2){
             $SINO = 1;
             $MENSAJE = "YA EXISTE UNA BODEGA ENVASES EN LA PLANTA SELECIONADA";
@@ -137,7 +137,7 @@ if (isset($_REQUEST['EDITAR'])) {
         $BODEGA->__SET('PRINCIPAL', $_REQUEST['PRINCIPAL']);
         $BODEGA->__SET('ENVASES', $_REQUEST['ENVASES']);
         $BODEGA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+        $BODEGA->__SET('ID_PLANTA', $_REQUEST['PLANTABODEGA']);
         $BODEGA->__SET('ID_USUARIOM', $IDUSUARIOS);
         $BODEGA->__SET('ID_BODEGA', $_REQUEST['ID']);
         //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -187,7 +187,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NOMBRECONTACTO = "" . $r['NOMBRE_CONTACTO_BODEGA'];
             $PRINCIPAL = "" . $r['PRINCIPAL'];
             $ENVASES = "" . $r['ENVASES'];
-            $PLANTA = "" . $r['ID_PLANTA'];
+            $PLANTABODEGA = "" . $r['ID_PLANTA'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $ESTADO = "" . $r['ESTADO_REGISTRO'];
         endforeach;
@@ -211,7 +211,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PRINCIPAL = "" . $r['PRINCIPAL'];
             $ENVASES = "" . $r['ENVASES'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
-            $PLANTA = "" . $r['ID_PLANTA'];
+            $PLANTABODEGA = "" . $r['ID_PLANTA'];
             $ESTADO = "" . $r['ESTADO_REGISTRO'];
         endforeach;
     }
@@ -240,7 +240,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                 NOMBREBODEGA = document.getElementById("NOMBREBODEGA").value;
                 NOMBRECONTACTO = document.getElementById("NOMBRECONTACTO").value;
-                PLANTA = document.getElementById("PLANTA").selectedIndex;
+                PLANTABODEGA = document.getElementById("PLANTABODEGA").selectedIndex;
                 PRINCIPAL = document.getElementById("PRINCIPAL").selectedIndex;
                 ENVASES = document.getElementById("ENVASES").selectedIndex;
 
@@ -271,13 +271,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 }
                 document.form_reg_dato.NOMBRECONTACTO.style.borderColor = "#4AF575";
 
-                if (PLANTA == null || PLANTA == 0) {
-                    document.form_reg_dato.PLANTA.focus();
-                    document.form_reg_dato.PLANTA.style.borderColor = "#FF0000";
+                if (PLANTABODEGA == null || PLANTABODEGA == 0) {
+                    document.form_reg_dato.PLANTABODEGA.focus();
+                    document.form_reg_dato.PLANTABODEGA.style.borderColor = "#FF0000";
                     document.getElementById('val_planta').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
                     return false;
                 }
-                document.form_reg_dato.PLANTA.style.borderColor = "#4AF575";
+                document.form_reg_dato.PLANTABODEGA.style.borderColor = "#4AF575";
 
                 if (PRINCIPAL == null || PRINCIPAL == 0) {
                     document.form_reg_dato.PRINCIPAL.focus();
@@ -430,11 +430,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label>Planta</label>
-                                                        <select class="form-control select2" id="PLANTA" name="PLANTA" style="width: 100%;" value="<?php echo $PLANTA; ?>" <?php echo $DISABLED; ?>>
+                                                        <select class="form-control select2" id="PLANTABODEGA" name="PLANTABODEGA" style="width: 100%;" value="<?php echo $PLANTABODEGA; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYPLANTA as $r) : ?>
                                                                 <?php if ($ARRAYPLANTA) {    ?>
-                                                                    <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) { echo "selected"; } ?>>
+                                                                    <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTABODEGA == $r['ID_PLANTA']) {  echo "selected";  } ?>>
                                                                         <?php echo $r['NOMBRE_PLANTA'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
@@ -501,20 +501,25 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
                                                         <th>Nombre </th>
+                                                        <th>Nombre Planta</th>
                                                         <th class="text-center">Operaciónes</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYBODEGA as $r) : ?>
+                                                        <?php 
+                                                            $ARRAYVERPLANTA=$PLANTA_ADO->verPlanta($r["ID_PLANTA"]);
+                                                            if($ARRAYVERPLANTA){
+                                                                $NOMBREPLANTABODEGA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
+                                                            }else{
+                                                                $NOMBREPLANTABODEGA="Sin Datos";
+                                                            }
+
+                                                            ?>
                                                         <tr class="center">
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_BODEGA']; ?>
-                                                                </a>
-                                                            </td>
                                                             <td><?php echo $r['NOMBRE_BODEGA']; ?></td>
+                                                            <td><?php echo $NOMBREPLANTABODEGA; ?></td>
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
