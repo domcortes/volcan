@@ -87,7 +87,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     }   
     $EINDUSTRIAL->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $EINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $EINDUSTRIAL->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+   // $EINDUSTRIAL->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $EINDUSTRIAL->__SET('ID_USUARIOI', $IDUSUARIOS);
     $EINDUSTRIAL->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -114,7 +114,7 @@ if (isset($_REQUEST['EDITAR'])) {
     }
     $EINDUSTRIAL->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
     $EINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $EINDUSTRIAL->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+  //  $EINDUSTRIAL->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
     $EINDUSTRIAL->__SET('ID_USUARIOM', $IDUSUARIOS);
     $EINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -169,7 +169,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TESTANDAR = "" . $r['TESTANDAR'];
             $COBRO = "" . $r['COBRO'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
-            $PRODUCTO = "" . $r['ID_PRODUCTO'];
+          //  $PRODUCTO = "" . $r['ID_PRODUCTO'];
 
         endforeach;
     }
@@ -196,7 +196,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TESTANDAR = "" . $r['TESTANDAR'];
             $COBRO = "" . $r['COBRO'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
-            $PRODUCTO = "" . $r['ID_PRODUCTO'];
+            //$PRODUCTO = "" . $r['ID_PRODUCTO'];
 
 
         endforeach;
@@ -231,9 +231,10 @@ if (isset($_POST)) {
         }
         
     }
+    /*
     if (isset($_REQUEST['PRODUCTO'])) {
         $PRODUCTO = "" . $_REQUEST['PRODUCTO'];
-    }
+    }*/
     if (isset($_REQUEST['ESPECIES'])) {
         $ESPECIES = "" . $_REQUEST['ESPECIES'];
     }
@@ -276,14 +277,14 @@ if (isset($_POST)) {
                     NOMBRESTANDAR = document.getElementById("NOMBRESTANDAR").value;
                     TESTANDAR = document.getElementById("TESTANDAR").selectedIndex;
                     ESPECIES = document.getElementById("ESPECIES").selectedIndex;
-                    PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
+                 //   PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
 
 
                     document.getElementById('val_codigo').innerHTML = "";
                     document.getElementById('val_nombre').innerHTML = "";
                     document.getElementById('val_testandar').innerHTML = "";
                     document.getElementById('val_especies').innerHTML = "";
-                    document.getElementById('val_producto').innerHTML = "";
+                 //   document.getElementById('val_producto').innerHTML = "";
 
 
                     if (CODIGOESTANDAR == null || CODIGOESTANDAR == 0) {
@@ -357,7 +358,7 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.ESPECIES.style.borderColor = "#4AF575";
-                    
+                    /*
                     if (PRODUCTO == null || PRODUCTO == 0) {
                         document.form_reg_dato.PRODUCTO.focus();
                         document.form_reg_dato.PRODUCTO.style.borderColor = "#FF0000";
@@ -365,7 +366,7 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.PRODUCTO.style.borderColor = "#4AF575";
-                    
+                    */
 
 
 
@@ -562,7 +563,8 @@ if (isset($_POST)) {
                                                         </select>
                                                         <label id="val_especies" class="validacion"> </label>
                                                     </div>
-                                                </div>                                                                                            
+                                                </div>         
+                                                <!--
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label> Producto</label>
@@ -583,6 +585,7 @@ if (isset($_POST)) {
                                                         <label id="val_producto" class="validacion"> </label>
                                                     </div>
                                                 </div>
+                                                -->
                                             </div>
                                         </div>
                                         <!-- /.box-body -->
