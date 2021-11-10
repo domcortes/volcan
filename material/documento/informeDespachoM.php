@@ -341,9 +341,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="7" class="center">DETALLE DE DESPACHO.</th>
+            <th colspan="8" class="center">DETALLE DE DESPACHO.</th>
           </tr>
           <tr>
+            <th class="color left">N° Folio</th>
             <th class="color left">Bodega Origen</th>
             <th class="color left">Codigo Producto</th>
             <th class="color left">Producto</th>
@@ -377,6 +378,7 @@ foreach ($ARRAYDRECEPCION as $d) :
   $html = $html . '
           
                       <tr >
+                         <td class="left">' . $d['FOLIO_INVENTARIO'] . '</td>
                           <td class="left">' . $NOMBREBODEGAD . '</td>
                           <td class="left">' . $CODIGOPRODUCTO . '</td>
                           <td class="left">' . $NOMBREPRODUCTO . '</td>
@@ -392,6 +394,7 @@ endforeach;
 $html = $html . '
               
                   <tr class="bt">
+                      <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
                       <th class="color left">&nbsp;</th>
