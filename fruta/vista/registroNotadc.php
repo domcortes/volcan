@@ -244,7 +244,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $FECHAETA = $ARRAYVERICARGA[0]['FECHAETA_ICARGA'];                
                 if ($TEMBARQUE) {
                     if ($TEMBARQUE == "1") {
-                        $TRANSPORTE2 = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
+                        $TRANSPORTE = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
                         $LCARGA = $ARRAYVERICARGA[0]['ID_LCARGA'];
                         $LDESTINO = $ARRAYVERICARGA[0]['ID_LDESTINO'];
                     }
@@ -303,7 +303,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $FECHAETA = $ARRAYVERICARGA[0]['FECHAETA_ICARGA'];                
                 if ($TEMBARQUE) {
                     if ($TEMBARQUE == "1") {
-                        $TRANSPORTE2 = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
+                        $TRANSPORTE = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
                         $LCARGA = $ARRAYVERICARGA[0]['ID_LCARGA'];
                         $LDESTINO = $ARRAYVERICARGA[0]['ID_LDESTINO'];
                     }
@@ -365,7 +365,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $FECHAETA = $ARRAYVERICARGA[0]['FECHAETA_ICARGA'];                
                 if ($TEMBARQUE) {
                     if ($TEMBARQUE == "1") {
-                        $TRANSPORTE2 = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
+                        $TRANSPORTE = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
                         $LCARGA = $ARRAYVERICARGA[0]['ID_LCARGA'];
                         $LDESTINO = $ARRAYVERICARGA[0]['ID_LDESTINO'];
                     }
@@ -414,7 +414,7 @@ if (isset($_POST)) {
                 $FECHAETA = $ARRAYVERICARGA[0]['FECHAETA_ICARGA'];                
                 if ($TEMBARQUE) {
                     if ($TEMBARQUE == "1") {
-                        $TRANSPORTE2 = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
+                        $TRANSPORTE = $ARRAYVERICARGA[0]['ID_TRANSPORTE'];
                         $LCARGA = $ARRAYVERICARGA[0]['ID_LCARGA'];
                         $LDESTINO = $ARRAYVERICARGA[0]['ID_LDESTINO'];
                     }
@@ -979,25 +979,6 @@ if (isset($_POST)) {
                                                 <label id="val_fpago" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
-                                            <div class="form-group">
-                                                <label>Modalidad Venta</label>
-                                                <input type="hidden" class="form-control" placeholder="MVENTAE" id="MVENTAE" name="MVENTAE" value="<?php echo $MVENTA; ?>" />
-                                                <select class="form-control select2" id="MVENTA" name="MVENTA" style="width: 100%;" disabled>>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYMVENTA as $r) : ?>
-                                                    <?php if ($ARRAYMVENTA) {    ?>
-                                                        <option value="<?php echo $r['ID_MVENTA']; ?>" <?php if ($MVENTA == $r['ID_MVENTA']) {  echo "selected"; } ?>>
-                                                            <?php echo $r['NOMBRE_MVENTA'] ?>
-                                                        </option>
-                                                    <?php } else { ?>
-                                                        <option value="0">No Hay Datos Registrados </option>
-                                                    <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                                <label id="val_mventa" class="validacion"> </label>
-                                            </div>
-                                        </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>FDA </label>
@@ -1078,9 +1059,11 @@ if (isset($_POST)) {
                                                             <th>Kilo Neto </th>
                                                             <th>Kilo Bruto </th>
                                                             <th>Calibre </th>                                                         
-                                                            <th>Cantidad </th>
-                                                            <th>Precio US </th>   
-                                                            <th>Total US </th>
+                                                            <th>Valor NC/ND </th>
+                                                            <th>Precio Instructivo </th>   
+                                                            <th>Precio Instru. Con NC/ND</th>   
+                                                            <th>Total Instructivo </th>
+                                                            <th>Total Instru. Con NC/ND </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1109,13 +1092,13 @@ if (isset($_POST)) {
                                                                         $PRECIONUEVO=$s['PRECIO_US_DICARGA']-$CANTIDADDNOTA;
                                                                         $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
                                                                     }else{
-                                                                        $PRECIONUEVO=$s['PRECIO_US_DICARGA'];
-                                                                        $TOTALNUEVO=$s['TOTAL_PRECIO_US_DICARGA'];
+                                                                        $PRECIONUEVO="Sin Datos";
+                                                                        $TOTALNUEVO="Sin Datos";
                                                                     }
                                                                 }else{
                                                                     $CANTIDADDNOTA="Sin Datos";
-                                                                    $PRECIONUEVO=$s['PRECIO_US_DICARGA'];
-                                                                    $TOTALNUEVO=$s['TOTAL_PRECIO_US_DICARGA'];
+                                                                    $PRECIONUEVO="Sin Datos";
+                                                                    $TOTALNUEVO="Sin Datos";
                                                                 }
                                                                 ?>
                                                                 <tr class="center">
@@ -1128,21 +1111,21 @@ if (isset($_POST)) {
                                                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDnotadc" />
                                                                             <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                                 <?php if ($ESTADO == "0") { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-info btn-sm  " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
-                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    <button type="submit" class="btn btn-rounded btn-info btn-sm  " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Valor NC/ND  ">
+                                                                                        <i class="ti-eye"></i> Ver Valor
                                                                                     </button>
                                                                                 <?php } ?>
                                                                                 <?php if ($ESTADO == "1") { ?>                                                                                    
                                                                                      <?php if ( empty($ARRAYDNOTA)) { ?>
-                                                                                        <button type="submit" class="btn  btn-rounded   btn-success  btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Agregar Detalle" >
-                                                                                            <i class="ti-plus"></i> Agregar
+                                                                                        <button type="submit" class="btn  btn-rounded   btn-success  btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Agregar Valor NC/ND " >
+                                                                                            <i class="ti-plus"></i> Agregar Valor
                                                                                         </button>
                                                                                     <?php }else{ ?>
-                                                                                        <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle" >
-                                                                                            <i class="ti-pencil-alt"></i> Editar
+                                                                                        <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Valor NC/ND " >
+                                                                                            <i class="ti-pencil-alt"></i> Editar Valor
                                                                                         </button>
-                                                                                        <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle ">
-                                                                                            <i class="ti-close"></i> Eliminar
+                                                                                        <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Valor NC/ND  ">
+                                                                                            <i class="ti-close"></i> Eliminar Valor
                                                                                         </button>
                                                                                     <?php } ?>
                                                                                 <?php } ?>
@@ -1155,7 +1138,9 @@ if (isset($_POST)) {
                                                                     <td><?php echo $s['KILOS_BRUTO_DICARGA']; ?></td>
                                                                     <td><?php echo $NOMBRECALIBRE; ?></td>
                                                                     <td><?php echo $CANTIDADDNOTA; ?></td>
+                                                                    <td><?php echo $s['PRECIO_US_DICARGA']; ?></td>
                                                                     <td><?php echo $PRECIONUEVO; ?></td>
+                                                                    <td><?php echo $s['TOTAL_PRECIO_US_DICARGA']; ?></td>
                                                                     <td><?php echo $TOTALNUEVO; ?></td>
                                                                 </tr>
                                                             <?php endforeach; ?>

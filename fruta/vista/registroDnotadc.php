@@ -48,7 +48,8 @@ $KILOSNETO = 0;
 $KILOSBRUTO = 0;
 $CANTIDADENVASE = 0;
 $TOTALPRECIOUS = 0;
-
+$TOTALPRECIOUSNCND = 0;
+$PRECIOUSNCND = 0; 
 $IDDICARGA = "";
 $IDICARGA = "";
 
@@ -140,17 +141,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $CANTIDADNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
                 $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
                 if($TNOTA==1){
-                    $PRECIOUS = $CANTIDADNOTA + $r['PRECIO_US_DICARGA'];
-                    $TOTALPRECIOUS = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND = $r['PRECIO_US_DICARGA']+$CANTIDADNOTA ;
+                    $TOTALPRECIOUSNCND = $PRECIOUSNCND*$CANTIDADENVASE;
                 }
                 if($TNOTA==2){
-                    $PRECIOUS = $CANTIDADNOTA - $r['PRECIO_US_DICARGA'];
-                    $TOTALPRECIOUS = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND =  $r['PRECIO_US_DICARGA']-$CANTIDADNOTA;
+                    $TOTALPRECIOUSNCND = $PRECIOUS*$CANTIDADENVASE;
                 }
 
             }else{
-                $PRECIOUS = "" . $r['PRECIO_US_DICARGA'];
-                $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
+                $PRECIOUSNCND = "" . $r['PRECIO_US_DICARGA'];
+                $TOTALPRECIOUSNCND = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             }
         endforeach;
     }
@@ -179,17 +180,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $CANTIDADNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
                 $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
                 if($TNOTA==1){
-                    $PRECIOUS = $CANTIDADNOTA + $r['PRECIO_US_DICARGA'];
-                    $TOTALPRECIOUS = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND = $r['PRECIO_US_DICARGA']+$CANTIDADNOTA ;
+                    $TOTALPRECIOUSNCND = $PRECIOUSNCND*$CANTIDADENVASE;
                 }
                 if($TNOTA==2){
-                    $PRECIOUS = $CANTIDADNOTA - $r['PRECIO_US_DICARGA'];
-                    $TOTALPRECIOUS = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND =  $r['PRECIO_US_DICARGA']-$CANTIDADNOTA;
+                    $TOTALPRECIOUSNCND = $PRECIOUS*$CANTIDADENVASE;
                 }
 
             }else{
-                $PRECIOUS = "" . $r['PRECIO_US_DICARGA'];
-                $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
+                $PRECIOUSNCND = "" . $r['PRECIO_US_DICARGA'];
+                $TOTALPRECIOUSNCND = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             }
         endforeach;
     }
@@ -217,17 +218,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $CANTIDADNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
                 $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
                 if($TNOTA==1){
-                    $PRECIOUS = $CANTIDADNOTA + $r['PRECIO_US_DICARGA'];
-                    $TOTALPRECIOUS = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND = $r['PRECIO_US_DICARGA']+$CANTIDADNOTA ;
+                    $TOTALPRECIOUSNCND = $PRECIOUSNCND*$CANTIDADENVASE;
                 }
                 if($TNOTA==2){
-                    $PRECIOUS = $CANTIDADNOTA - $r['PRECIO_US_DICARGA'];
-                    $TOTALPRECIOUS = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND =  $r['PRECIO_US_DICARGA']-$CANTIDADNOTA;
+                    $TOTALPRECIOUSNCND = $PRECIOUS*$CANTIDADENVASE;
                 }
 
             }else{
-                $PRECIOUS = "" . $r['PRECIO_US_DICARGA'];
-                $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
+                $PRECIOUSNCND = "" . $r['PRECIO_US_DICARGA'];
+                $TOTALPRECIOUSNCND = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             }
         endforeach;
     }
@@ -256,17 +257,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $CANTIDADNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
                 $TNOTA=$ARRAYDNOTA[0]["TNOTA"];
                 if($TNOTA==1){
-                    $PRECIOUS = $CANTIDADNOTA + $r['PRECIO_US_DICARGA'];
-                    $TOTALPRECIOUS = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND = $r['PRECIO_US_DICARGA']+$CANTIDADNOTA ;
+                    $TOTALPRECIOUSNCND = $PRECIOUSNCND*$CANTIDADENVASE;
                 }
                 if($TNOTA==2){
-                    $PRECIOUS = $CANTIDADNOTA - $r['PRECIO_US_DICARGA'];
-                    $TOTALPRECIOUS = $PRECIOUS*$CANTIDADENVASE;
+                    $PRECIOUSNCND =  $r['PRECIO_US_DICARGA']-$CANTIDADNOTA;
+                    $TOTALPRECIOUSNCND = $PRECIOUS*$CANTIDADENVASE;
                 }
 
             }else{
-                $PRECIOUS = "" . $r['PRECIO_US_DICARGA'];
-                $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
+                $PRECIOUSNCND = "" . $r['PRECIO_US_DICARGA'];
+                $TOTALPRECIOUSNCND = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             }
         endforeach;
     }
@@ -356,12 +357,12 @@ if ($_POST) {
                             precio =PRECIOUSE-CANTIDADNOTA;
                         }
                         total =precio*CANTIDADENVASEE;
-                        total = total.toFixed(2);
-                        document.getElementById('PRECIOUS').value = precio;
-                        document.getElementById('TOTALPRECIOUSV').value = total;
+                        total = total.toFixed(2);                          
+                        document.getElementById('PRECIOUSNCND').value = precio;
+                        document.getElementById('TOTALPRECIOUSNCND').value = total;
                     }else{                        
-                        document.getElementById('PRECIOUS').value = PRECIOUSE;
-                        document.getElementById('TOTALPRECIOUSV').value = TOTALPRECIOUS;
+                        document.getElementById('PRECIOUSNCND').value = PRECIOUSE;
+                        document.getElementById('TOTALPRECIOUSNCND').value = TOTALPRECIOUS;
                     }
                 }
 
@@ -500,26 +501,38 @@ if ($_POST) {
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
-                                                <label>Cantidad</label>
+                                                <label>Valor NC/ND </label>
                                                 <input type="hidden" id="CANTIDADNOTAE" name="CANTIDADNOTAE" value="<?php echo $CANTIDADNOTA; ?>" />
-                                                <input type="number" step="0.00001" class="form-control"  placeholder="Cantidad Nota" id="CANTIDADNOTA" name="CANTIDADNOTA" onchange="precio()"  value="<?php echo $CANTIDADNOTA; ?>"   <?php echo $DISABLED; ?> />
+                                                <input type="number" step="0.01" class="form-control"  placeholder="Valor NC/ND " id="CANTIDADNOTA" name="CANTIDADNOTA" onchange="precio()"  value="<?php echo $CANTIDADNOTA; ?>"   <?php echo $DISABLED; ?> />
                                                 <label id="val_cantidadnota" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
-                                                <label>Precio $US</label>
+                                                <label>Precio Instructivo</label>
                                                 <input type="hidden" id="PRECIOUSE" name="PRECIOUSE" value="<?php echo $PRECIOUS; ?>" />
-                                                <input type="number" step="0.01" class="form-control"  placeholder="Kilos Netos" id="PRECIOUS" name="PRECIOUS" value="<?php echo $PRECIOUS; ?>" disabled/>
+                                                <input type="number" step="0.01" class="form-control"  placeholder="Precio Instructivo" id="PRECIOUS" name="PRECIOUS" value="<?php echo $PRECIOUS; ?>" disabled/>
                                                 <label id="val_us" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
-                                                <label>Total $US</label>
+                                                <label>Precio Instru. Con NC/ND</label>                                                
+                                                <input type="number" step="0.01" class="form-control"  placeholder="Precio Instru. Con NC/ND" id="PRECIOUSNCND" name="PRECIOUSNCND" value="<?php echo $PRECIOUSNCND; ?>" disabled/>                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                            <div class="form-group">
+                                                <label>Total Instructivo</label>
                                                 <input type="hidden" id="TOTALPRECIOUS" name="TOTALPRECIOUS" value="<?php echo $TOTALPRECIOUS; ?>" />
-                                                <input type="number" step="0.01" class="form-control" placeholder="Total $US" id="TOTALPRECIOUSV" name="TOTALPRECIOUSV" value="<?php echo $TOTALPRECIOUS; ?>" disabled style="background-color: #eeeeee;" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Total Instructivo" id="TOTALPRECIOUSV" name="TOTALPRECIOUSV" value="<?php echo $TOTALPRECIOUS; ?>" disabled style="background-color: #eeeeee;" />
                                                 <label id="val_totalus" class="validacion"> </label>
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                            <div class="form-group">
+                                                <label>Total Instru. Con NC/ND</label>                                                
+                                                <input type="number" step="0.01" class="form-control"  placeholder="Total Instru. Con NC/ND" id="TOTALPRECIOUSNCND" name="TOTALPRECIOUSNCND" value="<?php echo $TOTALPRECIOUSNCND; ?>" disabled/>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -533,13 +546,13 @@ if ($_POST) {
                                             </button>
                                             <?php if ($OP == "") { ?>
                                                 <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Crear
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
                                                 <?php if ($OP == "crear") { ?>
                                                     <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Crear
+                                                        <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
                                                 <?php if ($OP == "editar") { ?>
