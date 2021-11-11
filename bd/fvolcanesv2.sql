@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-11-2021 a las 20:42:40
+-- Tiempo de generación: 11-11-2021 a las 14:35:55
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -164,7 +164,7 @@ CREATE TABLE `estandar_eindustrial` (
 --
 
 INSERT INTO `estandar_eindustrial` (`ID_ESTANDAR`, `CODIGO_ESTANDAR`, `NOMBRE_ESTANDAR`, `CANTIDAD_ENVASE_ESTANDAR`, `PESO_ENVASE_ESTANDAR`, `PESO_PALLET_ESTANDAR`, `TESTANDAR`, `COBRO`, `TFRUTA_ESTANDAR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_ESPECIES`, `ID_PRODUCTO`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '11', 'prueba estandar proceso industrial SC', NULL, NULL, NULL, 0, 1, 3, 1, '2021-09-14', '2021-09-14', 1, 25, 1, 1, 1),
+(1, '11', 'prueba estandar proceso industrial SC', NULL, NULL, NULL, 0, 1, 3, 1, '2021-09-14', '2021-09-14', 1, 25, NULL, 1, 1),
 (2, '1515', 'prueba estándar recepción industrial', 240, '1.50000', '19.00', 1, 0, 3, 1, '2021-10-28', '2021-10-28', 1, 25, 2, 1, 1),
 (3, '1516', 'prueba estándar recepción industrial 2', 240, '1.20000', '19.00', 1, 0, 3, 1, '2021-10-28', '2021-10-28', 1, 25, 2, 1, 1),
 (4, '1517', 'prueba estándar recepción industrial 3', 240, '1.60000', '15.00', 1, 0, 3, 1, '2021-10-28', '2021-10-28', 1, 73, 1, 1, 1),
@@ -875,6 +875,32 @@ INSERT INTO `fruta_dicarga` (`ID_DICARGA`, `CANTIDAD_ENVASE_DICARGA`, `KILOS_NET
 (4, 1320, '1980.00', '3418.00', '2.00', '2640.00', 0, 1, '2021-09-06 23:53:04', '2021-09-06 23:53:04', 1, 1, 2),
 (5, 44, '66.00', '132.30', '15.65', '688.60', 0, 1, '2021-10-14 11:32:09', '2021-10-14 11:32:09', 1, 1, 5),
 (6, 44, '66.00', '132.30', '15.65', '688.60', 0, 1, '2021-10-14 11:32:20', '2021-10-14 11:32:20', 1, 1, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fruta_dnotadc`
+--
+
+CREATE TABLE `fruta_dnotadc` (
+  `ID_DNOTA` bigint(20) NOT NULL,
+  `TNOTA` int(11) DEFAULT NULL,
+  `CANTIDAD` decimal(20,5) DEFAULT NULL,
+  `INGRESO` datetime DEFAULT NULL,
+  `MODIFICACION` datetime DEFAULT NULL,
+  `ESTADO` int(11) DEFAULT NULL,
+  `ESTADO_REGISTRO` int(11) DEFAULT NULL,
+  `ID_NOTA` bigint(20) NOT NULL,
+  `ID_DICARGA` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `fruta_dnotadc`
+--
+
+INSERT INTO `fruta_dnotadc` (`ID_DNOTA`, `TNOTA`, `CANTIDAD`, `INGRESO`, `MODIFICACION`, `ESTADO`, `ESTADO_REGISTRO`, `ID_NOTA`, `ID_DICARGA`) VALUES
+(1, 1, '10.00000', '2021-11-11 10:06:44', '2021-11-11 10:06:44', 1, 0, 1, 3),
+(2, 1, '5.00000', '2021-11-11 10:18:47', '2021-11-11 10:18:47', 1, 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -2131,7 +2157,7 @@ INSERT INTO `fruta_icarga` (`ID_ICARGA`, `NUMERO_ICARGA`, `FECHA_ICARGA`, `TEMBA
 (2, 3, '2021-09-06', 3, '1515', '2021-09-06', '2021-09-06', '111', 1, NULL, '111', '2021-09-06', 2, '0.00', '0.02', '0.01', '0.02', 0, '111', '1.00', '1.00', '0', '0.00', '', 'v2.25', 1320, '1980.00', '3418.00', '2640.00', 0, 3, 1, '2021-09-06 20:37:26', '2021-09-08 15:42:30', 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 2, 4, 1, 1, 1, 1, 1, 1, 44, 1, 1, 1),
 (3, 2, '2021-09-06', 2, '1515', '2021-09-06', '2021-09-06', '1', 1, NULL, 'SSS', NULL, 2, '0.00', '0.01', '0.01', '0.02', 0, '1111', '0.00', '0.00', '0', '0.00', '', 'v2.25', 1320, '1980.00', '3418.00', '6600.00', 0, 2, 1, '2021-09-06 20:37:33', '2021-09-06 23:47:35', 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, 2, 1, NULL, NULL, NULL, 1, 1, 1, 1, 1, 1, 44, 1, 1, 1),
 (4, 1, '2021-09-06', 1, '1515', '2021-09-06', '2021-09-06', NULL, 1, '1515', NULL, NULL, 2, '-2.00', '-0.02', '-0.02', '0.04', 0, '151', '0.00', '0.00', '0', '0.03', '', 'V2.001', 2640, '3960.00', '6836.00', '39600.00', 0, 2, 1, '2021-09-06 20:37:53', '2021-09-06 23:28:08', 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 1, 1, 44, 1, 1, 1),
-(5, 4, '2021-09-15', 1, '1', '2021-09-15', '2021-09-15', NULL, 1, '111', NULL, NULL, 2, '0.00', '0.03', '0.04', '0.06', 0, '11', '0.00', '0.00', '0', '0.00', '', '1', 88, '132.00', '264.60', '1377.20', 0, 2, 1, '2021-09-15 22:17:11', '2021-10-21 11:19:36', 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 1, 1, 22, 1, 1, 1);
+(5, 4, '2021-09-15', 1, '1', '2021-09-15', '2021-09-15', NULL, 1, '111', NULL, NULL, 2, '0.00', '0.03', '0.04', '0.06', 0, '11', '0.00', '0.00', '0', '0.00', '', '1', 88, '132.00', '264.60', '1377.20', 1, 2, 1, '2021-09-15 22:17:11', '2021-10-21 11:19:36', 1, 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 1, 1, 22, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2471,6 +2497,38 @@ CREATE TABLE `fruta_mventa` (
 
 INSERT INTO `fruta_mventa` (`ID_MVENTA`, `NUMERO_MVENTA`, `NOMBRE_MVENTA`, `NOTA_MVENTA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
 (1, 1, 'Prueba modalidad venta', '', 1, NULL, NULL, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fruta_notadc`
+--
+
+CREATE TABLE `fruta_notadc` (
+  `ID_NOTA` bigint(20) NOT NULL,
+  `NUMERO_NOTA` int(11) DEFAULT NULL,
+  `FECHA_NOTA` date DEFAULT NULL,
+  `TNOTA` int(11) DEFAULT NULL,
+  `OBSERVACIONES` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESTADO` int(11) DEFAULT NULL,
+  `ESTADO_REGISTRO` int(11) DEFAULT NULL,
+  `INGRESO` datetime DEFAULT NULL,
+  `MODIFICACION` datetime DEFAULT NULL,
+  `ID_ICARGA` bigint(20) NOT NULL,
+  `ID_EMPRESA` bigint(20) NOT NULL,
+  `ID_PLANTA` bigint(20) NOT NULL,
+  `ID_TEMPORADA` bigint(20) NOT NULL,
+  `ID_USUARIOI` bigint(20) NOT NULL,
+  `ID_USUARIOM` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `fruta_notadc`
+--
+
+INSERT INTO `fruta_notadc` (`ID_NOTA`, `NUMERO_NOTA`, `FECHA_NOTA`, `TNOTA`, `OBSERVACIONES`, `ESTADO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_ICARGA`, `ID_EMPRESA`, `ID_PLANTA`, `ID_TEMPORADA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, 1, '2021-11-11', 1, 'sds', 0, 1, '2021-11-11 09:16:03', '2021-11-11 10:24:41', 3, 1, 1, 2, 1, 1),
+(2, 2, '2021-11-11', 2, '', 1, 1, '2021-11-11 09:16:53', '2021-11-11 09:16:53', 3, 1, 1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5662,8 +5720,8 @@ CREATE TABLE `principal_bodega` (
 --
 
 INSERT INTO `principal_bodega` (`ID_BODEGA`, `NOMBRE_BODEGA`, `NOMBRE_CONTACTO_BODEGA`, `PRINCIPAL`, `ENVASES`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_PLANTA`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'bodega 1', '-', 1, 1, 1, '2021-07-30', '2021-10-28', 1, 1, 1, 1),
-(2, 'bodega 2', 'Prueba', 0, 1, 1, '2021-09-21', '2021-10-25', 2, 1, 1, 1);
+(1, 'bodega 1', '-', 1, 1, 1, '2021-07-30', '2021-11-10', 1, 1, 1, 1),
+(2, 'bodega 2', 'Prueba', 0, 1, 1, '2021-09-21', '2021-11-10', 2, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -7141,6 +7199,14 @@ ALTER TABLE `fruta_dicarga`
   ADD KEY `fk_fruta_dicarga_fruta_tcalibre_idx` (`ID_TCALIBRE`);
 
 --
+-- Indices de la tabla `fruta_dnotadc`
+--
+ALTER TABLE `fruta_dnotadc`
+  ADD PRIMARY KEY (`ID_DNOTA`),
+  ADD KEY `fk_fruta_dnotadc_fruta_dicarga_idx` (`ID_DICARGA`),
+  ADD KEY `fk_fruta_dnotadc_fruta_notadc_idx` (`ID_NOTA`);
+
+--
 -- Indices de la tabla `fruta_dpexportacion`
 --
 ALTER TABLE `fruta_dpexportacion`
@@ -7554,6 +7620,18 @@ ALTER TABLE `fruta_mventa`
   ADD KEY `fk_fruta_mventa_principal_empresa_idx` (`ID_EMPRESA`),
   ADD KEY `fk_fruta_mventa_usuario_usuarioi_idx` (`ID_USUARIOI`),
   ADD KEY `fk_fruta_mventa_usuario_usuariom_idx` (`ID_USUARIOM`);
+
+--
+-- Indices de la tabla `fruta_notadc`
+--
+ALTER TABLE `fruta_notadc`
+  ADD PRIMARY KEY (`ID_NOTA`),
+  ADD KEY `fk_fruta_notadc_fruta_icarga_idx` (`ID_ICARGA`),
+  ADD KEY `fk_fruta_notadc_principal_empresa_idx` (`ID_EMPRESA`),
+  ADD KEY `fk_fruta_notadc_principal_planta_idx` (`ID_PLANTA`),
+  ADD KEY `fk_fruta_notadc_principal_temporada_idx` (`ID_TEMPORADA`),
+  ADD KEY `fk_fruta_notadc_usuaio_usuarioi_idx` (`ID_USUARIOI`),
+  ADD KEY `fk_fruta_notadc_usuaio_usuariom_idx` (`ID_USUARIOM`);
 
 --
 -- Indices de la tabla `fruta_notificador`
@@ -8602,6 +8680,12 @@ ALTER TABLE `fruta_dicarga`
   MODIFY `ID_DICARGA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `fruta_dnotadc`
+--
+ALTER TABLE `fruta_dnotadc`
+  MODIFY `ID_DNOTA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `fruta_dpexportacion`
 --
 ALTER TABLE `fruta_dpexportacion`
@@ -8768,6 +8852,12 @@ ALTER TABLE `fruta_mguiapt`
 --
 ALTER TABLE `fruta_mventa`
   MODIFY `ID_MVENTA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `fruta_notadc`
+--
+ALTER TABLE `fruta_notadc`
+  MODIFY `ID_NOTA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `fruta_notificador`
@@ -9528,6 +9618,13 @@ ALTER TABLE `fruta_dicarga`
   ADD CONSTRAINT `fk_fruta_dicarga_fruta_tcalibre` FOREIGN KEY (`ID_TCALIBRE`) REFERENCES `fruta_tcalibre` (`ID_TCALIBRE`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `fruta_dnotadc`
+--
+ALTER TABLE `fruta_dnotadc`
+  ADD CONSTRAINT `fk_fruta_dnotadc_fruta_dicarga` FOREIGN KEY (`ID_DICARGA`) REFERENCES `fruta_dicarga` (`ID_DICARGA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_dnotadc_fruta_notadc` FOREIGN KEY (`ID_NOTA`) REFERENCES `fruta_notadc` (`ID_NOTA`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `fruta_dpexportacion`
 --
 ALTER TABLE `fruta_dpexportacion`
@@ -9906,6 +10003,17 @@ ALTER TABLE `fruta_mventa`
   ADD CONSTRAINT `fk_fruta_mventa_principal_empresa` FOREIGN KEY (`ID_EMPRESA`) REFERENCES `principal_empresa` (`ID_EMPRESA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_mventa_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_mventa_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `fruta_notadc`
+--
+ALTER TABLE `fruta_notadc`
+  ADD CONSTRAINT `fk_fruta_notadc_fruta_icarga` FOREIGN KEY (`ID_ICARGA`) REFERENCES `fruta_icarga` (`ID_ICARGA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_notadc_principal_empresa` FOREIGN KEY (`ID_EMPRESA`) REFERENCES `principal_empresa` (`ID_EMPRESA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_notadc_principal_planta` FOREIGN KEY (`ID_PLANTA`) REFERENCES `principal_planta` (`ID_PLANTA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_notadc_principal_temporada` FOREIGN KEY (`ID_TEMPORADA`) REFERENCES `principal_temporada` (`ID_TEMPORADA`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_notadc_usuaio_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_notadc_usuaio_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `fruta_notificador`
