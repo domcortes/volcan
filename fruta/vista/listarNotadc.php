@@ -239,6 +239,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Fecha Nota </th>
+                                                    <th>Tipo Nota </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                     <th>Empresa</th>
@@ -250,6 +251,15 @@ include_once "../config/datosUrLP.php";
                                                 <?php foreach ($ARRAYNOTADC as $r) : ?>
 
                                                     <?php
+
+                                                    if($r['TNOTA']==1){
+                                                        $NOMBRETNOTA="Debito";
+                                                    }else  if($r['TNOTA']==2){
+                                                        $NOMBRETNOTA="Credicto";
+                                                    }else{
+                                                        $NOMBRETNOTA="Sin Datos";
+                                                    }
+
 
                                                     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYEMPRESA) {
@@ -269,6 +279,7 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
+
                                                     ?>
 
                                                     <tr class="text-left">
@@ -319,6 +330,7 @@ include_once "../config/datosUrLP.php";
                                                             </form>
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $NOMBRETNOTA; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
