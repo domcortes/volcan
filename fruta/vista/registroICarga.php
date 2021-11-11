@@ -1655,7 +1655,7 @@ if (isset($_POST)) {
                 win.focus();
             }
         </script>
-        <script src="/js/multisteps.js"></script>
+        <script src="../../js/multisteps.js"></script>
 </head>
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
