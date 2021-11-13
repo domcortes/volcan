@@ -96,7 +96,7 @@ $URL = "";
 $URLO = "";
 $DISABLED0 = "";
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 
@@ -173,7 +173,7 @@ if (isset($_REQUEST['CREAR'])) {
 }
 //OPERACION EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
-    $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACIONE']);
+    $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
     $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDARE']);
     $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
@@ -194,7 +194,7 @@ if (isset($_REQUEST['CERRAR'])) {
         $SINO = "0";
     }
     if ($SINO == "0") {
-        $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACIONE']);
+        $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
         $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDARE']);
         $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
         $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
@@ -716,7 +716,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDSTYLE; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLED2; ?> ><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>

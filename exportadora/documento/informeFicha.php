@@ -106,12 +106,24 @@ $ARRAYFICHA = $FICHA_ADO->verFicha2($IDOP);
 if ($ARRAYFICHA) {
   $ARRAYDFICHA = $DFICHA_ADO->listarDfichaPorFich2CBX($IDOP);
 
+  $OBSERVACIONES = $ARRAYFICHA[0]['OBSERVACIONES_FICHA'];
+  $NUMEROFICHA = $ARRAYFICHA[0]['NUMERO_FICHA'];
+  $ESTADO = $ARRAYFICHA[0]['ESTADO'];
+  if ($ARRAYFICHA[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYFICHA[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  }  
+  
 
   $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ARRAYFICHA[0]["ID_ESTANDAR"]);
   if ($ARRAYESTANDAR) {
 
     $CODIGOESTANDAR = $ARRAYESTANDAR[0]["CODIGO_ESTANDAR"];
     $NOMBREESTADAR = $ARRAYESTANDAR[0]["NOMBRE_ESTANDAR"];
+    
 
     $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
     $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
@@ -221,6 +233,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMAL = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -229,7 +242,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title> Ficha Consumo</title>
+    <title> Informe Ficha Consumo</title>
   </head>
   <body>
     <header class="clearfix">
@@ -245,11 +258,23 @@ $html = '
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
-        FICHA CONSUMO
-        <br>' . $EMPRESA . '
+        FICHA CONSUMO<br>
+        <b> Número Ficha: ' . $NUMEROFICHA . '</b>
       </h2>
    
           
+      <div id="details" class="clearfix">
+        
+      <div id="invoice">
+        <div class="date"><b>Código BRC: </b>REP-CONSMM </div>  
+        <div class="date"><b>Empresa: </b>' . $EMPRESA . '  </div>
+        <div class="date"><b>Temporada: </b>' . $TEMPORADA . '  </div>
+      </div>
+
+      <div id="client">
+        <div class="address"><b>Estado Ficha Consumo: </b> ' . $ESTADO . ' </div>
+      </div>        
+    </div>
 ';
 
 
@@ -258,8 +283,7 @@ $html = '
 $html = $html . '
 
 
-      <table border="0" cellspacing="0" cellpadding="0" >
-      
+      <table border="0" cellspacing="0" cellpadding="0" >      
         <tr>        
             <th class="color left">Codigo  </th>
             <td class=" left"> ' . $CODIGOESTANDAR . ' </td>
@@ -372,18 +396,17 @@ $html = $html . '
       
       <div id="details" class="clearfix">
         <div id="client">
-          <div class="address"><b>Observaciones: </b></div>
-          <div class="address"> ' . $NOMBRERESPONSABLE . ' </div>
+                <div class="address"><b>Observaciones</b></div>
+                <div class="address">  ' . $OBSERVACIONES . ' </div>
+        </div>    
+        <div id="invoice">
+          <div class="date"><b><hr></b></div>
+          <div class="date center">  Firma Responsable</div>
+          <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
         </div>
       </div>
 
     </main>
-    <footer>
-      Informe generado por Departamento TI Fruticola Volcan
-      <br>
-      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-      
-    </footer>
   </body>
 </html>
 
@@ -435,30 +458,11 @@ $PDF->SetHTMLHeader('
 ');
 
 $PDF->SetHTMLFooter('
-  <table width="100%" >    
-  <tr>
-      <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> <hr> </td>
-      <td class="color2 right" style="width: 30%;"> </td>
-  </tr>
-  <tr>
-      <td class="color2 center" style="width: 30%;" > </td>
-      <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
-      <td class="color2 center" style="width: 30%;"> </td>
-  </tr>    
-    </table>
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <td width="35%" class="left"><span>{PAGENO}/{nbpg}</span></td>
-                <td width="30%"  class="center f10">
-                       
-                        ' . $EMPRESA . '
-                </td>
-                <td width="35%"  class="right">{DATE j-m-Y}</td>
-            </tr>
-        </tbody>
-    </table>
+<footer>
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+<br>
+Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+</footer>
     
 ');
 
