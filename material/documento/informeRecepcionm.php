@@ -110,6 +110,15 @@ if ($ARRAYRECEPCION) {
   $PATENTECAMION = $ARRAYRECEPCION[0]["PATENTE_CAMION"];
   $PATENTECARRO = $ARRAYRECEPCION[0]["PATENTE_CARRO"];
   $OBSERVACIONES = $ARRAYRECEPCION[0]['OBSERVACIONES_RECEPCION'];
+  
+  $ESTADO = $ARRAYRECEPCION[0]['ESTADO'];
+  if ($ARRAYRECEPCION[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYRECEPCION[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  }  
 
   if ($TIPORECEPCION == "1") {
     $NOMBRETRECEPCION = "Desde Proveedor";
@@ -226,6 +235,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -257,6 +267,7 @@ $html = '
       <div id="details" class="clearfix">
         
         <div id="invoice">
+          <div class="date"><b>Código BRC: </b>REP-RECMATR </div>  
           <div class="date"><b>Fecha Recepcion: </b>' . $FECHARECEPCION . ' </div>
           <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
@@ -265,6 +276,7 @@ $html = '
 
         <div id="client">
           <div class="address"><b>Tipo Recepción: </b>' . $NOMBRETRECEPCION . '</div>
+          <div class="address"><b>Estado Recepción : </b> ' . $ESTADO . ' </div>
           <div class="address"><b>Tipo Documento: </b>' . $NOMBRETDOCUMENTO . ' </div>
           <div class="address"><b>Numero Documento: </b>' . $NUMERODOCUMENTO . ' </div>
 
@@ -366,6 +378,55 @@ $html = $html . '
 $html = $html . '
         </tbody>
       </table>
+      <table border="0" cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th colspan="7" class=" center">CHEQUEO DE LA INFORMACVIÓN Y CONDICIONES DE LA RECEPCIÓN.</th>
+        </tr>
+        
+      </thead>
+      
+        <tbody>
+            <tr class="">
+                <th class="color2 left">1- La información ingresada en esta despacho concuerda con la documentación y lo fisico.</th>
+                <th class="color2 left">Si</th>
+                <th class="color2 left"> <input type="checkbox" > </th>
+                <th class="color2 left">No</th>
+                <th class="color2 left"> <input type="checkbox" > </th>
+                <th class="color2 left">No Aplica</th>              
+                <th class="color2 left"> <input type="checkbox" > </th>
+            </tr>          
+            <tr class="">
+                <th class="color2 left">2- si es No, se informa la diferencia a quien correponde.</th>
+                <th class="color2 left">Si</th>
+                <th class="color2 left"> <input type="checkbox" > </th>
+                <th class="color2 left">No</th>
+                <th class="color2 left"> <input type="checkbox" > </th>
+                <th class="color2 left">No Aplica</th>              
+                <th class="color2 left"> <input type="checkbox" > </th>
+            </tr>
+            <tr class="">
+                <th class="color2 left">3- El transporte donde llegaron los materiales cumple con las condiciones de transporte.</th>
+                <th class="color2 left">Si</th>
+                <th class="color2 left"> <input type="checkbox" > </th>
+                <th class="color2 left">No</th>
+                <th class="color2 left"> <input type="checkbox" > </th>
+                <th class="color2 left">No Aplica</th>              
+                <th class="color2 left"> <input type="checkbox" > </th>
+            </tr>
+            <tr class="">
+                <th class="color2 left">4- Los materiales despachados estan en optimas condiciones para la recepción.</th>
+                <th class="color2 left">Si</th>
+                <th class="color2 left"> <input type="checkbox" > </th>
+                <th class="color2 left">No</th>
+                <th class="color2 left"> <input type="checkbox" > </th>
+                <th class="color2 left">No Aplica</th>              
+                <th class="color2 left"> <input type="checkbox" > </th>
+            </tr>
+        </tbody>
+      </table>
+
+
       <div id="details" class="clearfix">
         <div id="client">
           <div class="address"><b>Información de Transporte</b></div>
@@ -379,14 +440,14 @@ $html = $html . '
           <div class="address"><b>Notas Generales</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
+        
+        <div id="invoice">
+          <div class="date "><b><hr></b></div>
+          <div class="date  center">  Firma Responsable</div>
+          <div class="date  center">  ' . $NOMBRERESPONSABLE . '</div>
+        </div>
       </div>
     </main>
-    <footer>
-      Informe generado por Departamento TI Fruticola Volcan
-      <br>
-      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-      
-    </footer>
   </body>
 </html>
 
@@ -424,44 +485,26 @@ $PDF = new \Mpdf\Mpdf(['format' => 'letter-L']);
 
 //CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <th width="55%" class="left f10">' . $EMPRESA . '</th>
-                <td width="45%" class="right f10">' . $FECHANOMBRE . '</td>
-                <td width="10%" class="right f10">' . $HORAFINAL2 . '</td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
+<table width="100%" >
+    <tbody>
+        <tr>
+          <th width="55%" class="left f10">' . $EMPRESA . '</th>
+          <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
+          <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
+        </tr>
+    </tbody>
+</table>
+<br>
     
 ');
 
 $PDF->SetHTMLFooter('
-  <table width="100%" >    
-      <tr>
-        <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> <hr> </td>
-        <td class="color2 right" style="width: 30%;"> </td>
-      </tr>
-      <tr>
-        <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRE . ' </td>
-        <td class="color2 center" style="width: 30%;"> </td>
-      </tr>    
-    </table>
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <td width="35%" class="left"><span>{PAGENO}/{nbpg}</span></td>
-                <td width="30%"  class="center f10">
-                       
-                        ' . $EMPRESA . '
-                </td>
-                <td width="35%"  class="right">{DATE j-m-Y}</td>
-            </tr>
-        </tbody>
-    </table>
+
+<footer>
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+<br>
+Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+</footer>
     
 ');
 

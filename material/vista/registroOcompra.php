@@ -182,11 +182,11 @@ if (isset($_REQUEST['EDITAR'])) {
     }
     if ($SINO == "0") {
         $OCOMPRA->__SET('NUMEROI_OCOMPRA', $_REQUEST['NUMEROIOCOMPRAE']);
-        $OCOMPRA->__SET('FECHA_OCOMPRA', $_REQUEST['FECHAOCOMPRAE']);
+        $OCOMPRA->__SET('FECHA_OCOMPRA', $_REQUEST['FECHAOCOMPRA']);
         $OCOMPRA->__SET('TCAMBIO_OCOMPRA', $_REQUEST['TCAMBIOE']);
         $OCOMPRA->__SET('TOTAL_CANTIDAD_OCOMPRA', $_REQUEST['TOTALCANTIDAD']);
         $OCOMPRA->__SET('TOTAL_VALOR_OCOMPRA', $_REQUEST['TOTALVALOR']);
-        $OCOMPRA->__SET('OBSERVACIONES_OCOMPRA', $_REQUEST['OBSERVACIONE']);
+        $OCOMPRA->__SET('OBSERVACIONES_OCOMPRA', $_REQUEST['OBSERVACION']);
         $OCOMPRA->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
         $OCOMPRA->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
         $OCOMPRA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
@@ -214,11 +214,11 @@ if (isset($_REQUEST['CERRAR'])) {
     }
     if ($SINO == "0") {
         $OCOMPRA->__SET('NUMEROI_OCOMPRA', $_REQUEST['NUMEROIOCOMPRAE']);
-        $OCOMPRA->__SET('FECHA_OCOMPRA', $_REQUEST['FECHAOCOMPRAE']);
+        $OCOMPRA->__SET('FECHA_OCOMPRA', $_REQUEST['FECHAOCOMPRA']);
         $OCOMPRA->__SET('TCAMBIO_OCOMPRA', $_REQUEST['TCAMBIOE']);
         $OCOMPRA->__SET('TOTAL_CANTIDAD_OCOMPRA', $_REQUEST['TOTALCANTIDAD']);
         $OCOMPRA->__SET('TOTAL_VALOR_OCOMPRA', $_REQUEST['TOTALVALOR']);
-        $OCOMPRA->__SET('OBSERVACIONES_OCOMPRA', $_REQUEST['OBSERVACIONE']);
+        $OCOMPRA->__SET('OBSERVACIONES_OCOMPRA', $_REQUEST['OBSERVACION']);
         $OCOMPRA->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
         $OCOMPRA->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
         $OCOMPRA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
@@ -694,7 +694,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número OC Interna</label>
                                                 <input type="hidden" class="form-control" placeholder="NUMEROIOCOMPRAE" id="NUMEROIOCOMPRAE" name="NUMEROIOCOMPRAE" value="<?php echo $NUMEROIOCOMPRA; ?>" />
-                                                <input type="text" class="form-control" placeholder="Número OC Interna " id="NUMEROIOCOMPRA" name="NUMEROIOCOMPRA" value="<?php echo $NUMEROIOCOMPRA; ?>" <?php echo $DISABLEDSTYLE; ?> <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Número OC Interna " id="NUMEROIOCOMPRA" name="NUMEROIOCOMPRA" value="<?php echo $NUMEROIOCOMPRA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?>/>
                                                 <label id="val_numeroi" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -725,7 +725,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Orden</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Recepción" id="FECHAOCOMPRAE" name="FECHAOCOMPRAE" value="<?php echo $FECHAOCOMPRA; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Recepción" id="FECHAOCOMPRA" name="FECHAOCOMPRA" value="<?php echo $FECHAOCOMPRA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control" placeholder="Fecha Recepción" id="FECHAOCOMPRA" name="FECHAOCOMPRA" value="<?php echo $FECHAOCOMPRA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -819,7 +819,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLEDSTYLE; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?> ><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>

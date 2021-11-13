@@ -113,6 +113,14 @@ if ($ARRAYRECEPCION) {
   $PATENTECARRO = $ARRAYRECEPCION[0]["PATENTE_CARRO"];
   $OBSERVACIONES = $ARRAYRECEPCION[0]['OBSERVACIONES'];
 
+  $ESTADO = $ARRAYRECEPCION[0]['ESTADO'];
+  if ($ARRAYRECEPCION[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYRECEPCION[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  }  
   $ARRAYDESPACHOMP=$DESPACHOMP_ADO->verDespachomp($ARRAYRECEPCION[0]['ID_DESPACHOMP']);
   if($ARRAYDESPACHOMP){
       $NUMERODESPACHOMP=$ARRAYDESPACHOMP[0]["NUMERO_DESPACHO"];
@@ -246,6 +254,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMA2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -277,6 +286,7 @@ $html = '
       <div id="details" class="clearfix">
         
         <div id="invoice">
+          <div class="date"><b>Código BRC: </b>REP-DESPENV </div>  
           <div class="date"><b>Fecha Despacho: </b>' . $FECHARECEPCION . ' </div>
           <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
@@ -285,6 +295,7 @@ $html = '
 
         <div id="client">
           <div class="address"><b>Tipo Despacho: </b>' . $NOMBRETDESPACHO . '</div>
+          <div class="address"><b>Estado Despacho : </b> ' . $ESTADO . ' </div>
           <div class="address"><b>Tipo Documento: </b>' . $NOMBRETDOCUMENTO . ' </div>
           <div class="address"><b>Numero Documento: </b>' . $NUMERODOCUMENTO . ' </div>
 
@@ -423,14 +434,15 @@ $html = $html . '
           <div class="address"><b>Observaciones</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
+        
+         
+        <div id="invoice">
+          <div class="date "><b><hr></b></div>
+          <div class="date  center">  Firma Responsable</div>
+          <div class="date  center">  ' . $NOMBRERESPONSABLE . '</div>
+        </div>
       </div>
     </main>
-    <footer>
-      Informe generado por Departamento TI Fruticola Volcan
-      <br>
-      <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-      
-    </footer>
   </body>
 </html>
 
@@ -467,29 +479,26 @@ require_once '../../api/mpdf/mpdf/autoload.php';
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
 //CONFIGURACION FOOTER Y HEADER DEL PDF
-//CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-              <th width="55%" class="left f10">' . $EMPRESA . '</th>
-              <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
-              <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
+<table width="100%" >
+    <tbody>
+        <tr>
+          <th width="55%" class="left f10">' . $EMPRESA . '</th>
+          <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
+          <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
+        </tr>
+    </tbody>
+</table>
+<br>
     
 ');
 
 $PDF->SetHTMLFooter('
 
-
-
 <footer>
-  Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
-  <br>
-  Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+<br>
+Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
 </footer>
     
 ');
