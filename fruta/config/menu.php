@@ -580,27 +580,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
             </ul>
           </li>
           <li class="treeview">
-            <a href="#">Guia Por Recibir
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirPT.php"> Producto Terminado<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Repaletizaje
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroRepaletizajePTFrigorifico.php"> Producto Terminado<i class="ti-more"></i></a></li>
-              <li><a href="listarRepaletizajePTFrigorifico.php">Agrupado Repaletizaje<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
             <a href="#">Despacho
               <span class="pull-left-container">
                 <i class=" fa fa-angle-right pull-right"></i>
@@ -630,6 +609,27 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </ul>
               </li>
               <li><a href="listarDespachoptexConsolidado.php">Consolidado Despacho<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">Guia Por Recibir
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="registroGuiaPorRecibirPT.php"> Producto Terminado<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">Repaletizaje
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="registroRepaletizajePTFrigorifico.php"> Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="listarRepaletizajePTFrigorifico.php">Agrupado Repaletizaje<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
