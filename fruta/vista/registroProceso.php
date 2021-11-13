@@ -440,7 +440,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title> Registrar Proceso</title>
+    <title>Registro Proceso</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -604,7 +604,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Packing</li>
                                             <li class="breadcrumb-item" aria-current="page">Proceso</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#p">Operaciones Proceso </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#p">Registro Proceso </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -636,7 +636,7 @@ if (isset($_POST)) {
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">                                
-                                 <div class="box-header with-border">                                   
+                                 <div class="box-header with-border bg-primary">                                   
                                     <h4 class="box-title">Encabezado de Proceso</h4>                                        
                                 </div>
                                 <div class="box-body ">
@@ -791,13 +791,13 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
-                                        <div class="btn-group col-sm-4" role="group" aria-label="acciones">
+                                        <div class="btn-group   col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="acciones">
                                             <?php if ($OP == "") { ?>
                                                 <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProceso.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
-                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Crear
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
@@ -812,7 +812,7 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group col-sm-4">
+                                        <div class="btn-group   col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12   float-right">
                                             <?php if ($OP != "") : ?>
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
@@ -826,12 +826,10 @@ if (isset($_POST)) {
                                 </div>
                             </div>
                         </form>
-
-
                         <?php if (isset($_GET['op'])): ?>
                             <div class="card">
-                                <div class="card-header bg-success">
-                                    <h4 class="card-title">Detalles de Existencia</h4>
+                                <div class="card-header bg-info">
+                                    <h4 class="card-title">Ingreso / Existencia Materia Prima</h4>
                                 </div>
                                 <div class="card-header">
                                     <form method="post" id="form2" name="form2">
@@ -923,7 +921,8 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
                                                                     <div class="btn-group btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <button type="submit" class="btn btn-sm btn-danger " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {  echo "disabled"; } ?>>
-                                                                            <i class="ti-close"></i></button>
+                                                                            <i class="ti-close"></i>Quitar
+                                                                        </button>
                                                                     </div>
                                                                 </form>
                                                             </td>
@@ -1002,7 +1001,7 @@ if (isset($_POST)) {
                                 </div>
                             </div>                        
                             <div class="card">
-                                <div class="card-header bg-info">
+                                <div class="card-header bg-success">
                                     <h4 class="card-title">Salida / Detalle Proceso </h4>
                                 </div>
                                 <div class="card-header">
@@ -1105,18 +1104,18 @@ if (isset($_POST)) {
                                                                     <div class="btn-group btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn  btn-info  btn-sm" id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
-                                                                                <i class="ti-eye"></i>
+                                                                                <i class="ti-eye"></i>Ver
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
                                                                             <button type="submit" class="btn btn-warning btn-sm" id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-pencil-alt"></i>
+                                                                                <i class="ti-pencil-alt"></i>Editar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-secondary btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                                <i class="fa fa-fw fa-copy"></i>Duplicar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i>
+                                                                                <i class="ti-close"></i>Eliminar
                                                                             </button>
                                                                         <?php } ?>
                                                                     </div>
@@ -1160,18 +1159,18 @@ if (isset($_POST)) {
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn btn-sm btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" tsitle="Ver Detalle ">
-                                                                                <i class="ti-eye"></i>
+                                                                                <i class="ti-eye"></i>Ver
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
                                                                             <button type="submit" class="btn  btn-sm   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="stooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-pencil-alt"></i>
+                                                                                <i class="ti-pencil-alt"></i>Editar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-sm  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-togsgle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                                <i class="fa fa-fw fa-copy"></i>Duplicar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-sm   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-togglse="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i>
+                                                                                <i class="ti-close"></i>Eliminar
                                                                             </button>
                                                                         <?php } ?>
                                                                     </div>
@@ -1313,19 +1312,23 @@ if (isset($_POST)) {
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_PROCESO'];
             $_SESSION["parametro1"] = "crear";
             echo '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Proceso registrado",
-                        showConfirmButton:true
-                    }).then((result)=>{
-                        location.href ="registroProceso.php?op";
-                    })
-                </script>';
+                Swal.fire({
+                    icon:"success",
+                    title:"Registro Creado",
+                    text:"El registro de proceso se ha creado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                        location.href = "registroProceso.php?op";
+                    
+                })
+            </script>';
         }
         //OPERACION EDICION DE FILA
         if (isset($_REQUEST['GUARDAR'])) {
 
-            $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
+            $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESO']);
             $PROCESO->__SET('TURNO',  $_REQUEST['TURNOE']);
             $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESO']);
 
@@ -1354,19 +1357,38 @@ if (isset($_POST)) {
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $PROCESO_ADO->actualizarProceso($PROCESO);
             
-            echo
-                '<script>
+            if ($_SESSION['parametro1'] == "crear") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "crear";
+                echo '<script>
                     Swal.fire({
-                        icon:"success",
-                        title:"Proceso Actualizado",
-                        showConfirmButton:true,
-                        confirmButtonText:"OK"
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de Proceso se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
                     }).then((result)=>{
-                        if(result.value){
-                            location.href = "registroProceso.php?op";
-                        }
-                    });
+                        location.href = "registroProceso.php?op";                        
+                    })
                 </script>';
+            }
+            if ($_SESSION['parametro1'] == "editar") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "editar";
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de Proceso se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroProceso.php?op";                        
+                    })
+                </script>';
+            }
         }
         //OPERACION CERRAR DE FILA
         if (isset($_REQUEST['CERRAR'])) {
@@ -1374,73 +1396,45 @@ if (isset($_POST)) {
             $ARRAYEXIMATERIAPRIMATOMADO = $EXIMATERIAPRIMA_ADO->buscarPorProceso($_REQUEST['IDP']);
             $ARRAYDEXPORTACIONPORPROCESO = $DPEXPORTACION_ADO->buscarPorProceso($_REQUEST['IDP']);
             $ARRATDINDUSTRIALPORPROCESO = $DPINDUSTRIAL_ADO->buscarPorProceso($_REQUEST['IDP']);
-            if (empty($ARRAYEXIMATERIAPRIMATOMADO) && empty($ARRAYEXIMATERIAPRIMATOMADOPROCESADO)) {
+            if (empty($ARRAYEXIMATERIAPRIMATOMADO)) {
                 $SINO = "1";
-                $MENSAJEEXISTENCIA = "TIENE  QUE HABER AL MENOS UN REGISTRO DE EXISTENCIA SELECIOANDO";
-                echo
-                    '<script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Advertencia de cierre de proceso",
-                            text:"Tiene que haber al menos un registro de existencia seleccionado",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroProceso.php?op";
-                            }
-                        });
-                    </script>';
-            } else {
+                $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de existencia seleccionado.";                
+            
+            }  else {
                 $SINO = "0";
-                $MENSAJEEXISTENCIA = "";
+                $MENSAJE = $MENSAJE;
             }
             if (empty($ARRAYDEXPORTACIONPORPROCESO)) {
                 $SINO = "1";
-                $MENSAJEEXPORTACION = "TIENE  QUE HABER AL MENOS UN REGISTRO  PRODUCTO TERMINADO";
-                echo
-                    '<script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Advertencia de cierre de proceso",
-                            text:"Tiene que haber al menos un registro de producto terminado",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroProceso.php?op";
-                            }
-                        });
-                    </script>';
-            } else {
+                $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de producto terminado.";     
+            }  else {
                 $SINO = "0";
-                $MENSAJEEXPORTACION = "";
+                $MENSAJE = $MENSAJE;
             }
             if (empty($ARRATDINDUSTRIALPORPROCESO)) {
                 $SINO = "1";
-                $MENSAJEINDUSTRIAL = "TIENE  QUE HABER AL MENOS UN REGISTRO PRODUCTO INDUSTRIAL";
-                echo
-                    '<script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Advertencia de cierre de proceso",
-                            text:"Tiene que haber al menos un registro de producto industrial",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroProceso.php?op";
-                            }
-                        });
-                    </script>';
+                $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de producto industrial.";     
             } else {
                 $SINO = "0";
-                $MENSAJEINDUSTRIAL = "";
+                $MENSAJE = $MENSAJE;
             }
-
+            if($SINO == 1){
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"'.$MENSAJE.'",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroProceso.php?op";                        
+                        });
+                    </script>';
+            }
             //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
             if ($SINO == "0") {
-                $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESOE']);
+                $PROCESO->__SET('FECHA_PROCESO',  $_REQUEST['FECHAPROCESO']);
                 $PROCESO->__SET('TURNO',  $_REQUEST['TURNOE']);
                 $PROCESO->__SET('OBSERVACIONE_PROCESO', $_REQUEST['OBSERVACIONPROCESO']);
     
@@ -1493,44 +1487,38 @@ if (isset($_POST)) {
                 endforeach;
 
                 //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-                if ($_SESSION['parametro1'] == "crear") {
-                    $_SESSION["parametro"] = $_REQUEST['IDP'];
-                    $_SESSION["parametro1"] = "ver";
-                    echo
-                        '<script>
+                    if ($_SESSION['parametro1'] == "crear") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
                             Swal.fire({
                                 icon:"info",
-                                title:"Proceso cerrado",
-                                text:"Este proceso se encuentra cerrado.",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
+                                title:"Registro Cerrado",
+                                text:"Este proceso se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             }).then((result)=>{
-                                if(result.value){
-                                    location.href = "registroProceso.php?op";
-                                }
-                            });
+                                location.href = "registroProceso.php?op";                            
+                            })
                         </script>';
-                    // echo "<script type='text/javascript'> location.href ='registroProceso.php?op';</script>";
-                }
-                if ($_SESSION['parametro1'] == "editar") {
-                    $_SESSION["parametro"] = $_REQUEST['IDP'];
-                    $_SESSION["parametro1"] = "ver";
-                    echo
-                        '<script>
+                    }
+                    if ($_SESSION['parametro1'] == "editar") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
                             Swal.fire({
                                 icon:"info",
-                                title:"Proceso cerrado",
-                                text:"Este proceso se encuentra cerrado.",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
+                                title:"Registro Cerrado",
+                                text:"Este proceso se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             }).then((result)=>{
-                                if(result.value){
-                                    location.href = "registroProceso.php?op";
-                                }
-                            });
+                                location.href = "registroProceso.php?op";                            
+                            })
                         </script>';
-                    // echo "<script type='text/javascript'> location.href ='registroProceso.php?op';</script>";
-                }
+                    } 
             }
         }        
         if (isset($_REQUEST['QUITAR'])) {
@@ -1538,18 +1526,19 @@ if (isset($_POST)) {
             $EXIMATERIAPRIMA->__SET('ID_EXIMATERIAPRIMA', $_REQUEST['IDQUITAR']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $EXIMATERIAPRIMA_ADO->actualizarDeselecionarProcesoCambiarEstado($EXIMATERIAPRIMA);
-            echo
-            '<script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Accion realizada",
-                            text:"Se ha quitado la existencia."
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroProceso.php?op";
-                            }
-                        });
-                    </script>';
+            
+            echo '<script>
+                Swal.fire({
+                    icon:"error",
+                    title:"Accion realizada",
+                    text:"Se ha quitado la existencia del proceso.",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "registroProceso.php?op";                            
+                })
+             </script>';
         }
 
         ?>

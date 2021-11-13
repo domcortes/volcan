@@ -87,7 +87,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
     $ARRAYRECEPCIONIND = $RECEPCIONIND_ADO->listarRecepcionEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYRECEPCIONTOTALES = $RECEPCIONIND_ADO->obtenerTotalesRecepcionEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $TOTALBRUTO = $ARRAYRECEPCIONTOTALES[0]['BRUTO'];
     $TOTALNETO = $ARRAYRECEPCIONTOTALES[0]['NETO'];
+    $TOTALENVASE = $ARRAYRECEPCIONTOTALES[0]['ENVASE'];
 }
 
 include_once "../config/validarDatosUrl.php";
@@ -193,7 +195,7 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Detallado Recepcion</h3>
+                            <h3 class="page-title">Recepcion Industrial</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -247,7 +249,9 @@ include_once "../config/datosUrLP.php";
                                                     <th>Productor</th>
                                                     <th>Especies</th>
                                                     <th>Variedad</th>
+                                                    <th>Cantidad Envases</th>
                                                     <th>Kilos Neto</th>
+                                                    <th>Kilos Bruto</th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
@@ -373,7 +377,9 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                            <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
+                                                            <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION; ?></td>

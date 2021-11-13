@@ -111,6 +111,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $ARRAYNOTA=$NOTADC_ADO->verNota($IDP);
     if($ARRAYNOTA){
         $TNOTA=$ARRAYNOTA[0]["TNOTA"];
+        if($TNOTA==1){
+            $NOMBRETNOTA="Nora de Debito";
+        }
+        if($TNOTA==2){
+            $NOMBRETNOTA="Nota de Credicto";
+        }
     }
 
 
@@ -392,14 +398,16 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title"> Registro Detalle</h3>
+                                <h3 class="page-title">Nota D/C</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Logistica</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroICarga.php">Operaciones Registro Detalle </a>
+                                            <li class="breadcrumb-item" aria-current="page">Nota D/C</li>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Nota D/C</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroICarga.php">Registro Detalle </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -428,10 +436,8 @@ if ($_POST) {
                     </div>
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box-header with-border bg-info">                                   
+                                <h4 class="box-title">Registro Detalle</h4>                                        
                             </div>
 
                             <form class="form" role="form" method="post" name="form_reg_dato">
@@ -540,7 +546,7 @@ if ($_POST) {
                                     <!-- /.box-body -->
                                     <label id=" val_mensaje" class="validacion"><?php echo $MENSAJEELIMINAR; ?> </label>
                                     <div class="box-footer">
-                                        <div class="btn-group btn-block col-6" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group btn-block   col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
@@ -581,6 +587,24 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        
+        <?php
+            echo
+            '<script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    showConfirmButton:true
+                })
+
+                Toast.fire({
+                  icon: "info",
+                  title: "Información Importante",
+                  html:"<label>Tipo de Nota NC/ND: '.$NOMBRETNOTA.'</label>"
+                })
+            </script>';
+        ?>
         <?php 
             //OPERACIONES
             //OPERACION DE REGISTRO DE FILA
@@ -593,18 +617,19 @@ if ($_POST) {
                 
                 //REDIRECCIONAR A PAGINA registroICarga.php 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];             
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];    
+                
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                 echo '<script>
                         Swal.fire({
                             icon:"success",
-                            title:"Fila Registrada",
-                            text:"Se ha creado una fila para el detalle",
+                            title:"Registro creado",
+                            text:"El registro de detalle de nota se ha creado correctamente",
                             showConfirmButton:true,
                             confirmButtonText:"Volver a Nota D/C"
                         }).then((result)=>{
-                            if(result.value){
-                                location.href ="' . $_REQUEST['URLO'] . '.php?op";
-                            }
+                            location.href ="' . $_REQUEST['URLO'] . '.php?op";                            
                         })
                     </script>';
             }
@@ -618,7 +643,7 @@ if ($_POST) {
                     $DNOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                     $DNOTADC->__SET('ID_DICARGA', $_REQUEST['ID']);
                     $DNOTADC->__SET('ID_DNOTA', $ARRAYDNOTA[0]["ID_DNOTA"]);                    
-                    $DNOTADC_ADO->actualizarDnota($DNOTA);
+                    $DNOTADC_ADO->actualizarDnota($DNOTADC);
 
                     
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -626,8 +651,8 @@ if ($_POST) {
                     echo '<script>
                             Swal.fire({
                                 icon:"success",
-                                title:"Fila Modificada",
-                                text:"Se ha creado una fila para el detalle",
+                                title:"Registro Modificada",
+                                text:"El registro del detalle de nota se ha modificada correctamente",
                                 showConfirmButton:true,
                                 confirmButtonText:"Volver a Nota D/C"
                             }).then((result)=>{
@@ -650,18 +675,16 @@ if ($_POST) {
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                     echo '<script>
-                        Swal.fire({
-                            icon:"warning",
-                            title:"Fila Eliminada",
-                            text:"Se ha Eliminado una fila en el detalle",
-                            showConfirmButton:true,
-                            confirmButtonText:"Volver a Nota D/C"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href ="' . $_REQUEST['URLO'] . '.php?op";
-                            }
-                        })
-                    </script>';
+                            Swal.fire({
+                                icon:"error",
+                                title:"Registro Eliminado",
+                                text:"El registro del detalle nota se ha eliminado correctamente ",
+                                showConfirmButton:true,
+                                confirmButtonText:"Volver a Nota D/C"
+                            }).then((result)=>{
+                                location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
+                            })
+                        </script>';
                 }
             }
                     

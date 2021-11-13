@@ -630,8 +630,8 @@ if (isset($_POST)) {
                     <section class="content">
 
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                            <div class="box">
-                                <div class="box-header with-border ">                                   
+                            <div class="box">                              
+                                 <div class="box-header with-border bg-primary">                                   
                                     <h4 class="box-title">Encabezado de Reembalaje</h4>                                        
                                 </div>
                                 <div class="box-body ">
@@ -786,13 +786,13 @@ if (isset($_POST)) {
                                 </div>                                
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
-                                        <div class="btn-group col-sm-4" role="group" aria-label="acciones">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="acciones">
                                             <?php if ($OP == "") { ?>
                                                 <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroReembalajeEx.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
-                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Crear
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
@@ -807,7 +807,7 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group col-sm-4">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12   float-right">
                                             <?php if ($OP != "") : ?>
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeReembalajeEx.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
@@ -823,7 +823,7 @@ if (isset($_POST)) {
                         </form>
                         <?php if (isset($_GET['op'])): ?>
                             <div class="card">
-                                <div class="card-header bg-success">
+                                <div class="card-header bg-info">
                                     <h4 class="card-title">Ingreso / Existencia Producto Terminado</h4>
                                 </div>
                                 <div class="card-header">
@@ -905,13 +905,8 @@ if (isset($_POST)) {
                                                                 <form method="post" id="form1">
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                     <div class="btn-group btn-rounded col-12 btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP"
-                                                                            <?php echo $DISABLED2; ?>
-                                                                            <?php
-                                                                                if ($ESTADO == 0) {
-                                                                                    echo "disabled";
-                                                                                }
-                                                                            ?>><i class="ti-close"></i>
+                                                                        <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia"  <?php echo $DISABLED2; ?>   <?php  if ($ESTADO == 0) {  echo "disabled"; }  ?>>
+                                                                            <i class="ti-close"></i> Quitar
                                                                         </button>
                                                                     </div>
                                                                 </form>
@@ -993,7 +988,7 @@ if (isset($_POST)) {
                                 </div>
                             </div>
                             <div class="card">
-                                <div class="card-header bg-info">
+                                <div class="card-header bg-success">
                                     <h4 class="card-title">Salida / Detalle Reembalaje </h4>
                                 </div>
                                 <div class="card-header">
@@ -1095,18 +1090,18 @@ if (isset($_POST)) {
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn btn-sm btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
-                                                                                <i class="ti-eye"></i>
+                                                                                <i class="ti-eye"></i>Ver
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
                                                                             <button type="submit" class="btn  btn-sm   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-pencil-alt"></i>
+                                                                                <i class="ti-pencil-alt"></i>Editar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-sm  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                                <i class="fa fa-fw fa-copy"></i>Duplicar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-sm   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i>
+                                                                                <i class="ti-close"></i>Eliminar
                                                                             </button>
                                                                         <?php } ?>
                                                                     </div>
@@ -1150,18 +1145,18 @@ if (isset($_POST)) {
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn btn-sm btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
-                                                                                <i class="ti-eye"></i>
+                                                                                <i class="ti-eye"></i>Ver
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
                                                                             <button type="submit" class="btn  btn-sm   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-pencil-alt"></i>
+                                                                                <i class="ti-pencil-alt"></i>Editar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-sm  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                                <i class="fa fa-fw fa-copy"></i>Duplicar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-sm   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i>
+                                                                                <i class="ti-close"></i>Eliminar
                                                                             </button>
                                                                         <?php } ?>
                                                                     </div>
@@ -1303,18 +1298,17 @@ if (isset($_POST)) {
 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_REEMBALAJE'];
                 $_SESSION["parametro1"] = "crear";
-                
-                echo
-                '<script>
+                echo '<script>
                     Swal.fire({
                         icon:"success",
                         title:"Registro Creado",
-                        text:"Se ha creado el registro reembalaje correctamente."
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroReembalajeEx.php?op";
-                            }
-                        });
+                        text:"El registro de reembalaje se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroReembalajeEx.php?op";                        
+                    })
                 </script>';
                 //echo "<script type='text/javascript'> location.href ='registroReembalajeEx.php?op';</script>";
             }
@@ -1349,85 +1343,85 @@ if (isset($_POST)) {
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $REEMBALAJE_ADO->actualizarReembalaje($REEMBALAJE);
                 
-                echo
-                '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Registro actualizado",
-                        text:"Se ha actualizado el registro reembalaje correctamente."
+                if ($_SESSION['parametro1'] == "crear") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "crear";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de reembalaje se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
                         }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroReembalajeEx.php?op";
-                            }
-                        });
-                </script>';
+                            location.href = "registroReembalajeEx.php?op";                        
+                        })
+                    </script>';
+                }
+                if ($_SESSION['parametro1'] == "editar") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "editar";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de reembalaje se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroReembalajeEx.php?op";                        
+                        })
+                    </script>';
+                }
             }
             //OPERACION CERRAR DE FILA
             if (isset($_REQUEST['CERRAR'])) {
                 //UTILIZACION METODOS SET DEL MODELO
 
                 $ARRAYEXIPRODUCTOTERMINADOTOMADO = $EXIEXPORTACION_ADO->buscarPorReembalaje($_REQUEST['IDP']);
-                $ARRAYEXIPRODUCTOTERMINADOTOMADOPROCESADO = $EXIEXPORTACION_ADO->buscarPorReembalaje($_REQUEST['IDP']);
                 $ARRAYDEXPORTACIONPORREEMBALAJE = $DREXPORTACION_ADO->buscarPorReembalaje($_REQUEST['IDP']);
                 $ARRATDINDUSTRIALPORREEMBALAJE = $DRINDUSTRIAL_ADO->buscarPorReembalaje($_REQUEST['IDP']);
 
 
-                if (empty($ARRAYEXIPRODUCTOTERMINADOTOMADO) && empty($ARRAYEXIPRODUCTOTERMINADOTOMADOPROCESADO)) {
+
+                if (empty($ARRAYEXIPRODUCTOTERMINADOTOMADO)) {
                     $SINO = "1";
-                    $MENSAJEEXISTENCIA = "TIENE  QUE HABER AL MENOS UN REGISTRO DE EXISTENCIA SELECIOANDO";
-                    echo
-                        '<script>
-                            Swal.fire({
-                                icon:"info",
-                                title:"Advertencia de cierre de proceso",
-                                text:"Tiene que haber al menos un registro de existencia seleccionado",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href = "registroProceso.php?op";
-                                }
-                            });
-                        </script>';
-                } else if (empty($ARRAYDEXPORTACIONPORREEMBALAJE)) {
+                    $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de existencia seleccionado.";                
+                
+                }  else {
+                    $SINO = "0";
+                    $MENSAJE = $MENSAJE;
+                }
+                if (empty($ARRAYDEXPORTACIONPORREEMBALAJE)) {
                     $SINO = "1";
-                    $MENSAJEEXPORTACION = "TIENE  QUE HABER AL MENOS UN REGISTRO  PRODUCTO TERMINADO";
-                    echo
-                        '<script>
-                            Swal.fire({
-                                icon:"info",
-                                title:"Advertencia de cierre de proceso",
-                                text:"Tiene que haber al menos un registro de producto terminado",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href = "registroProceso.php?op";
-                                }
-                            });
-                        </script>';
-                } else if (empty($ARRATDINDUSTRIALPORREEMBALAJE)) {
+                    $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de producto terminado.";     
+                }  else {
+                    $SINO = "0";
+                    $MENSAJE = $MENSAJE;
+                }
+                if (empty($ARRATDINDUSTRIALPORREEMBALAJE)) {
                     $SINO = "1";
-                    $MENSAJEINDUSTRIAL = "TIENE  QUE HABER AL MENOS UN REGISTRO PRODUCTO INDUSTRIAL";
-                    echo
-                        '<script>
-                            Swal.fire({
-                                icon:"info",
-                                title:"Advertencia de cierre de proceso",
-                                text:"Tiene que haber al menos un registro de producto industrial",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href = "registroProceso.php?op";
-                                }
-                            });
-                        </script>';
+                    $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de producto industrial.";     
                 } else {
                     $SINO = "0";
-                    $MENSAJEINDUSTRIAL = "";
-                }  
-
+                    $MENSAJE = $MENSAJE;
+                }
+                if($SINO == 1){
+                        echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"'.$MENSAJE.'",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroReembalajeEx.php?op";                        
+                            });
+                        </script>';
+                }            
 
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO 
                 if ($SINO == "0") {
@@ -1487,45 +1481,39 @@ if (isset($_POST)) {
                         $EXIINDUSTRIAL_ADO->vigente($EXIINDUSTRIAL);
                     endforeach;
 
-                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+                //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
                     if ($_SESSION['parametro1'] == "crear") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
                         $_SESSION["parametro1"] = "ver";
-                        echo
-                            '<script>
-                                Swal.fire({
-                                    icon:"info",
-                                    title:"Reembalaje cerrado",
-                                    text:"Este Reembalaje se encuentra cerrado.",
-                                    showConfirmButton:true,
-                                    confirmButtonText:"OK"
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href = "registroReembalajeEx.php?op";
-                                    }
-                                });
-                            </script>';
-                        //echo "<script type='text/javascript'> location.href ='registroReembalajeEx.php?op';</script>";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro Cerrado",
+                                text:"Este reembalaje se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroReembalajeEx.php?op";                            
+                            })
+                        </script>';
                     }
                     if ($_SESSION['parametro1'] == "editar") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
                         $_SESSION["parametro1"] = "ver";
-                        echo
-                            '<script>
-                                Swal.fire({
-                                    icon:"info",
-                                    title:"Reembalaje cerrado",
-                                    text:"Este Reembalaje se encuentra cerrado.",
-                                    showConfirmButton:true,
-                                    confirmButtonText:"OK"
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href = "registroReembalajeEx.php?op";
-                                    }
-                                });
-                            </script>';
-                      //  echo "<script type='text/javascript'> location.href ='registroReembalajeEx.php?op';</script>";
-                    }
+                        echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro Cerrado",
+                                text:"Este reembalaje se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroReembalajeEx.php?op";                            
+                            })
+                        </script>';
+                    } 
                 }
             }
 
@@ -1535,18 +1523,19 @@ if (isset($_POST)) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $_REQUEST['IDQUITAR']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $EXIEXPORTACION_ADO->actualizarDeselecionarReembalajeeCambiarEstado($EXIEXPORTACION);
-                echo
-                '<script>
-                    Swal.fire({
-                        icon:"info",
-                        title:"Ingreso / Existencia eliminada",
-                        text:"Se ha eliminado un ingreso/existencia de producto terminado."
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroReembalajeEx.php?op";
-                            }
-                        });
-                </script>';
+                
+            echo '<script>
+                Swal.fire({
+                    icon:"error",
+                    title:"Accion realizada",
+                    text:"Se ha quitado la existencia del reembalaje.",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "registroReembalajeEx.php?op";                            
+                })
+            </script>';
             }
         ?>
 </body>

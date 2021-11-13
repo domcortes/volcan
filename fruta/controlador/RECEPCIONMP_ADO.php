@@ -513,7 +513,8 @@ class RECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0) AS 'ENVASE',   
+            $datos = $this->conexion->prepare("SELECT  
+                                                     IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0) AS 'ENVASE',   
                                                      IFNULL(SUM(KILOS_NETO_RECEPCION),0) AS 'NETO',  
                                                      IFNULL(SUM(KILOS_BRUTO_RECEPCION),0)  AS 'BRUTO'  
                                             FROM fruta_recepcionmp ;	");
@@ -535,7 +536,8 @@ class RECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(TOTAL_KILOS_GUIA_RECEPCION),0),2,'de_DE')  AS 'GUIA',   
+            $datos = $this->conexion->prepare("SELECT 
+                                                     FORMAT(IFNULL(SUM(TOTAL_KILOS_GUIA_RECEPCION),0),2,'de_DE')  AS 'GUIA',   
                                                      FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0),0,'de_DE') AS 'ENVASE',   
                                                      FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE') AS 'NETO',  
                                                      FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')  AS 'BRUTO'  
@@ -558,7 +560,8 @@ class RECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(TOTAL_KILOS_GUIA_RECEPCION),0),2,'de_DE')  AS 'GUIA',   
+            $datos = $this->conexion->prepare("SELECT   
+                                                        FORMAT(IFNULL(SUM(TOTAL_KILOS_GUIA_RECEPCION),0),2,'de_DE')  AS 'GUIA',   
                                                         FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0),0,'de_DE') AS 'ENVASE',  
                                                         FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE')  AS 'NETO',  
                                                         FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')   AS 'BRUTO'  

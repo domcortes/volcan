@@ -46,7 +46,7 @@ $FOLIODRECEPCIONIND = "";
 $NUMEROFOLIODINDUSTRIAL = "";
 $FECHAEMBALADODINDUSTRIAL = "";
 $CANTIDADENVASEDINDUSTRIAL = "";
-
+$GASIFICADORECEPCION="";
 $IDPROCESO = "";
 $IDDPROCESOINDUSTRIAL = "";
 
@@ -589,7 +589,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Detalle</h3>
+                                <h3 class="page-title">Recepcion Industrial</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -598,7 +598,8 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Granel</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepcion</li>
                                             <li class="breadcrumb-item" aria-current="page">Industrial</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Registro Detalle </a>
+                                            <li class="breadcrumb-item" aria-current="page">Recepcion Industrial</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Detalle </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -628,10 +629,8 @@ if ($_POST) {
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                                <div class="box-header with-border bg-success">                                   
+                                    <h4 class="box-title">Registro Detalle</h4>                                        
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -787,24 +786,24 @@ if ($_POST) {
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group col-6" role="group" aria-label="Acciones generales">
+                                    <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
                                         <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                            <i class="ti-back-left "></i> Cancelar
+                                            <i class="ti-back-left "></i> Volver
                                         </button>
                                         <?php if ($OP == "") { ?>
-                                            <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Crear
+                                            <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Guardar
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
                                             <?php if ($OP == "crear") { ?>
-                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Crear
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "editar") { ?>
-                                                <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Editar
+                                                <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "eliminar") { ?>
@@ -918,21 +917,19 @@ if ($_POST) {
                     //REDIRECCIONAR A PAGINA registroProceso.php
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
                     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                    echo '
-                        <script>
-                        Swal.fire({
-                            icon:"success",
-                            title:"Registro creado",
-                            text:"Se ha creado una fila para el detalle de recepcion",
-                            showConfirmButton:true,
-                            confirmButtonText:"Volver a Recepción"
-                        }).then((result)=>{
-                            if (result.value) {
-                                location.href = "'.$_REQUEST['URLO'].'.php?op";
-                            }
-                        })
-                    </script>
-                    ';    
+                    echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Registro creado",
+                                text:"El registro de detalle de recepción se ha creado correctamente",
+                                showConfirmButton:true,
+                                confirmButtonText:"Volver a recepcion"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href ="' . $_REQUEST['URLO'] . '.php?op";
+                                }
+                            })
+                        </script>';
                     // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
             
             }                
@@ -1032,22 +1029,19 @@ if ($_POST) {
                 //REDIRECCIONAR A PAGINA registroProceso.php 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-                    echo '                
-                    <script>
+                echo '<script>
                         Swal.fire({
-                            icon:"success",
+                            icon:"info",
                             title:"Registro Modificado",
-                            text:"Se ha Modificado una fila en el detalle de recepcion",
+                            text:"El registro del detalle de recepcion se ha modificada correctamente",
                             showConfirmButton:true,
-                            confirmButtonText:"Volver a Recepción",
+                            confirmButtonText:"Volver a recepcion"
                         }).then((result)=>{
-                            if (result.value) {
-                                location.href = "'. $_REQUEST['URLO'].'.php?op";
+                            if(result.value){
+                                location.href ="' . $_REQUEST['URLO'] . '.php?op";
                             }
                         })
-                    </script>
-                ';
+                    </script>';
             }     
             if (isset($_REQUEST['ELIMINAR'])) {
                 $IDELIMINAR = $_REQUEST['ID'];
@@ -1063,20 +1057,19 @@ if ($_POST) {
                 //REDIRECCIONAR A PAGINA registroProceso.php
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                    echo '  
-                    <script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Registro eliminado",
-                        text:"Se ha eliminado una fila en el detalle de recepcion",
-                        showConfirmButton:true,
-                        confirmButtonText:"Volver a Recepción"
-                    }).then((result)=>{
-                        if (result.value) {
-                            location.href = "'. $_REQUEST['URLO'].'.php?op";
-                        }
-                    })
-                </script>';
+                echo '<script>
+                        Swal.fire({
+                            icon:"error",
+                            title:"Registro Eliminado",
+                            text:"El registro del detalle recepcion se ha eliminado correctamente ",
+                            showConfirmButton:true,
+                            confirmButtonText:"Volver a recepcion"
+                        }).then((result)=>{
+                            if(result.value){
+                                location.href ="' . $_REQUEST['URLO'] . '.php?op";
+                            }
+                        })
+                    </script>';
                 // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>"; 
             }   
          ?>

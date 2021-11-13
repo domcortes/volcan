@@ -325,13 +325,16 @@ class DRECEPCIONIND_ADO
             die($e->getMessage());
         }
     }
+    
     public function buscarPorRecepcionaAgrupadoVariedad2($IDRECEPCION)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,   
                                                         DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
-                                                        FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO'
+                                                        FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),2,'de_DE') AS 'ENVASE',
+                                                        FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO',
+                                                        FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),2,'de_DE') AS 'BRUTO'
                                              FROM fruta_drecepcionind
                                              WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                              AND ESTADO_REGISTRO = 1                                              
@@ -353,7 +356,9 @@ class DRECEPCIONIND_ADO
         try{
             
             $datos=$this->conexion->prepare("SELECT *,
-                                                FORMAT(KILOS_NETO_DRECEPCION, 2,'de_DE') AS 'NETO'
+                                                        FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),2,'de_DE') AS 'ENVASE',
+                                                        FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO',
+                                                        FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),2,'de_DE') AS 'BRUTO'
                                             FROM fruta_drecepcionind
                                             WHERE  ID_RECEPCION = '".$IDRECEPCION."'
                                                 AND  ID_VESPECIES = '".$IDVESPECIES."'
@@ -379,7 +384,9 @@ class DRECEPCIONIND_ADO
         try{
             
             $datos=$this->conexion->prepare("SELECT 
-                                                FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO'
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0),2,'de_DE') AS 'ENVASE' , 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' , 
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE') AS 'BRUTO'
                                             FROM fruta_drecepcionind
                                             WHERE ID_RECEPCION = '".$IDRECEPCION."'
                                                   AND ESTADO_REGISTRO = '1'
@@ -425,7 +432,9 @@ class DRECEPCIONIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
-                                                        FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO'
+                                                        FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0),2,'de_DE') AS 'ENVASE' , 
+                                                        FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' , 
+                                                        FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE') AS 'BRUTO'
                                              FROM fruta_drecepcionind
                                              WHERE FOLIO_DRECEPCION = '" . $FOLIODRECEPCION . "' 
                                              AND ESTADO_REGISTRO = 1 ;");
@@ -443,14 +452,17 @@ class DRECEPCIONIND_ADO
         }
     }
 
-    //TOTALES
+    //TOTALES 
     //OBTENER LOS TOTALES DEL CONSOLIDAD DEL DETALLE DE RECEPCION ASOCIADO A UNA RECEPCION
     public function obtenerTotales($IDRECEPCION)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                  IFNULL(SUM(KILOS_NETO_DRECEPCION),0) AS 'NETO'
+                                                  IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0) AS 'ENVASE',
+                                                  IFNULL(SUM(KILOS_NETO_DRECEPCION),0) AS 'NETO',
+                                                  IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0) AS 'BRUTO',
+                                                  IFNULL(SUM(KILOS_PROMEDIO_DRECEPCION),0) AS 'PROMEDIO'
                                            FROM fruta_drecepcionind 
                                            WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                            AND ESTADO_REGISTRO = 1;");
@@ -472,7 +484,10 @@ class DRECEPCIONIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT 
-                                                  FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO'  
+                                                  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0),2,'de_DE') AS 'ENVASE' , 
+                                                  FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' , 
+                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE') AS 'BRUTO', 
+                                                  FORMAT(IFNULL(SUM(KILOS_PROMEDIO_DRECEPCION),0),2,'de_DE') AS 'PROMEDIO'    
                                            FROM fruta_drecepcionind
                                             WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                             AND ESTADO_REGISTRO = 1;");

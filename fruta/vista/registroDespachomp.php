@@ -548,7 +548,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title>Registro Despacho PT</title>
+    <title>Registro Despacho</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -890,7 +890,7 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Despacho </h3>
+                                <h3 class="page-title">Despacho Materia Prima</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -899,7 +899,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Granel</li>
                                             <li class="breadcrumb-item" aria-current="page">Despacho</li>
                                             <li class="breadcrumb-item" aria-current="page">Materia Prima</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciónes Registro Despacho </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Despacho </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -932,10 +932,8 @@ if (isset($_POST)) {
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                                 <div class="box-header with-border bg-primary">                                   
+                                    <h4 class="box-title">Registro de Despacho</h4>                                        
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -1253,13 +1251,13 @@ if (isset($_POST)) {
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
-                                        <div class="btn-group col-sm-6" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
-                                                <button type=" button" class="btn btn-danger " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachomp.php');">
+                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachomp.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
-                                                <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEENVASED; ?>  onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Crear
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLEENVASED; ?>  onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
@@ -1274,7 +1272,7 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group col-sm-3">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoMP.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
@@ -1286,7 +1284,6 @@ if (isset($_POST)) {
                             </div>
                         </form>
                         <!--.row -->
-
                         <?php if (isset($_GET['op'])): ?>
                             <div class="card">                            
                                 <div class="card-header bg-info">
@@ -1406,7 +1403,7 @@ if (isset($_POST)) {
                                                                                 <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
                                                                                 <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
                                                                                     <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLEENVASED; ?>  <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
-                                                                                        <i class="ti-close"></i>
+                                                                                        <i class="ti-close"></i> Quitar
                                                                                     </button>
                                                                                 </div>
                                                                             </form>
@@ -1559,18 +1556,18 @@ if (isset($_POST)) {
                     $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
                     $_SESSION["parametro1"] = "crear";
                     echo '<script>
-                            Swal.fire({
-                                icon:"success",
-                                title:"Registro de Despacho de Materia Prima creado",
-                                text:"Se ha creado el registro exitosamente",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href="registroDespachomp.php?op";
-                                }
-                            })
-                        </script>';
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Creado",
+                            text:"El registro de despacho se ha creado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                                location.href = "registroDespachomp.php?op";
+                            
+                        })
+                    </script>';
                 // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";            
             }
             if (isset($_REQUEST['EDITAR'])) {
@@ -1717,20 +1714,40 @@ if (isset($_POST)) {
                     $DESPACHOE->__SET('ID_DESPACHO', $ARRAYDESPACHOE[0]["ID_DESPACHO"]);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                     $DESPACHOE_ADO->actualizarDespachoe($DESPACHOE);
-                }
-                echo '<script>
+                }       
+                
+                if ($_SESSION['parametro1'] == "crear") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "crear";
+                    echo '<script>
                         Swal.fire({
                             icon:"info",
-                            title:"Cambios guardados",
-                            text:"Los cambios fueron guardados correctamente",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
+                            title:"Registro Modificado",
+                            text:"El registro de despacho se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
                         }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroDespachomp.php?op";
-                            }
+                            location.href = "registroDespachomp.php?op";                        
                         })
                     </script>';
+                }
+                if ($_SESSION['parametro1'] == "editar") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "editar";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de despacho se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroDespachomp.php?op";                        
+                        })
+                    </script>';
+                }
             }
             //OPERACION PARA CERRAR LA DESPACHOMP
             if (isset($_REQUEST['CERRAR'])) {
@@ -1743,9 +1760,12 @@ if (isset($_POST)) {
                     $SINO = "1";
                     echo '<script>
                             Swal.fire({
-                                icon:"info",
+                                icon:"warning",
                                 title:"Accion restringida",
-                                text:"No puedes cerrar aun, tiene que haber al menos una existencia de producto terminado"
+                                text:"Tiene que haber al menos un registro de existencia selecionado",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             })
                         </script>';
                 } else {
@@ -1753,13 +1773,13 @@ if (isset($_POST)) {
                     $SINO = "0";
                 }
                 if ($SINO == "0") {
-                    $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+                    $DESPACHOMP->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
                     $DESPACHOMP->__SET('CANTIDAD_ENVASE_DESPACHO', $_REQUEST['TOTALENVASE']);
                     $DESPACHOMP->__SET('KILOS_NETO_DESPACHO', $_REQUEST['TOTALNETO']);
                     $DESPACHOMP->__SET('KILOS_BRUTO_DESPACHO', $_REQUEST['TOTALBRUTO']);
                     $DESPACHOMP->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
                     $DESPACHOMP->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-                    $DESPACHOMP->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHOE']);
+                    $DESPACHOMP->__SET('OBSERVACION_DESPACHO', $_REQUEST['OBSERVACIONDESPACHO']);
                     $DESPACHOMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
                     $DESPACHOMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                     $DESPACHOMP->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
@@ -1985,45 +2005,39 @@ if (isset($_POST)) {
 
                     
                     //REDIRECCIONAR A PAGINA registroDespachomp.php
-                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL     
                     if ($_SESSION['parametro1'] == "crear") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
                         $_SESSION["parametro1"] = "ver";
-
                         echo '<script>
-                                Swal.fire({
-                                    icon:"info",
-                                    title:"Registro de Despacho cerrado",
-                                    text:"Este registro se encuentra cerrado",
-                                    showConfirmButton:true,
-                                    confirmButtonText:"OK"
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href="registroDespachomp.php?op";
-                                    }
-                                })
-                            </script>';
-                        // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro Cerrado",
+                                text:"Este despacho se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroDespachomp.php?op";                            
+                            })
+                        </script>';
                     }
                     if ($_SESSION['parametro1'] == "editar") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
                         $_SESSION["parametro1"] = "ver";
                         echo '<script>
-                                Swal.fire({
-                                    icon:"info",
-                                    title:"Registro de Despacho cerrado",
-                                    text:"Este registro se encuentra cerrado",
-                                    showConfirmButton:true,
-                                    confirmButtonText:"OK"
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href="registroDespachomp.php?op";
-                                    }
-                                })
-                            </script>';
-                        // echo "<script type='text/javascript'> location.href ='registroDespachomp.php?op';</script>";
-                    }
-                    
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro Cerrado",
+                                text:"Este despacho se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroDespachomp.php?op";                            
+                            })
+                        </script>';
+                    }                        
                     
                 }
             }
@@ -2033,16 +2047,17 @@ if (isset($_POST)) {
                 // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $EXIMATERIAPRIMA_ADO->actualizarDeselecionarDespachoCambiarEstado($EXIMATERIAPRIMA);
                 echo '<script>
-                            Swal.fire({
-                                icon:"info",
-                                title:"Accion realizada",
-                                text:"Se ha quitado la existencia."
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href="registroDespachomp.php?op";
-                                }
-                            })
-                        </script>';
+                    Swal.fire({
+                        icon:"error",
+                        title:"Accion realizada",
+                        text:"Se ha quitado la existencia del despacho.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroDespachomp.php?op";                            
+                    })
+                </script>';
             }
             ?>
 </body>

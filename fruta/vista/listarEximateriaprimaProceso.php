@@ -180,6 +180,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio Original</th>
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Cosecha </th>
+                                                        <th>Estado Calidad</th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
                                                         <th>CSG</th>
@@ -241,6 +242,19 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         }
                                                         if ($r['ESTADO'] == "10") {
                                                             $ESTADO = "Rechazado";
+                                                        }                                                        
+                                                        if($r['COLOR']==1){
+                                                            $TRECHAZOCOLOR="badge badge-danger ";
+                                                            $COLOR="Rechazado";
+                                                        }else if($r['COLOR']==2){
+                                                            $TRECHAZOCOLOR="badge badge-warning ";
+                                                            $COLOR="Objetado";
+                                                        }else if($r['COLOR']==3){
+                                                            $TRECHAZOCOLOR="badge badge-Success ";
+                                                            $COLOR="Aprobado";
+                                                        }else{
+                                                            $TRECHAZOCOLOR="";
+                                                            $COLOR="Sin Datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                         if ($ARRAYRECEPCION) {
@@ -339,10 +353,19 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NOMBRETEMPORADA = "Sin Datos";
                                                         }
                                                         ?>
-                                                        <tr class="text-left">
-                                                            <td><?php echo $r['FOLIO_EXIMATERIAPRIMA']; ?> </td>
-                                                            <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
+                                                        <tr class="text-left">                                                    
+                                                             <td>
+                                                                <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                   <?php echo $r['FOLIO_EXIMATERIAPRIMA']; ?>
+                                                                </span>
+                                                            </td>                                                            
+                                                            <td>
+                                                                <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                   <?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?>
+                                                                </span>
+                                                            </td>
                                                             <td><?php echo $r['COSECHA']; ?></td>
+                                                            <td><?php echo $COLOR; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>

@@ -517,10 +517,10 @@ class DRECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0) AS 'TOTAL_ENVASE', 
-                                                  IFNULL(SUM(KILOS_NETO_DRECEPCION),0) AS 'TOTAL_NETO', 
-                                                  IFNULL(SUM(KILOS_PROMEDIO_DRECEPCION),0) AS 'TOTAL_PROMEDIO' , 
-                                                  IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0)  AS 'TOTAL_BRUTO'  
+            $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0) AS 'ENVASE', 
+                                                  IFNULL(SUM(KILOS_NETO_DRECEPCION),0) AS 'NETO', 
+                                                  IFNULL(SUM(KILOS_PROMEDIO_DRECEPCION),0) AS 'PROMEDIO' , 
+                                                  IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0)  AS 'BRUTO'  
                                            FROM fruta_drecepcionmp 
                                            WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                            AND ESTADO_REGISTRO = 1;");
@@ -541,10 +541,10 @@ class DRECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0),0,'de_DE') AS 'TOTAL_ENVASE', 
-                                                  FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'TOTAL_NETO', 
-                                                  FORMAT(IFNULL(SUM(KILOS_PROMEDIO_DRECEPCION),0),2,'de_DE') AS 'TOTAL_PROMEDIO' , 
-                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE')  AS 'TOTAL_BRUTO'  
+            $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0),0,'de_DE') AS 'ENVASE', 
+                                                  FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO', 
+                                                  FORMAT(IFNULL(SUM(KILOS_PROMEDIO_DRECEPCION),0),2,'de_DE') AS 'PROMEDIO' , 
+                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE')  AS 'BRUTO'  
                                            FROM fruta_drecepcionmp
                                             WHERE ID_RECEPCION = '" . $IDRECEPCION . "' 
                                             AND ESTADO_REGISTRO = 1;");

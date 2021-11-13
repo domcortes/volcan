@@ -111,81 +111,92 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 $ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->verRecepcion2($IDOP);
-$ARRAYDRECEPCIONPT = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion2($IDOP);
-$ARRAYDRECEPCIONPTTOTAL = $DRECEPCIONPT_ADO->obtenerTotales2($IDOP);
-
-$TOTALENVASEI = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASEI'];
-$TOTALENVASER = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASER'];
-$TOTALENVASEA = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASEA'];
-$TOTALNETOREALGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_NETO_REAL'];
-$TOTALNETOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_NETO'];
-$TOTALBRUTOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_BRUTO'];
-
-
-$NUMERORECEPCIONPT = $ARRAYRECEPCIONPT[0]['NUMERO_RECEPCION'];
-$FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA_RECEPCION'];
-$HORARECEPCIONPT = $ARRAYRECEPCIONPT[0]['HORA_RECEPCION'];
-$NUMEROGUIA = $ARRAYRECEPCIONPT[0]['NUMERO_GUIA_RECEPCION'];
-$FECHAGUIA = $ARRAYRECEPCIONPT[0]['FECHA_GUIA_RECEPCION'];
-$PRODUCTOR = $ARRAYRECEPCIONPT[0]['ID_PRODUCTOR'];
-$PATENTECAMION = $ARRAYRECEPCIONPT[0]['PATENTE_CAMION'];
-$PATENTECARRO = $ARRAYRECEPCIONPT[0]['PATENTE_CARRO'];
-$OBSERVACIONES = $ARRAYRECEPCIONPT[0]['OBSERVACION_RECEPCION'];
-
-
-
-$IDUSUARIOI = $ARRAYRECEPCIONPT[0]['ID_USUARIOI'];  
-$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
-$NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
-
-$NOMBRETIPO = $ARRAYRECEPCIONPT[0]['TRECEPCION'];
-if ($NOMBRETIPO == "1") {
-  $NOMBRETIPO = "Desde Productor";
-}
-if ($NOMBRETIPO == "2") {
-  $NOMBRETIPO = "Planta Externa";
-}
-
-$PLANTAORIGEN = $ARRAYRECEPCIONPT[0]['ID_PLANTA2'];
-$ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONPT[0]['ID_PLANTA2']);
-if ($ARRAYPLANTA2) {
-  $PLANTAORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-} else {
-  $PLANTAORIGEN = "";
-}
-
-
-$ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYRECEPCIONPT[0]['ID_TRANSPORTE']);
-$ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYRECEPCIONPT[0]['ID_CONDUCTOR']);;
-
-$TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-$CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
-
-
-
-$TOTALENVASE = $ARRAYRECEPCIONPT[0]['CANTIDAD_ENVASE_RECEPCION'];
-$TOTALNETO = $ARRAYRECEPCIONPT[0]['KILOS_NETO_RECEPCION'];
-$TOTALBRUTO = $ARRAYRECEPCIONPT[0]['KILOS_BRUTO_RECEPCION'];
-
-
-
-$ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
-$NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-$CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-
-
-$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONPT[0]['ID_PLANTA']);
-$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYRECEPCIONPT[0]['ID_EMPRESA']);
-
-$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYRECEPCIONPT[0]['ID_TEMPORADA']);
-$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-
-$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-
-if ($EMPRESAURL == "") {
-  $EMPRESAURL = "img/empresa/no_disponible.png";
+if($ARRAYRECEPCIONPT){
+  $ARRAYDRECEPCIONPT = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion2($IDOP);
+  $ARRAYDRECEPCIONPTTOTAL = $DRECEPCIONPT_ADO->obtenerTotales2($IDOP);
+  
+  $TOTALENVASEI = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASEI'];
+  $TOTALENVASER = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASER'];
+  $TOTALENVASEA = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASEA'];
+  $TOTALNETOREALGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_NETO_REAL'];
+  $TOTALNETOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_NETO'];
+  $TOTALBRUTOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_BRUTO'];
+  
+  
+  $NUMERORECEPCIONPT = $ARRAYRECEPCIONPT[0]['NUMERO_RECEPCION'];
+  $FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA_RECEPCION'];
+  $HORARECEPCIONPT = $ARRAYRECEPCIONPT[0]['HORA_RECEPCION'];
+  $NUMEROGUIA = $ARRAYRECEPCIONPT[0]['NUMERO_GUIA_RECEPCION'];
+  $FECHAGUIA = $ARRAYRECEPCIONPT[0]['FECHA_GUIA_RECEPCION'];
+  $PRODUCTOR = $ARRAYRECEPCIONPT[0]['ID_PRODUCTOR'];
+  $PATENTECAMION = $ARRAYRECEPCIONPT[0]['PATENTE_CAMION'];
+  $PATENTECARRO = $ARRAYRECEPCIONPT[0]['PATENTE_CARRO'];
+  $OBSERVACIONES = $ARRAYRECEPCIONPT[0]['OBSERVACION_RECEPCION'];
+  $ESTADO = $ARRAYRECEPCIONPT[0]['ESTADO'];
+  if ($ARRAYRECEPCIONPT[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYRECEPCIONPT[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  }  
+  
+  
+  
+  $IDUSUARIOI = $ARRAYRECEPCIONPT[0]['ID_USUARIOI'];  
+  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+  $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
+  
+  $NOMBRETIPO = $ARRAYRECEPCIONPT[0]['TRECEPCION'];
+  if ($NOMBRETIPO == "1") {
+    $NOMBRETIPO = "Desde Productor";
+  }
+  if ($NOMBRETIPO == "2") {
+    $NOMBRETIPO = "Planta Externa";
+  }
+  
+  $PLANTAORIGEN = $ARRAYRECEPCIONPT[0]['ID_PLANTA2'];
+  $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONPT[0]['ID_PLANTA2']);
+  if ($ARRAYPLANTA2) {
+    $PLANTAORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+  } else {
+    $PLANTAORIGEN = "";
+  }
+  
+  
+  $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYRECEPCIONPT[0]['ID_TRANSPORTE']);
+  $ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYRECEPCIONPT[0]['ID_CONDUCTOR']);;
+  
+  $TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+  $CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+  
+  
+  
+  $TOTALENVASE = $ARRAYRECEPCIONPT[0]['CANTIDAD_ENVASE_RECEPCION'];
+  $TOTALNETO = $ARRAYRECEPCIONPT[0]['KILOS_NETO_RECEPCION'];
+  $TOTALBRUTO = $ARRAYRECEPCIONPT[0]['KILOS_BRUTO_RECEPCION'];
+  
+  
+  
+  $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+  $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+  $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+  
+  
+  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONPT[0]['ID_PLANTA']);
+  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYRECEPCIONPT[0]['ID_EMPRESA']);
+  
+  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYRECEPCIONPT[0]['ID_TEMPORADA']);
+  $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+  
+  $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+  $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+  
+  if ($EMPRESAURL == "") {
+    $EMPRESAURL = "img/empresa/no_disponible.png";
+  }
+  
 }
 
 
@@ -282,6 +293,7 @@ $html = '
       <div id="details" class="clearfix">
         
         <div id="invoice">
+          <div class="date"><b>Código BRC: </b>REP-RECPT</div>  
           <div class="date"><b>Fecha Recepción: </b>' . $FECHARECEPCIONPT . ' </div>
           <div class="date"><b>Hora Recepción: </b>' . $HORARECEPCIONPT . '  </div>
           <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
@@ -290,6 +302,7 @@ $html = '
 
         <div id="client">
           <div class="address"><b>Tipo Recepción: </b>' . $NOMBRETIPO . '</div>
+          <div class="address"><b>Estado Recepcion: </b> ' . $ESTADO . ' </div>
           <div class="address"><b>Número Guía: </b>' . $NUMEROGUIA . ' </div>
           ';
 if ($PLANTAORIGEN != "") {
@@ -450,12 +463,6 @@ $html = $html . '
       </div>
 
     </main>
-    <footer>
-    Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-    <br>
-    Impreso Por: <b>' . $NOMBRE . '</b>
-      
-    </footer>
   </body>
 </html>
 
@@ -491,48 +498,31 @@ require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter-L']);
 
-//CONFIGURACION FOOTER Y HEADER DEL PDF
+//CONFIGURACION FOOTER Y HEADER DEL PDF//CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <th width="55%" class="left f10">' . $EMPRESA . '</th>
-                <td width="45%" class="right f10">' . $FECHANOMBRE . '</td>
-                <td width="10%" class="right f10">' . $HORAFINAL2 . '</td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    
+<table width="100%" >
+    <tbody>
+        <tr>
+          <th width="55%" class="left f10">' . $EMPRESA . '</th>
+          <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
+          <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
 ');
 
 $PDF->SetHTMLFooter('
 
-  <table width="100%" >   
-      <tr>
-        <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> <hr> </td>
-        <td class="color2 right" style="width: 30%;"> </td>
-      </tr>
-      <tr>
-        <td class="color2 center" style="width: 30%;" > </td>
-        <td class="color2  center" style="width: 10%;"> Firma Responsable <br> '.$NOMBRERESPONSABLE.' </td>
-        <td class="color2 center" style="width: 30%;"> </td>
-      </tr>    
-    </table>
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <td width="35%" class="left"><span>{PAGENO}/{nbpg}</span></td>
-                <td width="30%"  class="center f10">
-                       
-                        ' . $EMPRESA . '
-                </td>
-                <td width="35%"  class="right">{DATE j-m-Y}</td>
-            </tr>
-        </tbody>
-    </table>
-    
+
+
+<footer>
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+<br>
+Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+</footer>
+
 ');
 
 

@@ -1908,8 +1908,8 @@ class EXIMATERIAPRIMA_ADO
                         UPDATE fruta_eximateriaprima SET
                                 MODIFICACION = SYSDATE(),				
                                 COLOR = ?,							
-                                ESTADO = 11
-                        WHERE ID_EXIMATERIAPRIMA= ?;";
+                                ESTADO = 2
+                        WHERE ID_EXIMATERIAPRIMA = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(

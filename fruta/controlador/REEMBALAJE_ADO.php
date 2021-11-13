@@ -159,6 +159,7 @@ class REEMBALAJE_ADO
                                                     KILOS_INDUSTRIAL_REEMBALAJE,
                                                     KILOS_INDUSTRIALSC_REEMBALAJE,
                                                     KILOS_INDUSTRIALNC_REEMBALAJE,
+                                                    
                                                     PDEXPORTACION_REEMBALAJE, 
                                                     PDEXPORTACIONCD_REEMBALAJE, 
                                                     PDINDUSTRIAL_REEMBALAJE, 
@@ -171,7 +172,7 @@ class REEMBALAJE_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	(?, ?, ?,   ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0,  SYSDATE(),  SYSDATE(), 1, 1 );";
+	       	(?, ?, ?,   ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    0, 0, 0,  0, 0, 0,  0, 0, 0, 0, 0, 0,  SYSDATE(),  SYSDATE(), 1, 1 );";
             $this->conexion->prepare($query)
                 ->execute(
                     array(

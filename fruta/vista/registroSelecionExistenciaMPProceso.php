@@ -11,6 +11,8 @@ include_once '../controlador/TMANEJO_ADO.php';
 
 include_once '../controlador/RECEPCIONMP_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
+include_once '../controlador/DPINDUSTRIAL_ADO.php';
+include_once '../controlador/DPEXPORTACION_ADO.php';
 
 
 
@@ -22,6 +24,8 @@ include_once '../modelo/EXIMATERIAPRIMA.php';
 //INICIALIZAR CONTROLADOR
 $RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
+$DPINDUSTRIAL_ADO =  new DPINDUSTRIAL_ADO();
+$DPEXPORTACION_ADO =  new DPEXPORTACION_ADO();
 
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
@@ -84,6 +88,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
+
+
+
+    $ARRAYEXISTENCIAMPTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso($IDP);
+    $TOTALNETOE = $ARRAYEXISTENCIAMPTOTAL[0]['NETO'];
+    $ARRATDINDUSTRIALTOTALPROCESO = $DPINDUSTRIAL_ADO->obtenerTotales($IDP);
+    $ARRATDINDUSTRIALTOTALPROCESO2 = $DPINDUSTRIAL_ADO->obtenerTotales2($IDP);
+    $TOTALNETOIND = $ARRATDINDUSTRIALTOTALPROCESO[0]['NETO'];
+    $TOTALNETOINDV = $ARRATDINDUSTRIALTOTALPROCESO2[0]['NETO'];
+    $ARRAYDEXPORTACIONTOTALPROCESO = $DPEXPORTACION_ADO->obtenerTotales($IDP);
+    $ARRAYDEXPORTACIONTOTALPROCES2 = $DPEXPORTACION_ADO->obtenerTotales2($IDP);
+    $TOTALDESHIDRATACIONEX = $ARRAYDEXPORTACIONTOTALPROCESO[0]['DESHIDRATACION'];
+    $TOTALDESHIDRATACIONEXV = $ARRAYDEXPORTACIONTOTALPROCES2[0]['DESHIDRATACION'];
+    $DIFERENCIAKILOSNETOEXPO = round($TOTALNETOE - ($TOTALDESHIDRATACIONEX + $TOTALNETOIND), 2);
 
     $ARRAYPROCESO = $PROCESO_ADO->verProceso($IDP);
     foreach ($ARRAYPROCESO as $r) :
@@ -173,14 +191,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Seleccion Existencia </h3>
+                                <h3 class="page-title">Proceso </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Proceso</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Seleccion Existencia</a>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Proceso</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Seleccion Existencia</a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -209,10 +228,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     </div>
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box-header with-border bg-success">                                   
+                                <h4 class="box-title">Seleccionar existencia</h4>                                        
                             </div>
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="box-body ">
@@ -224,14 +241,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
 
-                                    <div class="row">
-                                        <div class="col-xxl-11 col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 col-xs-11">
-                                            <div class="form-group">
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                        </div>
-                                    </div>
+                                 
                                     <div clas="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="table-responsive">
@@ -361,7 +371,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-4" role="group" aria-label="Acciones generales">
+                                    <div class="btn-group btn-rounded btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                         <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                             <i class="ti-back-left "></i> Volver
                                         </button>
@@ -401,6 +411,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 html: "<label>Para <b>seleccionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label><label>Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>"
             })
         </script>
+        
         <?php
         //OPERACION DE REGISTRO DE FILA
         if (isset($_REQUEST['AGREGAR'])) {
@@ -418,19 +429,18 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                echo
-                "<script>
-                        Swal.fire({
-                            icon:'info',
-                            title:'Folios agregados al proceso',
-                            showConfirmButton:true,
-                            confirmButtonText:'Volver al proceso'
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href ='" . $_REQUEST['URLO'] . ".php?op';
-                            }
-                        });
-                    </script>";
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Accion realizada",
+                        text:"Se agregado la existencia al proceso.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Volver a proceso",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>';
 
                 // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
             }
@@ -467,11 +477,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         $MENSAJE = $MENSAJE;
                         if ($ENVASE <= 0) {
                             $SINOENVASE = 1;
-                            $MENSAJE = $MENSAJE . " <br> " . $FOLIOORIGINAL . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
+                            $MENSAJE = $MENSAJE . "  " . $FOLIOORIGINAL . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
                         } else {
                             if ($ENVASE >= $ENVASEORIGINAL) {
                                 $SINOENVASE = 1;
-                                $MENSAJE = $MENSAJE . " <br> " . $FOLIOORIGINAL . ": LA CANTIDAD DE ENVASES NO PUEDE SER MAYOR O IGUAL A LOS ENVASES ORIGINAL";
+                                $MENSAJE = $MENSAJE . "  " . $FOLIOORIGINAL . ": LA CANTIDAD DE ENVASES NO PUEDE SER MAYOR O IGUAL A LOS ENVASES ORIGINAL";
                             } else {
                                 $SINOENVASE = 0;
                                 $MENSAJE = $MENSAJE;
@@ -546,36 +556,53 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     }
                 endforeach;
 
-                if ($SINO == 0) {
-                    
+                if ($SINO == 0) {                    
                     if ($MENSAJE == "") { 
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                        echo
-                        "<script>
-                                Swal.fire({
-                                    icon:'info',
-                                    title:'Folios agregados al proceso',
-                                    showConfirmButton:true,
-                                    confirmButtonText:'Volver al proceso'
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href ='" . $_REQUEST['URLO'] . ".php?op';
-                                    }
-                                });
-                            </script>";
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];                        
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Accion realizada",
+                                text:"Se agregado la existencia al proceso.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Volver al proceso",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                            })
+                        </script>';
                           //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    }else{
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];                        
+                        echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Accion realizada",
+                                text:"Se agregado la existencia al proceso. ' . $MENSAJE . '",
+                                showConfirmButton: true,
+                                confirmButtonText:"Volver al proceso",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                            })
+                        </script>';
                     }
                 }
                 if ($SINOENVASE == 1) {                   
                     if ($MENSAJE != "") {
-                        echo '
-                            <script>
-                                Swal.fire({
-                                    icon:"warning",
-                                    title:"Accion restringida",
-                                    text:"' . $MENSAJE . '"
-                                })
+                        echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"' . $MENSAJE . '",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="registroSelecionExistenciaMPProceso.php?op";                        
+                            })
                         </script>';
                     }
                 }

@@ -160,80 +160,91 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 $ARRAYINPSAGPT = $INPSAG_ADO->verInpsag2($IDOP);
-$ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorSag2AgrupadoFolio($IDOP);
-$ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesInspSag2($IDOP);
-$TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['ENVASE'];
-$TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['NETO'];
-$TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['BRUTO'];
+if($ARRAYINPSAGPT){
 
-$ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2($IDOP);
-$ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaInspeccion2($IDOP);
-$TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
-
-$NUMEROINPSAG = $ARRAYINPSAGPT[0]['NUMERO_INPSAG'];
-$FECHAINPSAG = $ARRAYINPSAGPT[0]['FECHA'];
-$ARRAYTINPSAG = $TINPSAG_ADO->verTinpsag($ARRAYINPSAGPT[0]['ID_TINPSAG']);
-$NOMBRETINPSAG = $ARRAYTINPSAG[0]['NOMBRE_TINPSAG'];
-$TESTADOSAG = $ARRAYINPSAGPT[0]['TESTADOSAG'];
-$CIF=$ARRAYINPSAGPT[0]['CIF_INPSAG'];
-
-
-if ($TESTADOSAG == null || $TESTADOSAG == "0") {
-  $NOMBRETESTADOSAG = "Sin Condición";
+    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorSag2AgrupadoFolio($IDOP);
+    $ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesInspSag2($IDOP);
+    $TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['ENVASE'];
+    $TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['NETO'];
+    $TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['BRUTO'];
+    
+    $ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2($IDOP);
+    $ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaInspeccion2($IDOP);
+    $TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
+    
+    $NUMEROINPSAG = $ARRAYINPSAGPT[0]['NUMERO_INPSAG'];
+    $FECHAINPSAG = $ARRAYINPSAGPT[0]['FECHA'];
+    $ARRAYTINPSAG = $TINPSAG_ADO->verTinpsag($ARRAYINPSAGPT[0]['ID_TINPSAG']);
+    $NOMBRETINPSAG = $ARRAYTINPSAG[0]['NOMBRE_TINPSAG'];
+    $TESTADOSAG = $ARRAYINPSAGPT[0]['TESTADOSAG'];
+    $CIF=$ARRAYINPSAGPT[0]['CIF_INPSAG'];
+    $ESTADO = $ARRAYINPSAGPT[0]['ESTADO'];
+    if ($ARRAYINPSAGPT[0]['ESTADO'] == 1) {
+      $ESTADO = "Abierto";
+    }else if ($ARRAYINPSAGPT[0]['ESTADO'] == 0) {
+      $ESTADO = "Cerrado";
+    }else{
+      $ESTADO="Sin Datos";
+    }  
+    
+    
+    if ($TESTADOSAG == null || $TESTADOSAG == "0") {
+      $NOMBRETESTADOSAG = "Sin Condición";
+    }
+    if ($TESTADOSAG == "1") {
+      $NOMBRETESTADOSAG = "En Inspección";
+    }
+    if ($TESTADOSAG == "2") {
+      $NOMBRETESTADOSAG = "Aprobado Origen";
+    }
+    if ($TESTADOSAG == "3") {
+      $NOMBRETESTADOSAG = "Aprobado USLA";
+    }
+    if ($TESTADOSAG == "4") {
+      $NOMBRETESTADOSAG = "Fumigado";
+    }
+    if ($TESTADOSAG == "5") {
+      $NOMBRETESTADOSAG = "Rechazado";
+    }
+    
+    $ARRAYINPECTOR = $INPECTOR_ADO->verInpector($ARRAYINPSAGPT[0]['ID_INPECTOR']);
+    if ($ARRAYINPECTOR) {
+      $INPECTOR = $ARRAYINPECTOR[0]['NOMBRE_INPECTOR'];
+    }
+    $ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->verContraparte($ARRAYINPSAGPT[0]['ID_CONTRAPARTE']);
+    if ($ARRAYCONTRAPARTE) {
+      $CONTRAPARTE = $ARRAYCONTRAPARTE[0]['NOMBRE_CONTRAPARTE'];
+    }
+    
+    $ARRAYPAIS = $PAIS_ADO->verPais($ARRAYINPSAGPT[0]['ID_PAIS1']);
+    if ($ARRAYPAIS) {
+      $PAIS = $ARRAYPAIS[0]['NOMBRE_PAIS'];
+    }
+    $ARRAYPAIS = $PAIS_ADO->verPais($ARRAYINPSAGPT[0]['ID_PAIS2']);
+    if ($ARRAYPAIS) {
+      $PAIS = $PAIS . ", " . $ARRAYPAIS[0]['NOMBRE_PAIS'];
+    }
+    $ARRAYPAIS = $PAIS_ADO->verPais($ARRAYINPSAGPT[0]['ID_PAIS3']);
+    if ($ARRAYPAIS) {
+      $PAIS = $PAIS . ", " . $ARRAYPAIS[0]['NOMBRE_PAIS'];
+    }
+    $ARRAYPAIS = $PAIS_ADO->verPais($ARRAYINPSAGPT[0]['ID_PAIS4']);
+    if ($ARRAYPAIS) {
+      $PAIS = $PAIS . ", " . $ARRAYPAIS[0]['NOMBRE_PAIS'];
+    }
+    
+    
+    
+    $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYINPSAGPT[0]['ID_PLANTA']);
+    //$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYINPSAGPT[0]['ID_EMPRESA']);
+    //$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+    //$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+    
+    
+    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYINPSAGPT[0]['ID_TEMPORADA']);
+    $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+    $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
 }
-if ($TESTADOSAG == "1") {
-  $NOMBRETESTADOSAG = "En Inspección";
-}
-if ($TESTADOSAG == "2") {
-  $NOMBRETESTADOSAG = "Aprobado Origen";
-}
-if ($TESTADOSAG == "3") {
-  $NOMBRETESTADOSAG = "Aprobado USLA";
-}
-if ($TESTADOSAG == "4") {
-  $NOMBRETESTADOSAG = "Fumigado";
-}
-if ($TESTADOSAG == "5") {
-  $NOMBRETESTADOSAG = "Rechazado";
-}
-
-$ARRAYINPECTOR = $INPECTOR_ADO->verInpector($ARRAYINPSAGPT[0]['ID_INPECTOR']);
-if ($ARRAYINPECTOR) {
-  $INPECTOR = $ARRAYINPECTOR[0]['NOMBRE_INPECTOR'];
-}
-$ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->verContraparte($ARRAYINPSAGPT[0]['ID_CONTRAPARTE']);
-if ($ARRAYCONTRAPARTE) {
-  $CONTRAPARTE = $ARRAYCONTRAPARTE[0]['NOMBRE_CONTRAPARTE'];
-}
-
-$ARRAYPAIS = $PAIS_ADO->verPais($ARRAYINPSAGPT[0]['ID_PAIS1']);
-if ($ARRAYPAIS) {
-  $PAIS = $ARRAYPAIS[0]['NOMBRE_PAIS'];
-}
-$ARRAYPAIS = $PAIS_ADO->verPais($ARRAYINPSAGPT[0]['ID_PAIS2']);
-if ($ARRAYPAIS) {
-  $PAIS = $PAIS . ", " . $ARRAYPAIS[0]['NOMBRE_PAIS'];
-}
-$ARRAYPAIS = $PAIS_ADO->verPais($ARRAYINPSAGPT[0]['ID_PAIS3']);
-if ($ARRAYPAIS) {
-  $PAIS = $PAIS . ", " . $ARRAYPAIS[0]['NOMBRE_PAIS'];
-}
-$ARRAYPAIS = $PAIS_ADO->verPais($ARRAYINPSAGPT[0]['ID_PAIS4']);
-if ($ARRAYPAIS) {
-  $PAIS = $PAIS . ", " . $ARRAYPAIS[0]['NOMBRE_PAIS'];
-}
-
-
-
-$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYINPSAGPT[0]['ID_PLANTA']);
-//$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYINPSAGPT[0]['ID_EMPRESA']);
-//$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-//$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-
-
-$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYINPSAGPT[0]['ID_TEMPORADA']);
-$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
 
 
 if ($EMPRESAURL == "") {
@@ -303,6 +314,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -334,6 +346,7 @@ $html = '
       <div id="details" class="clearfix">
         
         <div id="invoice">
+          <div class="date"><b>Código BRC: </b>REP-INSPSAG </div>  
           <div class="date"><b>Fecha Inspección: </b>' . $FECHAINPSAG . ' </div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
           <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
@@ -341,6 +354,7 @@ $html = '
 
         <div id="client">
           <div class="address"><b>Tipo Inspección: </b>' . $NOMBRETINPSAG . '</div>
+          <div class="address"><b>Estado Inspección: </b> ' . $ESTADO . ' </div>
           <div class="address"><b>Condición: </b>' . $NOMBRETESTADOSAG . '</div>
           <div class="address"><b>Inpector: </b>' . $INPECTOR . '</div>
           <div class="address"><b>Contraparte: </b>' . $CONTRAPARTE . '</div>
@@ -593,12 +607,12 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
 
       $html = $html . '              
         <tr class="bt">
-            <th class=" center">&nbsp;</th>
-            <th class=" center">&nbsp;</th>
-            <th class=" center">&nbsp;</th>
-            <th class=" center">&nbsp;</th>
-            <th class=" right"> Total Estandar </th>
-            <th class=" center">' . $TOTALENVASEESTANDAR . '</th>¿
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 right"> Total Estandar </th>
+            <th class="color2 center">' . $TOTALENVASEESTANDAR . '</th>¿
         </tr>
       ';
 
@@ -609,12 +623,12 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
   endforeach;
   $html = $html . '              
   <tr class="bt">
-      <th class=" center">&nbsp;</th>
-      <th class=" center">&nbsp;</th>
-      <th class=" center">&nbsp;</th>
-      <th class=" center">&nbsp;</th>
-      <th class=" right"> Total Productor </th>
-      <th class=" center">' . $TOTALENVASEPRODUCTOR . '</th>¿
+      <th class="color2 center">&nbsp;</th>
+      <th class="color2 center">&nbsp;</th>
+      <th class="color2 center">&nbsp;</th>
+      <th class="color2 center">&nbsp;</th>
+      <th class="color2 right"> Total Productor </th>
+      <th class="color2 center">' . $TOTALENVASEPRODUCTOR . '</th>¿
   </tr>
 ';
 
@@ -641,12 +655,6 @@ $html = $html . '
 $html = $html . '
 
     </main>
-    <footer>
-      Informe generado por Departamento TI Fruticola Volcan  <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-      <br>
-      Impreso Por: <b>' . $NOMBRE . '</b>
-      
-    </footer>
   </body>
 </html>
 
@@ -682,38 +690,31 @@ require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter-L']);
 
-//CONFIGURACION FOOTER Y HEADER DEL PDF
+//CONFIGURACION FOOTER Y HEADER DEL PDF//CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <th width="55%" class="left f10">' . $EMPRESA . '</th>
-                <td width="45%" class="right f10">' . $FECHANOMBRE . '</td>
-                <td width="10%" class="right f10">' . $HORAFINAL2 . '</td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    
+<table width="100%" >
+    <tbody>
+        <tr>
+          <th width="55%" class="left f10">' . $EMPRESA . '</th>
+          <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
+          <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
 ');
 
 $PDF->SetHTMLFooter('
 
 
 
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <td width="35%" class="left"><span>{PAGENO}/{nbpg}</span></td>
-                <td width="30%"  class="center f10">
-                       
-                        ' . $EMPRESA . '
-                </td>
-                <td width="35%"  class="right">{DATE j-m-Y}</td>
-            </tr>
-        </tbody>
-    </table>
-    
+<footer>
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+<br>
+Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+</footer>
+
 ');
 
 

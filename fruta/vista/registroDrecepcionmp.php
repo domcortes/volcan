@@ -722,7 +722,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Detalle</h3>
+                                <h3 class="page-title">Recepción Materia Prima</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -731,8 +731,8 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Granel</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción</li>
                                             <li class="breadcrumb-item" aria-current="page">Materia Prima</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciónes Registro Detalle </a>
-                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> Registro Recepción </a> </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Detalle </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -760,13 +760,10 @@ if ($_POST) {
                     </div>
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box-header with-border bg-success">                                   
+                                <h4 class="box-title">Registro Detalle</h4>                                        
                             </div>
-
-                            <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                            <form class="form" role="form" method="post" name="form_reg_dato" >
                                 <div class="box-body form-element">
                                     <div class="form-group">
                                         <input type="hidden" class="form-control" placeholder="FOLIOMANUAL" id="FOLIOMANUALE" name="FOLIOMANUALE" value="<?php echo $FOLIOMANUAL; ?>" />
@@ -986,24 +983,24 @@ if ($_POST) {
                                     <!-- /.row -->
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        <div class="btn-group btn-block col-3" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
                                             <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
                                             <?php if ($OP == "") { ?>
-                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
                                                 <?php if ($OP == "crear") { ?>
-                                                    <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                        <i class="ti-save-alt"></i> Crear
+                                                    <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
                                                 <?php if ($OP == "editar") { ?>
-                                                    <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?>>
-                                                        <i class="ti-save-alt"></i> Editar
+                                                    <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
                                                     </button>
                                                 <?php } ?>
                                                 <?php if ($OP == "eliminar") { ?>
@@ -1027,6 +1024,7 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        
         <?php
         //OPERACION DE REGISTRO DE FILA
         if (isset($_REQUEST['CREAR'])) {
@@ -1044,7 +1042,7 @@ if ($_POST) {
                 $ARRAYFOLIOPOEXPO = $EXIMATERIAPRIMA_ADO->buscarPorFolio($NUMEROFOLIODRECEPCION);
                 if ($ARRAYFOLIOPOEXPO) {
                     $SINO = "1";
-                    $MENSAJE = "EL FOLIO INGRESADO, YA EXISTE";
+                    $MENSAJE = "El folio ingresado, ya existe.";
                 } else {
                     $SINO = "0";
                     $MENSAJE = "";
@@ -1075,36 +1073,49 @@ if ($_POST) {
                     }
                 };
             }
-            $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
-            $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-                "_TIPO_FOLIO:MATERIA PRIMA_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
 
-
-            $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
-            //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION
-            $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($_REQUEST['ESTANDAR']);
-            //OBTENCIONS DE LOS DATOS, OBTENIDOS EN LA CONSULTA
-            if ($KILOSBRUTODRECEPCION > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
-                if ($ARRAYVERESTANDAR) {
-                    $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-                    if ($_REQUEST['PESOPALLETRECEPCION']) {
-                        $PESOPALLETEESTANDAR = $_REQUEST['PESOPALLETRECEPCION'];
-                    } else {
-                        $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
-                    }
-
-                    $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
-
-                    //OPERACIONES DE OBTENER NETO Y PROMEDIO  DEL DETALLE
-                    $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASE - $PESOPALLETEESTANDAR;
-                    $KILOSPROMEDIODRECEPCION = $KILOSNETODRECEPCION / $_REQUEST['CANTIDADENVASEDRECEPCION'];
-                }
+            if ($SINO == "1") {
+                echo '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Accion restringida",
+                        text:"'.$MENSAJE.'",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    })
+                </script>';
             }
-
             //UTILIZACION METODOS SET DEL MODELO
             //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
 
             if ($SINO == "0") {
+
+                $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
+                $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                    "_TIPO_FOLIO:MATERIA PRIMA_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
+    
+    
+                $KILOSBRUTODRECEPCION = $_REQUEST['KILOSBRUTODRECEPCION'];
+                //CONSULTA PARA LA OBTENCION DE LOS PARAMETROS DEL ESTANDAR DE EXPORTACION
+                $ARRAYVERESTANDAR = $ERECEPCION_ADO->verEstandar($_REQUEST['ESTANDAR']);
+                //OBTENCIONS DE LOS DATOS, OBTENIDOS EN LA CONSULTA
+                if ($KILOSBRUTODRECEPCION > 0 && $_REQUEST['CANTIDADENVASEDRECEPCION'] > 0) {
+                    if ($ARRAYVERESTANDAR) {
+                        $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                        if ($_REQUEST['PESOPALLETRECEPCION']) {
+                            $PESOPALLETEESTANDAR = $_REQUEST['PESOPALLETRECEPCION'];
+                        } else {
+                            $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                        }
+    
+                        $PESOENVASE = $PESOENVASEESTANDAR * $_REQUEST['CANTIDADENVASEDRECEPCION'];
+    
+                        //OPERACIONES DE OBTENER NETO Y PROMEDIO  DEL DETALLE
+                        $KILOSNETODRECEPCION = $KILOSBRUTODRECEPCION - $PESOENVASE - $PESOPALLETEESTANDAR;
+                        $KILOSPROMEDIODRECEPCION = $KILOSNETODRECEPCION / $_REQUEST['CANTIDADENVASEDRECEPCION'];
+                    }
+                }
 
                 $DRECEPCIONMP->__SET('FOLIO_DRECEPCION', $NUMEROFOLIODRECEPCION);
                 $DRECEPCIONMP->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
@@ -1162,18 +1173,15 @@ if ($_POST) {
                 //REDIRECCIONAR A PAGINA registroRecepcionmp.php
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-
                 echo '<script>
                         Swal.fire({
                             icon:"success",
-                            title:"Fila registrada",
-                            text:"Se ha creado una fila para el detalle de recepcion",
+                            title:"Registro creado",
+                            text:"El registro de detalle de recepción se ha creado correctamente",
                             showConfirmButton:true,
                             confirmButtonText:"Volver a recepcion"
                         }).then((result)=>{
-                            if(result.value){
-                                location.href ="' . $_REQUEST['URLO'] . '.php?op";
-                            }
+                            location.href ="' . $_REQUEST['URLO'] . '.php?op";                            
                         })
                     </script>';
             }
@@ -1287,15 +1295,13 @@ if ($_POST) {
             $_SESSION["parametro1"] =  $_REQUEST['OPP'];
             echo '<script>
                     Swal.fire({
-                        icon:"success",
-                        title:"Fila Modificado",
-                        text:"Se ha Modificado una fila en el detalle de recepcion",
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro del detalle de recepcion se ha modificada correctamente",
                         showConfirmButton:true,
                         confirmButtonText:"Volver a recepcion"
                     }).then((result)=>{
-                        if(result.value){
-                            location.href ="' . $_REQUEST['URLO'] . '.php?op";
-                        }
+                        location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
                     })
                 </script>';
             //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
@@ -1318,15 +1324,13 @@ if ($_POST) {
             $_SESSION["parametro1"] =  $_REQUEST['OPP'];
             echo '<script>
                     Swal.fire({
-                        icon:"warning",
-                        title:"Fila Eliminada",
-                        text:"Se ha Eliminado una fila en el detalle de recepcion",
+                        icon:"error",
+                        title:"Registro Eliminado",
+                        text:"El registro del detalle recepcion se ha eliminado correctamente ",
                         showConfirmButton:true,
                         confirmButtonText:"Volver a recepcion"
                     }).then((result)=>{
-                        if(result.value){
-                            location.href ="' . $_REQUEST['URLO'] . '.php?op";
-                        }
+                        location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
                     })
                 </script>';
             //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";

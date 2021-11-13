@@ -5,6 +5,8 @@ include_once "../config/validarUsuario.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../controlador/ERECEPCION_ADO.php';
+include_once '../controlador/EEXPORTACION_ADO.php';
 
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
@@ -25,6 +27,10 @@ include_once '../controlador/REEMBALAJE_ADO.php';
 $EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
 
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$ERECEPCION_ADO =  new ERECEPCION_ADO();
+$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
+
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
@@ -187,10 +193,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
-                                                        <th>Código Estandar</th>
-                                                        <th>Envase/Estandar</th>
                                                         <th>CSG</th>
                                                         <th>Productor</th>
+                                                        <th>Código Estandar</th>
+                                                        <th>Envase/Estandar</th>
                                                         <th>Especies</th>
                                                         <th>Variedad</th>
                                                         <th>Kilos Neto</th>
@@ -247,11 +253,18 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $CSGPRODUCTOR = "Sin Datos";
                                                             $NOMBREPRODUCTOR = "Sin Datos";
                                                         }
-
                                                         $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                        $ARRAYEVERERECEPCIONID2 = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDARMP']);
+                                                        $ARRAYEVERERECEPCIONID3 = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDARPT']);
                                                         if ($ARRAYEVERERECEPCIONID) {
                                                             $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                        }else  if ($ARRAYEVERERECEPCIONID2) {
+                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID2[0]['CODIGO_ESTANDAR'];
+                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID2[0]['NOMBRE_ESTANDAR'];
+                                                        }else  if ($ARRAYEVERERECEPCIONID3) {
+                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID3[0]['CODIGO_ESTANDAR'];
+                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID3[0]['NOMBRE_ESTANDAR'];
                                                         } else {
                                                             $CODIGOESTANDAR = "Sin Datos";
                                                             $NOMBREESTANDAR = "Sin Datos";
@@ -269,6 +282,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NOMBREVESPECIES = "Sin Datos";
                                                             $NOMBRESPECIES = "Sin Datos";
                                                         }
+
 
                                                         $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                         if ($ARRAYRECEPCION) {

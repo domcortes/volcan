@@ -1590,7 +1590,7 @@ class EXIEXPORTACION_ADO
                                                     AND ID_REPALETIZAJE= '" . $IDREPALETIZAJE . "' 
                                                     AND ESTADO_REGISTRO = 1 
                                                     AND ESTADO BETWEEN 1 AND 2
-                                                    limit 1
+                                                   
                                                     ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();

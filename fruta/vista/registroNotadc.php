@@ -602,14 +602,15 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Nota</h3>
+                                <h3 class="page-title">Nota D/C</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Logistica</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Operaciones Registro Nota </a>
+                                            <li class="breadcrumb-item" aria-current="page">Nota D/C</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Nota </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -1003,7 +1004,7 @@ if (isset($_POST)) {
                                 
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
-                                        <div class="btn-group col-sm-6" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
                                                 <button type=" button" class="btn btn-danger " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroNotadc.php');">
                                                     <i class="ti-trash"></i> Cancelar
@@ -1024,7 +1025,7 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group col-sm-3">
+                                        <div class="btn-group   col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeNotadc.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
@@ -1195,20 +1196,18 @@ if (isset($_POST)) {
                 
                 $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_NOTA'];
                 $_SESSION["parametro1"] = "crear";
-                echo
-                    '<script>
-                        Swal.fire({
-                            icon:"success",
-                            title:"Registro de Nota creado",
-                            text:"El registro fue creado exitosamente",
-                            showConfirmButton:true,
-                            confirmButtonText:"ok"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href ="registroNotadc.php?op"
-                            }
-                            })
-                    </script>';
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro de nota se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroNotadc.php?op";                        
+                    })
+                </script>';
             }             
             if (isset($_REQUEST['EDITAR'])) {                
                 $NOTADC->__SET('FECHA_NOTA', $_REQUEST['FECHANOTA']);
@@ -1221,21 +1220,39 @@ if (isset($_POST)) {
                 $NOTADC->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $NOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $NOTADC_ADO->actualizarNota($NOTADC);                
-                echo
-                    '<script>
+                $NOTADC_ADO->actualizarNota($NOTADC);                    
+                 if ($_SESSION['parametro1'] == "crear") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "crear";
+                    echo '<script>
                         Swal.fire({
-                            icon:"success",
-                            title:"Registro de Nota Modificado",
-                            text:"El registro fue Modificado exitosamente",
-                            showConfirmButton:true,
-                            confirmButtonText:"ok"
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de nota se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
                         }).then((result)=>{
-                            if(result.value){
-                                location.href ="registroNotadc.php?op"
-                            }
+                            location.href = "registroNotadc.php?op";                        
                         })
                     </script>';
+                }
+                if ($_SESSION['parametro1'] == "editar") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "editar";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de nota se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroNotadc.php?op";                        
+                        })
+                    </script>';
+                }
 
                 
             }    
@@ -1245,15 +1262,17 @@ if (isset($_POST)) {
                 if ($ARRAYDNOTA) {
                     $SINO = "0";
                 } else {
-                    $SINO = "1";                    
-                    echo '
-                    <script>
-                        Swal.fire({
-                            icon:"info",
-                            title:"Accion restringida",
-                            text:"En el detalle tiene haber al menos uno con cantidad"
-                        })
-                    </script>';
+                    $SINO = "1";       
+                    echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"En el detalle tiene haber al menos uno con cantidad"
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            })
+                        </script>';         
                 }
                 if ($SINO == "0") {
                     $NOTADC->__SET('FECHA_NOTA', $_REQUEST['FECHANOTA']);
@@ -1277,40 +1296,36 @@ if (isset($_POST)) {
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
                     if ($_SESSION['parametro1'] == "crear") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
-                        $_SESSION["parametro1"] = "ver";                                  
-                            echo
-                            '<script>
-                                Swal.fire({
-                                    icon:"success",
-                                    title:"Registro de Nota Cerrado",
-                                    text:"El registro fue Cerrado exitosamente",
-                                    showConfirmButton:true,
-                                    confirmButtonText:"ok"
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href ="registroNotadc.php?op"
-                                    }
-                                    })
-                            </script>';
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro Cerrado",
+                                text:"Este nota se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroNotadc.php?op";                            
+                            })
+                        </script>';
                     }
                     if ($_SESSION['parametro1'] == "editar") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];
-                        $_SESSION["parametro1"] = "ver";                       
-                        echo
-                        '<script>
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
                             Swal.fire({
-                                icon:"success",
-                                title:"Registro de Nota Cerrado",
-                                text:"El registro fue Cerrado exitosamente",
-                                showConfirmButton:true,
-                                confirmButtonText:"ok"
+                                icon:"info",
+                                title:"Registro Cerrado",
+                                text:"Este nota se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             }).then((result)=>{
-                                if(result.value){
-                                    location.href ="registroNotadc.php?op"
-                                }
-                                })
+                                location.href = "registroNotadc.php?op";                            
+                            })
                         </script>';
-                    }
+                    } 
                 }
             }
         ?>

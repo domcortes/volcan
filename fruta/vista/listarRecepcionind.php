@@ -57,7 +57,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
     $ARRAYRECEPCION = $RECEPCIONIND_ADO->listarRecepcionEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYRECEPCIONTOTALES = $RECEPCIONIND_ADO->obtenerTotalesRecepcionEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $TOTALBRUTO = $ARRAYRECEPCIONTOTALES[0]['BRUTO'];
     $TOTALNETO = $ARRAYRECEPCIONTOTALES[0]['NETO'];
+    $TOTALENVASE = $ARRAYRECEPCIONTOTALES[0]['ENVASE'];
 }
 
 include_once "../config/validarDatosUrl.php";
@@ -76,7 +78,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Listar Recepcion</title>
+    <title>Agrupado Recepcion</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -163,7 +165,7 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Agrupado Recepcion</h3>
+                            <h3 class="page-title">Recepcion Industrial</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -219,7 +221,9 @@ include_once "../config/datosUrLP.php";
                                                     <th>Numero Guia </th>
                                                     <th>Fecha Guia </th>
                                                     <th>Total Kilos Guia</th>
+                                                    <th>Cantidad Envase</th>
                                                     <th>Total Kilos Neto</th>
+                                                    <th>Total Kilos Bruto</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificacion</th>
                                                     <th>Transporte </th>
@@ -307,7 +311,9 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                         <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                         <td><?php echo $r['GUIA']; ?></td>
+                                                        <td><?php echo $r['ENVASE']; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
+                                                        <td><?php echo $r['BRUTO']; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td>
@@ -332,16 +338,36 @@ include_once "../config/datosUrLP.php";
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
+                                        </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
                                                 </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>

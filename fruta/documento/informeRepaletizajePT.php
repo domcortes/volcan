@@ -512,49 +512,33 @@ require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
-//CONFIGURACION FOOTER Y HEADER DEL PDF
+//CONFIGURACION FOOTER Y HEADER DEL PDF//CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-            <th width="55%" class="left f10">' . $EMPRESA . '</th>
-            <td width="45%" class="right f10">' . $FECHANOMBRE . '</td>
-            <td width="10%" class="right f10">' . $HORAFINAL2 . '</td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    
+<table width="100%" >
+    <tbody>
+        <tr>
+          <th width="55%" class="left f10">' . $EMPRESA . '</th>
+          <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
+          <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
 ');
 
 $PDF->SetHTMLFooter('
 
-    <table >      
-        <tr>
-            <td class="color2 center" style="width: 30%;" > </td>
-            <td class="color2  center" style="width: 10%;"> <hr> </td>
-            <td class="color2 right" style="width: 30%;"> </td>
-        </tr>
-        <tr>
-            <td class="color2 center" style="width: 30%;" > </td>
-            <td class="color2  center" style="width: 10%;"> Firma Responsable <br> ' . $NOMBRERESPONSABLE . ' </td>
-            <td class="color2 center" style="width: 30%;"> </td>
-        </tr>    
-    </table>
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <td width="35%" class="left"><span>{PAGENO}/{nbpg}</span></td>
-                <td width="30%"  class="center f10">
-                       
-                        ' . $EMPRESA . '
-                </td>
-                <td width="35%"  class="right">{DATE j-m-Y}</td>
-            </tr>
-        </tbody>
-    </table>
-    
+
+
+<footer>
+Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+<br>
+Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+</footer>
+
 ');
+
 
 
 $PDF->SetTitle($TIPOINFORME); //titulo pdf

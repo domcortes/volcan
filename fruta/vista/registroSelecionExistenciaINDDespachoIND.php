@@ -163,7 +163,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Seleccion Existencia </h3>
+                                <h3 class="page-title">Despacho Inudstrial </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -172,7 +172,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                             <li class="breadcrumb-item" aria-current="page">Granel</li>
                                             <li class="breadcrumb-item" aria-current="page">Despacho</li>
                                             <li class="breadcrumb-item" aria-current="page">Inudstrial</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Seleccion Existencia</a>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Despacho</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Seleccion Existencia</a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -201,10 +202,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     </div>
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box-header with-border bg-info">                                   
+                                <h4 class="box-title">Seleccionar existencia</h4>                                        
                             </div>
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="box-body ">
@@ -216,16 +215,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
 
-                                    <label id="val_dproceso" class="validacion "><?php echo $MENSAJE; ?> </label>
-                                    <div class="row">
-                                        <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                        </div>
-                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-56col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <label id="val_dproceso" class="validacion "><?php echo $MENSAJE; ?> </label>                                
                                     <div clas="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="table-responsive">
@@ -325,7 +315,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <!-- /.row -->
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-6" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group btn-rounded btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
@@ -381,22 +371,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     $EXIINDUSTRIAL_ADO->actualizarSelecionarDespachoCambiarEstado($EXIINDUSTRIAL);
                 endforeach;
 
-
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                echo
-                "<script>
-                        Swal.fire({
-                            icon:'info',
-                            title:'Folios agregados al despacho',
-                            showConfirmButton:true,
-                            confirmButtonText:'Volver al despacho'
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href ='" . $_REQUEST['URLO'] . ".php?op';
-                            }
-                        });
-                    </script>";
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Accion realizada",
+                        text:"Se agregado la existencia al despacho.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Volver a Despacho",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>';
             }
         }
         if (isset($_REQUEST['DIVIDIR'])) {
@@ -475,62 +463,59 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $TEMPORADAS);
                             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                             $EXIINDUSTRIAL_ADO->agregarExiindustrialDespacho($EXIINDUSTRIAL);
-                        endforeach;
-                        $SINO=0;
+                        endforeach;       
+                        $SINNO=0;                 
                     }
                 endforeach;
 
                 
-                if ($SINO == 0) {    
+                if ($SINNO == 0) {    
                     if ($MENSAJE == "") {                
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
                         $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                        echo
-                        "<script>
-                                Swal.fire({
-                                    icon:'info',
-                                    title:'Folios agregados al despacho',
-                                    showConfirmButton:true,
-                                    confirmButtonText:'Volver al despacho'
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href ='" . $_REQUEST['URLO'] . ".php?op';
-                                    }
-                                });
-                            </script>";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Accion realizada",
+                                text:"Se agregado la existencia al despacho.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Volver al despacho",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                            })
+                        </script>';
                          //  echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-                    }else{
-                        echo '
-                            <script>
-                                Swal.fire({
-                                    icon:"warning",
-                                    title:"Accion restringida",
-                                    text:"' . $MENSAJE . '",
-                                    showConfirmButton:true,
-                                    confirmButtonText:"Volver al despacho"
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href ="' . $_REQUEST['URLO'] . '.php?op";
-                                    }
-                                });
+                    }else{                        
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Accion realizada",
+                                text:"Se agregado la existencia al despacho. ' . $MENSAJE . '",
+                                showConfirmButton: true,
+                                confirmButtonText:"Volver al despacho",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                            })
                         </script>';
                     }
                 }
                 if ($SINONETO == 1) {
                     if ($MENSAJE != "") {
-                        echo '
-                            <script>
-                                Swal.fire({
-                                    icon:"warning",
-                                    title:"Accion restringida",
-                                    text:"' . $MENSAJE . '",
-                                    showConfirmButton:true,
-                                    confirmButtonText:"OK"
-                                }).then((result)=>{
-                                    if(result.value){
-                                        location.href ="registroSelecionExistenciaINDDespachoIND.php?op";
-                                    }
-                                });
+                        echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"' . $MENSAJE . '",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="registroSelecionExistenciaINDDespachoIND.php?op";                        
+                            })
                         </script>';
                     }
                 }

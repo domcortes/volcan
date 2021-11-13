@@ -110,157 +110,6 @@ $FECHAEMBALADODINDUSTRIAL = $ARRAYFECHAACTUAL[0]['FECHA'];
 include_once "../config/validarDatosUrlD.php";
 
 
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-    //OBTENER EL FOLIO DEL DETALLE DE EXPORTACION DEL PROCESO
-    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-    $ARRAYULTIMOFOLIO = $EXIINDUSTRIAL_ADO->obtenerFolio($FOLIO);
-    if ($ARRAYULTIMOFOLIO) {
-        if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
-            $FOLIODPINDUSTRIAL = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-        } else {
-            $FOLIODPINDUSTRIAL =  $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'];
-        }
-    } else {
-        $FOLIODPINDUSTRIAL = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-    }
-    $NUMEROFOLIODINDUSTRIAL = $FOLIODPINDUSTRIAL + 1;
-
-
-    $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
-    $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-        "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
-
-    $DPINDUSTRIAL->__SET('FOLIO_DPINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-    $DPINDUSTRIAL->__SET('FECHA_EMBALADO_DPINDUSTRIAL', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-    $DPINDUSTRIAL->__SET('KILOS_NETO_DPINDUSTRIAL', $_REQUEST['KILOSNETO']);
-    $DPINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
-    $DPINDUSTRIAL->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
-    $DPINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-    $DPINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    $DPINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-    $DPINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
-    $DPINDUSTRIAL_ADO->agregarDpindustrial($DPINDUSTRIAL);
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-    $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-    $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
-    $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
-    $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
-    $EXIINDUSTRIAL->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
-    $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-    $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
-    $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-    $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-    $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EXIINDUSTRIAL_ADO->agregarExiindustrialProceso($EXIINDUSTRIAL);
-
-
-    //REDIRECCIONAR A PAGINA registroProceso.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['EDITAR'])) {
-
-    $DPINDUSTRIAL->__SET('FECHA_EMBALADO_DPINDUSTRIAL', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-    $DPINDUSTRIAL->__SET('KILOS_NETO_DPINDUSTRIAL', $_REQUEST['KILOSNETO']);
-    $DPINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-    $DPINDUSTRIAL->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
-    $DPINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-    $DPINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-    $DPINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
-    $DPINDUSTRIAL->__SET('ID_DPINDUSTRIAL', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DPINDUSTRIAL_ADO->actualizarDpindustrial($DPINDUSTRIAL);
-
-    $ARRAYVERFOLIOEXISTENCIA = $EXIINDUSTRIAL_ADO->buscarPorProcesoNumeroFolio($_REQUEST['IDP'],  $_REQUEST["NUMEROFOLIODINDUSTRIALE"]);
-
-    if ($ARRAYVERFOLIOEXISTENCIA) {
-        $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
-        $EXIINDUSTRIAL->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
-        $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-        $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-        $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-        $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
-        $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $ARRAYVERFOLIOEXISTENCIA[0]['ID_EXIINDUSTRIAL']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIINDUSTRIAL_ADO->actualizarExiindustrialProceso($EXIINDUSTRIAL);
-    } else {
-        $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-        $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-        $NUMEROFOLIODINDUSTRIAL = $_REQUEST["NUMEROFOLIODINDUSTRIALE"];
-        $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
-        $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-            "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
-
-        $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-        $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
-        $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
-        $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
-        $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
-        $EXIINDUSTRIAL->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
-        $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-        $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
-        $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-        $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-        $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-        $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIINDUSTRIAL_ADO->agregarExiindustrialProceso($EXIINDUSTRIAL);
-    }
-
-    //REDIRECCIONAR A PAGINA registroProceso.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-
-if (isset($_REQUEST['ELIMINAR'])) {
-
-    $IDELIMINAR = $_REQUEST['ID'];
-    $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODINDUSTRIALE'];
-    $DPINDUSTRIAL->__SET('ID_DPINDUSTRIAL', $IDELIMINAR);
-    $DPINDUSTRIAL_ADO->deshabilitar($DPINDUSTRIAL);
-
-    $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
-    $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $FOLIOELIMINAR);
-    $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOELIMINAR);
-    $EXIINDUSTRIAL_ADO->deshabilitarProceso($EXIINDUSTRIAL);
-
-    $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
-    $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $FOLIOELIMINAR);
-    $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOELIMINAR);
-    $EXIINDUSTRIAL_ADO->eliminadoProceso($EXIINDUSTRIAL);
-
-
-    //REDIRECCIONAR A PAGINA registroProceso.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-
-
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -441,7 +290,7 @@ if ($_POST) {
 <html lang="es">
 
 <head>
-    <title>Detalle Proceso Industrial</title>
+    <title>Registro Producto Industrial </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -560,7 +409,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Detalle</h3>
+                                <h3 class="page-title">Proceso</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -568,7 +417,8 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Packing</li>
                                             <li class="breadcrumb-item" aria-current="page">Proceso</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Registro Detalle </a>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Proceso</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Producto Industrial </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -598,10 +448,8 @@ if ($_POST) {
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                                <div class="box-header with-border bg-success">                                   
+                                    <h4 class="box-title">Registro Producto Industrial</h4>                                        
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -694,24 +542,24 @@ if ($_POST) {
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group col-6">
+                                    <div class="btn-group btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12">
                                         <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                             <i class="ti-back-left "></i> Volver
                                         </button>
                                         <?php if ($OP == "") { ?>
-                                            <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Crear
+                                            <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Guardar
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
                                             <?php if ($OP == "crear") { ?>
-                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Crear
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "editar") { ?>
-                                                <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Editar
+                                                <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "eliminar") { ?>
@@ -752,7 +600,191 @@ if ($_POST) {
                 })
             </script>';
         ?>
+    <?php 
+    
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+                //OBTENER EL FOLIO DEL DETALLE DE EXPORTACION DEL PROCESO
+                $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+                $ARRAYULTIMOFOLIO = $EXIINDUSTRIAL_ADO->obtenerFolio($FOLIO);
+                if ($ARRAYULTIMOFOLIO) {
+                    if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
+                        $FOLIODPINDUSTRIAL = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                    } else {
+                        $FOLIODPINDUSTRIAL =  $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'];
+                    }
+                } else {
+                    $FOLIODPINDUSTRIAL = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                }
+                $NUMEROFOLIODINDUSTRIAL = $FOLIODPINDUSTRIAL + 1;
 
+
+                $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
+                $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                    "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
+
+                $DPINDUSTRIAL->__SET('FOLIO_DPINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                $DPINDUSTRIAL->__SET('FECHA_EMBALADO_DPINDUSTRIAL', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                $DPINDUSTRIAL->__SET('KILOS_NETO_DPINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                $DPINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
+                $DPINDUSTRIAL->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
+                $DPINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $DPINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $DPINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                $DPINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                $DPINDUSTRIAL_ADO->agregarDpindustrial($DPINDUSTRIAL);
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
+                $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
+                $EXIINDUSTRIAL->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
+                $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
+                $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIINDUSTRIAL_ADO->agregarExiindustrialProceso($EXIINDUSTRIAL);
+
+
+                //REDIRECCIONAR A PAGINA registroProceso.php 
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro creado",
+                        text:"El registro de producto industrial se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Volver al proceso",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['EDITAR'])) {
+
+                $DPINDUSTRIAL->__SET('FECHA_EMBALADO_DPINDUSTRIAL', $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                $DPINDUSTRIAL->__SET('KILOS_NETO_DPINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                $DPINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                $DPINDUSTRIAL->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
+                $DPINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $DPINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                $DPINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                $DPINDUSTRIAL->__SET('ID_DPINDUSTRIAL', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DPINDUSTRIAL_ADO->actualizarDpindustrial($DPINDUSTRIAL);
+
+                $ARRAYVERFOLIOEXISTENCIA = $EXIINDUSTRIAL_ADO->buscarPorProcesoNumeroFolio($_REQUEST['IDP'],  $_REQUEST["NUMEROFOLIODINDUSTRIALE"]);
+
+                if ($ARRAYVERFOLIOEXISTENCIA) {
+                    $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                    $EXIINDUSTRIAL->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
+                    $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                    $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                    $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                    $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $ARRAYVERFOLIOEXISTENCIA[0]['ID_EXIINDUSTRIAL']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $EXIINDUSTRIAL_ADO->actualizarExiindustrialProceso($EXIINDUSTRIAL);
+                } else {
+                    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+                    $NUMEROFOLIODINDUSTRIAL = $_REQUEST["NUMEROFOLIODINDUSTRIALE"];
+                    $FOLIOALIASESTACTICO = $NUMEROFOLIODINDUSTRIAL;
+                    $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                        "_TIPO_FOLIO:PRODUCTO INDUSTRIAL_PROCESO:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODINDUSTRIAL;
+
+                    $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                    $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $NUMEROFOLIODINDUSTRIAL);
+                    $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL',  $_REQUEST['FECHAEMBALADODINDUSTRIAL']);
+                    $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $_REQUEST['KILOSNETO']);
+                    $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
+                    $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
+                    $EXIINDUSTRIAL->__SET('FECHA_PROCESO', $_REQUEST['FECHAPROCESO']);
+                    $EXIINDUSTRIAL->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                    $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
+                    $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                    $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    $EXIINDUSTRIAL->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    $EXIINDUSTRIAL->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $EXIINDUSTRIAL->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $EXIINDUSTRIAL_ADO->agregarExiindustrialProceso($EXIINDUSTRIAL);
+                }
+
+                //REDIRECCIONAR A PAGINA registroProceso.php 
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];    
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro de producto industrial se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Volver al proceso",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>';
+
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {
+
+                $IDELIMINAR = $_REQUEST['ID'];
+                $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODINDUSTRIALE'];
+                $DPINDUSTRIAL->__SET('ID_DPINDUSTRIAL', $IDELIMINAR);
+                $DPINDUSTRIAL_ADO->deshabilitar($DPINDUSTRIAL);
+
+                $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $FOLIOELIMINAR);
+                $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOELIMINAR);
+                $EXIINDUSTRIAL_ADO->deshabilitarProceso($EXIINDUSTRIAL);
+
+                $EXIINDUSTRIAL->__SET('ID_PROCESO', $_REQUEST['IDP']);
+                $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL', $FOLIOELIMINAR);
+                $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $FOLIOELIMINAR);
+                $EXIINDUSTRIAL_ADO->eliminadoProceso($EXIINDUSTRIAL);
+
+
+                //REDIRECCIONAR A PAGINA registroProceso.php 
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                        Swal.fire({
+                            icon:"error",
+                            title:"Registro Eliminado",
+                            text:"El registro de producto industrial se ha eliminado correctamente ",
+                            showConfirmButton:true,
+                            confirmButtonText:"Volver al proceso"
+                        }).then((result)=>{
+                            location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
+                        })
+                    </script>';
+            }   
+    
+    
+    ?>
 
 
 

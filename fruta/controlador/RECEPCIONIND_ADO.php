@@ -186,15 +186,17 @@ class RECEPCIONIND_ADO
                                                     ID_TEMPORADA, 
                                                     ID_USUARIOI, 
                                                     ID_USUARIOM, 
-
-                                                    KILOS_NETO_RECEPCION,           
+ 
+                                                    CANTIDAD_ENVASE_RECEPCION,  
+                                                    KILOS_NETO_RECEPCION,   
+                                                    KILOS_BRUTO_RECEPCION,           
                                                     INGRESO,
                                                     MODIFICACION,  
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                     )
              VALUES
-               ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?, ?,  0, SYSDATE(),  SYSDATE(), 1, 1);";
+               ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?, ?,  0, 0, 0, SYSDATE(),  SYSDATE(), 1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
@@ -256,7 +258,9 @@ class RECEPCIONIND_ADO
                         NUMERO_GUIA_RECEPCION = ?,
 
                         TOTAL_KILOS_GUIA_RECEPCION = ?,
+                        CANTIDAD_ENVASE_RECEPCION = ?,
                         KILOS_NETO_RECEPCION = ?, 
+                        KILOS_BRUTO_RECEPCION = ?, 
                         PATENTE_CAMION = ?,
                         PATENTE_CARRO = ?,
                         TRECEPCION = ?, 
@@ -281,7 +285,9 @@ class RECEPCIONIND_ADO
                         $RECEPCIONIND->__GET('NUMERO_GUIA_RECEPCION'),
 
                         $RECEPCIONIND->__GET('TOTAL_KILOS_GUIA_RECEPCION'),
+                        $RECEPCIONIND->__GET('CANTIDAD_ENVASE_RECEPCION'),
                         $RECEPCIONIND->__GET('KILOS_NETO_RECEPCION'),
+                        $RECEPCIONIND->__GET('KILOS_BRUTO_RECEPCION'),
                         $RECEPCIONIND->__GET('PATENTE_CAMION'),
                         $RECEPCIONIND->__GET('PATENTE_CARRO'),
                         $RECEPCIONIND->__GET('TRECEPCION'),
@@ -457,8 +463,10 @@ class RECEPCIONIND_ADO
                                                     DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
-                                                    IFNULL(KILOS_NETO_RECEPCION,0)  AS 'NETO',
-                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0) AS 'GUIA'
+                                                    IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
+                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
                                             FROM fruta_recepcionind 
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
@@ -488,7 +496,9 @@ class RECEPCIONIND_ADO
                                                     DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_RECEPCION,0),0,'de_DE')  AS 'ENVASE',
                                                     FORMAT(IFNULL(KILOS_NETO_RECEPCION,0),2,'de_DE')  AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_RECEPCION,0),2,'de_DE')  AS 'BRUTO',
                                                     FORMAT(IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0),2,'de_DE')  AS 'GUIA'
                                             FROM fruta_recepcionind 
                                             WHERE ID_EMPRESA = '" . $EMPRESA . "' 
@@ -515,7 +525,9 @@ class RECEPCIONIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT  
-                                                     IFNULL(SUM(KILOS_NETO_RECEPCION),0) AS 'NETO'
+                                                    IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0) AS 'ENVASE',   
+                                                    IFNULL(SUM(KILOS_NETO_RECEPCION),0) AS 'NETO',  
+                                                    IFNULL(SUM(KILOS_BRUTO_RECEPCION),0)  AS 'BRUTO'  
                                             FROM fruta_recepcionind ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -536,7 +548,10 @@ class RECEPCIONIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT   
-                                                     FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE') AS 'NETO'  
+                                                    FORMAT(IFNULL(SUM(TOTAL_KILOS_GUIA_RECEPCION),0),2,'de_DE')  AS 'GUIA',   
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0),0,'de_DE') AS 'ENVASE',   
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE') AS 'NETO',  
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')  AS 'BRUTO'  
                                             FROM fruta_recepcionind ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -557,7 +572,10 @@ class RECEPCIONIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT  
-                                                        FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE')  AS 'NETO'  
+                                                FORMAT(IFNULL(SUM(TOTAL_KILOS_GUIA_RECEPCION),0),2,'de_DE')  AS 'GUIA',   
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0),0,'de_DE') AS 'ENVASE',  
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE')  AS 'NETO',  
+                                                FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')   AS 'BRUTO'   
                                             FROM fruta_recepcionind 
                                             WHERE  
                                                 ID_EMPRESA = '" . $EMPRESA . "' 

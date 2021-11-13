@@ -132,7 +132,15 @@ if($ARRAYDESPACHO){
   $PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
   $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
   $OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
-  
+  $ESTADO = $ARRAYDESPACHO[0]['ESTADO'];
+  if ($ARRAYDESPACHO[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYDESPACHO[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  } 
+ 
   
   $IDUSUARIOI = $ARRAYDESPACHO[0]['ID_USUARIOI'];  
   $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
@@ -278,6 +286,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -291,7 +300,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Despacho Industrial </title>
+    <title>Informe Despacho</title>
   </head>
   <body>
     <header class="clearfix">
@@ -314,11 +323,12 @@ $html = '
       <div id="details" class="clearfix">
         
       <div id="invoice">
-      <div class="date"><b>Fecha Despacho: </b>' . $FECHA . ' </div>
-      <div class="date"><b>Empresa: </b>' . $EMPRESA . '  </div>
-      <div class="date"><b>Planta: </b>' . $PLANTA . '  </div>
-      <div class="date"><b>Temporada: </b>' . $TEMPORADA . '  </div>
-    </div>
+        <div class="date"><b>Código BRC: </b>REP-DESPIN</div> 
+        <div class="date"><b>Fecha Despacho: </b>' . $FECHA . ' </div>
+        <div class="date"><b>Empresa: </b>' . $EMPRESA . '  </div>
+        <div class="date"><b>Planta: </b>' . $PLANTA . '  </div>
+        <div class="date"><b>Temporada: </b>' . $TEMPORADA . '  </div>
+      </div>
 
 
         <div id="client">
@@ -355,6 +365,7 @@ if ($TDESPACHO == "5") {
 }
 
 $html .= '
+          <div class="address"><b>Estado Despacho: </b> ' . $ESTADO . ' </div>
         </div>        
       </div>
       ';
@@ -380,9 +391,6 @@ $html .= '
                   <th class="color center">Fecha Ingreso</th>
                   <th class="color center">Código Estandar</th>
                   <th class="color center">Envase/Estandar</th>
-                  <th class="color center ">CSG </th>
-                  <th class="color center ">Productor </th>
-                  <th class="color center ">Variedad </th>
 ';
 if ($TDESPACHO != "3") {
   $html .= '
@@ -395,6 +403,9 @@ if ($TDESPACHO == "3") {
                       <th class="color center">Kilos Neto</th>
                       <th class="color center">Precio Por Kilo.</th>
                       <th class="color center">Total Precio.</th>
+                      <th class="color center ">Variedad </th>
+                      <th class="color center ">CSG </th>
+                      <th class="color center ">Productor </th>
                       ';
 }
 $html .= '
@@ -405,18 +416,35 @@ $html .= '
 foreach ($ARRAYEXISTENCIATOMADA as $r) :
 
   $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+  if ($ARRAYVERPRODUCTORID) {
+    $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+    $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+  } else {
+    $CSGPRODUCTOR = "Sin Datos";
+    $NOMBREPRODUCTOR = "Sin Datos";
+  }
+  if ($ARRAYEVERERECEPCIONID) {
+    $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+    $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+  } else {
+    $CODIGOESTANDAR = "Sin Datos";
+    $NOMBREESTANDAR = "Sin Datos";
+  }
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-  $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
+  if ($ARRAYVERVESPECIESID) {
+    $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+  } else {
+    $NOMBREVESPECIES = "Sin Datos";
+  }
+
+
 
   $html = $html . '
     <tr>
         <th class=" left">' . $r['FOLIO_AUXILIAR_EXIINDUSTRIAL'] . '</th>
         <td class=" center">' . $r['EMBALADO'] . '</td>
-        <td class=" center">' . $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'] . '</td>
-        <td class=" center">' . $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'] . '</td>
-        <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . ' </td>
-        <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . ' </td>
-        <td class=" center ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
+        <td class=" center">' . $CODIGOESTANDAR . '</td>
+        <td class=" center">' . $NOMBREESTANDAR . '</td>
             ';
   if ($TDESPACHO != "3") {
       $html .= '
@@ -432,6 +460,11 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
     }
 
   $html .= '
+
+          <td class=" center ">' . $NOMBREVESPECIES . ' </td>
+          <td class=" center ">' . $CSGPRODUCTOR . ' </td>
+          <td class=" center ">' . $NOMBREPRODUCTOR . ' </td>
+
         </tr>
         ';
 endforeach;
@@ -441,9 +474,6 @@ $html = $html . '
       <th class="color center">&nbsp;</th>
       <th class="color center">&nbsp;</th>
       <th class="color center ">&nbsp; </th>
-      <th class="color center ">&nbsp; </th>
-      <th class="color center">&nbsp;</th>
-      <th class="color center">&nbsp;</th>
       <th class="color right">Sub Total</th>
   
 ';
@@ -465,6 +495,9 @@ if ($TDESPACHO == "3") {
 }
 
 $html .= '
+  <th class="color center ">&nbsp; </th>
+  <th class="color center">&nbsp;</th>
+  <th class="color center">&nbsp;</th>
 </tr>
 ';
 
@@ -496,12 +529,6 @@ $html = $html . '
   </div>
 
 </main>
-<footer>
-Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-<br>
-Impreso Por: <b>' . $NOMBRE . '</b>
-
-</footer>
 </body>
 </html>
 
@@ -535,13 +562,14 @@ require_once '../../api/mpdf/mpdf/autoload.php';
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
 //CONFIGURACION FOOTER Y HEADER DEL PDF
+//CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
     <table width="100%" >
         <tbody>
             <tr>
-            <th width="55%" class="left f10">' . $EMPRESA . '</th>
-            <td width="45%" class="right f10">' . $FECHANOMBRE . '</td>
-            <td width="10%" class="right f10">' . $HORAFINAL2 . '</td>
+              <th width="55%" class="left f10">' . $EMPRESA . '</th>
+              <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
+              <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
             </tr>
         </tbody>
     </table>
@@ -549,21 +577,18 @@ $PDF->SetHTMLHeader('
     
 ');
 
-$PDF->SetHTMLFooter(' 
-    <table width="100%" >
-        <tbody>
-            <tr>
-                <td width="35%" class="left"><span>{PAGENO}/{nbpg}</span></td>
-                <td width="30%"  class="center f10">
-                       
-                        ' . $EMPRESA . '
-                </td>
-                <td width="35%"  class="right">{DATE j-m-Y}</td>
-            </tr>
-        </tbody>
-    </table>
+$PDF->SetHTMLFooter('
+
+
+
+<footer>
+  Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+  <br>
+  Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+</footer>
     
 ');
+
 
 
 $PDF->SetTitle($TIPOINFORME); //titulo pdf

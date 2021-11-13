@@ -7,6 +7,8 @@ include_once "../config/validarUsuario.php";
 
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../controlador/ERECEPCION_ADO.php';
+include_once '../controlador/EEXPORTACION_ADO.php';
 
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
@@ -22,6 +24,7 @@ include_once '../controlador/RECEPCIONIND_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
 include_once '../controlador/DESPACHOPT_ADO.php';
 include_once '../controlador/REEMBALAJE_ADO.php';
+include_once '../controlador/RECHAZOMP_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -29,6 +32,8 @@ include_once '../controlador/REEMBALAJE_ADO.php';
 $EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
 
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$ERECEPCION_ADO =  new ERECEPCION_ADO();
+$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
@@ -45,6 +50,7 @@ $RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 $DESPACHOPT_ADO =  new DESPACHOPT_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
+$RECHAZOMP_ADO =  new RECHAZOMP_ADO();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 
@@ -256,8 +262,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         }
 
                                                         $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                        $ARRAYEVERERECEPCIONID2 = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDARMP']);
-                                                        $ARRAYEVERERECEPCIONID3 = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDARPT']);
+                                                        $ARRAYEVERERECEPCIONID2 = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDARMP']);
+                                                        $ARRAYEVERERECEPCIONID3 = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDARPT']);
                                                         if ($ARRAYEVERERECEPCIONID) {
                                                             $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
