@@ -81,42 +81,53 @@ if (isset($_REQUEST['parametro'])) {
   $NUMEROPCDESPACHO = $IDOP;
 }
 $ARRAYPCDESPACHO = $PCDESPACHO_ADO->verPcdespacho2($NUMEROPCDESPACHO);
+if($ARRAYPCDESPACHO){
+  $ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorPcdespacho2($NUMEROPCDESPACHO);
 
-
-$ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorPcdespacho2($NUMEROPCDESPACHO);
-
-$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYPCDESPACHO[0]['ID_EMPRESA']);
-
-
-$NUMERO = $ARRAYPCDESPACHO[0]['NUMERO_PCDESPACHO'];
-$FECHAINGRESO = $ARRAYPCDESPACHO[0]['INGRESO'];
-$FECHAMODIFCACION = $ARRAYPCDESPACHO[0]['MODIFICACION'];
-$MOTIVO = $ARRAYPCDESPACHO[0]['MOTIVO_PCDESPACHO'];
-$TOTALENVASE = $ARRAYPCDESPACHO[0]['ENVASE'];
-$TOTALNETO = $ARRAYPCDESPACHO[0]['NETO'];
-$OBSERVACIONES = $ARRAYPCDESPACHO[0]['MOTIVO_PCDESPACHO'];
-
-$IDUSUARIOI = $ARRAYPCDESPACHO[0]['ID_USUARIOI'];  
-$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
-$NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
-
-
-
-//$TOTALENVASEREPA=$ARRAYDREPALETIZAJETOTALES[0]['TOTAL_ENVASE'];
-//$TOTALNETOREPA=$ARRAYDREPALETIZAJETOTALES[0]['TOTAL_NETO'];
-
-$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYPCDESPACHO[0]['ID_PLANTA']);
-$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYPCDESPACHO[0]['ID_TEMPORADA']);
-
-$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-
-$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-
-if ($EMPRESAURL == "") {
-  $EMPRESAURL = "img/empresa/no_disponible.png";
+  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYPCDESPACHO[0]['ID_EMPRESA']);
+  
+  
+  $NUMERO = $ARRAYPCDESPACHO[0]['NUMERO_PCDESPACHO'];
+  $FECHAINGRESO = $ARRAYPCDESPACHO[0]['INGRESO'];
+  $FECHAMODIFCACION = $ARRAYPCDESPACHO[0]['MODIFICACION'];
+  $MOTIVO = $ARRAYPCDESPACHO[0]['MOTIVO_PCDESPACHO'];
+  $TOTALENVASE = $ARRAYPCDESPACHO[0]['ENVASE'];
+  $TOTALNETO = $ARRAYPCDESPACHO[0]['NETO'];
+  $OBSERVACIONES = $ARRAYPCDESPACHO[0]['MOTIVO_PCDESPACHO'];
+  $ESTADO = $ARRAYPCDESPACHO[0]['ESTADO'];
+  if ($ARRAYPCDESPACHO[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYPCDESPACHO[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  }  
+  
+  
+  $IDUSUARIOI = $ARRAYPCDESPACHO[0]['ID_USUARIOI'];  
+  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+  $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
+  
+  
+  
+  //$TOTALENVASEREPA=$ARRAYDREPALETIZAJETOTALES[0]['TOTAL_ENVASE'];
+  //$TOTALNETOREPA=$ARRAYDREPALETIZAJETOTALES[0]['TOTAL_NETO'];
+  
+  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYPCDESPACHO[0]['ID_PLANTA']);
+  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYPCDESPACHO[0]['ID_TEMPORADA']);
+  
+  $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+  
+  $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+  $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+  
+  if ($EMPRESAURL == "") {
+    $EMPRESAURL = "img/empresa/no_disponible.png";
+  }
 }
+
+
 
 
 //OBTENCION DE LA FECHA
@@ -181,6 +192,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMAL2 = $DIA . "" . $MES . "" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -216,14 +228,16 @@ $html = '
       <div id="details" class="clearfix">
         
         <div id="invoice">
-        <div class="date"><b>Empresa: </b>' . $EMPRESA . '  </div>
+          <div class="date"><b>Código BRC: </b>REP-PLANC </div>  
+          <div class="date"><b>Empresa: </b>' . $EMPRESA . '  </div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '  </div>
           <div class="date"><b>Temporada: </b>' . $TEMPORADA . '  </div>
         </div>
 
         <div id="client">
           <div class="address"><b>Fecha Ingreso:  </b>' . $FECHAINGRESO . '</div>
-          <div class="address"><b>Motivo: </b>' . $MOTIVO . '</div>
+          <div class="address"><b>Motivo Planificador Carga: </b>' . $MOTIVO . '</div>
+          <div class="address"><b>Estado Planificador Carga: </b> ' . $ESTADO . ' </div>
         </div>        
       </div>
     <table border="0" cellspacing="0" cellpadding="0">
@@ -341,16 +355,15 @@ $html = $html . '
     <div id="client">
             <div class="address"><b>Observaciones</b></div>
             <div class="address">  ' . $OBSERVACIONES . ' </div>
+    </div>    
+    <div id="invoice">
+      <div class="date"><b><hr></b></div>
+      <div class="date center">  Firma Responsable</div>
+      <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
     </div>
 </div>
   
 </main>
-<footer>
-Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-<br>
-Impreso Por: <b>' . $NOMBRE . '</b>
-
-</footer>
 </body>
 </html>
 

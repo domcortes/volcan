@@ -191,94 +191,106 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 $ARRAYDESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($IDOP);
-$ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorDespachoex2AgrupadoFolio($IDOP);
-$ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesDespachoEx2($IDOP);
-$TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['ENVASE'];
-$TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['NETO'];
-$TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['BRUTO'];
+if($ARRAYDESPACHOEX){
 
-$ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaDespachoexInspeccion2($IDOP);
-$ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2($IDOP);
-$TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
-
-$NUMERODESPACHOEX = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
-$FECHADESPACHOEX = $ARRAYDESPACHOEX[0]['FECHA'];
-$EMBARQUE = $ARRAYDESPACHOEX[0]['TEMBARQUE_DESPACHOEX'];
-$NUMEROGUIA = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
-$NUMEROCONTENEDOR = $ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
-
-$FECHAETA = $ARRAYDESPACHOEX[0]['ETA'];
-$FECHAETD = $ARRAYDESPACHOEX[0]['ETD'];
-
-$ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->verContraparte($ARRAYDESPACHOEX[0]['ID_CONTRAPARTE']);
-if ($ARRAYCONTRAPARTE) {
-  $NOMBRECONTRAPARTE = $ARRAYCONTRAPARTE[0]['ID_CONTRAPARTE'];
-}
-
-
-$ARRAYEXPORTADORA =$EXPORTADORA_ADO->verExportadora( $ARRAYDESPACHOEX[0]['ID_EXPPORTADORA']);
-if ($ARRAYEXPORTADORA) {
-  $NOMBREEXPORTADORA = $ARRAYEXPORTADORA[0]['RAZON_SOCIAL_EXPORTADORA'];
-}
-
-if ($ARRAYDESPACHOEX[0]['ID_ICARGA']) {
-  $ARRAYICARGA = $ICARGA_ADO->verIcarga($ARRAYDESPACHOEX[0]['ID_ICARGA']);
-  if ($ARRAYICARGA) {
-
-    $NUMEROICARGA = $ARRAYICARGA[0]['NUMERO_ICARGA'];
-    $NUMEROICARGAFINAL = $ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
+  $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorDespachoex2AgrupadoFolio($IDOP);
+  $ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesDespachoEx2($IDOP);
+  $TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['ENVASE'];
+  $TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['NETO'];
+  $TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['BRUTO'];
+  
+  $ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaDespachoexInspeccion2($IDOP);
+  $ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2($IDOP);
+  $TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
+  
+  $NUMERODESPACHOEX = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
+  $FECHADESPACHOEX = $ARRAYDESPACHOEX[0]['FECHA'];
+  $EMBARQUE = $ARRAYDESPACHOEX[0]['TEMBARQUE_DESPACHOEX'];
+  $NUMEROGUIA = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
+  $NUMEROCONTENEDOR = $ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
+  $FECHAETA = $ARRAYDESPACHOEX[0]['ETA'];
+  $FECHAETD = $ARRAYDESPACHOEX[0]['ETD'];  
+  $ESTADO = $ARRAYDESPACHOEX[0]['ESTADO'];
+  if ($ARRAYDESPACHOEX[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYDESPACHOEX[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  }  
+  
+  
+  $ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->verContraparte($ARRAYDESPACHOEX[0]['ID_CONTRAPARTE']);
+  if ($ARRAYCONTRAPARTE) {
+    $NOMBRECONTRAPARTE = $ARRAYCONTRAPARTE[0]['ID_CONTRAPARTE'];
   }
-} else {
-  $NUMEROICARGA = "Sin Datos";
-  $NUMEROICARGAFINAL = "Sin Datos";
+  
+  
+  $ARRAYEXPORTADORA =$EXPORTADORA_ADO->verExportadora( $ARRAYDESPACHOEX[0]['ID_EXPPORTADORA']);
+  if ($ARRAYEXPORTADORA) {
+    $NOMBREEXPORTADORA = $ARRAYEXPORTADORA[0]['RAZON_SOCIAL_EXPORTADORA'];
+  }
+  
+  if ($ARRAYDESPACHOEX[0]['ID_ICARGA']) {
+    $ARRAYICARGA = $ICARGA_ADO->verIcarga($ARRAYDESPACHOEX[0]['ID_ICARGA']);
+    if ($ARRAYICARGA) {
+  
+      $NUMEROICARGA = $ARRAYICARGA[0]['NUMERO_ICARGA'];
+      $NUMEROICARGAFINAL = $ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
+    }
+  } else {
+    $NUMEROICARGA = "Sin Datos";
+    $NUMEROICARGAFINAL = "Sin Datos";
+  }
+  
+  $NOMBRENAVE = $ARRAYDESPACHOEX[0]['NAVE_DESPACHOEX'];
+  
+  
+  if ($EMBARQUE == null || $EMBARQUE == "0") {
+    $NOMBRETEMBARQUE = "Sin Tipo";
+  }
+  if ($EMBARQUE == "1") {
+    $NOMBRETEMBARQUE = "Terrestre";
+  }
+  if ($EMBARQUE == "2") {
+    $NOMBRETEMBARQUE = "Aereo";
+  }
+  if ($EMBARQUE == "3") {
+    $NOMBRETEMBARQUE = "Maritimo";
+  }
+  
+  
+  
+  
+  
+  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
+  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYDESPACHOEX[0]['ID_EMPRESA']);
+  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYDESPACHOEX[0]['ID_TEMPORADA']);
+  $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+  
+  
+  
+  
+  $CSPPLANTA = $ARRAYPLANTA[0]['CODIGO_SAG_PLANTA'];
+  $RAZONPLANTA = $ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
+  
+  
+  $ARRAYCIUDAD3 = $CIUDAD_ADO->verCiudad($ARRAYPLANTA[0]['ID_CIUDAD']);
+  $CIUDADPLANTA = $ARRAYCIUDAD3[0]['NOMBRE_CIUDAD'];
+  
+  
+  $ARRAYCOMUNA3 = $COMUNA_ADO->verComuna($ARRAYCIUDAD3[0]['ID_COMUNA']);
+  $COMUNAPLANTA = $ARRAYCOMUNA3[0]['NOMBRE_COMUNA'];;
+  
+  $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+  $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+  
+  if ($EMPRESAURL == "") {
+    $EMPRESAURL = "img/empresa/no_disponible.png";
+  }
 }
 
-$NOMBRENAVE = $ARRAYDESPACHOEX[0]['NAVE_DESPACHOEX'];
-
-
-if ($EMBARQUE == null || $EMBARQUE == "0") {
-  $NOMBRETEMBARQUE = "Sin Tipo";
-}
-if ($EMBARQUE == "1") {
-  $NOMBRETEMBARQUE = "Terrestre";
-}
-if ($EMBARQUE == "2") {
-  $NOMBRETEMBARQUE = "Aereo";
-}
-if ($EMBARQUE == "3") {
-  $NOMBRETEMBARQUE = "Maritimo";
-}
-
-
-
-
-
-$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
-$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYDESPACHOEX[0]['ID_EMPRESA']);
-$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYDESPACHOEX[0]['ID_TEMPORADA']);
-$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-
-
-
-
-$CSPPLANTA = $ARRAYPLANTA[0]['CODIGO_SAG_PLANTA'];
-$RAZONPLANTA = $ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
-
-
-$ARRAYCIUDAD3 = $CIUDAD_ADO->verCiudad($ARRAYPLANTA[0]['ID_CIUDAD']);
-$CIUDADPLANTA = $ARRAYCIUDAD3[0]['NOMBRE_CIUDAD'];
-
-
-$ARRAYCOMUNA3 = $COMUNA_ADO->verComuna($ARRAYCIUDAD3[0]['ID_COMUNA']);
-$COMUNAPLANTA = $ARRAYCOMUNA3[0]['NOMBRE_COMUNA'];;
-
-$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-
-if ($EMPRESAURL == "") {
-  $EMPRESAURL = "img/empresa/no_disponible.png";
-}
 
 
 //OBTENCION DE LA FECHA
@@ -343,6 +355,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -351,7 +364,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Despacho Exportacion</title>
+    <title>Informe Despacho</title>
   </head>
   <body>
     <header class="clearfix">
@@ -373,6 +386,7 @@ $html = '
       </h2>
       <div id="details" class="clearfix">        
         <div id="invoice">
+          <div class="date"><b>Código BRC: </b>REP-DESPTPL </div>  
           <div class="date"><b>Fecha Despacho: </b>' . $FECHADESPACHOEX . ' </div>
           <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
@@ -384,6 +398,7 @@ $html = '
            <div class="address"><b>Comuna: </b>' . $COMUNAPLANTA . '</div>
            <div class="address"><b>Ciudad: </b>' . $CIUDADPLANTA . '</div>
            <div class="address"><b>CSP: </b>' . $CSPPLANTA . '</div>
+           <div class="address"><b>Estado Despacho: </b> ' . $ESTADO . ' </div>
         </div>   
         <div id="client">
            <div class="address">
@@ -641,12 +656,12 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
 
       $html = $html . '              
         <tr class="bt">
-            <th class=" center">&nbsp;</th>
-            <th class=" center">&nbsp;</th>
-            <th class=" center">&nbsp;</th>
-            <th class=" center">&nbsp;</th>
-            <th class=" right"> Total Estandar </th>
-            <th class=" center">' . $TOTALENVASEESTANDAR . '</th>¿
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 right"> Total Estandar </th>
+            <th class="color2 center">' . $TOTALENVASEESTANDAR . '</th>¿
         </tr>
       ';
 
@@ -657,12 +672,12 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
   endforeach;
   $html = $html . '              
   <tr class="bt">
-      <th class=" center">&nbsp;</th>
-      <th class=" center">&nbsp;</th>
-      <th class=" center">&nbsp;</th>
-      <th class=" center">&nbsp;</th>
-      <th class=" right"> Total Productor </th>
-      <th class=" center">' . $TOTALENVASEPRODUCTOR . '</th>¿
+      <th class="color2 center">&nbsp;</th>
+      <th class="color2 center">&nbsp;</th>
+      <th class="color2 center">&nbsp;</th>
+      <th class="color2 center">&nbsp;</th>
+      <th class="color2 right"> Total Productor </th>
+      <th class="color2 center">' . $TOTALENVASEPRODUCTOR . '</th>¿
   </tr>
 ';
 
@@ -699,12 +714,6 @@ $html = $html . '
    
 
     </main>
-    <footer>
-    Informe generado por Departamento TI Fruticola Volcan  <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-    <br>
-    Impreso Por: <b>' . $NOMBRE . '</b>
-      
-    </footer>
   </body>
 </html>
 

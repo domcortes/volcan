@@ -91,48 +91,58 @@ if (isset($_REQUEST['parametro'])) {
     $IDOP = $_REQUEST['parametro'];
 }
 $ARRAYREPALETIZAJE = $REPALETIZAJEEX_ADO->verRepaletizaje2($IDOP);
+if($ARRAYREPALETIZAJE){
 
-
-$ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorRepaletizaje2($IDOP);
-$ARRAYDREPALETIZAJE = $DREPALETIZAJEEX_ADO->buscarDrepaletizaje2($IDOP);
-$ARRAYDREPALETIZAJETOTALES = $DREPALETIZAJEEX_ADO->totalesDrepaletizaje2($IDOP);
-
-$ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYREPALETIZAJE[0]['ID_EMPRESA']);
-
-
-$FECHAINGRESO = $ARRAYREPALETIZAJE[0]['INGRESO'];
-$FECHAMODIFCACION = $ARRAYREPALETIZAJE[0]['MODIFICACION'];
-$MOTIVO = $ARRAYREPALETIZAJE[0]['MOTIVO_REPALETIZAJE'];
-$TOTALENVASE = $ARRAYREPALETIZAJE[0]['ENVASE'];
-$TOTALNETO = $ARRAYREPALETIZAJE[0]['NETO'];
-$NUMEROREPALETIZAJE = $ARRAYREPALETIZAJE[0]['NUMERO_REPALETIZAJE'];
-$OBSERVACIONES = $ARRAYREPALETIZAJE[0]['MOTIVO_REPALETIZAJE'];
-
-
-$IDUSUARIOI = $ARRAYREPALETIZAJE[0]['ID_USUARIOI'];  
-$ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
-$NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
-
-
-$TOTALENVASEREPA = $ARRAYDREPALETIZAJETOTALES[0]['ENVASE'];
-$TOTALNETOREPA = $ARRAYDREPALETIZAJETOTALES[0]['NETO'];
-
-
-$TOTALE = $TOTALENVASEREPA - $TOTALENVASE;
-$TOTALNE = $TOTALNETOREPA - $TOTALNETO;
-
-$ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYREPALETIZAJE[0]['ID_PLANTA']);
-$ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYREPALETIZAJE[0]['ID_TEMPORADA']);
-$TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-$PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-
-$EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-$EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-
-if ($EMPRESAURL == "") {
-    $EMPRESAURL = "img/empresa/no_disponible.png";
+    $ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorRepaletizaje2($IDOP);
+    $ARRAYDREPALETIZAJE = $DREPALETIZAJEEX_ADO->buscarDrepaletizaje2($IDOP);
+    $ARRAYDREPALETIZAJETOTALES = $DREPALETIZAJEEX_ADO->totalesDrepaletizaje2($IDOP);
+    
+    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYREPALETIZAJE[0]['ID_EMPRESA']);
+    
+    
+    $FECHAINGRESO = $ARRAYREPALETIZAJE[0]['INGRESO'];
+    $FECHAMODIFCACION = $ARRAYREPALETIZAJE[0]['MODIFICACION'];
+    $MOTIVO = $ARRAYREPALETIZAJE[0]['MOTIVO_REPALETIZAJE'];
+    $TOTALENVASE = $ARRAYREPALETIZAJE[0]['ENVASE'];
+    $TOTALNETO = $ARRAYREPALETIZAJE[0]['NETO'];
+    $NUMEROREPALETIZAJE = $ARRAYREPALETIZAJE[0]['NUMERO_REPALETIZAJE'];
+    $OBSERVACIONES = $ARRAYREPALETIZAJE[0]['MOTIVO_REPALETIZAJE'];
+    $ESTADO = $ARRAYREPALETIZAJE[0]['ESTADO'];
+    if ($ARRAYREPALETIZAJE[0]['ESTADO'] == 1) {
+      $ESTADO = "Abierto";
+    }else if ($ARRAYREPALETIZAJE[0]['ESTADO'] == 0) {
+      $ESTADO = "Cerrado";
+    }else{
+      $ESTADO="Sin Datos";
+    }  
+    
+    
+    $IDUSUARIOI = $ARRAYREPALETIZAJE[0]['ID_USUARIOI'];  
+    $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+    $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
+    
+    
+    $TOTALENVASEREPA = $ARRAYDREPALETIZAJETOTALES[0]['ENVASE'];
+    $TOTALNETOREPA = $ARRAYDREPALETIZAJETOTALES[0]['NETO'];
+    
+    
+    $TOTALE = $TOTALENVASEREPA - $TOTALENVASE;
+    $TOTALNE = $TOTALNETOREPA - $TOTALNETO;
+    
+    $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYREPALETIZAJE[0]['ID_PLANTA']);
+    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYREPALETIZAJE[0]['ID_TEMPORADA']);
+    $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+    $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+    
+    $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+    $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+    
+    if ($EMPRESAURL == "") {
+        $EMPRESAURL = "img/empresa/no_disponible.png";
+    }
+    
+    
 }
-
 
 //OBTENCION DE LA FECHA
 date_default_timezone_set('America/Santiago');
@@ -196,6 +206,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMAL = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -209,7 +220,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Repaletizaje Producto Terminado</title>
+    <title>Informe Repaletizaje</title>
   </head>
   <body>
     <header class="clearfix">
@@ -232,6 +243,7 @@ $html = '
       <div id="details" class="clearfix">
         
         <div id="invoice">
+            <div class="date"><b>Código BRC: </b>REP-REPAL </div>  
             <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
             <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
             <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
@@ -239,7 +251,8 @@ $html = '
 
         <div id="client">
           <div class="address"><b>Fecha Ingreso:  </b>' . $FECHAINGRESO . '</div>
-          <div class="address"><b>Motivo: </b>' . $MOTIVO . '</div>
+          <div class="address"><b>Motivo Repaletizaje: </b>' . $MOTIVO . '</div>
+          <div class="address"><b>Estado Repaletizaje: </b> ' . $ESTADO . ' </div>
         </div>        
       </div>
     <table border="0" cellspacing="0" cellpadding="0">
@@ -442,7 +455,7 @@ $html = $html . '
 <table border="0" cellspacing="0" cellpadding="0">
     <tbody>
         <tr>
-            <th colspan="6" class="center color2"> </th>
+            <th colspan="12" class="center color2"> </th>
         </tr>
         <tr>        
             <th class="color left">&nbsp;</th>
@@ -468,18 +481,17 @@ $html = $html . '
     <div id="client">
             <div class="address"><b>Observaciones</b></div>
             <div class="address">  ' . $OBSERVACIONES . ' </div>
+    </div>    
+    <div id="invoice">
+      <div class="date"><b><hr></b></div>
+      <div class="date center">  Firma Responsable</div>
+      <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
     </div>
 </div>
 
   
    
 </main>
-<footer>
-Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-<br>
-Impreso Por: <b>' . $NOMBRE . '</b>
-  
-</footer>
 </body>
 </html>
 

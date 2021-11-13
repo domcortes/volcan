@@ -129,6 +129,15 @@ if($ARRAYDESPACHO){
   $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
   $OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
   
+  $ESTADO = $ARRAYDESPACHO[0]['ESTADO'];
+  if ($ARRAYDESPACHO[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYDESPACHO[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  }  
+  
   
   $IDUSUARIOI = $ARRAYDESPACHO[0]['ID_USUARIOI'];  
   $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
@@ -272,6 +281,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
+$FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -285,7 +295,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Despacho Producto Terminado </title>
+    <title>Informe Despacho</title>
   </head>
   <body>
     <header class="clearfix">
@@ -308,6 +318,7 @@ $html = '
       <div id="details" class="clearfix">
         
       <div id="invoice">
+        <div class="date"><b>Código BRC: </b>REP-DESPPT </div>  
         <div class="date"><b>Fecha Despacho: </b>' . $FECHA . ' </div>
         <div class="date"><b>Empresa: </b>' . $EMPRESA . '  </div>
         <div class="date"><b>Planta: </b>' . $PLANTA . '  </div>
@@ -348,6 +359,7 @@ if ($TDESPACHO == "5") {
 }
 
 $html .= '
+            <div class="address"><b>Estado Despacho: </b> ' . $ESTADO . ' </div>
         </div>        
       </div>
     <table border="0" cellspacing="0" cellpadding="0">
@@ -476,12 +488,6 @@ $html = $html . '
   </div>
   
 </main>
-<footer>
-Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-<br>
-Impreso Por: <b>' . $NOMBRE . '</b>
-
-</footer>
 </body>
 </html>
 
