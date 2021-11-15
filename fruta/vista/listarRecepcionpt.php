@@ -55,7 +55,7 @@ $ARRAYPRODUCTOR = "";
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYRECEPCION = $RECEPCIONPT_ADO->listarRecepcionEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYRECEPCION = $RECEPCIONPT_ADO->listarRecepcionEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYRECEPCIONTOTALES = $RECEPCIONPT_ADO->obtenerTotalesRecepcionEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALBRUTO = $ARRAYRECEPCIONTOTALES[0]['BRUTO'];
     $TOTALNETO = $ARRAYRECEPCIONTOTALES[0]['NETO'];
@@ -78,7 +78,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Listar Recepcion</title>
+    <title>Agrupado Recepción</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -165,16 +165,15 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Agrupado Recepcion</h3>
-                            <div class="d-inline-block align-items-center">
-                                <nav>
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                        <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                        <li class="breadcrumb-item" aria-current="page">Recepción P. Terminado</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Recepción </a>
-                                        </li>
+                                <h3 class="page-title">Recepcion P. Terminado</h3>
+                                <div class="d-inline-block align-items-center">
+                                    <nav>
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
+                                            <li class="breadcrumb-item" aria-current="page">Modulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
+                                            <li class="breadcrumb-item" aria-current="page">Recepción P. Terminado</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Recepción </a>  </li>
                                     </ol>
                                 </nav>
                             </div>

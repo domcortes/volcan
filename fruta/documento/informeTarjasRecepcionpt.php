@@ -370,11 +370,11 @@ foreach ($ARRAYDRECEPCIONPT as $r) :
 
 	$html = $html . ' 
     <tr >
-        <td class="center"> ' . $r['FECHA_EMBALADO_DRECEPCION'] . '</td>
+        <td class="center"> ' . $r['EMBALADO'] . '</td>
         <td  class="center  ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
         <td  class="center  ">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>
         <td  class="center  ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . '</td>
-        <td  class="center  ">' . $r['ENVASE'] . '</td>
+        <td  class="center  ">' . $r['ENVASEA'] . '</td>
         <td  class="center ">' . $r['NETO'] . '</td>
         <td  class="center  ">' . $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'] . '</td>
         <td  class="center  ">' . $TMANEJO . '</td>

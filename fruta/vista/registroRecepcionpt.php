@@ -104,7 +104,7 @@ $PRODUCTOR = "";
 $FOLIOELIMINAR = "";
 
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 $DISABLEDFOLIO = "";
@@ -187,12 +187,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
     $ARRAYDRECEPCIONTOTALES = $DRECEPCIONPT_ADO->obtenerTotales($IDOP);
     $ARRAYDRECEPCIONTOTALES2 = $DRECEPCIONPT_ADO->obtenerTotales2($IDOP);
-    $CANTIDADENVASERECEPCION = $ARRAYDRECEPCIONTOTALES[0]['TOTAL_ENVASE'];
-    $KILOSNETORECEPCION = $ARRAYDRECEPCIONTOTALES[0]['TOTAL_NETO'];
-    $KILOSBRUTORECEPCION = $ARRAYDRECEPCIONTOTALES[0]['TOTAL_BRUTO'];
-    $CANTIDADENVASERECEPCION2 = $ARRAYDRECEPCIONTOTALES2[0]['TOTAL_ENVASE'];
-    $KILOSNETORECEPCION2 = $ARRAYDRECEPCIONTOTALES2[0]['TOTAL_NETO'];
-    $KILOSBRUTORECEPCION2 = $ARRAYDRECEPCIONTOTALES2[0]['TOTAL_BRUTO'];
+    $CANTIDADENVASERECEPCION = $ARRAYDRECEPCIONTOTALES[0]['ENVASEA'];
+    $KILOSNETORECEPCION = $ARRAYDRECEPCIONTOTALES[0]['NETO'];
+    $KILOSBRUTORECEPCION = $ARRAYDRECEPCIONTOTALES[0]['BRUTO'];
+    $CANTIDADENVASERECEPCION2 = $ARRAYDRECEPCIONTOTALES2[0]['ENVASEA'];
+    $KILOSNETORECEPCION2 = $ARRAYDRECEPCIONTOTALES2[0]['NETO'];
+    $KILOSBRUTORECEPCION2 = $ARRAYDRECEPCIONTOTALES2[0]['BRUTO'];
 
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
@@ -700,7 +700,7 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Recepcion</h3>
+                                <h3 class="page-title">Recepcion P. Terminado</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -708,7 +708,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción P. Terminado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Registro Recepcion </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Recepcion </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -740,11 +740,9 @@ if (isset($_POST)) {
                     <!-- Main content -->
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                            <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box">                             
+                                 <div class="box-header with-border bg-primary">                                   
+                                    <h4 class="box-title">Registro de Recepcion</h4>                                        
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -796,7 +794,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Recepción</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Recepción" id="FECHARECEPCIONE" name="FECHARECEPCIONE" value="<?php echo $FECHARECEPCION; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Recepcion" id="FECHARECEPCION" name="FECHARECEPCION" value="<?php echo $FECHARECEPCION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control" placeholder="Fecha Recepcion" id="FECHARECEPCION" name="FECHARECEPCION" value="<?php echo $FECHARECEPCION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?>  />
                                                 <label id="val_fechar" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -804,7 +802,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Hora </label>
                                                 <input type="hidden" class="form-control" placeholder="Hora Recepción" id="HORARECEPCIONE" name="HORARECEPCIONE" value="<?php echo $HORARECEPCION; ?>" />
-                                                <input type="time" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="HORA RECEPCIONPT" id="HORARECEPCION" name="HORARECEPCION" value="<?php echo $HORARECEPCION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="time" class="form-control" placeholder="HORA RECEPCIONPT" id="HORARECEPCION" name="HORARECEPCION" value="<?php echo $HORARECEPCION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_horar" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -814,12 +812,8 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="Tipo Recepción" id="TRECEPCIONE" name="TRECEPCIONE" value="<?php echo $TRECEPCION; ?>" />
                                                 <select class="form-control select2" id="TRECEPCION" name="TRECEPCION" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
                                                     <option> </option>
-                                                    <option value="1" <?php if ($TRECEPCION == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> Desde Productor </option>
-                                                    <option value="2" <?php if ($TRECEPCION == "2") {
-                                                                            echo "selected";
-                                                                        } ?>> Planta Externa </option>
+                                                    <option value="1" <?php if ($TRECEPCION == "1") { echo "selected"; } ?>> Desde Productor </option>
+                                                    <option value="2" <?php if ($TRECEPCION == "2") { echo "selected"; } ?>> Planta Externa </option>
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -828,7 +822,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Guía</label>
                                                 <input type="hidden" class="form-control" placeholder="Número Guía" id="NUMEROGUIAE" name="NUMEROGUIAE" value="<?php echo $NUMEROGUIA; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_numerog" class="validacion"><?php echo $MENSAJE3; ?> </label>
                                             </div>
                                         </div>
@@ -836,7 +830,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Guía</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Guía" id="FECHAGUIAE" name="FECHAGUIAE" value="<?php echo $FECHAGUIA; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Guia" id="FECHAGUIA" name="FECHAGUIA" value="<?php echo $FECHAGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control" placeholder="Fecha Guia" id="FECHAGUIA" name="FECHAGUIA" value="<?php echo $FECHAGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_fechag" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -844,7 +838,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Total Kilo Guia</label>
                                                 <input type="hidden" class="form-control" placeholder="Total Guia" id="TOTALGUIAE" name="TOTALGUIAE" value="<?php echo $TOTALGUIA; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Total Guia" id="TOTALGUIA" name="TOTALGUIA" value="<?php echo $TOTALGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Total Guia" id="TOTALGUIA" name="TOTALGUIA" value="<?php echo $TOTALGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_totalg" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -855,9 +849,9 @@ if (isset($_POST)) {
                                                 <option></option>
                                                 <?php foreach ($ARRAYTRANSPORTE as $r) : ?>
                                                     <?php if ($ARRAYTRANSPORTE) {    ?>
-                                                        <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_TRANSPORTE'] ?> </option>
+                                                        <option value="<?php echo $r['ID_TRANSPORTE']; ?>" <?php if ($TRANSPORTE == $r['ID_TRANSPORTE']) { echo "selected"; } ?>>
+                                                                <?php echo $r['NOMBRE_TRANSPORTE'] ?>
+                                                        </option>
                                                     <?php } else { ?>
                                                         <option>No Hay Datos Registrados </option>
                                                     <?php } ?>
@@ -873,8 +867,6 @@ if (isset($_POST)) {
                                                 </button>
                                             </div>
                                         </div>
-
-
                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Conductor</label>
@@ -883,9 +875,7 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYCONDUCTOR as $r) : ?>
                                                         <?php if ($ARRAYCONDUCTOR) {    ?>
-                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                            <option value="<?php echo $r['ID_CONDUCTOR']; ?>" <?php if ($CONDUCTOR == $r['ID_CONDUCTOR']) { echo "selected";  } ?>>
                                                                 <?php echo $r['NOMBRE_CONDUCTOR'] ?>
                                                             </option>
                                                         <?php } else { ?>
@@ -908,7 +898,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Camión</label>
                                                 <input type="hidden" class="form-control" placeholder="PATENTECAMIONE" id="PATENTECAMIONE" name="PATENTECAMIONE" value="<?php echo $PATENTECAMION; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Camion" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Patente Camion" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecamion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -916,7 +906,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Carro</label>
                                                 <input type="hidden" class="form-control" placeholder="PATENTECARROE" id="PATENTECARROE" name="PATENTECARROE" value="<?php echo $PATENTECARRO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecarro" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -948,9 +938,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
                                                             <?php if ($ARRAYPRODUCTOR) {    ?>
-                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
+                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {  echo "selected"; } ?>>
                                                                     <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -986,9 +974,7 @@ if (isset($_POST)) {
                                                         <option></option>
                                                         <?php foreach ($ARRAYPLANTA2 as $r) : ?>
                                                             <?php if ($ARRAYPLANTA2) {    ?>
-                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA2 == $r['ID_PLANTA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>
+                                                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA2 == $r['ID_PLANTA']) { echo "selected";  } ?>>
                                                                     <?php echo $r['NOMBRE_PLANTA'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -1008,7 +994,6 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         <?php } ?>
-
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Diferencia Kilos</label>
@@ -1029,7 +1014,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="Observaciónes" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciones u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?> ><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1038,35 +1023,35 @@ if (isset($_POST)) {
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
-                                        <div class="btn-group col-sm-6" role="group" aria-label="acciones">
+                                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
-                                                <button type=" button" class="btn btn-danger " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionpt.php');">
+                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRecepcionpt.php');">
                                                     <i class="ti-trash"></i> Cancelar
                                                 </button>
-                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Crear
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR"  onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
                                                 <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionpt.php'); ">
                                                     <i class="ti-back-left "></i> Volver
                                                 </button>
-                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR"   <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                     <i class="ti-pencil-alt"></i> Guardar
                                                 </button>
-                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR"   <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                     <i class="ti-save-alt"></i> Cerrar
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group col-sm-4">
-                                            <?php if ($OP!=""): ?>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcionpt.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12  float-right">
+                                            <?php if ($OP != ""): ?>
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeRecepcionpt.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcionpt.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
+                                                <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Packing list" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcionpt.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Tarja
                                                 </button>
                                             <?php endif ?>
                                         </div>
@@ -1080,54 +1065,52 @@ if (isset($_POST)) {
                                 <div class="card-header bg-success">
                                     <h4 class="card-title">Detalle Recepcion </h4>
                                 </div>
+                                
                                 <div class="card-header">
-                                    <div class="form-row">
-                                        <div class="col-auto">
+                                        <div class="form-row align-items-center">
                                             <form method="post" id="form2" name="form2">
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" placeholder="ID RECEPCIONPT" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                    <input type="hidden" class="form-control" placeholder="OP RECEPCIONPT" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                    <input type="hidden" class="form-control" placeholder="URL RECEPCIONPT" id="URLP" name="URLP" value="registroRecepcionpt" />
-                                                    <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionpt" />
-                                                    <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL"
-                                                        <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>
-                                                        <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
-                                                        Agregar Detalle de recepcion
+                                                <input type="hidden" class="form-control" placeholder="ID RECEPCIONMP" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP RECEPCIONMP" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL RECEPCIONMP" id="URLP" name="URLP" value="registroRecepcionpt" />
+                                                <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrecepcionpt" />
+                                                <div class="col-auto">
+                                                    <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Recepción" id="CREARDURL" name="CREARDURL"
+                                                        <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) : ?> disabled style='background-color: #eeeeee;' <?php endif ?>>
+                                                            Agregar Detalle
                                                     </button>
                                                 </div>
                                             </form>
-                                        </div>
-                                        <div class="col-auto">
-                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Envase</div>
+                                            <div class="col-auto">
+                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Envase</div>
+                                                    </div>
+                                                    <input type="hidden" name="CANTIDADENVASERECEPCION" id="CANTIDADENVASERECEPCION" value="<?php echo $CANTIDADENVASERECEPCION; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="CANTIDADENVASERECEPCIONv" name="CANTIDADENVASERECEPCIONv" value="<?php echo $CANTIDADENVASERECEPCION2; ?>" disabled />
                                                 </div>
-                                                <input type="hidden" name="CANTIDADENVASERECEPCION" id="CANTIDADENVASERECEPCION" value="<?php echo $CANTIDADENVASERECEPCION; ?>" />
-                                                <input type="text" class="form-control" placeholder="Total Envase" id="CANTIDADENVASERECEPCIONv" name="CANTIDADENVASERECEPCIONv" value="<?php echo $CANTIDADENVASERECEPCION2; ?>" disabled />
+                                            </div>
+                                            <div class="col-auto">
+                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Neto</div>
+                                                    </div>
+                                                    <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Bruto</div>
+                                                    </div>
+                                                    <input type="hidden" name="KILOSBRUTORECEPCION" id="KILOSBRUTORECEPCION" value="<?php echo $KILOSBRUTORECEPCION; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="KILOSBRUTORECEPCIONV" name="KILOSBRUTORECEPCIONV" value="<?php echo $KILOSBRUTORECEPCION2; ?>" disabled />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Neto</div>
-                                                </div>
-                                                <input type="hidden" name="KILOSNETORECEPCION" id="KILOSNETORECEPCION" value="<?php echo $KILOSNETORECEPCION; ?>" />
-                                                <input type="text" class="form-control" placeholder="Total Neto" id="KILOSNETORECEPCIONV" name="KILOSNETORECEPCIONV" value="<?php echo $KILOSNETORECEPCION2; ?>" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Bruto</div>
-                                                </div>
-                                                <input type="hidden" name="KILOSBRUTORECEPCION" id="KILOSBRUTORECEPCION" value="<?php echo $KILOSBRUTORECEPCION; ?>" />
-                                                <input type="text" class="form-control" placeholder="Total Bruto" id="KILOSBRUTORECEPCIONV" name="KILOSBRUTORECEPCIONV" value="<?php echo $KILOSBRUTORECEPCION2; ?>" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="card-body ">
                                     <label id="val_drecepcion" class="validacion "><?php echo $MENSAJE; ?> </label>
@@ -1211,18 +1194,18 @@ if (isset($_POST)) {
                                                                             <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                                 <?php if ($ESTADO == "0") { ?>
                                                                                     <button type="submit" class="btn btn-sm btn-info " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
-                                                                                        <i class="ti-eye"></i>
+                                                                                        <i class="ti-eye"></i> Ver
                                                                                     </button>
                                                                                 <?php } ?>
                                                                                 <?php if ($ESTADO == "1") { ?>
                                                                                     <button type="submit" class="btn  btn-sm btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLED2; ?>>
-                                                                                        <i class="ti-pencil-alt"></i>
+                                                                                        <i class="ti-pencil-alt"></i> Editar
                                                                                     </button>
                                                                                     <button type="submit" class="btn btn-sm btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLED2; ?>>
-                                                                                        <i class="fa fa-fw fa-copy"></i>
+                                                                                        <i class="fa fa-fw fa-copy"></i> Duplicar
                                                                                     </button>
                                                                                     <button type="submit" class="btn btn-sm btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLED2; ?>>
-                                                                                        <i class="ti-close"></i>
+                                                                                        <i class="ti-close"></i> Eliminar
                                                                                     </button>
                                                                                 <?php } ?>
                                                                             </div>
@@ -1231,7 +1214,7 @@ if (isset($_POST)) {
                                                                     <td><?php echo $s['EMBALADO']; ?></td>
                                                                     <td><?php echo $NOMBREESTANDAR; ?></td>
                                                                     <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                                    <td><?php echo $s['ENVASE']; ?></td>
+                                                                    <td><?php echo $s['ENVASEA']; ?></td>
                                                                     <td><?php echo $s['NETO']; ?></td>
                                                                     <td><?php echo $s['PORCENTAJE'] ?></td>
                                                                     <td><?php echo $s['DESHIDRATACION']; ?></td>
@@ -1269,16 +1252,16 @@ if (isset($_POST)) {
                     $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                     if ($ARRAYRECEPCIONBUSCARGPETP) {
                         $SINO = "1";
-                        $MENSAJE3 = "LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA";
                         echo '<script>
                             Swal.fire({
                                 icon:"warning",
-                                title:"Informacion importante",
-                                text:"LA GUIA DEL PRODUCTOR SE ENCUENTRA DUPLICADA",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
+                                title:"Accion restringida",
+                                text:"Numero Guía del productor Se encuentra Duplicada",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             })
-                            </script>';
+                        </script>';
 
                     } else {
                         $SINO = "0";
@@ -1289,16 +1272,16 @@ if (isset($_POST)) {
                     $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONPT_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PLANTA2'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                     if ($ARRAYRECEPCIONBUSCARGPETP) {
                         $SINO = "1";
-                        $MENSAJE3 = "LA GUIA DE LA PLANTA EXTERNA SE ENCUENTRA DUPLICADA";
                         echo '<script>
                             Swal.fire({
                                 icon:"warning",
-                                title:"Informacion importante",
-                                text:"LA GUIA DE LA PLANTA EXTERNA SE ENCUENTRA DUPLICADA",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
+                                title:"Accion restringida",
+                                text:"Numero Guía del productor Se encuentra Duplicada",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             })
-                            </script>';
+                        </script>';
                     } else {
                         $SINO = "0";
                         $MENSAJE3 = "";
@@ -1352,20 +1335,18 @@ if (isset($_POST)) {
                     //REDIRECCIONAR A PAGINA registroRecepcionpt.php
                     $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECEPCION'];
                     $_SESSION["parametro1"] = "crear";
-                    // echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
                     echo '<script>
-                            Swal.fire({
-                                icon:"success",
-                                title:"Registro de recepcion creado",
-                                text:"Se ha creado el registro correctamente",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href="registroRecepcionpt.php?op";
-                                }
-                            })
-                        </script>';
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro Creado",
+                            text:"El registro de recepcion se ha creado correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                             location.href = "registroRecepcionpt.php?op";                            
+                        })
+                    </script>';
 
                 }
             }
@@ -1373,7 +1354,7 @@ if (isset($_POST)) {
             if (isset($_REQUEST['GUARDAR'])) {
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-                $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+                $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
                 $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
                 $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
                 $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
@@ -1383,7 +1364,7 @@ if (isset($_POST)) {
                 $RECEPCIONPT->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
                 $RECEPCIONPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                 $RECEPCIONPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-                $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
+                $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
                 $RECEPCIONPT->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
                 if ($_REQUEST['TRECEPCIONE'] == "1") {
                     $RECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
@@ -1400,19 +1381,40 @@ if (isset($_POST)) {
                 $RECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $RECEPCIONPT_ADO->actualizarRecepcion($RECEPCIONPT);
-                echo '<script>
-                            Swal.fire({
-                                icon:"success",
-                                title:"Registro de recepcion guardado",
-                                text:"Se ha actualizado el registro correctamente",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href="registroRecepcionpt.php?op";
-                                }
-                            })
-                            </script>';
+
+
+                if ($_SESSION['parametro1'] == "crear") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "crear";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de recepcion se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroRecepcionpt.php?op";                            
+                        })
+                    </script>';
+                }
+                if ($_SESSION['parametro1'] == "editar") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "editar";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de recepcion se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroRecepcionpt.php?op";                            
+                        })
+                    </script>';
+                }
             }
             //OPERACION PARA CERRAR LA RECEPCION
             if (isset($_REQUEST['CERRAR'])) {
@@ -1420,16 +1422,16 @@ if (isset($_POST)) {
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
                 $ARRAYDRECEPCION2 = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion($_REQUEST['IDP']);
                 if (empty($ARRAYDRECEPCION2)) {
-                    $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
                     echo '<script>
                             Swal.fire({
                                 icon:"warning",
-                                title:"Informacion importante",
-                                text:"TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
+                                title:"Accion restringida",
+                                text:"Tiene que haber al menos un registro en el detalle",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
                             })
-                            </script>';
+                        </script>';
                     $SINO = "1";
                 } else {
                     $MENSAJE = "";
@@ -1437,7 +1439,7 @@ if (isset($_POST)) {
                 }
                 if ($SINO == "0") {
 
-                    $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCIONE']);
+                    $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
                     $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
                     $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
                     $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
@@ -1447,7 +1449,7 @@ if (isset($_POST)) {
                     $RECEPCIONPT->__SET('TOTAL_KILOS_GUIA_RECEPCION',  $_REQUEST['TOTALGUIAE']);
                     $RECEPCIONPT->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                     $RECEPCIONPT->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-                    $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACIONE']);
+                    $RECEPCIONPT->__SET('OBSERVACION_RECEPCION', $_REQUEST['OBSERVACION']);
                     $RECEPCIONPT->__SET('TRECEPCION', $_REQUEST['TRECEPCIONE']);
                     if ($_REQUEST['TRECEPCIONE'] == "1") {
                         $RECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
@@ -1480,41 +1482,38 @@ if (isset($_POST)) {
 
                     //REDIRECCIONAR A PAGINA registroRecepcionpt.php
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-                    if ($_SESSION['parametro1'] == "crear") {
-                        $_SESSION["parametro"] = $_REQUEST['IDP'];
-                        $_SESSION["parametro1"] = "ver";
-                        // echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
-                         echo '<script>
-                            Swal.fire({
-                                icon:"success",
-                                title:"Registro de recepcion cerrado",
-                                text:"Se ha cerrado el registro correctamente",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href="registroRecepcionpt.php?op";
-                                }
-                            })</script>';
-
-                    }
-                    if ($_SESSION['parametro1'] == "editar") {
-                        $_SESSION["parametro"] = $_REQUEST['IDP'];
-                        $_SESSION["parametro1"] = "ver";
-                        // echo "<script type='text/javascript'> location.href ='registroRecepcionpt.php?op';</script>";
-                         echo '<script>
-                            Swal.fire({
-                                icon:"success",
-                                title:"Registro de recepcion cerrado",
-                                text:"Se ha cerrado el registro correctamente",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href="registroRecepcionpt.php?op";
-                                }
-                            })</script>';
-                    }
+                        if ($_SESSION['parametro1'] == "crear") {
+                            $_SESSION["parametro"] = $_REQUEST['IDP'];
+                            $_SESSION["parametro1"] = "ver";
+                            echo '<script>
+                                Swal.fire({
+                                    icon:"info",
+                                    title:"Registro Cerrado",
+                                    text:"Este recepcion se encuentra cerrada y no puede ser modificada.",
+                                    showConfirmButton: true,
+                                    confirmButtonText:"Cerrar",
+                                    closeOnConfirm:false
+                                }).then((result)=>{
+                                    location.href = "registroRecepcionpt.php?op";                                    
+                                })
+                            </script>';
+                        }
+                        if ($_SESSION['parametro1'] == "editar") {
+                            $_SESSION["parametro"] = $_REQUEST['IDP'];
+                            $_SESSION["parametro1"] = "ver";
+                            echo '<script>
+                                Swal.fire({
+                                    icon:"info",
+                                    title:"Registro Cerrado",
+                                    text:"Este recepcion se encuentra cerrada y no puede ser modificada.",
+                                    showConfirmButton: true,
+                                    confirmButtonText:"Cerrar",
+                                    closeOnConfirm:false
+                                }).then((result)=>{
+                                    location.href = "registroRecepcionpt.php?op";                                    
+                                })
+                            </script>';
+                        }  
                 }
             }
         ?>

@@ -42,7 +42,6 @@
             </form>
           </div>
         </li>
-
         <li class="btn-group nav-item">
           <div class="search-bx ml-10">
             <div class="input-group" style="font-size: 12px;">
@@ -96,31 +95,21 @@
             </div>
           </div>
         </li>
-
         <li class="btn-group nav-item">
           <div class="search-bx ml-10">
-            <div class="input-group">
+            <div class="input-group" style="font-size: 12px;">
+            <?php echo $EURO; ?>
+            <br>
+            <?php echo $DOLAR; ?>
             </div>
           </div>
-        </li>
-
-        <li class="btn-group nav-item">
-          <div class="search-bx ml-10">
-            <div class="input-group">
-            </div>
-          </div>
-        </li>
+        </li>  
       </ul>
     </div>
 
     <div class="navbar-custom-menu r-side">
       <ul class="nav navbar-nav">
-        <!-- Notifications -->
-        <li class="dropdown notifications-menu">
-          <?php echo $EURO; ?>
-          <br>
-          <?php echo $DOLAR; ?>
-        </li>
+        <!-- Notifications -->   
         <li class="dropdown notifications-menu">
           <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="Notifications">
             <img src="../../api/cryptioadmin10/html/images/svg-icon/notifications.svg" class="img-fluid svg-icon" alt="">

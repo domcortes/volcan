@@ -429,10 +429,10 @@ $html = $html . '
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
         <div id="invoice">
-          <div class="date"><b><hr></b></div>
-          <div class="date center">  Firma Responsable</div>
-          <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
-      </div>
+            <div class="date"><b><hr></b></div>
+            <div class="date center">  Firma Responsable</div>
+            <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
+        </div>
       </div>  
           
       

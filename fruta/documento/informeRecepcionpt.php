@@ -115,12 +115,12 @@ if($ARRAYRECEPCIONPT){
   $ARRAYDRECEPCIONPT = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion2($IDOP);
   $ARRAYDRECEPCIONPTTOTAL = $DRECEPCIONPT_ADO->obtenerTotales2($IDOP);
   
-  $TOTALENVASEI = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASEI'];
-  $TOTALENVASER = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASER'];
-  $TOTALENVASEA = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_ENVASEA'];
-  $TOTALNETOREALGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_NETO_REAL'];
-  $TOTALNETOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_NETO'];
-  $TOTALBRUTOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['TOTAL_BRUTO'];
+  $TOTALENVASEI = $ARRAYDRECEPCIONPTTOTAL[0]['ENVASEI'];
+  $TOTALENVASER = $ARRAYDRECEPCIONPTTOTAL[0]['ENVASER'];
+  $TOTALENVASEA = $ARRAYDRECEPCIONPTTOTAL[0]['ENVASEA'];
+  $TOTALNETOREALGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['NETOREAL'];
+  $TOTALNETOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['NETO'];
+  $TOTALBRUTOGENERAL = $ARRAYDRECEPCIONPTTOTAL[0]['BRUTO'];
   
   
   $NUMERORECEPCIONPT = $ARRAYRECEPCIONPT[0]['NUMERO_RECEPCION'];
@@ -405,7 +405,7 @@ foreach ($ARRAYDRECEPCIONPT as $d) :
                           <td class="center">' . $d['ENVASEI'] . '</td>
                           <td class="center">' . $d['ENVASER'] . '</td>
                           <td class="center">' . $d['ENVASEA'] . '</td>
-                          <td class="center">' . $d['NETO_REAL'] . '</td>
+                          <td class="center">' . $d['NETOREAL'] . '</td>
                           <td class="center">' . $d['NETO'] . '</td>
                           <td class="center">' . $d['BRUTO'] . '</td>
                           <td class="center">' . $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'] . '</td>
@@ -461,6 +461,11 @@ $html = $html . '
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
 
+        <div id="invoice">
+            <div class="date"><b><hr></b></div>
+            <div class="date center">  Firma Responsable</div>
+            <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
+        </div>
       </div>
 
     </main>

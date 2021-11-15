@@ -1090,18 +1090,18 @@ if (isset($_POST)) {
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn btn-sm btn-info   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle ">
-                                                                                <i class="ti-eye"></i>Ver
+                                                                                <i class="ti-eye"></i> Ver
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
                                                                             <button type="submit" class="btn  btn-sm   btn-warning  " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-pencil-alt"></i>Editar
+                                                                                <i class="ti-pencil-alt"></i> Editar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-sm  btn-secondary  " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="fa fa-fw fa-copy"></i>Duplicar
+                                                                                <i class="fa fa-fw fa-copy"></i> Duplicar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-sm   btn-danger  " id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle " <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i>Eliminar
+                                                                                <i class="ti-close"></i> Eliminar
                                                                             </button>
                                                                         <?php } ?>
                                                                     </div>
@@ -1398,13 +1398,6 @@ if (isset($_POST)) {
                     $SINO = "1";
                     $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de producto terminado.";     
                 }  else {
-                    $SINO = "0";
-                    $MENSAJE = $MENSAJE;
-                }
-                if (empty($ARRATDINDUSTRIALPORREEMBALAJE)) {
-                    $SINO = "1";
-                    $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de producto industrial.";     
-                } else {
                     $SINO = "0";
                     $MENSAJE = $MENSAJE;
                 }

@@ -227,8 +227,8 @@ include_once "../config/validarDatosUrlD.php";
                     </div>
                     <section class="content">
                         <div class="card">
-                            <div class="box-header with-border bg-info">                                   
-                                <h4 class="box-title">Seleccionar existencia</h4>                                        
+                            <div class="card-header with-border bg-info">                                   
+                                <h4 class="card-title">Seleccionar existencia</h4>                                        
                             </div>
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="card-body ">

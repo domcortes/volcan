@@ -227,12 +227,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         </div>
                     </div>
                     <section class="content">
-                        <div class="box">
-                            <div class="box-header with-border bg-success">                                   
+                        <div class="card">
+                            <div class="card-header with-border bg-success">                                   
                                 <h4 class="box-title">Seleccionar existencia</h4>                                        
                             </div>
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                                <div class="box-body ">
+                                <div class="card-body ">
 
                                     <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                     <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
@@ -370,7 +370,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <!-- /.row -->
                                 </div>
                                 <!-- /.box-body -->
-                                <div class="box-footer">
+                                <div class="card-footer">
                                     <div class="btn-group btn-rounded btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                         <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                             <i class="ti-back-left "></i> Volver

@@ -463,7 +463,45 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarEximateriaprima.php">Existencia Materia Prima<i class="ti-more"></i></a></li>
           <li><a href="listarExiindustrial.php">Existencia Industrial<i class="ti-more"></i></a></li>
         </ul>
-      </li>
+      </li>   
+        
+      <li class="treeview">
+        <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/cards.svg" class="svg-icon" alt="">
+          <span>Envases</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#">Recepcion  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="#">Registro Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcione.php">Agrupado Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcioneDetallado.php">Detallado Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcioneInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Despacho  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#">Registro Despacho<i class="ti-more"></i></a></li>
+                    <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                    <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+          <li><a href="listarInventarioe.php">Kardex <i class="ti-more"></i></a></li>
+        </ul>
+      </li>      
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms2.svg" class="svg-icon" alt="">
@@ -746,79 +784,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarHExiexportacion.php"> Producto Terminado<i class="ti-more"></i></a></li>
           <li><a href="listarHExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
         </ul>
-      </li>     
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms1.svg" class="svg-icon" alt="">
-          <span>Envases</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-              <li class="treeview">
-                <a href="#">Recepcion  
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#">Agrupado Recepcion<i class="ti-more"></i></a></li>
-                  <li><a href="#">Detallado Recepcion<i class="ti-more"></i></a></li>
-                  <li><a href="#">Agrupado Interplanta<i class="ti-more"></i></a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">Despacho  
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#">Agrupado Despacho<i class="ti-more"></i></a></li>
-                    <li><a href="#">Detallado Despacho<i class="ti-more"></i></a></li>
-                </ul>
-              </li>
-          <li><a href="#">Existencia<i class="ti-more"></i></a></li>
-          <li><a href="#">Kardex <i class="ti-more"></i></a></li>
-        </ul>
-      </li>     
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/cards.svg" class="svg-icon" alt="">
-          <span> Gestión Envases</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-              <li class="treeview">
-                <a href="#">Recepcion  
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="listarRecepcione.php">Agrupado Recepcion<i class="ti-more"></i></a></li>
-                  <li><a href="listarRecepcioneDetallado.php">Detallado Recepcion<i class="ti-more"></i></a></li>
-                  <li><a href="listarRecepcioneInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">Despacho  
-                  <span class="pull-left-container">
-                    <i class=" fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
-                    <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
-                </ul>
-              </li>
-          <li><a href="listarInventarioe.php">Existencia<i class="ti-more"></i></a></li>
-          <li><a href="listarHInventarioe.php">Kardex <i class="ti-more"></i></a></li>
-        </ul>
-      </li>
+      </li>   
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/icons.svg" class="svg-icon" alt="">

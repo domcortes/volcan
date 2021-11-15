@@ -183,15 +183,16 @@ include_once "../config/validarDatosUrlD.php";
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Seleccion Existencia </h3>
+                                <h3 class="page-title">Inspección SAG</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                            <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item" aria-current="page">Despacho Exportacion </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Seleccion Existencia</a>
+                                            <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Operaciones SAG</li>
+                                            <li class="breadcrumb-item" aria-current="page">Inspección SAG</li>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Inspección </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Seleccion Existencia</a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -220,31 +221,18 @@ include_once "../config/validarDatosUrlD.php";
                     </div>
 
                     <section class="content">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                        <div class="card">
+                            <div class="card-header with-border bg-info">                                   
+                                <h4 class="card-title">Seleccionar existencia</h4>                                        
                             </div>
-
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                                <div class="box-body ">
+                                <div class="card-body ">
                                     <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                     <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
                                     <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
-                                    <label id="val_validato" class="validacion"> <?php echo $MENSAJE; ?> </label>
-                                    <div class="row">
-                                        <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                        </div>
-                                        <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
-                                            <div class="form-group">
-                                                <label> </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />    
                                     <div clas="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="table-responsive">
@@ -369,14 +357,14 @@ include_once "../config/validarDatosUrlD.php";
                                     </div>
                                     <!-- /.row -->
                                     <!-- /.box-body -->
-                                    <div class="box-footer">
+                                    <div class="card-footer">
                                         <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
 
                                             <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i> Agregar
+                                                <i class="ti-save-alt"></i> Seleccionar
                                             </button>
                                         </div>
                                     </div>
@@ -416,12 +404,13 @@ include_once "../config/validarDatosUrlD.php";
                     echo '<script>
                         Swal.fire({
                             icon:"success",
-                            title:"Items Agregados",
-                            text:"El/los items seleccionados han sido agregado(s) correctamente"
+                            title:"Accion realizada",
+                            text:"Se agregado la existencia a la Inspección.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Volver a Inspección",
+                            closeOnConfirm:false
                         }).then((result)=>{
-                            if(result.value){
-                                location.href="'.$_REQUEST['URLO'].'.php?op";
-                            }
+                            location.href="' . $_REQUEST['URLO'] . '.php?op";                        
                         })
                     </script>';
                     // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
