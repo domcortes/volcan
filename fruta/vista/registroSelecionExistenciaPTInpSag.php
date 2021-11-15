@@ -358,7 +358,7 @@ include_once "../config/validarDatosUrlD.php";
                                     <!-- /.row -->
                                     <!-- /.box-body -->
                                     <div class="card-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group btn-rounded btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
@@ -389,7 +389,20 @@ include_once "../config/validarDatosUrlD.php";
                     $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
                 } else {
                     $SINO = "1";
-                    $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"Se debe selecionar al menos una existencia.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroSelecionExistenciaPTInpSag.php?op";                            
+                        })
+                    </script>';
                 }
                 if ($SINO == "0") {
                     foreach ($SELECIONAREXISTENCIA as $r) :

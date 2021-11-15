@@ -1299,7 +1299,7 @@ if (isset($_POST)) {
                                             <div class="col-auto">
                                                 <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
                                                     <?php echo $DISABLED2; ?>  <?php   if ($ESTADO == 0) {   echo "disabled style='background-color: #eeeeee;'"; } ?>  > 
-                                                     Selector Existencias
+                                                    Seleccion Existencias
                                                 </button>
                                             </div>
                                         </form>
@@ -1397,7 +1397,7 @@ if (isset($_POST)) {
                                                                         <form method="post" id="form2">
                                                                                 <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIMATERIAPRIMA']; ?>" />
                                                                                 <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
-                                                                                    <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLEENVASED; ?>  <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
+                                                                                    <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia" <?php echo $DISABLEENVASED; ?>  <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
                                                                                         <i class="ti-close"></i> Quitar
                                                                                     </button>
                                                                                 </div>

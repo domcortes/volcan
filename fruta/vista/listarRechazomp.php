@@ -199,7 +199,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciones</th>
                                                     <th>Fecha Rechazo</th>
-                                                    <th>Tipo Rechazo</th>
+                                                    <th>Estado Rechazo</th>
                                                     <th>Responsable </th>
                                                     <th>Especie</th>
                                                     <th>Variedad</th>

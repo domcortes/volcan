@@ -389,7 +389,20 @@ include_once "../config/validarDatosUrlD.php";
                     $SINO = "0";
                 } else {
                     $SINO = "1";
-                    $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"Se debe selecionar al menos una existencia.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroSelecionExistenciaPTDespachoPt.php?op";                            
+                        })
+                    </script>';
                 }
                 if ($SINO == "0") {
                     foreach ($SELECIONAREXISTENCIA as $r) :

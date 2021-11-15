@@ -293,7 +293,7 @@ include_once "../config/datosUrLP.php";
                                                         $TDESPACHO = "Devolución a Productor";
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
                                                         if ($ARRAYPRODUCTOR) {
-                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"] .":". $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
                                                         }
@@ -328,7 +328,7 @@ include_once "../config/datosUrLP.php";
                                                         $TDESPACHO = "Despacho a Productor";
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
                                                         if ($ARRAYPRODUCTOR) {
-                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"] .":". $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
                                                         }

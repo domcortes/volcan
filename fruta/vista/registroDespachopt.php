@@ -1185,10 +1185,9 @@ if (isset($_POST)) {
                         </form>
                         <!--.row -->
                         <div class="card">                            
-                            <div class="card-header bg-info">
-                                <h4 class="card-title">Detalle de Despacho de Producto Terminado</h4>
-                            </div>
-
+                                <div class="card-header bg-info">
+                                    <h4 class="card-title">Detalle de Despacho de Producto Terminado</h4>
+                                </div>
                                 <div class="card-header">
                                     <div class="form-row align-items-center">
                                         <form method="post" id="form1">
@@ -1374,7 +1373,7 @@ if (isset($_POST)) {
                                                                         <td class="text-center">
                                                                             <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                             <div class="btn-group col-6 btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                                <button type="submit" class="btn btn-danger btn-sm" id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
+                                                                                <button type="submit" class="btn btn-danger btn-sm" id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
                                                                                     <i class="ti-close"></i> Quitar
                                                                                 </button>
                                                                             </div>
@@ -1708,7 +1707,7 @@ if (isset($_POST)) {
                         }
                     endforeach;
                     //REDIRECCIONAR A PAGINA registroDespachopt.php
-                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL         
+                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL       
                     
                     if ($_SESSION['parametro1'] == "crear") {
                         $_SESSION["parametro"] = $_REQUEST['IDP'];

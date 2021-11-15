@@ -383,7 +383,25 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
 
                 $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
-
+                $SINO = "0";
+            } else {
+                $SINO = "1";
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Accion restringida",
+                        text:"Se debe selecionar al menos una existencia.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroSelecionExistenciaMPRechazoMp.php?op";                            
+                    })
+                </script>';
+            }
+            if($SINO==0){
                 //var_dump($SELECIONAREXISTENCIA);
                 foreach ($SELECIONAREXISTENCIA as $r) :
                     $IDEXISMATERIAPRIMA = $r;

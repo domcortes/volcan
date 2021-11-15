@@ -316,26 +316,26 @@ include_once "../config/datosUrLP.php";
 
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>Ver
+                                                                                        <i class="ti-eye"></i> Ver
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($r['ESTADO'] == "1") { ?>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                     <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>Editar
+                                                                                        <i class="ti-pencil-alt"></i> Editar
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcionpt.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>Informe
+                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
                                                                                 <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasRecepcionpt.php?parametro=<?php echo $r['ID_RECEPCION']; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>Tarja
+                                                                                    <i class="fa fa-file-pdf-o"></i> Tarja
                                                                                 </button>
                                                                             </span>
                                                                         </div>

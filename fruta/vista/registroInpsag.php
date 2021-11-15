@@ -878,7 +878,7 @@ if (isset($_POST)) {
                                             <div class="col-auto">
                                                 <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
                                                     <?php echo $DISABLED2; ?>  <?php   if ($ESTADO == 0) {   echo "disabled style='background-color: #eeeeee;'"; } ?>  > 
-                                                     Selector Existencias
+                                                    Seleccion Existencias
                                                 </button>
                                             </div>
                                         </form>

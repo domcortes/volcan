@@ -1227,7 +1227,7 @@ if (isset($_POST)) {
                                                                                     <td class="text-center">
                                                                                         <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>" />
                                                                                         <div class="btn-group col-6 btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                                            <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia Industrial" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
+                                                                                            <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
                                                                                                 <i class="ti-close"></i> Quitar
                                                                                             </button>
                                                                                         </div>
