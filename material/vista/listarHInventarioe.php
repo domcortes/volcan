@@ -244,6 +244,7 @@ include_once "../config/reporteUrl.php";
                                                             }
                                                         } else if ($TOPERACION == "4") {
                                                             $NOMBREOPERACION = "Recepción Inventario Inicial ".$TIPO;
+                                                            $NOMBREORIGEN = "No Aplica";
                                                         } else {
                                                             $NOMBREOPERACION = "Sin Datos";
                                                             $NOMBREORIGEN = "Sin Datos";
