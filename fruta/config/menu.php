@@ -686,6 +686,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="registroCambiarFolioPT.php">Cambiar Folio P. Terminado<i class="ti-more"></i></a></li>
         </ul>
       </li>
+      <!--
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/reports.svg" class="svg-icon" alt="">
@@ -714,7 +715,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                       <li><a href="listarRechazompDetallado.php">Detallado Rechazo<i class="ti-more"></i></a></li>
                     </ul>
                   </li>
-                  <!--
+                  
                   <li class="treeview">
                     <a href="#">Producto Terminado
                       <span class="pull-left-container">
@@ -727,10 +728,10 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                       <li><a href="#">Detallado Rechazo<i class="ti-more"></i></a></li>
                     </ul>
                   </li>
-                -->
+                
                 </ul>
               </li>
-              <!--
+              
               <li class="treeview">
                 <a href="#">Levantamiento  
                   <span class="pull-left-container">
@@ -764,13 +765,14 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                     </li>
                 </ul>
               </li>
-                -->
-              <!--
+              
+              
             <li><a href="#">Materia Prima<i class="ti-more"></i></a></li>
             <li><a href="#">Producto Terminado<i class="ti-more"></i></a></li>
-            <li><a href="#">Producto Industrial<i class="ti-more"></i></a></li>-->
+            <li><a href="#">Producto Industrial<i class="ti-more"></i></a></li>
         </ul>
-      </li>  
+      </li> 
+      -->
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
