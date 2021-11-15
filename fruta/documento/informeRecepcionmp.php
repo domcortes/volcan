@@ -471,7 +471,8 @@ $ASUNTO = "Informe";
 require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
 $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
-
+$PDF->allow_charset_conversion = true;
+$PDF->charset_in = "iso-8859-4";
 //CONFIGURACION FOOTER Y HEADER DEL PDF//CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
 <table width="100%" >
