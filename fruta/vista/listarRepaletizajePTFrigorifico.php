@@ -48,7 +48,7 @@ $ARRAYFOLIODREPALETIZAJE = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
-    $ARRAYREPALETIZAJEEX = $REPALETIZAJEEX_ADO->listarRepaletizajeEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYREPALETIZAJEEX = $REPALETIZAJEEX_ADO->listarRepaletizajeEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $ARRAYREPALETIZAJEEXTOTAL = $REPALETIZAJEEX_ADO->obtenerTotalesRepaletizajeEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALENVASE = $ARRAYREPALETIZAJEEXTOTAL[0]['ENVASE'];
     $TOTALNETO = $ARRAYREPALETIZAJEEXTOTAL[0]['NETO'];
@@ -184,10 +184,6 @@ include_once "../config/datosUrLP.php";
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <h4 class="box-title"> Registros</h4>
-
-                            </div>
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -276,26 +272,26 @@ include_once "../config/datosUrLP.php";
                                                                                 <?php if ($r['ESTADO'] == "0") { ?>
                                                                                     <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                         <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                            <i class="ti-eye"></i>
+                                                                                            <i class="ti-eye"></i> Ver
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO'] == "1") { ?>
                                                                                     <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                         <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                            <i class="ti-pencil-alt"></i>
+                                                                                            <i class="ti-pencil-alt"></i> Editar
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                     <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                        <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarja">
                                                                                     <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                                        <i class="fa fa-file-pdf-o"></i> Tarja
                                                                                     </button>
                                                                                 </span>
                                                                             </div>
@@ -326,22 +322,29 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 col-xs-8">
-                                        <div class="form-group">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

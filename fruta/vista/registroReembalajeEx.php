@@ -834,8 +834,9 @@ if (isset($_POST)) {
                                             <input type="hidden" class="form-control" placeholder="URL REEMBALAJE" id="URLP" name="URLP" value="registroReembalajeEx" />
                                             <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroSelecionExistenciaPTReembalaje" />
                                             <div class="col-auto">
-                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>
-                                                    <i class=" glyphicon glyphicon-plus"></i> Selecciona Existencia
+                                                <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
+                                                    <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>
+                                                    Selecciona Existencia
                                                 </button>
                                             </div>
                                         </div>
@@ -1000,7 +1001,8 @@ if (isset($_POST)) {
                                                     <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                     <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroReembalajeEx" />
                                                     <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDreembalajeExportacion" />
-                                                    <button type="submit" class="btn btn-info" data-toggle="tooltip" title="Agregar Producto Terminado" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>
+                                                    <button type="submit" class="btn btn-info" data-toggle="tooltip" title="Agregar Producto Terminado" id="CREARDURL" name="CREARDURL" 
+                                                        <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>
                                                         Agregar producto terminado
                                                     </button>
                                                 </div>
@@ -1011,7 +1013,8 @@ if (isset($_POST)) {
                                                     <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                     <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroReembalajeEx" />
                                                     <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroDreembalajIndustrial" />
-                                                    <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Agregar Producto Industrial" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>
+                                                    <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Agregar Producto Industrial" id="CREARDURL" name="CREARDURL" 
+                                                        <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'";} ?>>
                                                         Agregar producto Industrual
                                                     </button>
                                                 </div>

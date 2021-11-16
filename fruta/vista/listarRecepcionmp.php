@@ -237,7 +237,50 @@ include_once "../config/datosUrLP.php";
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYRECEPCION as $r) : ?>
+                                                <?php foreach ($ARRAYRECEPCION as $r) : ?>                                                    
+                                                    <?php   
+                                                            if ($r['TRECEPCION'] == "1") {
+                                                                $TIPO= "Desde Productor ";
+                                                                $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                if ($ARRAYPRODUCTOR) {
+                                                                    $ORIGEN = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                }
+                                                            }else if ($r['TRECEPCION'] == "2") {
+                                                                $TIPO= "Planta Externa";
+                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                                if ($ARRAYPLANTA2) {
+                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                }
+                                                            }else{                                                                
+                                                                $TIPO = "Sin Datos";
+                                                                $ORIGEN = "Sin Datos";
+                                                            }
+                                                            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                            if($ARRAYVEREMPRESA){
+                                                                $NOMBREEMPRESA= $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA'];
+                                                            }else{
+                                                                $NOMBREEMPRESA="Sin Datos";
+                                                            }
+
+                                                            
+                                                            $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
+                                                            if($ARRAYVERTRANSPORTE){
+                                                                $NOMBRETRANSPORTE= $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+                                                            }else{
+                                                                $NOMBRETRANSPORTE="Sin Datos";
+                                                            }
+                                                            $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
+                                                            if($ARRAYVERCONDUCTOR){
+                                                                $NOMBRECONDUCTOR= $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+                                                            }else{
+                                                                $NOMBRECONDUCTOR="Sin Datos";
+                                                            }
+                                                            
+                                                        ?>
                                                     <tr class="text-left">
                                                         <td>
                                                             <a href="#" class="text-warning hover-warning">
@@ -295,37 +338,11 @@ include_once "../config/datosUrLP.php";
                                                                 </div>
                                                             </form>
                                                         </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                            echo $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA']
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $r['HORA_RECEPCION']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            if ($r['TRECEPCION'] == "1") {
-                                                                echo "Desde Productor ";
-                                                                $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                                if ($ARRAYPRODUCTOR) {
-                                                                    $ORIGEN = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-                                                                } else {
-                                                                    $ORIGEN = "Sin Datos";
-                                                                }
-                                                            }
-                                                            if ($r['TRECEPCION'] == "2") {
-                                                                echo "Planta Externa";
-                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
-                                                                if ($ARRAYPLANTA2) {
-                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-                                                                } else {
-                                                                    $ORIGEN = "Sin Datos";
-                                                                }
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $ORIGEN; ?></td>
+                                                        <td><?php echo $TIPO; ?></td>
+                                                        <td><?php echo $ORIGEN; ?></td>                                                       
                                                         <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                         <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                         <td><?php echo $r['GUIA']; ?></td>
@@ -334,18 +351,8 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['BRUTO']; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
-                                                            echo $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
-                                                            echo $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
-                                                            ?>
-                                                        </td>
+                                                        <td><?php echo $NOMBRETRANSPORTE; ?></td>           
+                                                        <td><?php echo $NOMBRECONDUCTOR; ?></td>                                                         
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                     </tr>

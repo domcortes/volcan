@@ -524,6 +524,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 }
                 if ($SINONETO == 1) {
                     if ($MENSAJE != "") {
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
                         echo '<script>
                             Swal.fire({
                                 icon:"warning",

@@ -265,10 +265,14 @@ class REPALETIZAJEEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *,
+            $datos = $this->conexion->prepare("SELECT * ,
         
-                                        IFNULL(KILOS_NETO_ORIGINAL,0) AS 'NETOO',   
-                                        IFNULL(KILOS_NETO_REPALETIZAJE,0) AS 'NETOR' 
+                                            DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',  
+                                            DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',  
+                                            IFNULL(CANTIDAD_ENVASE_ORIGINAL,0) AS 'ENVASER',
+                                            IFNULL(KILOS_NETO_ORIGINAL,0)AS 'NETOO',   
+                                            IFNULL(CANTIDAD_ENVASE_REPALETIZAJE,0) AS 'ENVASEO',   
+                                            IFNULL(KILOS_NETO_REPALETIZAJE,0)AS 'NETOR' 
                                         FROM fruta_repaletizajeex
                                          WHERE ESTADO_REGISTRO = 1                                                                                                      
                                         AND ID_EMPRESA = '" . $EMPRESA . "' 

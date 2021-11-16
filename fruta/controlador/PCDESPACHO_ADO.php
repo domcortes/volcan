@@ -254,7 +254,12 @@ class PCDESPACHO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
+            $datos = $this->conexion->prepare("SELECT * , 
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO' ,
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y')  AS 'MODIFICACION'  ,
+                                                    DATE_FORMAT(FECHA_PCDESPACHO, '%d-%m-%Y')  AS 'FECHA'  ,
+                                                    IFNULL(CANTIDAD_ENVASE_PCDESPACHO,0) AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_PCDESPACHO,0) AS 'NETO'
                                                 FROM fruta_pcdespacho 
                                                 WHERE ESTADO_REGISTRO = 1
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -283,8 +288,8 @@ class PCDESPACHO_ADO
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO' ,
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y')  AS 'MODIFICACION'  ,
                                                     DATE_FORMAT(FECHA_PCDESPACHO, '%d-%m-%Y')  AS 'FECHA'  ,
-                                                    FORMAT(CANTIDAD_ENVASE_PCDESPACHO,0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(KILOS_NETO_PCDESPACHO,2,'de_DE') AS 'NETO'
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_PCDESPACHO,0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(KILOS_NETO_PCDESPACHO,0),2,'de_DE') AS 'NETO'
                                                 FROM fruta_pcdespacho 
                                                 WHERE ESTADO_REGISTRO = 1
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 

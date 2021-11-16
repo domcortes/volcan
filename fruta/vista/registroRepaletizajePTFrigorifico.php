@@ -108,7 +108,7 @@ $TMANEJO = "";
 $FOCUS = "";
 $DISABLED0 = "disabled";
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE0 = "style='background-color: #eeeeee;'";
 $DISABLEDSTYLE = "";
@@ -191,6 +191,10 @@ include_once "../config/datosUrlD.php";
 
 
 $ARRAYFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($EMPRESAS, $PLANTAS, $TEMPORADAS);
+if (empty($ARRAYFOLIO)) {
+    $DISABLEDFOLIO = "disabled";
+    $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS PT </b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
+}
 
 
 
@@ -437,7 +441,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Repaletizaje</h3>
+                                <h3 class="page-title">Repaletizaje</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -445,8 +449,7 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Repaletizaje</li>
-                                            <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Operaciónes Registro Repaletizaje </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Repaletizaje </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -478,11 +481,9 @@ if ($_POST) {
                     <!-- Main content -->
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                            <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box">                             
+                                 <div class="box-header with-border bg-primary">                                   
+                                    <h4 class="box-title">Registro de Repaletizaje</h4>                                        
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -508,7 +509,7 @@ if ($_POST) {
                                             <input type="hidden" class="form-control" placeholder="URL REPALETIZAJE" id="URLP" name="URLP" value="registroRepaletizajePTFrigorifico" />
 
                                             <label>Número Repaletizaje</label>
-                                            <input type="text" class="form-control" placeholder="Número Repaletizaje" id="NUMEROVER" name="NUMEROVER" value="<?php echo $NUMEROVER; ?>" <?php echo $DISABLED0; ?> <?php echo $DISABLEDSTYLE0; ?> />
+                                            <input type="text" class="form-control" placeholder="Número Repaletizaje" id="NUMEROVER" name="NUMEROVER" value="<?php echo $NUMEROVER; ?>" disabled />
                                             <label id="val_id" class="validacion"> </label>
                                         </div>
                                         <div class="col-xxl-6 col-xl-1 col-lg-1 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -534,397 +535,403 @@ if ($_POST) {
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <label>Motivo</label>
                                             <input type="hidden" class="form-control" placeholder="Motivo a Repaletizar" id="MOTIVOREPALETIZAJEE" name="MOTIVOREPALETIZAJEE" value="<?php echo $MOTIVOREPALETIZAJE; ?>" />
-                                            <textarea class="form-control" rows="1" placeholder="Motivo a Repaletizar" id="MOTIVOREPALETIZAJE" name="MOTIVOREPALETIZAJE" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDSTYLE; ?>><?php echo $MOTIVOREPALETIZAJE; ?></textarea>
+                                            <textarea class="form-control" rows="1" placeholder="Motivo a Repaletizar" id="MOTIVOREPALETIZAJE" name="MOTIVOREPALETIZAJE" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?> ><?php echo $MOTIVOREPALETIZAJE; ?></textarea>
                                             <label id="val_motivo" class="validacion"> </label>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /.box-body -->
+                                <!-- /.box-body -->                                
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
-                                        <div class="col-auto">
-                                            <div class="btn-group"role="group" aria-label="acciones">
-                                                <?php if ($OP == "") { ?>
-                                                    <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRepaletizajePTFrigorifico.php');">
-                                                        <i class="ti-trash"></i> Cancelar
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Crear
-                                                    </button>
-                                                <?php } ?>
-                                                <?php if ($OP != "") { ?>
-                                                    <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRepaletizajePTFrigorifico.php'); ">
-                                                        <i class="ti-back-left "></i> Volver
-                                                    </button>
-                                                    <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                        <i class="ti-pencil-alt"></i> Guardar
-                                                    </button>
-                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Cerrar
-                                                    </button>
-                                                <?php } ?>
-                                            </div>
+                                        <div class="btn-group col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="acciones">
+                                            <?php if ($OP == "") { ?>
+                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroRepaletizajePTFrigorifico.php');">
+                                                    <i class="ti-trash"></i> Borrar
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLEDFOLIO; ?>    onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP != "") { ?>
+                                                <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRepaletizajePTFrigorifico.php'); ">
+                                                    <i class="ti-back-left "></i> Volver
+                                                </button>
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>   onclick="return validacion()">
+                                                    <i class="ti-pencil-alt"></i> Guardar
+                                                </button>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?>   onclick="return  validacion()">
+                                                    <i class="ti-save-alt"></i> Cerrar
+                                                </button>
+                                            <?php } ?>
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="btn-group float-right" role="group">
-                                                <?php if ($OP!= ""): ?>
-                                                    <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                        <i class="fa fa-file-pdf-o"></i> Informes
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $IDOP; ?>'); ">
-                                                        <i class="fa fa-file-pdf-o"></i> Tarjas
-                                                    </button>
-                                                <?php endif ?>
-                                            </div>
+                                        <div class="btn-group   col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12  float-right">
+                                            <?php if ($OP != "") : ?>
+                                                <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Informe
+                                                </button>
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                    <i class="fa fa-file-pdf-o"></i> Tarjas
+                                                </button>
+                                            <?php endif ?>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
                         </form>
-                        <div class="box">
-                            <div class="card-header bg-success">
-                                <h4 class="title_section">Ingreso / Existencia producto terminado</h4>
-                            </div>
-                            <div class="card-header">
-                                <form method="post" id="form2">
-                                    <div class="form-group">
-                                        <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                        <input type="hidden" class="form-control" placeholder="OP REPALETIZAJE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                        <input type="hidden" class="form-control" placeholder="URL REPALETIZAJE" id="URLP" name="URLP" value="registroRepaletizajePTFrigorifico" />
-                                        <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTRepaletizaje" />
-                                        <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
-                                            <i class=" glyphicon glyphicon-plus"></i> Seleccionar Existencias
-                                        </button>
-                                    </div>
-                                </form>
-                                <div class="form-group">
-                                    <label for="">Envase Original</label>
-                                    <input type="hidden" class="form-control" placeholder="Total Envase" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASEORIGNAL; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="Total Neto" id="TOTALNETOORIGNAL" name="TOTALNETOORIGNAL" value="<?php echo $TOTALNETOORIGNAL; ?>" />
-                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEORIGNAL2; ?>" disabled />
-                                </div>
-                            </div>
-                            <label id="val_validato" class="validacion"> <?php echo $MENSAJE; ?> </label>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <div class="table-responsive">
-                                            <table id="ingreso" class="table table-hover " style="width: 100%;">
-                                                <thead>
-                                                    <tr class="text-left">
-                                                        <th> N° Folio </th>
-                                                        <th>Condición </th>
-                                                        <th class="text-center">Operaciónes</th>
-                                                        <th>Fecha Embalado </th>
-                                                        <th>Código Estandar</th>
-                                                        <th>Envase/Estandar</th>
-                                                        <th>Variedad</th>
-                                                        <th>Cantidad Envase</th>
-                                                        <th>Kilos Neto</th>
-                                                        <th>% Deshidratacion</th>
-                                                        <th>Kilos Deshidratacion</th>
-                                                        <th>Kilos Bruto</th>
-                                                        <th>CSG</th>
-                                                        <th>Productor</th>
-                                                        <th>Embolsado</th>
-                                                        <th>Tipo Manejo</th>
-                                                        <th>Calibre </th>
-                                                        <th>Embalaje </th>
-                                                        <th>Stock</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php if ($ARRAYTOMADO) { ?>
-                                                        <?php foreach ($ARRAYTOMADO as $r) : ?>
-                                                            <?php
-                                                            $CONTADOR = $CONTADOR + 1;
-                                                            if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
-                                                                $ESTADOSAG = "Sin Condición";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "1") {
-                                                                $ESTADOSAG =  "En Inspección";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "2") {
-                                                                $ESTADOSAG =  "Aprobado Origen";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "3") {
-                                                                $ESTADOSAG =  "Aprobado USLA";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "4") {
-                                                                $ESTADOSAG =  "Fumigado";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "5") {
-                                                                $ESTADOSAG =  "Rechazado";
-                                                            }
-                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                            if ($ARRAYVERPRODUCTORID) {
-                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                            } else {
-                                                                $CSGPRODUCTOR = "Sin Datos";
-                                                                $NOMBREPRODUCTOR = "Sin Datos";
-                                                            }
-                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                            if ($ARRAYVERVESPECIESID) {
-                                                                $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                            } else {
-                                                                $NOMBREVARIEDAD = "Sin Datos";
-                                                            }
-                                                            $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                            if ($ARRAYEVERERECEPCIONID) {
-                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                            } else {
-                                                                $NOMBREESTANDAR = "Sin Datos";
-                                                                $CODIGOESTANDAR = "Sin Datos";
-                                                            }
-                                                            if ($r['EMBOLSADO'] == "1") {
-                                                                $EMBOLSADO =  "SI";
-                                                            }
-                                                            if ($r['EMBOLSADO'] == "0") {
-                                                                $EMBOLSADO =  "NO";
-                                                            }
-                                                            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                            if ($ARRAYTMANEJO) {
-                                                                $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                            } else {
-                                                                $NOMBRETMANEJO = "Sin Datos";
-                                                            }
-                                                            $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-                                                            if ($ARRAYTCALIBRE) {
-                                                                $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                            } else {
-                                                                $NOMBRETCALIBRE = "Sin Datos";
-                                                            }
-                                                            $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
-                                                            if ($ARRAYTEMBALAJE) {
-                                                                $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
-                                                            } else {
-                                                                $NOMBRETEMBALAJE = "Sin Datos";
-                                                            }
-                                                            $ARRAYDREPALETIZAJEBOLSA = $DREPALETIZAJEEX_ADO->obtenerTotalesDrepaletizajePorExistencia2($r['ID_EXIEXPORTACION']);
-                                                            if($ARRAYDREPALETIZAJEBOLSA){
-                                                                if($ARRAYDREPALETIZAJEBOLSA[0]["ENVASE"]=="0"){
-                                                                    $NODATO="1";
-                                                                }else{                                                                    
-                                                                    $NODATO="0";
-                                                                }
-                                                            }else{
-                                                                $NODATO="1";
-                                                            }
-                                                            
-                                                            ?>
+
+                        <?php if (isset($_GET['op'])): ?>
+                            <div class="card">
+                                <div class="card-header bg-info">
+                                    <h4 class="title_section">Ingreso / Existencia producto terminado</h4>
+                                </div>                              
+                                <div class="card-header">
+                                    <form method="post" id="form2" name="form2">
+                                        <div class="form-row align-items-center">
+                                            <input type="hidden" class="form-control" placeholder="ID PROCESO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="OP PROCESO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="URL PROCESO" id="URLP" name="URLP" value="registroRepaletizajePTFrigorifico" />
+                                            <input type="hidden" class="form-control" placeholder="URL SELECCION" id="URLD" name="URLD" value="registroSelecionExistenciaPTRepaletizaje" />
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" 
+                                                    <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) {   echo "disabled style='background-color: #eeeeee;'";    } ?>>
+                                                    Seleccion Existencia
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>                          
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="table-responsive">
+                                                    <table id="ingreso" class="table table-hover " style="width: 100%;">
+                                                        <thead>
                                                             <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
-                                                                <td><?php echo $ESTADOSAG; ?></td>
-                                                                <td class="text-center">
-                                                                    <form method="post" id="form1">
-                                                                        <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDREPALETIZAJEAUX" name="IDREPALETIZAJEAUX" value="<?php echo $IDREPALETIZAJE; ?>" />
-                                                                        <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                        <div class="btn-group btn-sm btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                            <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar  Existencia PT" <?php echo $DISABLED2; ?> <?php if ($NODATO =="0") { echo "disabled"; } ?>
-                                                                            <?php
-                                                                                if ($ESTADO == "0") {
-                                                                                    echo "disabled";
-                                                                                }
-                                                                            ?>>
-                                                                                <i class="ti-close  "></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </td>
-                                                                <td><?php echo $r['EMBALADO']; ?></td>
-                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                                <td><?php echo $r['ENVASE']; ?></td>
-                                                                <td><?php echo $r['NETO']; ?></td>
-                                                                <td><?php echo $r['PORCENTAJE']; ?></td>
-                                                                <td><?php echo $r['DESHIRATACION']; ?></td>
-                                                                <td><?php echo $r['BRUTO']; ?></td>
-                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                                <td><?php echo $EMBOLSADO; ?></td>
-                                                                <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                                <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                                <td><?php echo $NOMBRETEMBALAJE; ?></td>
-                                                                <td><?php echo $r['STOCKR']; ?></td>
+                                                                <th> N° Folio </th>
+                                                                <th>Condición </th>
+                                                                <th class="text-center">Operaciónes</th>
+                                                                <th>Fecha Embalado </th>
+                                                                <th>Código Estandar</th>
+                                                                <th>Envase/Estandar</th>
+                                                                <th>Variedad</th>
+                                                                <th>Cantidad Envase</th>
+                                                                <th>Kilos Neto</th>
+                                                                <th>% Deshidratacion</th>
+                                                                <th>Kilos Deshidratacion</th>
+                                                                <th>Kilos Bruto</th>
+                                                                <th>CSG</th>
+                                                                <th>Productor</th>
+                                                                <th>Embolsado</th>
+                                                                <th>Tipo Manejo</th>
+                                                                <th>Calibre </th>
+                                                                <th>Embalaje </th>
+                                                                <th>Stock</th>
                                                             </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php if ($ARRAYTOMADO) { ?>
+                                                                <?php foreach ($ARRAYTOMADO as $r) : ?>
+                                                                    <?php
+                                                                    $CONTADOR = $CONTADOR + 1;
+                                                                    if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                                        $ESTADOSAG = "Sin Condición";
+                                                                    }
+                                                                    if ($r['TESTADOSAG'] == "1") {
+                                                                        $ESTADOSAG =  "En Inspección";
+                                                                    }
+                                                                    if ($r['TESTADOSAG'] == "2") {
+                                                                        $ESTADOSAG =  "Aprobado Origen";
+                                                                    }
+                                                                    if ($r['TESTADOSAG'] == "3") {
+                                                                        $ESTADOSAG =  "Aprobado USLA";
+                                                                    }
+                                                                    if ($r['TESTADOSAG'] == "4") {
+                                                                        $ESTADOSAG =  "Fumigado";
+                                                                    }
+                                                                    if ($r['TESTADOSAG'] == "5") {
+                                                                        $ESTADOSAG =  "Rechazado";
+                                                                    }
+                                                                    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                    if ($ARRAYVERPRODUCTORID) {
+                                                                        $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                        $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                                    } else {
+                                                                        $CSGPRODUCTOR = "Sin Datos";
+                                                                        $NOMBREPRODUCTOR = "Sin Datos";
+                                                                    }
+                                                                    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                                    if ($ARRAYVERVESPECIESID) {
+                                                                        $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                                    } else {
+                                                                        $NOMBREVARIEDAD = "Sin Datos";
+                                                                    }
+                                                                    $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                                    if ($ARRAYEVERERECEPCIONID) {
+                                                                        $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                                        $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                                    } else {
+                                                                        $NOMBREESTANDAR = "Sin Datos";
+                                                                        $CODIGOESTANDAR = "Sin Datos";
+                                                                    }
+                                                                    if ($r['EMBOLSADO'] == "1") {
+                                                                        $EMBOLSADO =  "SI";
+                                                                    }
+                                                                    if ($r['EMBOLSADO'] == "0") {
+                                                                        $EMBOLSADO =  "NO";
+                                                                    }
+                                                                    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                                    if ($ARRAYTMANEJO) {
+                                                                        $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                                    } else {
+                                                                        $NOMBRETMANEJO = "Sin Datos";
+                                                                    }
+                                                                    $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                                    if ($ARRAYTCALIBRE) {
+                                                                        $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                                    } else {
+                                                                        $NOMBRETCALIBRE = "Sin Datos";
+                                                                    }
+                                                                    $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                                    if ($ARRAYTEMBALAJE) {
+                                                                        $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                                    } else {
+                                                                        $NOMBRETEMBALAJE = "Sin Datos";
+                                                                    }
+                                                                    $ARRAYDREPALETIZAJEBOLSA = $DREPALETIZAJEEX_ADO->obtenerTotalesDrepaletizajePorExistencia2($r['ID_EXIEXPORTACION']);
+                                                                    if($ARRAYDREPALETIZAJEBOLSA){
+                                                                        if($ARRAYDREPALETIZAJEBOLSA[0]["ENVASE"]=="0"){
+                                                                            $NODATO="1";
+                                                                        }else{                                                                    
+                                                                            $NODATO="0";
+                                                                        }
+                                                                    }else{
+                                                                        $NODATO="1";
+                                                                    }
+                                                                    
+                                                                    ?>
+                                                                    <tr class="text-left">
+                                                                        <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                        <td><?php echo $ESTADOSAG; ?></td>
+                                                                        <td class="text-center">
+                                                                            <form method="post" id="form1">
+                                                                                <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDREPALETIZAJEAUX" name="IDREPALETIZAJEAUX" value="<?php echo $IDREPALETIZAJE; ?>" />
+                                                                                <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
+                                                                                <div class="btn-group col-6 btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                                    <button type="submit" class="btn btn-danger btn-sm   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar  Existencia" 
+                                                                                        <?php echo $DISABLED2; ?> <?php if ($NODATO =="0") { echo "disabled"; } ?>
+                                                                                        <?php  if ($ESTADO == "0") { echo "disabled"; } ?>>
+                                                                                            <i class="ti-close  "></i> Quitar
+                                                                                    </button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </td>
+                                                                        <td><?php echo $r['EMBALADO']; ?></td>
+                                                                        <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                        <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                        <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                                        <td><?php echo $r['ENVASE']; ?></td>
+                                                                        <td><?php echo $r['NETO']; ?></td>
+                                                                        <td><?php echo $r['PORCENTAJE']; ?></td>
+                                                                        <td><?php echo $r['DESHIRATACION']; ?></td>
+                                                                        <td><?php echo $r['BRUTO']; ?></td>
+                                                                        <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                        <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                        <td><?php echo $EMBOLSADO; ?></td>
+                                                                        <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                                        <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                                        <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                                        <td><?php echo $r['STOCKR']; ?></td>
+                                                                    </tr>
+                                                                <?php endforeach; ?>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="box">
-                            <div class="card-header bg-info">
-                                <h4 class="card-title">
-                                    Salida / Detalle repaletizaje
-                                </h4>
-                            </div>
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <form method="post" id="form4">
-                                            <div class="form-group">
-                                                <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="OP REPALETIZAJE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="URL REPALETIZAJE" id="URLP" name="URLP" value="registroRepaletizajePTFrigorifico" />
-                                                <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroDrepaletizajePTSeleccionCaja" />
-                                                <button type="submit" class="btn btn-info btn-block" data-toggle="tooltip" title="Agregar Detalle Repaletizaj" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>>
-                                                    <i class=" glyphicon glyphicon-plus"></i>Agregar detalle de repaletizaje
+                            <div class="card">
+                                <div class="card-header bg-success">
+                                    <h4 class="card-title">
+                                        Salida / Detalle repaletizaje
+                                    </h4>
+                                </div>                                                        
+                                <div class="card-header">
+                                    <div class="form-row align-items-center">
+                                        <form method="post" id="form2" name="form2">
+                                            <input type="hidden" class="form-control" placeholder="ID RECEPCIONMP" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="OP RECEPCIONMP" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="URL RECEPCIONMP" id="URLP" name="URLP" value="registroRepaletizajePTFrigorifico" />
+                                            <input type="hidden" class="form-control" placeholder="URL DRECEPCIONMP" id="URLD" name="URLD" value="registroDrepaletizajePTSeleccionCaja" />
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Agregar Detalle Repaletizaje" id="CREARDURL" name="CREARDURL"
+                                                    <?php echo $DISABLED2; ?> <?php echo $DISABLEDFOLIO; ?> <?php if ($ESTADO == 0) : ?> disabled style='background-color: #eeeeee;' <?php endif ?>>
+                                                    Agregar Detalle
                                                 </button>
                                             </div>
                                         </form>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="form-group">
-                                            <label for="">Envase Repaletizado</label>
-                                            <input type="hidden" class="form-control" placeholder="Total Cantidad Envase Repaletizaje" id="TOTALENVASEREPALETIZAJE" name="TOTALENVASEREPALETIZAJE" value="<?php echo $TOTALENVASEREPALETIZAJE; ?>" />
-                                            <input type="text" class="form-control" placeholder="Envase Repaletizaje" id="TOTALENVASEREPALETIZAJEV" name="TOTALENVASEREPALETIZAJEV" value="<?php echo $TOTALENVASEREPALETIZAJE2; ?>" <?php echo $DISABLED0; ?> <?php echo $DISABLEDSTYLE0; ?> />
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Envase Original</div>
+                                                </div>
+                                                <input type="hidden" name="TOTALENVASEORIGNAL" id="TOTALENVASEORIGNAL" value="<?php echo $TOTALENVASEORIGNAL; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEORIGNALV" name="TOTALENVASEORIGNALV" value="<?php echo $TOTALENVASEORIGNAL2; ?>" disabled />
+                                            </div>
                                         </div>
-
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="form-group">
-                                            <label for="">Diferencia Envase</label>
-                                            <input type="hidden" class="form-control" placeholder="Diferencia Envase" id="DIFERENCIACAJAS" name="DIFERENCIACAJAS" value="<?php echo $DIFERENCIACAJAS; ?>" />
-                                            <input type="text" class="form-control" placeholder="Diferencia Envase" id="DIFERENCIACAJASV" name="DIFERENCIACAJAVS" value="<?php echo $DIFERENCIACAJAS; ?>" <?php echo $DISABLED0; ?> <?php echo $DISABLEDSTYLE0; ?> />
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Envase Repaletizado</div>
+                                                </div>
+                                                <input type="hidden" name="TOTALENVASEREPALETIZAJE" id="TOTALENVASEREPALETIZAJE" value="<?php echo $TOTALENVASEREPALETIZAJE; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEREPALETIZAJEV" name="TOTALENVASEREPALETIZAJEV" value="<?php echo $TOTALENVASEREPALETIZAJE2; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Diferencia Envase</div>
+                                                </div>
+                                                <input type="hidden" name="DIFERENCIACAJAS" id="DIFERENCIACAJAS" value="<?php echo $DIFERENCIACAJAS; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Bruto" id="DIFERENCIACAJASV" name="DIFERENCIACAJASV" value="<?php echo $DIFERENCIACAJAS; ?>" disabled />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJE3; ?> </label>
-                            <label id="val_dproceso" class="validacion "><?php echo $MENSAJE2; ?> </label>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table id="detalle" class="table table-hover " style="width: 100%;">
-                                            <thead>
-                                                <tr class="text-left">
-                                                    <th> Folio Nuevo </th>
-                                                    <th class="text-center">Operaciónes</th>
-                                                    <th>Fecha Embalado </th>
-                                                    <th>Código Estandar </th>
-                                                    <th>Envase/Estandar </th>
-                                                    <th>Variedad</th>
-                                                    <th>Cantidad Envase </th>
-                                                    <th>Kilo Neto </th>
-                                                    <th>CSG</th>
-                                                    <th>Productor</th>
-                                                    <th>Embolsado</th>
-                                                    <th>Tipo Manejo</th>
-                                                    <th>Calibre</th>
-                                                    <th>Embalaje</th>
-                                                    <th>Stock</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php if ($ARRAYDREPALETIZAJE) { ?>
-                                                    <?php foreach ($ARRAYDREPALETIZAJE as $r) : ?>
-                                                        <?php
-                                                        $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                        if ($ARRAYVERPRODUCTORID) {
-                                                            $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                            $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                        } else {
-                                                            $CSGPRODUCTOR = "Sin Datos";
-                                                            $NOMBREPRODUCTOR = "Sin Datos";
-                                                        }
-                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                        if ($ARRAYVERVESPECIESID) {
-                                                            $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                        } else {
-                                                            $NOMBREVARIEDAD = "Sin Datos";
-                                                        }
-                                                        $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                        if ($ARRAYEVERERECEPCIONID) {
-                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                        } else {
-                                                            $NOMBREESTANDAR = "Sin Datos";
-                                                            $CODIGOESTANDAR = "Sin Datos";
-                                                        }
-                                                        if ($r['EMBOLSADO'] == "1") {
-                                                            $EMBOLSADO =  "SI";
-                                                        }
-                                                        if ($r['EMBOLSADO'] == "0") {
-                                                            $EMBOLSADO =  "NO";
-                                                        }
-                                                        $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                        if ($ARRAYTMANEJO) {
-                                                            $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                        } else {
-                                                            $NOMBRETMANEJO = "Sin Datos";
-                                                        }
-                                                        $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-                                                        if ($ARRAYTCALIBRE) {
-                                                            $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                        } else {
-                                                            $NOMBRETCALIBRE = "Sin Datos";
-                                                        }
-                                                        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
-                                                        if ($ARRAYTEMBALAJE) {
-                                                            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
-                                                        } else {
-                                                            $NOMBRETEMBALAJE = "Sin Datos";
-                                                        }
-                                                        ?>
-                                                        <tr class="text-lef">
-                                                            <td> <?php echo $r['FOLIO_NUEVO_DREPALETIZAJE']; ?> </td>
-                                                            <td class="text-center">
-                                                                <form method="post" id="form3">
-                                                                    <input type="hidden" class="form-control" id="FOLIOELIMINAR" name="FOLIOELIMINAR" value="<?php echo $r['FOLIO_NUEVO_DREPALETIZAJE']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="CAJAS" name="CAJAS" value="<?php echo $r['CANTIDAD_ENVASE_DREPALETIZAJE']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="IDTMANEJO" name="IDTMANEJO" value="<?php echo $r['ID_TMANEJO']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="IDTCALIBRE" name="IDTCALIBRE" value="<?php echo $r['ID_TCALIBRE']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="IDTEMBALAJE" name="IDTEMBALAJE" value="<?php echo $r['ID_TEMBALAJE']; ?>" />
-
-                                                                    <input type="hidden" class="form-control" id="IDPRODUCTOR" name="IDPRODUCTOR" value="<?php echo $r['ID_PRODUCTOR']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="IDVESPECIES" name="IDVESPECIES" value="<?php echo $r['ID_VESPECIES']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="IDESTANDAR" name="IDESTANDAR" value="<?php echo $r['ID_ESTANDAR']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="IDFOLIO" name="IDFOLIO" value="<?php echo $r['ID_FOLIO']; ?>" />
-
-                                                                    <input type="hidden" class="form-control" id="FECHAEMBALADO" name="FECHAEMBALADO" value="<?php echo $r['FECHA_EMBALADO_DREPALETIZAJE']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="REPALETIZAJE" name="REPALETIZAJE" value="<?php echo $r['ID_REPALETIZAJE']; ?>" />
-                                                                    <input type="hidden" class="form-control" id="IDDREPALETIZAJE" name="IDDREPALETIZAJE" value="<?php echo $r['ID_DREPALETIZAJE']; ?>" />
-                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <button type="submit" class="btn btn-rounded btn-danger " id="ELIMINAR" name="ELIMINAR" data-toggle="tooltip" title="Eliminar" <?php echo $DISABLED2; ?>
-                                                                        <?php if ($ESTADO == "0") {
-                                                                            echo "disabled";
-                                                                        } ?>>
-                                                                            <i class="ti-close"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
-                                                            </td>
-                                                            <td><?php echo $r['EMBALADO']; ?></td>
-                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                            <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                            <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                            <td><?php echo $r['ENVASE']; ?></td>
-                                                            <td><?php echo $r['NETO']; ?></td>
-                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                            <td><?php echo $EMBOLSADO; ?></td>
-                                                            <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                            <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                            <td><?php echo $NOMBRETEMBALAJE; ?></td>
-                                                            <td><?php echo $r['STOCKR']; ?></td>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="table-responsive">
+                                                <table id="detalle" class="table table-hover " style="width: 100%;">
+                                                    <thead>
+                                                        <tr class="text-left">
+                                                            <th> Folio Nuevo </th>
+                                                            <th class="text-center">Operaciónes</th>
+                                                            <th>Fecha Embalado </th>
+                                                            <th>Código Estandar </th>
+                                                            <th>Envase/Estandar </th>
+                                                            <th>Variedad</th>
+                                                            <th>Cantidad Envase </th>
+                                                            <th>Kilo Neto </th>
+                                                            <th>CSG</th>
+                                                            <th>Productor</th>
+                                                            <th>Embolsado</th>
+                                                            <th>Tipo Manejo</th>
+                                                            <th>Calibre</th>
+                                                            <th>Embalaje</th>
+                                                            <th>Stock</th>
                                                         </tr>
-                                                    <?php endforeach; ?>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php if ($ARRAYDREPALETIZAJE) { ?>
+                                                            <?php foreach ($ARRAYDREPALETIZAJE as $r) : ?>
+                                                                <?php
+                                                                $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                if ($ARRAYVERPRODUCTORID) {
+                                                                    $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                    $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $CSGPRODUCTOR = "Sin Datos";
+                                                                    $NOMBREPRODUCTOR = "Sin Datos";
+                                                                }
+                                                                $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                                if ($ARRAYVERVESPECIESID) {
+                                                                    $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                                } else {
+                                                                    $NOMBREVARIEDAD = "Sin Datos";
+                                                                }
+                                                                $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                                if ($ARRAYEVERERECEPCIONID) {
+                                                                    $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                                    $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                                } else {
+                                                                    $NOMBREESTANDAR = "Sin Datos";
+                                                                    $CODIGOESTANDAR = "Sin Datos";
+                                                                }
+                                                                if ($r['EMBOLSADO'] == "1") {
+                                                                    $EMBOLSADO =  "SI";
+                                                                }
+                                                                if ($r['EMBOLSADO'] == "0") {
+                                                                    $EMBOLSADO =  "NO";
+                                                                }
+                                                                $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                                if ($ARRAYTMANEJO) {
+                                                                    $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                                } else {
+                                                                    $NOMBRETMANEJO = "Sin Datos";
+                                                                }
+                                                                $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                                if ($ARRAYTCALIBRE) {
+                                                                    $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                                } else {
+                                                                    $NOMBRETCALIBRE = "Sin Datos";
+                                                                }
+                                                                $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                                if ($ARRAYTEMBALAJE) {
+                                                                    $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                                } else {
+                                                                    $NOMBRETEMBALAJE = "Sin Datos";
+                                                                }
+                                                                ?>
+                                                                <tr class="text-lef">
+                                                                    <td> <?php echo $r['FOLIO_NUEVO_DREPALETIZAJE']; ?> </td>
+                                                                    <td class="text-center">
+                                                                        <form method="post" id="form3">
+                                                                            <input type="hidden" class="form-control" id="FOLIOELIMINAR" name="FOLIOELIMINAR" value="<?php echo $r['FOLIO_NUEVO_DREPALETIZAJE']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="CAJAS" name="CAJAS" value="<?php echo $r['CANTIDAD_ENVASE_DREPALETIZAJE']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="IDTMANEJO" name="IDTMANEJO" value="<?php echo $r['ID_TMANEJO']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="IDTCALIBRE" name="IDTCALIBRE" value="<?php echo $r['ID_TCALIBRE']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="IDTEMBALAJE" name="IDTEMBALAJE" value="<?php echo $r['ID_TEMBALAJE']; ?>" />
+
+                                                                            <input type="hidden" class="form-control" id="IDPRODUCTOR" name="IDPRODUCTOR" value="<?php echo $r['ID_PRODUCTOR']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="IDVESPECIES" name="IDVESPECIES" value="<?php echo $r['ID_VESPECIES']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="IDESTANDAR" name="IDESTANDAR" value="<?php echo $r['ID_ESTANDAR']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="IDFOLIO" name="IDFOLIO" value="<?php echo $r['ID_FOLIO']; ?>" />
+
+                                                                            <input type="hidden" class="form-control" id="FECHAEMBALADO" name="FECHAEMBALADO" value="<?php echo $r['FECHA_EMBALADO_DREPALETIZAJE']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="REPALETIZAJE" name="REPALETIZAJE" value="<?php echo $r['ID_REPALETIZAJE']; ?>" />
+                                                                            <input type="hidden" class="form-control" id="IDDREPALETIZAJE" name="IDDREPALETIZAJE" value="<?php echo $r['ID_DREPALETIZAJE']; ?>" />
+                                                                            <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                                <button type="submit" class="btn btn-rounded btn-danger " id="ELIMINAR" name="ELIMINAR" data-toggle="tooltip" title="Eliminar" <?php echo $DISABLED2; ?>
+                                                                                <?php if ($ESTADO == "0") {
+                                                                                    echo "disabled";
+                                                                                } ?>>
+                                                                                    <i class="ti-close"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </td>
+                                                                    <td><?php echo $r['EMBALADO']; ?></td>
+                                                                    <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                    <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                    <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                                    <td><?php echo $r['ENVASE']; ?></td>
+                                                                    <td><?php echo $r['NETO']; ?></td>
+                                                                    <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                    <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                    <td><?php echo $EMBOLSADO; ?></td>
+                                                                    <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                                    <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                                    <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                                    <td><?php echo $r['STOCKR']; ?></td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif ?>
                         <!--.row -->
                     </section>
                     <!-- /.content -->
@@ -936,25 +943,7 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
-        <?php
-            if (empty($ARRAYFOLIO)) {
-            $DISABLEDFOLIO = "disabled";
-            // $MENSAJEFOLIO = " NECESITA <b> CREAR LOS FOLIOS PT </b> , PARA OCUPAR LA <b> FUNCIONALIDAD </b>. FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
-            // echo '<script>
-            //     Swal.fire({
-            //         icon:"warning",
-            //         title:"Folios inexistentes",
-            //         html:"Necesitas <b>crear los folios</b> para ocupar la funcionalidad. Favor contactarse con el administrador",
-            //         showConfirmButton:true,
-            //         confirmButtonText:"OK"
-            //     }).then((result)=>{
-            //         if(result.value){
-            //             location.href ="/fruta/vista/index.php";
-            //         }
-            //     })
-            // </script>';
-        }
-
+        <?php       
 
         //OPERACIONES
         //OPERACION DE REGISTRO DE FILA
@@ -983,26 +972,24 @@ if ($_POST) {
             echo '<script>
                 Swal.fire({
                     icon:"success",
-                    title:"Registro creado",
-                    html:"Se ha creado el registro exitosamente",
-                    showConfirmButton:true,
-                    confirmButtonText:"OK"
+                    title:"Registro Creado",
+                    text:"El registro de repaletizaje se ha creado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
                 }).then((result)=>{
-                    if(result.value){
-                        location.href ="/fruta/vista/registroRepaletizajePTFrigorifico.php?op"
-                    }
+                    location.href = "registroRepaletizajePTFrigorifico.php?op";                            
                 })
             </script>';
-            // echo "<script type='text/javascript'> location.href ='registroRepaletizajePTFrigorifico.php?op';</script>";
         }
 
 
-        if (isset($_REQUEST['EDITAR'])) {
+        if (isset($_REQUEST['GUARDAR'])) {
             $REPALETIZAJEEX->__SET('CANTIDAD_ENVASE_REPALETIZAJE', $_REQUEST['TOTALENVASEORIGINAL']);
             $REPALETIZAJEEX->__SET('KILOS_NETO_REPALETIZAJE', $_REQUEST['TOTALNETOREPALETIZAJE']);
             $REPALETIZAJEEX->__SET('CANTIDAD_ENVASE_ORIGINAL', $_REQUEST['TOTALENVASEREPALETIZAJE']);
             $REPALETIZAJEEX->__SET('KILOS_NETO_ORIGINAL', $_REQUEST['TOTALNETOORIGNAL']);
-            $REPALETIZAJEEX->__SET('MOTIVO_REPALETIZAJE', $_REQUEST['MOTIVOREPALETIZAJEE']);
+            $REPALETIZAJEEX->__SET('MOTIVO_REPALETIZAJE', $_REQUEST['MOTIVOREPALETIZAJE']);
             $REPALETIZAJEEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
             $REPALETIZAJEEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
             $REPALETIZAJEEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
@@ -1010,19 +997,39 @@ if ($_POST) {
             $REPALETIZAJEEX->__SET('ID_REPALETIZAJE', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
             $REPALETIZAJEEX_ADO->actualizarRepaletizaje($REPALETIZAJEEX);
-            echo '<script>
-                Swal.fire({
-                    icon:"success",
-                    title:"Registro guardado/actualizado",
-                    html:"Se ha guardado/actualizado el registro exitosamente",
-                    showConfirmButton:true,
-                    confirmButtonText:"OK"
-                }).then((result)=>{
-                    if(result.value){
-                        location.href ="/fruta/vista/registroRepaletizajePTFrigorifico.php?op"
-                    }
-                })
-            </script>';
+
+            if ($_SESSION['parametro1'] == "crear") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "crear";
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de repaletizaje se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroRepaletizajePTFrigorifico.php?op";                        
+                    })
+                </script>';
+            }
+            if ($_SESSION['parametro1'] == "editar") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "editar";
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de repaletizaje se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroRepaletizajePTFrigorifico.php?op";                        
+                    })
+                </script>';
+            }
         }
 
 
@@ -1032,63 +1039,50 @@ if ($_POST) {
             $ARRAYDREPALETIZAJE = $DREPALETIZAJEEX_ADO->buscarDrepaletizaje($_REQUEST['IDP']);
             $ARRAYEXIEXPORTACIONINGRESANDOREPALETIZADO = $EXIEXPORTACION_ADO->buscarPorRepaletizajeIngresando($_REQUEST['IDP']);
 
-            if ($ARRAYEXIEXPORTACIONTOMADO || $ARRAYEXIEXPORTACIONINGRESANDOREPALETIZADO) {
-                $SINO = "0";
-                $MENSAJE = "";
+            if (empty($ARRAYEXIEXPORTACIONTOMADO) || empty($ARRAYEXIEXPORTACIONINGRESANDOREPALETIZADO)) {
+                $SINO = "1";
+                $MENSAJE = $MENSAJE." Tiene que haber al menos un registro de existencia selecionado. ";
 
                 if ($ARRAYDREPALETIZAJE) {
                     $SINO = "0";
-                    $MENSAJE2 = "";
+                    $MENSAJE = $MENSAJE;
                     if ($_REQUEST['DIFERENCIACAJAS'] == 0) {
                         $SINO = "0";
-                        $MENSAJE3 = "";
+                        $MENSAJE = "";
                     } else {
                         $SINO = "1";
-                        $MENSAJE3 = "LA DIFERENCIA DE CAJAS TIENE QUE SER CERO";
-                        echo '<script>
-                            Swal.fire({
-                                icon:"warning",
-                                title:"Informacion importante para cierre",
-                                html:"LA DIFERENCIA DE CAJAS TIENE QUE SER CERO",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            })
-                        </script>';
+                        $MENSAJE = $MENSAJE." La diferencia de envases tiene que ser cero. ";
                     }
                 } else {
                     $SINO = "1";
-                    $MENSAJE2 = "TIENE QUE CREAR UN REGISTRO DEL DETALLE DE REPALETIZAJE";
-                    echo '<script>
-                            Swal.fire({
-                                icon:"warning",
-                                title:"Informacion importante para cierre",
-                                html:"TIENE QUE CREAR UN REGISTRO DEL DETALLE DE REPALETIZAJE",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            })
-                        </script>';
+                    $MENSAJE = $MENSAJE."Tiene que haber al menos un registro en el detalle. ";
                 }
             } else {
-                $SINO = "1";
-                $MENSAJE = "TIENE QUE SELECIONAR UNA EXISTENCIA";
-                echo '<script>
-                            Swal.fire({
-                                icon:"warning",
-                                title:"Informacion importante para cierre",
-                                html:"TIENE QUE SELECIONAR UNA EXISTENCIA",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            })
-                        </script>';
+                $SINO = "0";
+                $MENSAJE=$MENSAJE;
 
             }
+            if($SINO == 1){
+                echo '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Accion restringida",
+                        text:"'.$MENSAJE.'",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroRepaletizajePTFrigorifico.php?op";                        
+                    });
+                </script>';
+        }
 
             if ($SINO == "0") {
                 $REPALETIZAJEEX->__SET('CANTIDAD_ENVASE_REPALETIZAJE', $_REQUEST['TOTALENVASEORIGINAL']);
                 $REPALETIZAJEEX->__SET('KILOS_NETO_REPALETIZAJE', $_REQUEST['TOTALNETOREPALETIZAJE']);
                 $REPALETIZAJEEX->__SET('CANTIDAD_ENVASE_ORIGINAL', $_REQUEST['TOTALENVASEREPALETIZAJE']);
                 $REPALETIZAJEEX->__SET('KILOS_NETO_ORIGINAL', $_REQUEST['TOTALNETOORIGNAL']);
-                $REPALETIZAJEEX->__SET('MOTIVO_REPALETIZAJE', $_REQUEST['MOTIVOREPALETIZAJEE']);
+                $REPALETIZAJEEX->__SET('MOTIVO_REPALETIZAJE', $_REQUEST['MOTIVOREPALETIZAJE']);
                 $REPALETIZAJEEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $REPALETIZAJEEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                 $REPALETIZAJEEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
@@ -1114,25 +1108,25 @@ if ($_POST) {
                 foreach ($ARRAYEXIEXPORTACIONINGRESANDOREPALETIZADO as $s) :
                     $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $s['ID_EXIEXPORTACION']);
                     // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $EXIEXPORTACION_ADO->vigente($EXIEXPORTACION);
+                   $EXIEXPORTACION_ADO->vigente($EXIEXPORTACION);
                 endforeach;
 
                 //REDIRECCIONAR A PAGINA registroRepaletizajePTFrigorifico.php
                 //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "ver";
                     echo '<script>
                         Swal.fire({
-                            icon:"success",
-                            title:"Registro cerrado",
-                            html:"Se ha cerrado el registro exitosamente",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
+                            icon:"info",
+                            title:"Registro Cerrado",
+                            text:"Este repaletizaje se encuentra cerrada y no puede ser modificada.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
                         }).then((result)=>{
-                            if(result.value){
-                                location.href ="/fruta/vista/registroRepaletizajePTFrigorifico.php?op"
-                            }
+                            location.href = "registroRepaletizajePTFrigorifico.php?op";                            
                         })
                     </script>';
                 }
@@ -1141,21 +1135,38 @@ if ($_POST) {
                     $_SESSION["parametro1"] = "ver";
                     echo '<script>
                         Swal.fire({
-                            icon:"success",
-                            title:"Registro cerrado",
-                            html:"Se ha cerrado el registro exitosamente",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
+                            icon:"info",
+                            title:"Registro Cerrado",
+                            text:"Este repaletizaje se encuentra cerrada y no puede ser modificada.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
                         }).then((result)=>{
-                            if(result.value){
-                                location.href ="/fruta/vista/registroRepaletizajePTFrigorifico.php?op"
-                            }
+                            location.href = "registroRepaletizajePTFrigorifico.php?op";                            
                         })
                     </script>';
-                }
+                } 
             }
         }
+        if (isset($_REQUEST['QUITAR'])) {
 
+            $IDQUITAR = $_REQUEST['IDQUITAR'];
+            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
+            // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+            $EXIEXPORTACION_ADO->actualizarDeselecionarRepaletizajeCambiarEstado($EXIEXPORTACION);            
+            echo '<script>
+                Swal.fire({
+                    icon:"error",
+                    title:"Accion realizada",
+                    text:"Se ha quitado la existencia del repaletizaje.",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "registroRepaletizajePTFrigorifico.php?op";                            
+                })
+             </script>';
+        }
 
         if (isset($_REQUEST['ELIMINAR'])) {
             $IDDREPALETIZAJE = $_REQUEST['IDDREPALETIZAJE'];
@@ -1199,43 +1210,23 @@ if ($_POST) {
                 $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r["ID_EXIEXPORTACION"]);
                 $EXIEXPORTACION_ADO->eliminadoRepaletizaje($EXIEXPORTACION);
             endforeach;
-
+       
             echo '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Registro eliminado",
-                        html:"Se ha eliminado el registro exitosamente",
-                        showConfirmButton:true,
-                        confirmButtonText:"OK"
-                    }).then((result)=>{
-                        if(result.value){
-                            location.href ="/fruta/vista/listarRepaletizajePTFrigorifico.php"
-                        }
-                    })
-                </script>';
+                Swal.fire({
+                    icon:"error",
+                    title:"Registro eliminado",
+                    text:"El registro de producto terminado se ha eliminado correctamente.",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "registroRepaletizajePTFrigorifico.php?op";                            
+                })
+             </script>';
         }
 
 
-        if (isset($_REQUEST['QUITAR'])) {
-
-            $IDQUITAR = $_REQUEST['IDQUITAR'];
-            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
-            // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->actualizarDeselecionarRepaletizajeCambiarEstado($EXIEXPORTACION);
-            echo '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Registro cerrado",
-                        html:"Se ha quitado la linea de registro exitosamente",
-                        showConfirmButton:true,
-                        confirmButtonText:"OK"
-                    }).then((result)=>{
-                        if(result.value){
-                            location.href ="/fruta/vista/registroRepaletizajePTFrigorifico.php?op"
-                        }
-                    })
-                </script>';
-        }
+     
         ?>
 </body>
 

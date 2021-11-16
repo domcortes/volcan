@@ -128,289 +128,7 @@ $ARRAYSELECIONAREXISTENCIA = "";
 $ARRAYSELECIONAREXISTENCIAID = "";
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
 
-if (isset($_REQUEST['AGREGAR'])) {
-
-    $REPALETIZAJE = $_REQUEST['IDP'];
-    $ARRAYSELECIONARCAJASID = $_REQUEST['IDCAJA'];
-    $ARRAYSELECIONARIDFOLIO = $_REQUEST['IDFOLIO'];
-    $ARRAYSELECIONARCAJAS = $_REQUEST['CAJAS'];
-    $ARRAYSELECIONARIDEXIEXPORTACION = $_REQUEST['IDEXIEXPORTACION'];
-
-
-
-    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-
-    if (isset($_REQUEST['FOLIOMANUAL'])) {
-        $FOLIOMANUAL = $_REQUEST['FOLIOMANUAL'];
-    }
-    if ($FOLIOMANUAL == "on") {
-        $NUMEROFOLIODEXPORTACION = $_REQUEST['NUMEROFOLIODEXPORTACION'];
-        $FOLIOMANUALR = "1";
-        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
-        if ($ARRAYFOLIOPOEXPO) {
-            $SINO0 = "1";
-            $MENSAJE0 = "EL FOLIO INGRESADO, YA EXISTE";
-        } else {
-            $SINO0 = "0";
-            $MENSAJE0 = "";
-        }
-    }
-    if ($FOLIOMANUAL != "on") {
-        $FOLIOMANUALR = "0";
-        $SINO0 = "0";
-        $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolioRepaletizaje($FOLIO);
-        if ($ARRAYULTIMOFOLIO) {
-            if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
-                $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-            } else {
-                $FOLIOEXPORTACION = $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
-            }
-        } else {
-            $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-        }
-        $NUMEROFOLIODEXPORTACION = $FOLIOEXPORTACION + 1;
-        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
-        while (count($ARRAYFOLIOPOEXPO) == 1) {
-            $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
-            if (count($ARRAYFOLIOPOEXPO) == 1) {
-                $NUMEROFOLIODEXPORTACION += 1;
-            }
-        };
-    }
-    if ($SINO0 == "0") {
-
-        foreach ($ARRAYSELECIONARCAJASID as $F) :
-            $IDCAJAS = $F - 1;
-            $CAJAS = $ARRAYSELECIONARCAJAS[$IDCAJAS];
-            $NUMEROFOLIO = $ARRAYSELECIONARIDFOLIO[$IDCAJAS];
-            $IDEXIEXPORTACION = $ARRAYSELECIONARIDEXIEXPORTACION[$IDCAJAS];
-
-            $ARRAYDREPALETIZAJEBOLSA = $DREPALETIZAJEEX_ADO->obtenerTotalesDrepaletizajePorExistencia2($IDEXIEXPORTACION);
-            $ARRAYEXIEXPORTACIONBOLSASELECCION = $EXIEXPORTACION_ADO->verExiexportacion($IDEXIEXPORTACION);
-
-            if ($ARRAYDREPALETIZAJEBOLSA) {
-                $CAJATOTAL =   $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION'] - $ARRAYDREPALETIZAJEBOLSA[0]['ENVASE'];
-            } else {
-                $CAJATOTAL =  $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION'];
-            }
-
-            if ($CAJAS != "") {
-                $SINO = "0";
-                //$MENSAJE1 = $MENSAJE1;
-                if ($CAJATOTAL == 0) {
-                    $SINO = "1";
-                    $MENSAJE2 = $MENSAJE2 . " <br> " . $NUMEROFOLIO . ": DEBE SELECIONAR UN REGISTRO QUE TENGA ENVASES MAYORES A CERO";
-                } else {
-                    if ($CAJAS <= 0) {
-                        $SINO = "1";
-                        $MENSAJE1 = $MENSAJE1 . " <br> " . $NUMEROFOLIO . ": SOLO DEBEN INGRESAR UN VALOR MAYOR A ZERO";
-                    } else {
-                        $SINO = "0";
-                        $MENSAJE1 = $MENSAJE1;
-                        if ($CAJAS <= $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION']) {
-                            $SINO = "0";
-                            $MENSAJE2 = $MENSAJE2;
-                        } else {
-                            $SINO = "1";
-                            $MENSAJE2 = $MENSAJE2 . " <br> " . $NUMEROFOLIO . ": EL VALOR A INGRESAR DEBE SER MENOR O IGUAL AL ORIGINAL";
-                        }
-                    }
-                }
-            } else {
-                $SINO = "1";
-            }
-
-
-            if ($SINO == "0") {
-
-                $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
-                $KILONETOEXITENCIA = $CAJAS * $ARRAYESTANDAR[0]['PESO_NETO_ESTANDAR'];
-                $PDESHISDRATACIONEXISTENCIA = $ARRAYESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
-                $KILOSDESHIDRATACIONEXITENCIA = $KILONETOEXITENCIA * (1 + ($PDESHISDRATACIONEXISTENCIA / 100));
-                $KILOSBRUTOEXISTENCIA = (($CAJAS * $ARRAYESTANDAR[0]['PESO_ENVASE_ESTANDAR']) + $KILOSDESHIDRATACIONEXITENCIA) + $ARRAYESTANDAR[0]['PESO_PALLET_ESTANDAR'];
-                $EMBOLSADOEXISTENCIA = $ARRAYESTANDAR[0]['EMBOLSADO'];
-
-
-
-                
-                $DREPALETIZAJEEX->__SET('FOLIO_NUEVO_DREPALETIZAJE', $NUMEROFOLIODEXPORTACION);
-                $DREPALETIZAJEEX->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-                $DREPALETIZAJEEX->__SET('FECHA_EMBALADO_DREPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_EMBALADO_EXIEXPORTACION"]);
-                $DREPALETIZAJEEX->__SET('CANTIDAD_ENVASE_DREPALETIZAJE', $CAJAS);
-                $DREPALETIZAJEEX->__SET('KILOS_NETO_DREPALETIZAJE', $KILONETOEXITENCIA);
-                $DREPALETIZAJEEX->__SET('KILOS_BRUTO_DREPALETIZAJE', $KILOSBRUTOEXISTENCIA);
-                $DREPALETIZAJEEX->__SET('EMBOLSADO', $EMBOLSADOEXISTENCIA);
-                $DREPALETIZAJEEX->__SET('STOCK', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["STOCK"]);
-                $DREPALETIZAJEEX->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
-                $DREPALETIZAJEEX->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
-                $DREPALETIZAJEEX->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
-                $DREPALETIZAJEEX->__SET('ID_FOLIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_FOLIO"]);
-                $DREPALETIZAJEEX->__SET('ID_ESTANDAR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
-                $DREPALETIZAJEEX->__SET('ID_PRODUCTOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PRODUCTOR"]);
-                $DREPALETIZAJEEX->__SET('ID_VESPECIES', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_VESPECIES"]);
-                $DREPALETIZAJEEX->__SET('ID_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_EXIEXPORTACION"]);
-                $DREPALETIZAJEEX->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
-                $DREPALETIZAJEEX_ADO->agregarDrepaletizaje($DREPALETIZAJEEX);
-
-                $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_EXIEXPORTACION"]);
-                $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODEXPORTACION);
-                $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-                $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_EMBALADO_EXIEXPORTACION"]);
-                $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $CAJAS);
-                $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILONETOEXITENCIA);
-                $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTOEXISTENCIA);
-                $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHISDRATACIONEXISTENCIA);
-                $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACIONEXITENCIA);
-                $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["OBSERVACION_EXIESPORTACION"]);
-                $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ALIAS_DINAMICO_FOLIO_EXIESPORTACION"]);
-                $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ALIAS_ESTATICO_FOLIO_EXIESPORTACION"]);
-                $EXIEXPORTACION->__SET('STOCK', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["STOCK"]);
-                $EXIEXPORTACION->__SET('EMBOLSADO', $EMBOLSADOEXISTENCIA);
-                $EXIEXPORTACION->__SET('GASIFICADO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["GASIFICADO"]);
-                $EXIEXPORTACION->__SET('PREFRIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["PREFRIO"]);
-                $EXIEXPORTACION->__SET('TESTADOSAG', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["TESTADOSAG"]);
-                $EXIEXPORTACION->__SET('VGM', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["VGM"]);
-                $EXIEXPORTACION->__SET('FECHA_RECEPCION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_RECEPCION"]);
-                $EXIEXPORTACION->__SET('FECHA_PROCESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_PROCESO"]);
-                $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REEMBALAJE"]);
-                $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REPALETIZAJE"]);
-                $EXIEXPORTACION->__SET('INGRESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["INGRESO"]);
-                $EXIEXPORTACION->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
-                $EXIEXPORTACION->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
-                $EXIEXPORTACION->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
-                $EXIEXPORTACION->__SET('ID_FOLIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_FOLIO"]);
-                $EXIEXPORTACION->__SET('ID_ESTANDAR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
-                $EXIEXPORTACION->__SET('ID_PRODUCTOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PRODUCTOR"]);
-                $EXIEXPORTACION->__SET('ID_VESPECIES', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_VESPECIES"]);
-                $EXIEXPORTACION->__SET('ID_PLANTA2', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PLANTA2"]);
-                $EXIEXPORTACION->__SET('ID_RECEPCION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_RECEPCION"]);
-                $EXIEXPORTACION->__SET('ID_PROCESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PROCESO"]);
-                $EXIEXPORTACION->__SET('ID_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_REEMBALAJE"]);
-                $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                $EXIEXPORTACION->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
-                $EXIEXPORTACION_ADO->agregarExiexportacionRepaletizaje($EXIEXPORTACION);
-            }
-
-        endforeach;
-    }
-    if ($SINO == "0") {
-
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-    }
-}
-if (isset($_REQUEST['MANTENER'])) {
-
-
-    if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
-        $REPALETIZAJE = $_REQUEST['IDP'];
-        $ARRAYSELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
-        $SINO = "0";
-        $MENSAJE = "";
-    } else {
-        $SINO = "1";
-        $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
-    }
-    if ($SINO == "0") {
-
-        foreach ($ARRAYSELECIONAREXISTENCIA as $r) :
-            $IDEXIEXPORTACION = $r;
-            $ARRAYDREPALETIZAJEBOLSA = $DREPALETIZAJEEX_ADO->obtenerTotalesDrepaletizajePorExistencia2($IDEXIEXPORTACION);
-            $ARRAYEXIEXPORTACIONBOLSASELECCION = $EXIEXPORTACION_ADO->verExiexportacion($IDEXIEXPORTACION);
-
-            if ($ARRAYDREPALETIZAJEBOLSA) {
-                $NUMEROFOLIO = $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_AUXILIAR_EXIEXPORTACION"];
-                $CAJATOTAL =   $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION'] - $ARRAYDREPALETIZAJEBOLSA[0]['ENVASE'];
-            } else {
-                $CAJATOTAL =  $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION'];
-            }
-            if ($CAJATOTAL == 0) {
-                $SINO = "1";
-                $MENSAJE2 = $MENSAJE2 . " <br> " . $NUMEROFOLIO . ": DEBE SELECIONAR UN REGISTRO QUE TENGA ENVASES MAYORES A CERO";
-            }
-            if ($SINO == "0") {
-
-                $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
-                $KILONETOEXITENCIA = $CAJATOTAL * $ARRAYESTANDAR[0]['PESO_NETO_ESTANDAR'];
-                $PDESHISDRATACIONEXISTENCIA = $ARRAYESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
-                $KILOSDESHIDRATACIONEXITENCIA = $KILONETOEXITENCIA * (1 + ($PDESHISDRATACIONEXISTENCIA / 100));
-                $KILOSBRUTOEXISTENCIA = (($CAJATOTAL * $ARRAYESTANDAR[0]['PESO_ENVASE_ESTANDAR']) + $KILOSDESHIDRATACIONEXITENCIA) + $ARRAYESTANDAR[0]['PESO_PALLET_ESTANDAR'];
-                $EMBOLSADOEXISTENCIA = $ARRAYESTANDAR[0]['EMBOLSADO'];
-
-                $DREPALETIZAJEEX->__SET('FOLIO_NUEVO_DREPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_AUXILIAR_EXIEXPORTACION"]);
-                $DREPALETIZAJEEX->__SET('FOLIO_MANUAL', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_MANUAL"]);
-                $DREPALETIZAJEEX->__SET('FECHA_EMBALADO_DREPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_EMBALADO_EXIEXPORTACION"]);
-                $DREPALETIZAJEEX->__SET('CANTIDAD_ENVASE_DREPALETIZAJE', $CAJATOTAL);
-                $DREPALETIZAJEEX->__SET('KILOS_NETO_DREPALETIZAJE', $KILONETOEXITENCIA);
-                $DREPALETIZAJEEX->__SET('KILOS_BRUTO_DREPALETIZAJE', $KILOSBRUTOEXISTENCIA);
-                $DREPALETIZAJEEX->__SET('EMBOLSADO', $EMBOLSADOEXISTENCIA);
-                $DREPALETIZAJEEX->__SET('STOCK', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["STOCK"]);
-                $DREPALETIZAJEEX->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
-                $DREPALETIZAJEEX->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
-                $DREPALETIZAJEEX->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
-                $DREPALETIZAJEEX->__SET('ID_FOLIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_FOLIO"]);
-                $DREPALETIZAJEEX->__SET('ID_ESTANDAR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
-                $DREPALETIZAJEEX->__SET('ID_PRODUCTOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PRODUCTOR"]);
-                $DREPALETIZAJEEX->__SET('ID_VESPECIES', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_VESPECIES"]);
-                $DREPALETIZAJEEX->__SET('ID_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_EXIEXPORTACION"]);
-                $DREPALETIZAJEEX->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
-                $DREPALETIZAJEEX_ADO->agregarDrepaletizaje($DREPALETIZAJEEX);
-
-                $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_EXIEXPORTACION"]);
-                $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_AUXILIAR_EXIEXPORTACION"]);
-                $EXIEXPORTACION->__SET('FOLIO_MANUAL', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_MANUAL"]);
-                $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_EMBALADO_EXIEXPORTACION"]);
-                $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $CAJATOTAL);
-                $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILONETOEXITENCIA);
-                $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTOEXISTENCIA);
-                $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHISDRATACIONEXISTENCIA);
-                $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACIONEXITENCIA);
-                $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["OBSERVACION_EXIESPORTACION"]);
-                $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ALIAS_DINAMICO_FOLIO_EXIESPORTACION"]);
-                $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ALIAS_ESTATICO_FOLIO_EXIESPORTACION"]);
-                $EXIEXPORTACION->__SET('STOCK', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["STOCK"]);
-                $EXIEXPORTACION->__SET('EMBOLSADO', $EMBOLSADOEXISTENCIA);
-                $EXIEXPORTACION->__SET('GASIFICADO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["GASIFICADO"]);
-                $EXIEXPORTACION->__SET('PREFRIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["PREFRIO"]);
-                $EXIEXPORTACION->__SET('TESTADOSAG', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["TESTADOSAG"]);
-                $EXIEXPORTACION->__SET('VGM', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["VGM"]);
-                $EXIEXPORTACION->__SET('FECHA_RECEPCION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_RECEPCION"]);
-                $EXIEXPORTACION->__SET('FECHA_PROCESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_PROCESO"]);
-                $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REEMBALAJE"]);
-                $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REPALETIZAJE"]);
-                $EXIEXPORTACION->__SET('INGRESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["INGRESO"]);
-                $EXIEXPORTACION->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
-                $EXIEXPORTACION->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
-                $EXIEXPORTACION->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
-                $EXIEXPORTACION->__SET('ID_FOLIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_FOLIO"]);
-                $EXIEXPORTACION->__SET('ID_ESTANDAR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
-                $EXIEXPORTACION->__SET('ID_PRODUCTOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PRODUCTOR"]);
-                $EXIEXPORTACION->__SET('ID_VESPECIES', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_VESPECIES"]);
-                $EXIEXPORTACION->__SET('ID_PLANTA2', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PLANTA2"]);
-                $EXIEXPORTACION->__SET('ID_RECEPCION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_RECEPCION"]);
-                $EXIEXPORTACION->__SET('ID_PROCESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PROCESO"]);
-                $EXIEXPORTACION->__SET('ID_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_REEMBALAJE"]);
-                $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                $EXIEXPORTACION->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
-                $EXIEXPORTACION_ADO->agregarExiexportacionRepaletizaje($EXIEXPORTACION);
-            }
-        endforeach;
-    }
-    if ($SINO == "0") {
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-    }
-}
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -432,7 +150,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <html lang="es">
 
 <head>
-    <title>Registro Detalle Repaletizaje</title>
+    <title>Agregar Detalle</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -536,16 +254,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title"> Agregar Detalle </h3>
+                                <h3 class="page-title">Repaletizaje</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                            <li class="breadcrumb-item" aria-current="page">Modulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                             <li class="breadcrumb-item" aria-current="page">Repaletizaje</li>
-                                            <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Agregar Detalle</a>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Repaletizaje</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agregar Detalle</a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -573,17 +291,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         </div>
                     </div>
                     <section class="content">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                        <div class="card">
+                            <div class="card-header with-border bg-success">                                   
+                                <h4 class="card-title">Agregar Detalle</h4>                                        
                             </div>
-
-                            <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
-                                <div class="box-body ">
+                            <form class="form" role="form" method="post" name="form_reg_dato" >
+                                <div class="card-body ">
                                     <div class="row">
-
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID REPALETIZAJE" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
@@ -750,25 +464,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     </div>
                                     <!-- /.box-body -->
 
-                                    <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i>
+                                    <div class="card-footer">
+                                        <div class="btn-group btn-rounded btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Agregar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Mantener" name="MANTENER" value="MANTENER" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> Mantener
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="Mantener" name="MANTENER" value="MANTENER" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="Por Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> P. Envases
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-
-
                         <!--.row -->
                     </section>
                 </div>
@@ -778,7 +489,390 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 <?php include_once "../config/menuExtra.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../config/urlBase.php"; ?>        
+        <script>            
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showConfirmButton: true
+            })
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Para <b>Selecionar Manterner</b> datos, seleccione los folios y presione <b>Mantener</b> </label><label>Para <b>seleccionar</b> una parte de los <b>Envases</b> de un folio, ingrese los Envases a Ingresar y presione <b> P. Envases </b> </label>"                
+            })
+        </script>
+        <?php 
+        //OPERACIONES
+        //OPERACION DE REGISTRO DE FILA
+        if (isset($_REQUEST['AGREGAR'])) {
+
+            $REPALETIZAJE = $_REQUEST['IDP'];
+            $ARRAYSELECIONARCAJASID = $_REQUEST['IDCAJA'];
+            $ARRAYSELECIONARIDFOLIO = $_REQUEST['IDFOLIO'];
+            $ARRAYSELECIONARCAJAS = $_REQUEST['CAJAS'];
+            $ARRAYSELECIONARIDEXIEXPORTACION = $_REQUEST['IDEXIEXPORTACION'];
+          
+
+
+            $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+            $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+
+            if (isset($_REQUEST['FOLIOMANUAL'])) {
+                $FOLIOMANUAL = $_REQUEST['FOLIOMANUAL'];
+            }
+            if ($FOLIOMANUAL == "on") {
+                $NUMEROFOLIODEXPORTACION = $_REQUEST['NUMEROFOLIODEXPORTACION'];
+                $FOLIOMANUALR = "1";
+                $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
+                if ($ARRAYFOLIOPOEXPO) {
+                    $SINO0 = "1";
+                    $MENSAJE0 = "El folio ingresado, ya existe.";
+                } else {
+                    $SINO0 = "0";
+                    $MENSAJE0 = "";
+                }
+            }
+            if ($FOLIOMANUAL != "on") {
+                $FOLIOMANUALR = "0";
+                $SINO0 = "0";
+                $ARRAYULTIMOFOLIO = $EXIEXPORTACION_ADO->obtenerFolioRepaletizaje($FOLIO);
+                if ($ARRAYULTIMOFOLIO) {
+                    if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'] == 0) {
+                        $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                    } else {
+                        $FOLIOEXPORTACION = $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO'];
+                    }
+                } else {
+                    $FOLIOEXPORTACION = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                }
+                $NUMEROFOLIODEXPORTACION = $FOLIOEXPORTACION + 1;
+                $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
+                while (count($ARRAYFOLIOPOEXPO) == 1) {
+                    $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($NUMEROFOLIODEXPORTACION);
+                    if (count($ARRAYFOLIOPOEXPO) == 1) {
+                        $NUMEROFOLIODEXPORTACION += 1;
+                    }
+                };
+            }
+            
+            if ($SINO0 == "1") {
+                echo '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Accion restringida",
+                        text:"'.$MENSAJE0.'",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    })
+                </script>';
+            }
+            if ($SINO0 == "0") {
+                foreach ($ARRAYSELECIONARCAJASID as $F) :
+                    $IDCAJAS = $F - 1;
+                    $CAJAS = $ARRAYSELECIONARCAJAS[$IDCAJAS];
+                    $NUMEROFOLIO = $ARRAYSELECIONARIDFOLIO[$IDCAJAS];
+                    $IDEXIEXPORTACION = $ARRAYSELECIONARIDEXIEXPORTACION[$IDCAJAS];
+
+                    $ARRAYDREPALETIZAJEBOLSA = $DREPALETIZAJEEX_ADO->obtenerTotalesDrepaletizajePorExistencia2($IDEXIEXPORTACION);
+                    $ARRAYEXIEXPORTACIONBOLSASELECCION = $EXIEXPORTACION_ADO->verExiexportacion($IDEXIEXPORTACION);
+
+                    if ($ARRAYDREPALETIZAJEBOLSA) {
+                        $CAJATOTAL =   $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION'] - $ARRAYDREPALETIZAJEBOLSA[0]['ENVASE'];
+                    } else {
+                        $CAJATOTAL =  $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION'];
+                    }
+
+                    if ($CAJAS != "") {
+                        $SINO = "0";
+                        $MENSAJE2 = $MENSAJE2;
+                        if ($CAJATOTAL == 0) {
+                            $SINO = "1";
+                            $MENSAJE2 = $MENSAJE2 . "" . $NUMEROFOLIO . ": Debe seleionar un registro que tenga envases mayores a cero.";
+                        } else {
+                            if ($CAJAS <= 0) {
+                                $SINO = "1";
+                                $MENSAJE2 = $MENSAJE2 . "  " . $NUMEROFOLIO . ": Solo deben ingresar un valor mayor a zero.";
+                            } else {
+                                $SINO = "0";
+                                $MENSAJE2 = $MENSAJE2;
+                                if ($CAJAS <= $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION']) {
+                                    $SINO = "0";
+                                    $MENSAJE2 = $MENSAJE2;
+                                } else {
+                                    $SINO = "1";
+                                    $MENSAJE2 = $MENSAJE2 . " " . $NUMEROFOLIO . ": El valor a ingresar debser ser menor o igual al original.";
+                                }
+                            }
+                        }
+                    } else {
+                        $SINO = "1";
+                        $MENSAJE2 = $MENSAJE2;
+                    }
+                    if ($SINO == "0") {
+
+                        $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
+                        $KILONETOEXITENCIA = $CAJAS * $ARRAYESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                        $PDESHISDRATACIONEXISTENCIA = $ARRAYESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                        $KILOSDESHIDRATACIONEXITENCIA = $KILONETOEXITENCIA * (1 + ($PDESHISDRATACIONEXISTENCIA / 100));
+                        $KILOSBRUTOEXISTENCIA = (($CAJAS * $ARRAYESTANDAR[0]['PESO_ENVASE_ESTANDAR']) + $KILOSDESHIDRATACIONEXITENCIA) + $ARRAYESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                        $EMBOLSADOEXISTENCIA = $ARRAYESTANDAR[0]['EMBOLSADO'];
+
+
+
+                        
+                        $DREPALETIZAJEEX->__SET('FOLIO_NUEVO_DREPALETIZAJE', $NUMEROFOLIODEXPORTACION);
+                        $DREPALETIZAJEEX->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                        $DREPALETIZAJEEX->__SET('FECHA_EMBALADO_DREPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_EMBALADO_EXIEXPORTACION"]);
+                        $DREPALETIZAJEEX->__SET('CANTIDAD_ENVASE_DREPALETIZAJE', $CAJAS);
+                        $DREPALETIZAJEEX->__SET('KILOS_NETO_DREPALETIZAJE', $KILONETOEXITENCIA);
+                        $DREPALETIZAJEEX->__SET('KILOS_BRUTO_DREPALETIZAJE', $KILOSBRUTOEXISTENCIA);
+                        $DREPALETIZAJEEX->__SET('EMBOLSADO', $EMBOLSADOEXISTENCIA);
+                        $DREPALETIZAJEEX->__SET('STOCK', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["STOCK"]);
+                        $DREPALETIZAJEEX->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
+                        $DREPALETIZAJEEX->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
+                        $DREPALETIZAJEEX->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
+                        $DREPALETIZAJEEX->__SET('ID_FOLIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_FOLIO"]);
+                        $DREPALETIZAJEEX->__SET('ID_ESTANDAR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
+                        $DREPALETIZAJEEX->__SET('ID_PRODUCTOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PRODUCTOR"]);
+                        $DREPALETIZAJEEX->__SET('ID_VESPECIES', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_VESPECIES"]);
+                        $DREPALETIZAJEEX->__SET('ID_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_EXIEXPORTACION"]);
+                        $DREPALETIZAJEEX->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
+                        $DREPALETIZAJEEX_ADO->agregarDrepaletizaje($DREPALETIZAJEEX);
+
+                        $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_EXIEXPORTACION"]);
+                        $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODEXPORTACION);
+                        $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                        $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_EMBALADO_EXIEXPORTACION"]);
+                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $CAJAS);
+                        $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILONETOEXITENCIA);
+                        $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTOEXISTENCIA);
+                        $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHISDRATACIONEXISTENCIA);
+                        $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACIONEXITENCIA);
+                        $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["OBSERVACION_EXIESPORTACION"]);
+                        $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ALIAS_DINAMICO_FOLIO_EXIESPORTACION"]);
+                        $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ALIAS_ESTATICO_FOLIO_EXIESPORTACION"]);
+                        $EXIEXPORTACION->__SET('STOCK', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["STOCK"]);
+                        $EXIEXPORTACION->__SET('EMBOLSADO', $EMBOLSADOEXISTENCIA);
+                        $EXIEXPORTACION->__SET('GASIFICADO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["GASIFICADO"]);
+                        $EXIEXPORTACION->__SET('PREFRIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["PREFRIO"]);
+                        $EXIEXPORTACION->__SET('TESTADOSAG', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["TESTADOSAG"]);
+                        $EXIEXPORTACION->__SET('VGM', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["VGM"]);
+                        $EXIEXPORTACION->__SET('FECHA_RECEPCION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_RECEPCION"]);
+                        $EXIEXPORTACION->__SET('FECHA_PROCESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_PROCESO"]);
+                        $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REEMBALAJE"]);
+                        $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REPALETIZAJE"]);
+                        $EXIEXPORTACION->__SET('INGRESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["INGRESO"]);
+                        $EXIEXPORTACION->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
+                        $EXIEXPORTACION->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
+                        $EXIEXPORTACION->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
+                        $EXIEXPORTACION->__SET('ID_FOLIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_FOLIO"]);
+                        $EXIEXPORTACION->__SET('ID_ESTANDAR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
+                        $EXIEXPORTACION->__SET('ID_PRODUCTOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PRODUCTOR"]);
+                        $EXIEXPORTACION->__SET('ID_VESPECIES', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_VESPECIES"]);
+                        $EXIEXPORTACION->__SET('ID_PLANTA2', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PLANTA2"]);
+                        $EXIEXPORTACION->__SET('ID_RECEPCION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_RECEPCION"]);
+                        $EXIEXPORTACION->__SET('ID_PROCESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PROCESO"]);
+                        $EXIEXPORTACION->__SET('ID_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_REEMBALAJE"]);
+                        $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                        $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                        $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                        $EXIEXPORTACION->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
+                        $EXIEXPORTACION_ADO->agregarExiexportacionRepaletizaje($EXIEXPORTACION);
+                    }
+
+                endforeach;
+            }
+            if ($SINO == "0") {
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+
+                if ($MENSAJE == "") { 
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Accion realizada",
+                            text:"Se agregado la selección al repaletizaje.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Volver al repaletizaje",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                        })
+                    </script>';
+                }else{                        
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Accion realizada",
+                            text:"Se agregado la selección al repaletizaje. ' . $MENSAJE . '",
+                            showConfirmButton: true,
+                            confirmButtonText:"Volver al repaletizaje",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                        })
+                    </script>';
+                }  
+
+            }else{
+                if($MENSAJE2!=""){
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"' . $MENSAJE2 . '",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href="registroDrepaletizajePTSeleccionCaja.php?op";                        
+                        })
+                    </script>';
+
+                }
+            }
+        }
+        if (isset($_REQUEST['MANTENER'])) {
+
+
+            if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
+                $REPALETIZAJE = $_REQUEST['IDP'];
+                $ARRAYSELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
+                $SINO = "0";
+            } else {
+                $SINO = "1";
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Accion restringida",
+                        text:"Se debe selecionar al menos una existencia.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroDrepaletizajePTSeleccionCaja.php?op";                            
+                    })
+                </script>';
+            }
+            if ($SINO == "0") {
+
+                foreach ($ARRAYSELECIONAREXISTENCIA as $r) :
+                    $IDEXIEXPORTACION = $r;
+                    $ARRAYDREPALETIZAJEBOLSA = $DREPALETIZAJEEX_ADO->obtenerTotalesDrepaletizajePorExistencia2($IDEXIEXPORTACION);
+                    $ARRAYEXIEXPORTACIONBOLSASELECCION = $EXIEXPORTACION_ADO->verExiexportacion($IDEXIEXPORTACION);
+
+                    if ($ARRAYDREPALETIZAJEBOLSA) {
+                        $NUMEROFOLIO = $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_AUXILIAR_EXIEXPORTACION"];
+                        $CAJATOTAL =   $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION'] - $ARRAYDREPALETIZAJEBOLSA[0]['ENVASE'];
+                    } else {
+                        $CAJATOTAL =  $ARRAYEXIEXPORTACIONBOLSASELECCION[0]['CANTIDAD_ENVASE_EXIEXPORTACION'];
+                    }
+                    if ($CAJATOTAL == 0) {
+                        $SINO = "1";
+                        $MENSAJE2 = $MENSAJE2 . " <br> " . $NUMEROFOLIO . ": DEBE SELECIONAR UN REGISTRO QUE TENGA ENVASES MAYORES A CERO";
+                    }
+                    if ($SINO == "0") {
+
+                        $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
+                        $KILONETOEXITENCIA = $CAJATOTAL * $ARRAYESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                        $PDESHISDRATACIONEXISTENCIA = $ARRAYESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                        $KILOSDESHIDRATACIONEXITENCIA = $KILONETOEXITENCIA * (1 + ($PDESHISDRATACIONEXISTENCIA / 100));
+                        $KILOSBRUTOEXISTENCIA = (($CAJATOTAL * $ARRAYESTANDAR[0]['PESO_ENVASE_ESTANDAR']) + $KILOSDESHIDRATACIONEXITENCIA) + $ARRAYESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                        $EMBOLSADOEXISTENCIA = $ARRAYESTANDAR[0]['EMBOLSADO'];
+
+                        $DREPALETIZAJEEX->__SET('FOLIO_NUEVO_DREPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_AUXILIAR_EXIEXPORTACION"]);
+                        $DREPALETIZAJEEX->__SET('FOLIO_MANUAL', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_MANUAL"]);
+                        $DREPALETIZAJEEX->__SET('FECHA_EMBALADO_DREPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_EMBALADO_EXIEXPORTACION"]);
+                        $DREPALETIZAJEEX->__SET('CANTIDAD_ENVASE_DREPALETIZAJE', $CAJATOTAL);
+                        $DREPALETIZAJEEX->__SET('KILOS_NETO_DREPALETIZAJE', $KILONETOEXITENCIA);
+                        $DREPALETIZAJEEX->__SET('KILOS_BRUTO_DREPALETIZAJE', $KILOSBRUTOEXISTENCIA);
+                        $DREPALETIZAJEEX->__SET('EMBOLSADO', $EMBOLSADOEXISTENCIA);
+                        $DREPALETIZAJEEX->__SET('STOCK', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["STOCK"]);
+                        $DREPALETIZAJEEX->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
+                        $DREPALETIZAJEEX->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
+                        $DREPALETIZAJEEX->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
+                        $DREPALETIZAJEEX->__SET('ID_FOLIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_FOLIO"]);
+                        $DREPALETIZAJEEX->__SET('ID_ESTANDAR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
+                        $DREPALETIZAJEEX->__SET('ID_PRODUCTOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PRODUCTOR"]);
+                        $DREPALETIZAJEEX->__SET('ID_VESPECIES', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_VESPECIES"]);
+                        $DREPALETIZAJEEX->__SET('ID_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_EXIEXPORTACION"]);
+                        $DREPALETIZAJEEX->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
+                        $DREPALETIZAJEEX_ADO->agregarDrepaletizaje($DREPALETIZAJEEX);
+
+                        $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_EXIEXPORTACION"]);
+                        $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_AUXILIAR_EXIEXPORTACION"]);
+                        $EXIEXPORTACION->__SET('FOLIO_MANUAL', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FOLIO_MANUAL"]);
+                        $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_EMBALADO_EXIEXPORTACION"]);
+                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $CAJATOTAL);
+                        $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILONETOEXITENCIA);
+                        $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTOEXISTENCIA);
+                        $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHISDRATACIONEXISTENCIA);
+                        $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACIONEXITENCIA);
+                        $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["OBSERVACION_EXIESPORTACION"]);
+                        $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ALIAS_DINAMICO_FOLIO_EXIESPORTACION"]);
+                        $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ALIAS_ESTATICO_FOLIO_EXIESPORTACION"]);
+                        $EXIEXPORTACION->__SET('STOCK', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["STOCK"]);
+                        $EXIEXPORTACION->__SET('EMBOLSADO', $EMBOLSADOEXISTENCIA);
+                        $EXIEXPORTACION->__SET('GASIFICADO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["GASIFICADO"]);
+                        $EXIEXPORTACION->__SET('PREFRIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["PREFRIO"]);
+                        $EXIEXPORTACION->__SET('TESTADOSAG', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["TESTADOSAG"]);
+                        $EXIEXPORTACION->__SET('VGM', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["VGM"]);
+                        $EXIEXPORTACION->__SET('FECHA_RECEPCION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_RECEPCION"]);
+                        $EXIEXPORTACION->__SET('FECHA_PROCESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_PROCESO"]);
+                        $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REEMBALAJE"]);
+                        $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REPALETIZAJE"]);
+                        $EXIEXPORTACION->__SET('INGRESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["INGRESO"]);
+                        $EXIEXPORTACION->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
+                        $EXIEXPORTACION->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
+                        $EXIEXPORTACION->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
+                        $EXIEXPORTACION->__SET('ID_FOLIO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_FOLIO"]);
+                        $EXIEXPORTACION->__SET('ID_ESTANDAR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_ESTANDAR"]);
+                        $EXIEXPORTACION->__SET('ID_PRODUCTOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PRODUCTOR"]);
+                        $EXIEXPORTACION->__SET('ID_VESPECIES', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_VESPECIES"]);
+                        $EXIEXPORTACION->__SET('ID_PLANTA2', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PLANTA2"]);
+                        $EXIEXPORTACION->__SET('ID_RECEPCION', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_RECEPCION"]);
+                        $EXIEXPORTACION->__SET('ID_PROCESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_PROCESO"]);
+                        $EXIEXPORTACION->__SET('ID_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_REEMBALAJE"]);
+                        $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                        $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                        $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                        $EXIEXPORTACION->__SET('ID_REPALETIZAJE', $REPALETIZAJE);
+                        $EXIEXPORTACION_ADO->agregarExiexportacionRepaletizaje($EXIEXPORTACION);
+                    }
+                endforeach;
+            }
+            if ($SINO == "0") {
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Accion realizada",
+                        text:"Se agregado la selección al repaletizaje.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Volver a repaletizaje",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>';
+            }
+        }
+                
+        ?>
+
+
 </body>
 
 </html>

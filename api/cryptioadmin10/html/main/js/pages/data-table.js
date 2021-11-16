@@ -253,7 +253,7 @@ $(function () {
     //DETALLE De REGISTROS
     //DETALLE SELECION REPALETIZAJE 
     $('#ingreso').DataTable({
-        "scrollY": 200,
+        "scrollY": 400,
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
@@ -284,7 +284,7 @@ $(function () {
     });
 
     $('#salida').DataTable({
-        "scrollY": 200,
+        "scrollY": 400,
         "scrollX": true,
         'paging': false,
         'lengthChange': false, //ordernar por 10 25 100 500
