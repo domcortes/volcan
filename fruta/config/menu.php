@@ -666,7 +666,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroRepaletizajePTFrigorifico.php"> Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="registroRepaletizajePTFrigorifico.php">Registro Repaletizaje<i class="ti-more"></i></a></li>
               <li><a href="listarRepaletizajePTFrigorifico.php">Agrupado Repaletizaje<i class="ti-more"></i></a></li>
             </ul>
           </li>
