@@ -143,23 +143,23 @@ class TRANSPORTE_ADO
 
             $query =
                 "INSERT INTO `transporte_transporte` (  `RUT_TRANSPORTE`,
-                                                    `DV_TRANSPORTE`,
-                                                    `NUMERO_TRANSPORTE`,
-                                                    `NOMBRE_TRANSPORTE`,
-                                                    `GIRO_TRANSPORTE`,
-                                                    `RAZON_SOCIAL_TRANSPORTE`,
-                                                    `DIRECCION_TRANSPORTE`,
-                                                    `CONTACTO_TRANSPORTE`,
-                                                    `TELEFONO_TRANSPORTE`,
-                                                    `EMAIL_TRANSPORTE`,
-                                                    `NOTA_TRANSPORTE`, 
-                                                    `ID_CIUDAD`, 
-                                                    `ID_EMPRESA`,
-                                                    `ID_USUARIOI`,
-                                                    `ID_USUARIOM`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`, 
-                                                    `ESTADO_REGISTRO`
+                                                        `DV_TRANSPORTE`,
+                                                        `NUMERO_TRANSPORTE`,
+                                                        `NOMBRE_TRANSPORTE`,
+                                                        `GIRO_TRANSPORTE`,
+                                                        `RAZON_SOCIAL_TRANSPORTE`,
+                                                        `DIRECCION_TRANSPORTE`,
+                                                        `CONTACTO_TRANSPORTE`,
+                                                        `TELEFONO_TRANSPORTE`,
+                                                        `EMAIL_TRANSPORTE`,
+                                                        `NOTA_TRANSPORTE`, 
+                                                        `ID_CIUDAD`, 
+                                                        `ID_EMPRESA`,
+                                                        `ID_USUARIOI`,
+                                                        `ID_USUARIOM`,
+                                                        `INGRESO`,
+                                                        `MODIFICACION`, 
+                                                        `ESTADO_REGISTRO`
                                                 ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
@@ -203,23 +203,27 @@ class TRANSPORTE_ADO
     public function actualizarTransporte(TRANSPORTE $TRANSPORTE)
     {
         try {
+            
+            if ($TRANSPORTE->__GET('ID_CIUDAD') == NULL) {
+                $TRANSPORTE->__SET('ID_CIUDAD', NULL);
+            }
             $query = "
-		UPDATE `transporte_transporte` SET
-            `MODIFICACION`= SYSDATE(),
-            `RUT_TRANSPORTE`= ?,
-            `DV_TRANSPORTE`= ?,
-            `NOMBRE_TRANSPORTE`= ?,
-            `GIRO_TRANSPORTE`= ?,
-            `RAZON_SOCIAL_TRANSPORTE`= ?,
-            `DIRECCION_TRANSPORTE`= ?,
-            `CONTACTO_TRANSPORTE`= ?,
-            `TELEFONO_TRANSPORTE`= ?,
-            `EMAIL_TRANSPORTE`= ?,
-            `NOTA_TRANSPORTE`= ?,
-            `ID_CIUDAD`= ?,
-            `ID_EMPRESA`= ?  ,
-            `ID_USUARIOM`= ?          
-		WHERE `ID_TRANSPORTE`= ?;";
+                UPDATE `transporte_transporte` SET
+                    `MODIFICACION`= SYSDATE(),
+                    `RUT_TRANSPORTE`= ?,
+                    `DV_TRANSPORTE`= ?,
+                    `NOMBRE_TRANSPORTE`= ?,
+                    `GIRO_TRANSPORTE`= ?,
+                    `RAZON_SOCIAL_TRANSPORTE`= ?,
+                    `DIRECCION_TRANSPORTE`= ?,
+                    `CONTACTO_TRANSPORTE`= ?,
+                    `TELEFONO_TRANSPORTE`= ?,
+                    `EMAIL_TRANSPORTE`= ?,
+                    `NOTA_TRANSPORTE`= ?,
+                    `ID_CIUDAD`= ?,
+                    `ID_EMPRESA`= ?  ,
+                    `ID_USUARIOM`= ?          
+                WHERE `ID_TRANSPORTE`= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(

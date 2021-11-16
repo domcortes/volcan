@@ -72,10 +72,6 @@ if (isset($_REQUEST['GUARDAR'])) {
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
     $INPECTOR->__SET('NUMERO_INPECTOR', $NUMERO);
     $INPECTOR->__SET('NOMBRE_INPECTOR', $_REQUEST['NOMBREINPECTOR']);
-    $INPECTOR->__SET('DIRECCION_INPECTOR', $_REQUEST['DIRECCIONINPECTOR']);
-    $INPECTOR->__SET('TELEFONO_INPECTOR', $_REQUEST['TELEFONOINPECTOR']);
-    $INPECTOR->__SET('EMAIL_INPECTOR', $_REQUEST['EMAILINPECTOR']);
-    $INPECTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
     $INPECTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $INPECTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
     $INPECTOR->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -113,19 +109,11 @@ if (isset($_REQUEST['GUARDAR'])) {
 
                 function validacion() {
                     NOMBREINPECTOR = document.getElementById("NOMBREINPECTOR").value;
-                    DIRECCIONINPECTOR = document.getElementById("DIRECCIONINPECTOR").value;
-                    TELEFONOINPECTOR = document.getElementById("TELEFONOINPECTOR").value;
-                    EMAILINPECTOR = document.getElementById("EMAILINPECTOR").value;
-                    CIUDAD = document.getElementById("CIUDAD").selectedIndex;
 
 
 
 
                     document.getElementById('val_nombre').innerHTML = "";
-                    document.getElementById('val_direccion').innerHTML = "";
-                    document.getElementById('val_telefono').innerHTML = "";
-                    document.getElementById('val_email').innerHTML = "";
-                    document.getElementById('val_ciudad').innerHTML = "";
 
 
                     if (NOMBREINPECTOR == null || NOMBREINPECTOR.length == 0 || /^\s+$/.test(NOMBREINPECTOR)) {
@@ -143,44 +131,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                         return false;
                     }
                     document.form_reg_dato.NOMBREINPECTOR.style.borderColor = "#4AF575";
-
-
-                    if (DIRECCIONINPECTOR == null || DIRECCIONINPECTOR.length == 0 || /^\s+$/.test(DIRECCIONINPECTOR)) {
-                        document.form_reg_dato.DIRECCIONINPECTOR.focus();
-                        document.form_reg_dato.DIRECCIONINPECTOR.style.borderColor = "#FF0000";
-                        document.getElementById('val_direccion').innerHTML = "NO A INGRESADO DATO";
-                        return false;
-                    }
-                    document.form_reg_dato.DIRECCIONINPECTOR.style.borderColor = "#4AF575";
-                    /*
-                                          if (TELEFONOINPECTOR == null || TELEFONOINPECTOR == 0) {
-                                              document.form_reg_dato.TELEFONOINPECTOR.focus();
-                                              document.form_reg_dato.TELEFONOINPECTOR.style.borderColor = "#FF0000";
-                                              document.getElementById('val_telefono').innerHTML = "NO A INGRESADO DATO";
-                                              return false;
-                                          }
-                                          document.form_reg_dato.TELEFONOINPECTOR.style.borderColor = "#4AF575";
-
-
-                                          if (EMAILINPECTOR == null || EMAILINPECTOR.length == 0 || /^\s+$/.test(EMAILINPECTOR)) {
-                                              document.form_reg_dato.EMAILINPECTOR.focus();
-                                              document.form_reg_dato.EMAILINPECTOR.style.borderColor = "#FF0000";
-                                              document.getElementById('val_email').innerHTML = "NO A INGRESADO DATO";
-                                              return false;
-                                          }
-                                          document.form_reg_dato.EMAILINPECTOR.style.borderColor = "#4AF575";
-
-
-
-
-                                          if (CIUDAD == null || CIUDAD == 0) {
-                                              document.form_reg_dato.CIUDAD.focus();
-                                              document.form_reg_dato.CIUDAD.style.borderColor = "#FF0000";
-                                              document.getElementById('val_ciudad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                                              return false;
-                                          }
-                                          document.form_reg_dato.CIUDAD.style.borderColor = "#4AF575";
-                                      */
 
 
 
@@ -218,7 +168,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                             </h4>
                             <hr class="my-15">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Nombre </label>
                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -227,56 +177,6 @@ if (isset($_REQUEST['GUARDAR'])) {
                                         <label id="val_nombre" class="validacion"> </label>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Dirreccion </label>
-                                        <input type="text" class="form-control" placeholder="Dirreccion Inpector" id="DIRECCIONINPECTOR" name="DIRECCIONINPECTOR" value="<?php echo $DIRECCIONINPECTOR; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_direccion" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Telefono </label>
-                                        <input type="number" class="form-control" placeholder="Telefono Inpector" id="TELEFONOINPECTOR" name="TELEFONOINPECTOR" value="<?php echo $TELEFONOINPECTOR; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_telefono" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Email </label>
-                                        <input type="text" class="form-control" placeholder="Email Inpector" id="EMAILINPECTOR" name="EMAILINPECTOR" value="<?php echo $EMAILINPECTOR; ?>" <?php echo $DISABLED; ?> />
-                                        <label id="val_email" class="validacion"> </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 col-12">
-                                    <div class="form-group">
-                                        <label>Ciudad </label>
-                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
-                                            <option></option>
-                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
-                                                <?php if ($ARRAYCIUDAD) {    ?>
-                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
-                                                                                                        echo "selected";
-                                                                                                    } ?>>
-                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
-                                                    </option>
-                                                <?php } else { ?>
-                                                    <option>No Hay Datos Registrados </option>
-                                                <?php } ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <label id="val_ciudad" class="validacion"> </label>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="row">
                             </div>
                         </div>
                         <!-- /.box-body -->
