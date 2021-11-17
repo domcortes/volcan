@@ -390,7 +390,42 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarConsumoFicha.php">Consumo Materiales<i class="ti-more"></i></a></li>
           <li><a href="#">Kardex<i class="ti-more"></i></a></li>
         </ul>
-      </li>
+      </li>      
+      <li class="treeview">
+        <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/cards.svg" class="svg-icon" alt="">
+          <span>Envases</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#">Recepcion  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="listarRecepcione.php">Agrupado Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcioneDetallado.php">Detallado Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcioneInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Despacho  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
+                    <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+            <li><a href="listarHinventarioe.php">Kardex <i class="ti-more"></i></a></li>
+        </ul>
+      </li> 
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/exchange.svg" class="svg-icon" alt="">
@@ -407,8 +442,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroICarga.php"> Registro Inst. Carga<i class="ti-more"></i></a></li>
-              <li><a href="listarICarga.php"> Agrupado Inst. Carga<i class="ti-more"></i></a></li>
+              <li><a href="#"> Registro Inst. Carga<i class="ti-more"></i></a></li>
+              <li><a href="#"> Agrupado Inst. Carga<i class="ti-more"></i></a></li>
             </ul>
           </li>
         </ul>

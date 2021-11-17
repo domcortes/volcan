@@ -5,7 +5,7 @@
 			<a class="nav-link" href="javascript:void(0)">Ultima Actualización</a>
 		  </li>
 		  <li class="nav-item">
-			<a class="nav-link" href="#">Version 2.0 09-2021</a>
+			<a class="nav-link" href="#">Version 2.1 11-2021</a>
 		  </li>
 		</ul>
     </div>

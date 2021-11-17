@@ -463,8 +463,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarEximateriaprima.php">Existencia Materia Prima<i class="ti-more"></i></a></li>
           <li><a href="listarExiindustrial.php">Existencia Industrial<i class="ti-more"></i></a></li>
         </ul>
-      </li>   
-        
+      </li>           
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/cards.svg" class="svg-icon" alt="">
@@ -481,7 +480,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="#">Registro Recepcion<i class="ti-more"></i></a></li>
+                  <li><a href="registroRecepcione.php">Registro Recepcion<i class="ti-more"></i></a></li>
                   <li><a href="listarRecepcione.php">Agrupado Recepcion<i class="ti-more"></i></a></li>
                   <li><a href="listarRecepcioneDetallado.php">Detallado Recepcion<i class="ti-more"></i></a></li>
                   <li><a href="listarRecepcioneInterplanta.php">Agrupado Interplanta<i class="ti-more"></i></a></li>
@@ -494,12 +493,22 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Registro Despacho<i class="ti-more"></i></a></li>
+                    <li><a href="registroDespachoe.php">Registro Despacho<i class="ti-more"></i></a></li>
                     <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
                     <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
                 </ul>
               </li>
-          <li><a href="listarInventarioe.php">Kardex <i class="ti-more"></i></a></li>
+              <li class="treeview">
+                <a href="#">Guia Por Recibir  
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="registroGuiaPorRecibirE.php">Envases<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+            <li><a href="listarHinventarioe.php">Kardex <i class="ti-more"></i></a></li>
         </ul>
       </li>      
       <li class="treeview">

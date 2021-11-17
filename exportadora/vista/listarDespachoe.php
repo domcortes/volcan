@@ -70,10 +70,10 @@ $ARRAYMGUIAMP = "";
 
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS   && $TEMPORADAS) {
 
-    $ARRAYDESPACHOPT = $DESPACHOE_ADO->listarDespachoeEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOE_ADO->obtenerTotalesDespachoeEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPT = $DESPACHOE_ADO->listarDespachoeEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYDESPACHOPTTOTALES = $DESPACHOE_ADO->obtenerTotalesDespachoeEmpresaTemporadaCBX2($EMPRESAS,  $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
 }
 
@@ -392,13 +392,6 @@ include_once "../config/datosUrLP.php";
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
                                                                                         <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>

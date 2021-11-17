@@ -223,6 +223,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Numero Oc</th>
                                                     <th>Numero Oc Interno</th>
                                                     <th>Empresa</th>
+                                                    <th>Planta</th>
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
@@ -354,6 +355,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NUMEROOCOMPRA; ?></td>
                                                             <td><?php echo $NUMEROIOCOMPRA; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                            <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>

@@ -3,7 +3,6 @@
 include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-
 include_once '../controlador/TDOCUMENTO_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
@@ -44,7 +43,6 @@ $DESPACHOE_ADO = new DESPACHOE_ADO();
 $MGUIAE_ADO =  new MGUIAE_ADO();
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 
-
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 
@@ -70,10 +68,10 @@ $ARRAYMGUIAMP = "";
 
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS   && $TEMPORADAS) {
 
-    $ARRAYDESPACHOPT = $DESPACHOE_ADO->listarDespachoeEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOE_ADO->obtenerTotalesDespachoeEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOPT = $DESPACHOE_ADO->listarDespachoeEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYDESPACHOPTTOTALES = $DESPACHOE_ADO->obtenerTotalesDespachoeEmpresaTemporadaCBX2($EMPRESAS,  $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
 }
 
@@ -92,7 +90,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Agrupado Despacho</title>
+    <title>Detallado Despacho Envases</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -183,10 +181,10 @@ include_once "../config/datosUrLP.php";
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                            <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
-                                            <li class="breadcrumb-item" aria-current="page">Despacho </li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Despacho </a>
+                                        <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                        <li class="breadcrumb-item" aria-current="page">Envases </li>
+                                        <li class="breadcrumb-item" aria-current="page">Despacho</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Despacho </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -225,22 +223,22 @@ include_once "../config/datosUrLP.php";
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
-                                                    <th>Número </th>
-                                                    <th>Estado</th>
-                                                    <th class="text-center">Operaciónes</th>
-                                                    <th>Estado Despacho</th>
-                                                    <th>Tipo Despacho</th>
-                                                    <th>Destino Despacho</th>
+                                                    <th>Codigo Producto </th>
+                                                    <th>Producto </th>
+                                                    <th>Cantidad</th>
+                                                    <th>Unidad Medida</th>
+                                                    <th>Planta</th>
+                                                    <th>Bodega</th>
+                                                    <th>Número Despacho</th>
                                                     <th>Fecha Despacho </th>
+                                                    <th>Tipo Despacho</th>
+                                                    <th>Destino Despacho </th>
                                                     <th>Número Documento </th>
-                                                    <th>Cantidad </th>
+                                                    <th>Valor Unitario</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
-                                                    <th>Despacho Materia Prima </th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
@@ -261,7 +259,10 @@ include_once "../config/datosUrLP.php";
                                                         $ESTADODESPACHO = "Aprobado";
                                                     } else {
                                                         $ESTADODESPACHO = "Sin Datos";
-                                                    }                                                    
+                                                    }
+
+
+                                                 
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
                                                         $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA"]);
@@ -356,96 +357,60 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
-
-                                                    $ARRAYDESPACHOMP=$DESPACHOMP_ADO->verDespachomp($r['ID_DESPACHOMP']);
-                                                    if($ARRAYDESPACHOMP){
-                                                        $NUMERODESPACHOMP=$ARRAYDESPACHOMP[0]["NUMERO_DESPACHO"];
-                                                    }else{
-                                                        $NUMERODESPACHOMP="No Aplica";
-                                                    }
-                                                    $ARRAYMGUIAM = $MGUIAE_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
+                                                    $ARRAYTOMADO = $INVENTARIOE_ADO->buscarPorDespacho($r['ID_DESPACHO']);
                                                     ?>
-                                                    <tr class="text-left">
-                                                        <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
-                                                        <td>
-                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                <button type="button" class="btn btn-block btn-danger">Cerrado</button>
-                                                            <?php  }  ?>
-                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                <button type="button" class="btn btn-block btn-success">Abierto</button>
-                                                            <?php  }  ?>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <form method="post" id="form1">
-                                                                <div class="list-icons d-inline-flex">
-                                                                    <div class="list-icons-item dropdown">
-                                                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <i class="glyphicon glyphicon-cog"></i>
-                                                                        </button>
-                                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
-                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoe" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoe" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLMR" name="URLMR" value="listarDespachoMguiaE" />
-                                                                            <?php if ($r['ESTADO'] == "0") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
-                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($ARRAYMGUIAM) { ?>
-                                                                                <hr>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
-                                                                                    <button type="submit" class="btn btn-primary btn-block" id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="">
-                                                                                        <i class="ti-eye"></i>
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <hr>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoE.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </td>
-                                                        <td><?php echo $ESTADODESPACHO; ?></td>
-                                                        <td><?php echo $TDESPACHO; ?></td>
-                                                        <td><?php echo $NOMBRDESTINO; ?></td>
-                                                        <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
-                                                        <td><?php echo $r['CANTIDAD']; ?></td>
-                                                        <td><?php echo $NOMBRETRANSPORTE; ?></td>
-                                                        <td><?php echo $NOMBRECONDUCTOR; ?></td>
-                                                        <td><?php echo $r['PATENTE_CAMION']; ?></td>
-                                                        <td><?php echo $r['PATENTE_CARRO']; ?></td>
-                                                        <td><?php echo $NUMERODESPACHOMP; ?></td>
-                                                        <td><?php echo $r['INGRESO']; ?></td>
-                                                        <td><?php echo $r['MODIFICACION']; ?></td>
-                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
-                                                        <td><?php echo $NOMBREPLANTA; ?></td>
-                                                        <td><?php echo $NOMBRETEMPORADA; ?></td>
-
-                                                    </tr>
+                                                    <?php foreach ($ARRAYTOMADO as $s) : ?>
+                                                        <?php                                                
+                                                       
+                                                        $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($s['ID_BODEGA']);
+                                                        if ($ARRAYVERBODEGA) {
+                                                            $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
+                                                        } else {
+                                                            $NOMBREBODEGA = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                        if ($ARRAYVERPRODUCTO) {
+                                                            $CODIGOPRODUCTO = $ARRAYVERPRODUCTO[0]['CODIGO_PRODUCTO'];
+                                                            $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                        } else {
+                                                            $CODIGOPRODUCTO = "Sin Datos";
+                                                            $NOMBREPRODUCTO = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
+                                                        if ($ARRAYVERTUMEDIDA) {
+                                                            $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
+                                                        } else {
+                                                            $NOMBRETUMEDIDA = "Sin Datos";
+                                                        }
+                                                        ?>
+                                                        <tr class="text-left">          
+                                                            <td><?php echo $CODIGOPRODUCTO; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTO; ?></td>
+                                                            <td><?php echo $s['CANTIDAD']; ?></td>
+                                                            <td><?php echo $NOMBRETUMEDIDA; ?></td>
+                                                            <td><?php echo $NOMBREPLANTA; ?></td>
+                                                            <td><?php echo $NOMBREBODEGA; ?></td>                                                             
+                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
+                                                            <td><?php echo $r['FECHA']; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $NOMBRDESTINO; ?></td>
+                                                            <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
+                                                            <td><?php echo $s['VALOR']; ?></td>
+                                                            <td><?php echo $NOMBRETRANSPORTE; ?></td>
+                                                            <td><?php echo $NOMBRECONDUCTOR; ?></td>
+                                                            <td><?php echo $r['PATENTE_CAMION']; ?></td>
+                                                            <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                            <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                            <td><?php echo $NOMBREPLANTA; ?></td>
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="box-footer">
                                 <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="datos">

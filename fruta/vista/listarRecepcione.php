@@ -78,7 +78,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Agrupado Recepción Envases</title>
+    <title>Agrupado Recepción</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -162,14 +162,14 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Agrupado Recepción</h3>
+                            <h3 class="page-title">Recepción Envases </h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
                                         <li class="breadcrumb-item" aria-current="page">Envases</li>
+                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Recepción </a>
                                         </li>
                                     </ol>
@@ -307,7 +307,22 @@ include_once "../config/datosUrLP.php";
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_RECEPCION']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRecepcione" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcione" />   
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcione" />
+                                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcione.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe

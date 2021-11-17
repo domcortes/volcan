@@ -599,7 +599,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title>Registro Recepción Envases</title>
+    <title>Registro Recepción</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -859,16 +859,15 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Recepción</h3>
+                                <h3 class="page-title">Recepción Envases</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepción</li>
                                             <li class="breadcrumb-item" aria-current="page">Envases</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Recepción </a>
-                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Recepción </a> </li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -1024,7 +1023,7 @@ if (isset($_POST)) {
                                         <?php if ($TRECEPCION == "") { ?>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "1") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Proveedor</label>
                                                     <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
@@ -1049,7 +1048,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "2") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Productor</label>
                                                     <input type="hidden" class="form-control" placeholder="Productor" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -1072,7 +1071,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "3") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Planta Origen</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTA2E" id="PLANTA2E" name="PLANTA2E" value="<?php echo $PLANTA2; ?>" />
@@ -1094,7 +1093,7 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>                                            
                                         <?php } ?>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Bodega Destino</label>
                                                 <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
@@ -1113,7 +1112,7 @@ if (isset($_POST)) {
                                                 <label id="val_bodega" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Tipo Documento</label>
                                                 <input type="hidden" class="form-control" placeholder="TDOCUMENTOE" id="TDOCUMENTOE" name="TDOCUMENTOE" value="<?php echo $TDOCUMENTO; ?>" />

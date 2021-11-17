@@ -59,8 +59,8 @@ $ARRAYVERPRODUCTO = "";
 $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarKardexPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS,  $TEMPORADAS);
+if ($EMPRESAS  && $TEMPORADAS) {
+    $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarKardexPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
 }
 include_once "../config/validarDatosUrl.php";
 include_once "../config/reporteUrl.php";
@@ -72,7 +72,7 @@ include_once "../config/reporteUrl.php";
 <html lang="es">
 
 <head>
-    <title>Existencia Envases</title>
+    <title>Kardex Envases</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -153,14 +153,14 @@ include_once "../config/reporteUrl.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Existencia Envases</h3>
+                            <h3 class="page-title">Envases</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Historial</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Envases </a>
+                                        <li class="breadcrumb-item" aria-current="page">Envases</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Kardex</a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -244,6 +244,7 @@ include_once "../config/reporteUrl.php";
                                                             }
                                                         } else if ($TOPERACION == "4") {
                                                             $NOMBREOPERACION = "Recepción Inventario Inicial ".$TIPO;
+                                                            $NOMBREORIGEN = "No Aplica";
                                                         } else {
                                                             $NOMBREOPERACION = "Sin Datos";
                                                             $NOMBREORIGEN = "Sin Datos";
@@ -328,7 +329,7 @@ include_once "../config/reporteUrl.php";
                                                             $NUMERODOCUMENTO = $ARRAYDESPACHO2[0]["NUMERO_DOCUMENTO"];
                                                             $NUMEROPERACION = $ARRAYDESPACHO2[0]['NUMERO_DESPACHO'];
                                                             $FECHAOPERACION = $ARRAYDESPACHO2[0]["FECHA"];
-                                                            $DESPACHOORIGEN = $ARRAYDESPACHO2[0]['ID_DESPACHOMP'];  
+                                                            $DESPACHOORIGEN = $ARRAYDESPACHO2[0]['ID_DESPACHOMP'];        
                                                             $NOMBREDESTINO= $r['BODEGA'];    
                                                             $ARRAYVERPLANTA=$PLANTA_ADO->verPlanta($ARRAYDESPACHO2[0]['ID_PLANTA']);    
                                                             if($DESPACHOORIGEN){
@@ -336,7 +337,7 @@ include_once "../config/reporteUrl.php";
                                                             }else{
                                                                 $TIPO="Envase";
                                                             }
-                                                            $NOMBREOPERACION = "Interplanta ".$TIPO;                  
+                                                            $NOMBREOPERACION = "Interplanta ".$TIPO;            
                                                             if($ARRAYVERPLANTA){
                                                                 $NOMBREORIGEN = $ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];        
                                                             }else{                                                            

@@ -1008,7 +1008,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
@@ -1030,7 +1030,7 @@ if (isset($_POST)) {
                                                 <label id="val_id" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Tipo Despacho </label>
                                                 <input type="hidden" class="form-control" placeholder="TDESPACHOE" id="TDESPACHOE" name="TDESPACHOE" value="<?php echo $TDESPACHO; ?>" />
@@ -1049,11 +1049,11 @@ if (isset($_POST)) {
                                             </div>
                                         </div>                
                                         <?php if ($TDESPACHO == "1") { ?>
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             </div>
                                         <?php } ?>                                   
                                         <?php if ($TDESPACHO == "2") { ?>                                                
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
                                                 <div class="form-group">   
                                                    <?php  if($ARRAYDESPACHOMP){?>
                                                         <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
@@ -1062,7 +1062,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>                                        
                                         <?php if ($TDESPACHO == "3") { ?>                                                
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
                                                 <div class="form-group">        
                                                     <?php  if($ARRAYDESPACHOMP){?>
                                                         <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
@@ -1071,11 +1071,11 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>                                          
                                         <?php if ($TDESPACHO == "4") { ?>
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             </div>
                                         <?php } ?>                      
                                         <?php if ($TDESPACHO == "5") { ?>                                                
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
                                                 <div class="form-group">        
                                                     <?php  if($ARRAYDESPACHOMP){?>
                                                         <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
@@ -1084,7 +1084,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>                                                                
                                         <?php if ($TDESPACHO == "6") { ?>                                                
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
                                                 <div class="form-group">        
                                                     <?php  if($ARRAYDESPACHOMP){?>
                                                         <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
@@ -1093,7 +1093,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>                                                                                                        
                                         <?php if ($TDESPACHO == "7") { ?>                                                
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
                                                 <div class="form-group">        
                                                     <?php  if($ARRAYDESPACHOMP){?>
                                                         <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
@@ -1102,14 +1102,14 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>                     
                                         <?php if ($TDESPACHO == "8") { ?>
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "") { ?>
-                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             </div>
                                         <?php } ?>
-                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Ingreso</label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA INGRESO" id="FECHAINGRESODESPACHOE" name="FECHAINGRESODESPACHOE" value="<?php echo $FECHAINGRESODESPACHO; ?>" />
@@ -1117,7 +1117,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechai" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Modificación</label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA MODIFICACION" id="FECHAMODIFCIACIONDESPACHOE" name="FECHAMODIFCIACIONDESPACHOE" value="<?php echo $FECHAMODIFCIACIONDESPACHO; ?>" />
@@ -1131,7 +1131,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Despacho </label>
                                                 <input type="hidden" class="Despachoform-control" placeholder="Fecha Despacho" id="FECHADESPACHOE" name="FECHADESPACHOE" value="<?php echo $FECHADESPACHO; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Despacho" id="FECHADESPACHO" name="FECHADESPACHO" value="<?php echo $FECHADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control" placeholder="Fecha Despacho" id="FECHADESPACHO" name="FECHADESPACHO" value="<?php echo $FECHADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1139,11 +1139,11 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Documento </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero Documento" id="NUMERODOCUMENTOE" name="NUMERODOCUMENTOE" value="<?php echo $NUMERODOCUMENTO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_numerodocumento" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Tipo Documento</label>
                                                 <input type="hidden" class="form-control" placeholder="Transportita" id="TDOCUMENTOE" name="TDOCUMENTOE" value="<?php echo $TDOCUMENTO; ?>" />
@@ -1162,7 +1162,7 @@ if (isset($_POST)) {
                                                 <label id="val_tdocumento" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Transporte</label>
                                                 <input type="hidden" class="form-control" placeholder="Transportita" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
@@ -1181,7 +1181,15 @@ if (isset($_POST)) {
                                                 <label id="val_transportita" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="form-group">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Transporte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Conductor</label>
                                                 <input type="hidden" class="form-control" placeholder="Conductor" id="CONDUCTORE" name="CONDUCTORE" value="<?php echo $CONDUCTOR; ?>" />
@@ -1200,11 +1208,19 @@ if (isset($_POST)) {
                                                 <label id="val_conductor" class="validacion"> </label>
                                             </div>
                                         </div>
+                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="form-group">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Conductor" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopConductor.php' ); ">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Patente Camión</label>
                                                 <input type="hidden" class="form-control" placeholder="Patente Camión" id="PATENTECAMIONE" name="PATENTECAMIONE" value="<?php echo $PATENTECAMION; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Camión" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Patente Camión" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecamion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1212,12 +1228,12 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Carro</label>
                                                 <input type="hidden" class="form-control" placeholder="Patente Carro" id="PATENTECARROE" name="PATENTECARROE" value="<?php echo $PATENTECARRO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecarro" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <?php if ($TDESPACHO == "1") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Bodega Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
@@ -1238,7 +1254,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "2") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Planta Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTA2E" id="PLANTA2E" name="PLANTA2E" value="<?php echo $PLANTA2; ?>" />
@@ -1257,7 +1273,7 @@ if (isset($_POST)) {
                                                     <label id="val_plantad" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Bodega Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="BODEGADE" id="BODEGADE" name="BODEGADE" value="<?php echo $BODEGAD; ?>" />
@@ -1278,7 +1294,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "3") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                           <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Productor</label>
                                                     <input type="hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -1299,7 +1315,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "4") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Proveedor</label>
                                                     <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
@@ -1320,7 +1336,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "5") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Comprador</label>
                                                     <input type="hidden" class="form-control" placeholder="COMPRADORE" id="COMPRADORE" name="COMPRADORE" value="<?php echo $COMPRADOR; ?>" />
@@ -1341,17 +1357,17 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>                                        
                                         <?php if ($TDESPACHO == "6") { ?>
-                                            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Regalo</label>
                                                     <input type="hidden" class="form-control" placeholder="REGALOE" id="REGALOE" name="REGALOE" value="<?php echo $REGALO; ?>" />
-                                                    <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Para Quien o Quienes" id="REGALO" name="REGALO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $REGALO; ?></textarea>
+                                                    <textarea class="form-control" rows="1" placeholder="Ingrese Para Quien o Quienes" id="REGALO" name="REGALO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $REGALO; ?></textarea>
                                                     <label id="val_regalo" class="validacion"> </label>
                                                 </div>
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "7") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Planta Externa</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTA3E" id="PLANTA3E" name="PLANTA3E" value="<?php echo $PLANTA3; ?>" />
@@ -1372,7 +1388,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>                                        
                                         <?php if ($TDESPACHO == "8") { ?>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Productor</label>
                                                     <input type="hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -1398,7 +1414,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="OBSERVACIONE" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>

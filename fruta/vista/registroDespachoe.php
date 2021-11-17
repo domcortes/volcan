@@ -6,21 +6,20 @@ include_once "../config/validarUsuario.php";
 include_once '../controlador/TDOCUMENTO_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/RESPONSABLE_ADO.php';
 include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
+include_once '../controlador/COMPRADOR_ADO.php';
 
 include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
 include_once '../controlador/TUMEDIDA_ADO.php';
 
-include_once '../controlador/INVENTARIOM_ADO.php';
-include_once '../controlador/DESPACHOM_ADO.php';
+include_once '../controlador/INVENTARIOE_ADO.php';
+include_once '../controlador/DESPACHOE_ADO.php';
+include_once '../controlador/DESPACHOMP_ADO.php';
 
-include_once "../modelo/INVENTARIOM.php";
-include_once "../modelo/DESPACHOM.php";
+include_once "../modelo/INVENTARIOE.php";
+include_once "../modelo/DESPACHOE.php";
 
 
 //INCIALIZAR LAS VARIBLES
@@ -28,22 +27,21 @@ include_once "../modelo/DESPACHOM.php";
 $TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
 $TRANSPORTE_ADO = new TRANSPORTE_ADO();
 $CONDUCTOR_ADO = new CONDUCTOR_ADO();
-$RESPONSABLE_ADO = new RESPONSABLE_ADO();
 $BODEGA_ADO = new BODEGA_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $PROVEEDOR_ADO = new PROVEEDOR_ADO();
-$CLIENTE_ADO = new CLIENTE_ADO();
+$COMPRADOR_ADO = new COMPRADOR_ADO();
 
 $PRODUCTO_ADO = new PRODUCTO_ADO();
-$TCONTENEDOR_ADO = new TCONTENEDOR_ADO();
 $TUMEDIDA_ADO = new TUMEDIDA_ADO();
 
 
-$INVENTARIOM_ADO = new INVENTARIOM_ADO();
-$DESPACHOM_ADO = new DESPACHOM_ADO();
+$INVENTARIOE_ADO = new INVENTARIOE_ADO();
+$DESPACHOE_ADO = new DESPACHOE_ADO();
+$DESPACHOMP_ADO = new DESPACHOMP_ADO();
 //INIICIALIZAR MODELO 
-$INVENTARIOM = new INVENTARIOM();
-$DESPACHOM = new DESPACHOM();
+$INVENTARIOE = new INVENTARIOE();
+$DESPACHOE = new DESPACHOE();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -73,8 +71,8 @@ $BODEGAD = "";
 $PRODUCTOR = "";
 $PROVEEDOR = "";
 $PLANTA3 = "";
-$CLIENTE = "";
-
+$COMPRADOR = "";
+$NUMERODESPACHOMP="";
 $CONTADOR = 0;
 $ESTADO = "";
 
@@ -106,10 +104,11 @@ $ARRAYPLANTADESTINO = "";
 $ARRAYPLANTAEXTERNA = "";
 $ARRAYPRODUCTOR = "";
 $ARRAYPROVEEDOR = "";
-$ARRAYCLIENTE = "";
+$ARRAYCOMPRADOR = "";
 $ARRAYRESPONSABLE = "";
 $ARRAYRESPONSABLEUSUARIO = "";
-$ARRAYVALIDAREXISTENICA = "";
+$ARRAYVALIDARINGRESO = "";
+$ARRAYDESPACHOMP="";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYTDOCUMENTO = $TDOCUMENTO_ADO->listarTdocumentoPorEmpresaCBX($EMPRESAS);
@@ -120,124 +119,131 @@ $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTAS)
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYPROVEEDOR = $PROVEEDOR_ADO->listarProveedorPorEmpresaCBX($EMPRESAS);
 $ARRAYPLANTAEXTERNA = $PLANTA_ADO->listarPlantaExternaCBX();
-$ARRAYCLIENTE = $CLIENTE_ADO->listarClientePorEmpresaCBX($EMPRESAS);
-$ARRAYFECHAACTUAL = $DESPACHOM_ADO->obtenerFecha();
+$ARRAYCOMPRADOR = $COMPRADOR_ADO->listarCompradorPorEmpresaCBX($EMPRESAS);
+$ARRAYFECHAACTUAL = $DESPACHOE_ADO->obtenerFecha();
 $FECHADESPACHO = $ARRAYFECHAACTUAL[0]['FECHA'];
 
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrlD.php";
 
+
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CREAR'])) {
 
-    $ARRAYNUMERO = $DESPACHOM_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+    $ARRAYNUMERO = $DESPACHOE_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
     $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO       
-    $DESPACHOM->__SET('NUMERO_DESPACHO', $NUMERO);
-    $DESPACHOM->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-    $DESPACHOM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTO']);
-    $DESPACHOM->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
-    $DESPACHOM->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-    $DESPACHOM->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
-    $DESPACHOM->__SET('OBSERVACIONES', $_REQUEST['OBSERVACION']);
-    $DESPACHOM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
-    $DESPACHOM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-    $DESPACHOM->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+    $DESPACHOE->__SET('NUMERO_DESPACHO', $NUMERO);
+    $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
+    $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTO']);
+    $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
+    $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+    $DESPACHOE->__SET('TDESPACHO', $_REQUEST['TDESPACHO']);
+    $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACION']);
+    $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTO']);
+    $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+    $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
     if ($_REQUEST['TDESPACHO'] == "1") {
-        $DESPACHOM->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
+        $DESPACHOE->__SET('ID_BODEGA', $_REQUEST['BODEGA']);
     }
     if ($_REQUEST['TDESPACHO'] == "2") {
-        $DESPACHOM->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-        $DESPACHOM->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
+        $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+        $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGAD']);
     }
     if ($_REQUEST['TDESPACHO'] == "3") {
-        $DESPACHOM->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+        $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
     }
     if ($_REQUEST['TDESPACHO'] == "4") {
-        $DESPACHOM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
-    }
+        $DESPACHOE->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDOR']);
+    }    
     if ($_REQUEST['TDESPACHO'] == "5") {
-        $DESPACHOM->__SET('ID_PLANTA3', $_REQUEST['PLANTA3']);
+        $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADOR']);
     }
     if ($_REQUEST['TDESPACHO'] == "6") {
-        $DESPACHOM->__SET('ID_CLIENTE', $_REQUEST['CLIENTE']);
+        $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
     }
     if ($_REQUEST['TDESPACHO'] == "7") {
-        $DESPACHOM->__SET('REGALO_DESPACHO', $_REQUEST['REGALO']);
+        $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTA3']);
     }
-    $DESPACHOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $DESPACHOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $DESPACHOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $DESPACHOM->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
+    if ($_REQUEST['TDESPACHO'] == "8") {
+        $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+    }
+    $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+    $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+    $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+    $DESPACHOE->__SET('ID_USUARIOI', $IDUSUARIOS);
+    $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DESPACHOM_ADO->agregarDespachom($DESPACHOM);
+    $DESPACHOE_ADO->agregarDespachoe($DESPACHOE);
 
 
-    //OBTENER EL ID DE LA DESPACHOM CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-    $ARRYAOBTENERID = $DESPACHOM_ADO->obtenerId(
+    //OBTENER EL ID DE LA DESPACHOE CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+    $ARRYAOBTENERID = $DESPACHOE_ADO->obtenerId(
         $_REQUEST['FECHADESPACHO'],
         $_REQUEST['EMPRESA'],
         $_REQUEST['PLANTA'],
         $_REQUEST['TEMPORADA'],
     );
 
-    //REDIRECCIONAR A PAGINA registroDESPACHOM.php
+    //REDIRECCIONAR A PAGINA registroDESPACHOE.php
 
     $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHO'];
     $_SESSION["parametro1"] = "crear";
-    echo "<script type='text/javascript'> location.href ='registroDespachom.php?op';</script>";
+    echo "<script type='text/javascript'> location.href ='registroDespachoe.php?op';</script>";
 }
 if (isset($_REQUEST['EDITAR'])) {
-    $DESPACHOM->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
-    $DESPACHOM->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-    $DESPACHOM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTOE']);
-    $DESPACHOM->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-    $DESPACHOM->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-    $DESPACHOM->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-    $DESPACHOM->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONE']);
-    $DESPACHOM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
-    $DESPACHOM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-    $DESPACHOM->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+    $DESPACHOE->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
+    $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+    $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTOE']);
+    $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+    $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+    $DESPACHOE->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+    $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONE']);
+    $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
+    $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+    $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
     if ($_REQUEST['TDESPACHOE'] == "1") {
-        $DESPACHOM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
+        $DESPACHOE->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
     }
     if ($_REQUEST['TDESPACHOE'] == "2") {
-        $DESPACHOM->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-        $DESPACHOM->__SET('ID_BODEGA2', $_REQUEST['BODEGADE']);
+        $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+        $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGADE']);
     }
     if ($_REQUEST['TDESPACHOE'] == "3") {
-        $DESPACHOM->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+        $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
     }
     if ($_REQUEST['TDESPACHOE'] == "4") {
-        $DESPACHOM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+        $DESPACHOE->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
     }
     if ($_REQUEST['TDESPACHOE'] == "5") {
-        $DESPACHOM->__SET('ID_PLANTA3', $_REQUEST['PLANTA3E']);
+        $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
     }
     if ($_REQUEST['TDESPACHOE'] == "6") {
-        $DESPACHOM->__SET('ID_CLIENTE', $_REQUEST['CLIENTEE']);
+        $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
     }
     if ($_REQUEST['TDESPACHOE'] == "7") {
-        $DESPACHOM->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+        $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTA3E']);
     }
-    $DESPACHOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-    $DESPACHOM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-    $DESPACHOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-    $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+    if ($_REQUEST['TDESPACHOE'] == "8") {
+        $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+    }
+    $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+    $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+    $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+    $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
+    $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DESPACHOM_ADO->actualizarDespachom($DESPACHOM);
+    $DESPACHOE_ADO->actualizarDespachoe($DESPACHOE);
 }
-//OPERACION PARA CERRAR LA DESPACHOM
+//OPERACION PARA CERRAR LA DESPACHOE
 if (isset($_REQUEST['CERRAR'])) {
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
 
-    $ARRAYDDESPACHOM2 = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
-    if (empty($ARRAYDDESPACHOM2)) {
+    $ARRAYDDESPACHOE2 = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['IDP']);
+    if (empty($ARRAYDDESPACHOE2)) {
         $MENSAJE = "TIENE  QUE HABER AL MENOS UNA SELECCION DE INVENTARIO DE MATERIALES";
         $SINO = "1";
     } else {
@@ -245,130 +251,106 @@ if (isset($_REQUEST['CERRAR'])) {
         $SINO = "0";
     }
     if ($SINO == "0") {
-        $DESPACHOM->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
-        $DESPACHOM->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
-        $DESPACHOM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTOE']);
-        $DESPACHOM->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-        $DESPACHOM->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $DESPACHOM->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
-        $DESPACHOM->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONE']);
-        $DESPACHOM->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
-        $DESPACHOM->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-        $DESPACHOM->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+        $DESPACHOE->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
+        $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHOE']);
+        $DESPACHOE->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTOE']);
+        $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+        $DESPACHOE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+        $DESPACHOE->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
+        $DESPACHOE->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONE']);
+        $DESPACHOE->__SET('ID_TDOCUMENTO', $_REQUEST['TDOCUMENTOE']);
+        $DESPACHOE->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+        $DESPACHOE->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
         if ($_REQUEST['TDESPACHOE'] == "1") {
-            $DESPACHOM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
+            $DESPACHOE->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
         }
         if ($_REQUEST['TDESPACHOE'] == "2") {
-            $DESPACHOM->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
-            $DESPACHOM->__SET('ID_BODEGA2', $_REQUEST['BODEGADE']);
+            $DESPACHOE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+            $DESPACHOE->__SET('ID_BODEGA2', $_REQUEST['BODEGADE']);
         }
         if ($_REQUEST['TDESPACHOE'] == "3") {
-            $DESPACHOM->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+            $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
         }
         if ($_REQUEST['TDESPACHOE'] == "4") {
-            $DESPACHOM->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
+            $DESPACHOE->__SET('ID_PROVEEDOR', $_REQUEST['PROVEEDORE']);
         }
         if ($_REQUEST['TDESPACHOE'] == "5") {
-            $DESPACHOM->__SET('ID_PLANTA3', $_REQUEST['PLANTA3E']);
+            $DESPACHOE->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
         }
         if ($_REQUEST['TDESPACHOE'] == "6") {
-            $DESPACHOM->__SET('ID_CLIENTE', $_REQUEST['CLIENTEE']);
+            $DESPACHOE->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
         }
         if ($_REQUEST['TDESPACHOE'] == "7") {
-            $DESPACHOM->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
+            $DESPACHOE->__SET('ID_PLANTA3', $_REQUEST['PLANTA3E']);
         }
-        $DESPACHOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
-        $DESPACHOM->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
-        $DESPACHOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
-        $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+        if ($_REQUEST['TDESPACHOE'] == "8") {
+            $DESPACHOE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+        }
+        $DESPACHOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
+        $DESPACHOE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
+        $DESPACHOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
+        $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
+        $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $DESPACHOM_ADO->actualizarDespachom($DESPACHOM);
+        $DESPACHOE_ADO->actualizarDespachoe($DESPACHOE);
 
-        $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+        $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $DESPACHOM_ADO->cerrado($DESPACHOM);
+        $DESPACHOE_ADO->cerrado($DESPACHOE);
 
-        $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+        $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
         //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $DESPACHOM_ADO->Confirmado($DESPACHOM);
+        $DESPACHOE_ADO->Confirmado($DESPACHOE);
 
-        $ARRAYEXISENCIADESPACHOM = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
-        foreach ($ARRAYEXISENCIADESPACHOM as $r) :
-
-            if ($_REQUEST['TDESPACHOE'] == "1") {
-                $ARRAYVALIDAREXISTENICA = $INVENTARIOM_ADO->buscarPorDespachoFolio($_REQUEST['IDP'], $r['FOLIO_INVENTARIO']);
-                if (empty($ARRAYVALIDAREXISTENICA)) {
-                    $INVENTARIOM->__SET('FOLIO_INVENTARIO', $r['FOLIO_INVENTARIO']);
-                    $INVENTARIOM->__SET('FOLIO_AUXILIAR_INVENTARIO', $r['FOLIO_AUXILIAR_INVENTARIO']);
-                    $INVENTARIOM->__SET('ALIAS_DINAMICO_FOLIO', $r['ALIAS_DINAMICO_FOLIO']);
-                    $INVENTARIOM->__SET('ALIAS_ESTATICO_FOLIO', $r['ALIAS_ESTATICO_FOLIO']);
-                    $INVENTARIOM->__SET('TRECEPCION', $r['TRECEPCION']);
-                    $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $r['CANTIDAD_INVENTARIO']);
-                    $INVENTARIOM->__SET('VALOR_UNITARIO', $r['VALOR_UNITARIO']);
-                    $INVENTARIOM->__SET('ID_BODEGA', $_REQUEST['BODEGAE']);
-                    $INVENTARIOM->__SET('ID_FOLIO', $r['ID_FOLIO']);
-                    $INVENTARIOM->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
-                    $INVENTARIOM->__SET('ID_TCONTENEDOR', $r['ID_TCONTENEDOR']);
-                    $INVENTARIOM->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
-                    $INVENTARIOM->__SET('ID_RECEPCION', $r['ID_RECEPCION']);
-                    $INVENTARIOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-                    $INVENTARIOM->__SET('ID_PLANTA2', $r['ID_PLANTA2']);
-                    $INVENTARIOM->__SET('ID_PROVEEDOR', $r['ID_PROVEEDOR']);
-                    $INVENTARIOM->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
-                    $INVENTARIOM->__SET('ID_EMPRESA', $r['ID_EMPRESA']);
-                    $INVENTARIOM->__SET('ID_PLANTA', $r['ID_PLANTA']);
-                    $INVENTARIOM->__SET('ID_TEMPORADA', $r['ID_TEMPORADA']);
-                    $INVENTARIOM_ADO->agregarInventarioBodega($INVENTARIOM);
+        if ($_REQUEST['TDESPACHOE'] == "1") {
+            $ARRAYEXISENCIADESPACHOM = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['IDP']);
+            foreach ($ARRAYEXISENCIADESPACHOM as $r) :
+                $ARRAYVALIDARINGRESO = $INVENTARIOE_ADO->buscarPorDespachoIngresoBodega($_REQUEST['IDP'], $r['INGRESO'], $r['ID_BODEGA']);
+                if (empty($ARRAYVALIDARINGRESO)) {
+                    $INVENTARIOE->__SET('INGRESO', $r['INGRESO']);
+                    $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r['CANTIDAD_SALIDA']);
+                    $INVENTARIOE->__SET('ID_BODEGA2',  $r['ID_BODEGA']);
+                    $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
+                    $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
+                    $INVENTARIOE->__SET('ID_EMPRESA', $r['ID_EMPRESA']);
+                    $INVENTARIOE->__SET('ID_PLANTA', $r['ID_PLANTA']);
+                    $INVENTARIOE->__SET('ID_TEMPORADA', $r['ID_TEMPORADA']);
+                    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGAE']);
+                    $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    $INVENTARIOE_ADO->agregarInventarioBodega($INVENTARIOE);
+                } else {
+                    $INVENTARIOE->__SET('INGRESO', $r['INGRESO']);
+                    $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r['CANTIDAD_SALIDA']);
+                    $INVENTARIOE->__SET('ID_BODEGA2',  $r['ID_BODEGA']);
+                    $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
+                    $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
+                    $INVENTARIOE->__SET('ID_EMPRESA', $r['ID_EMPRESA']);
+                    $INVENTARIOE->__SET('ID_PLANTA', $r['ID_PLANTA']);
+                    $INVENTARIOE->__SET('ID_TEMPORADA', $r['ID_TEMPORADA']);
+                    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGAE']);
+                    $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                    $INVENTARIOE->__SET('ID_INVENTARIO', $ARRAYVALIDARINGRESO[0]["ID_INVENTARIO"]);
+                    $INVENTARIOE_ADO->actualizarInventarioBodega($INVENTARIOE);
                 }
-                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $INVENTARIOM_ADO->despachado($INVENTARIOM);
-            } else if ($_REQUEST['TDESPACHOE'] == "2") {
-                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $INVENTARIOM_ADO->enTransito($INVENTARIOM);
-            } else {
-                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $INVENTARIOM_ADO->despachado($INVENTARIOM);
-            }
-        endforeach;
-        //REDIRECCIONAR A PAGINA registroDespachom.php 
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        
+            endforeach;
+        }
+
+        //REDIRECCIONAR A PAGINA registroDespachoe.php 
+        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+        
         if ($_SESSION['parametro1'] == "crear") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
             $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroDespachom.php?op';</script>";
+            echo "<script type='text/javascript'> location.href ='registroDespachoe.php?op';</script>";
         }
         if ($_SESSION['parametro1'] == "editar") {
             $_SESSION["parametro"] = $_REQUEST['IDP'];
             $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroDespachom.php?op';</script>";
+            echo "<script type='text/javascript'> location.href ='registroDespachoe.php?op';</script>";
         }
     }
 }
-if (isset($_REQUEST['QUITAR'])) {
-    $IDQUITAR = $_REQUEST['IDQUITAR'];
-    $IDFOLIO = $_REQUEST['IDFOLIO'];
-    $IDTDESPACHO = $_REQUEST['TDESPACHO'];
-    $INVENTARIOM->__SET('ID_INVENTARIO', $IDQUITAR);
-    $INVENTARIOM_ADO->actualizarDeselecionarDespachoCambiarEstado($INVENTARIOM);
-    // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    if ($IDTDESPACHO == "1") {
-        $ARRAYVALIDAREXISTENICA = $INVENTARIOM_ADO->buscarPorDespachoFolio($_REQUEST['IDP'], $IDFOLIO);
-        if ($ARRAYVALIDAREXISTENICA) {
-            foreach ($ARRAYVALIDAREXISTENICA as $r) :
-                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $INVENTARIOM_ADO->deshabilitar($INVENTARIOM);
-                $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $INVENTARIOM_ADO->eliminado($INVENTARIOM);
-            endforeach;
-        }
-    }
-}
+
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -377,16 +359,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $OP = $_SESSION['parametro1'];
 
 
-    $ARRAYTOMADO = $INVENTARIOM_ADO->buscarPorDespacho2($IDOP);
-    $ARRAYDESPACHOTOTAL = $INVENTARIOM_ADO->obtenerTotalesInventarioPorDespachoCBX($IDOP);
-    $ARRAYDESPACHOTOTAL2 = $INVENTARIOM_ADO->obtenerTotalesInventarioPorDespacho2CBX($IDOP);
+    $ARRAYTOMADO = $INVENTARIOE_ADO->buscarPorDespacho2($IDOP);
+
+    $ARRAYDESPACHOTOTAL = $INVENTARIOE_ADO->obtenerTotalesInventarioPorDespachoCBX($IDOP);
+    $ARRAYDESPACHOTOTAL2 = $INVENTARIOE_ADO->obtenerTotalesInventarioPorDespacho2CBX($IDOP);
     $TOTALCANTIDAD = $ARRAYDESPACHOTOTAL[0]['CANTIDAD'];
     $TOTALCANTIDADV = $ARRAYDESPACHOTOTAL2[0]['CANTIDAD'];
 
-    //FUNCION PARA LA OBTENCION DE LOS TOTALES DEL DETALLE ASOCIADO A DESPACHOM
+    
+
+    //FUNCION PARA LA OBTENCION DE LOS TOTALES DEL DETALLE ASOCIADO A DESPACHOE
 
     //IDENTIFICACIONES DE OPERACIONES
-    //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA DESPACHOM
+    //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA DESPACHOE
     if ($OP == "crear") {
 
         //OBTENCION DE INFORMACIOND DE LA FILA DEL REGISTRO
@@ -399,9 +384,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         $DISABLEDMENU = "disabled";
         $DISABLEDSTYLE = "style='background-color: #eeeeee;'";
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
-        $ARRAYDESPACHOM = $DESPACHOM_ADO->verDespachom($IDOP);
+        $ARRAYDESPACHOE = $DESPACHOE_ADO->verDespachoe($IDOP);
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
-        foreach ($ARRAYDESPACHOM as $r) :
+        foreach ($ARRAYDESPACHOE as $r) :
 
             $NUMEROVER = "" . $r['NUMERO_DESPACHO'];
             $FECHADESPACHO = "" . $r['FECHA_DESPACHO'];
@@ -418,7 +403,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
-
             if ($TDESPACHO == "1") {
                 $BODEGA = "" . $r['ID_BODEGA'];
             }
@@ -432,20 +416,27 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             }
             if ($TDESPACHO == "4") {
                 $PROVEEDOR = "" . $r['ID_PROVEEDOR'];
-            }
+            }            
             if ($TDESPACHO == "5") {
-                $PLANTA3 = "" . $r['ID_PLANTA3'];
-            }
+                $COMPRADOR = "" . $r['ID_COMPRADOR'];
+            }            
             if ($TDESPACHO == "6") {
-                $CLIENTE = "" . $r['ID_CLIENTE'];
+                $REGALO = "" . $r['REGALO_DESPACHO'];
             }
             if ($TDESPACHO == "7") {
-                $REGALO = "" . $r['REGALO_DESPACHO'];
+                $PLANTA3 = "" . $r['ID_PLANTA3'];
+            }
+            if ($TDESPACHO == "8") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
-            $ESTADO = "" . $r['ESTADO'];
+            $ESTADO = "" . $r['ESTADO'];            
+            $ARRAYDESPACHOMP=$DESPACHOMP_ADO->verDespachomp($r['ID_DESPACHOMP']);
+            if($ARRAYDESPACHOMP){
+                $NUMERODESPACHOMP=$ARRAYDESPACHOMP[0]["NUMERO_DESPACHO"];
+            }
         endforeach;
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
@@ -459,9 +450,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         $DISABLED2 = "";
         $DISABLEDMENU = "disabled";
         $DISABLEDSTYLE = "style='background-color: #eeeeee;'";
-        $ARRAYDESPACHOM = $DESPACHOM_ADO->verDespachom($IDOP);
+        $ARRAYDESPACHOE = $DESPACHOE_ADO->verDespachoe($IDOP);
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
-        foreach ($ARRAYDESPACHOM as $r) :
+        foreach ($ARRAYDESPACHOE as $r) :
 
             $NUMEROVER = "" . $r['NUMERO_DESPACHO'];
             $FECHADESPACHO = "" . $r['FECHA_DESPACHO'];
@@ -478,7 +469,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
-
             if ($TDESPACHO == "1") {
                 $BODEGA = "" . $r['ID_BODEGA'];
             }
@@ -492,20 +482,27 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             }
             if ($TDESPACHO == "4") {
                 $PROVEEDOR = "" . $r['ID_PROVEEDOR'];
-            }
+            }            
             if ($TDESPACHO == "5") {
-                $PLANTA3 = "" . $r['ID_PLANTA3'];
-            }
+                $COMPRADOR = "" . $r['ID_COMPRADOR'];
+            }            
             if ($TDESPACHO == "6") {
-                $CLIENTE = "" . $r['ID_CLIENTE'];
+                $REGALO = "" . $r['REGALO_DESPACHO'];
             }
             if ($TDESPACHO == "7") {
-                $REGALO = "" . $r['REGALO_DESPACHO'];
+                $PLANTA3 = "" . $r['ID_PLANTA3'];
+            }
+            if ($TDESPACHO == "8") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             $ESTADO = "" . $r['ESTADO'];
+            $ARRAYDESPACHOMP=$DESPACHOMP_ADO->verDespachomp($r['ID_DESPACHOMP']);
+            if($ARRAYDESPACHOMP){
+                $NUMERODESPACHOMP=$ARRAYDESPACHOMP[0]["NUMERO_DESPACHO"];
+            }
         endforeach;
     }
     //ver =  OBTENCION DE DATOS PARA LA VISUALIZACION DEL REGISTRO
@@ -520,9 +517,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //ALMACENAR INFORMACION EN ARREGLO
         //LLAMADA A LA FUNCION DE CONTROLADOR verPlanta(ID), 
         //SE LE PASE UNO DE LOS DATOS OBTENIDO PREVIAMENTE A TRAVEZ DE LA URL
-        $ARRAYDESPACHOM = $DESPACHOM_ADO->verDespachom($IDOP);
+        $ARRAYDESPACHOE = $DESPACHOE_ADO->verDespachoe($IDOP);
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
-        foreach ($ARRAYDESPACHOM as $r) :
+        foreach ($ARRAYDESPACHOE as $r) :
 
             $NUMEROVER = "" . $r['NUMERO_DESPACHO'];
             $FECHADESPACHO = "" . $r['FECHA_DESPACHO'];
@@ -539,7 +536,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
 
             $ARRAYPLANTADESTINO = $PLANTA_ADO->listarPlantaPropiaDistintaActualCBX($PLANTA);
-
             if ($TDESPACHO == "1") {
                 $BODEGA = "" . $r['ID_BODEGA'];
             }
@@ -553,20 +549,27 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             }
             if ($TDESPACHO == "4") {
                 $PROVEEDOR = "" . $r['ID_PROVEEDOR'];
-            }
+            }            
             if ($TDESPACHO == "5") {
-                $PLANTA3 = "" . $r['ID_PLANTA3'];
-            }
+                $COMPRADOR = "" . $r['ID_COMPRADOR'];
+            }            
             if ($TDESPACHO == "6") {
-                $CLIENTE = "" . $r['ID_CLIENTE'];
+                $REGALO = "" . $r['REGALO_DESPACHO'];
             }
             if ($TDESPACHO == "7") {
-                $REGALO = "" . $r['REGALO_DESPACHO'];
+                $PLANTA3 = "" . $r['ID_PLANTA3'];
+            }
+            if ($TDESPACHO == "8") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             }
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             $ESTADO = "" . $r['ESTADO'];
+            $ARRAYDESPACHOMP=$DESPACHOMP_ADO->verDespachomp($r['ID_DESPACHOMP']);
+            if($ARRAYDESPACHOMP){
+                $NUMERODESPACHOMP=$ARRAYDESPACHOMP[0]["NUMERO_DESPACHO"];
+            }
         endforeach;
     }
 }
@@ -634,8 +637,8 @@ if (isset($_POST)) {
             }
         }
         if ($TDESPACHO == "6") {
-            if (isset($_REQUEST['CLIENTE'])) {
-                $CLIENTE = "" . $_REQUEST['CLIENTE'];
+            if (isset($_REQUEST['COMPRADOR'])) {
+                $COMPRADOR = "" . $_REQUEST['COMPRADOR'];
             }
         }
         if ($TDESPACHO == "7") {
@@ -660,7 +663,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title>Registro Despacho Materiales</title>
+    <title>Registro Despacho</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -822,6 +825,30 @@ if (isset($_POST)) {
 
                     }
                     if (TDESPACHO == 5) {
+                        COMPRADOR = document.getElementById("COMPRADOR").selectedIndex;
+                        document.getElementById('val_cliente').innerHTML = "";
+
+                        if (COMPRADOR == null || COMPRADOR == 0) {
+                            document.form_reg_dato.COMPRADOR.focus();
+                            document.form_reg_dato.COMPRADOR.style.borderColor = "#FF0000";
+                            document.getElementById('val_cliente').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false
+                        }
+                        document.form_reg_dato.COMPRADOR.style.borderColor = "#4AF575";
+                    }
+                    if (TDESPACHO == 6) {
+                        REGALO = document.getElementById("REGALO").value;
+                        document.getElementById('val_regalo').innerHTML = "";
+
+                        if (REGALO == null || REGALO.length == 0 || /^\s+$/.test(REGALO)) {
+                            document.form_reg_dato.REGALO.focus();
+                            document.form_reg_dato.REGALO.style.borderColor = "#FF0000";
+                            document.getElementById('val_regalo').innerHTML = "NO A INGRESADO DATO";
+                            return false
+                        }
+                        document.form_reg_dato.REGALO.style.borderColor = "#4AF575";
+                    }
+                    if (TDESPACHO == 7) {
                         PLANTA3 = document.getElementById("PLANTA3").selectedIndex;
                         document.getElementById('val_plantae').innerHTML = "";
 
@@ -833,29 +860,19 @@ if (isset($_POST)) {
                         }
                         document.form_reg_dato.PLANTA3.style.borderColor = "#4AF575";
                     }
-                    if (TDESPACHO == 6) {
-                        CLIENTE = document.getElementById("CLIENTE").selectedIndex;
-                        document.getElementById('val_cliente').innerHTML = "";
+                    
+                    if (TDESPACHO == 8) {
+                        PRODUCTOR = document.getElementById("PRODUCTOR").selectedIndex;
+                        document.getElementById('val_productor').innerHTML = "";
 
-                        if (CLIENTE == null || CLIENTE == 0) {
-                            document.form_reg_dato.CLIENTE.focus();
-                            document.form_reg_dato.CLIENTE.style.borderColor = "#FF0000";
-                            document.getElementById('val_cliente').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        if (PRODUCTOR == null || PRODUCTOR == 0) {
+                            document.form_reg_dato.PRODUCTOR.focus();
+                            document.form_reg_dato.PRODUCTOR.style.borderColor = "#FF0000";
+                            document.getElementById('val_productor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
                             return false
                         }
-                        document.form_reg_dato.CLIENTE.style.borderColor = "#4AF575";
-                    }
-                    if (TDESPACHO == 7) {
-                        REGALO = document.getElementById("REGALO").value;
-                        document.getElementById('val_regalo').innerHTML = "";
+                        document.form_reg_dato.PRODUCTOR.style.borderColor = "#4AF575";
 
-                        if (REGALO == null || REGALO.length == 0 || /^\s+$/.test(REGALO)) {
-                            document.form_reg_dato.REGALO.focus();
-                            document.form_reg_dato.REGALO.style.borderColor = "#FF0000";
-                            document.getElementById('val_regalo').innerHTML = "NO A INGRESADO DATO";
-                            return false
-                        }
-                        document.form_reg_dato.REGALO.style.borderColor = "#4AF575";
                     }
                     /*
                     if (OBSERVACION == null || OBSERVACION.length == 0 || /^\s+$/.test(OBSERVACION)) {
@@ -869,12 +886,12 @@ if (isset($_POST)) {
 
                 }
 
-                //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE DESPACHOM
+                //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE DESPACHOE
                 function refrescar() {
                     document.getElementById("form_reg_dato").submit();
                 }
 
-                //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE DESPACHOM
+                //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE DESPACHOE
                 function abrirVentana(url) {
                     var opciones =
                         "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
@@ -937,7 +954,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php  include_once "../config/menu.php";
+            <?php include_once "../config/menu.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -945,15 +962,15 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Despacho </h3>
+                                <h3 class="page-title">Despacho Envases </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Envases </li>
                                             <li class="breadcrumb-item" aria-current="page">Despacho</li>
-                                            <li class="breadcrumb-item" aria-current="page">Materiales </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Despacho </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Despacho </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -991,7 +1008,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
@@ -1005,7 +1022,7 @@ if (isset($_POST)) {
 
                                                 <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLP" name="URLP" value="registroDespachom" />
+                                                <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLP" name="URLP" value="registroDespachoe" />
 
 
                                                 <label>Número Despacho</label>
@@ -1019,37 +1036,80 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" placeholder="TDESPACHOE" id="TDESPACHOE" name="TDESPACHOE" value="<?php echo $TDESPACHO; ?>" />
                                                 <select class="form-control select2" id="TDESPACHO" name="TDESPACHO" style="width: 100%;" onchange="this.form.submit()" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                                                     <option></option>
-                                                    <option value="1" <?php if ($TDESPACHO == "1") {
-                                                                            echo "selected";
-                                                                        } ?>> A Sub Bodega</option>
-                                                    <option value="2" <?php if ($TDESPACHO == "2") {
-                                                                            echo "selected";
-                                                                        } ?>> Interplanta </option>
-                                                    <option value="3" <?php if ($TDESPACHO == "3") {
-                                                                            echo "selected";
-                                                                        } ?>> Devolución a Productor</option>
-
-                                                    <option value="4" <?php if ($TDESPACHO == "4") {
-                                                                            echo "selected";
-                                                                        } ?>> Devolución a Proveedor</option>
-
-                                                    <option value="5" <?php if ($TDESPACHO == "5") {
-                                                                            echo "selected";
-                                                                        } ?>> Planta Externa</option>
-                                                    <option value="6" <?php if ($TDESPACHO == "6") {
-                                                                            echo "selected";
-                                                                        } ?>> Venta </option>
-                                                    <option value="7" <?php if ($TDESPACHO == "7") {
-                                                                            echo "selected";
-                                                                        } ?>> Regalo </option>
-
+                                                    <option value="1" <?php if ($TDESPACHO == "1") { echo "selected"; } ?>> A Sub Bodega</option>
+                                                    <option value="2" <?php if ($TDESPACHO == "2") { echo "selected"; } ?>> Interplanta </option>
+                                                    <option value="3" <?php if ($TDESPACHO == "3") { echo "selected"; } ?>> Devolución a Productor</option>
+                                                    <option value="4" <?php if ($TDESPACHO == "4") { echo "selected"; } ?>> Devolución a Proveedor</option>
+                                                    <option value="5" <?php if ($TDESPACHO == "5") { echo "selected"; } ?>> Venta </option>
+                                                    <option value="6" <?php if ($TDESPACHO == "6") { echo "selected"; } ?>> Regalo </option>
+                                                    <option value="7" <?php if ($TDESPACHO == "7") { echo "selected"; } ?>> Planta Externa</option>
+                                                    <option value="8" <?php if ($TDESPACHO == "8") { echo "selected"; } ?>> Despacho a Productor</option>
                                                 </select>
                                                 <label id="val_tdespacho" class="validacion"> </label>
                                             </div>
-                                        </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
-                                        </div>
-                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        </div>                
+                                        <?php if ($TDESPACHO == "1") { ?>
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            </div>
+                                        <?php } ?>                                   
+                                        <?php if ($TDESPACHO == "2") { ?>                                                
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
+                                                <div class="form-group">   
+                                                   <?php  if($ARRAYDESPACHOMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
+                                                    <?php }?>
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                        
+                                        <?php if ($TDESPACHO == "3") { ?>                                                
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
+                                                <div class="form-group">        
+                                                    <?php  if($ARRAYDESPACHOMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
+                                                    <?php }?>  
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                          
+                                        <?php if ($TDESPACHO == "4") { ?>
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            </div>
+                                        <?php } ?>                      
+                                        <?php if ($TDESPACHO == "5") { ?>                                                
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
+                                                <div class="form-group">        
+                                                    <?php  if($ARRAYDESPACHOMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
+                                                    <?php }?>  
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                                                
+                                        <?php if ($TDESPACHO == "6") { ?>                                                
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
+                                                <div class="form-group">        
+                                                    <?php  if($ARRAYDESPACHOMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
+                                                    <?php }?>  
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                                                                                        
+                                        <?php if ($TDESPACHO == "7") { ?>                                                
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9"> 
+                                                <div class="form-group">        
+                                                    <?php  if($ARRAYDESPACHOMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Despacho de Materia prima.<br> <b> Numero Despacho: <?php echo $NUMERODESPACHOMP;?> </b> </p>   
+                                                    <?php }?>  
+                                                </div>
+                                            </div>
+                                        <?php } ?>                     
+                                        <?php if ($TDESPACHO == "8") { ?>
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            </div>
+                                        <?php } ?>
+                                        <?php if ($TDESPACHO == "") { ?>
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            </div>
+                                        <?php } ?>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Ingreso</label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA INGRESO" id="FECHAINGRESODESPACHOE" name="FECHAINGRESODESPACHOE" value="<?php echo $FECHAINGRESODESPACHO; ?>" />
@@ -1057,7 +1117,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechai" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Modificación</label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA MODIFICACION" id="FECHAMODIFCIACIONDESPACHOE" name="FECHAMODIFCIACIONDESPACHOE" value="<?php echo $FECHAMODIFCIACIONDESPACHO; ?>" />
@@ -1071,7 +1131,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Despacho </label>
                                                 <input type="hidden" class="Despachoform-control" placeholder="Fecha Despacho" id="FECHADESPACHOE" name="FECHADESPACHOE" value="<?php echo $FECHADESPACHO; ?>" />
-                                                <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Despacho" id="FECHADESPACHO" name="FECHADESPACHO" value="<?php echo $FECHADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control" placeholder="Fecha Despacho" id="FECHADESPACHO" name="FECHADESPACHO" value="<?php echo $FECHADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1079,7 +1139,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Documento </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero Documento" id="NUMERODOCUMENTOE" name="NUMERODOCUMENTOE" value="<?php echo $NUMERODOCUMENTO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_numerodocumento" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1160,7 +1220,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Camión</label>
                                                 <input type="hidden" class="form-control" placeholder="Patente Camión" id="PATENTECAMIONE" name="PATENTECAMIONE" value="<?php echo $PATENTECAMION; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Camión" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Patente Camión" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecamion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1168,7 +1228,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Patente Carro</label>
                                                 <input type="hidden" class="form-control" placeholder="Patente Carro" id="PATENTECARROE" name="PATENTECARROE" value="<?php echo $PATENTECARRO; ?>" />
-                                                <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_patentecarro" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1194,7 +1254,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "2") { ?>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Planta Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTA2E" id="PLANTA2E" name="PLANTA2E" value="<?php echo $PLANTA2; ?>" />
@@ -1213,7 +1273,7 @@ if (isset($_POST)) {
                                                     <label id="val_plantad" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Bodega Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="BODEGADE" id="BODEGADE" name="BODEGADE" value="<?php echo $BODEGAD; ?>" />
@@ -1234,7 +1294,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "3") { ?>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                           <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Productor</label>
                                                     <input type="hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -1255,7 +1315,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TDESPACHO == "4") { ?>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Proveedor</label>
                                                     <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
@@ -1278,6 +1338,37 @@ if (isset($_POST)) {
                                         <?php if ($TDESPACHO == "5") { ?>
                                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
+                                                    <label>Comprador</label>
+                                                    <input type="hidden" class="form-control" placeholder="COMPRADORE" id="COMPRADORE" name="COMPRADORE" value="<?php echo $COMPRADOR; ?>" />
+                                                    <select class="form-control select2" id="COMPRADOR" name="COMPRADOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYCOMPRADOR as $r) : ?>
+                                                            <?php if ($ARRAYCOMPRADOR) {    ?>
+                                                                <option value="<?php echo $r['ID_COMPRADOR']; ?>" <?php if ($COMPRADOR == $r['ID_COMPRADOR']) {
+                                                                                                                    echo "selected";
+                                                                                                                } ?>> <?php echo $r['NOMBRE_COMPRADOR'] ?> </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados </option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_cliente" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php } ?>                                        
+                                        <?php if ($TDESPACHO == "6") { ?>
+                                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="form-group">
+                                                    <label>Regalo</label>
+                                                    <input type="hidden" class="form-control" placeholder="REGALOE" id="REGALOE" name="REGALOE" value="<?php echo $REGALO; ?>" />
+                                                    <textarea class="form-control" rows="1" placeholder="Ingrese Para Quien o Quienes" id="REGALO" name="REGALO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $REGALO; ?></textarea>
+                                                    <label id="val_regalo" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                        <?php if ($TDESPACHO == "7") { ?>
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="form-group">
                                                     <label>Planta Externa</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTA3E" id="PLANTA3E" name="PLANTA3E" value="<?php echo $PLANTA3; ?>" />
                                                     <select class="form-control select2" id="PLANTA3" name="PLANTA3" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
@@ -1295,35 +1386,25 @@ if (isset($_POST)) {
                                                     <label id="val_plantae" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                        <?php } ?>
-                                        <?php if ($TDESPACHO == "6") { ?>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <?php } ?>                                        
+                                        <?php if ($TDESPACHO == "8") { ?>
+                                              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
-                                                    <label>Cliente</label>
-                                                    <input type="hidden" class="form-control" placeholder="CLIENTEE" id="CLIENTEE" name="CLIENTEE" value="<?php echo $CLIENTE; ?>" />
-                                                    <select class="form-control select2" id="CLIENTE" name="CLIENTE" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                                                    <label>Productor</label>
+                                                    <input type="hidden" class="form-control" placeholder="PRODUCTORE" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
+                                                    <select class="form-control select2" id="PRODUCTOR" name="PRODUCTOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                                                         <option></option>
-                                                        <?php foreach ($ARRAYCLIENTE as $r) : ?>
-                                                            <?php if ($ARRAYCLIENTE) {    ?>
-                                                                <option value="<?php echo $r['ID_CLIENTE']; ?>" <?php if ($CLIENTE == $r['ID_CLIENTE']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_CLIENTE'] ?> </option>
+                                                        <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
+                                                            <?php if ($ARRAYPRODUCTOR) {    ?>
+                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>><?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?> </option>
                                                             <?php } else { ?>
                                                                 <option>No Hay Datos Registrados </option>
                                                             <?php } ?>
                                                         <?php endforeach; ?>
                                                     </select>
-                                                    <label id="val_cliente" class="validacion"> </label>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-                                        <?php if ($TDESPACHO == "7") { ?>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
-                                                <div class="form-group">
-                                                    <label>Regalo</label>
-                                                    <input type="hidden" class="form-control" placeholder="REGALOE" id="REGALOE" name="REGALOE" value="<?php echo $REGALO; ?>" />
-                                                    <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Para Quien o Quienes" id="REGALO" name="REGALO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $REGALO; ?></textarea>
-                                                    <label id="val_regalo" class="validacion"> </label>
+                                                    <label id="val_productor" class="validacion"> </label>
                                                 </div>
                                             </div>
                                         <?php } ?>
@@ -1333,7 +1414,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Observaciónes </label>
                                                 <input type="hidden" class="form-control" placeholder="OBSERVACIONE" id="OBSERVACIONE" name="OBSERVACIONE" value="<?php echo $OBSERVACION; ?>" />
-                                                <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
+                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACION" name="OBSERVACION" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACION; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1343,7 +1424,7 @@ if (isset($_POST)) {
                                 <div class="box-footer">
                                     <div class="btn-group   col-xxl-4 col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
-                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachom.php');">
+                                            <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachoe.php');">
                                                 <i class="ti-trash"></i> Borrar
                                             </button>
                                             <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()">
@@ -1351,7 +1432,7 @@ if (isset($_POST)) {
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachom.php'); ">
+                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachoe.php'); ">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
                                             <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
@@ -1364,10 +1445,9 @@ if (isset($_POST)) {
                                     </div>
                                     <div class="btn-group   col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-xs-12 float-right" role="group" aria-label="Informes">
                                         <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoM.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoE.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                 <i class="fa fa-file-pdf-o"></i> Informe
                                             </button>
-
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -1391,14 +1471,11 @@ if (isset($_POST)) {
                                         <table id="detalle" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
-                                                    <th> N° Folio </th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Código Producto </th>
                                                     <th>Producto </th>
-                                                    <th>Tipo Contenedor</th>
                                                     <th>Unidad Medida</th>
                                                     <th>Cantidad</th>
-                                                    <th>Valor Unitario</th>
                                                     <th>Bodega</th>
                                                 </tr>
                                             </thead>
@@ -1421,12 +1498,6 @@ if (isset($_POST)) {
                                                             $CODIGOPRODUCTO = "Sin Datos";
                                                             $NOMBREPRODUCTO = "Sin Datos";
                                                         }
-                                                        $ARRAYTVERCONTENEDOR = $TCONTENEDOR_ADO->verTcontenedor($r['ID_TCONTENEDOR']);
-                                                        if ($ARRAYTVERCONTENEDOR) {
-                                                            $NOMBRETCONTENEDOR = $ARRAYTVERCONTENEDOR[0]['NOMBRE_TCONTENEDOR'];
-                                                        } else {
-                                                            $NOMBRETCONTENEDOR = "Sin Datos";
-                                                        }
                                                         $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($r['ID_TUMEDIDA']);
                                                         if ($ARRAYVERTUMEDIDA) {
                                                             $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]['NOMBRE_TUMEDIDA'];
@@ -1435,28 +1506,37 @@ if (isset($_POST)) {
                                                         }
                                                         ?>
                                                         <tr class="text-left">
-                                                            <td><?php echo $r['FOLIO_INVENTARIO']; ?> </td>
                                                             <td class="text-center">
-                                                                <form method="post" id="form1">
-                                                                    <input type="hidden" class="form-control" id="IDFOLIO" name="IDFOLIO" value="<?php echo $r['FOLIO_INVENTARIO']; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="TDESPACHO" id="TDESPACHO" name="TDESPACHO" value="<?php echo $TDESPACHO; ?>" />
+                                                                <form method="post" id="form1" name="form1">
+                                                                    <input type="hidden" class="form-control" placeholder="ID INVENTARIOE" id="IDD" name="IDD" value="<?php echo $r['ID_INVENTARIO']; ?>" />
                                                                     <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                    <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_INVENTARIO']; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                                    <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoe" />
+                                                                    <input type="hidden" class="form-control" placeholder="URL INVENTARIOE" id="URLD" name="URLD" value="registroDdespachoe" />
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Inventario Materiales" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                        echo "disabled";
-                                                                                                                                                                                                                                                    } ?>>
-                                                                            <i class="ti-close"></i>
-                                                                        </button>
+                                                                        <?php if ($ESTADO  == "0") { ?>
+                                                                            <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                <i class="ti-eye"></i>
+                                                                            </button>
+                                                                        <?php } ?>
+                                                                        <?php if ($ESTADO  == "1") { ?>
+                                                                            <button type="submit" class="btn btn-warning  " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-pencil-alt"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-secondary " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="fa fa-fw fa-copy"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
+                                                                                <i class="ti-close"></i>
+                                                                            </button>
+                                                                        <?php } ?>
                                                                     </div>
                                                                 </form>
                                                             </td>
                                                             <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTO; ?></td>
-                                                            <td><?php echo $NOMBRETCONTENEDOR; ?></td>
                                                             <td><?php echo $NOMBRETUMEDIDA; ?></td>
                                                             <td><?php echo $r['CANTIDAD']; ?></td>
-                                                            <td><?php echo $r['VALOR']; ?></td>
                                                             <td><?php echo $NOMBREBODEGA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -1474,12 +1554,12 @@ if (isset($_POST)) {
                                                         <div class="form-group">
                                                             <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                             <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachom" />
-                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionInventarioMDespachom" />
-                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Seleccion Inventario " id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
-                                                                                                                                                                                                                                                echo "disabled style='background-color: #eeeeee;'";
-                                                                                                                                                                                                                                            } ?>>
-                                                                Seleccion Inventario
+                                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoe" />
+                                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroDdespachoe" />
+                                                            <button type="submit" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Detalle" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {
+                                                                                                                                                                                                                                            echo "disabled style='background-color: #eeeeee;'";
+                                                                                                                                                                                                                                        } ?>>
+                                                                Agregar Detalle
                                                             </button>
                                                         </div>
                                                     </form>
@@ -1495,7 +1575,6 @@ if (isset($_POST)) {
                                                         <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALCANTIDADV" name="TOTALCANTIDADV" value="<?php echo $TOTALCANTIDADV; ?>" disabled />
                                                     </div>
                                                 </td>
-                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
