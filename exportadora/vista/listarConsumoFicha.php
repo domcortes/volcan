@@ -75,7 +75,7 @@ $ARRAYTETIQUETA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $TEMPORADAS) {
-    $ARRAYFICHA = $FICHA_ADO->listarFichaPorEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYFICHA = $FICHA_ADO->listarConsumoFichaPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
 }
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
@@ -241,137 +241,35 @@ include_once "../config/datosUrLP.php";
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                     <th>Empresa </th>
+                                                    <th>Planta </th>
                                                     <th>Temporada </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($ARRAYFICHA as $r) : ?>
-                                                    <?php
-                                                    $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                    if ($ARRAYESTANDAR) {
-                                                        $CODIGOESTANDAR = $ARRAYESTANDAR[0]["CODIGO_ESTANDAR"];
-                                                        $NOMBRESTANDAR = $ARRAYESTANDAR[0]["NOMBRE_ESTANDAR"];
-                                                        $ENVASEESTANDAR = $ARRAYESTANDAR[0]["CANTIDAD_ENVASE_ESTANDAR"];
-                                                        $PESOENVASEESTANDAR = $ARRAYESTANDAR[0]["PESO_ENVASE_ESTANDAR"];
-                                                        $TETIQUETA = $ARRAYESTANDAR[0]["ID_TETIQUETA"];
-                                                        $TEMBALAJE = $ARRAYESTANDAR[0]["ID_TEMBALAJE"];
-                                                        $ESPECIES = $ARRAYESTANDAR[0]["ID_ESPECIES"];
-                                                        $ESTANDARCOMERCIAL = $ARRAYESTANDAR[0]["ID_ECOMERCIAL"];
-                                                        $ARRAYTETIQUETA = $TETIQUETA_ADO->verEtiqueta($TETIQUETA);
-                                                        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($TEMBALAJE);
-                                                        $ARRAYESPECIES = $ESPECIES_ADO->verEspecies($ESPECIES);
-                                                        $ARRAYESTANDARCOMERCIAL = $ECOMERCIAL_ADO->verEcomercial($ESTANDARCOMERCIAL);
-
-                                                        if ($ARRAYTETIQUETA) {
-                                                            $NOMBRETETIQUETA = $ARRAYTETIQUETA[0]["NOMBRE_TETIQUETA"];
-                                                        } else {
-                                                            $NOMBRETETIQUETA = "Sin Datos";
-                                                        }
-                                                        if ($ARRAYTEMBALAJE) {
-                                                            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]["NOMBRE_TEMBALAJE"];
-                                                        } else {
-                                                            $NOMBRETEMBALAJE = "Sin Datos";
-                                                        }
-                                                        if ($ARRAYMERCADO) {
-                                                            $NOMBREMERCADO = $ARRAYMERCADO[0]["NOMBRE_MERCADO"];
-                                                        } else {
-                                                            $NOMBREMERCADO = "Sin Datos";
-                                                        }
-                                                        if ($ARRAYESPECIES) {
-                                                            $NOMBREESPECIES = $ARRAYESPECIES[0]["NOMBRE_ESPECIES"];
-                                                        } else {
-                                                            $NOMBREESPECIES = "Sin Datos";
-                                                        }
-                                                        if ($ARRAYESTANDARCOMERCIAL) {
-                                                            $NOMBREESTANDARCOMERCIAL = $ARRAYESTANDARCOMERCIAL[0]["CODIGO_ECOMERCIAL"] . ":" . $ARRAYESTANDARCOMERCIAL[0]["NOMBRE_ECOMERCIAL"];
-                                                        } else {
-                                                            $NOMBREESTANDARCOMERCIAL = "Sin Datos";
-                                                        }
-                                                    } else {
-                                                        $CODIGOESTANDAR = "Sin Datos";
-                                                        $NOMBRESTANDAR = "Sin Datos";
-                                                    }
-
-                                                    $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
-                                                    if ($ARRAYVEREMPRESA) {
-                                                        $NOMBREEMPRESA = $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA'];
-                                                    } else {
-                                                        $NOMBREEMPRESA = "Sin Datos";
-                                                    }
-                                                    $ARRAYVERTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
-                                                    if ($ARRAYVERTEMPORADA) {
-                                                        $NOMBRETEMPORADA = $ARRAYVERTEMPORADA[0]['NOMBRE_TEMPORADA'];
-                                                    } else {
-                                                        $NOMBRETEMPORADA = "Sin Datos";
-                                                    }
-                                                    $ARRAYEXISTENCIADIESTANDAR = $DPEXPORTACION_ADO->listarDpexportacionAgrupadoEstandarProceso($r['ID_ESTANDAR']);
-                                                    $ARRAYDFICHA = $DFICHA_ADO->listarDfichaPorFich2CBX($r['ID_FICHA']);
-
-                                                    ?>
-                                                    <?php foreach ($ARRAYEXISTENCIADIESTANDAR as $a) : ?>
-
-                                                        <?php foreach ($ARRAYDFICHA as $s) : ?>
-                                                            <?php
-                                                            $ARRAYPROCESO=$PROCESO_ADO->verProceso2($a["ID_PROCESO"]);
-                                                            if($ARRAYPROCESO){
-                                                                $NUMEROPROCESO=$ARRAYPROCESO[0]["NUMERO_PROCESO"];
-                                                                $FECHAPROCESO=$ARRAYPROCESO[0]["FECHA"];
-                                                            }else{
-                                                                $NUMEROPROCESO="Sin Datos";
-                                                                $FECHAPROCESO="Sin Datos";
-                                                            }
-                                                            $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
-                                                            if ($ARRAYPRODUCTO) {
-                                                                $CODIGOPRODUCTO = $ARRAYPRODUCTO[0]['CODIGO_PRODUCTO'];
-                                                                $NOMBREPRODUCTO = $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                                $ARRAYFAMILIA = $FAMILIA_ADO->verFamilia($ARRAYPRODUCTO[0]['ID_FAMILIA']);
-                                                                if ($ARRAYFAMILIA) {
-                                                                    $FAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
-                                                                } else {
-                                                                    $FAMILIA = "Sin Dato";
-                                                                }
-                                                                $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->verSubfamilia($ARRAYPRODUCTO[0]['ID_SUBFAMILIA']);
-                                                                if ($ARRAYFAMILIA) {
-                                                                    $SUBFAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
-                                                                } else {
-                                                                    $SUBFAMILIA = "Sin Dato";
-                                                                }
-
-                                                                $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($ARRAYPRODUCTO[0]['ID_TUMEDIDA']);
-                                                                if ($ARRAYTUMEDIDA) {
-                                                                    $TUMEDIDA = $ARRAYTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
-                                                                } else {
-                                                                    $TUMEDIDA = "Sin Dato";
-                                                                }
-                                                            } else {
-                                                                $CODIGOPRODUCTO = "Sin Dato";
-                                                                $NOMBREPRODUCTO = "Sin Dato";
-                                                            }
-                                                            ?>
                                                             <tr>
                                                                 <td><?php echo $r['NUMERO_FICHA']; ?> </td>
-                                                                <td><?php echo $NUMEROPROCESO; ?></td>
-                                                                <td><?php echo $FECHAPROCESO; ?></td>
-                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBRESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREESPECIES; ?></td>
-                                                                <td><?php echo $NOMBRETETIQUETA; ?>
-                                                                <td><?php echo $NOMBRETEMBALAJE; ?>
-                                                                <td><?php echo $CODIGOPRODUCTO ?></td>
-                                                                <td><?php echo $NOMBREPRODUCTO ?></td>
-                                                                <td><?php echo $FAMILIA ?></td>
-                                                                <td><?php echo $SUBFAMILIA ?></td>
-                                                                <td><?php echo $TUMEDIDA ?></td>
-                                                                <td><?php echo $s['FACTOR_CONSUMO_DFICHA'] ?></td>
-                                                                <td><?php echo $a["ENVASE"] ?></td>
-                                                                <td><?php echo $a["ENVASE"] * $s['FACTOR_CONSUMO_DFICHA'] ?></td>
-                                                                <td><?php echo $r['INGRESO']; ?></td>
-                                                                <td><?php echo $r['MODIFICACION']; ?></td>
-                                                                <td> <?php echo $NOMBREEMPRESA; ?>
-                                                                <td> <?php echo $NOMBRETEMPORADA; ?>
+                                                                <td><?php echo $r['NUMERO_PROCESO']; ?> </td>
+                                                                <td><?php echo $r['FECHAPROCESO']; ?> </td>
+                                                                <td><?php echo $r['CODIGOESTANDAR']; ?> </td>
+                                                                <td><?php echo $r['NOMBREESTANDAR']; ?> </td>
+                                                                <td><?php echo $r['NOMBREESPECIES']; ?> </td>
+                                                                <td><?php echo $r['NOMBRETETIQUETA']; ?> </td>
+                                                                <td><?php echo $r['NOMBRETEMBALAJE']; ?> </td>
+                                                                <td><?php echo $r['CODIGO']; ?> </td>
+                                                                <td><?php echo $r['PRODUCTO']; ?> </td>
+                                                                <td><?php echo $r['FAMILIA']; ?> </td>
+                                                                <td><?php echo $r['SUBFAMILIA']; ?> </td>
+                                                                <td><?php echo $r['TUMEDIDA']; ?> </td>
+                                                                <td><?php echo $r['FACTORCONSUMO']; ?> </td>
+                                                                <td><?php echo $r['ENVASE']; ?> </td>
+                                                                <td><?php echo $r['CONSUMO']; ?> </td>
+                                                                <td><?php echo $r['INGRESO']; ?> </td>
+                                                                <td><?php echo $r['MODIFICACION']; ?> </td>
+                                                                <td><?php echo $r['EMPRESA']; ?> </td>
+                                                                <td><?php echo $r['PLANTA']; ?> </td>
+                                                                <td><?php echo $r['TEMPORADA']; ?> </td>
                                                             </tr>
-                                                        <?php endforeach; ?>
-                                                    <?php endforeach; ?>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>

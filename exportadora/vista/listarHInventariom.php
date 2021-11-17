@@ -71,8 +71,8 @@ $ARRAYDRECEPCION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarKardexInventarioPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYFICHA = $FICHA_ADO->listarConsumoFichaPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS,  $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarKardexInventarioPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYFICHA = $FICHA_ADO->listarConsumoFichaPorEmpresaTemporadaCBX($EMPRESAS,   $TEMPORADAS);
 }
 
 include_once "../config/validarDatosUrl.php";

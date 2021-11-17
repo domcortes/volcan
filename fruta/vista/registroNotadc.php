@@ -4,6 +4,7 @@ include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES BASE OPERACION
 include_once '../controlador/CONSIGNATARIO_ADO.php';
+include_once '../controlador/RFINAL_ADO.php';
 
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/LCARGA_ADO.php';
@@ -47,6 +48,7 @@ include_once '../modelo/DNOTADC.php';
 //INICIALIZAR CONTROLADOR
 
 $CONSIGNATARIO_ADO =  new CONSIGNATARIO_ADO();
+$RFINAL_ADO =  new RFINAL_ADO();
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $LCARGA_ADO =  new LCARGA_ADO();
@@ -174,6 +176,7 @@ $ARRAYNUMERO = "";
 
 $ARRAYICARGA = $ICARGA_ADO->listarIcargaConfirmadoCBX($EMPRESAS, $TEMPORADAS);
 $ARRAYCONSIGNATARIO = $CONSIGNATARIO_ADO->listarConsignatorioPorEmpresaCBX($EMPRESAS);
+$ARRAYRFINAL = $RFINAL_ADO->listarRfinalPorEmpresaCBX($EMPRESAS);
 $ARRAYTRANSPORTE = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
 $ARRAYLCARGA = $LCARGA_ADO->listarLcargaPorEmpresaCBX($EMPRESAS);
 $ARRAYLDESTINO = $LDESTINO_ADO->listarLdestinoPorEmpresaCBX($EMPRESAS);
@@ -238,6 +241,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if ($ARRAYVERICARGA) {
                 $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($ICARGAD);
                 $CONSIGNATARIO = $ARRAYVERICARGA[0]['ID_CONSIGNATARIO'];
+                $RFINAL = $ARRAYVERICARGA[0]['ID_RFINAL'];
                 $BOOKINGINSTRUCTIVO = $ARRAYVERICARGA[0]['BOOKING_ICARGA'];
                 $TEMBARQUE = $ARRAYVERICARGA[0]['TEMBARQUE_ICARGA'];
                 $FECHAETD = $ARRAYVERICARGA[0]['FECHAETD_ICARGA'];
@@ -297,6 +301,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if ($ARRAYVERICARGA) {
                 $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($ICARGAD);
                 $CONSIGNATARIO = $ARRAYVERICARGA[0]['ID_CONSIGNATARIO'];
+                $RFINAL = $ARRAYVERICARGA[0]['ID_RFINAL'];
                 $BOOKINGINSTRUCTIVO = $ARRAYVERICARGA[0]['BOOKING_ICARGA'];
                 $TEMBARQUE = $ARRAYVERICARGA[0]['TEMBARQUE_ICARGA'];
                 $FECHAETD = $ARRAYVERICARGA[0]['FECHAETD_ICARGA'];
@@ -359,6 +364,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if ($ARRAYVERICARGA) {
                 $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($ICARGAD);
                 $CONSIGNATARIO = $ARRAYVERICARGA[0]['ID_CONSIGNATARIO'];
+                $RFINAL = $ARRAYVERICARGA[0]['ID_RFINAL'];
                 $BOOKINGINSTRUCTIVO = $ARRAYVERICARGA[0]['BOOKING_ICARGA'];
                 $TEMBARQUE = $ARRAYVERICARGA[0]['TEMBARQUE_ICARGA'];
                 $FECHAETD = $ARRAYVERICARGA[0]['FECHAETD_ICARGA'];
@@ -408,6 +414,7 @@ if (isset($_POST)) {
             $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGAD);
             if ($ARRAYVERICARGA) {
                 $CONSIGNATARIO = $ARRAYVERICARGA[0]['ID_CONSIGNATARIO'];
+                $RFINAL = $ARRAYVERICARGA[0]['ID_RFINAL'];
                 $BOOKINGINSTRUCTIVO = $ARRAYVERICARGA[0]['BOOKING_ICARGA'];
                 $TEMBARQUE = $ARRAYVERICARGA[0]['TEMBARQUE_ICARGA'];
                 $FECHAETD = $ARRAYVERICARGA[0]['FECHAETD_ICARGA'];
@@ -506,10 +513,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.ICARGAD.style.borderColor = "#4AF575";
 
-
-
-
-                    /*
+                    
                     if (OBSERVACIONINOTA == null || OBSERVACIONINOTA.length == 0 || /^\s+$/.test(OBSERVACIONINOTA)) {
                         document.form_reg_dato.OBSERVACIONINOTA.focus();
                         document.form_reg_dato.OBSERVACIONINOTA.style.borderColor = "#FF0000";
@@ -517,7 +521,7 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.OBSERVACIONINOTA.style.borderColor = "#4AF575";      
-                    */
+                    
 
 
 
@@ -729,6 +733,25 @@ if (isset($_POST)) {
                                         </div>
                                     </div>
                                     <div class="row">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="form-group">
+                                                    <label>Recibidor Final</label>
+                                                    <input type="hidden" class="form-control" placeholder="RFINALE" id="RFINALE" name="RFINALE" value="<?php echo $RFINAL; ?>" />
+                                                    <select class="form-control select2" id="RFINAL" name="RFINAL" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYRFINAL as $r) : ?>
+                                                            <?php if ($ARRAYRFINAL) {    ?>
+                                                                <option value="<?php echo $r['ID_RFINAL']; ?>" <?php if ($RFINAL == $r['ID_RFINAL']) { echo "selected"; } ?>>
+                                                                    <?php echo $r['NOMBRE_RFINAL'] ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option value="0">No Hay Datos Registrados </option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_rfinal" class="validacion"> </label>
+                                                </div>
+                                            </div>
                                         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Consignatario</label>
@@ -993,8 +1016,8 @@ if (isset($_POST)) {
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="OBSERVACION PROCESO" id="OBSERVACIONINOTAE" name="OBSERVACIONINOTAE" value="<?php echo $OBSERVACIONINOTA; ?>" />
-                                                <label>Observaciones </label>
-                                                <textarea class="form-control" rows="1"  placeholder="Ingrese Nota e Observacion  " id="OBSERVACIONINOTA" name="OBSERVACIONINOTA" <?php echo $DISABLED; ?>><?php echo $OBSERVACIONINOTA; ?></textarea>
+                                                <label>Motivo Nota </label>
+                                                <textarea class="form-control" rows="1"  placeholder="Ingrese Motivo e Observacion  " id="OBSERVACIONINOTA" name="OBSERVACIONINOTA" <?php echo $DISABLED; ?>><?php echo $OBSERVACIONINOTA; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
                                             </div>
                                         </div>

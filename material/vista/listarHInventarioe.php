@@ -207,6 +207,7 @@ include_once "../config/reporteUrl.php";
                                                         $NUMEROPERACION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
                                                         $NUMERODOCUMENTO = $ARRAYRECEPCION[0]['NUMERO_DOCUMENTO_RECEPCION'];
                                                         $FECHAOPERACION = $ARRAYRECEPCION[0]['FECHA'];
+                                                        
                                                         $TOPERACION = $ARRAYRECEPCION[0]['TRECEPCION'];                                                           
                                                         $NOMBREDESTINO= $r['BODEGA'];                                                                
                                                         $RECEPCIONORIGEN1 = $ARRAYRECEPCION[0]['ID_RECEPCIONMP'];    

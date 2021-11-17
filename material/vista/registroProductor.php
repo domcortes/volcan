@@ -707,6 +707,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número </th>
+                                                        <th>CSG </th>
                                                         <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
                                                     </tr>
@@ -719,6 +720,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     <?php echo $r['NUMERO_PRODUCTOR']; ?>
                                                                 </a>
                                                             </td>
+                                                            <td><?php echo $r['CSG_PRODUCTOR']; ?></td>
                                                             <td><?php echo $r['NOMBRE_PRODUCTOR']; ?></td>
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">

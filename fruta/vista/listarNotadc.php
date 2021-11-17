@@ -27,6 +27,8 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../controlador/RFINAL_ADO.php';
+
 
 
 include_once '../controlador/ICARGA_ADO.php';
@@ -69,6 +71,7 @@ $ESPECIES_ADO =  new ESPECIES_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
+$RFINAL_ADO = new RFINAL_ADO();
 
 $ICARGA_ADO =  new ICARGA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -240,7 +243,11 @@ include_once "../config/datosUrLP.php";
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Fecha Nota </th>
-                                                    <th>Tipo Nota </th>
+                                                    <th>Tipo Nota </th>                                                    
+                                                    <th>Número Referencia  </th>
+                                                    <th>Cliente(Recibidor Final) </th>
+                                                    <th>Número Invoice  </th>
+                                                    <th>Motivo Nota </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                     <th>Empresa</th>
@@ -260,7 +267,22 @@ include_once "../config/datosUrLP.php";
                                                     }else{
                                                         $NOMBRETNOTA="Sin Datos";
                                                     }
+                                                    $ARRAYICARGA=$ICARGA_ADO->verIcarga2($r["ID_ICARGA"]);
+                                                    if($ARRAYICARGA){
 
+                                                        $NUMEROIREFERENCIA=$ARRAYICARGA[0]["NREFERENCIA_ICARGA"];
+                                                        $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
+                                                        $ARRAYRFINAL=$RFINAL_ADO->verRfinal($ARRAYICARGA[0]["ID_RFINAL"]);
+                                                        if($ARRAYRFINAL){
+                                                            $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
+                                                        }else{
+                                                            $NOMBRERFINAL="Sin Datos";
+                                                        }
+                                                    }else{
+                                                        $NUMEROIREFERENCIA="Sin Datos";
+                                                        $NUMEROICARGA="Sin Datos";
+                                                        $NOMBRERFINAL="Sin Datos";
+                                                    }
 
                                                     $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYEMPRESA) {
@@ -332,6 +354,12 @@ include_once "../config/datosUrLP.php";
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $NOMBRETNOTA; ?></td>
+
+                                                        <td><?php echo $NUMEROIREFERENCIA; ?></td>
+                                                        <td><?php echo $NOMBRERFINAL; ?></td>
+                                                        <td><?php echo $NUMEROICARGA; ?></td>
+
+                                                        <td><?php echo $r['OBSERVACIONES']; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
