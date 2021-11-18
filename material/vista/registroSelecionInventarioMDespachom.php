@@ -32,6 +32,8 @@ $INVENTARIOM = new INVENTARIOM();
 $EMPRESA = "";
 $PLANTA = "";
 $TEMPORADA = "";
+$CONTADOR=0;
+$MENSAJE="";
 
 $TOTALCANTIDAD = "";
 $TOTCALVALOR = "";
@@ -57,30 +59,13 @@ $ARRAYDRECEPCION = "";
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 
-if (isset($_REQUEST['AGREGAR'])) {
-    $IDDESPACHO = $_REQUEST['IDP'];
-    if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
-        $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
-        //var_dump($SELECIONAREXISTENCIA);
-        foreach ($SELECIONAREXISTENCIA as $r) :
-            $IDEXISMATERIAPRIMA = $r;
-            $INVENTARIOM->__SET('ID_DESPACHO', $IDDESPACHO);
-            $INVENTARIOM->__SET('ID_INVENTARIO', $IDEXISMATERIAPRIMA);
-            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-            $INVENTARIOM_ADO->actualizarSelecionarDespachoCambiarEstado($INVENTARIOM);
-        endforeach;        
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-    }
-}
 
 
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarInventarioPorEmpresaPlantaTemporadaDisponible2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarInventarioPorEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 include_once "../config/validarDatosUrlD.php";
 
@@ -180,16 +165,16 @@ include_once "../config/validarDatosUrlD.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Seleccion Iventario</h3>
+                            <h3 class="page-title">Despacho Materiales</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
-                                        <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Despacho</li>
-                                        <li class="breadcrumb-item" aria-current="page">Materiales</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Seleccion Iventario</a>
-                                        </li>
+                                            <li class="breadcrumb-item" aria-current="page">Materiales </li>
+                                            <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Despacho</li>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Despacho</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Seleccion Iventario</a></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -200,9 +185,12 @@ include_once "../config/validarDatosUrlD.php";
 
                 <!-- Main content -->
                 <section class="content">
-                    <div class="box">
+                    <div class="card">                                         
+                            <div class="card-header with-border bg-info">                                   
+                                <h4 class="card-title">Seleccionar existencia</h4>                                        
+                            </div>
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                            <div class="box-body">
+                            <div class="card-body">
                                 <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                 <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
                                 <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
@@ -226,6 +214,7 @@ include_once "../config/validarDatosUrlD.php";
                                                     <tr class="text-left">
                                                         <th>Número Folio </th>
                                                         <th>Selección</th>
+                                                        <th>Seleccion Cantidad</th>
                                                         <th>Código Producto</th>
                                                         <th>Producto</th>
                                                         <th>Tipo Contenedor</th>
@@ -239,6 +228,7 @@ include_once "../config/validarDatosUrlD.php";
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYINVENTARIO as $r) : ?>
+                                                        <?php $CONTADOR = $CONTADOR + 1; ?>
                                                         <?php
                                                         $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
                                                         if ($ARRAYVERBODEGA) {
@@ -275,6 +265,15 @@ include_once "../config/validarDatosUrlD.php";
                                                                     <label for="SELECIONAREXISTENCIA<?php echo $r['ID_INVENTARIO']; ?>"> Seleccionar</label>
                                                                 </div>
                                                             </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" class="form-control" name="IDCAJA[]" value="<?php echo  $CONTADOR; ?>">
+                                                                        <input type="hidden" class="form-control" name="IDEXISTENCIA[]" value="<?php echo $r['ID_INVENTARIO']; ?>">
+                                                                        <input type="hidden" class="form-control" name="FOLIO[]" value="<?php echo  $r['FOLIO_INVENTARIO']; ?>">
+                                                                        <input type="hidden" class="form-control" name="CANTIDADORIGINAL[]" value="<?php echo $r['CANTIDAD']; ?>">
+                                                                        <input type="text" placeholder="cantidad a selecionar"  pattern="^[0-9]+([.][0-9]{1,3})?$" class="form-control" name="CANTIDAD[]">
+                                                                    </div>
+                                                                </td>
                                                             <td><?php echo $CODIGOPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTO; ?></td>
                                                             <td><?php echo $NOMBRETCONTENEDOR; ?></td>
@@ -292,16 +291,20 @@ include_once "../config/validarDatosUrlD.php";
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-footer">
-                                <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                    <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                        <i class="ti-back-left "></i>
+
+                            <div class="card-footer">
+                                <div class="btn-group btn-rounded btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                    <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                        <i class="ti-back-left "></i> Volver
                                     </button>
-                                    <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                        <i class="ti-save-alt"></i>
+                                    <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Por Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                        <i class="ti-save-alt"></i> P. Folio
+                                    </button>
+                                    <button type="submit" class="btn btn-rounded btn-info" data-toggle="tooltip" title="Por Cantidad" name="DIVIDIR" value="DIVIDIR" <?php echo $DISABLED; ?>>
+                                        <i class="ti-save-alt"></i> P. Cantidad
                                     </button>
                                 </div>
-                            </div>
+                            </div>    
                             <!-- /.box -->
                         </form>
                 </section>
@@ -316,6 +319,219 @@ include_once "../config/validarDatosUrlD.php";
         <?php include_once "../config/menuExtra.php"; ?>
     </div>
     <?php include_once "../config/urlBase.php"; ?>
+    <script>            
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showConfirmButton: true
+            })
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Para <b>seleccionar</b> una parte de la <b>Cantidad</b> de un folio, ingrese la Cantidad a Ingresar y presione <b> P. Cantidad </b> </label><label>Para <b>Selecionar folios</b> completos, seleccione los folios y presione <b>P. Folios </b> </label>"
+            })
+        </script>
+    <?php 
+        if (isset($_REQUEST['AGREGAR'])) {
+            $IDDESPACHO = $_REQUEST['IDP'];
+            if (isset($_REQUEST['SELECIONAREXISTENCIA'])) {
+                $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
+                $SINO = "0";
+            } else {
+                $SINO = "1";
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Accion restringida",
+                        text:"Se debe selecionar al menos una existencia.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroSelecionInventarioMDespachom.php?op";                            
+                    })
+                </script>';
+            }
+             
+            if($SINO==0){   
+                //var_dump($SELECIONAREXISTENCIA);
+                foreach ($SELECIONAREXISTENCIA as $r) :
+                    $IDEXISMATERIAPRIMA = $r;
+                    $INVENTARIOM->__SET('ID_DESPACHO', $IDDESPACHO);
+                    $INVENTARIOM->__SET('ID_INVENTARIO', $IDEXISMATERIAPRIMA);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $INVENTARIOM_ADO->actualizarSelecionarDespachoCambiarEstado($INVENTARIOM);
+                endforeach;        
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Accion realizada",
+                        text:"Se agregado la existencia al despacho.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Volver a Despacho",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>';
+            }     
+            
+        }
+        if (isset($_REQUEST['DIVIDIR'])) {
+            $SINO=1;
+            $IDDESPACHO = $_REQUEST['IDP'];
+            $ARRAYIDCAJA = $_REQUEST['IDCAJA'];
+            $ARRAYFOLIO = $_REQUEST['FOLIO'];
+            $ARRAYIDEXISTENCIA = $_REQUEST['IDEXISTENCIA'];
+            $ARRAYCANTIDADORIGINAL = $_REQUEST['CANTIDADORIGINAL'];
+            $ARRAYCANTIDAD = $_REQUEST['CANTIDAD'];
+
+            if (isset($_REQUEST['IDCAJA'])) {
+
+                foreach ($ARRAYIDCAJA as $ID) :
+                    $IDNETO = $ID - 1;
+                    
+                    $IDEXISTENCIA = $ARRAYIDEXISTENCIA[$IDNETO];
+                    $FOLIOORIGINAL = $ARRAYFOLIO[$IDNETO];
+                    $CANTIDADORIGINAL = $ARRAYCANTIDADORIGINAL[$IDNETO];
+                    $CANTIDAD = $ARRAYCANTIDAD[$IDNETO];
+
+
+                    if ($CANTIDAD != "") {
+                        $SINOCANTIDAD = 0;
+                        $MENSAJE = $MENSAJE;
+                        if ($CANTIDAD <= 0) {
+                            $SINOCANTIDAD = 1;
+                            $MENSAJE = $MENSAJE . "" . $FOLIOORIGINAL . ": Solo deben ingresar un valor mayor a zero. ";
+                        } else {
+                            if ($CANTIDAD >= $CANTIDADORIGINAL) {
+                                $SINOCANTIDAD = 1;
+                                $MENSAJE = $MENSAJE . " " . $FOLIOORIGINAL . ": La cantidad selecionada no puede se mayor o igual a la cantiddad original. ";
+                            } else {
+                                $SINOCANTIDAD = 0;
+                                $MENSAJE = $MENSAJE;
+                            }
+                        }
+                    } else {
+                        $SINOCANTIDAD = 1;
+                        //$MENSAJE = $MENSAJE . "" . $FOLIOORIGINAL . ": SE DEBE INGRESAR UN DATO EN KILOS DESPACHO. ";
+                    }
+
+                    if ($SINOCANTIDAD == 0) {
+                        //KILOS PARA LINEA NUEVA
+                        $CANTIDADRESTANTE = $CANTIDADORIGINAL - $CANTIDAD;
+                        $CANTIDADNUEVO = $CANTIDAD;
+
+                        
+                        
+
+                        //ACTUALIZA LOS DATOS DE LA FOLIO ACTUAL
+                      
+                        $INVENTARIOM->__SET('ID_DESPACHO', $IDDESPACHO);
+                        $INVENTARIOM->__SET('ID_INVENTARIO', $IDEXISTENCIA);
+                        $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $CANTIDADNUEVO);
+                        // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $INVENTARIOM_ADO->actualizarSelecionarDespachoCambiarCantidadEstado($INVENTARIOM);
+  
+    
+
+                        $FOLIOALIASESTACTICO = $FOLIOORIGINAL;
+                        $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                            "_TIPO_FOLIO:Materiales_DESPACHO:" . $_REQUEST['IDP'] . "_FOLIO:" . $FOLIOORIGINAL;
+
+                        //CREA UNA FOLIO NUEVO CON EL RESTANTE DE LOS ENVASES
+                        $ARRAYVEREXITENICA = $INVENTARIOM_ADO->verInventario($IDEXISTENCIA);
+                        
+                        foreach ($ARRAYVEREXITENICA as $r) :    
+                            $INVENTARIOM->__SET('FOLIO_INVENTARIO', $r['FOLIO_INVENTARIO']);
+                            $INVENTARIOM->__SET('FOLIO_AUXILIAR_INVENTARIO', $r['FOLIO_AUXILIAR_INVENTARIO']); 
+                            $INVENTARIOM->__SET('ALIAS_DINAMICO_FOLIO', $FOLIOALIASDIANAMICO);
+                            $INVENTARIOM->__SET('ALIAS_ESTATICO_FOLIO', $FOLIOALIASESTACTICO);                            
+                            $INVENTARIOM->__SET('TRECEPCION', $r['TRECEPCION']);  
+                            $INVENTARIOM->__SET('VALOR_UNITARIO', $r['VALOR_UNITARIO']);   
+                            $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $CANTIDADRESTANTE);   
+                            $INVENTARIOM->__SET('ID_BODEGA', $r['ID_BODEGA']);     
+                            $INVENTARIOM->__SET('ID_FOLIO', $r['ID_FOLIO']);     
+                            $INVENTARIOM->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);     
+                            $INVENTARIOM->__SET('ID_TCONTENEDOR', $r['ID_TCONTENEDOR']);     
+                            $INVENTARIOM->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);     
+                            $INVENTARIOM->__SET('ID_RECEPCION', $r['ID_RECEPCION']);     
+                            $INVENTARIOM->__SET('ID_PLANTA2', $r['ID_PLANTA2']);     
+                            $INVENTARIOM->__SET('ID_PLANTA3', $r['ID_PLANTA3']);     
+                            $INVENTARIOM->__SET('ID_PROVEEDOR', $r['ID_PROVEEDOR']);     
+                            $INVENTARIOM->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']); 
+                            $INVENTARIOM->__SET('ID_EMPRESA', $EMPRESAS);
+                            $INVENTARIOM->__SET('ID_PLANTA', $PLANTAS);
+                            $INVENTARIOM->__SET('ID_TEMPORADA', $TEMPORADAS);
+                        // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                           $INVENTARIOM_ADO->agregarInventarioDespacho($INVENTARIOM);
+                        endforeach;
+                            
+                        $SINO = 0;
+                    }
+                endforeach;
+                
+                if ($SINO == 0) {    
+                    if ($MENSAJE == "") { 
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Accion realizada",
+                                text:"Se agregado la existencia al despacho.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Volver al despacho",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                            })
+                        </script>';
+                        //echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    }else{                        
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Accion realizada",
+                                text:"Se agregado la existencia al despacho. ' . $MENSAJE . '",
+                                showConfirmButton: true,
+                                confirmButtonText:"Volver al despacho",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                            })
+                        </script>';
+                    }                   
+                } 
+                if ($SINOCANTIDAD == 1) {
+                    if ($MENSAJE != "") {
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"' . $MENSAJE . '",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href="registroSelecionInventarioMDespachom.php?op";                        
+                            })
+                        </script>';
+                    }
+                }
+               
+            }
+        }
+    ?>
 </body>
 
 </html>
