@@ -308,7 +308,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="9" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="8" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -318,7 +318,6 @@ $html = $html . '
             <th class="color center">Kilos Neto</th>
             <th class="color center">Kilos Bruto</th>
             <th class="color center ">Variedad </th>
-            <th class="color center ">Gasificacion </th>
             <th class="color center ">Tipo Manejo </th>
           </tr>
         </thead>
@@ -370,7 +369,6 @@ foreach ($ARRAYDRECEPCION as $d) :
                           <td class="center">' . $s['NETO'] . '</td>
                           <td class="center">' . $s['BRUTO'] . '</td>
                           <td class=" center">' . $NOMBREVESPECIES . '</td>
-                          <td class=" center">' . $GASIFICACION . '</td>
                           <td class=" center">' . $NOMBRETMANEJO . '</td>
                       </tr>
               ';
@@ -389,7 +387,6 @@ foreach ($ARRAYDRECEPCION as $d) :
       <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['BRUTO'] . '</th>
       <th class="color3  center">&nbsp;</th>
       <th class="color3 center">&nbsp;</th>
-      <th class="color3 center">&nbsp;</th>
   </tr>
 ';
 
@@ -404,7 +401,6 @@ $html = $html . '
               <th class="color center">' . $TOTALENVASEGENERAL . '</th>
               <th class="color center">' . $TOTALNETOGENERAL . '</th>
               <th class="color center">' . $TOTALBRUTOGENERAL . '</th>
-              <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
           </tr>

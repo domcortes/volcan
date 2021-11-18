@@ -326,7 +326,7 @@ $html .= '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="20" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="19" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -344,8 +344,7 @@ $html .= '
             <th class="color center">Kilos Bruto</th>
             <th class="color center">Calibre</th>
             <th class="color center">Tipo Manejo</th>  
-            <th class="color center">Embolsado</th>
-            <th class="color center">Gasificado</th>    
+            <th class="color center">Embolsado</th>  
             <th class="color center">Prefrio</th>                
             <th class="color center">Stock</th>
 
@@ -411,7 +410,6 @@ foreach ($ARRAYDRECEPCIONPT as $d) :
                           <td class="center">' . $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'] . '</td>
                           <td class="center">' . $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'] . '</td>
                           <td class="center">' . $EMBOLSADO . '</td>
-                          <td class="center">' . $GASIFICACION . '</td>
                           <td class="center">' . $PREFRIO . '</td>
                           <td class="center">' . $STOCK . '</td>
                       </tr>
@@ -433,7 +431,6 @@ $html = $html . '
               <th class="color center">' . $TOTALNETOREALGENERAL . '</th>
               <th class="color center">' . $TOTALNETOGENERAL . '</th>
               <th class="color center">' . $TOTALBRUTOGENERAL . '</th>
-              <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
