@@ -249,7 +249,7 @@ include_once "../config/datosUrLP.php";
                                                         $TDESPACHO = "Interplanta";
                                                     } else
                                                     if ($r['TDESPACHO'] == "3") {
-                                                        $TDESPACHO = "Devolución a Productor";
+                                                        $TDESPACHO = "Despacho a Productor";
                                                     } else
                                                     if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Devolución a Proveedor";

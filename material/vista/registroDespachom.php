@@ -1027,7 +1027,7 @@ if (isset($_POST)) {
                                                                         } ?>> Interplanta </option>
                                                     <option value="3" <?php if ($TDESPACHO == "3") {
                                                                             echo "selected";
-                                                                        } ?>> Devolución a Productor</option>
+                                                                        } ?>> Despacho a Productor</option>
 
                                                     <option value="4" <?php if ($TDESPACHO == "4") {
                                                                             echo "selected";
