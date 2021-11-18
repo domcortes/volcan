@@ -265,7 +265,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
     //FUNCION PARA LA OBTENCION DE LOS TOTALES DEL DETALLE ASOCIADO A OCOMPRA
 
-    $ARRAYDOCOMPRA = $DOCOMPRA_ADO->listarDocompraPorOcompra2CBX($IDOP);
+    $ARRAYDOCOMPRA = $DOCOMPRA_ADO->listarDocompraPorOcompra2CBX($IDOP);  
     $ARRAYDOCOMPRATOTALES = $DOCOMPRA_ADO->obtenerTotalesDocompraPorOcompraCBX($IDOP);
     $ARRAYDOCOMPRATOTALES2 = $DOCOMPRA_ADO->obtenerTotalesDocompraPorOcompra2CBX($IDOP);
 
@@ -725,7 +725,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Fecha Orden</label>
                                                 <input type="hidden" class="form-control" placeholder="Fecha Recepción" id="FECHAOCOMPRAE" name="FECHAOCOMPRAE" value="<?php echo $FECHAOCOMPRA; ?>" />
-                                                <input type="date" class="form-control" placeholder="Fecha Recepción" id="FECHAOCOMPRA" name="FECHAOCOMPRA" value="<?php echo $FECHAOCOMPRA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="date" class="form-control" placeholder="Fecha Recepción" id="FECHAOCOMPRA" name="FECHAOCOMPRA" value="<?php echo $FECHAOCOMPRA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?>  />
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -752,7 +752,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Proveedor</label>
                                                 <input type="hidden" class="form-control" placeholder="PROVEEDORE" id="PROVEEDORE" name="PROVEEDORE" value="<?php echo $PROVEEDOR; ?>" />
-                                                <select class="form-control select2" id="PROVEEDOR" name="PROVEEDOR" style="width: 100%;" <?php echo $DISABLED2; ?>  <?php echo $DISABLEDFOLIO; ?>>
+                                                <select class="form-control select2" id="PROVEEDOR" name="PROVEEDOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
                                                     <option></option>
                                                     <?php foreach ($ARRAYPROVEEDOR as $r) : ?>
                                                         <?php if ($ARRAYPROVEEDOR) {    ?>
