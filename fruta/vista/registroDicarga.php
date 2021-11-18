@@ -91,56 +91,7 @@ $ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 include_once "../config/validarDatosUrlD.php";
 
 //OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
 
-    $DICARGA->__SET('CANTIDAD_ENVASE_DICARGA', $_REQUEST['CANTIDADENVASE']);
-    $DICARGA->__SET('KILOS_NETO_DICARGA', $_REQUEST['KILOSNETO']);
-    $DICARGA->__SET('KILOS_BRUTO_DICARGA', $_REQUEST['KILOSBRUTO']);
-    $DICARGA->__SET('PRECIO_US_DICARGA', $_REQUEST['PRECIOUS']);
-    $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $_REQUEST['TOTALPRECIOUS']);
-    $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
-    $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
-    $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
-    $DICARGA_ADO->agregarDicarga($DICARGA);
-
-    //REDIRECCIONAR A PAGINA registroICarga.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['EDITAR'])) {
-
-    $DICARGA->__SET('CANTIDAD_ENVASE_DICARGA', $_REQUEST['CANTIDADENVASE']);
-    $DICARGA->__SET('KILOS_NETO_DICARGA', $_REQUEST['KILOSNETO']);
-    $DICARGA->__SET('KILOS_BRUTO_DICARGA', $_REQUEST['KILOSBRUTO']);
-    $DICARGA->__SET('PRECIO_US_DICARGA', $_REQUEST['PRECIOUS']);
-    $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $_REQUEST['TOTALPRECIOUS']);
-    $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
-    $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
-    $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
-    $DICARGA->__SET('ID_DICARGA', $_REQUEST['ID']);
-    $DICARGA_ADO->actualizarDicarga($DICARGA);
-
-    //REDIRECCIONAR A PAGINA registroICarga.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-
-
-if (isset($_REQUEST['ELIMINAR'])) {
-    $IDELIMINAR = $_REQUEST['ID'];
-    $DICARGA->__SET('ID_DICARGA', $IDELIMINAR);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DICARGA_ADO->deshabilitar($DICARGA);
-
-
-    //REDIRECCIONAR A PAGINA registroICarga.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -535,28 +486,28 @@ if ($_POST) {
                                     <label id=" val_mensaje" class="validacion"><?php echo $MENSAJEELIMINAR; ?> </label>
                                     <div class="box-footer">
                                         <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i>
+                                            <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
                                             <?php if ($OP == "") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i>
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
+                                                    <i class="ti-save-alt"></i> Crear
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP != "") { ?>
                                                 <?php if ($OP == "crear") { ?>
-                                                    <button type="submit" class="btn btn-rounded btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()" >
-                                                        <i class="ti-save-alt"></i>
+                                                    <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()" >
+                                                        <i class="ti-save-alt"></i> Crear
                                                     </button>
                                                 <?php } ?>
                                                 <?php if ($OP == "editar") { ?>
-                                                    <button type="submit" class="btn btn-rounded btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i>
+                                                    <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Editar
                                                     </button>
                                                 <?php } ?>
                                                 <?php if ($OP == "eliminar") { ?>
-                                                    <button type="submit" class="btn btn-rounded btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
-                                                        <i class="ti-trash"></i>
+                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                        <i class="ti-trash"></i> Eliminar
                                                     </button>
                                                 <?php } ?>
                                             <?php } ?>
@@ -575,6 +526,99 @@ if ($_POST) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+
+
+<?php
+//OPERACION DE REGISTRO DE FILA
+if (isset($_REQUEST['CREAR'])) {
+    $DICARGA->__SET('CANTIDAD_ENVASE_DICARGA', $_REQUEST['CANTIDADENVASE']);
+    $DICARGA->__SET('KILOS_NETO_DICARGA', $_REQUEST['KILOSNETO']);
+    $DICARGA->__SET('KILOS_BRUTO_DICARGA', $_REQUEST['KILOSBRUTO']);
+    $DICARGA->__SET('PRECIO_US_DICARGA', $_REQUEST['PRECIOUS']);
+    $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $_REQUEST['TOTALPRECIOUS']);
+    $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
+    $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
+    $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
+    $DICARGA_ADO->agregarDicarga($DICARGA);
+
+    //REDIRECCIONAR A PAGINA registroICarga.php
+    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    echo '<script>
+        Swal.fire({
+            icon:"success",
+            title:"Registro agregado",
+            html:"El registro fue agregado correctamente",
+            showConfirmButton:true,
+            confirmButtonText:"OK"
+        }).then((result)=>{
+            if(result.value){
+                location.href ="/fruta/vista/'.$_REQUEST['URLO'].'";
+            }
+        })
+    </script>';
+}
+
+if (isset($_REQUEST['EDITAR'])) {
+    $DICARGA->__SET('CANTIDAD_ENVASE_DICARGA', $_REQUEST['CANTIDADENVASE']);
+    $DICARGA->__SET('KILOS_NETO_DICARGA', $_REQUEST['KILOSNETO']);
+    $DICARGA->__SET('KILOS_BRUTO_DICARGA', $_REQUEST['KILOSBRUTO']);
+    $DICARGA->__SET('PRECIO_US_DICARGA', $_REQUEST['PRECIOUS']);
+    $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $_REQUEST['TOTALPRECIOUS']);
+    $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
+    $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
+    $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
+    $DICARGA->__SET('ID_DICARGA', $_REQUEST['ID']);
+    $DICARGA_ADO->actualizarDicarga($DICARGA);
+
+    //REDIRECCIONAR A PAGINA registroICarga.php
+    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    echo '<script>
+        Swal.fire({
+            icon:"success",
+            title:"Registro editado",
+            html:"El registro fue editado correctamente",
+            showConfirmButton:true,
+            confirmButtonText:"OK"
+        }).then((result)=>{
+            if(result.value){
+                location.href ="/fruta/vista/'.$_REQUEST['URLO'].'";
+            }
+        })
+    </script>';
+
+
+}
+
+if (isset($_REQUEST['ELIMINAR'])) {
+    $IDELIMINAR = $_REQUEST['ID'];
+    $DICARGA->__SET('ID_DICARGA', $IDELIMINAR);
+    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+    $DICARGA_ADO->deshabilitar($DICARGA);
+
+
+    //REDIRECCIONAR A PAGINA registroICarga.php
+    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    echo '<script>
+        Swal.fire({
+            icon:"success",
+            title:"Registro eliminado",
+            html:"El registro fue eliminado correctamente",
+            showConfirmButton:true,
+            confirmButtonText:"OK"
+        }).then((result)=>{
+            if(result.value){
+                location.href ="/fruta/vista/'.$_REQUEST['URLO'].'";
+            }
+        })
+    </script>';
+}
+?>
 </body>
 
 </html>
