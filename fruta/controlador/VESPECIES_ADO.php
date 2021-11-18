@@ -302,6 +302,28 @@ class VESPECIES_ADO
         }
     }
 
+    public function buscarVespeciesPorEspeciesPorEmpresaCBX($ID, $IDEMPRESA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * FROM `fruta_vespecies` 
+                                                WHERE `ID_ESPECIES`= '" . $ID . "'  
+                                                AND ID_EMPRESA = '".$IDEMPRESA."'
+                                                AND `ESTADO_REGISTRO` = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     public function buscarVespeciesPorEspeciesCBX2($ID)
     {

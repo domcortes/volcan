@@ -173,7 +173,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-                $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+                $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             }            $TMANEJO = "" . $r['ID_TMANEJO'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $VESPECIES = "" . $r['ID_VESPECIES'];
@@ -205,7 +205,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-                $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+                $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             }            $TMANEJO = "" . $r['ID_TMANEJO'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $VESPECIES = "" . $r['ID_VESPECIES'];
@@ -240,7 +240,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-                $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+                $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             }            $TMANEJO = "" . $r['ID_TMANEJO'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $VESPECIES = "" . $r['ID_VESPECIES'];
@@ -274,7 +274,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-                $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+                $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             }            $TMANEJO = "" . $r['ID_TMANEJO'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $VESPECIES = "" . $r['ID_VESPECIES'];
@@ -306,7 +306,7 @@ if ($_POST) {
         $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
         if ($ARRAYVERESTANDAR) {
             $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-            $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
+            $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             if ($_REQUEST['PESOPALLETRECEPCION']) {
                 $PESOPALLETRECEPCION = $_REQUEST['PESOPALLETRECEPCION'];
             } else {

@@ -881,7 +881,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Guía</label>
                                                 <input type="hidden" class="form-control" placeholder="Número Guía" id="NUMEROGUIAE" name="NUMEROGUIAE" value="<?php echo $NUMEROGUIA; ?>" />
-                                                <input type="text" class="form-control"  placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="number" class="form-control"  placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                 <label id="val_numerog" class="validacion"><?php echo $MENSAJE3; ?> </label>
                                             </div>
                                         </div>
@@ -1309,7 +1309,6 @@ if (isset($_POST)) {
             <?php
             //OPERACION DE REGISTRO DE FILA
             if (isset($_REQUEST['CREAR'])) {
-
                 if ($_REQUEST['TRECEPCION'] == "1") {
                     $ARRAYRECEPCIONBUSCARGPETP = $RECEPCIONMP_ADO->buscarRecepcionPorProductorGuiaEmpresaPlantaTemporada($_REQUEST['NUMEROGUIA'], $_REQUEST['PRODUCTOR'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
                     if ($ARRAYRECEPCIONBUSCARGPETP) {
@@ -1384,7 +1383,7 @@ if (isset($_POST)) {
                     $RECEPCIONMP->__SET('ID_USUARIOI', $IDUSUARIOS);
                     $RECEPCIONMP->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
+                   $RECEPCIONMP_ADO->agregarRecepcion($RECEPCIONMP);
 
                     //OBTENER EL ID DE LA RECEPCION CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
                     $ARRYAOBTENERID = $RECEPCIONMP_ADO->obtenerID(
