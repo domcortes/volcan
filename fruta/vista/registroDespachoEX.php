@@ -2150,13 +2150,13 @@ if (isset($_POST)) {
                                                 <?php } ?>
                                                 <?php if ($OP != "") { ?>
                                                     <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachoEX.php'); ">
-                                                        <i class="ti-back-left "></i>
+                                                        <i class="ti-back-left "></i> Volver
                                                     </button>
                                                     <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="GUARDAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                        <i class="ti-pencil-alt"></i>
+                                                        <i class="ti-pencil-alt"></i> Guardar
                                                     </button>
                                                     <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i>
+                                                        <i class="ti-save-alt"></i> Cerrar
                                                     </button>
                                                 <?php } ?>
                                             </div>
@@ -2165,7 +2165,7 @@ if (isset($_POST)) {
                                                     <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                         <i class="fa fa-file-pdf-o"></i> Packing List
                                                     </button>
-                                                    <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                         <i class="fa fa-file-pdf-o"></i> Informe Comercial
                                                     </button>
                                                 <?php } ?>
@@ -2333,8 +2333,8 @@ if (isset($_POST)) {
                                                         <td>
                                                             <form method="post" id="form1">
                                                                 <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                    <button type="submit" class="btn btn-rounded btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
+                                                                <div class="btn-group btn-sm btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                    <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
                                                                         <i class="ti-close"></i>
                                                                     </button>
                                                                 </div>
@@ -2742,6 +2742,19 @@ if (isset($_REQUEST['QUITAR'])) {
     $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
     // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoExCambiarEstado($EXIEXPORTACION);
+     echo '<script>
+                Swal.fire({
+                    icon:"success",
+                    title:"Detalle eliminado",
+                    html:"Se ha quitado este detalle del registro",
+                    showConfirmButton:true,
+                    confirmButtonText:"OK"
+                }).then((result)=>{
+                    if(result.value){
+                        location.href ="/fruta/vista/registroDespachoEX.php?op";
+                    }
+                })
+            </script>';
 }
 ?>
     </div>
