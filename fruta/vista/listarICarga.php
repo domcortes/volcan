@@ -287,7 +287,7 @@ include_once "../config/datosUrLP.php";
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                         <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
                                                                                             <i class="ti-pencil-alt"></i> Informe
                                                                                         </button>
