@@ -157,6 +157,7 @@ class DOCOMPRA_ADO {
                 "INSERT INTO `material_docompra` (   
                                                         `CANTIDAD_DOCOMPRA`,
                                                         `VALOR_UNITARIO_DOCOMPRA`,   
+                                                        `DESCRIPCION_DOCOMPRA`,   
                                                         `ID_PRODUCTO`,
                                                         `ID_TUMEDIDA`,
                                                         `ID_OCOMPRA`,     
@@ -166,12 +167,13 @@ class DOCOMPRA_ADO {
                                                         `ESTADO`,
                                                         `ESTADO_REGISTRO`
                                                     ) VALUES
-	       	( ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 0, 1, 1);";
+	       	( ?, ?, ?, ?, ?, ?,   SYSDATE() , SYSDATE(), 0, 1, 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(                   
                     $DOCOMPRA->__GET('CANTIDAD_DOCOMPRA')  ,  
                     $DOCOMPRA->__GET('VALOR_UNITARIO_DOCOMPRA')  ,   
+                    $DOCOMPRA->__GET('DESCRIPCION_DOCOMPRA')  , 
                     $DOCOMPRA->__GET('ID_PRODUCTO')  ,  
                     $DOCOMPRA->__GET('ID_TUMEDIDA')  ,     
                     $DOCOMPRA->__GET('ID_OCOMPRA')    
@@ -204,6 +206,7 @@ class DOCOMPRA_ADO {
             `MODIFICACION`= SYSDATE(),
             `CANTIDAD_DOCOMPRA`= ?,
             `VALOR_UNITARIO_DOCOMPRA`= ?,
+            `DESCRIPCION_DOCOMPRA`= ?,
             `ID_PRODUCTO`= ?,
             `ID_TUMEDIDA`= ?,
             `ID_OCOMPRA`= ?    
@@ -212,7 +215,8 @@ class DOCOMPRA_ADO {
             ->execute(
                 array(      
                     $DOCOMPRA->__GET('CANTIDAD_DOCOMPRA')  ,  
-                    $DOCOMPRA->__GET('VALOR_UNITARIO_DOCOMPRA')  ,   
+                    $DOCOMPRA->__GET('VALOR_UNITARIO_DOCOMPRA')  ,     
+                    $DOCOMPRA->__GET('DESCRIPCION_DOCOMPRA')  , 
                     $DOCOMPRA->__GET('ID_PRODUCTO')  ,  
                     $DOCOMPRA->__GET('ID_TUMEDIDA')  ,     
                     $DOCOMPRA->__GET('ID_OCOMPRA') ,   
