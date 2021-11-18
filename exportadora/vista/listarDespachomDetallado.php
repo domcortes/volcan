@@ -290,7 +290,7 @@ include_once "../config/datosUrLP.php";
                                                         }
                                                     } else
                                                     if ($r['TDESPACHO'] == "3") {
-                                                        $TDESPACHO = "Devolución a Productor";
+                                                        $TDESPACHO = "Despacho a Productor";
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
                                                         if ($ARRAYPRODUCTOR) {
                                                             $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
