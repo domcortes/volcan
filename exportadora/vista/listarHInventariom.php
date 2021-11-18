@@ -2,40 +2,13 @@
 
 include_once "../config/validarUsuario.php";
 
-//LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TDOCUMENTO_ADO.php';
-include_once '../controlador/BODEGA_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
-
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/RECEPCIONM_ADO.php';
-include_once '../controlador/DESPACHOM_ADO.php';
 
 include_once '../controlador/INVENTARIOM_ADO.php';
 include_once '../controlador/FICHA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
-$BODEGA_ADO = new BODEGA_ADO();
-$PRODUCTOR_ADO = new PRODUCTOR_ADO();
-$PROVEEDOR_ADO = new PROVEEDOR_ADO();
-$CLIENTE_ADO = new CLIENTE_ADO();
 
-$PRODUCTO_ADO = new PRODUCTO_ADO();
-$TCONTENEDOR_ADO = new TCONTENEDOR_ADO();
-$TUMEDIDA_ADO = new TUMEDIDA_ADO();
-
-
-$OCOMPRA_ADO = new OCOMPRA_ADO();
-$RECEPCIONM_ADO = new RECEPCIONM_ADO();
-$DESPACHOM_ADO = new DESPACHOM_ADO();
 
 
 $INVENTARIOM_ADO = new INVENTARIOM_ADO();
@@ -59,20 +32,21 @@ $PRODUCTOR = "";
 $NUMEROGUIA = "";
 
 //INICIALIZAR ARREGLOS
-$ARRAYINVENTARIO = "";
-$ARRAYINVENTARIOTOTALES = "";
+$ARRAYINVENTARIORECEPCION = "";
+$ARRAYINVENTARIORECEPCIONINTER = "";
+$ARRAYINVENTARIODESPACHO = "";
+$ARRAYINVENTARIOCONSUMO = "";
 
 
-$ARRAYVERBODEGA = "";
-$ARRAYVERTCONTENEDOR = "";
-$ARRAYVERTUMEDIDA = "";
-$ARRAYVERPRODUCTO = "";
-$ARRAYDRECEPCION = "";
+
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarKardexInventarioPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYFICHA = $FICHA_ADO->listarConsumoFichaPorEmpresaTemporadaCBX($EMPRESAS,   $TEMPORADAS);
+if ($EMPRESAS   && $TEMPORADAS) {
+    $ARRAYINVENTARIORECEPCION = $INVENTARIOM_ADO->listarKardexInventarioRecepcionPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYINVENTARIORECEPCIONINTER = $INVENTARIOM_ADO->listarKardexInventarioRecepcionInterplantaPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYINVENTARIODESPACHO = $INVENTARIOM_ADO->listarKardexInventarioDespachoPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYINVENTARIOCONSUMO = $FICHA_ADO->listarKardexConsumoFichaPorEmpresaTemporadaCBX($EMPRESAS,   $TEMPORADAS);
+    
 }
 
 include_once "../config/validarDatosUrl.php";
@@ -199,121 +173,107 @@ include_once "../config/reporteUrl.php";
                                                     <th>Unidad Medida</th>
                                                     <th>Nombre Bodega</th>    
                                                     <th>Empresa</th>
-                                                    <th>Planta</th>                                                
-                                                    <th>Tipo entrada</th>
-                                                    <th>Fecha entrada</th>                                                    
-                                                    <th>Origen entrada</th>                                                    
-                                                    <th>N° Registro entrada</th>
-                                                    <th>N° Documento entrada</th>  
-                                                    <th>Tipo Salida</th>
-                                                    <th>Fecha Salida</th>                                                   
-                                                    <th>Destino Salida</th>                                                
-                                                    <th>N° Registro Salida</th>
-                                                    <th>N° Documento Salida</th>
-                                                    <th>Código Estandar</th>
-                                                    <th>Envase/Estandar</th>
-                                                    <th>Consumo Estandar</th>
+                                                    <th>Planta</th>    
+                                                    <th>Tipo Movimiento</th>
+                                                    <th>Fecha Movimiento</th>                                                     
+                                                    <th>N° Movimiento</th>
+                                                    <th>N° Documento</th> 
+                                                    <th>Origen</th>                                                  
+                                                    <th>Destino</th>    
+                                                    <th>Consumo</th>
                                                     <th>Entrada </th>
                                                     <th>Salida </th>
+                                                    <th>Total </th>
                                                     <th>Temporada</th>                                                
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYINVENTARIO as $r) : ?>
-                                                    <?php
-                                                        if($r['ID_RECEPCION']){
-                                                            $NUMEROORIGEN= $r['NUMERORECEPCION'];
-                                                            $NUMERODOCUMENTOORIGEN= $r['NUMERODOCUMENTORECEPCION'];
-                                                            $CANTIDADORIGEN= $r['CANTIDAD'];
-                                                            $FECHAORIGEN= $r['FECHARECEPCION'];
-                                                            $TIPOORIGEN = $r['TRECEPCION'];
-                                                            $NOMBREORIGEN = $r['TRECEPCION'];
-                                                            $NOMBREORIGEN = $r['ORIGENRECEPCION'];
-                                                        }else if($r['ID_DESPACHO2']){
-                                                            $NUMEROORIGEN= $r['NUMERODESPACHO2'];
-                                                            $NUMERODOCUMENTOORIGEN= $r['NUMERODOCUMENTODESPACHO2'];
-                                                            $CANTIDADORIGEN= $r['CANTIDAD'];
-                                                            $FECHAORIGEN= $r['FECHADESPACHO2'];
-                                                            $TIPOORIGEN = $r['TDESPACHO2'];
-                                                            $NOMBREORIGEN = $r['DESTINODESPACHO2'];
-                                                        }else{
-                                                            $NUMEROORIGEN= "Sin Datos";
-                                                            $NUMERODOCUMENTOORIGEN= "Sin Datos";
-                                                            $CANTIDADORIGEN= "0";
-                                                            $FECHAORIGEN= "Sin Datos";
-                                                            $TIPOORIGEN = "Sin Datos";
-                                                            $NOMBREORIGEN = "Sin Datos";
-                                                        }      
-                                                        if($r['ID_DESPACHO']){
-                                                            $NUMERODESTINO= $r['NUMERODESPACHO'];
-                                                            $NUMERODOCUMENTODESTINO= $r['NUMERODOCUMENTODESPACHO'];
-                                                            $CANTIDADDESTINO= $r['CANTIDAD'];
-                                                            $FECHADESTINO= $r['FECHADESPACHO'];
-                                                            $TIPODESTINO = $r['TDESPACHO'];    
-                                                            $NOMBRDESTINO  = $r['DESTINODESPACHO'];    
-                                                        }else{       
-                                                            $NUMERODESTINO= "Sin Datos";
-                                                            $NUMERODOCUMENTODESTINO= "Sin Datos";
-                                                            $CANTIDADDESTINO= "0";
-                                                            $FECHADESTINO= "Sin Datos";
-                                                            $TIPODESTINO = "Sin Datos";     
-                                                            $NOMBREDESTINO = "Sin Datos";                                                                                           
-                                                        }
-
-                                                    ?>
+                                               <?php foreach ($ARRAYINVENTARIOCONSUMO as $r) : ?>
+                                                    <tr class="center">
+                                                        <td> <?php echo $r['CODIGO']; ?> </td>
+                                                        <td> <?php echo $r['PRODUCTO']; ?> </td>
+                                                        <td> <?php echo $r['TUMEDIDA']; ?> </td> 
+                                                        <td> <?php echo "No Aplica"; ?> </td>  
+                                                        <td> <?php echo $r['EMPRESA']; ?> </td>
+                                                        <td> <?php echo $r['PLANTA']; ?> </td>  
+                                                        <td> <?php echo "Consumo de Proceso"; ?> </td>  
+                                                        <td> <?php echo $r['FECHAPROCESO']; ?> </td>  
+                                                        <td> <?php echo $r['NUMERO_PROCESO']; ?> </td>  
+                                                        <td> <?php echo "No Aplica"; ?> </td>  
+                                                        <td> <?php echo "No Aplica"; ?> </td>  
+                                                        <td> <?php echo "No Aplica"; ?> </td>    
+                                                        <td> <?php echo +$r['CONSUMO']; ?> </td> 
+                                                        <td> <?php echo "0"; ?> </td>                                                          
+                                                        <td> <?php echo "0"; ?> </td>  
+                                                        <td> <?php echo -$r['CONSUMO']; ?> </td>        
+                                                        <td> <?php echo $r['TEMPORADA']; ?> </td>    
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                <?php foreach ($ARRAYINVENTARIORECEPCION as $r) : ?>
                                                     <tr class="center">
                                                         <td> <?php echo $r['CODIGO']; ?> </td>
                                                         <td> <?php echo $r['PRODUCTO']; ?> </td>
                                                         <td> <?php echo $r['TUMEDIDA']; ?> </td>
                                                         <td> <?php echo $r['BODEGA']; ?> </td>
                                                         <td> <?php echo $r['EMPRESA']; ?> </td>
-                                                        <td> <?php echo $r['PLANTA']; ?> </td>    
-                                                        <td> <?php echo $TIPOORIGEN; ?> </td>
-                                                        <td> <?php echo $FECHAORIGEN; ?> </td>
-                                                        <td> <?php echo $NOMBREORIGEN; ?> </td>
-                                                        <td> <?php echo $NUMEROORIGEN; ?> </td>
-                                                        <td> <?php echo $NUMERODOCUMENTOORIGEN; ?> </td>
-                                                        <td> <?php echo $TIPODESTINO; ?> </td>
-                                                        <td> <?php echo $FECHADESTINO; ?> </td>
-                                                        <td> <?php echo $NOMBREDESTINO; ?> </td>
-                                                        <td> <?php echo $NUMERODESTINO; ?> </td>
-                                                        <td> <?php echo $NUMERODOCUMENTODESTINO; ?> </td>                                                   
-                                                        <td> <?php echo "No Aplica"; ?> </td>                                                          
-                                                        <td> <?php echo "No Aplica"; ?> </td>                                                      
-                                                        <td> <?php echo "0"; ?> </td>     
-                                                        <td> <?php echo $CANTIDADORIGEN; ?> </td>
-                                                        <td> <?php echo $CANTIDADDESTINO; ?> </td>   
+                                                        <td> <?php echo $r['PLANTA']; ?> </td>  
+                                                        <td> <?php echo $r['TRECEPCION']; ?> </td>  
+                                                        <td> <?php echo $r['FECHARECEPCION']; ?> </td>  
+                                                        <td> <?php echo $r['NUMERORECEPCION']; ?> </td>  
+                                                        <td> <?php echo $r['NUMERODOCUMENTORECEPCION']; ?> </td>  
+                                                        <td> <?php echo $r['ORIGENRECEPCION']; ?> </td>  
+                                                        <td> <?php echo "No Aplica"; ?> </td>     
+                                                        <td> <?php echo "0"; ?> </td>        
+                                                        <td> <?php echo $r['CANTIDAD']; ?> </td>                                                    
+                                                        <td> <?php echo "0"; ?> </td>  
+                                                        <td> <?php echo $r['CANTIDAD']; ?> </td>        
+                                                        <td> <?php echo $r['TEMPORADA']; ?> </td>    
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                <?php foreach ($ARRAYINVENTARIORECEPCIONINTER as $r) : ?>
+                                                    <tr class="center">
+                                                        <td> <?php echo $r['CODIGO']; ?> </td>
+                                                        <td> <?php echo $r['PRODUCTO']; ?> </td>
+                                                        <td> <?php echo $r['TUMEDIDA']; ?> </td>
+                                                        <td> <?php echo $r['BODEGA']; ?> </td>
+                                                        <td> <?php echo $r['EMPRESA']; ?> </td>
+                                                        <td> <?php echo $r['PLANTA']; ?> </td>  
+                                                        <td> <?php echo $r['TDESPACHO2']; ?> </td>  
+                                                        <td> <?php echo $r['FECHADESPACHO2']; ?> </td>  
+                                                        <td> <?php echo $r['NUMERODESPACHO2']; ?> </td>  
+                                                        <td> <?php echo $r['NUMERODOCUMENTODESPACHO2']; ?> </td>   
+                                                        <td> <?php echo $r['DESTINODESPACHO2']; ?> </td> 
+                                                        <td> <?php echo "No Aplica"; ?> </td>     
+                                                        <td> <?php echo "0"; ?> </td>          
+                                                        <td> <?php echo $r['CANTIDAD']; ?> </td>                                                 
+                                                        <td> <?php echo "0"; ?> </td>   
+                                                        <td> <?php echo $r['CANTIDAD']; ?> </td>        
+                                                        <td> <?php echo $r['TEMPORADA']; ?> </td>    
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                <?php foreach ($ARRAYINVENTARIODESPACHO as $r) : ?>
+                                                    <tr class="center">
+                                                        <td> <?php echo $r['CODIGO']; ?> </td>
+                                                        <td> <?php echo $r['PRODUCTO']; ?> </td>
+                                                        <td> <?php echo $r['TUMEDIDA']; ?> </td>
+                                                        <td> <?php echo $r['BODEGA']; ?> </td>
+                                                        <td> <?php echo $r['EMPRESA']; ?> </td>
+                                                        <td> <?php echo $r['PLANTA']; ?> </td>  
+                                                        <td> <?php echo $r['TDESPACHO']; ?> </td>  
+                                                        <td> <?php echo $r['FECHADESPACHO']; ?> </td>  
+                                                        <td> <?php echo $r['NUMERODESPACHO']; ?> </td>  
+                                                        <td> <?php echo $r['NUMERODOCUMENTODESPACHO']; ?> </td>   
+                                                        <td> <?php echo "No Aplica"; ?> </td>     
+                                                        <td> <?php echo $r['DESTINODESPACHO']; ?> </td> 
+                                                        <td> <?php echo "0"; ?> </td>                                                         
+                                                        <td> <?php echo "0"; ?> </td>  
+                                                        <td> <?php echo $r['CANTIDAD']; ?> </td>   
+                                                        <td> <?php echo - $r['CANTIDAD']; ?> </td>        
                                                         <td> <?php echo $r['TEMPORADA']; ?> </td>    
                                                     </tr>
                                                 <?php endforeach; ?>
                                                 
-                                                <?php foreach ($ARRAYFICHA as $r) : ?>
-
-                                                    <tr class="center">
-                                                        <td> <?php echo $r['CODIGO']; ?> </td>
-                                                        <td> <?php echo $r['PRODUCTO']; ?> </td>
-                                                        <td> <?php echo $r['TUMEDIDA']; ?> </td>                                                      
-                                                        <td> <?php echo "No Aplica"; ?> </td>   
-                                                        <td> <?php echo $r['EMPRESA']; ?> </td>
-                                                        <td> <?php echo $r['PLANTA']; ?> </td>                
-                                                        <td> <?php echo "No Aplica"; ?> </td>                                                         
-                                                        <td> <?php echo "No Aplica"; ?> </td>                                                         
-                                                        <td> <?php echo "No Aplica"; ?> </td>                                                         
-                                                        <td> <?php echo "No Aplica"; ?> </td>                                                         
-                                                        <td> <?php echo "No Aplica"; ?> </td>               
-                                                        <td> <?php echo "Proceso"; ?> </td>    
-                                                        <td> <?php echo $r['FECHAPROCESO']; ?> </td>                                                        
-                                                        <td> <?php echo "No Aplica"; ?> </td>   
-                                                        <td> <?php echo $r['NUMERO_PROCESO']; ?> </td>                                                     
-                                                        <td> <?php echo "No Aplica"; ?> </td>   
-                                                        <td> <?php echo $r['CODIGOESTANDAR']; ?> </td>       
-                                                        <td> <?php echo $r['NOMBREESTANDAR']; ?> </td>      
-                                                        <td> <?php echo $r['CONSUMO']; ?> </td>                                     
-                                                        <td> <?php echo "0"; ?> </td>                                                 
-                                                        <td> <?php echo "0"; ?> </td>      
-                                                        <td> <?php echo $r['TEMPORADA']; ?> </td> 
-                                                    </tr>
-                                                <?php endforeach; ?>
+                                    
                                             </tbody>
                                             <tfoot>
                                                 <tr id="filtro" class="text-left">

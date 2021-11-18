@@ -493,7 +493,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#">Kardex Materiales<i class="ti-more"></i></a></li>
+          <li><a href="listarHInventariom.php">Kardex Materiales<i class="ti-more"></i></a></li>
           <li><a href="listarHInventarioe.php">Kardex Envases<i class="ti-more"></i></a></li>
         </ul>
       </li>

@@ -1003,192 +1003,103 @@ class INVENTARIOM_ADO {
         
     }
     
-    public function listarKardexInventarioPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+    public function listarKardexInventarioRecepcionPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
             $datos=$this->conexion->prepare("SELECT
-                                                    inventario.ID_PRODUCTO ,                                                     
-                                                    (  SELECT  producto.CODIGO_PRODUCTO
-                                                        FROM material_producto producto 
-                                                        WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
-                                                    ) AS 'CODIGO',  
-                                                    (   SELECT  producto.NOMBRE_PRODUCTO
-                                                        FROM material_producto producto 
-                                                        WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
-                                                    ) AS 'PRODUCTO',                                                     
-                                                    (   SELECT (   
-                                                                SELECT  tumedida.NOMBRE_TUMEDIDA
-                                                                FROM material_tumedida tumedida
-                                                                WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
-                                                            )
-                                                        FROM material_producto producto 
-                                                        WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
-                                                    ) AS 'TUMEDIDA',                                    
-                                                    (  SELECT  bodega.NOMBRE_BODEGA
-                                                        FROM principal_bodega bodega 
-                                                        WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
-                                                    ) AS 'BODEGA', 
-                                                    SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',
-                                                    inventario.ID_RECEPCION,
-                                                    (	select recepcion.NUMERO_RECEPCION
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'NUMERORECEPCION', 
-                                                    (	select recepcion.NUMERO_DOCUMENTO_RECEPCION
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'NUMERODOCUMENTORECEPCION',
-                                                    (	select DATE_FORMAT(recepcion.FECHA_RECEPCION, '%d/%m/%Y')
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'FECHARECEPCION',                                                    
-                                                    (	select 
-                                                                if(recepcion.TRECEPCION = 1,'Desde Proveedor', 
-                                                                if(recepcion.TRECEPCION = 2,'Desde Productor', 
-                                                                    if(recepcion.TRECEPCION = 3,'Planta Extena',
-                                                                        if(recepcion.TRECEPCION = 4,'Inventario Inicial','Sin Datos'))))
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'TRECEPCION',       
-                                                                                            
-                                                    (	select 
-                                                        if(recepcion.TRECEPCION = 1,
-                                                            if(recepcion.ID_PROVEEDOR IS NOT NULL, 
-                                                            (  select proveedor.NOMBRE_PROVEEDOR   
-                                                                FROM material_proveedor proveedor                   
-                                                                WHERE recepcion.ID_PROVEEDOR=proveedor.ID_PROVEEDOR),'Sin Datos'), 
-                                                        
-                                                        if(recepcion.TRECEPCION = 2,
-                                                        if(recepcion.ID_PRODUCTOR IS NOT NULL, 
-                                                            (  select productor.NOMBRE_PRODUCTOR  
-                                                                FROM fruta_productor productor     
-                                                                WHERE recepcion.ID_PRODUCTOR=productor.ID_PRODUCTOR),'Sin Datos'), 
-                                                        if(recepcion.TRECEPCION = 3,
-                                                        if(recepcion.ID_PLANTA2 IS NOT NULL, 
-                                                            (  select planta.NOMBRE_PLANTA                                                         
-                                                                FROM principal_planta planta                                                             
-                                                                WHERE recepcion.ID_PLANTA2=planta.ID_PLANTA),'Sin Datos'),
-                                                        if(recepcion.TRECEPCION = 4,'No Aplica','Sin Datos'))))
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'ORIGENRECEPCION',                                                       
-                                                    inventario.ID_DESPACHO ,                                                    
-                                                    (	select despacho.NUMERO_DESPACHO
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'NUMERODESPACHO', 
-                                                    (	select despacho.NUMERO_DOCUMENTO
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'NUMERODOCUMENTODESPACHO',
-                                                    (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%d/%m/%Y')
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'FECHADESPACHO',                                                                                              
-                                                    (	select 
-                                                        if(despacho.TDESPACHO = 1,'Despacho a Sub Bodega',
-                                                            if(despacho.TDESPACHO = 2,'Despacho a Interplanta',
-                                                            if(despacho.TDESPACHO = 3,'Devolución a Productor',
-                                                                if(despacho.TDESPACHO = 4,'Devolución a Proveedor',
-                                                                    if(despacho.TDESPACHO = 5,'Planta Externa',
-                                                                        if(despacho.TDESPACHO = 6,'Venta',
-                                                                        if(despacho.TDESPACHO = 7,'Regalo','Sin Datos'))))))) 
-                                                    
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'TDESPACHO',   
-                                                    (	select 
-                                                        if(despacho.TDESPACHO = 1,
-                                                            if(despacho.ID_BODEGA IS NOT NULL, 
-                                                            (  select bodega.NOMBRE_BODEGA   
-                                                                FROM principal_bodega bodega                   
-                                                                WHERE despacho.ID_BODEGA=bodega.ID_BODEGA),'Sin Datos'),
-                                                        if(despacho.TDESPACHO = 2,
-                                                            if(despacho.ID_PLANTA2 IS NOT NULL, 
-                                                            (  select planta.NOMBRE_PLANTA   
-                                                                FROM principal_planta planta                   
-                                                                WHERE despacho.ID_PLANTA2=planta.ID_PLANTA),'Sin Datos'),
-                                                        if(despacho.TDESPACHO = 3,
-                                                        if(despacho.ID_PRODUCTOR IS NOT NULL, 
-                                                            (  select productor.NOMBRE_PRODUCTOR   
-                                                                FROM fruta_productor productor                   
-                                                                WHERE despacho.ID_PRODUCTOR=productor.ID_PRODUCTOR),'Sin Datos'),
-                                                        if(despacho.TDESPACHO = 4,
-                                                        if(despacho.ID_PROVEEDOR IS NOT NULL, 
-                                                            (  select proveedor.NOMBRE_PROVEEDOR   
-                                                                FROM material_proveedor proveedor                   
-                                                                WHERE despacho.ID_PROVEEDOR=proveedor.ID_PROVEEDOR),'Sin Datos'),
-                                                        if(despacho.TDESPACHO = 5,
-                                                        if(despacho.ID_PLANTA3 IS NOT NULL, 
-                                                            (  select planta.NOMBRE_PLANTA   
-                                                                FROM principal_planta planta                     
-                                                                WHERE despacho.ID_PLANTA3=planta.ID_PLANTA),'Sin Datos'),      
-                                                        
-                                                        if(despacho.TDESPACHO = 6,
-                                                        if(despacho.ID_CLIENTE IS NOT NULL, 
-                                                            (  select cliente.NOMBRE_CLIENTE   
-                                                                FROM material_cliente cliente                   
-                                                                WHERE despacho.ID_CLIENTE=cliente.ID_CLIENTE),'Sin Datos'),   
-                                                        if(despacho.TDESPACHO = 7,despacho.REGALO_DESPACHO,'Sin Datos')  
-                                                        ))))))   
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'DESTINODESPACHO',                                                    
-                                                    inventario.ID_DESPACHO2,                             
-                                                    (	select despacho.NUMERO_DESPACHO
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
-                                                    )AS 'NUMERODESPACHO2', 
-                                                    (	select despacho.NUMERO_DOCUMENTO
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
-                                                    )AS 'NUMERODOCUMENTODESPACHO2',
-                                                    (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%d/%m/%Y')
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
-                                                    )AS 'FECHADESPACHO2',                                                     
-                                                    (	select 'Desde Interplanta'
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
-                                                    )AS 'TDESPACHO2',                        
-                                                    (   select 
-                                                            if(despacho.ID_PLANTA IS NOT NULL, 
-                                                            (  select planta.NOMBRE_PLANTA   
-                                                                FROM principal_planta planta                   
-                                                                WHERE despacho.ID_PLANTA=planta.ID_PLANTA
-                                                            ),'Sin Datos')
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2 
-                                                    )AS 'DESTINODESPACHO2', 
-                                                    (   SELECT  empresa.NOMBRE_EMPRESA
-                                                        FROM principal_empresa empresa
-                                                        WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
-                                                    ) AS 'EMPRESA',
-                                                    (   SELECT  planta.NOMBRE_PLANTA
-                                                        FROM principal_planta planta
-                                                        WHERE planta.ID_PLANTA=inventario.ID_PLANTA
-                                                    ) AS 'PLANTA',    
-                                                    (   SELECT  temporada.NOMBRE_TEMPORADA
-                                                        FROM principal_temporada temporada
-                                                        WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
-                                                    ) AS 'TEMPORADA'
-                                                FROM 
-                                                    material_inventariom inventario  
-                                                WHERE inventario.ESTADO_REGISTRO = 1
-                                                    AND ID_EMPRESA = '".$IDEMPRESA."' 
-                                                    AND ID_TEMPORADA = '".$IDTEMPORADA."'     
-                                                GROUP BY 
-                                                    inventario.ID_PRODUCTO,
-                                                    inventario.ID_RECEPCION, 
-                                                    inventario.ID_DESPACHO, 
-                                                    inventario.ID_DESPACHO2 , 
-                                                    inventario.ID_EMPRESA , 
-                                                    inventario.ID_PLANTA , 
-                                                    inventario.ID_TEMPORADA 
-
-
-
-
+                                                                 inventario.ID_PRODUCTO ,                                                     
+                                                                (  SELECT  producto.CODIGO_PRODUCTO
+                                                                    FROM material_producto producto 
+                                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                                ) AS 'CODIGO',  
+                                                                (   SELECT  producto.NOMBRE_PRODUCTO
+                                                                    FROM material_producto producto 
+                                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                                ) AS 'PRODUCTO',                                                     
+                                                                (   SELECT (   
+                                                                            SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                                            FROM material_tumedida tumedida
+                                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                                        )
+                                                                    FROM material_producto producto 
+                                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                                ) AS 'TUMEDIDA',                                    
+                                                                (  SELECT  bodega.NOMBRE_BODEGA
+                                                                    FROM principal_bodega bodega 
+                                                                    WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                                ) AS 'BODEGA', 
+                                                                SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',
+                                                                inventario.ID_RECEPCION,
+                                                                (	select recepcion.NUMERO_RECEPCION
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'NUMERORECEPCION', 
+                                                                (	select recepcion.NUMERO_DOCUMENTO_RECEPCION
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'NUMERODOCUMENTORECEPCION',
+                                                                (	select DATE_FORMAT(recepcion.FECHA_RECEPCION, '%d/%m/%Y')
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'FECHARECEPCION',                                                    
+                                                                (	select 
+                                                                            if(recepcion.TRECEPCION = 1,'Recepción desde Proveedor', 
+                                                                            if(recepcion.TRECEPCION = 2,'Recepción desde Productor', 
+                                                                                if(recepcion.TRECEPCION = 3,'Recepción de planta Extena',
+                                                                                    if(recepcion.TRECEPCION = 4,'Recepción de Inventario Inicial','Sin Datos'))))
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'TRECEPCION',       
+                                                                                                        
+                                                                (	select 
+                                                                    if(recepcion.TRECEPCION = 1,
+                                                                        if(recepcion.ID_PROVEEDOR IS NOT NULL, 
+                                                                        (  select proveedor.NOMBRE_PROVEEDOR   
+                                                                            FROM material_proveedor proveedor                   
+                                                                            WHERE recepcion.ID_PROVEEDOR=proveedor.ID_PROVEEDOR),'Sin Datos'), 
+                                                                    
+                                                                    if(recepcion.TRECEPCION = 2,
+                                                                    if(recepcion.ID_PRODUCTOR IS NOT NULL, 
+                                                                        (  select productor.NOMBRE_PRODUCTOR  
+                                                                            FROM fruta_productor productor     
+                                                                            WHERE recepcion.ID_PRODUCTOR=productor.ID_PRODUCTOR),'Sin Datos'), 
+                                                                    if(recepcion.TRECEPCION = 3,
+                                                                    if(recepcion.ID_PLANTA2 IS NOT NULL, 
+                                                                        (  select planta.NOMBRE_PLANTA                                                         
+                                                                            FROM principal_planta planta                                                             
+                                                                            WHERE recepcion.ID_PLANTA2=planta.ID_PLANTA),'Sin Datos'),
+                                                                    if(recepcion.TRECEPCION = 4,'No Aplica','Sin Datos'))))
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'ORIGENRECEPCION',  
+                                                            
+                                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                                    FROM principal_empresa empresa
+                                                                    WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                                ) AS 'EMPRESA',
+                                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                                    FROM principal_planta planta
+                                                                    WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                                ) AS 'PLANTA',    
+                                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                                    FROM principal_temporada temporada
+                                                                    WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                                ) AS 'TEMPORADA'
+                                                            FROM 
+                                                                material_inventariom inventario  
+                                                            WHERE inventario.ESTADO_REGISTRO = 1
+                                                            AND inventario.ID_RECEPCION IS NOT NULL
+                                                            AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                            AND ID_PLANTA = '".$IDPLANTA."'
+                                                            AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                                            GROUP BY 
+                                                                inventario.ID_PRODUCTO,
+                                                                inventario.ID_RECEPCION,
+                                                                inventario.ID_EMPRESA , 
+                                                                inventario.ID_PLANTA , 
+                                                                inventario.ID_TEMPORADA  
+            
+            
                                                        
                                         	;");
             $datos->execute();
@@ -1205,10 +1116,10 @@ class INVENTARIOM_ADO {
         }
         
     }
-    public function listarKardexInventarioPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+    public function listarKardexInventarioRecepcionInterplantaPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT
+            $datos=$this->conexion->prepare("SELECT 
                                                     inventario.ID_PRODUCTO ,                                                     
                                                     (  SELECT  producto.CODIGO_PRODUCTO
                                                         FROM material_producto producto 
@@ -1230,112 +1141,7 @@ class INVENTARIOM_ADO {
                                                         FROM principal_bodega bodega 
                                                         WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
                                                     ) AS 'BODEGA', 
-                                                    SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',
-                                                    inventario.ID_RECEPCION,
-                                                    (	select recepcion.NUMERO_RECEPCION
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'NUMERORECEPCION', 
-                                                    (	select recepcion.NUMERO_DOCUMENTO_RECEPCION
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'NUMERODOCUMENTORECEPCION',
-                                                    (	select DATE_FORMAT(recepcion.FECHA_RECEPCION, '%d/%m/%Y')
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'FECHARECEPCION',                                                    
-                                                    (	select 
-                                                                if(recepcion.TRECEPCION = 1,'Desde Proveedor', 
-                                                                if(recepcion.TRECEPCION = 2,'Desde Productor', 
-                                                                    if(recepcion.TRECEPCION = 3,'Planta Extena',
-                                                                        if(recepcion.TRECEPCION = 4,'Inventario Inicial','Sin Datos'))))
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'TRECEPCION',       
-                                                                                            
-                                                    (	select 
-                                                        if(recepcion.TRECEPCION = 1,
-                                                            if(recepcion.ID_PROVEEDOR IS NOT NULL, 
-                                                            (  select proveedor.NOMBRE_PROVEEDOR   
-                                                                FROM material_proveedor proveedor                   
-                                                                WHERE recepcion.ID_PROVEEDOR=proveedor.ID_PROVEEDOR),'Sin Datos'), 
-                                                        
-                                                        if(recepcion.TRECEPCION = 2,
-                                                        if(recepcion.ID_PRODUCTOR IS NOT NULL, 
-                                                            (  select productor.NOMBRE_PRODUCTOR  
-                                                                FROM fruta_productor productor     
-                                                                WHERE recepcion.ID_PRODUCTOR=productor.ID_PRODUCTOR),'Sin Datos'), 
-                                                        if(recepcion.TRECEPCION = 3,
-                                                        if(recepcion.ID_PLANTA2 IS NOT NULL, 
-                                                            (  select planta.NOMBRE_PLANTA                                                         
-                                                                FROM principal_planta planta                                                             
-                                                                WHERE recepcion.ID_PLANTA2=planta.ID_PLANTA),'Sin Datos'),
-                                                        if(recepcion.TRECEPCION = 4,'No Aplica','Sin Datos'))))
-                                                        FROM material_recepcionm recepcion
-                                                        WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
-                                                    )AS 'ORIGENRECEPCION',                                                       
-                                                    inventario.ID_DESPACHO ,                                                    
-                                                    (	select despacho.NUMERO_DESPACHO
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'NUMERODESPACHO', 
-                                                    (	select despacho.NUMERO_DOCUMENTO
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'NUMERODOCUMENTODESPACHO',
-                                                    (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%d/%m/%Y')
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'FECHADESPACHO',                                                                                              
-                                                    (	select 
-                                                        if(despacho.TDESPACHO = 1,'Despacho a Sub Bodega',
-                                                            if(despacho.TDESPACHO = 2,'Despacho a Interplanta',
-                                                            if(despacho.TDESPACHO = 3,'Devolución a Productor',
-                                                                if(despacho.TDESPACHO = 4,'Devolución a Proveedor',
-                                                                    if(despacho.TDESPACHO = 5,'Planta Externa',
-                                                                        if(despacho.TDESPACHO = 6,'Venta',
-                                                                        if(despacho.TDESPACHO = 7,'Regalo','Sin Datos'))))))) 
-                                                    
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'TDESPACHO',   
-                                                    (	select 
-                                                        if(despacho.TDESPACHO = 1,
-                                                            if(despacho.ID_BODEGA IS NOT NULL, 
-                                                            (  select bodega.NOMBRE_BODEGA   
-                                                                FROM principal_bodega bodega                   
-                                                                WHERE despacho.ID_BODEGA=bodega.ID_BODEGA),'Sin Datos'),
-                                                        if(despacho.TDESPACHO = 2,
-                                                            if(despacho.ID_PLANTA2 IS NOT NULL, 
-                                                            (  select planta.NOMBRE_PLANTA   
-                                                                FROM principal_planta planta                   
-                                                                WHERE despacho.ID_PLANTA2=planta.ID_PLANTA),'Sin Datos'),
-                                                        if(despacho.TDESPACHO = 3,
-                                                        if(despacho.ID_PRODUCTOR IS NOT NULL, 
-                                                            (  select productor.NOMBRE_PRODUCTOR   
-                                                                FROM fruta_productor productor                   
-                                                                WHERE despacho.ID_PRODUCTOR=productor.ID_PRODUCTOR),'Sin Datos'),
-                                                        if(despacho.TDESPACHO = 4,
-                                                        if(despacho.ID_PROVEEDOR IS NOT NULL, 
-                                                            (  select proveedor.NOMBRE_PROVEEDOR   
-                                                                FROM material_proveedor proveedor                   
-                                                                WHERE despacho.ID_PROVEEDOR=proveedor.ID_PROVEEDOR),'Sin Datos'),
-                                                        if(despacho.TDESPACHO = 5,
-                                                        if(despacho.ID_PLANTA3 IS NOT NULL, 
-                                                            (  select planta.NOMBRE_PLANTA   
-                                                                FROM principal_planta planta                     
-                                                                WHERE despacho.ID_PLANTA3=planta.ID_PLANTA),'Sin Datos'),      
-                                                        
-                                                        if(despacho.TDESPACHO = 6,
-                                                        if(despacho.ID_CLIENTE IS NOT NULL, 
-                                                            (  select cliente.NOMBRE_CLIENTE   
-                                                                FROM material_cliente cliente                   
-                                                                WHERE despacho.ID_CLIENTE=cliente.ID_CLIENTE),'Sin Datos'),   
-                                                        if(despacho.TDESPACHO = 7,despacho.REGALO_DESPACHO,'Sin Datos')  
-                                                        ))))))   
-                                                        FROM material_despachom despacho
-                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
-                                                    )AS 'DESTINODESPACHO',                                                    
+                                                    SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',  
                                                     inventario.ID_DESPACHO2,                             
                                                     (	select despacho.NUMERO_DESPACHO
                                                         FROM material_despachom despacho
@@ -1349,7 +1155,7 @@ class INVENTARIOM_ADO {
                                                         FROM material_despachom despacho
                                                         WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
                                                     )AS 'FECHADESPACHO2',                                                     
-                                                    (	select 'Desde Interplanta'
+                                                    (	select 'Recepción Interplanta'
                                                         FROM material_despachom despacho
                                                         WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
                                                     )AS 'TDESPACHO2',                        
@@ -1377,23 +1183,483 @@ class INVENTARIOM_ADO {
                                                 FROM 
                                                     material_inventariom inventario  
                                                 WHERE inventario.ESTADO_REGISTRO = 1
+                                                    AND ID_DESPACHO2 IS NOT NULL
                                                     AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                     AND ID_PLANTA = '".$IDPLANTA."'
-                                                    AND ID_TEMPORADA = '".$IDTEMPORADA."'     
+                                                    AND ID_TEMPORADA = '".$IDTEMPORADA."'
                                                 GROUP BY 
                                                     inventario.ID_PRODUCTO,
-                                                    inventario.ID_RECEPCION, 
-                                                    inventario.ID_DESPACHO, 
                                                     inventario.ID_DESPACHO2 , 
                                                     inventario.ID_EMPRESA , 
                                                     inventario.ID_PLANTA , 
-                                                    inventario.ID_TEMPORADA 
-
-
-
-
+                                                    inventario.ID_TEMPORADA
+            
                                                        
                                         	;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }    
+    public function listarKardexInventarioDespachoPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                inventario.ID_PRODUCTO ,                                                     
+                                                (  SELECT  producto.CODIGO_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'CODIGO',  
+                                                (   SELECT  producto.NOMBRE_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'PRODUCTO',                                                     
+                                                (   SELECT (   
+                                                            SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                            FROM material_tumedida tumedida
+                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                        )
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'TUMEDIDA',                                    
+                                                (  SELECT  bodega.NOMBRE_BODEGA
+                                                    FROM principal_bodega bodega 
+                                                    WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                ) AS 'BODEGA', 
+                                                SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',                                                  
+                                                inventario.ID_DESPACHO ,                                                    
+                                                (	select despacho.NUMERO_DESPACHO
+                                                    FROM material_despachom despacho
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'NUMERODESPACHO', 
+                                                (	select despacho.NUMERO_DOCUMENTO
+                                                    FROM material_despachom despacho
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'NUMERODOCUMENTODESPACHO',
+                                                (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%d/%m/%Y')
+                                                    FROM material_despachom despacho
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'FECHADESPACHO',                                                                                              
+                                                (	select 
+                                                    if(despacho.TDESPACHO = 1,'Despacho a Sub Bodega',
+                                                        if(despacho.TDESPACHO = 2,'Despacho a Interplanta',
+                                                        if(despacho.TDESPACHO = 3,'Despacho de devolución a Productor',
+                                                            if(despacho.TDESPACHO = 4,'Despacho de devolución a Proveedor',
+                                                                if(despacho.TDESPACHO = 5,'Despacho a planta Externa',
+                                                                    if(despacho.TDESPACHO = 6,'Venta',
+                                                                    if(despacho.TDESPACHO = 7,'Regalo','Sin Datos'))))))) 
+                                                
+                                                    FROM material_despachom despacho                                                     
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'TDESPACHO',   
+                                                (	select 
+                                                    if(despacho.TDESPACHO = 1,
+                                                        if(despacho.ID_BODEGA IS NOT NULL, 
+                                                        (  select bodega.NOMBRE_BODEGA   
+                                                            FROM principal_bodega bodega                   
+                                                            WHERE despacho.ID_BODEGA=bodega.ID_BODEGA),'Sin Datos'),
+                                                    if(despacho.TDESPACHO = 2,
+                                                        if(despacho.ID_PLANTA2 IS NOT NULL, 
+                                                        (  select planta.NOMBRE_PLANTA   
+                                                            FROM principal_planta planta                   
+                                                            WHERE despacho.ID_PLANTA2=planta.ID_PLANTA),'Sin Datos'),
+                                                    if(despacho.TDESPACHO = 3,
+                                                    if(despacho.ID_PRODUCTOR IS NOT NULL, 
+                                                        (  select productor.NOMBRE_PRODUCTOR   
+                                                            FROM fruta_productor productor                   
+                                                            WHERE despacho.ID_PRODUCTOR=productor.ID_PRODUCTOR),'Sin Datos'),
+                                                    if(despacho.TDESPACHO = 4,
+                                                    if(despacho.ID_PROVEEDOR IS NOT NULL, 
+                                                        (  select proveedor.NOMBRE_PROVEEDOR   
+                                                            FROM material_proveedor proveedor                   
+                                                            WHERE despacho.ID_PROVEEDOR=proveedor.ID_PROVEEDOR),'Sin Datos'),
+                                                    if(despacho.TDESPACHO = 5,
+                                                    if(despacho.ID_PLANTA3 IS NOT NULL, 
+                                                        (  select planta.NOMBRE_PLANTA   
+                                                            FROM principal_planta planta                     
+                                                            WHERE despacho.ID_PLANTA3=planta.ID_PLANTA),'Sin Datos'),      
+                                                    
+                                                    if(despacho.TDESPACHO = 6,
+                                                    if(despacho.ID_CLIENTE IS NOT NULL, 
+                                                        (  select cliente.NOMBRE_CLIENTE   
+                                                            FROM material_cliente cliente                   
+                                                            WHERE despacho.ID_CLIENTE=cliente.ID_CLIENTE),'Sin Datos'),   
+                                                    if(despacho.TDESPACHO = 7,despacho.REGALO_DESPACHO,'Sin Datos')  
+                                                    ))))))   
+                                                    FROM material_despachom despacho
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'DESTINODESPACHO',                                                    
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                ) AS 'EMPRESA',
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                ) AS 'PLANTA',    
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM 
+                                                material_inventariom inventario  
+                                            WHERE inventario.ESTADO_REGISTRO = 1
+                                                AND inventario.ID_DESPACHO IS NOT NULL
+                                                AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                AND ID_PLANTA = '".$IDPLANTA."'
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                            GROUP BY 
+                                                inventario.ID_PRODUCTO,
+                                                inventario.ID_DESPACHO, 
+                                                inventario.ID_EMPRESA , 
+                                                inventario.ID_PLANTA , 
+                                                inventario.ID_TEMPORADA
+            
+            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
+    
+    public function listarKardexInventarioRecepcionPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                                 inventario.ID_PRODUCTO ,                                                     
+                                                                (  SELECT  producto.CODIGO_PRODUCTO
+                                                                    FROM material_producto producto 
+                                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                                ) AS 'CODIGO',  
+                                                                (   SELECT  producto.NOMBRE_PRODUCTO
+                                                                    FROM material_producto producto 
+                                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                                ) AS 'PRODUCTO',                                                     
+                                                                (   SELECT (   
+                                                                            SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                                            FROM material_tumedida tumedida
+                                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                                        )
+                                                                    FROM material_producto producto 
+                                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                                ) AS 'TUMEDIDA',                                    
+                                                                (  SELECT  bodega.NOMBRE_BODEGA
+                                                                    FROM principal_bodega bodega 
+                                                                    WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                                ) AS 'BODEGA', 
+                                                                SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',
+                                                                inventario.ID_RECEPCION,
+                                                                (	select recepcion.NUMERO_RECEPCION
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'NUMERORECEPCION', 
+                                                                (	select recepcion.NUMERO_DOCUMENTO_RECEPCION
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'NUMERODOCUMENTORECEPCION',
+                                                                (	select DATE_FORMAT(recepcion.FECHA_RECEPCION, '%d/%m/%Y')
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'FECHARECEPCION',                                                    
+                                                                (	select 
+                                                                            if(recepcion.TRECEPCION = 1,'Recepción desde Proveedor', 
+                                                                            if(recepcion.TRECEPCION = 2,'Recepción desde Productor', 
+                                                                                if(recepcion.TRECEPCION = 3,'Recepción de planta Extena',
+                                                                                    if(recepcion.TRECEPCION = 4,'Recepción de Inventario Inicial','Sin Datos'))))
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'TRECEPCION',       
+                                                                                                        
+                                                                (	select 
+                                                                    if(recepcion.TRECEPCION = 1,
+                                                                        if(recepcion.ID_PROVEEDOR IS NOT NULL, 
+                                                                        (  select proveedor.NOMBRE_PROVEEDOR   
+                                                                            FROM material_proveedor proveedor                   
+                                                                            WHERE recepcion.ID_PROVEEDOR=proveedor.ID_PROVEEDOR),'Sin Datos'), 
+                                                                    
+                                                                    if(recepcion.TRECEPCION = 2,
+                                                                    if(recepcion.ID_PRODUCTOR IS NOT NULL, 
+                                                                        (  select productor.NOMBRE_PRODUCTOR  
+                                                                            FROM fruta_productor productor     
+                                                                            WHERE recepcion.ID_PRODUCTOR=productor.ID_PRODUCTOR),'Sin Datos'), 
+                                                                    if(recepcion.TRECEPCION = 3,
+                                                                    if(recepcion.ID_PLANTA2 IS NOT NULL, 
+                                                                        (  select planta.NOMBRE_PLANTA                                                         
+                                                                            FROM principal_planta planta                                                             
+                                                                            WHERE recepcion.ID_PLANTA2=planta.ID_PLANTA),'Sin Datos'),
+                                                                    if(recepcion.TRECEPCION = 4,'No Aplica','Sin Datos'))))
+                                                                    FROM material_recepcionm recepcion
+                                                                    WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
+                                                                )AS 'ORIGENRECEPCION',  
+                                                            
+                                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                                    FROM principal_empresa empresa
+                                                                    WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                                ) AS 'EMPRESA',
+                                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                                    FROM principal_planta planta
+                                                                    WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                                ) AS 'PLANTA',    
+                                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                                    FROM principal_temporada temporada
+                                                                    WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                                ) AS 'TEMPORADA'
+                                                            FROM 
+                                                                material_inventariom inventario  
+                                                            WHERE inventario.ESTADO_REGISTRO = 1
+                                                            AND inventario.ID_RECEPCION IS NOT NULL
+                                                            AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                            AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                                            GROUP BY 
+                                                                inventario.ID_PRODUCTO,
+                                                                inventario.ID_RECEPCION,
+                                                                inventario.ID_EMPRESA , 
+                                                                inventario.ID_PLANTA , 
+                                                                inventario.ID_TEMPORADA  
+            
+            
+                                                       
+                                        	;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarKardexInventarioRecepcionInterplantaPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                    inventario.ID_PRODUCTO ,                                                     
+                                                    (  SELECT  producto.CODIGO_PRODUCTO
+                                                        FROM material_producto producto 
+                                                        WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                    ) AS 'CODIGO',  
+                                                    (   SELECT  producto.NOMBRE_PRODUCTO
+                                                        FROM material_producto producto 
+                                                        WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                    ) AS 'PRODUCTO',                                                     
+                                                    (   SELECT (   
+                                                                SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                                FROM material_tumedida tumedida
+                                                                WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                            )
+                                                        FROM material_producto producto 
+                                                        WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                    ) AS 'TUMEDIDA',                                    
+                                                    (  SELECT  bodega.NOMBRE_BODEGA
+                                                        FROM principal_bodega bodega 
+                                                        WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                    ) AS 'BODEGA', 
+                                                    SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',  
+                                                    inventario.ID_DESPACHO2,                             
+                                                    (	select despacho.NUMERO_DESPACHO
+                                                        FROM material_despachom despacho
+                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
+                                                    )AS 'NUMERODESPACHO2', 
+                                                    (	select despacho.NUMERO_DOCUMENTO
+                                                        FROM material_despachom despacho
+                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
+                                                    )AS 'NUMERODOCUMENTODESPACHO2',
+                                                    (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%d/%m/%Y')
+                                                        FROM material_despachom despacho
+                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
+                                                    )AS 'FECHADESPACHO2',                                                     
+                                                    (	select 'Recepción Interplanta'
+                                                        FROM material_despachom despacho
+                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
+                                                    )AS 'TDESPACHO2',                        
+                                                    (   select 
+                                                            if(despacho.ID_PLANTA IS NOT NULL, 
+                                                            (  select planta.NOMBRE_PLANTA   
+                                                                FROM principal_planta planta                   
+                                                                WHERE despacho.ID_PLANTA=planta.ID_PLANTA
+                                                            ),'Sin Datos')
+                                                        FROM material_despachom despacho
+                                                        WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2 
+                                                    )AS 'DESTINODESPACHO2', 
+                                                    (   SELECT  empresa.NOMBRE_EMPRESA
+                                                        FROM principal_empresa empresa
+                                                        WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                    ) AS 'EMPRESA',
+                                                    (   SELECT  planta.NOMBRE_PLANTA
+                                                        FROM principal_planta planta
+                                                        WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                    ) AS 'PLANTA',    
+                                                    (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                        FROM principal_temporada temporada
+                                                        WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                    ) AS 'TEMPORADA'
+                                                FROM 
+                                                    material_inventariom inventario  
+                                                WHERE inventario.ESTADO_REGISTRO = 1
+                                                    AND ID_DESPACHO2 IS NOT NULL
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                    AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                                GROUP BY 
+                                                    inventario.ID_PRODUCTO,
+                                                    inventario.ID_DESPACHO2 , 
+                                                    inventario.ID_EMPRESA , 
+                                                    inventario.ID_PLANTA , 
+                                                    inventario.ID_TEMPORADA
+            
+                                                       
+                                        	;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }    
+    public function listarKardexInventarioDespachoPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                inventario.ID_PRODUCTO ,                                                     
+                                                (  SELECT  producto.CODIGO_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'CODIGO',  
+                                                (   SELECT  producto.NOMBRE_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'PRODUCTO',                                                     
+                                                (   SELECT (   
+                                                            SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                            FROM material_tumedida tumedida
+                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                        )
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'TUMEDIDA',                                    
+                                                (  SELECT  bodega.NOMBRE_BODEGA
+                                                    FROM principal_bodega bodega 
+                                                    WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                ) AS 'BODEGA', 
+                                                SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',                                                  
+                                                inventario.ID_DESPACHO ,                                                    
+                                                (	select despacho.NUMERO_DESPACHO
+                                                    FROM material_despachom despacho
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'NUMERODESPACHO', 
+                                                (	select despacho.NUMERO_DOCUMENTO
+                                                    FROM material_despachom despacho
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'NUMERODOCUMENTODESPACHO',
+                                                (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%d/%m/%Y')
+                                                    FROM material_despachom despacho
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'FECHADESPACHO',                                                                                              
+                                                (	select 
+                                                    if(despacho.TDESPACHO = 1,'Despacho a Sub Bodega',
+                                                        if(despacho.TDESPACHO = 2,'Despacho a Interplanta',
+                                                        if(despacho.TDESPACHO = 3,'Despacho de devolución a Productor',
+                                                            if(despacho.TDESPACHO = 4,'Despacho de devolución a Proveedor',
+                                                                if(despacho.TDESPACHO = 5,'Despacho a planta Externa',
+                                                                    if(despacho.TDESPACHO = 6,'Venta',
+                                                                    if(despacho.TDESPACHO = 7,'Regalo','Sin Datos'))))))) 
+                                                
+                                                    FROM material_despachom despacho                                                     
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'TDESPACHO',   
+                                                (	select 
+                                                    if(despacho.TDESPACHO = 1,
+                                                        if(despacho.ID_BODEGA IS NOT NULL, 
+                                                        (  select bodega.NOMBRE_BODEGA   
+                                                            FROM principal_bodega bodega                   
+                                                            WHERE despacho.ID_BODEGA=bodega.ID_BODEGA),'Sin Datos'),
+                                                    if(despacho.TDESPACHO = 2,
+                                                        if(despacho.ID_PLANTA2 IS NOT NULL, 
+                                                        (  select planta.NOMBRE_PLANTA   
+                                                            FROM principal_planta planta                   
+                                                            WHERE despacho.ID_PLANTA2=planta.ID_PLANTA),'Sin Datos'),
+                                                    if(despacho.TDESPACHO = 3,
+                                                    if(despacho.ID_PRODUCTOR IS NOT NULL, 
+                                                        (  select productor.NOMBRE_PRODUCTOR   
+                                                            FROM fruta_productor productor                   
+                                                            WHERE despacho.ID_PRODUCTOR=productor.ID_PRODUCTOR),'Sin Datos'),
+                                                    if(despacho.TDESPACHO = 4,
+                                                    if(despacho.ID_PROVEEDOR IS NOT NULL, 
+                                                        (  select proveedor.NOMBRE_PROVEEDOR   
+                                                            FROM material_proveedor proveedor                   
+                                                            WHERE despacho.ID_PROVEEDOR=proveedor.ID_PROVEEDOR),'Sin Datos'),
+                                                    if(despacho.TDESPACHO = 5,
+                                                    if(despacho.ID_PLANTA3 IS NOT NULL, 
+                                                        (  select planta.NOMBRE_PLANTA   
+                                                            FROM principal_planta planta                     
+                                                            WHERE despacho.ID_PLANTA3=planta.ID_PLANTA),'Sin Datos'),      
+                                                    
+                                                    if(despacho.TDESPACHO = 6,
+                                                    if(despacho.ID_CLIENTE IS NOT NULL, 
+                                                        (  select cliente.NOMBRE_CLIENTE   
+                                                            FROM material_cliente cliente                   
+                                                            WHERE despacho.ID_CLIENTE=cliente.ID_CLIENTE),'Sin Datos'),   
+                                                    if(despacho.TDESPACHO = 7,despacho.REGALO_DESPACHO,'Sin Datos')  
+                                                    ))))))   
+                                                    FROM material_despachom despacho
+                                                    WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
+                                                )AS 'DESTINODESPACHO',                                                    
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                ) AS 'EMPRESA',
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                ) AS 'PLANTA',    
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM 
+                                                material_inventariom inventario  
+                                            WHERE inventario.ESTADO_REGISTRO = 1
+                                                AND inventario.ID_DESPACHO IS NOT NULL
+                                                AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                            GROUP BY 
+                                                inventario.ID_PRODUCTO,
+                                                inventario.ID_DESPACHO, 
+                                                inventario.ID_EMPRESA , 
+                                                inventario.ID_PLANTA , 
+                                                inventario.ID_TEMPORADA
+            
+            ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

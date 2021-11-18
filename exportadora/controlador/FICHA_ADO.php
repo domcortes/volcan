@@ -614,7 +614,129 @@ class FICHA_ADO {
         }
         
     }
-    
+    public function listarKardexConsumoFichaPorEmpresaPlantaTemporadaCBX($IDEMPRESA, $IDPLANTA, $IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                
+                                                proceso.ID_PROCESO,
+                                                proceso.NUMERO_PROCESO ,
+                                                DATE_FORMAT(proceso.FECHA_PROCESO, '%d/%m/%Y') AS 'FECHAPROCESO',
+                                                dficha.ID_DFICHA,
+                                                dficha.ID_PRODUCTO,  
+                                                producto.CODIGO_PRODUCTO AS 'CODIGO',   
+                                                producto.NOMBRE_PRODUCTO AS 'PRODUCTO', 
+                                                (   SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                    FROM material_tumedida tumedida
+                                                    WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                ) AS 'TUMEDIDA',    
+                                                IFNULL(SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION),0)*dficha.FACTOR_CONSUMO_DFICHA  AS 'CONSUMO',      
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=proceso.ID_EMPRESA
+                                                ) AS 'EMPRESA',      
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=proceso.ID_PLANTA
+                                                ) AS 'PLANTA',
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=proceso.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM fruta_proceso proceso, fruta_dpexportacion detalle, material_ficha ficha,  material_dficha dficha, material_producto producto
+                                            WHERE proceso.ID_PROCESO=detalle.ID_PROCESO 
+                                            AND detalle.ID_ESTANDAR=ficha.ID_ESTANDAR
+                                            AND ficha.ID_FICHA = dficha.ID_FICHA
+                                            AND dficha.ID_PRODUCTO= producto.ID_PRODUCTO
+                                            AND detalle.ESTADO_REGISTRO = 1
+                                            AND proceso.ID_EMPRESA = '" . $IDEMPRESA . "'   
+                                            AND proceso.ID_PLANTA = '" . $IDPLANTA . "'      
+                                            AND proceso.ID_TEMPORADA = '" . $IDTEMPORADA . "'
+                                            GROUP BY  
+                                                detalle.ID_ESTANDAR,  
+                                                dficha.ID_PRODUCTO, 
+                                                ficha.ID_FICHA, 
+                                                proceso.ID_PROCESO, 
+                                                proceso.ID_EMPRESA,  
+                                                proceso.ID_PLANTA,
+                                                proceso.ID_TEMPORADA   
+                                            
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarKardexConsumoFichaPorEmpresaTemporadaCBX($IDEMPRESA,  $IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                
+                                                proceso.ID_PROCESO,
+                                                proceso.NUMERO_PROCESO ,
+                                                DATE_FORMAT(proceso.FECHA_PROCESO, '%d/%m/%Y') AS 'FECHAPROCESO',
+                                                dficha.ID_DFICHA,
+                                                dficha.ID_PRODUCTO,  
+                                                producto.CODIGO_PRODUCTO AS 'CODIGO',   
+                                                producto.NOMBRE_PRODUCTO AS 'PRODUCTO', 
+                                                (   SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                    FROM material_tumedida tumedida
+                                                    WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                ) AS 'TUMEDIDA',    
+                                                IFNULL(SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION),0)*dficha.FACTOR_CONSUMO_DFICHA  AS 'CONSUMO',      
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=proceso.ID_EMPRESA
+                                                ) AS 'EMPRESA',      
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=proceso.ID_PLANTA
+                                                ) AS 'PLANTA',
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=proceso.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM fruta_proceso proceso, fruta_dpexportacion detalle, material_ficha ficha,  material_dficha dficha, material_producto producto
+                                            WHERE proceso.ID_PROCESO=detalle.ID_PROCESO 
+                                            AND detalle.ID_ESTANDAR=ficha.ID_ESTANDAR
+                                            AND ficha.ID_FICHA = dficha.ID_FICHA
+                                            AND dficha.ID_PRODUCTO= producto.ID_PRODUCTO
+                                            AND detalle.ESTADO_REGISTRO = 1
+                                            AND proceso.ID_EMPRESA = '" . $IDEMPRESA . "'      
+                                            AND proceso.ID_TEMPORADA = '" . $IDTEMPORADA . "'
+                                            GROUP BY  
+                                                detalle.ID_ESTANDAR,  
+                                                dficha.ID_PRODUCTO, 
+                                                ficha.ID_FICHA, 
+                                                proceso.ID_PROCESO, 
+                                                proceso.ID_EMPRESA,  
+                                                proceso.ID_PLANTA,
+                                                proceso.ID_TEMPORADA   
+                                            
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     public function obtenerNumero($IDEMPRESA, $IDTEMPORADA)
     {
         try {
