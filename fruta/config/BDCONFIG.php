@@ -11,7 +11,7 @@ class BDCONFIG {
         $this->HOST="localhost";
         $this->USER="root";
         $this->PASS="";
-        $this->DBNAME="fvolcanesv2";
+        $this->DBNAME="produccion_arandanos";
 
     }
     public function __GET($k){ return $this->$k; }
