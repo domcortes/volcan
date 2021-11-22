@@ -127,11 +127,14 @@ class ICARGA_ADO
         }
     }
 
+
     public function verIcarga2($IDICARGA)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHAETD_ICARGA, '%Y/%m/%d') AS 'FECHAETD', 
+                                                DATE_FORMAT(FECHAETA_ICARGA, '%Y/%m/%d') AS 'FECHAETA', 
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
                                             FROM fruta_icarga

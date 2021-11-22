@@ -235,6 +235,33 @@ class DICARGA_ADO
             die($e->getMessage());
         }
     }
+    
+    public function buscarPorIcarga2($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, 
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_DICARGA,0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(KILOS_NETO_DICARGA,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_DICARGA,0),2,'de_DE') AS 'BRUTO',
+                                                    FORMAT(IFNULL(PRECIO_US_DICARGA,0),2,'de_DE') AS 'US',
+                                                    FORMAT(IFNULL(TOTAL_PRECIO_US_DICARGA,0),2,'de_DE') AS 'TOTALUS'
+                                                FROM fruta_dicarga 
+                                                WHERE ID_ICARGA = '" . $IDICARGA . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function totalesPorIcarga($IDICARGA)
     {
         try {
