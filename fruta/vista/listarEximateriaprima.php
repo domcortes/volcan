@@ -65,7 +65,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Listar Materia Prima</title>
+    <title>Existencia Materia Prima</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -133,14 +133,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Materia Prima</h3>
+                                <h3 class="page-title">Existencia Materia Prima</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Granel</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Existencia Materia Prima </a>
+                                            <li class="breadcrumb-item" aria-current="page">Existencia</li>
+                                            <li class="breadcrumb-item" aria-current="page">Disponible</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Existencia Materia Prima </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -180,6 +181,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio Original</th>
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Cosecha </th>
+                                                        <th>Estado </th>
                                                         <th>Estado Calidad</th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
@@ -365,6 +367,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 </span>
                                                             </td>
                                                             <td><?php echo $r['COSECHA']; ?></td>
+                                                            <td><?php echo $ESTADO; ?></td>
                                                             <td><?php echo $COLOR; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>

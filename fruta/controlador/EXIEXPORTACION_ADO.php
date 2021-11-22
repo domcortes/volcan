@@ -2529,7 +2529,7 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-    public function obtenerTotalesEmpresaPlantaTemporadaDesachado2($EMPRESA, $PLANTA, $TEMPORADA)
+    public function obtenerTotalesEmpresaPlantaTemporadaDespachado2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 

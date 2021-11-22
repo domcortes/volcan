@@ -89,7 +89,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Listar Producto Terminado</title>
+    <title>Existencia Producto Terminado</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -163,14 +163,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Producto Terminado </h3>
+                                <h3 class="page-title">Existencia Producto Terminado </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Packing</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Existencia Producto Terminado </a>
+                                            <li class="breadcrumb-item" aria-current="page">Existencia</li>
+                                            <li class="breadcrumb-item" aria-current="page">Disponible</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Existencia Producto Terminado </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -215,6 +216,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Condición </th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
+                                                        <th>Tipo Calibre </th>
                                                         <th>CSG</th>
                                                         <th>Productor</th>
                                                         <th>Especies</th>
@@ -239,7 +241,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Fecha Reembalaje </th>
                                                         <th>Tipo Reembalaje </th>
                                                         <th>Tipo Manejo</th>
-                                                        <th>Tipo Calibre </th>
                                                         <th>Tipo Embalaje </th>
                                                         <th>Stock</th>
                                                         <th>Embolsado</th>
@@ -481,6 +482,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $ESTADOSAG; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
@@ -505,7 +507,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $FECHAREEMBALEJE; ?></td>
                                                             <td><?php echo $TREEMBALAJE; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                            <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
                                                             <td><?php echo $STOCK; ?></td>
                                                             <td><?php echo $EMBOLSADO; ?></td>
