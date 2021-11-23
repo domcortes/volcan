@@ -240,9 +240,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OBTENCIONS DE TOTALES O EL RESUMEN DE LAS TABLAS
     $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
     $ARRAYEXISTENCIATOTALESREEMBALAJE2 = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
-    $TOTALNETOE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['NETO'];
+    $TOTALNETOE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['DESHIRATACION'];
     $TOTALENVASEE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['ENVASE'];
-    $TOTALNETOEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['NETO'];
+    $TOTALNETOEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['DESHIRATACION'];
     $TOTALENVASEEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['ENVASE'];
 
     $ARRATDINDUSTRIALTOTALREEMBALAJE = $DRINDUSTRIAL_ADO->obtenerTotales($IDOP);
@@ -1189,11 +1189,11 @@ if (isset($_POST)) {
                                             <div class="col-auto">
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text">Kilos Neto</div>
+                                                        <div class="input-group-text">Kilos Con Desh. Entrada</div>
                                                     </div>
                                                     <!-- inicio input -->
                                                     <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETOE; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Neto " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
+                                                    <input type="text" class="form-control" placeholder="Total  Con Desh " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
                                                     <!-- /termino input -->
                                                 </div>
                                             </div>
@@ -1212,11 +1212,11 @@ if (isset($_POST)) {
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            Kilos Con Desh.
+                                                            Kilos Con Desh. Expo.
                                                         </div>
                                                     </div>
                                                     <input type="hidden" class="form-control" id="TOTALDESHIDRATACIONEX" name="TOTALDESHIDRATACIONEX" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" />
-                                                    <input type="text" class="form-control text-center" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" disabled />
+                                                    <input type="text" class="form-control text-center" placeholder="Total Kilos Con Desh. Expo" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" disabled />
                                                 </div>
                                             </div>
                                             <div class="col-auto">

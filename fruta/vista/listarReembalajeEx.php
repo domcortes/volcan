@@ -206,7 +206,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Nombre Productor</th>
                                                     <th>Especie</th>
                                                     <th>Variedad</th>
-                                                    <th>Kg. Neto Entrada</th>
+                                                    <th>Kg. Con Desh. Entrada</th>
                                                     <th>Kg. Neto Expo.</th>
                                                     <th>Kg. Deshi. </th>
                                                     <th>Kg. Con Deshi. </th>
@@ -384,7 +384,7 @@ include_once "../config/datosUrLP.php";
                                     <div class="col-auto">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Neto Entrada</div>
+                                                <div class="input-group-text">Total Kg. Con Desh. Entrada</div>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Total Kg. Neto Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOENTRADA; ?>" disabled />
                                         </div>

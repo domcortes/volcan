@@ -262,6 +262,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Especies</th>
                                                     <th>Variedad</th>
                                                     <th>Kilos Neto</th>
+                                                    
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
                                                     <th>CSG/CSP Recepción</th>
@@ -275,6 +276,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Reembalaje</th>
                                                     <th>Fecha Reembalaje </th>
                                                     <th>Tipo Reembalaje</th>
+
                                                     <th>Número Despacho</th>
                                                     <th>Fecha Despacho </th>
                                                     <th>Tipo Despacho</th>
