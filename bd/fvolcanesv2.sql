@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2021 a las 16:16:40
+-- Tiempo de generación: 23-11-2021 a las 17:05:45
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -2869,9 +2869,6 @@ CREATE TABLE `fruta_productor` (
   `MODIFICACION` date DEFAULT NULL,
   `ID_EMPRESA` bigint(20) NOT NULL,
   `ID_CIUDAD` bigint(20) DEFAULT NULL,
-  `ID_COMUNA` bigint(20) DEFAULT NULL,
-  `ID_PROVINCIA` bigint(20) DEFAULT NULL,
-  `ID_REGION` bigint(20) DEFAULT NULL,
   `ID_TPRODUCTOR` bigint(20) NOT NULL,
   `ID_USUARIOI` bigint(20) NOT NULL,
   `ID_USUARIOM` bigint(20) NOT NULL
@@ -2881,10 +2878,11 @@ CREATE TABLE `fruta_productor` (
 -- Volcado de datos para la tabla `fruta_productor`
 --
 
-INSERT INTO `fruta_productor` (`ID_PRODUCTOR`, `NUMERO_PRODUCTOR`, `RUT_PRODUCTOR`, `DV_PRODUCTOR`, `NOMBRE_PRODUCTOR`, `DIRECCION_PRODUCTOR`, `TELEFONO_PRODUCTOR`, `EMAIL_PRODUCTOR`, `GIRO_PRODUCTOR`, `CSG_PRODUCTOR`, `SDP_PRODUCTOR`, `PRB_PRODUCTOR`, `CODIGO_ASOCIADO_PRODUCTOR`, `NOMBRE_ASOCIADO_PRODUCTOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_COMUNA`, `ID_PROVINCIA`, `ID_REGION`, `ID_TPRODUCTOR`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, '1', '1', 'productor prueba 1', '1', 0, '1@1.cl', '1', 1, 1, 1, 1, '1', 1, '2021-07-30', '2021-11-23', 1, 1, 153, 28, 8, 1, 1, 1),
-(2, 2, '111', '1', 'productor prueba 2', 'pp', 0, '', 'pp', 1515, 0, 0, 0, '', 1, '2021-08-16', '2021-11-23', 1, 1, NULL, NULL, NULL, 1, 1, 1),
-(3, 1, '11', '11', 'productor prueba', 'ss', 111, 'a@a.cl', 'aa', 111, 11, 11, 0, '11', 1, '2021-11-18', '2021-11-18', 2, 1, NULL, NULL, NULL, 2, 1, 1);
+INSERT INTO `fruta_productor` (`ID_PRODUCTOR`, `NUMERO_PRODUCTOR`, `RUT_PRODUCTOR`, `DV_PRODUCTOR`, `NOMBRE_PRODUCTOR`, `DIRECCION_PRODUCTOR`, `TELEFONO_PRODUCTOR`, `EMAIL_PRODUCTOR`, `GIRO_PRODUCTOR`, `CSG_PRODUCTOR`, `SDP_PRODUCTOR`, `PRB_PRODUCTOR`, `CODIGO_ASOCIADO_PRODUCTOR`, `NOMBRE_ASOCIADO_PRODUCTOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_TPRODUCTOR`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, 1, '1', '1', 'productor prueba 1', '1', 0, '1@1.cl', '1', 1, 1, 1, 1, '1', 1, '2021-07-30', '2021-11-23', 1, 1, 1, 1, 1),
+(2, 2, '111', '1', 'productor prueba 2', 'pp', 0, '', 'pp', 1515, 0, 0, 0, '', 1, '2021-08-16', '2021-11-23', 1, 1, 1, 1, 1),
+(3, 1, '11', '11', 'productor prueba', 'ss', 111, 'a@a.cl', 'aa', 111, 11, 11, 0, '11', 1, '2021-11-18', '2021-11-18', 2, 1, 2, 1, 1),
+(4, 3, '1', '1', 'productor prueba 3', 'ss', 0, '', '1', 11, 0, 0, 0, '', 1, '2021-11-23', '2021-11-23', 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5084,9 +5082,6 @@ CREATE TABLE `material_proveedor` (
   `MODIFICACION` date DEFAULT NULL,
   `ID_EMPRESA` bigint(20) NOT NULL,
   `ID_CIUDAD` bigint(20) DEFAULT NULL,
-  `ID_COMUNA` bigint(20) DEFAULT NULL,
-  `ID_PROVINCIA` bigint(20) DEFAULT NULL,
-  `ID_REGION` bigint(20) DEFAULT NULL,
   `ID_USUARIOI` bigint(20) NOT NULL,
   `ID_USUARIOM` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -5095,10 +5090,10 @@ CREATE TABLE `material_proveedor` (
 -- Volcado de datos para la tabla `material_proveedor`
 --
 
-INSERT INTO `material_proveedor` (`ID_PROVEEDOR`, `RUT_PROVEEDOR`, `DV_PROVEEDOR`, `RAZON_PROVEEDOR`, `NUMERO_PROVEEDOR`, `NOMBRE_PROVEEDOR`, `GIRO_PROVEEDOR`, `DIRECCION_PROVEEDOR`, `TELEFONO_PROVEEDOR`, `EMAIL_PROVEEDOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_COMUNA`, `ID_PROVINCIA`, `ID_REGION`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, '1', '1', '1', 1, 'proveedor 1', '1', '1', '1', '1@1.cl', 1, '2021-07-30', '2021-11-23', 1, 1, NULL, NULL, NULL, 1, 1),
-(2, '111', '1', 'proveedor 2', 2, 'proveedor 2', ' proveedor 2', 's', '00', 'p@p.cl', 1, '2021-11-18', '2021-11-18', 1, 1, NULL, NULL, NULL, 1, 1),
-(3, '1', '1', 'proveedor 3', 3, 'proveedor 3', ' proveedor 2', 's', '1', 'p@p.cl', 1, '2021-11-23', '2021-11-23', 1, 1, NULL, NULL, NULL, 1, 1);
+INSERT INTO `material_proveedor` (`ID_PROVEEDOR`, `RUT_PROVEEDOR`, `DV_PROVEEDOR`, `RAZON_PROVEEDOR`, `NUMERO_PROVEEDOR`, `NOMBRE_PROVEEDOR`, `GIRO_PROVEEDOR`, `DIRECCION_PROVEEDOR`, `TELEFONO_PROVEEDOR`, `EMAIL_PROVEEDOR`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, '1', '1', '1', 1, 'proveedor 11', '1', '1', '1', '1@1.cl', 1, '2021-07-30', '2021-11-23', 1, 1, 1, 1),
+(2, '111', '1', 'proveedor 2', 2, 'proveedor 2', ' proveedor 2', 's', '00', 'p@p.cl', 1, '2021-11-18', '2021-11-18', 1, 1, 1, 1),
+(3, '1', '1', 'proveedor 3', 3, 'proveedor 3', ' proveedor 2', 's', '1', 'p@p.cl', 1, '2021-11-23', '2021-11-23', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -6638,7 +6633,8 @@ INSERT INTO `ubicacion_comuna` (`ID_COMUNA`, `NOMBRE_COMUNA`, `ESTADO_REGISTRO`,
 (347, 'Zapallar', 1, NULL, NULL, 14),
 (348, 'Antartica', 1, NULL, NULL, 41),
 (349, 'Pruebas', 1, '2021-11-23', '2021-11-23', 1),
-(350, 'prueba comuna', 1, '2021-11-23', '2021-11-23', 1);
+(350, 'prueba comuna', 1, '2021-11-23', '2021-11-23', 1),
+(351, 'prueba comuna', 1, '2021-11-23', '2021-11-23', 1);
 
 -- --------------------------------------------------------
 
@@ -7974,10 +7970,7 @@ ALTER TABLE `fruta_productor`
   ADD KEY `fk_fruta_productor_princiapal_empresa_idx` (`ID_EMPRESA`),
   ADD KEY `fk_fruta_productor_fruta_tproductor_idx` (`ID_TPRODUCTOR`),
   ADD KEY `fk_fruta_productor_usuario_usuarioi_idx` (`ID_USUARIOI`),
-  ADD KEY `fk_fruta_productor_usuario_usuariom_idx` (`ID_USUARIOM`),
-  ADD KEY `fk_fruta_productor_ubicacion_comuna_idx` (`ID_COMUNA`),
-  ADD KEY `fk_fruta_productor_ubicacion_provincia_idx` (`ID_PROVINCIA`),
-  ADD KEY `fk_fruta_productor_ubicacion_region_idx` (`ID_REGION`);
+  ADD KEY `fk_fruta_productor_usuario_usuariom_idx` (`ID_USUARIOM`);
 
 --
 -- Indices de la tabla `fruta_reamp`
@@ -8554,10 +8547,7 @@ ALTER TABLE `material_proveedor`
   ADD KEY `fk_material_proveedor_princiapl_empresa_idx` (`ID_EMPRESA`),
   ADD KEY `fk_material_proveedor_ubicacion_ciudad_idx` (`ID_CIUDAD`),
   ADD KEY `fk_material_proveedor_usuario_usuarioi_idx` (`ID_USUARIOI`),
-  ADD KEY `fk_material_proveedor_usuario_usuariom_idx` (`ID_USUARIOM`),
-  ADD KEY `fk_material_proveedor_ubicacion_comuna_idx` (`ID_COMUNA`),
-  ADD KEY `fk_material_proveedor_ubicacion_region_idx` (`ID_REGION`),
-  ADD KEY `fk_material_proveedor_ubicacion_provincia_idx` (`ID_PROVINCIA`);
+  ADD KEY `fk_material_proveedor_usuario_usuariom_idx` (`ID_USUARIOM`);
 
 --
 -- Indices de la tabla `material_recepcione`
@@ -9177,7 +9167,7 @@ ALTER TABLE `fruta_proceso`
 -- AUTO_INCREMENT de la tabla `fruta_productor`
 --
 ALTER TABLE `fruta_productor`
-  MODIFY `ID_PRODUCTOR` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_PRODUCTOR` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `fruta_recepcionind`
@@ -9597,7 +9587,7 @@ ALTER TABLE `ubicacion_ciudad`
 -- AUTO_INCREMENT de la tabla `ubicacion_comuna`
 --
 ALTER TABLE `ubicacion_comuna`
-  MODIFY `ID_COMUNA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=351;
+  MODIFY `ID_COMUNA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
 
 --
 -- AUTO_INCREMENT de la tabla `ubicacion_pais`
@@ -10355,9 +10345,6 @@ ALTER TABLE `fruta_productor`
   ADD CONSTRAINT `fk_fruta_productor_fruta_tproductor` FOREIGN KEY (`ID_TPRODUCTOR`) REFERENCES `fruta_tproductor` (`ID_TPRODUCTOR`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_productor_princiapal_empresa` FOREIGN KEY (`ID_EMPRESA`) REFERENCES `principal_empresa` (`ID_EMPRESA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_productor_ubicacion` FOREIGN KEY (`ID_CIUDAD`) REFERENCES `ubicacion_ciudad` (`ID_CIUDAD`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_fruta_productor_ubicacion_comuna` FOREIGN KEY (`ID_COMUNA`) REFERENCES `ubicacion_comuna` (`ID_COMUNA`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_fruta_productor_ubicacion_provincia` FOREIGN KEY (`ID_PROVINCIA`) REFERENCES `ubicacion_provincia` (`ID_PROVINCIA`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_fruta_productor_ubicacion_region` FOREIGN KEY (`ID_REGION`) REFERENCES `ubicacion_region` (`ID_REGION`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_productor_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_productor_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
@@ -10884,9 +10871,6 @@ ALTER TABLE `material_producto`
 ALTER TABLE `material_proveedor`
   ADD CONSTRAINT `fk_material_proveedor_princiapl_empresa` FOREIGN KEY (`ID_EMPRESA`) REFERENCES `principal_empresa` (`ID_EMPRESA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_proveedor_ubicacion_ciudad` FOREIGN KEY (`ID_CIUDAD`) REFERENCES `ubicacion_ciudad` (`ID_CIUDAD`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_material_proveedor_ubicacion_comuna` FOREIGN KEY (`ID_COMUNA`) REFERENCES `ubicacion_comuna` (`ID_COMUNA`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_material_proveedor_ubicacion_provincia` FOREIGN KEY (`ID_PROVINCIA`) REFERENCES `ubicacion_provincia` (`ID_PROVINCIA`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_material_proveedor_ubicacion_region` FOREIGN KEY (`ID_REGION`) REFERENCES `ubicacion_region` (`ID_REGION`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_proveedor_usuario_usuarioi` FOREIGN KEY (`ID_USUARIOI`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_material_proveedor_usuario_usuariom` FOREIGN KEY (`ID_USUARIOM`) REFERENCES `usuario_usuario` (`ID_USUARIO`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
