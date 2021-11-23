@@ -62,6 +62,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     $REGION->__SET('ID_PAIS', $_REQUEST['PAIS']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $REGION_ADO->agregarRegion($REGION);
+    echo "<script type='text/javascript'> location.href ='registroPopProvincia.php';</script>";
     //REDIRECCIONAR A PAGINA registroRegion.php
     echo "
     <script type='text/javascript'>
@@ -249,6 +250,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
+                                            <button type="button" class="btn btn-rounded btn-success btn-outline" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPopProvincia.php'); ">
+                                                <i class="ti-back-left "></i> Volver
+                                            </button>
                                             <?php if ($OP != "editar") { ?>
                                                 <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
                                                     <i class="ti-save-alt"></i> Crear

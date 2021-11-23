@@ -149,16 +149,6 @@ class PRODUCTOR_ADO {
             if($PRODUCTOR->__GET('ID_CIUDAD')==NULL){
                 $PRODUCTOR->__SET('ID_CIUDAD', NULL);
             }
-            if($PRODUCTOR->__GET('ID_COMUNA')==NULL){
-                $PRODUCTOR->__SET('ID_COMUNA', NULL);
-            }
-            if($PRODUCTOR->__GET('ID_PROVINCIA')==NULL){
-                $PRODUCTOR->__SET('ID_PROVINCIA', NULL);
-            }
-            if($PRODUCTOR->__GET('ID_REGION')==NULL){
-                $PRODUCTOR->__SET('ID_REGION', NULL);
-            }
-
             $query=            
             "INSERT INTO  fruta_productor    (
                                          RUT_PRODUCTOR ,
@@ -176,9 +166,6 @@ class PRODUCTOR_ADO {
                                          NOMBRE_ASOCIADO_PRODUCTOR , 
                                          ID_EMPRESA ,  
                                          ID_CIUDAD ,  
-                                         ID_COMUNA ,  
-                                         ID_PROVINCIA ,  
-                                         ID_REGION ,  
                                          ID_TPRODUCTOR ,
                                          ID_USUARIOI ,
                                          ID_USUARIOM ,
@@ -186,7 +173,7 @@ class PRODUCTOR_ADO {
                                          MODIFICACION , 
                                          ESTADO_REGISTRO  ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1 );";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1 );";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -206,9 +193,6 @@ class PRODUCTOR_ADO {
                     $PRODUCTOR->__GET('NOMBRE_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('ID_EMPRESA'),
                     $PRODUCTOR->__GET('ID_CIUDAD'),
-                    $PRODUCTOR->__GET('ID_COMUNA'),
-                    $PRODUCTOR->__GET('ID_PROVINCIA'),
-                    $PRODUCTOR->__GET('ID_REGION'),
                     $PRODUCTOR->__GET('ID_TPRODUCTOR'),
                     $PRODUCTOR->__GET('ID_USUARIOI'),
                     $PRODUCTOR->__GET('ID_USUARIOM')
@@ -244,15 +228,6 @@ class PRODUCTOR_ADO {
             if($PRODUCTOR->__GET('ID_CIUDAD')==NULL){
                 $PRODUCTOR->__SET('ID_CIUDAD', NULL);
             }
-            if($PRODUCTOR->__GET('ID_COMUNA')==NULL){
-                $PRODUCTOR->__SET('ID_COMUNA', NULL);
-            }
-            if($PRODUCTOR->__GET('ID_PROVINCIA')==NULL){
-                $PRODUCTOR->__SET('ID_PROVINCIA', NULL);
-            }
-            if($PRODUCTOR->__GET('ID_REGION')==NULL){
-                $PRODUCTOR->__SET('ID_REGION', NULL);
-            }
 
 
             $query = "
@@ -272,9 +247,6 @@ class PRODUCTOR_ADO {
                          NOMBRE_ASOCIADO_PRODUCTOR = ?,
                          ID_EMPRESA = ?,
                          ID_CIUDAD = ?,
-                         ID_COMUNA = ?,
-                         ID_PROVINCIA = ?,
-                         ID_REGION = ?,
                          ID_TPRODUCTOR = ?,
                          ID_USUARIOM = ?
                     WHERE  ID_PRODUCTOR  = ?  ;";
@@ -295,9 +267,6 @@ class PRODUCTOR_ADO {
                     $PRODUCTOR->__GET('NOMBRE_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('ID_EMPRESA'),
                     $PRODUCTOR->__GET('ID_CIUDAD'),
-                    $PRODUCTOR->__GET('ID_COMUNA'),
-                    $PRODUCTOR->__GET('ID_PROVINCIA'),
-                    $PRODUCTOR->__GET('ID_REGION'),
                     $PRODUCTOR->__GET('ID_TPRODUCTOR'),
                     $PRODUCTOR->__GET('ID_USUARIOM'),
                     $PRODUCTOR->__GET('ID_PRODUCTOR')

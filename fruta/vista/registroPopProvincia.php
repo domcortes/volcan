@@ -64,13 +64,8 @@ if (isset($_REQUEST['GUARDAR'])) {
     $PROVINCIA->__SET('ID_REGION', $_REQUEST['REGION']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $PROVINCIA_ADO->agregarProvincia($PROVINCIA);
-    //REDIRECCIONAR A PAGINA registroProvincia.php
-    echo "
-    <script type='text/javascript'>
-        window.opener.refrescar()
-        window.close();
-        </script> 
-    ";
+    //REDIRECCIONAR A PAGINA registroProvincia.php 
+    echo "<script type='text/javascript'> location.href ='registroPopComuna.php';</script>";
 }
 
 
@@ -224,31 +219,48 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <input type="text" class="form-control" placeholder="Nombre Provincia" id="NOMBREPROVINCIA" name="NOMBREPROVINCIA" value="<?php echo $NOMBREPROVINCIA; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_nombre" class="validacion"> </label>
                                             </div>
-                                            <div class="form-group">
-                                                <label> Region</label>
-                                                <select class="form-control select2" id="REGION" name="REGION" style="width: 100%;" value="<?php echo $REGION; ?>" <?php echo $DISABLED; ?>>
+                                            
+                                            <div class="row">
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                    <div class="form-group">
+                                                        <label> Region</label>
+                                                        <select class="form-control select2" id="REGION" name="REGION" style="width: 100%;" value="<?php echo $REGION; ?>" <?php echo $DISABLED; ?>>
 
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYREGION as $r) : ?>
-                                                        <?php if ($ARRAYREGION) {    ?>
-                                                            <option value="<?php echo $r['ID_REGION']; ?>" <?php if ($REGION == $r['ID_REGION']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>>
-                                                                <?php echo $r['NOMBRE_REGION'] ?>
-                                                            </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYREGION as $r) : ?>
+                                                                <?php if ($ARRAYREGION) {    ?>
+                                                                    <option value="<?php echo $r['ID_REGION']; ?>" <?php if ($REGION == $r['ID_REGION']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>>
+                                                                        <?php echo $r['NOMBRE_REGION'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
 
-                                                    <?php endforeach; ?>
+                                                            <?php endforeach; ?>
 
-                                                </select>
-                                                <label id="val_region" class="validacion"> </label>
-                                            </div>
+                                                        </select>
+                                                        <label id="val_region" class="validacion"> </label>
+                                                    </div>
+                                                </div>                     
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                        <div class="form-group">  
+                                                        <label>Agregar</label>                  
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Ciudad" id="defecto" name="pop" 
+                                                            Onclick="irPagina('registroPopRegion.php' ); ">
+                                                            <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                </div>
+                                            </div> 
 
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
+                                            <button type="button" class="btn btn-rounded btn-success btn-outline" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroPopComuna.php'); ">
+                                                <i class="ti-back-left "></i> Volver
+                                            </button>
                                             <?php if ($OP != "editar") { ?>
                                                 <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
                                                     <i class="ti-save-alt"></i> Crear

@@ -220,28 +220,41 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <label id="val_nombre" class="validacion"> </label>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label> Comuna</label>
-                                                <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
+                                            <div class="row">
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
+                                                    <div class="form-group">
+                                                        <label> Comuna</label>
+                                                        <select class="form-control select2" id="COMUNA" name="COMUNA" style="width: 100%;" value="<?php echo $COMUNA; ?>" <?php echo $DISABLED; ?>>
 
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYCOMUNA as $r) : ?>
-                                                        <?php if ($ARRAYCOMUNA) {    ?>
-                                                            <option value="<?php echo $r['ID_COMUNA']; ?>" <?php if ($COMUNA == $r['ID_COMUNA']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>>
-                                                                <?php echo $r['NOMBRE_COMUNA'] ?>
-                                                            </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
+                                                            <option></option>
+                                                            <?php foreach ($ARRAYCOMUNA as $r) : ?>
+                                                                <?php if ($ARRAYCOMUNA) {    ?>
+                                                                    <option value="<?php echo $r['ID_COMUNA']; ?>" <?php if ($COMUNA == $r['ID_COMUNA']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>>
+                                                                        <?php echo $r['NOMBRE_COMUNA'] ?>
+                                                                    </option>
+                                                                <?php } else { ?>
+                                                                    <option>No Hay Datos Registrados </option>
+                                                                <?php } ?>
 
-                                                    <?php endforeach; ?>
+                                                            <?php endforeach; ?>
 
-                                                </select>
-                                                <label id="val_comuna" class="validacion"> </label>
+                                                        </select>
+                                                        <label id="val_comuna" class="validacion"> </label>
+                                                    </div>
+                                                </div>                                            
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                        <div class="form-group">  
+                                                        <label>Agregar</label>                  
+                                                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Ciudad" id="defecto" name="pop" 
+                                                            Onclick="irPagina('registroPopComuna.php' ); ">
+                                                            <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
                                             <?php if ($OP != "editar") { ?>

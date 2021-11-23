@@ -131,16 +131,6 @@ class PROVEEDOR_ADO
             if($PROVEEDOR->__GET('ID_CIUDAD')==NULL){
                 $PROVEEDOR->__SET('ID_CIUDAD', NULL);
             }
-            if($PROVEEDOR->__GET('ID_COMUNA')==NULL){
-                $PROVEEDOR->__SET('ID_COMUNA', NULL);
-            }
-            if($PROVEEDOR->__GET('ID_PROVINCIA')==NULL){
-                $PROVEEDOR->__SET('ID_PROVINCIA', NULL);
-            }
-            if($PROVEEDOR->__GET('ID_REGION')==NULL){
-                $PROVEEDOR->__SET('ID_REGION', NULL);
-            }
-
             $query =
                 "INSERT INTO   material_proveedor   (
                                                       RUT_PROVEEDOR  ,
@@ -154,16 +144,13 @@ class PROVEEDOR_ADO
                                                       EMAIL_PROVEEDOR  ,
                                                       ID_EMPRESA  ,
                                                       ID_CIUDAD  ,
-                                                      ID_COMUNA ,
-                                                      ID_PROVINCIA  ,
-                                                      ID_REGION ,
                                                       ID_USUARIOI  ,
                                                       ID_USUARIOM  ,
                                                       INGRESO  ,
                                                       MODIFICACION  , 
                                                       ESTADO_REGISTRO  
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -178,9 +165,6 @@ class PROVEEDOR_ADO
                         $PROVEEDOR->__GET('EMAIL_PROVEEDOR'),
                         $PROVEEDOR->__GET('ID_EMPRESA'),
                         $PROVEEDOR->__GET('ID_CIUDAD'),
-                        $PROVEEDOR->__GET('ID_COMUNA'),
-                        $PROVEEDOR->__GET('ID_PROVINCIA'),
-                        $PROVEEDOR->__GET('ID_REGION'),
                         $PROVEEDOR->__GET('ID_USUARIOI'),
                         $PROVEEDOR->__GET('ID_USUARIOM')
                     )
@@ -215,15 +199,6 @@ class PROVEEDOR_ADO
             if($PROVEEDOR->__GET('ID_CIUDAD')==NULL){
                 $PROVEEDOR->__SET('ID_CIUDAD', NULL);
             }
-            if($PROVEEDOR->__GET('ID_COMUNA')==NULL){
-                $PROVEEDOR->__SET('ID_COMUNA', NULL);
-            }
-            if($PROVEEDOR->__GET('ID_PROVINCIA')==NULL){
-                $PROVEEDOR->__SET('ID_PROVINCIA', NULL);
-            }
-            if($PROVEEDOR->__GET('ID_REGION')==NULL){
-                $PROVEEDOR->__SET('ID_REGION', NULL);
-            }
             $query = "
 		UPDATE   material_proveedor   SET
               MODIFICACION  = SYSDATE(),
@@ -237,9 +212,6 @@ class PROVEEDOR_ADO
               EMAIL_PROVEEDOR  = ?,
               ID_EMPRESA  = ?  ,
               ID_CIUDAD  = ?   ,
-              ID_COMUNA = ?,
-              ID_PROVINCIA = ?,
-              ID_REGION = ?,
               ID_USUARIOM  = ?           
 		WHERE   ID_PROVEEDOR  = ?;";
             $this->conexion->prepare($query)
@@ -255,9 +227,6 @@ class PROVEEDOR_ADO
                         $PROVEEDOR->__GET('EMAIL_PROVEEDOR'),
                         $PROVEEDOR->__GET('ID_EMPRESA'),
                         $PROVEEDOR->__GET('ID_CIUDAD'),
-                        $PROVEEDOR->__GET('ID_COMUNA'),
-                        $PROVEEDOR->__GET('ID_PROVINCIA'),
-                        $PROVEEDOR->__GET('ID_REGION'),
                         $PROVEEDOR->__GET('ID_USUARIOM'),
                         $PROVEEDOR->__GET('ID_PROVEEDOR')
 
