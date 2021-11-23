@@ -198,6 +198,9 @@ include_once "../config/datosUrLP.php";
                                                         <th>Motivo </th>
                                                         <th>Cantidad Envase </th>
                                                         <th>Kilo Neto </th>
+                                                        <th>Empresa</th>
+                                                        <th>Planta</th>
+                                                        <th>Temporada</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -216,6 +219,27 @@ include_once "../config/datosUrLP.php";
                                                         if ($r['ESTADO_PCDESPACHO'] == "4") {
                                                             $ESTADODESPACHO = "Despachado";
                                                         }
+
+                                                        $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                        if ($ARRAYEMPRESA) {
+                                                            $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                        } else {
+                                                            $NOMBREEMPRESA = "Sin Datos";
+                                                        }
+                                                        $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                        if ($ARRAYPLANTA) {
+                                                            $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $NOMBREPLANTA = "Sin Datos";
+                                                        }
+                                                        $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                        if ($ARRAYTEMPORADA) {
+                                                            $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                        } else {
+                                                            $NOMBRETEMPORADA = "Sin Datos";
+                                                        }
+
+
                                                         ?>
                                                         <tr class="text-left">
                                                             <td>
@@ -273,6 +297,9 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['MOTIVO_PCDESPACHO']; ?> </td>
                                                             <td><?php echo $r['ENVASE']; ?> </td>
                                                             <td><?php echo $r['NETO']; ?> </td>
+                                                            <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                            <td><?php echo $NOMBREPLANTA; ?></td>
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

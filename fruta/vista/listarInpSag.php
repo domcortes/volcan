@@ -223,7 +223,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Total Kilos Bruto</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
-                                                    <th>Empresa</th>
+                                                    <th>Planta</th>
+                                                    <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -254,11 +255,18 @@ include_once "../config/datosUrLP.php";
                                                     if ($r['TESTADOSAG'] == "5") {
                                                         $TESTADOSAG = "Rechazado";
                                                     }
-                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($EMPRESAS);
-                                                    if ($ARRAYEMPRESA) {
-                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                
+                                                    $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+                                                    if ($ARRAYPLANTA) {
+                                                        $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
                                                     } else {
-                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                        $NOMBREPLANTA = "Sin Datos";
+                                                    }
+                                                    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    if ($ARRAYTEMPORADA) {
+                                                        $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    } else {
+                                                        $NOMBRETEMPORADA = "Sin Datos";
                                                     }
                                                     ?>
 
@@ -323,7 +331,8 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['BRUTO']; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
-                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                        <td><?php echo $NOMBREPLANTA; ?></td>
+                                                        <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

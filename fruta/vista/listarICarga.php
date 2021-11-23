@@ -150,13 +150,14 @@ include_once "../config/datosUrLP.php";
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Agrupado Instructivo Carga</h3>
+                                <h3 class="page-title">Instructivo Carga</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Logistica</li>
+                                            <li class="breadcrumb-item" aria-current="page">Instructivo Carga</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Instructivo Carga </a>
                                             </li>
                                         </ol>
@@ -209,9 +210,11 @@ include_once "../config/datosUrLP.php";
                                                         <th>Días Reales </th>
                                                         <th>Destino Final </th>
                                                         <th>Total Envase</th>
-                                                        <th>Total Kilos Neto</th>
-                                                        <th>Total Kilos Bruto</th>
+                                                        <th>Total Kg. Neto</th>
+                                                        <th>Total Kg. Bruto</th>
                                                         <th>Total Precio Us</th>
+                                                        <th>Empresa</th>
+                                                        <th>Temporada</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -255,6 +258,18 @@ include_once "../config/datosUrLP.php";
                                                             $NOMBRDFINAL = "Sin Datos";
                                                         }
 
+                                                        $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                        if ($ARRAYEMPRESA) {
+                                                            $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                        } else {
+                                                            $NOMBREEMPRESA = "Sin Datos";
+                                                        }
+                                                        $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                        if ($ARRAYTEMPORADA) {
+                                                            $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                        } else {
+                                                            $NOMBRETEMPORADA = "Sin Datos";
+                                                        }
                                                         ?>
                                                         <tr class="text-left">
                                                             <td> <?php echo $r['NUMERO_ICARGA']; ?>  </td>
@@ -287,9 +302,9 @@ include_once "../config/datosUrLP.php";
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
                                                                                         <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                            <i class="ti-pencil-alt"></i> Informe
+                                                                                            <i class="ti-pencil-alt"></i> Editar
                                                                                         </button>
                                                                                     </span>
                                                                                 <?php } ?>
@@ -300,13 +315,13 @@ include_once "../config/datosUrLP.php";
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
-                                                                                    <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Informe Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Carga Real
                                                                                     </button>
                                                                                 </span>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Reporte Carga Real">
-                                                                                    <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Carga Real" Onclick="abrirPestana('../reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Reporte Carga Real" Onclick="abrirPestana('../reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                       <i class="fa fa-file-excel-o"></i> Carga Real
                                                                                     </button>
                                                                                 </span>
@@ -328,6 +343,8 @@ include_once "../config/datosUrLP.php";
                                                             <td> <?php echo $r['NETO'];  ?> </td>
                                                             <td> <?php echo $r['BRUTO'];  ?> </td>
                                                             <td> <?php echo $r['US'];  ?> </td>
+                                                            <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -336,45 +353,58 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Envase </label>
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Neto </label>
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                        </div>
-                                    </div>
 
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total Bruto </label>
-                                            <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+
+                            <div class="box-footer">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
-                                        <div class="form-group">
-                                            <label>Total US </label>
-                                            <input type="text" class="form-control" placeholder="Total US" id="TOTALUSV" name="TOTALUSV" value="<?php echo $TOTALUS; ?>" disabled />
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Bruto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total US</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total US" id="TOTALUSV" name="TOTALUSV" value="<?php echo $TOTALUS; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- /.box -->
-
                     </section>
                     <!-- /.content -->
-
                 </div>
             </div>
 

@@ -248,7 +248,6 @@ $html = '
           <div class="date"><b>Código BRC: </b>REP-OC</div>  
           <div class="date"><b>Fecha OC: </b>' . $FECHAOCOMPRA . ' </div>
           <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
-          <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
           <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
         </div>
         <div id="client">

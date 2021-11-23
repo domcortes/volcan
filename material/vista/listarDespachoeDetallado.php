@@ -232,7 +232,9 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Despacho</th>
                                                     <th>Fecha Despacho </th>
                                                     <th>Tipo Despacho</th>
+                                                    <th>CSG/CSP Despacho</th>
                                                     <th>Destino Despacho </th>
+                                                    <th>Tipo Documento </th>
                                                     <th>Número Documento </th>
                                                     <th>Valor Unitario</th>
                                                     <th>Transporte </th>
@@ -261,70 +263,96 @@ include_once "../config/datosUrLP.php";
                                                     }
 
 
-                                                 
+                                                   
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
                                                         $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA"]);
                                                         if ($ARRAYVERBODEGA) {
                                                             $NOMBRDESTINO = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                            $CSGCSPDESTINO="No Aplica";
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                         }
                                                     }else if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Interplanta";
                                                         $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA2"]);
                                                         $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA2"]);
                                                         if ($ARRAYVERBODEGA && $ARRAYPLANTAINTERNA) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTAINTERNA[0]['CODIGO_SAG_PLANTA'];
                                                             $NOMBRDESTINO = "" . $ARRAYPLANTAINTERNA[0]["NOMBRE_PLANTA"] . " - " . $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                         }
                                                     }else if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Devolución a Productor";
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
                                                         if ($ARRAYPRODUCTOR) {
-                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"] .":". $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"];
+                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                         }
                                                     }else if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Devolución a Proveedor";
                                                         $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
                                                         if ($ARRAYPROVEEDOR) {
                                                             $NOMBRDESTINO = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                            $CSGCSPDESTINO="No Aplica";
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                         }
                                                     }else if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Venta";
                                                         $ARRAYVERCOMPRADOR = $COMPRADOR_ADO->verComprador($r["ID_COMPRADOR"]);
                                                         if ($ARRAYVERCOMPRADOR) {
                                                             $NOMBRDESTINO = $ARRAYVERCOMPRADOR[0]["NOMBRE_COMPRADOR"];
+                                                            $CSGCSPDESTINO="No Aplica";
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                         }
                                                     }else if ($r['TDESPACHO'] == "6") {
                                                         $TDESPACHO = "Regalo";
+                                                        $CSGCSPDESTINO="No Aplica";
+                                                        $NOMBRDESTINO="No Aplica";
                                                         $REGALO = $r['REGALO_DESPACHO'];
                                                     }else if ($r['TDESPACHO'] == "7") {
                                                         $TDESPACHO = "Planta Externa";
                                                         $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA3"]);
                                                         if ($ARRAYPLANTAEXTERNA) {
                                                             $NOMBRDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                            $CSGCSPDESTINO=$ARRAYPLANTAEXTERNA[0]['CODIGO_SAG_PLANTA'];
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                         }
                                                     }else if ($r['TDESPACHO'] == "8") {
                                                         $TDESPACHO = "Despacho a Productor";
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
                                                         if ($ARRAYPRODUCTOR) {
-                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"] .":". $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
+                                                            $NOMBRDESTINO =  $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"];
                                                         } else {
                                                             $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                         }
                                                     }else {
                                                         $TDESPACHO = "Sin Datos";
+                                                        $NOMBRDESTINO = "Sin Datos";
+                                                        $CSGCSPDESTINO="Sin Datos";
                                                     }    
+                                                    
+                                                    
+                                                    $ARRAYVERTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($r['ID_TDOCUMENTO']);
+                                                    if ($ARRAYVERTDOCUMENTO) {
+                                                        $TDOCUMENTO = $ARRAYVERTDOCUMENTO[0]['NOMBRE_TDOCUMENTO'];
+                                                    } else {
+                                                        $TDOCUMENTO = "Sin Datos";
+                                                    }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
@@ -392,7 +420,9 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $CSGCSPDESTINO; ?></td>
                                                             <td><?php echo $NOMBRDESTINO; ?></td>
+                                                            <td><?php echo $TDOCUMENTO; ?></td>
                                                             <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
                                                             <td><?php echo $s['VALOR']; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>

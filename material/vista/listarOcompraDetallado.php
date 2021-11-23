@@ -217,6 +217,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Tipo Moneda</th>
                                                     <th>Tipo Cambio</th>
                                                     <th>Reponsable</th>
+                                                    <th>Empresa</th>
+                                                    <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -259,7 +261,18 @@ include_once "../config/datosUrLP.php";
                                                     } else {
                                                         $NOMBRERESPONSABLE = "Sin Datos";
                                                     }
-
+                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                    if ($ARRAYEMPRESA) {
+                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    } else {
+                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                    }
+                                                    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    if ($ARRAYTEMPORADA) {
+                                                        $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    } else {
+                                                        $NOMBRETEMPORADA = "Sin Datos";
+                                                    }
                                                     $ARRAYDOCOMPRA = $DOCOMPRA_ADO->listarDocompraPorOcompraCBX($r['ID_OCOMPRA']);
                                                     ?>
 
@@ -296,6 +309,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBRETMONEDA; ?></td>
                                                             <td><?php echo $r['TCAMBIO_OCOMPRA']; ?></td>
                                                             <td><?php echo $NOMBRERESPONSABLE; ?></td>
+                                                            <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
