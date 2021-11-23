@@ -25,6 +25,9 @@
         private   $MODIFICACION;
         private   $ID_EMPRESA;
         private   $ID_CIUDAD;
+        private   $ID_COMUNA;
+        private   $ID_PROVINCIA;
+        private   $ID_REGION;
         private   $ID_TPRODUCTOR;
         private   $ID_USUARIOI;
         private   $ID_USUARIOM;

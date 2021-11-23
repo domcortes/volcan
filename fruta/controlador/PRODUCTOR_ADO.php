@@ -47,7 +47,7 @@ class PRODUCTOR_ADO {
     public function listarProductor(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor` LIMIT 6;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_productor  LIMIT 6;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -66,7 +66,7 @@ class PRODUCTOR_ADO {
     public function listarProductorCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor`  WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_productor   WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -85,7 +85,7 @@ class PRODUCTOR_ADO {
     public function listarProductor2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor`  WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_productor   WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -104,7 +104,7 @@ class PRODUCTOR_ADO {
     public function verProductor($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor` WHERE `ID_PRODUCTOR`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_productor  WHERE  ID_PRODUCTOR = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -126,7 +126,7 @@ class PRODUCTOR_ADO {
     public function buscarNombreProductor($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor` WHERE `NOMBRE_PRODUCTOR` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_productor  WHERE  NOMBRE_PRODUCTOR  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -149,32 +149,44 @@ class PRODUCTOR_ADO {
             if($PRODUCTOR->__GET('ID_CIUDAD')==NULL){
                 $PRODUCTOR->__SET('ID_CIUDAD', NULL);
             }
+            if($PRODUCTOR->__GET('ID_COMUNA')==NULL){
+                $PRODUCTOR->__SET('ID_COMUNA', NULL);
+            }
+            if($PRODUCTOR->__GET('ID_PROVINCIA')==NULL){
+                $PRODUCTOR->__SET('ID_PROVINCIA', NULL);
+            }
+            if($PRODUCTOR->__GET('ID_REGION')==NULL){
+                $PRODUCTOR->__SET('ID_REGION', NULL);
+            }
 
             $query=            
-            "INSERT INTO `fruta_productor`   (
-                                        `RUT_PRODUCTOR`,
-                                        `DV_PRODUCTOR`,
-                                        `NUMERO_PRODUCTOR`, 
-                                        `NOMBRE_PRODUCTOR`, 
-                                        `DIRECCION_PRODUCTOR`, 
-                                        `TELEFONO_PRODUCTOR`, 
-                                        `EMAIL_PRODUCTOR`, 
-                                        `GIRO_PRODUCTOR`, 
-                                        `CSG_PRODUCTOR`, 
-                                        `SDP_PRODUCTOR`, 
-                                        `PRB_PRODUCTOR`, 
-                                        `CODIGO_ASOCIADO_PRODUCTOR`, 
-                                        `NOMBRE_ASOCIADO_PRODUCTOR`, 
-                                        `ID_EMPRESA`,  
-                                        `ID_CIUDAD`,  
-                                        `ID_TPRODUCTOR`,
-                                        `ID_USUARIOI`,
-                                        `ID_USUARIOM`,
-                                        `INGRESO`,
-                                        `MODIFICACION`, 
-                                        `ESTADO_REGISTRO` ) 
+            "INSERT INTO  fruta_productor    (
+                                         RUT_PRODUCTOR ,
+                                         DV_PRODUCTOR ,
+                                         NUMERO_PRODUCTOR , 
+                                         NOMBRE_PRODUCTOR , 
+                                         DIRECCION_PRODUCTOR , 
+                                         TELEFONO_PRODUCTOR , 
+                                         EMAIL_PRODUCTOR , 
+                                         GIRO_PRODUCTOR , 
+                                         CSG_PRODUCTOR , 
+                                         SDP_PRODUCTOR , 
+                                         PRB_PRODUCTOR , 
+                                         CODIGO_ASOCIADO_PRODUCTOR , 
+                                         NOMBRE_ASOCIADO_PRODUCTOR , 
+                                         ID_EMPRESA ,  
+                                         ID_CIUDAD ,  
+                                         ID_COMUNA ,  
+                                         ID_PROVINCIA ,  
+                                         ID_REGION ,  
+                                         ID_TPRODUCTOR ,
+                                         ID_USUARIOI ,
+                                         ID_USUARIOM ,
+                                         INGRESO ,
+                                         MODIFICACION , 
+                                         ESTADO_REGISTRO  ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1 );";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1 );";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -194,6 +206,9 @@ class PRODUCTOR_ADO {
                     $PRODUCTOR->__GET('NOMBRE_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('ID_EMPRESA'),
                     $PRODUCTOR->__GET('ID_CIUDAD'),
+                    $PRODUCTOR->__GET('ID_COMUNA'),
+                    $PRODUCTOR->__GET('ID_PROVINCIA'),
+                    $PRODUCTOR->__GET('ID_REGION'),
                     $PRODUCTOR->__GET('ID_TPRODUCTOR'),
                     $PRODUCTOR->__GET('ID_USUARIOI'),
                     $PRODUCTOR->__GET('ID_USUARIOM')
@@ -210,7 +225,7 @@ class PRODUCTOR_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarProductor($id){
-        try{$sql="DELETE FROM `fruta_productor` WHERE `ID_PRODUCTOR`=".$id.";";
+        try{$sql="DELETE FROM  fruta_productor  WHERE  ID_PRODUCTOR =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -229,27 +244,40 @@ class PRODUCTOR_ADO {
             if($PRODUCTOR->__GET('ID_CIUDAD')==NULL){
                 $PRODUCTOR->__SET('ID_CIUDAD', NULL);
             }
+            if($PRODUCTOR->__GET('ID_COMUNA')==NULL){
+                $PRODUCTOR->__SET('ID_COMUNA', NULL);
+            }
+            if($PRODUCTOR->__GET('ID_PROVINCIA')==NULL){
+                $PRODUCTOR->__SET('ID_PROVINCIA', NULL);
+            }
+            if($PRODUCTOR->__GET('ID_REGION')==NULL){
+                $PRODUCTOR->__SET('ID_REGION', NULL);
+            }
+
 
             $query = "
-		UPDATE `fruta_productor` SET
-            `MODIFICACION`= SYSDATE(),
-			`RUT_PRODUCTOR` = ?,
-			`DV_PRODUCTOR` = ?,
-			`NOMBRE_PRODUCTOR` = ?,
-			`DIRECCION_PRODUCTOR` = ?,
-			`TELEFONO_PRODUCTOR` = ?,
-			`EMAIL_PRODUCTOR` = ?,
-			`GIRO_PRODUCTOR` = ?,
-			`CSG_PRODUCTOR` = ?,
-            `SDP_PRODUCTOR`= ?,
-            `PRB_PRODUCTOR`= ?,
-            `CODIGO_ASOCIADO_PRODUCTOR`= ?,
-            `NOMBRE_ASOCIADO_PRODUCTOR`= ?,
-            `ID_EMPRESA`= ?,
-            `ID_CIUDAD`= ?,
-            `ID_TPRODUCTOR`= ?,
-            `ID_USUARIOM`= ?
-		WHERE `ID_PRODUCTOR` = ?  ;";
+                    UPDATE  fruta_productor  SET
+                         MODIFICACION = SYSDATE(),
+                         RUT_PRODUCTOR  = ?,
+                         DV_PRODUCTOR  = ?,
+                         NOMBRE_PRODUCTOR  = ?,
+                         DIRECCION_PRODUCTOR  = ?,
+                         TELEFONO_PRODUCTOR  = ?,
+                         EMAIL_PRODUCTOR  = ?,
+                         GIRO_PRODUCTOR  = ?,
+                         CSG_PRODUCTOR  = ?,
+                         SDP_PRODUCTOR = ?,
+                         PRB_PRODUCTOR = ?,
+                         CODIGO_ASOCIADO_PRODUCTOR = ?,
+                         NOMBRE_ASOCIADO_PRODUCTOR = ?,
+                         ID_EMPRESA = ?,
+                         ID_CIUDAD = ?,
+                         ID_COMUNA = ?,
+                         ID_PROVINCIA = ?,
+                         ID_REGION = ?,
+                         ID_TPRODUCTOR = ?,
+                         ID_USUARIOM = ?
+                    WHERE  ID_PRODUCTOR  = ?  ;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                    
@@ -267,6 +295,9 @@ class PRODUCTOR_ADO {
                     $PRODUCTOR->__GET('NOMBRE_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('ID_EMPRESA'),
                     $PRODUCTOR->__GET('ID_CIUDAD'),
+                    $PRODUCTOR->__GET('ID_COMUNA'),
+                    $PRODUCTOR->__GET('ID_PROVINCIA'),
+                    $PRODUCTOR->__GET('ID_REGION'),
                     $PRODUCTOR->__GET('ID_TPRODUCTOR'),
                     $PRODUCTOR->__GET('ID_USUARIOM'),
                     $PRODUCTOR->__GET('ID_PRODUCTOR')
@@ -287,10 +318,10 @@ class PRODUCTOR_ADO {
 
         try{
             $query = "
-		UPDATE `fruta_productor` SET					
-            `MODIFICACION`= SYSDATE(),
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_PRODUCTOR`= ?;";
+		UPDATE  fruta_productor  SET					
+             MODIFICACION = SYSDATE(),
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_PRODUCTOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -309,10 +340,10 @@ class PRODUCTOR_ADO {
 
         try{
             $query = "
-		UPDATE `fruta_productor` SET				
-            `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_PRODUCTOR`= ?;";
+		UPDATE  fruta_productor  SET				
+             MODIFICACION = SYSDATE(),	
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_PRODUCTOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -332,7 +363,7 @@ class PRODUCTOR_ADO {
     public function listarProductorPorEmpresaCBX($IDEMPRESA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `fruta_productor`  WHERE `ESTADO_REGISTRO` = 1 AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  fruta_productor   WHERE  ESTADO_REGISTRO  = 1 AND ID_EMPRESA = '".$IDEMPRESA."' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -352,7 +383,7 @@ class PRODUCTOR_ADO {
 public function obtenerNombreTarja($ID_PRODUCTOR){
     try{
         
-        $datos=$this->conexion->prepare("SELECT *, if( LENGTH(NOMBRE_PRODUCTOR)>70,SUBSTRING(NOMBRE_PRODUCTOR,1,70),NOMBRE_PRODUCTOR) AS 'NOMBRE_CORTADO' FROM `fruta_productor`  WHERE `ID_PRODUCTOR`=".$ID_PRODUCTOR."  ;");
+        $datos=$this->conexion->prepare("SELECT *, if( LENGTH(NOMBRE_PRODUCTOR)>70,SUBSTRING(NOMBRE_PRODUCTOR,1,70),NOMBRE_PRODUCTOR) AS 'NOMBRE_CORTADO' FROM  fruta_productor   WHERE  ID_PRODUCTOR =".$ID_PRODUCTOR."  ;");
         $datos->execute();
         $resultado = $datos->fetchAll();
             $datos=null;
@@ -373,7 +404,7 @@ public function obtenerNumero($IDEMPRESA)
     try {
         $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_PRODUCTOR),0) AS 'NUMERO'
-                                            FROM `fruta_productor`
+                                            FROM  fruta_productor 
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
         $datos->execute();
