@@ -701,7 +701,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechap" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Turno</label>
                                                 <input type="hidden" class="form-control" placeholder="TURNO" id="TURNOE" name="TURNOE" value="<?php echo $TURNO; ?>" />
@@ -713,7 +713,7 @@ if (isset($_POST)) {
                                                 <label id="val_turno" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Tipo Reembalaje</label>
                                                 <input type="hidden" class="form-control" placeholder="TIPO REEMBALAJE" id="TREEMBALAJEE" name="TREEMBALAJEE" value="<?php echo $TREEMBALAJE; ?>" />
@@ -732,7 +732,7 @@ if (isset($_POST)) {
                                                 <label id="val_tproceso" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Productor</label>
                                                 <input type="hidden" class="form-control" placeholder="PRODUCTOR" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -752,7 +752,7 @@ if (isset($_POST)) {
                                                 <label id="val_productor" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Variedad</label>
                                                 <input type="hidden" class="form-control" placeholder="Variedad" id="VESPECIESE" name="VESPECIESE" value="<?php echo $VESPECIES; ?>" />
@@ -905,7 +905,7 @@ if (isset($_POST)) {
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                    <div class="btn-group btn-rounded col-12 btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                    <div class="btn-group btn-rounded col-6 btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia"  <?php echo $DISABLED2; ?>   <?php  if ($ESTADO == 0) {  echo "disabled"; }  ?>>
                                                                             <i class="ti-close"></i> Quitar
                                                                         </button>
