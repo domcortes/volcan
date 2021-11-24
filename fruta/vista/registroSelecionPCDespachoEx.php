@@ -136,15 +136,17 @@ include_once "../config/validarDatosUrlD.php";
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Seleccion PC Despacho</h3>
+                                <h3 class="page-title">Despacho Exportacion</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item" aria-current="page">Despacho Exportacion </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Seleccion PC Despacho</a>
+                                            <li class="breadcrumb-item" aria-current="page">Despacho</li>
+                                            <li class="breadcrumb-item" aria-current="page">Despacho Exportación</li>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Despacho</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Seleccion PC Despacho</a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -172,27 +174,18 @@ include_once "../config/validarDatosUrlD.php";
                         </div>
                     </div>
                     <section class="content">
-                        <div class="box">
-                            <div class="box-header with-border bg-success">
-                                <h4 class="box-title">Selecciona los PC Despacho</h4>
+                        <div class="card">
+                            <div class="card-header with-border bg-info">
+                                <h4 class="card-title">Selecciona los PC Despacho</h4>
                             </div>
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                                <div class="box-body ">
+                                <div class="card-body ">
                                     <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                     <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
                                     <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLO" name="URLO" value="<?php echo $URLO; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                     <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
-                                    <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
-                                    <div class="row">
-                                        <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
-                                        </div>
-                                        <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
-                                            <div class="form-group">
-                                                <label> </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />                              
                                     <label id="val_validato" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                     <div clas="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
@@ -247,15 +240,14 @@ include_once "../config/validarDatosUrlD.php";
                                         </div>
                                     </div>
                                     <!-- /.row -->
-
-                                    <!-- /.box-body -->
-                                    <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                    <!-- /.box-body -->                                                    
+                                    <div class="card-footer">
+                                        <div class="btn-group btn-rounded btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
                                             <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i> Agregar
+                                                <i class="ti-save-alt"></i> Seleccionar
                                             </button>
                                         </div>
                                     </div>
@@ -282,7 +274,20 @@ if (isset($_REQUEST['AGREGAR'])) {
         $SELECIONAREXISTENCIA = $_REQUEST['SELECIONAREXISTENCIA'];
     } else {
         $SINO = "1";
-        $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
+        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+        echo '<script>
+            Swal.fire({
+                icon:"warning",
+                title:"Accion restringida",
+                text:"Se debe selecionar al menos una existencia.",
+                showConfirmButton: true,
+                confirmButtonText:"Cerrar",
+                closeOnConfirm:false
+            }).then((result)=>{
+                location.href = "registroSelecionPCDespachoEx.php?op";                            
+            })
+        </script>';
     }
     if ($SINO == "0") {
         foreach ($SELECIONAREXISTENCIA as $r) :
@@ -313,18 +318,15 @@ if (isset($_REQUEST['AGREGAR'])) {
             echo '<script>
                 Swal.fire({
                     icon:"success",
-                    title:"Registros agregados",
-                    html:"El registro fue agregado correctamente",
-                    showConfirmButton:true,
-                    confirmButtonText:"OK"
+                    title:"Accion realizada",
+                    text:"Se agregado la existencia asociadas al PC al despacho.",
+                    showConfirmButton: true,
+                    confirmButtonText:"Volver a Despacho",
+                    closeOnConfirm:false
                 }).then((result)=>{
-                    if(result.value){
-                        location.href ="/fruta/vista/'.$_REQUEST['URLO'].'";
-                    }
+                    location.href="' . $_REQUEST['URLO'] . '.php?op";                        
                 })
-            </script>';
-
-
+            </script>';   
         }
     }
 }

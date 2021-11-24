@@ -621,8 +621,16 @@ class ICARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
-                                                         DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
+            $datos = $this->conexion->prepare("SELECT *,DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL',
+                                                        DATE_FORMAT(FECHA_ICARGA, '%d-%m-%Y') AS 'FECHA', 
+                                                        DATE_FORMAT(FECHAETD_ICARGA, '%d-%m-%Y') AS 'FECHAETD', 
+                                                        DATE_FORMAT(FECHAETA_ICARGA, '%d-%m-%Y') AS 'FECHAETA', 
+                                                        IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'CONTENEDOR',
+                                                        IFNULL(TOTAL_ENVASE_ICAGRA,0) AS 'ENVASE',
+                                                        IFNULL(TOTAL_NETO_ICARGA,0) AS 'NETO',
+                                                        IFNULL(TOTAL_BRUTO_ICARGA,0) AS 'BRUTO',
+                                                        IFNULL(TOTAL_US_ICARGA,0) AS 'US'
                                             FROM fruta_icarga  
                                             WHERE ESTADO_REGISTRO = 1                                                                                                        
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 

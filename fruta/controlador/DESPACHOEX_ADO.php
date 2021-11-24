@@ -590,11 +590,20 @@ class DESPACHOEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * 
-                                        FROM fruta_despachoex                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                        AND ID_PLANTA = '" . $PLANTA . "'
-                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos = $this->conexion->prepare(" SELECT * ,
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' , 
+                                                    DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA' ,
+                                                    DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%d-%m-%Y') AS 'GUIA',
+                                                    DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
+                                                    DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD',
+                                                    IFNULL(CANTIDAD_ENVASE_DESPACHOEX,0)  AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_DESPACHOEX,0)  AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_DESPACHOEX,0)  AS 'BRUTO'
+                                                FROM fruta_despachoex                                                                           
+                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

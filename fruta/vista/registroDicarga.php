@@ -324,6 +324,31 @@ if ($_POST) {
                     document.form_reg_dato.PRECIOUS.style.borderColor = "#4AF575";
 
                 }
+                function precio(){
+                    var totalprecio;
+
+                    EEXPORTACION = document.getElementById("EEXPORTACION").selectedIndex;
+                    document.getElementById('val_estandar').innerHTML = "";
+                    if (EEXPORTACION == null || EEXPORTACION == 0) {
+                        document.form_reg_dato.EEXPORTACION.focus();
+                        document.form_reg_dato.EEXPORTACION.style.borderColor = "#FF0000";
+                        document.getElementById('val_estandar').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        repuesta = 1;
+                    } else {
+                        repuesta = 0;
+                        document.form_reg_dato.EEXPORTACION.style.borderColor = "#4AF575";
+                    }
+
+                    
+                    if (repuesta == 0) {                        
+                        CANTIDADENVASE =parseInt( document.getElementById("CANTIDADENVASE").value);
+                        PRECIOUS = parseFloat( document.getElementById("PRECIOUS").value);
+
+                        totalprecio=CANTIDADENVASE*PRECIOUS;
+                        totalprecio = totalprecio.toFixed(2);
+                    }
+                    document.getElementById('PRECIOUSV').value = totalprecio;
+                }
 
                 //FUNCION PARA CERRAR VENTANA Y ACTUALIZAR PRINCIPAL
                 function cerrar() {
@@ -351,7 +376,7 @@ if ($_POST) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title"> Registro Detalle</h3>
+                                <h3 class="page-title"> Instructivo Carga </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -359,7 +384,8 @@ if ($_POST) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Logistica</li>
                                             <li class="breadcrumb-item" aria-current="page">Instructivo Carga</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroICarga.php">Operaciones Registro Detalle </a>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Instructivo Carga</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroICarga.php">Registro Detalle </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -461,7 +487,7 @@ if ($_POST) {
                                                 <input type="hidden" id="KILOSBRUTO" name="KILOSBRUTO" value="<?php echo $KILOSBRUTO; ?>" />
                                                 <input type="hidden" id="TOTALPRECIOUS" name="TOTALPRECIOUS" value="<?php echo $TOTALPRECIOUS; ?>" />
                                                 <input type="hidden" id="CANTIDADENVASEE" name="CANTIDADENVASEE" value="<?php echo $CANTIDADENVASE; ?>" />
-                                                <input type="number" class="form-control" placeholder="Cantidad Envase" onchange="this.form.submit();" id="CANTIDADENVASE" name="CANTIDADENVASE" value="<?php echo $CANTIDADENVASE; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" class="form-control" placeholder="Cantidad Envase" onchange="precio();" id="CANTIDADENVASE" name="CANTIDADENVASE" value="<?php echo $CANTIDADENVASE; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -469,7 +495,7 @@ if ($_POST) {
                                             <div class="form-group">
                                                 <label>Precio $US</label>
                                                 <input type="hidden" id="PRECIOUSE" name="PRECIOUSE" value="<?php echo $PRECIOUS; ?>" />
-                                                <input type="number" step="0.01" class="form-control" onchange="this.form.submit();" placeholder="Kilos Netos" id="PRECIOUS" name="PRECIOUS" value="<?php echo $PRECIOUS; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>/>
+                                                <input type="number" step="0.001" class="form-control" onchange="precio();" placeholder="Kilos Netos" id="PRECIOUS" name="PRECIOUS" value="<?php echo $PRECIOUS; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>/>
                                                 <label id="val_us" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -484,35 +510,36 @@ if ($_POST) {
                                     <!-- /.row -->
                                     <!-- /.box-body -->
                                     <label id=" val_mensaje" class="validacion"><?php echo $MENSAJEELIMINAR; ?> </label>
-                                    <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i> Volver
+                                    
+                                <div class="box-footer">
+                                    <div class="btn-group btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                            <i class="ti-back-left "></i> Volver
+                                        </button>
+                                        <?php if ($OP == "") { ?>
+                                            <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Guardar
                                             </button>
-                                            <?php if ($OP == "") { ?>
-                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                        <?php } ?>
+                                        <?php if ($OP != "") { ?>
+                                            <?php if ($OP == "crear") { ?>
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
-                                            <?php if ($OP != "") { ?>
-                                                <?php if ($OP == "crear") { ?>
-                                                    <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()" >
-                                                        <i class="ti-save-alt"></i> Crear
-                                                    </button>
-                                                <?php } ?>
-                                                <?php if ($OP == "editar") { ?>
-                                                    <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Editar
-                                                    </button>
-                                                <?php } ?>
-                                                <?php if ($OP == "eliminar") { ?>
-                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
-                                                        <i class="ti-trash"></i> Eliminar
-                                                    </button>
-                                                <?php } ?>
+                                            <?php if ($OP == "editar") { ?>
+                                                <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>
                                             <?php } ?>
-                                        </div>
+                                            <?php if ($OP == "eliminar") { ?>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                    <i class="ti-trash"></i> Eliminar
+                                                </button>
+                                            <?php } ?>
+                                        <?php } ?>
                                     </div>
+                                </div>                                
                             </form>
                         </div>
                         <!--.row -->
@@ -531,11 +558,12 @@ if ($_POST) {
 <?php
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CREAR'])) {
+    $TOTALPRECIOUS = $_REQUEST['PRECIOUS'] * $_REQUEST['CANTIDADENVASE'];
     $DICARGA->__SET('CANTIDAD_ENVASE_DICARGA', $_REQUEST['CANTIDADENVASE']);
     $DICARGA->__SET('KILOS_NETO_DICARGA', $_REQUEST['KILOSNETO']);
     $DICARGA->__SET('KILOS_BRUTO_DICARGA', $_REQUEST['KILOSBRUTO']);
     $DICARGA->__SET('PRECIO_US_DICARGA', $_REQUEST['PRECIOUS']);
-    $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $_REQUEST['TOTALPRECIOUS']);
+    $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $TOTALPRECIOUS);
     $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
     $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
@@ -545,27 +573,28 @@ if (isset($_REQUEST['CREAR'])) {
     $_SESSION["parametro"] =  $_REQUEST['IDP'];
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
     // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+              
     echo '<script>
         Swal.fire({
             icon:"success",
-            title:"Registro agregado",
-            html:"El registro fue agregado correctamente",
-            showConfirmButton:true,
-            confirmButtonText:"OK"
+            title:"Registro creado",
+            text:"El registro del detalle se ha creado correctamente",
+            showConfirmButton: true,
+            confirmButtonText:"Volver al instructivo",
+            closeOnConfirm:false
         }).then((result)=>{
-            if(result.value){
-                location.href ="/fruta/vista/'.$_REQUEST['URLO'].'";
-            }
+            location.href="' . $_REQUEST['URLO'] . '.php?op";                        
         })
     </script>';
 }
 
 if (isset($_REQUEST['EDITAR'])) {
+    $TOTALPRECIOUS = $_REQUEST['PRECIOUS'] * $_REQUEST['CANTIDADENVASE'];
     $DICARGA->__SET('CANTIDAD_ENVASE_DICARGA', $_REQUEST['CANTIDADENVASE']);
     $DICARGA->__SET('KILOS_NETO_DICARGA', $_REQUEST['KILOSNETO']);
     $DICARGA->__SET('KILOS_BRUTO_DICARGA', $_REQUEST['KILOSBRUTO']);
     $DICARGA->__SET('PRECIO_US_DICARGA', $_REQUEST['PRECIOUS']);
-    $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $_REQUEST['TOTALPRECIOUS']);
+    $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $TOTALPRECIOUS);
     $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
     $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
@@ -576,17 +605,17 @@ if (isset($_REQUEST['EDITAR'])) {
     $_SESSION["parametro"] =  $_REQUEST['IDP'];
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
     // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    
     echo '<script>
         Swal.fire({
             icon:"success",
             title:"Registro editado",
-            html:"El registro fue editado correctamente",
-            showConfirmButton:true,
-            confirmButtonText:"OK"
+            text:"El registro del detalle se ha modificada correctamente",
+            showConfirmButton: true,
+            confirmButtonText:"Volver al instructivo",
+            closeOnConfirm:false
         }).then((result)=>{
-            if(result.value){
-                location.href ="/fruta/vista/'.$_REQUEST['URLO'].'";
-            }
+            location.href="' . $_REQUEST['URLO'] . '.php?op";                        
         })
     </script>';
 
@@ -603,20 +632,18 @@ if (isset($_REQUEST['ELIMINAR'])) {
     //REDIRECCIONAR A PAGINA registroICarga.php
     $_SESSION["parametro"] =  $_REQUEST['IDP'];
     $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";   
     echo '<script>
         Swal.fire({
-            icon:"success",
-            title:"Registro eliminado",
-            html:"El registro fue eliminado correctamente",
+            icon:"error",
+            title:"Registro Eliminado",
+            text:"El registro del detalle se ha eliminado correctamente ",
             showConfirmButton:true,
-            confirmButtonText:"OK"
+            confirmButtonText:"Volver al instructivo"
         }).then((result)=>{
-            if(result.value){
-                location.href ="/fruta/vista/'.$_REQUEST['URLO'].'";
-            }
+            location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
         })
-    </script>';
+    </script>'; 
 }
 ?>
 </body>
