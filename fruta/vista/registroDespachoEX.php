@@ -301,7 +301,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
-    $ARRAYICARGA = $ICARGA_ADO->listarIcargaCBX();
 
     $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespachoEx2($IDOP);
     $ARRAYDESPACHOTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesDespachoEx($IDOP);
