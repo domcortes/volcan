@@ -1099,6 +1099,141 @@ class INVENTARIOM_ADO {
         }
         
     }
+    public function listarResumenInventarioPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    inventario.ID_PRODUCTO ,                                                     
+                                                (  SELECT  producto.CODIGO_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'CODIGO',  
+                                                (   SELECT  producto.NOMBRE_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'PRODUCTO',                                                     
+                                                (   SELECT (   
+                                                            SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                            FROM material_tumedida tumedida
+                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                        )
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'TUMEDIDA',                                    
+                                                (  SELECT  bodega.NOMBRE_BODEGA
+                                                    FROM principal_bodega bodega 
+                                                    WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                ) AS 'BODEGA', 
+                                                SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',
+                                            
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                ) AS 'EMPRESA',
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                ) AS 'PLANTA',    
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM 
+                                                material_inventariom inventario  
+                                            WHERE inventario.ESTADO_REGISTRO = 1
+                                                    AND ESTADO = 2
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                    AND ID_PLANTA = '".$IDPLANTA."'
+                                                    AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                            GROUP BY 
+                                                inventario.ID_PRODUCTO,
+                                                inventario.ID_BODEGA,
+                                                inventario.ID_EMPRESA , 
+                                                inventario.ID_PLANTA , 
+                                                inventario.ID_TEMPORADA
+
+                                                   ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarResumenInventarioPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    inventario.ID_PRODUCTO ,                                                     
+                                                (  SELECT  producto.CODIGO_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'CODIGO',  
+                                                (   SELECT  producto.NOMBRE_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'PRODUCTO',                                                     
+                                                (   SELECT (   
+                                                            SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                            FROM material_tumedida tumedida
+                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                        )
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'TUMEDIDA',                                    
+                                                (  SELECT  bodega.NOMBRE_BODEGA
+                                                    FROM principal_bodega bodega 
+                                                    WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                ) AS 'BODEGA', 
+                                                SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',
+                                            
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                ) AS 'EMPRESA',
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                ) AS 'PLANTA',    
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM 
+                                                material_inventariom inventario  
+                                            WHERE inventario.ESTADO_REGISTRO = 1
+                                                    AND ESTADO = 2
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                    AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                            GROUP BY 
+                                                inventario.ID_PRODUCTO,
+                                                inventario.ID_BODEGA,
+                                                inventario.ID_EMPRESA , 
+                                                inventario.ID_PLANTA , 
+                                                inventario.ID_TEMPORADA
+
+                                                   ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     
     public function listarKardexInventarioRecepcionPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
@@ -1941,6 +2076,30 @@ class INVENTARIOM_ADO {
                                                 AND ESTADO = 2
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function obtenerTotalesInventarioPorEmpresaTemporadaDisponible2CBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                FORMAT(IFNULL(SUM(CANTIDAD_INVENTARIO),0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM material_inventariom
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ESTADO = 2
+                                                AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();

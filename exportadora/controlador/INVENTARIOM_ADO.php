@@ -222,6 +222,80 @@ class INVENTARIOM_ADO {
         }
     }   
     
+    public function agregarInventarioDespacho(INVENTARIOM $INVENTARIOM){
+        try{      
+            if($INVENTARIOM->__GET('ID_PROVEEDOR')==NULL){
+                $INVENTARIOM->__SET('ID_PROVEEDOR', NULL);
+            }
+            if($INVENTARIOM->__GET('ID_PLANTA2')==NULL){
+                $INVENTARIOM->__SET('ID_PLANTA2', NULL);
+            }
+            if($INVENTARIOM->__GET('ID_PLANTA3')==NULL){
+                $INVENTARIOM->__SET('ID_PLANTA3', NULL);
+            }
+            if($INVENTARIOM->__GET('ID_PRODUCTOR')==NULL){
+                $INVENTARIOM->__SET('ID_PRODUCTOR', NULL);
+            }
+            $query=
+                "INSERT INTO material_inventariom (   
+                                                        FOLIO_INVENTARIO,
+                                                        FOLIO_AUXILIAR_INVENTARIO,
+                                                        ALIAS_DINAMICO_FOLIO,
+                                                        ALIAS_ESTATICO_FOLIO,
+                                                        TRECEPCION,
+                                                        VALOR_UNITARIO,   
+                                                        CANTIDAD_INVENTARIO, 
+                                                        ID_EMPRESA,
+                                                        ID_PLANTA,
+                                                        ID_TEMPORADA,
+                                                        ID_BODEGA,
+                                                        ID_FOLIO,
+                                                        ID_PRODUCTO,
+                                                        ID_TCONTENEDOR,
+                                                        ID_TUMEDIDA,
+                                                        ID_RECEPCION,
+                                                        ID_PLANTA2,
+                                                        ID_PLANTA3,
+                                                        ID_PROVEEDOR,
+                                                        ID_PRODUCTOR,
+                                                        INGRESO,
+                                                        MODIFICACION,     
+                                                        ESTADO,
+                                                        ESTADO_REGISTRO
+                                                    ) VALUES
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(),  2, 1);";
+            $this->conexion->prepare($query)
+            ->execute(
+                array(                 
+                    $INVENTARIOM->__GET('FOLIO_INVENTARIO') , 
+                    $INVENTARIOM->__GET('FOLIO_AUXILIAR_INVENTARIO') ,  
+                    $INVENTARIOM->__GET('ALIAS_DINAMICO_FOLIO') ,    
+                    $INVENTARIOM->__GET('ALIAS_ESTATICO_FOLIO') ,    
+                    $INVENTARIOM->__GET('TRECEPCION') ,  
+                    $INVENTARIOM->__GET('VALOR_UNITARIO') ,   
+                    $INVENTARIOM->__GET('CANTIDAD_INVENTARIO') ,
+                    $INVENTARIOM->__GET('ID_EMPRESA') ,  
+                    $INVENTARIOM->__GET('ID_PLANTA') ,  
+                    $INVENTARIOM->__GET('ID_TEMPORADA') ,  
+                    $INVENTARIOM->__GET('ID_BODEGA') ,     
+                    $INVENTARIOM->__GET('ID_FOLIO') ,     
+                    $INVENTARIOM->__GET('ID_PRODUCTO') ,     
+                    $INVENTARIOM->__GET('ID_TCONTENEDOR') ,     
+                    $INVENTARIOM->__GET('ID_TUMEDIDA') ,     
+                    $INVENTARIOM->__GET('ID_RECEPCION') ,     
+                    $INVENTARIOM->__GET('ID_PLANTA2') ,     
+                    $INVENTARIOM->__GET('ID_PLANTA3') ,     
+                    $INVENTARIOM->__GET('ID_PROVEEDOR') ,     
+                    $INVENTARIOM->__GET('ID_PRODUCTOR')      
+                )
+                
+                );
+            
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }   
+    
     public function agregarInventarioBodega(INVENTARIOM $INVENTARIOM){
         try{      
             if($INVENTARIOM->__GET('ID_PROVEEDOR')==NULL){
@@ -539,7 +613,30 @@ class INVENTARIOM_ADO {
     
     
     //FUNCIONES ESPECIALIZADAS 
+    public function actualizarSelecionarDespachoCambiarCantidadEstado(INVENTARIOM $INVENTARIOM)
+    {
+        try {
+            $query = "
+		UPDATE material_inventariom SET
+            MODIFICACION = SYSDATE(),
+            ESTADO = 3,           
+            CANTIDAD_INVENTARIO = ?,       
+            ID_DESPACHO = ?          
+		WHERE ID_INVENTARIO= ? ;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $INVENTARIOM->__GET('CANTIDAD_INVENTARIO'),
+                        $INVENTARIOM->__GET('ID_DESPACHO'),
+                        $INVENTARIOM->__GET('ID_INVENTARIO')
 
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function actualizarSelecionarDespachoCambiarEstado(INVENTARIOM $INVENTARIOM)
     {
@@ -988,6 +1085,141 @@ class INVENTARIOM_ADO {
                                                 WHERE ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarResumenInventarioPorEmpresaPlantaTemporadaCBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    inventario.ID_PRODUCTO ,                                                     
+                                                (  SELECT  producto.CODIGO_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'CODIGO',  
+                                                (   SELECT  producto.NOMBRE_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'PRODUCTO',                                                     
+                                                (   SELECT (   
+                                                            SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                            FROM material_tumedida tumedida
+                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                        )
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'TUMEDIDA',                                    
+                                                (  SELECT  bodega.NOMBRE_BODEGA
+                                                    FROM principal_bodega bodega 
+                                                    WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                ) AS 'BODEGA', 
+                                                SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',
+                                            
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                ) AS 'EMPRESA',
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                ) AS 'PLANTA',    
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM 
+                                                material_inventariom inventario  
+                                            WHERE inventario.ESTADO_REGISTRO = 1
+                                                    AND ESTADO = 2
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                    AND ID_PLANTA = '".$IDPLANTA."'
+                                                    AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                            GROUP BY 
+                                                inventario.ID_PRODUCTO,
+                                                inventario.ID_BODEGA,
+                                                inventario.ID_EMPRESA , 
+                                                inventario.ID_PLANTA , 
+                                                inventario.ID_TEMPORADA
+
+                                                   ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function listarResumenInventarioPorEmpresaTemporadaCBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT
+                                                    inventario.ID_PRODUCTO ,                                                     
+                                                (  SELECT  producto.CODIGO_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'CODIGO',  
+                                                (   SELECT  producto.NOMBRE_PRODUCTO
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'PRODUCTO',                                                     
+                                                (   SELECT (   
+                                                            SELECT  tumedida.NOMBRE_TUMEDIDA
+                                                            FROM material_tumedida tumedida
+                                                            WHERE tumedida.ID_TUMEDIDA=producto.ID_TUMEDIDA
+                                                        )
+                                                    FROM material_producto producto 
+                                                    WHERE producto.ID_PRODUCTO=inventario.ID_PRODUCTO
+                                                ) AS 'TUMEDIDA',                                    
+                                                (  SELECT  bodega.NOMBRE_BODEGA
+                                                    FROM principal_bodega bodega 
+                                                    WHERE bodega.ID_BODEGA=inventario.ID_BODEGA
+                                                ) AS 'BODEGA', 
+                                                SUM(IFNULL(inventario.CANTIDAD_INVENTARIO,0)) AS 'CANTIDAD',
+                                            
+                                                (   SELECT  empresa.NOMBRE_EMPRESA
+                                                    FROM principal_empresa empresa
+                                                    WHERE empresa.ID_EMPRESA=inventario.ID_EMPRESA
+                                                ) AS 'EMPRESA',
+                                                (   SELECT  planta.NOMBRE_PLANTA
+                                                    FROM principal_planta planta
+                                                    WHERE planta.ID_PLANTA=inventario.ID_PLANTA
+                                                ) AS 'PLANTA',    
+                                                (   SELECT  temporada.NOMBRE_TEMPORADA
+                                                    FROM principal_temporada temporada
+                                                    WHERE temporada.ID_TEMPORADA=inventario.ID_TEMPORADA
+                                                ) AS 'TEMPORADA'
+                                            FROM 
+                                                material_inventariom inventario  
+                                            WHERE inventario.ESTADO_REGISTRO = 1
+                                                    AND ESTADO = 2
+                                                    AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                    AND ID_TEMPORADA = '".$IDTEMPORADA."'
+                                            GROUP BY 
+                                                inventario.ID_PRODUCTO,
+                                                inventario.ID_BODEGA,
+                                                inventario.ID_EMPRESA , 
+                                                inventario.ID_PLANTA , 
+                                                inventario.ID_TEMPORADA
+
+                                                   ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -1844,6 +2076,30 @@ class INVENTARIOM_ADO {
                                                 AND ESTADO = 2
                                                 AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_PLANTA = '".$IDPLANTA."'
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+    public function obtenerTotalesInventarioPorEmpresaTemporadaDisponible2CBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                FORMAT(IFNULL(SUM(CANTIDAD_INVENTARIO),0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM material_inventariom
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ESTADO = 2
+                                                AND ID_EMPRESA = '".$IDEMPRESA."' 
                                                 AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
