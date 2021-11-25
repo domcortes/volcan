@@ -46,7 +46,7 @@ class PROVEEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` limit 8 WHERE ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM   material_proveedor   limit 8 WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -65,7 +65,7 @@ class PROVEEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` WHERE ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT * FROM   material_proveedor   WHERE ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -84,7 +84,7 @@ class PROVEEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` WHERE ESTADO_REGISTRO = 0;	");
+            $datos = $this->conexion->prepare("SELECT * FROM   material_proveedor   WHERE ESTADO_REGISTRO = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class PROVEEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` WHERE `ID_PROVEEDOR`= '" . $ID . "';");
+            $datos = $this->conexion->prepare("SELECT * FROM   material_proveedor   WHERE   ID_PROVEEDOR  = '" . $ID . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -128,27 +128,29 @@ class PROVEEDOR_ADO
     {
         try {
 
-
+            if($PROVEEDOR->__GET('ID_CIUDAD')==NULL){
+                $PROVEEDOR->__SET('ID_CIUDAD', NULL);
+            }
             $query =
-                "INSERT INTO `material_proveedor` (
-                                                    `RUT_PROVEEDOR`,
-                                                    `DV_PROVEEDOR`,
-                                                    `RAZON_PROVEEDOR`,
-                                                    `NUMERO_PROVEEDOR`,
-                                                    `NOMBRE_PROVEEDOR`,
-                                                    `GIRO_PROVEEDOR`,
-                                                    `DIRECCION_PROVEEDOR`,
-                                                    `TELEFONO_PROVEEDOR`,
-                                                    `EMAIL_PROVEEDOR`,
-                                                    `ID_EMPRESA`,
-                                                    `ID_CIUDAD`,
-                                                    `ID_USUARIOI`,
-                                                    `ID_USUARIOM`,
-                                                    `INGRESO`,
-                                                    `MODIFICACION`, 
-                                                    `ESTADO_REGISTRO`
+                "INSERT INTO   material_proveedor   (
+                                                      RUT_PROVEEDOR  ,
+                                                      DV_PROVEEDOR  ,
+                                                      RAZON_PROVEEDOR  ,
+                                                      NUMERO_PROVEEDOR  ,
+                                                      NOMBRE_PROVEEDOR  ,
+                                                      GIRO_PROVEEDOR  ,
+                                                      DIRECCION_PROVEEDOR  ,
+                                                      TELEFONO_PROVEEDOR  ,
+                                                      EMAIL_PROVEEDOR  ,
+                                                      ID_EMPRESA  ,
+                                                      ID_CIUDAD  ,
+                                                      ID_USUARIOI  ,
+                                                      ID_USUARIOM  ,
+                                                      INGRESO  ,
+                                                      MODIFICACION  , 
+                                                      ESTADO_REGISTRO  
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE() , SYSDATE(), 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -178,7 +180,7 @@ class PROVEEDOR_ADO
     public function eliminarProveedor($id)
     {
         try {
-            $sql = "DELETE FROM `material_proveedor` WHERE `ID_PROVEEDOR`=" . $id . ";";
+            $sql = "DELETE FROM   material_proveedor   WHERE   ID_PROVEEDOR  =" . $id . ";";
             $statement = $this->conexion->prepare($sql);
             $statement->execute();
         } catch (Exception $e) {
@@ -193,21 +195,25 @@ class PROVEEDOR_ADO
     public function actualizarProveedor(PROVEEDOR $PROVEEDOR)
     {
         try {
+            
+            if($PROVEEDOR->__GET('ID_CIUDAD')==NULL){
+                $PROVEEDOR->__SET('ID_CIUDAD', NULL);
+            }
             $query = "
-		UPDATE `material_proveedor` SET
-            `MODIFICACION`= SYSDATE(),
-            `RUT_PROVEEDOR`= ?,
-            `DV_PROVEEDOR`= ?,
-            `RAZON_PROVEEDOR`= ?,
-            `NOMBRE_PROVEEDOR`= ?,
-            `GIRO_PROVEEDOR`= ?,
-            `DIRECCION_PROVEEDOR`= ?,
-            `TELEFONO_PROVEEDOR`= ?,
-            `EMAIL_PROVEEDOR`= ?,
-            `ID_EMPRESA`= ?  ,
-            `ID_CIUDAD`= ?   ,
-            `ID_USUARIOM`= ?           
-		WHERE `ID_PROVEEDOR`= ?;";
+		UPDATE   material_proveedor   SET
+              MODIFICACION  = SYSDATE(),
+              RUT_PROVEEDOR  = ?,
+              DV_PROVEEDOR  = ?,
+              RAZON_PROVEEDOR  = ?,
+              NOMBRE_PROVEEDOR  = ?,
+              GIRO_PROVEEDOR  = ?,
+              DIRECCION_PROVEEDOR  = ?,
+              TELEFONO_PROVEEDOR  = ?,
+              EMAIL_PROVEEDOR  = ?,
+              ID_EMPRESA  = ?  ,
+              ID_CIUDAD  = ?   ,
+              ID_USUARIOM  = ?           
+		WHERE   ID_PROVEEDOR  = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -241,10 +247,10 @@ class PROVEEDOR_ADO
 
         try {
             $query = "
-    UPDATE `material_proveedor` SET				
-    `MODIFICACION`= SYSDATE(),	
-            `ESTADO_REGISTRO` = 0
-    WHERE `ID_PROVEEDOR`= ?;";
+    UPDATE   material_proveedor   SET				
+      MODIFICACION  = SYSDATE(),	
+              ESTADO_REGISTRO   = 0
+    WHERE   ID_PROVEEDOR  = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -261,10 +267,10 @@ class PROVEEDOR_ADO
     {
         try {
             $query = "
-    UPDATE `material_proveedor` SET					
-    `MODIFICACION`= SYSDATE(),
-            `ESTADO_REGISTRO` = 1
-    WHERE `ID_PROVEEDOR`= ?;";
+    UPDATE   material_proveedor   SET					
+      MODIFICACION  = SYSDATE(),
+              ESTADO_REGISTRO   = 1
+    WHERE   ID_PROVEEDOR  = ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -280,7 +286,7 @@ class PROVEEDOR_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `material_proveedor` WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
+            $datos = $this->conexion->prepare("SELECT * FROM   material_proveedor   WHERE ESTADO_REGISTRO = 1  AND ID_EMPRESA = '" . $IDEMPRESA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -300,7 +306,7 @@ class PROVEEDOR_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT  
                                                 IFNULL(COUNT(NUMERO_PROVEEDOR),0) AS 'NUMERO'
-                                            FROM `material_proveedor`
+                                            FROM   material_proveedor  
                                             WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
                                                 ; ");
             $datos->execute();

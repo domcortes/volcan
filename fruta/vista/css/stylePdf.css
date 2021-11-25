@@ -243,7 +243,10 @@ img {
 .pp30,  #pp30{
 	padding: 30px;
 }
-
+.ppb, #ppb{
+	
+	padding-bottom: 20px;
+}
 
 .pprl , #pprl{
 	padding-left: 20px;
@@ -262,7 +265,14 @@ img {
 .tarja, #tarja{
 	font-size: 7px;
 }
-
+.borr, #borr{
+	border: 2px solid #000000;
+	border-radius: 7px solid #000000;
+	-webkit-border-radius: 7px solid #000000;
+	-moz-border-radius: 7px solid #000000;
+	-ms-border-radius: 7px solid #000000;
+	-o-border-radius: 7px solid #000000;
+}
 .bor, #bor{
 	
 	border: 2px solid #000000;

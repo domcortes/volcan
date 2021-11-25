@@ -75,7 +75,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Listar Producto Industrial</title>
+    <title>Existencia Producto Industrial</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -143,14 +143,15 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Industrial</h3>
+                                <h3 class="page-title">Existencia Producto Industrial</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Granel</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Listar Producto Industrial </a>
+                                            <li class="breadcrumb-item" aria-current="page">Existencia</li>
+                                            <li class="breadcrumb-item" aria-current="page">Disponible</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Producto Industrial </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -193,16 +194,17 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
-                                                        <th>CSG</th>
-                                                        <th>Productor</th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
+                                                        <th>CSG</th>
+                                                        <th>Productor</th>
                                                         <th>Especies</th>
                                                         <th>Variedad</th>
                                                         <th>Kilos Neto</th>
                                                         <th>Número Recepción </th>
                                                         <th>Fecha Recepción </th>
                                                         <th>Tipo Recepción </th>
+                                                        <th>CSG/CSP Recepción</th>
                                                         <th>Origen Recepción </th>
                                                         <th>Número Guía Recepción </th>
                                                         <th>Fecha Guía Recepción
@@ -294,9 +296,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 $TIPORECEPCION = "Desde Productor";
                                                                 $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
                                                                 if ($ARRAYPRODUCTOR2) {
-                                                                    $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                                    $CSGCSPORIGEN=$ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'];
+                                                                    $ORIGEN =  $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
                                                                 } else {
                                                                     $ORIGEN = "Sin Datos";
+                                                                    $CSGCSPORIGEN="Sin Datos";
                                                                 }
                                                             }
                                                             if ($ARRAYRECEPCION[0]["TRECEPCION"] == 2) {
@@ -304,8 +308,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
                                                                 if ($ARRAYPLANTA2) {
                                                                     $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                    $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
                                                                 } else {
                                                                     $ORIGEN = "Sin Datos";
+                                                                    $CSGCSPORIGEN="Sin Datos";
                                                                 }
                                                             }
                                                         } else {
@@ -315,6 +321,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $FECHAGUIARECEPCION = "Sin Datos";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
+                                                            $CSGCSPORIGEN = "Sin Datos";
                                                         }
                                                         $ARRAYPROCESO = $PROCESO_ADO->verProceso2($r['ID_PROCESO']);
                                                         if ($ARRAYPROCESO) {
@@ -374,16 +381,17 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $r['EMBALADO']; ?> </td>
                                                             <td><?php echo $ESTADO; ?> </td>
-                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
+                                                            <td><?php echo $CSGCSPORIGEN; ?></td>
                                                             <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>

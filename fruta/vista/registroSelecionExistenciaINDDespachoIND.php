@@ -80,7 +80,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
 
-    $ARRAYEXIMATERIAPRIMA = $EXIINDUSTRIAL_ADO->buscarExiindustrialEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYEXIMATERIAPRIMA = $EXIINDUSTRIAL_ADO->listarExiindustrialEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 
 

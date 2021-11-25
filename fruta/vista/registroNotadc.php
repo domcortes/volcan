@@ -113,7 +113,7 @@ $PDESTINO = "";
 $FPAGO = "";
 $CVENTA = "";
 $ESTADO = "";
-
+$RFINAL="";
 
 
 $ESTANDAR = "";
@@ -644,10 +644,8 @@ if (isset($_POST)) {
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box-header with-border bg-primary">                                   
+                                <h4 class="box-title">Registro de Nota D/C</h4>                                        
                             </div>
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="box-body ">
@@ -700,7 +698,7 @@ if (isset($_POST)) {
                                                 <label id="val_fecha" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Tipo Nota</label>
                                                 <input type="hidden" class="form-control" placeholder="TNOTA" id="TNOTAE" name="TNOTAE" value="<?php echo $TNOTA; ?>" />
@@ -712,7 +710,7 @@ if (isset($_POST)) {
                                                 <label id="val_tnota" class="validacion"> </label>
                                             </div>
                                         </div>                                                    
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Instructivo Carga</label>
                                                     <input type="hidden" class="form-control" placeholder="ICARGADE" id="ICARGADE" name="ICARGADE" value="<?php echo $ICARGAD; ?>" />
@@ -731,13 +729,11 @@ if (isset($_POST)) {
                                                 <label id="val_icarga" class="validacion"> </label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Recibidor Final</label>
                                                     <input type="hidden" class="form-control" placeholder="RFINALE" id="RFINALE" name="RFINALE" value="<?php echo $RFINAL; ?>" />
-                                                    <select class="form-control select2" id="RFINAL" name="RFINAL" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                    <select class="form-control select2" id="RFINAL" name="RFINAL" style="width: 100%;" <?php echo $DISABLED; ?> disabled>
                                                         <option></option>
                                                         <?php foreach ($ARRAYRFINAL as $r) : ?>
                                                             <?php if ($ARRAYRFINAL) {    ?>
@@ -752,7 +748,7 @@ if (isset($_POST)) {
                                                     <label id="val_rfinal" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Consignatario</label>
                                                 <input type="hidden" class="form-control" placeholder="CONSIGNATARIO" id="CONSIGNATARIOE" name="CONSIGNATARIOE" value="<?php echo $CONSIGNATARIO; ?>" />
@@ -804,7 +800,7 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                         <?php if ($TEMBARQUE == "1") { ?>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Transporte</label>
                                                     <input type="hidden" class="form-control" placeholder="TRANSPORTEE" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
@@ -823,7 +819,7 @@ if (isset($_POST)) {
                                                     <label id="val_transporte" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Lugar Carga</label>
                                                     <input type="hidden" class="form-control" placeholder="LCARGAE" id="LCARGAE" name="LCARGAE" value="<?php echo $LCARGA; ?>" />
@@ -842,7 +838,7 @@ if (isset($_POST)) {
                                                     <label id="val_lcarga" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Lugar Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="LDESTINOE" id="LDESTINOE" name="LDESTINOE" value="<?php echo $LDESTINO; ?>" />
@@ -863,7 +859,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TEMBARQUE == "2") { ?>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Linea Aerea</label>
                                                     <input type="hidden" class="form-control" placeholder="LAEREAE" id="LAEREAE" name="LAEREAE" value="<?php echo $LAEREA; ?>" />
@@ -882,7 +878,7 @@ if (isset($_POST)) {
                                                     <label id="val_larea" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Aeropuerto Carga</label>
                                                     <input type="hidden" class="form-control" placeholder="ACARGAE" id="ACARGAE" name="ACARGAE" value="<?php echo $ACARGA; ?>" />
@@ -901,7 +897,7 @@ if (isset($_POST)) {
                                                     <label id="val_acarga" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Aeropuerto Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="ADESTINOE" id="ADESTINOE" name="ADESTINOE" value="<?php echo $ADESTINO; ?>" />
@@ -922,7 +918,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TEMBARQUE == "3") { ?>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Naviera </label>
                                                     <input type="hidden" class="form-control" placeholder="NAVIERAE" id="NAVIERAE" name="NAVIERAE" value="<?php echo $NAVIERA; ?>" />
@@ -941,7 +937,7 @@ if (isset($_POST)) {
                                                     <label id="val_naviera" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Puerto Carga</label>
                                                     <input type="hidden" class="form-control" placeholder="PCARGAE" id="PCARGAE" name="PCARGAE" value="<?php echo $PCARGA; ?>" />
@@ -962,7 +958,7 @@ if (isset($_POST)) {
                                                     <label id="val_pcarga" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Puerto Destino</label>
                                                     <input type="hidden" class="form-control" placeholder="PDESTINOE" id="PDESTINOE" name="PDESTINOE" value="<?php echo $PDESTINO; ?>" />
@@ -982,7 +978,7 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         <?php } ?>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Forma Pago</label>
                                                 <input type="hidden" class="form-control" placeholder="FPAGOE" id="FPAGOE" name="FPAGOE" value="<?php echo $FPAGO; ?>" />
@@ -1027,7 +1023,7 @@ if (isset($_POST)) {
                                 
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
                                                 <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroNotadc.php');">
                                                     <i class="ti-trash"></i> Cancelar
@@ -1048,7 +1044,7 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group   col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12  float-right">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeNotadc.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe

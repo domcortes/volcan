@@ -639,7 +639,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechar" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Tipo Inspección </label>
                                                 <input type="hidden" class="form-control" placeholder="TINPSAGE" id="TINPSAGE" name="TINPSAGE" value="<?php echo $TINPSAG; ?>" />
@@ -658,7 +658,7 @@ if (isset($_POST)) {
                                                 <label id="val_tinpsag" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Condición SAG</label>
                                                 <input type="hidden" class="form-control" placeholder="TESTADOE" id="TESTADOSAGE" name="TESTADOSAGE" value="<?php echo $TESTADOSAG; ?>" />
@@ -672,7 +672,7 @@ if (isset($_POST)) {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-5 col-lg-9 col-md-9 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Inpector</label>
                                                 <input type="hidden" class="form-control" placeholder="INPECTORE" id="INPECTORE" name="INPECTORE" value="<?php echo $INPECTOR; ?>" />
@@ -691,7 +691,7 @@ if (isset($_POST)) {
                                                 <label id="val_inpector" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                        <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                             <div class="form-group">
                                                 <br>
                                                 <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Inpector" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopInpector.php' ); ">
@@ -707,7 +707,7 @@ if (isset($_POST)) {
                                                 <label id="val_cif" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-5 col-lg-9 col-md-9 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
                                                 <label>Contraparte</label>
                                                 <input type="hidden" class="form-control" placeholder="CONTRAPARTEE" id="CONTRAPARTEE" name="CONTRAPARTEE" value="<?php echo $CONTRAPARTE; ?>" />
@@ -726,7 +726,7 @@ if (isset($_POST)) {
                                                 <label id="val_contraparte" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                        <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                             <div class="form-group">
                                                 <br>
                                                 <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Contraparte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopContraparte.php' ); ">
@@ -734,7 +734,7 @@ if (isset($_POST)) {
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Pais 1</label>
                                                 <input type="hidden" class="form-control" placeholder="PAIS1E" id="PAIS1E" name="PAIS1E" value="<?php echo $PAIS1; ?>" />
@@ -753,7 +753,7 @@ if (isset($_POST)) {
                                                 <label id="val_pais1" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Pais 2</label>
                                                 <input type="hidden" class="form-control" placeholder="PAIS2E" id="PAIS2E" name="PAIS2E" value="<?php echo $PAIS2; ?>" />
@@ -772,7 +772,7 @@ if (isset($_POST)) {
                                                 <label id="val_pais2" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Pais 3</label>
                                                 <input type="hidden" class="form-control" placeholder="PAIS3E" id="PAIS3E" name="PAIS3E" value="<?php echo $PAIS3; ?>" />
@@ -791,7 +791,7 @@ if (isset($_POST)) {
                                                 <label id="val_pais3" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Pais 4</label>
                                                 <input type="hidden" class="form-control" placeholder="PAIS4E" id="PAIS4E" name="PAIS4E" value="<?php echo $PAIS4; ?>" />
@@ -826,7 +826,7 @@ if (isset($_POST)) {
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
                                                 <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroInpsag.php');">
                                                     <i class="ti-trash"></i> Cancelar
@@ -847,7 +847,7 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12  float-right">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsag.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe

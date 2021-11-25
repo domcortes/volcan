@@ -326,7 +326,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                     <?php endforeach; ?>
 
                                                 </select>
-                                                <label id="val_provincia" class="validacion"> </label>
+                                                <label id="val_comuna" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <!-- /.box-body -->

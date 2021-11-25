@@ -78,8 +78,8 @@ if (isset($_REQUEST['GUARDAR'])) {
     $PROVEEDOR->__SET('DIRECCION_PROVEEDOR', $_REQUEST['DIRECCIONPROVEEDOR']);
     $PROVEEDOR->__SET('TELEFONO_PROVEEDOR', $_REQUEST['TELEFONOPROVEEDOR']);
     $PROVEEDOR->__SET('EMAIL_PROVEEDOR', $_REQUEST['EMAILPROVEEDOR']);
-    $PROVEEDOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PROVEEDOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $PROVEEDOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);    
+    $PROVEEDOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
     $PROVEEDOR->__SET('ID_USUARIOI', $IDUSUARIOS);
     $PROVEEDOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -102,7 +102,7 @@ if (isset($_REQUEST['EDITAR'])) {
     $PROVEEDOR->__SET('TELEFONO_PROVEEDOR', $_REQUEST['TELEFONOPROVEEDOR']);
     $PROVEEDOR->__SET('EMAIL_PROVEEDOR', $_REQUEST['EMAILPROVEEDOR']);
     $PROVEEDOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $PROVEEDOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $PROVEEDOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
     $PROVEEDOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     $PROVEEDOR->__SET('ID_PROVEEDOR', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR   
@@ -325,6 +325,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
+
+                //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCIONE
+                function refrescar() {
+                    document.getElementById("form_reg_dato").submit();
+                }
+
+                function abrirVentana(url) {
+                    var opciones =
+                    "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
+                    window.open(url, 'window', opciones);
+                }
                 //FUNCION PARA OBTENER HORA Y FECHA
                 function mueveReloj() {
 
@@ -427,13 +438,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                 -->
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                      <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
                                             <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
                                             </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-4 col-10">
+                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Rut </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -442,66 +453,58 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_rut" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 col-2">
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <label>DV </label>
                                                         <input type="text" class="form-control" placeholder=" DV  Proveedor" id="DVPROVEEDOR" name="DVPROVEEDOR" value="<?php echo $DVPROVEEDOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dv" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Razón Social </label>
                                                         <input type="text" class="form-control" placeholder=" Nombre  Proveedor" id="RAZONPROVEEDOR" name="RAZONPROVEEDOR" value="<?php echo $RAZONPROVEEDOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_razon" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
                                                         <input type="text" class="form-control" placeholder=" Nombre  Proveedor" id="NOMBREPROVEEDOR" name="NOMBREPROVEEDOR" value="<?php echo $NOMBREPROVEEDOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Giro</label>
                                                         <input type="text" class="form-control" placeholder=" Giro  Proveedor" id="GIROPROVEEDOR" name="GIROPROVEEDOR" value="<?php echo $GIROPROVEEDOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_giro" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Dirección </label>
                                                         <input type="text" class="form-control" placeholder=" Dirección  Proveedor" id="DIRECCIONPROVEEDOR" name="DIRECCIONPROVEEDOR" value="<?php echo $DIRECCIONPROVEEDOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Telefono</label>
                                                         <input type="number" class="form-control" placeholder=" Telefono  Proveedor" id="TELEFONOPROVEEDOR" name="TELEFONOPROVEEDOR" value="<?php echo $TELEFONOPROVEEDOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_telefono" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Email </label>
                                                         <input type="text" class="form-control" placeholder=" Email  Proveedor" id="EMAILPROVEEDOR" name="EMAILPROVEEDOR" value="<?php echo $EMAILPROVEEDOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
-                                                        <label>Ciudad</label>
+                                                        <label>Ciudad </label>
                                                         <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
                                                             <?php foreach ($ARRAYCIUDAD as $r) : ?>
@@ -512,29 +515,40 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                         <?php echo $r['NOMBRE_CIUDAD'] ?>
                                                                     </option>
                                                                 <?php } else { ?>
-                                                                    <option>No Hay Datos Registados </option>
+                                                                    <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
                                                             <?php endforeach; ?>
                                                         </select>
                                                         <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                    <div class="form-group">  
+                                                    <label>Agregar</label>                  
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Ciudad" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopCiudad.php' ); ">
+                                                        <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProveedor.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type=" button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProveedor.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -575,6 +589,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <thead>
                                                             <tr class="center">
                                                                 <th>Número</th>
+                                                                <th>Rut</th>
                                                                 <th>Nombre</th>
                                                                 <th class="text-center">Operaciónes</th>
                                                             </tr>
@@ -587,37 +602,42 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                             <?php echo $r['NUMERO_PROVEEDOR']; ?>
                                                                         </a>
                                                                     </td>
-                                                                    <td> <?php echo $r['NOMBRE_PROVEEDOR']; ?></td>
+                                                                   </td>   <td> <?php echo $r['RUT_PROVEEDOR']; ?>-<?php echo $r['DV_PROVEEDOR']; ?> </td>      
+                                                                    <td> <?php echo $r['NOMBRE_PROVEEDOR']; ?></td>                                                                                                                                                                        
                                                                     <td class="text-center">
                                                                         <form method="post" id="form1">
                                                                             <div class="list-icons d-inline-flex">
                                                                                 <div class="list-icons-item dropdown">
-                                                                                    <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                        <i class="glyphicon glyphicon-cog"></i>
-                                                                                    </a>
+                                                                                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                        <span class="icon-copy ti-settings"></span>
+                                                                                    </button>
                                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROVEEDOR']; ?>" />
                                                                                         <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProveedor" />
-                                                                                        <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                            <i class="ti-eye"></i>
-                                                                                        </button>Ver
-                                                                                        <br>
-                                                                                        <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                            <i class="ti-pencil-alt"></i>
-                                                                                        </button>Editar
-                                                                                        <br>
+                                                                                        <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                            <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                                <i class="ti-eye"></i> Ver
+                                                                                            </button>
+                                                                                        </span> 
+                                                                                        <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                            <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                                <i class="ti-pencil-alt"></i> Editar
+                                                                                            </button>
+                                                                                        </span>
                                                                                         <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                            <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                                <i class="ti-na "></i>
-                                                                                            </button>Desahabilitar
-                                                                                            <br>
+                                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                                <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                                    <i class="ti-na "></i> Desahabilitar
+                                                                                                </button>
+                                                                                            </span>
                                                                                         <?php } ?>
                                                                                         <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                            <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                                <i class="ti-check "></i>
-                                                                                            </button>Habilitar
-                                                                                            <br>
-                                                                                        <?php } ?>
+                                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                                <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                                    <i class="ti-check "></i> Habilitar
+                                                                                                </button>
+                                                                                            </span>
+                                                                                        <?php } ?>                                                               
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

@@ -198,6 +198,7 @@ include_once "../config/reporteUrl.php";
                                                     <th>Número Recepción </th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
+                                                    <th>CSG/CSP Recepción</th>
                                                     <th>Origen Recepción</th>
                                                     <th>Número Documento </th>
                                                     <th>Tipo Documento </th>
@@ -277,36 +278,45 @@ include_once "../config/reporteUrl.php";
                                                             $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($ARRAYRECEPCIONM[0]["ID_PROVEEDOR"]);
                                                             if ($ARRAYPROVEEDOR) {
                                                                 $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                                $CSGCSPORIGEN="No Aplica";
                                                             } else {
                                                                 $NOMBREORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN = "Sin Datos";
                                                             }
                                                         } else if ($ARRAYRECEPCIONM[0]['TRECEPCION'] == "2") {
                                                             $TRECEPCION = "Desde Productor";
                                                             $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCIONM[0]["ID_PRODUCTOR"]);
                                                             if ($ARRAYPRODUCTOR) {
+                                                                $CSGCSPORIGEN=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] ;
                                                                 $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
                                                             } else {
                                                                 $NOMBREORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN = "Sin Datos";
                                                             }
                                                         } else if ($ARRAYRECEPCIONM[0]['TRECEPCION'] == "3") {
                                                             $TRECEPCION = "Planta Externa";
                                                             $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONM[0]["ID_PLANTA2"]);
                                                             if ($ARRAYPLANTAEXTERNA) {
                                                                 $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                                $CSGCSPORIGEN=$ARRAYPLANTAEXTERNA[0]['CODIGO_SAG_PLANTA'];
                                                             } else {
                                                                 $NOMBREORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN = "Sin Datos";
                                                             }
                                                         } else if ($ARRAYRECEPCIONM[0]['TRECEPCION'] == "4") {
                                                             $TRECEPCION = "Inventario Inicial";
                                                             $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($ARRAYRECEPCIONM[0]["ID_PROVEEDOR"]);
                                                             if ($ARRAYPROVEEDOR) {
                                                                 $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                                $CSGCSPORIGEN="No Aplica";
                                                             } else {
                                                                 $NOMBREORIGEN = "Sin Datos";
+                                                                $CSGCSPORIGEN = "Sin Datos";
                                                             }
                                                         } else {
                                                             $TRECEPCION = "Sin Datos";
                                                             $NOMBREORIGEN = "Sin Datos";
+                                                            $CSGCSPORIGEN = "Sin Datos";
                                                         }
                                                     } else {
                                                         $TRECEPCION = "Sin Datos";
@@ -317,6 +327,7 @@ include_once "../config/reporteUrl.php";
                                                         $NUMERODOCUMENTORECEPCION = "Sin Datos";
                                                         $NUMEROOCOMPRA = "Sin Datos";
                                                         $NUMEROIOCOMPRA = "Sin Datos";
+                                                        $CSGCSPORIGEN = "Sin Datos";
                                                     }
                                                     $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYVEREMPRESA) {
@@ -348,6 +359,7 @@ include_once "../config/reporteUrl.php";
                                                         <td><?php echo $NUMERORECEPCION; ?></td>
                                                         <td><?php echo $FECHARECEPCION; ?></td>
                                                         <td><?php echo $TRECEPCION; ?></td>
+                                                        <td><?php echo $CSGCSPORIGEN; ?></td>
                                                         <td><?php echo $NOMBREORIGEN; ?></td>
                                                         <td><?php echo $NUMERODOCUMENTORECEPCION; ?></td>
                                                         <td><?php echo $NOMBRETDOCUMENTO; ?></td>

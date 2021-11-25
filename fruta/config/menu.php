@@ -460,8 +460,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroGuiaPorRecibirIND.php">Inudstrial<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarEximateriaprima.php">Existencia Materia Prima<i class="ti-more"></i></a></li>
-          <li><a href="listarExiindustrial.php">Existencia Industrial<i class="ti-more"></i></a></li>
         </ul>
       </li>           
       <li class="treeview">
@@ -542,9 +540,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarReembalajeEx.php">Agrupado Reembalaje<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarExiexportacion.php">Existencia P. Terminado<i class="ti-more"></i></a></li>
-          <li><a href="listarEximateriaprimaProceso.php">Existencia Materia Prima<i class="ti-more"></i></a></li>
-          <li><a href="listarExiindustrialProceso.php">Existencia Industrial<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -578,7 +573,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarNotadc.php">Agrupado Nota<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarExiexportacionLogistica.php">Existencia P. Terminado<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -601,7 +595,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarInpsag.php">Agrupado Inspección<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarExiexportacionOSAG.php">Existencia P. Terminado<i class="ti-more"></i></a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -690,8 +683,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarPcdespacho.php">Agrupado PC<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarExiexportacionFrigorifico.php">Existencia P. Terminado<i class="ti-more"></i></a></li>
-          <li><a href="listarExiexportacionDespachadoFrigorifico.php">Despacho P. Terminado<i class="ti-more"></i></a></li>
           <li><a href="registroCambiarFolioPT.php">Cambiar Folio P. Terminado<i class="ti-more"></i></a></li>
         </ul>
       </li>
@@ -773,27 +764,56 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                       </ul>
                     </li>
                 </ul>
-              </li>
-              
-              
-            <li><a href="#">Materia Prima<i class="ti-more"></i></a></li>
-            <li><a href="#">Producto Terminado<i class="ti-more"></i></a></li>
-            <li><a href="#">Producto Industrial<i class="ti-more"></i></a></li>
+              </li>              
         </ul>
       </li> 
       -->
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
-          <span> Hitorial Existencia</span>
+          <span>Existencia</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="listarHEximateriaprima.php"> Materia Prima<i class="ti-more"></i></a></li>
-          <li><a href="listarHExiexportacion.php"> Producto Terminado<i class="ti-more"></i></a></li>
-          <li><a href="listarHExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
+
+          <li class="treeview">
+            <a href="#">Disponible
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="listarEximateriaprima.php">Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="listarExiexportacion.php">Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="listarExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">Despachado
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="listarEximateriaprimaDespachado.php">Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="listarExiexportacionDespachado.php">Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="listarExiindustrialDespachado.php">Producto Industrial<i class="ti-more"></i></a></li>
+            </ul>
+          </li>        
+          <li class="treeview">
+            <a href="#">Historial
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="listarHEximateriaprima.php"> Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="listarHExiexportacion.php"> Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="listarHExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
         </ul>
       </li>   
       <li class="treeview">

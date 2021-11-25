@@ -384,11 +384,11 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarFicha.php"> Agrupado Ficha<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarInventariom.php">Existencia Materiales<i class="ti-more"></i></a></li>
           <li><a href="listarRecepcionmDetallado.php">Detallado Recepción<i class="ti-more"></i></a></li>
           <li><a href="listarDespachomDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
+          <li><a href="listarInventariomResumen.php">Resumen Materiales<i class="ti-more"></i></a></li>
           <li><a href="listarConsumoFicha.php">Consumo Materiales<i class="ti-more"></i></a></li>
-          <li><a href="#">Kardex<i class="ti-more"></i></a></li>
+          <li><a href="listarHInventariom.php">Kardex<i class="ti-more"></i></a></li>
         </ul>
       </li>      
       <li class="treeview">

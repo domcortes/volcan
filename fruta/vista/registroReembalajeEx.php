@@ -240,9 +240,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     //OBTENCIONS DE TOTALES O EL RESUMEN DE LAS TABLAS
     $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
     $ARRAYEXISTENCIATOTALESREEMBALAJE2 = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
-    $TOTALNETOE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['NETO'];
+    $TOTALNETOE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['DESHIRATACION'];
     $TOTALENVASEE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['ENVASE'];
-    $TOTALNETOEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['NETO'];
+    $TOTALNETOEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['DESHIRATACION'];
     $TOTALENVASEEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['ENVASE'];
 
     $ARRATDINDUSTRIALTOTALREEMBALAJE = $DRINDUSTRIAL_ADO->obtenerTotales($IDOP);
@@ -701,7 +701,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechap" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Turno</label>
                                                 <input type="hidden" class="form-control" placeholder="TURNO" id="TURNOE" name="TURNOE" value="<?php echo $TURNO; ?>" />
@@ -713,7 +713,7 @@ if (isset($_POST)) {
                                                 <label id="val_turno" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Tipo Reembalaje</label>
                                                 <input type="hidden" class="form-control" placeholder="TIPO REEMBALAJE" id="TREEMBALAJEE" name="TREEMBALAJEE" value="<?php echo $TREEMBALAJE; ?>" />
@@ -732,7 +732,7 @@ if (isset($_POST)) {
                                                 <label id="val_tproceso" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Productor</label>
                                                 <input type="hidden" class="form-control" placeholder="PRODUCTOR" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -752,7 +752,7 @@ if (isset($_POST)) {
                                                 <label id="val_productor" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Variedad</label>
                                                 <input type="hidden" class="form-control" placeholder="Variedad" id="VESPECIESE" name="VESPECIESE" value="<?php echo $VESPECIES; ?>" />
@@ -786,7 +786,7 @@ if (isset($_POST)) {
                                 </div>                                
                                 <div class="box-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar">
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="acciones">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
                                                 <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroReembalajeEx.php');">
                                                     <i class="ti-trash"></i> Cancelar
@@ -807,7 +807,7 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12   float-right">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != "") : ?>
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeReembalajeEx.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
@@ -905,7 +905,7 @@ if (isset($_POST)) {
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                    <div class="btn-group btn-rounded col-12 btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                    <div class="btn-group btn-rounded col-6 btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia"  <?php echo $DISABLED2; ?>   <?php  if ($ESTADO == 0) {  echo "disabled"; }  ?>>
                                                                             <i class="ti-close"></i> Quitar
                                                                         </button>
@@ -1189,11 +1189,11 @@ if (isset($_POST)) {
                                             <div class="col-auto">
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text">Kilos Neto</div>
+                                                        <div class="input-group-text">Kilos Con Desh. Entrada</div>
                                                     </div>
                                                     <!-- inicio input -->
                                                     <input type="hidden" class="form-control" placeholder="TOTAL NETO" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETOE; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Total Neto " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
+                                                    <input type="text" class="form-control" placeholder="Total  Con Desh " id="TOTALNETOEV" name="TOTALNETOEV" value="<?php echo $TOTALNETOEV; ?>" disabled />
                                                     <!-- /termino input -->
                                                 </div>
                                             </div>
@@ -1212,11 +1212,11 @@ if (isset($_POST)) {
                                                 <div class="input-group mb-2">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            Kilos Con Desh.
+                                                            Kilos Con Desh. Expo.
                                                         </div>
                                                     </div>
                                                     <input type="hidden" class="form-control" id="TOTALDESHIDRATACIONEX" name="TOTALDESHIDRATACIONEX" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" />
-                                                    <input type="text" class="form-control text-center" placeholder="TOTAL DESHIDRATACION" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" disabled />
+                                                    <input type="text" class="form-control text-center" placeholder="Total Kilos Con Desh. Expo" id="TOTALDESHIDRATACIONEXV" name="TOTALDESHIDRATACIONEXV" value="<?php echo $TOTALDESHIDRATACIONEX; ?>" disabled />
                                                 </div>
                                             </div>
                                             <div class="col-auto">

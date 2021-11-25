@@ -240,6 +240,10 @@ if (isset($_POST)) {
     if (isset($_REQUEST['CANTIDAD'])) {
         $CANTIDAD = "" . $_REQUEST['CANTIDAD'];
     }
+    
+    if (isset($_REQUEST['DESCRIPCION'])) {
+        $DESCRIPCION = "" . $_REQUEST['DESCRIPCION'];
+    }    
     if (isset($_REQUEST['VALORUNITARIO'])) {
         $VALORUNITARIO = "" . $_REQUEST['VALORUNITARIO'];
         $VALORTOTAL = $VALORUNITARIO * $CANTIDAD;
@@ -315,15 +319,7 @@ if (isset($_POST)) {
                         document.form_reg_dato.CANTIDAD.style.borderColor = "#4AF575";
                     }
 
-                    if (CANTIDAD == 0) {
-                        document.form_reg_dato.CANTIDAD.focus();
-                        document.form_reg_dato.CANTIDAD.style.borderColor = "#FF0000";
-                        document.getElementById('val_cantidad').innerHTML = "TIENE QUE SER MAYOR A CERO";
-                        repuesta = 1;
-                    } else {
-                        repuesta = 0;
-                        document.form_reg_dato.CANTIDAD.style.borderColor = "#4AF575";
-                    }                    
+                                   
                     if (repuesta == 0) {
                         total=CANTIDAD*VALORUNITARIO;
                     }
@@ -360,7 +356,7 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.VALORUNITARIO.style.borderColor = "#4AF575";
-
+                    
                     if (VALORUNITARIO == 0) {
                         document.form_reg_dato.VALORUNITARIO.focus();
                         document.form_reg_dato.VALORUNITARIO.style.borderColor = "#FF0000";
@@ -376,14 +372,14 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.CANTIDAD.style.borderColor = "#4AF575";
-
+                    /*
                     if (CANTIDAD == 0) {
                         document.form_reg_dato.CANTIDAD.focus();
                         document.form_reg_dato.CANTIDAD.style.borderColor = "#FF0000";
                         document.getElementById('val_cantidad').innerHTML = "TIENE QUE SER MAYOR A CERO";
                         return false;
                     }
-                    document.form_reg_dato.CANTIDAD.style.borderColor = "#4AF575";
+                    document.form_reg_dato.CANTIDAD.style.borderColor = "#4AF575";*/
                 }
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {

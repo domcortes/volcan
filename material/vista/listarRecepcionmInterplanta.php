@@ -318,7 +318,7 @@ include_once "../config/datosUrLP.php";
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoe" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoe" />                                                                     
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoE.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoM.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>
                                                                                 </button>
                                                                             </span>

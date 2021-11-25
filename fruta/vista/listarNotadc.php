@@ -269,7 +269,6 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     $ARRAYICARGA=$ICARGA_ADO->verIcarga2($r["ID_ICARGA"]);
                                                     if($ARRAYICARGA){
-
                                                         $NUMEROIREFERENCIA=$ARRAYICARGA[0]["NREFERENCIA_ICARGA"];
                                                         $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
                                                         $ARRAYRFINAL=$RFINAL_ADO->verRfinal($ARRAYICARGA[0]["ID_RFINAL"]);

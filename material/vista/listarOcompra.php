@@ -216,6 +216,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Reponsable</th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
+                                                    <th>Empresa</th>
+                                                    <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -257,6 +259,18 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRERESPONSABLE = $ARRAYVERREPONSBALE[0]['NOMBRE_RESPONSABLE'];
                                                     } else {
                                                         $NOMBRERESPONSABLE = "Sin Datos";
+                                                    }
+                                                    $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
+                                                    if ($ARRAYEMPRESA) {
+                                                        $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+                                                    } else {
+                                                        $NOMBREEMPRESA = "Sin Datos";
+                                                    }
+                                                    $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
+                                                    if ($ARRAYTEMPORADA) {
+                                                        $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+                                                    } else {
+                                                        $NOMBRETEMPORADA = "Sin Datos";
                                                     }
                                                     $ARRAYMOCOMPRA = $MOCOMPRA_ADO->listarMcompraOcompraCBX($r['ID_OCOMPRA']);
                                                     ?>
@@ -333,6 +347,8 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $NOMBRERESPONSABLE; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $NOMBREEMPRESA; ?></td>
+                                                        <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

@@ -262,8 +262,10 @@ include_once "../config/datosUrLP.php";
                                                     <th>Especies</th>
                                                     <th>Variedad</th>
                                                     <th>Kilos Neto</th>
+                                                    
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
+                                                    <th>CSG/CSP Recepción</th>
                                                     <th>Tipo Recepción</th>
                                                     <th>Origen Recepción</th>
                                                     <th>Número Guía Recepción</th>
@@ -274,9 +276,11 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Reembalaje</th>
                                                     <th>Fecha Reembalaje </th>
                                                     <th>Tipo Reembalaje</th>
+
                                                     <th>Número Despacho</th>
                                                     <th>Fecha Despacho </th>
                                                     <th>Tipo Despacho</th>
+                                                    <th>CSG/CSP Despacho</th>
                                                     <th>Destino Despacho</th>
                                                     <th>Número Guía Despacho</th>
                                                     <th>Tipo Manejo</th>
@@ -309,8 +313,10 @@ include_once "../config/datosUrLP.php";
                                                         $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
                                                         if ($ARRAYPLANTA2) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
                                                             $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
                                                         } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
@@ -319,8 +325,10 @@ include_once "../config/datosUrLP.php";
                                                         $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYPRODUCTOR) {
-                                                            $DESTINO = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+                                                            $DESTINO =  $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
                                                         } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
@@ -329,14 +337,17 @@ include_once "../config/datosUrLP.php";
                                                         $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($r['ID_COMPRADOR']);
                                                         if ($ARRAYCOMPRADOR) {
+                                                            $CSGCSPDESTINO="No Aplica";
                                                             $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
                                                         } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
                                                     if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Despacho de Descarte";
                                                         $NUMEROGUIADEPACHO="No Aplica";
+                                                        $CSGCSPDESTINO="No Aplica";
                                                         $DESTINO = $r['REGALO_DESPACHO'];
                                                     }
                                                     if ($r['TDESPACHO'] == "5") {
@@ -344,8 +355,10 @@ include_once "../config/datosUrLP.php";
                                                         $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA3']);
                                                         if ($ARRAYPLANTA2) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
                                                             $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
                                                         } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
@@ -449,7 +462,7 @@ include_once "../config/datosUrLP.php";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($s['ID_RECEPCION']);
-                                                        $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($s['ID_RECEPCION']);
+                                                        $ARRAYRECEPCIONMP = $RECEPCIONMP_ADO->verRecepcion2($s['ID_RECEPCION']);
                                                         if ($ARRAYRECEPCION) {
                                                             $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
                                                             $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
@@ -459,20 +472,25 @@ include_once "../config/datosUrLP.php";
                                                                 $TIPORECEPCION = "Desde Productor ";
                                                                 $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
                                                                 if ($ARRAYPRODUCTOR2) {
-                                                                    $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                                    $CSGCSPORIGEN=$ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] ;
+                                                                    $ORIGEN =  $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
                                                                 } else {
+                                                                    $CSGCSPORIGEN = "Sin Datos";
                                                                     $ORIGEN = "Sin Datos";
                                                                 }
                                                             } else if ($ARRAYRECEPCION[0]["TRECEPCION"] == "2") {
                                                                 $TIPORECEPCION = "Planta Externa";
                                                                 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
                                                                 if ($ARRAYPLANTA2) {
+                                                                    $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
                                                                     $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
                                                                 } else {
+                                                                    $CSGCSPORIGEN = "Sin Datos";
                                                                     $ORIGEN = "Sin Datos";
                                                                 }
                                                             } else {
                                                                 $TIPORECEPCION = "Sin Datos";
+                                                                $CSGCSPORIGEN = "Sin Datos";
                                                                 $ORIGEN = "Sin Datos";
                                                             }
                                                         } else {
@@ -481,6 +499,7 @@ include_once "../config/datosUrLP.php";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
                                                             $FECHAGUIARECEPCION = "Sin Datos";
                                                             $TIPORECEPCION = "Sin Datos";
+                                                            $CSGCSPORIGEN = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
                                                         }
                                                         ?>
@@ -498,6 +517,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
+                                                            <td><?php echo $CSGCSPORIGEN; ?></td>
                                                             <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
@@ -510,6 +530,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $CSGCSPDESTINO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>

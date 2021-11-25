@@ -191,7 +191,7 @@ $CALIBRE = "";
 $PRODUCTOR = "";
 
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLED4 = "";
 $DISABLEDSTYLE = "";
@@ -841,7 +841,7 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title>Registro Despachoex</title>
+    <title>Registro Despacho</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -1349,14 +1349,16 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Despacho Exportacion</h3>
+                                <h3 class="page-title">Despacho Exportacion</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Registro Despacho Exportacion </a>
+                                            <li class="breadcrumb-item" aria-current="page">Despacho</li>
+                                            <li class="breadcrumb-item" aria-current="page">Despacho Exportación</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Despacho </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -1385,11 +1387,14 @@ if (isset($_POST)) {
                     </div>
                     <!-- Main content -->
                     <section class="content">
-                        <div class="card">
-                            <form method="post" class="form " role="form" name="form_reg_dato" id="form_reg_dato">
-                                <div class="card-header">
+                        <div class="card">   
+                            <div class="card-header with-border bg-info">                                   
+                                <h4 class="card-title">Registro de Despacho</h4>                                        
+                            </div>
+                            <form method="post" class="form " role="form" name="form_reg_dato" id="form_reg_dato"> 
+                                <div class="card-body">                                    
                                     <div class="row">
-                                        <div class="col-auto">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
@@ -1409,7 +1414,7 @@ if (isset($_POST)) {
                                                 <label id="val_id" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-xxl-2 col-xl-2 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Con Instructivo</label>
                                                 <br>
@@ -1417,8 +1422,10 @@ if (isset($_POST)) {
                                                 <input type="checkbox" class="chk-col-danger" name="SNICARGA" id="SNICARGA" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php if ($SNICARGA == "on") { echo "checked"; } ?> onchange="this.form.submit()">
                                                 <label for="SNICARGA"></label>
                                             </div>
+                                        </div>                                
+                                        <div class="col-xxl-4 col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Ingreso</label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA DESPACHOEX" id="FECHAINGRESODESPACHOEXE" name="FECHAINGRESODESPACHOEXE" value="<?php echo $FECHAINGRESODESPACHOEX; ?>" />
@@ -1426,7 +1433,7 @@ if (isset($_POST)) {
                                                 <label id="val_fechai" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-xxl-2 col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Modificación</label>
                                                 <input type="hidden" class="form-control" placeholder="FECHA MODIFICACION" id="FECHAMODIFCIACIONDESPACHOEXE" name="FECHAMODIFCIACIONDESPACHOEXE" value="<?php echo $FECHAMODIFCIACIONDESPACHOEX; ?>" />
@@ -1435,8 +1442,6 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-body">
                                     <div class="btn-group col-12">
                                         <button class="btn btn-success" id="headerStep1">Datos Generales</button>
                                         <button class="btn btn-secondary" id="headerStep2">Datos Exportacion</button>
@@ -1448,11 +1453,11 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Fecha Despacho</label>
                                                     <input type="hidden" class="form-control" placeholder="Fecha Despachoex" id="FECHADESPACHOEXE" name="FECHADESPACHOEXE" value="<?php echo $FECHADESPACHOEX; ?>" />
-                                                    <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Despacho" id="FECHADESPACHOEX" name="FECHADESPACHOEX" value="<?php echo $FECHADESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="date" class="form-control"  placeholder="Fecha Despacho" id="FECHADESPACHOEX" name="FECHADESPACHOEX" value="<?php echo $FECHADESPACHOEX; ?>" <?php echo $DISABLED2; ?>  />
                                                     <label id="val_fechar" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Instructivo Carga</label>
                                                     <input type="hidden" class="form-control" placeholder="ICARGADE" id="ICARGADE" name="ICARGADE" value="<?php echo $ICARGAD; ?>" />
@@ -1469,7 +1474,7 @@ if (isset($_POST)) {
                                                     <label id="val_icarga" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Tipo Embarque</label>
                                                     <input type="hidden" class="form-control" placeholder="TEMBARQUEE" id="TEMBARQUEE" name="TEMBARQUEE" value="<?php echo $TEMBARQUE; ?>" />
@@ -1486,7 +1491,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Contenedor </label>
                                                     <input type="hidden" class="form-control" placeholder="Número Contenedor" id="NUMEROCONTENDORDESPACHOEXE" name="NUMEROCONTENDORDESPACHOEXE" value="<?php echo $NUMEROCONTENDORDESPACHOEX; ?>" />
-                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Numero Contenedor" id="NUMEROCONTENDORDESPACHOEX" name="NUMEROCONTENDORDESPACHOEX" value="<?php echo $NUMEROCONTENDORDESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Numero Contenedor" id="NUMEROCONTENDORDESPACHOEX" name="NUMEROCONTENDORDESPACHOEX" value="<?php echo $NUMEROCONTENDORDESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                     <label id="val_numerocontenedor" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1494,7 +1499,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Temorgrafo </label>
                                                     <input type="hidden" class="form-control" placeholder="TERMOGRAFODESPACHOEXE" id="TERMOGRAFODESPACHOEXE" name="TERMOGRAFODESPACHOEXE" value="<?php echo $TERMOGRAFODESPACHOEX; ?>" />
-                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Temórgrafo" id="TERMOGRAFODESPACHOEX" name="TERMOGRAFODESPACHOEX" value="<?php echo $TERMOGRAFODESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Temórgrafo" id="TERMOGRAFODESPACHOEX" name="TERMOGRAFODESPACHOEX" value="<?php echo $TERMOGRAFODESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                     <label id="val_temorgrafo" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1502,7 +1507,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Planilla </label>
                                                     <input type="hidden" class="form-control" placeholder="Numero Planilla" id="NUMEROPLANILLADESPACHOEXE" name="NUMEROPLANILLADESPACHOEXE" value="<?php echo $FECHADESPACHOEX; ?>" />
-                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Planilla" id="NUMEROPLANILLADESPACHOEX" name="NUMEROPLANILLADESPACHOEX" value="<?php echo $NUMEROPLANILLADESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Número Planilla" id="NUMEROPLANILLADESPACHOEX" name="NUMEROPLANILLADESPACHOEX" value="<?php echo $NUMEROPLANILLADESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                     <label id="val_numeroplanilla" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1511,7 +1516,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Sello</label>
                                                     <input type="hidden" class="form-control" placeholder="Número Sello" id="NUMEROSELLOE" name="NUMEROSELLOE" value="<?php echo $NUMEROSELLO; ?>" />
-                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Sello" id="NUMEROSELLO" name="NUMEROSELLO" value="<?php echo $NUMEROSELLO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Número Sello" id="NUMEROSELLO" name="NUMEROSELLO" value="<?php echo $NUMEROSELLO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                     <label id="val_numeros" class="validacion"><?php echo $MENSAJE3; ?> </label>
                                                 </div>
                                             </div>
@@ -1519,7 +1524,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Guía</label>
                                                     <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIAE" name="NUMEROGUIAE" value="<?php echo $NUMEROGUIA; ?>" />
-                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Guía" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Número Guía" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                     <label id="val_numero" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1527,11 +1532,11 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Fecha Guía</label>
                                                     <input type="hidden" class="form-control" placeholder="Fecha Guia" id="FECHAGUIAE" name="FECHAGUIAE" value="<?php echo $FECHAGUIA; ?>" />
-                                                    <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Guía" id="FECHAGUIA" name="FECHAGUIA" value="<?php echo $FECHAGUIA; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="date" class="form-control"  placeholder="Fecha Guía" id="FECHAGUIA" name="FECHAGUIA" value="<?php echo $FECHAGUIA; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                     <label id="val_fechag" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Contraparte</label>
                                                     <input type="hidden" class="form-control" placeholder="CONTRAPARTEE" id="CONTRAPARTEE" name="CONTRAPARTEE" value="<?php echo $CONTRAPARTE; ?>" />
@@ -1548,7 +1553,7 @@ if (isset($_POST)) {
                                                     <label id="val_contraparte" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
                                                     <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Contraparte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopContraparte.php' ); ">
@@ -1556,7 +1561,7 @@ if (isset($_POST)) {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Inspector</label>
                                                     <input type="hidden" class="form-control" placeholder="INPECTORE" id="INPECTORE" name="INPECTORE" value="<?php echo $INPECTOR; ?>" />
@@ -1573,7 +1578,7 @@ if (isset($_POST)) {
                                                     <label id="val_inpector" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
                                                     <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Inspector" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopInpector.php' ); ">
@@ -1581,7 +1586,7 @@ if (isset($_POST)) {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Transporte</label>
                                                     <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="TRANSPORTEE" name="TRANSPORTEE" value="<?php echo $TRANSPORTE; ?>" />
@@ -1598,7 +1603,7 @@ if (isset($_POST)) {
                                                     <label id="val_transporte" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
                                                     <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Transporte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
@@ -1606,7 +1611,7 @@ if (isset($_POST)) {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Conductor</label>
                                                     <input type="hidden" class="form-control" placeholder="CONDUCTORE" id="CONDUCTORE" name="CONDUCTORE" value="<?php echo $CONDUCTOR; ?>" />
@@ -1625,7 +1630,7 @@ if (isset($_POST)) {
                                                     <label id="val_conductor" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
                                                     <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Conductor" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopConductor.php' ); ">
@@ -1637,7 +1642,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Patente Camión</label>
                                                     <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="PATENTECAMIONE" name="PATENTECAMIONE" value="<?php echo $PATENTECAMION; ?>" />
-                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Camión" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Patente Camión" id="PATENTECAMION" name="PATENTECAMION" value="<?php echo $PATENTECAMION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                     <label id="val_patente" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1645,7 +1650,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Patente Carro</label>
                                                     <input type="hidden" class="form-control" placeholder="PATENTECARROE" id="PATENTECARROE" name="PATENTECARROE" value="<?php echo $PATENTECARRO; ?>" />
-                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Patente Carro" id="PATENTECARRO" name="PATENTECARRO" value="<?php echo $PATENTECARRO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
                                                     <label id="val_patentec" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1657,7 +1662,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Fecha ETD</label>
                                                     <input type="hidden" class="form-control" placeholder="FECHA ETD" id="FECHAETDE" name="FECHAETDE" value="<?php echo $FECHAETD; ?>" />
-                                                    <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha  ETD" id="FECHAETD" name="FECHAETD" value="<?php echo $FECHAETD; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLED4; ?> />
+                                                    <input type="date" class="form-control"  placeholder="Fecha  ETD" id="FECHAETD" name="FECHAETD" value="<?php echo $FECHAETD; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLED4; ?> />
                                                     <label id="val_fechaetd" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1665,7 +1670,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Fecha ETA</label>
                                                     <input type="hidden" class="form-control" placeholder="FECHA PROCESO" id="FECHAETAE" name="FECHAETAE" value="<?php echo $FECHAETA; ?>" />
-                                                    <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha ETA" id="FECHAETA" name="FECHAETA" value="<?php echo $FECHAETA; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLED4; ?> />
+                                                    <input type="date" class="form-control"  placeholder="Fecha ETA" id="FECHAETA" name="FECHAETA" value="<?php echo $FECHAETA; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLED4; ?> />
                                                     <label id="val_fechaeta" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1673,11 +1678,11 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>BKN/AWF/CRT</label>
                                                     <input type="hidden" class="form-control" placeholder="BOOKINGINSTRUCTIVOE" id="BOOKINGINSTRUCTIVOE" name="BOOKINGINSTRUCTIVOE" value="<?php echo $BOOKINGINSTRUCTIVO; ?>" />
-                                                    <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="BKN/AWF/CRT" id="BOOKINGINSTRUCTIVO" name="BOOKINGINSTRUCTIVO" value="<?php echo $BOOKINGINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLED4; ?> />
+                                                    <input type="text" class="form-control"  placeholder="BKN/AWF/CRT" id="BOOKINGINSTRUCTIVO" name="BOOKINGINSTRUCTIVO" value="<?php echo $BOOKINGINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLED4; ?> />
                                                     <label id="val_booking" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Destino Final</label>
                                                     <input type="hidden" class="form-control" placeholder="DFINALE" id="DFINALE" name="DFINALE" value="<?php echo $DFINAL; ?>" />
@@ -1696,7 +1701,7 @@ if (isset($_POST)) {
                                                     <label id="val_dfinal" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
                                                     <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Destino Final" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopDfinal.php' ); ">
@@ -1704,7 +1709,7 @@ if (isset($_POST)) {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Pais</label>
                                                     <input type="hidden" class="form-control" placeholder="PAISE" id="PAISE" name="PAISE" value="<?php echo $PAIS; ?>" />
@@ -1725,7 +1730,7 @@ if (isset($_POST)) {
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Mercado</label>
                                                     <input type="hidden" class="form-control" placeholder="MERCADOE" id="MERCADOE" name="MERCADOE" value="<?php echo $MERCADO; ?>" />
@@ -1744,7 +1749,7 @@ if (isset($_POST)) {
                                                     <label id="val_mercado" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
                                                     <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Mercado" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopMercado.php' ); ">
@@ -1752,7 +1757,7 @@ if (isset($_POST)) {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Exportadora</label>
                                                     <input type="hidden" class="form-control" placeholder="EXPORTADORAE" id="EXPORTADORAE" name="EXPORTADORAE" value="<?php echo $EXPORTADORA; ?>" />
@@ -1771,7 +1776,7 @@ if (isset($_POST)) {
                                                     <label id="val_exportadora" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Recibidor Final</label>
                                                     <input type="hidden" class="form-control" placeholder="RFINALE" id="RFINALE" name="RFINALE" value="<?php echo $RFINAL; ?>" />
@@ -1792,7 +1797,7 @@ if (isset($_POST)) {
                                                     <label id="val_rfinal" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
                                                     <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Recibidor Final" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopRfinal.php' ); ">
@@ -1800,7 +1805,7 @@ if (isset($_POST)) {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
                                                     <label>Agente Carga</label>
                                                     <input type="hidden" class="form-control" placeholder="AGCARGAE" id="AGCARGAE" name="AGCARGAE" value="<?php echo $AGCARGA; ?>" />
@@ -1819,7 +1824,7 @@ if (isset($_POST)) {
                                                     <label id="val_agcarga" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                            <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
                                                     <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Agente Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAgcarga.php' ); ">
@@ -1833,11 +1838,11 @@ if (isset($_POST)) {
                                                     <div class="form-group">
                                                         <label>CRT</label>
                                                         <input type="hidden" class="form-control" placeholder="CRT" id="CRTE" name="CRTE" value="<?php echo $CRT; ?>" />
-                                                        <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="CRT" id="CRT" name="CRT" value="<?php echo $CRT; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?> />
+                                                        <input type="text" class="form-control"  placeholder="CRT" id="CRT" name="CRT" value="<?php echo $CRT; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?> />
                                                         <label id="val_crt" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Transporte</label>
                                                         <input type="hidden" class="form-control" placeholder="TRANSPORTE2E" id="TRANSPORTE2E" name="TRANSPORTE2E" value="<?php echo $TRANSPORTE2; ?>" />
@@ -1856,7 +1861,7 @@ if (isset($_POST)) {
                                                         <label id="val_transporte" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Transporte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
@@ -1864,7 +1869,7 @@ if (isset($_POST)) {
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Lugar Carga</label>
                                                         <input type="hidden" class="form-control" placeholder="LCARGAE" id="LCARGAE" name="LCARGAE" value="<?php echo $LCARGA; ?>" />
@@ -1883,7 +1888,7 @@ if (isset($_POST)) {
                                                         <label id="val_lcarga" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Lugar Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLcarga.php' ); ">
@@ -1891,7 +1896,7 @@ if (isset($_POST)) {
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Lugar Destino</label>
                                                         <input type="hidden" class="form-control" placeholder="LDESTINOE" id="LDESTINOE" name="LDESTINOE" value="<?php echo $LDESTINO; ?>" />
@@ -1910,7 +1915,7 @@ if (isset($_POST)) {
                                                         <label id="val_ldestino" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Lugar Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLdestino.php' ); ">
@@ -1920,7 +1925,7 @@ if (isset($_POST)) {
                                                 </div>
                                             <?php } ?>
                                             <?php if ($TEMBARQUE == "2") { ?>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Linea Aerea</label>
                                                         <input type="hidden" class="form-control" placeholder="LAEREAE" id="LAEREAE" name="LAEREAE" value="<?php echo $LAEREA; ?>" />
@@ -1939,7 +1944,7 @@ if (isset($_POST)) {
                                                         <label id="val_larea" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Linea Aerea" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLaerea.php' ); ">
@@ -1959,11 +1964,11 @@ if (isset($_POST)) {
                                                     <div class="form-group">
                                                         <label>Número Viaje</label>
                                                         <input type="hidden" class="form-control" placeholder=NVIAJEE" id="NVIAJEE" name="NVIAJEE" value="<?php echo $NVIAJE; ?>" />
-                                                        <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Viaje" id="NVIAJE" name="NVIAJE" value="<?php echo $NVIAJE; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?> />
+                                                        <input type="text" class="form-control"  placeholder="Número Viaje" id="NVIAJE" name="NVIAJE" value="<?php echo $NVIAJE; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?> />
                                                         <label id="val_nviaje" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Aeropuerto Carga</label>
                                                         <input type="hidden" class="form-control" placeholder="ACARGAE" id="ACARGAE" name="ACARGAE" value="<?php echo $ACARGA; ?>" />
@@ -1982,7 +1987,7 @@ if (isset($_POST)) {
                                                         <label id="val_acarga" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Aeropuerto Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAcarga.php' ); ">
@@ -1990,7 +1995,7 @@ if (isset($_POST)) {
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Aeropuerto Destino</label>
                                                         <input type="hidden" class="form-control" placeholder="ADESTINOE" id="ADESTINOE" name="ADESTINOE" value="<?php echo $ADESTINO; ?>" />
@@ -2009,7 +2014,7 @@ if (isset($_POST)) {
                                                         <label id="val_adestino" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Aeropuerto Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAdestino.php' ); ">
@@ -2020,7 +2025,7 @@ if (isset($_POST)) {
 
                                             <?php } ?>
                                             <?php if ($TEMBARQUE == "3") { ?>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Naviera </label>
                                                         <input type="hidden" class="form-control" placeholder="NAVIERAE" id="NAVIERAE" name="NAVIERAE" value="<?php echo $NAVIERA; ?>" />
@@ -2039,7 +2044,7 @@ if (isset($_POST)) {
                                                         <label id="val_naviera" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Naviera" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopNaviera.php' ); ">
@@ -2059,7 +2064,7 @@ if (isset($_POST)) {
                                                     <div class="form-group">
                                                         <label>Fecha Stacking</label>
                                                         <input type="hidden" class="form-control" placeholder="FECHA PROCESO" id="FECHASTACKINGE" name="FECHASTACKINGE" value="<?php echo $FECHASTACKING; ?>" />
-                                                        <input type="date" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Fecha Stacking" id="FECHASTACKING" name="FECHASTACKING" value="<?php echo $FECHASTACKING; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?> />
+                                                        <input type="date" class="form-control"  placeholder="Fecha Stacking" id="FECHASTACKING" name="FECHASTACKING" value="<?php echo $FECHASTACKING; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?> />
                                                         <label id="val_fechastacking" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -2067,11 +2072,11 @@ if (isset($_POST)) {
                                                     <div class="form-group">
                                                         <label>Número Viaje</label>
                                                         <input type="hidden" class="form-control" placeholder=NVIAJEE" id="NVIAJEE" name="NVIAJEE" value="<?php echo $NVIAJE; ?>" />
-                                                        <input type="text" class="form-control" <?php echo $DISABLEDSTYLE; ?> placeholder="Número Viaje" id="NVIAJE" name="NVIAJE" value="<?php echo $NVIAJE; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?> />
+                                                        <input type="text" class="form-control"  placeholder="Número Viaje" id="NVIAJE" name="NVIAJE" value="<?php echo $NVIAJE; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED4; ?> />
                                                         <label id="val_nviaje" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Puerto Carga</label>
                                                         <input type="hidden" class="form-control" placeholder="PCARGAE" id="PCARGAE" name="PCARGAE" value="<?php echo $PCARGA; ?>" />
@@ -2090,7 +2095,7 @@ if (isset($_POST)) {
                                                         <label id="val_pcarga" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Puerto Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPcarga.php' ); ">
@@ -2098,7 +2103,7 @@ if (isset($_POST)) {
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
+                                                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-9 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Puerto Destino</label>
                                                         <input type="hidden" class="form-control" placeholder="PDESTINOE" id="PDESTINOE" name="PDESTINOE" value="<?php echo $PDESTINO; ?>" />
@@ -2117,7 +2122,7 @@ if (isset($_POST)) {
                                                         <label id="val_pdestino" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
                                                         <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Puerto Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPdestino.php' ); ">
@@ -2128,242 +2133,258 @@ if (isset($_POST)) {
                                             <?php } ?>
                                         </div>
                                     </section>
-                                    <hr>
-                                    <div class="form-group">
-                                        <label>Observaciónes </label>
-                                        <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="OBSERVACIONDESPACHOEXE" name="OBSERVACIONDESPACHOEXE" value="<?php echo $OBSERVACIONDESPACHOEX; ?>" />
-                                        <textarea class="form-control" rows="1" <?php echo $DISABLEDSTYLE; ?> placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACIONDESPACHOEX" name="OBSERVACIONDESPACHOEX" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>><?php echo $OBSERVACIONDESPACHOEX; ?></textarea>
-                                        <label id="val_observacion" class="validacion"> </label>
+                                    <div class="row">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>Observaciónes </label>
+                                                <input type="hidden" class="form-control" placeholder="TRANSPORTE" id="OBSERVACIONDESPACHOEXE" name="OBSERVACIONDESPACHOEXE" value="<?php echo $OBSERVACIONDESPACHOEX; ?>" />
+                                                <textarea class="form-control" rows="1"  placeholder="Ingrese Nota, Observaciónes u Otro" id="OBSERVACIONDESPACHOEX" name="OBSERVACIONDESPACHOEX" <?php echo $DISABLED2; ?> ><?php echo $OBSERVACIONDESPACHOEX; ?></textarea>
+                                                <label id="val_observacion" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    <div class="btn-group  col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 col-xs-12 float-right" id="botonesSteps" role="group">
+                                        <button type="button" class="btn btn-success" id="btnStep1">Paso 1</button>
+                                        <button type="button" class="btn btn-success" id="btnStep2">Paso 2</button>
                                     </div>
+                                    <br>
+
+                                    
                                 </div>
+                                                  
                                 <div class="card-footer">
-                                    <div class="justify-content-between">
-                                        <div class="col-12">
-                                            <div class="btn-group col-4">
-                                                <?php if ($OP == "") { ?>
-                                                    <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachoEX.php');">
-                                                        <i class="ti-trash"></i> Cancelar
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" onclick="return validacion()" id="btncrearregistrodespachoex">
-                                                        <i class="ti-save-alt"></i> Crear
-                                                    </button>
-                                                <?php } ?>
-                                                <?php if ($OP != "") { ?>
-                                                    <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachoEX.php'); ">
-                                                        <i class="ti-back-left "></i> Volver
-                                                    </button>
-                                                    <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="GUARDAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                        <i class="ti-pencil-alt"></i> Guardar
-                                                    </button>
-                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
-                                                        <i class="ti-save-alt"></i> Cerrar
-                                                    </button>
-                                                <?php } ?>
-                                            </div>
-                                            <div class="btn-group col-4 float-right">
-                                                <?php if ($OP != "") { ?>
-                                                    <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
-                                                        <i class="fa fa-file-pdf-o"></i> Packing List
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                        <i class="fa fa-file-pdf-o"></i> Informe Comercial
-                                                    </button>
-                                                <?php } ?>
-                                            </div>
-                                            <div class="btn-group col-4 float-right">
-                                                <button type="button" class="btn btn-success" id="btnStep1">Paso 1</button>
-                                                <button type="button" class="btn btn-success" id="btnStep2">Paso 2</button>
-                                            </div>
+                                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                            <?php if ($OP == "") { ?>
+                                                <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachoEX.php');">
+                                                    <i class="ti-trash"></i> Cancelar
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR"   onclick="return validacion()" >
+                                                    <i class="ti-save-alt"></i> Guardar
+                                                </button>
+                                            <?php } ?>
+                                            <?php if ($OP != "") { ?>
+                                                <button type="button" class="btn  btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarDespachoEX.php'); ">
+                                                    <i class="ti-back-left "></i> Volver
+                                                </button>
+                                                <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="GUARDAR" value="GUARDAR"  <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                    <i class="ti-pencil-alt"></i> Guardar
+                                                </button>
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR"  <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Cerrar
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
+                                            <?php if ($OP != ""): ?>
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                    <i class="fa fa-file-pdf-o"></i> Packing List
+                                                </button>
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                    <i class="fa fa-file-pdf-o"></i> Informe Comercial
+                                                </button>
+                                            <?php endif ?>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-
-
-                        <div class="card">
-                            <div class="card-header bg-success">
-                                <h4 class="card-title text-white">
-                                    Agregar detalle
-                                </h4>
-                            </div>
-                            <div class="card-header">
-                                <div class="row justify-content-between">
-                                    <div class="col-auto">
-                                        <div class="btn-group">
-                                            <form method="post" id="form2" name="form2">
-                                                <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLP" name="URLP" value="registroDespachoEX" />
-                                                <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionPCDespachoEx" />
-                                                <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Seleccion PC" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>> Seleccion PC
+                        <?php if (isset($_GET['op'])): ?>
+                            <div class="card">                            
+                                <div class="card-header bg-info">
+                                    <h4 class="card-title">Detalle de Despacho de Producto Terminado</h4>
+                                </div>
+                                <div class="card-header">
+                                    <div class="form-row align-items-center">
+                                        <form method="post" id="form2" name="form2">
+                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoEX" />
+                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTDespachoEx" />
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
+                                                    <?php echo $DISABLED2; ?>  <?php   if ($ESTADO == 0) {   echo "disabled style='background-color: #eeeeee;'"; } ?>  > 
+                                                    Seleccion Existencia
                                                 </button>
-                                            </form>
-                                            <form method="post" id="form3" name="form3">
-                                                <input type="hidden" class="form-control" placeholder="ID DESPACHOEX" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="OP DESPACHOEX" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                <input type="hidden" class="form-control" placeholder="URL DESPACHOEX" id="URLP" name="URLP" value="registroDespachoEX" />
-                                                <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionExistenciaPTDespachoEx" />
-                                                <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled style='background-color: #eeeeee;'"; } ?>> Seleccion Existencia
+                                            </div>
+                                        </form> 
+                                        <form method="post" id="form2" name="form2">
+                                            <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="OP DESPACHO" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                            <input type="hidden" class="form-control" placeholder="URL DESPACHO" id="URLP" name="URLP" value="registroDespachoEX" />
+                                            <input type="hidden" class="form-control" placeholder="URL SELECCIONAR" id="URLD" name="URLD" value="registroSelecionPCDespachoEx" />
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-success btn-block mb-2" data-toggle="tooltip" title="Seleccion Existencia" id="SELECIONOCDURL" name="SELECIONOCDURL"
+                                                    <?php echo $DISABLED2; ?>  <?php   if ($ESTADO == 0) {   echo "disabled style='background-color: #eeeeee;'"; } ?>  > 
+                                                    Seleccion PC
                                                 </button>
-                                            </form>
+                                            </div>
+                                        </form>                                       
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEV; ?>" disabled />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="form-group">
-                                            <label for="">Total Envase</label>
-                                            <input type="hidden" class="form-control" id="TOTALENVASE" name="TOTALENVASE" value="<?php echo $TOTALENVASE; ?>" />
-                                            <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASEV; ?>" disabled />
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="form-group">
-                                            <label for="">Total Neto</label>
-                                            <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="form-group">
-                                            <label for="">Total Bruto</label>
-                                            <input type="hidden" class="form-control" id="TOTALBRUTO" name="TOTALBRUTO" value="<?php echo $TOTALBRUTO; ?>" />
-                                            <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTOV; ?>" disabled />
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALBRUTO" name="TOTALBRUTO" value="<?php echo $TOTALBRUTO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTOV; ?>" disabled />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="detalle" class="table table-hover " style="width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th> N° Folio </th>
-                                                <th>Condición </th>
-                                                <th class="text-center">Operaciónes</th>
-                                                <th>Fecha Embalado </th>
-                                                <th>Código Estandar</th>
-                                                <th>Envase/Estandar</th>
-                                                <th>Variedad</th>
-                                                <th>Cantidad Envase</th>
-                                                <th>Kilos Neto</th>
-                                                <th>% Deshidratacion</th>
-                                                <th>Kilos Deshidratacion</th>
-                                                <th>Kilos Bruto</th>
-                                                <th>CSG</th>
-                                                <th>Productor</th>
-                                                <th>Embolsado</th>
-                                                <th>Tipo Manejo</th>
-                                                <th>Calibre </th>
-                                                <th>Embalaje </th>
-                                                <th>Stock</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php if ($ARRAYTOMADO) { ?>
-                                                <?php foreach ($ARRAYTOMADO as $r) : ?>
-                                                    <?php
-                                                    if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
-                                                        $ESTADOSAG = "Sin Condición";
-                                                    }
-                                                    if ($r['TESTADOSAG'] == "1") {
-                                                        $ESTADOSAG =  "En Inspección";
-                                                    }
-                                                    if ($r['TESTADOSAG'] == "2") {
-                                                        $ESTADOSAG =  "Aprobado Origen";
-                                                    }
-                                                    if ($r['TESTADOSAG'] == "3") {
-                                                        $ESTADOSAG =  "Aprobado USLA";
-                                                    }
-                                                    if ($r['TESTADOSAG'] == "4") {
-                                                        $ESTADOSAG =  "Fumigado";
-                                                    }
-                                                    if ($r['TESTADOSAG'] == "5") {
-                                                        $ESTADOSAG =  "Rechazado";
-                                                    }
-                                                    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                    if ($ARRAYVERPRODUCTORID) {
-                                                        $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                        $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                    } else {
-                                                        $CSGPRODUCTOR = "Sin Datos";
-                                                        $NOMBREPRODUCTOR = "Sin Datos";
-                                                    }
-                                                    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                    if ($ARRAYVERVESPECIESID) {
-                                                        $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                    } else {
-                                                        $NOMBREVARIEDAD = "Sin Datos";
-                                                    }
-                                                    $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                    if ($ARRAYEVERERECEPCIONID) {
-                                                        $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                        $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                    } else {
-                                                        $NOMBREESTANDAR = "Sin Datos";
-                                                        $CODIGOESTANDAR = "Sin Datos";
-                                                    }
-                                                    if ($r['EMBOLSADO'] == "1") {
-                                                        $EMBOLSADO =  "SI";
-                                                    }
-                                                    if ($r['EMBOLSADO'] == "0") {
-                                                        $EMBOLSADO =  "NO";
-                                                    }
-                                                    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                    if ($ARRAYTMANEJO) {
-                                                        $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                    } else {
-                                                        $NOMBRETMANEJO = "Sin Datos";
-                                                    }
-                                                    $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-                                                    if ($ARRAYTCALIBRE) {
-                                                        $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                    } else {
-                                                        $NOMBRETCALIBRE = "Sin Datos";
-                                                    }
-                                                    $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
-                                                    if ($ARRAYTEMBALAJE) {
-                                                        $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
-                                                    } else {
-                                                        $NOMBRETEMBALAJE = "Sin Datos";
-                                                    }
-                                                    ?>
-                                                    <tr class="center">
-                                                        <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
-                                                        <td><?php echo $ESTADOSAG; ?></td>
-                                                        <td>
-                                                            <form method="post" id="form1">
-                                                                <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
-                                                                <div class="btn-group btn-sm btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                    <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
-                                                                        <i class="ti-close"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-                                                        </td>
-                                                        <td><?php echo $r['EMBALADO']; ?></td>
-                                                        <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                        <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                        <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                        <td><?php echo $r['ENVASE']; ?></td>
-                                                        <td><?php echo $r['NETO']; ?></td>
-                                                        <td><?php echo $r['PORCENTAJE']; ?></td>
-                                                        <td><?php echo $r['DESHIRATACION']; ?></td>
-                                                        <td><?php echo $r['BRUTO']; ?></td>
-                                                        <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                        <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                        <td><?php echo $EMBOLSADO; ?></td>
-                                                        <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                        <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                        <td><?php echo $NOMBRETEMBALAJE; ?></td>
-                                                        <td><?php echo $r['STOCKR']; ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="detalle" class="table table-hover " style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th> N° Folio </th>
+                                                    <th>Condición </th>
+                                                    <th class="text-center">Operaciónes</th>
+                                                    <th>Fecha Embalado </th>
+                                                    <th>Código Estandar</th>
+                                                    <th>Envase/Estandar</th>
+                                                    <th>Variedad</th>
+                                                    <th>Cantidad Envase</th>
+                                                    <th>Kilos Neto</th>
+                                                    <th>% Deshidratacion</th>
+                                                    <th>Kilos Deshidratacion</th>
+                                                    <th>Kilos Bruto</th>
+                                                    <th>CSG</th>
+                                                    <th>Productor</th>
+                                                    <th>Embolsado</th>
+                                                    <th>Tipo Manejo</th>
+                                                    <th>Calibre </th>
+                                                    <th>Embalaje </th>
+                                                    <th>Stock</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($ARRAYTOMADO) { ?>
+                                                    <?php foreach ($ARRAYTOMADO as $r) : ?>
+                                                        <?php
+                                                        if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                            $ESTADOSAG = "Sin Condición";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "1") {
+                                                            $ESTADOSAG =  "En Inspección";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "2") {
+                                                            $ESTADOSAG =  "Aprobado Origen";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "3") {
+                                                            $ESTADOSAG =  "Aprobado USLA";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "4") {
+                                                            $ESTADOSAG =  "Fumigado";
+                                                        }
+                                                        if ($r['TESTADOSAG'] == "5") {
+                                                            $ESTADOSAG =  "Rechazado";
+                                                        }
+                                                        $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYVERPRODUCTORID) {
+                                                            $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                            $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $CSGPRODUCTOR = "Sin Datos";
+                                                            $NOMBREPRODUCTOR = "Sin Datos";
+                                                        }
+                                                        $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                        if ($ARRAYVERVESPECIESID) {
+                                                            $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                        } else {
+                                                            $NOMBREVARIEDAD = "Sin Datos";
+                                                        }
+                                                        $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                        if ($ARRAYEVERERECEPCIONID) {
+                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                        } else {
+                                                            $NOMBREESTANDAR = "Sin Datos";
+                                                            $CODIGOESTANDAR = "Sin Datos";
+                                                        }
+                                                        if ($r['EMBOLSADO'] == "1") {
+                                                            $EMBOLSADO =  "SI";
+                                                        }
+                                                        if ($r['EMBOLSADO'] == "0") {
+                                                            $EMBOLSADO =  "NO";
+                                                        }
+                                                        $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                        if ($ARRAYTMANEJO) {
+                                                            $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                        } else {
+                                                            $NOMBRETMANEJO = "Sin Datos";
+                                                        }
+                                                        $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                        if ($ARRAYTCALIBRE) {
+                                                            $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                        } else {
+                                                            $NOMBRETCALIBRE = "Sin Datos";
+                                                        }
+                                                        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                        if ($ARRAYTEMBALAJE) {
+                                                            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                        } else {
+                                                            $NOMBRETEMBALAJE = "Sin Datos";
+                                                        }
+                                                        ?>
+                                                        <tr class="center">
+                                                            <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                            <td><?php echo $ESTADOSAG; ?></td>
+                                                            <td>
+                                                                <form method="post" id="form1">
+                                                                    <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />                                                                   
+                                                                    <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
+                                                                        <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
+                                                                            <i class="ti-close"></i> Quitar
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </td>
+                                                            <td><?php echo $r['EMBALADO']; ?></td>
+                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                            <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                            <td><?php echo $r['ENVASE']; ?></td>
+                                                            <td><?php echo $r['NETO']; ?></td>
+                                                            <td><?php echo $r['PORCENTAJE']; ?></td>
+                                                            <td><?php echo $r['DESHIRATACION']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>
+                                                            <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                            <td><?php echo $EMBOLSADO; ?></td>
+                                                            <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                            <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                            <td><?php echo $r['STOCKR']; ?></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif ?>
                     </section>
                     <!-- /.content -->
                 </div>
@@ -2376,38 +2397,171 @@ if (isset($_POST)) {
                 <?php include_once "../config/footer.php"; ?>
                 <?php include_once "../config/menuExtra.php"; ?>
 <?php
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-    $ARRAYNUMERO = $DESPACHOEX_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+        //OPERACION DE REGISTRO DE FILA
+        if (isset($_REQUEST['CREAR'])) {
+            $ARRAYNUMERO = $DESPACHOEX_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+            $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-    $DESPACHOEX->__SET('NUMERO_DESPACHOEX', $NUMERO);
-    $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
-    $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLO']);
-    $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIA']);
-    $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIA']);
-    $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEX']);
-    $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEX']);
-    $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEX']);
-    $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
-    $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
-    $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
-    if (isset($_REQUEST['SNICARGA']) == "on") {
-        $SNICARGAR = "1";
-        $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
-        $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
-        $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
-        $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
-        $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
-        $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
-        $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
-        $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
-        $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
-        $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
-        $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
-        if ($_REQUEST['TEMBARQUEE']) {
+            //UTILIZACION METODOS SET DEL MODELO
+            //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+            $DESPACHOEX->__SET('NUMERO_DESPACHOEX', $NUMERO);
+            $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
+            $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLO']);
+            $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIA']);
+            $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIA']);
+            $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEX']);
+            $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEX']);
+            $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEX']);
+            $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
+            $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
+            $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
+            if (isset($_REQUEST['SNICARGA']) == "on") {
+                $SNICARGAR = "1";
+                $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
+                $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
+                $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
+                $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
+                $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
+                $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
+                $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
+                $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
+                $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
+                $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
+                $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
+                if ($_REQUEST['TEMBARQUEE']) {
+                    if ($_REQUEST['TEMBARQUEE'] == "1") {
+                        $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
+                        $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
+                        $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
+                        $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
+                    }
+                    if ($_REQUEST['TEMBARQUEE'] == "2") {
+                        $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
+                        $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+                        $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
+                        $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
+                        $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
+                    }
+                    if ($_REQUEST['TEMBARQUEE'] == "3") {
+                        $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
+                        $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
+                        $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+                        $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
+                        $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
+                        $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
+                    }
+                }
+            }
+            if (isset($_REQUEST['SNICARGA']) != "on") {
+                $SNICARGAR = "0";
+                $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUE']);
+                $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETD']);
+                $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETA']);
+                $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVO']);
+                $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORA']);
+                $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINAL']);
+                $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGA']);
+                $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINAL']);
+                $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAIS']);
+                $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADO']);
+                if ($_REQUEST['TEMBARQUE']) {
+                    if ($_REQUEST['TEMBARQUE'] == "1") {
+                        $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRT']);
+                        $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2']);
+                        $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGA']);
+                        $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINO']);
+                    }
+                    if ($_REQUEST['TEMBARQUE'] == "2") {
+                        $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREA']);
+                        $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVE']);
+                        $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJE']);
+                        $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
+                        $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
+                    }
+                    if ($_REQUEST['TEMBARQUE'] == "3") {
+                        $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKING']);
+                        $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
+                        $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVE']);
+                        $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJE']);
+                        $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGA']);
+                        $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINO']);
+                    }
+                }
+            }
+            $DESPACHOEX->__SET('SNICARGA', $SNICARGAR);
+            $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTOR']);
+            $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
+            $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
+            $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTE']);
+            $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+            $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+            $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+            $DESPACHOEX->__SET('ID_USUARIOI', $IDUSUARIOS);
+            $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
+            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+            $DESPACHOEX_ADO->agregarDespachoex($DESPACHOEX);
+
+
+            if (isset($_REQUEST['ICARGAD'])) {
+                $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $ICARGA_ADO->Despachado($ICARGA);
+            }
+            //OBTENER EL ID DE LA DESPACHOEX CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+            $ARRYAOBTENERID = $DESPACHOEX_ADO->obtenerId(
+                $_REQUEST['FECHADESPACHOEX'],
+                $_REQUEST['OBSERVACIONDESPACHOEX'],
+                $_REQUEST['EMPRESA'],
+                $_REQUEST['PLANTA'],
+                $_REQUEST['TEMPORADA'],
+            );
+            //REDIRECCIONAR A PAGINA registroDespachoEX.php
+            $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHOEX'];
+            $_SESSION["parametro1"] = "crear";
+            // echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?op';</script>";
+                    echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro de despacho se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                            location.href = "registroDespachoEX.php?op";
+                        
+                    })
+                </script>';
+
+
+        }
+        //OPERACION EDICION DE FILA
+        if (isset($_REQUEST['GUARDAR'])) {
+
+            $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
+            $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
+            $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
+            $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIAE']);
+            $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
+            $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
+            $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
+            $DESPACHOEX->__SET('CANTIDAD_ENVASE_DESPACHOEX', $_REQUEST['TOTALENVASE']);
+            $DESPACHOEX->__SET('KILOS_NETO_DESPACHOEX', $_REQUEST['TOTALNETO']);
+            $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
+            $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+            $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+            $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
+            $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
+            $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
+            $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
+            $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
+            $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
+            $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
+            $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
+            $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
+            $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
+            $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
+            $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
             if ($_REQUEST['TEMBARQUEE'] == "1") {
                 $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
                 $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
@@ -2429,333 +2583,219 @@ if (isset($_REQUEST['CREAR'])) {
                 $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
                 $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
             }
-        }
-    }
-    if (isset($_REQUEST['SNICARGA']) != "on") {
-        $SNICARGAR = "0";
-        $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUE']);
-        $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETD']);
-        $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETA']);
-        $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVO']);
-        $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORA']);
-        $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINAL']);
-        $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGA']);
-        $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINAL']);
-        $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAIS']);
-        $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADO']);
-        if ($_REQUEST['TEMBARQUE']) {
-            if ($_REQUEST['TEMBARQUE'] == "1") {
-                $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRT']);
-                $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2']);
-                $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGA']);
-                $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINO']);
-            }
-            if ($_REQUEST['TEMBARQUE'] == "2") {
-                $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREA']);
-                $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVE']);
-                $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJE']);
-                $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGA']);
-                $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINO']);
-            }
-            if ($_REQUEST['TEMBARQUE'] == "3") {
-                $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKING']);
-                $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERA']);
-                $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVE']);
-                $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJE']);
-                $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGA']);
-                $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINO']);
-            }
-        }
-    }
-    $DESPACHOEX->__SET('SNICARGA', $SNICARGAR);
-    $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTOR']);
-    $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
-    $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
-    $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTE']);
-    $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $DESPACHOEX->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DESPACHOEX_ADO->agregarDespachoex($DESPACHOEX);
-
-
-    if (isset($_REQUEST['ICARGAD'])) {
-        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $ICARGA_ADO->Despachado($ICARGA);
-    }
-    //OBTENER EL ID DE LA DESPACHOEX CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-    $ARRYAOBTENERID = $DESPACHOEX_ADO->obtenerId(
-        $_REQUEST['FECHADESPACHOEX'],
-        $_REQUEST['OBSERVACIONDESPACHOEX'],
-        $_REQUEST['EMPRESA'],
-        $_REQUEST['PLANTA'],
-        $_REQUEST['TEMPORADA'],
-    );
-    //REDIRECCIONAR A PAGINA registroDespachoEX.php
-    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHOEX'];
-    $_SESSION["parametro1"] = "crear";
-    // echo "<script type='text/javascript'> location.href ='registroDespachoEX.php?op';</script>";
-    echo '<script>
-        Swal.fire({
-            icon:"success",
-            title:"Registro Creado",
-            html:"Se ha creado el registro exitosamente",
-            showConfirmButton:true,
-            confirmButtonText:"OK"
-        }).then((result)=>{
-            if(result.value){
-                location.href ="/fruta/vista/registroDespachoEX.php?op";
-            }
-        })
-    </script>';
-
-
-}
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-
-    $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
-    $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
-    $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
-    $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIAE']);
-    $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
-    $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
-    $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
-    $DESPACHOEX->__SET('CANTIDAD_ENVASE_DESPACHOEX', $_REQUEST['TOTALENVASE']);
-    $DESPACHOEX->__SET('KILOS_NETO_DESPACHOEX', $_REQUEST['TOTALNETO']);
-    $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
-    $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-    $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-    $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEXE']);
-    $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
-    $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
-    $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
-    $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
-    $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
-    $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
-    $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
-    $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
-    $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
-    $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
-    $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
-    if ($_REQUEST['TEMBARQUEE'] == "1") {
-        $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
-        $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
-        $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
-        $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
-    }
-    if ($_REQUEST['TEMBARQUEE'] == "2") {
-        $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
-        $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
-        $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
-        $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
-        $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
-    }
-    if ($_REQUEST['TEMBARQUEE'] == "3") {
-        $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
-        $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
-        $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
-        $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
-        $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
-        $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
-    }
-    $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTORE']);
-    $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-    $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-    $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTEE']);
-    $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
-
-    if (isset($_REQUEST['ICARGADE'])) {
-        $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $ICARGA_ADO->Despachado($ICARGA);
-    }
-    echo '<script>
-        Swal.fire({
-            icon:"success",
-            title:"Registro Actualizado",
-            html:"Se ha actualizado el registro exitosamente",
-            showConfirmButton:true,
-            confirmButtonText:"OK"
-        }).then((result)=>{
-            if(result.value){
-                location.href ="/fruta/vista/registroDespachoEX.php?op";
-            }
-        })
-    </script>';
-}
-//OPERACION PARA CERRAR LA DESPACHOEX
-if (isset($_REQUEST['CERRAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
-    $ARRAYDDESPACHOEX2 = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEX($_REQUEST['IDP']);
-    if (empty($ARRAYDDESPACHOEX2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO SELECIONADO";
-        echo '<script>
-            Swal.fire({
-                icon:"warning",
-                title:"Advertencia de cierre",
-                html:"TIENE  QUE HABER AL MENOS UNA EXISTENCIA DE PRODUCTO TERMINADO SELECIONADO",
-                showConfirmButton:true,
-                confirmButtonText:"OK"
-            })
-        </script>';
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-    if ($SINO == "0") {
-        $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
-        $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
-        $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
-        $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIAE']);
-        $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
-        $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
-        $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
-        $DESPACHOEX->__SET('CANTIDAD_ENVASE_DESPACHOEX', $_REQUEST['TOTALENVASE']);
-        $DESPACHOEX->__SET('KILOS_NETO_DESPACHOEX', $_REQUEST['TOTALNETO']);
-        $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
-        $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
-        $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
-        $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEXE']);
-        $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
-        $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
-        $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
-        $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
-        $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
-        $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
-        $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
-        $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
-        $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
-        $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
-        $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
-        if ($_REQUEST['TEMBARQUEE'] == "1") {
-            $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
-            $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
-            $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
-            $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
-        }
-        if ($_REQUEST['TEMBARQUEE'] == "2") {
-            $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
-            $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
-            $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
-            $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
-            $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
-        }
-        if ($_REQUEST['TEMBARQUEE'] == "3") {
-            $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
-            $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
-            $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
-            $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
-            $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
-            $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
-        }
-        $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTORE']);
-        $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
-        $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
-        $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTEE']);
-        $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
-
-        $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $DESPACHOEX_ADO->cerrado($DESPACHOEX);
-
-        if (isset($_REQUEST['ICARGADE'])) {
-            $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
+            $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTORE']);
+            $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+            $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+            $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTEE']);
+            $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+            $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+            $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+            $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
+            $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $ICARGA_ADO->Despachado($ICARGA);
+            $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
+
+            if (isset($_REQUEST['ICARGADE'])) {
+                $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $ICARGA_ADO->Despachado($ICARGA);
+            }
+
+            
+            if ($_SESSION['parametro1'] == "crear") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "crear";
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de despacho se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroDespachoEX.php?op";                        
+                    })
+                </script>';
+            }
+            if ($_SESSION['parametro1'] == "editar") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "editar";
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de despacho se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroDespachoEX.php?op";                        
+                    })
+                </script>';
+            }
+        }
+        //OPERACION PARA CERRAR LA DESPACHOEX
+        if (isset($_REQUEST['CERRAR'])) {
+            //UTILIZACION METODOS SET DEL MODELO
+            //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
+            $ARRAYDDESPACHOEX2 = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEX($_REQUEST['IDP']);
+            if (empty($ARRAYDDESPACHOEX2)) {
+                echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"Tiene que haber al menos un registro de existencia selecionado",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        })
+                    </script>';
+                $SINO = "1";
+            } else {
+                $MENSAJE = "";
+                $SINO = "0";
+            }
+            if ($SINO == "0") {
+                $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
+                $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
+                $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
+                $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIAE']);
+                $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
+                $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
+                $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
+                $DESPACHOEX->__SET('CANTIDAD_ENVASE_DESPACHOEX', $_REQUEST['TOTALENVASE']);
+                $DESPACHOEX->__SET('KILOS_NETO_DESPACHOEX', $_REQUEST['TOTALNETO']);
+                $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
+                $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
+                $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
+                $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
+                $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
+                $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
+                $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
+                $DESPACHOEX->__SET('BOOKING_DESPACHOEX', $_REQUEST['BOOKINGINSTRUCTIVOE']);
+                $DESPACHOEX->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
+                $DESPACHOEX->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORAE']);
+                $DESPACHOEX->__SET('ID_RFINAL', $_REQUEST['RFINALE']);
+                $DESPACHOEX->__SET('ID_AGCARGA', $_REQUEST['AGCARGAE']);
+                $DESPACHOEX->__SET('ID_DFINAL', $_REQUEST['DFINALE']);
+                $DESPACHOEX->__SET('ID_PAIS', $_REQUEST['PAISE']);
+                $DESPACHOEX->__SET('ID_MERCADO', $_REQUEST['MERCADOE']);
+                if ($_REQUEST['TEMBARQUEE'] == "1") {
+                    $DESPACHOEX->__SET('CRT_DESPACHOEX', $_REQUEST['CRTE']);
+                    $DESPACHOEX->__SET('ID_TRANSPORTE2', $_REQUEST['TRANSPORTE2E']);
+                    $DESPACHOEX->__SET('ID_LCARGA', $_REQUEST['LCARGAE']);
+                    $DESPACHOEX->__SET('ID_LDESTINO', $_REQUEST['LDESTINOE']);
+                }
+                if ($_REQUEST['TEMBARQUEE'] == "2") {
+                    $DESPACHOEX->__SET('ID_LAREA', $_REQUEST['LAEREAE']);
+                    $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+                    $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
+                    $DESPACHOEX->__SET('ID_ACARGA', $_REQUEST['ACARGAE']);
+                    $DESPACHOEX->__SET('ID_ADESTINO', $_REQUEST['ADESTINOE']);
+                }
+                if ($_REQUEST['TEMBARQUEE'] == "3") {
+                    $DESPACHOEX->__SET('FECHASTACKING_DESPACHOEX', $_REQUEST['FECHASTACKINGE']);
+                    $DESPACHOEX->__SET('ID_NAVIERA', $_REQUEST['NAVIERAE']);
+                    $DESPACHOEX->__SET('NAVE_DESPACHOEX', $_REQUEST['NAVEE']);
+                    $DESPACHOEX->__SET('NVIAJE_DESPACHOEX', $_REQUEST['NVIAJEE']);
+                    $DESPACHOEX->__SET('ID_PCARGA', $_REQUEST['PCARGAE']);
+                    $DESPACHOEX->__SET('ID_PDESTINO', $_REQUEST['PDESTINOE']);
+                }
+                $DESPACHOEX->__SET('ID_INPECTOR', $_REQUEST['INPECTORE']);
+                $DESPACHOEX->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
+                $DESPACHOEX->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
+                $DESPACHOEX->__SET('ID_CONTRAPARTE', $_REQUEST['CONTRAPARTEE']);
+                $DESPACHOEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $DESPACHOEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $DESPACHOEX->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $DESPACHOEX->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
+
+                $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $DESPACHOEX_ADO->cerrado($DESPACHOEX);
+
+                if (isset($_REQUEST['ICARGADE'])) {
+                    $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $ICARGA_ADO->Despachado($ICARGA);
+                }
+
+                $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEx($_REQUEST['IDP']);
+                $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho($_REQUEST['IDP']);
+
+                foreach ($ARRAYPCDESPACHO as $r) :
+                    $PCDESPACHO->__SET('ID_PCDESPACHO', $r['ID_PCDESPACHO']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $PCDESPACHO_ADO->despachodo($PCDESPACHO);
+                endforeach;
+                //$DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
+                foreach ($ARRAYEXISENCIADESPACHOEX as $r) :
+                    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
+                    $EXIEXPORTACION->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $EXIEXPORTACION_ADO->despachadoEx($EXIEXPORTACION);
+                endforeach;
+
+                //REDIRECCIONAR A PAGINA registroDespachoex.php
+                //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
+                    
+                    if ($_SESSION['parametro1'] == "crear") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro Cerrado",
+                                text:"Este despacho se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroDespachoEX.php?op";                            
+                            })
+                        </script>';
+                    }
+                    if ($_SESSION['parametro1'] == "editar") {
+                        $_SESSION["parametro"] = $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] = "ver";
+                        echo '<script>
+                            Swal.fire({
+                                icon:"info",
+                                title:"Registro Cerrado",
+                                text:"Este despacho se encuentra cerrada y no puede ser modificada.",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            }).then((result)=>{
+                                location.href = "registroDespachoEX.php?op";                            
+                            })
+                        </script>';
+                    } 
+            }
         }
 
-        $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEx($_REQUEST['IDP']);
-        $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho($_REQUEST['IDP']);
-
-        foreach ($ARRAYPCDESPACHO as $r) :
-            $PCDESPACHO->__SET('ID_PCDESPACHO', $r['ID_PCDESPACHO']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $PCDESPACHO_ADO->despachodo($PCDESPACHO);
-        endforeach;
-        //$DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
-        foreach ($ARRAYEXISENCIADESPACHOEX as $r) :
-            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $r['ID_EXIEXPORTACION']);
-            $EXIEXPORTACION->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEXE']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $EXIEXPORTACION_ADO->despachadoEx($EXIEXPORTACION);
-        endforeach;
-
-        //REDIRECCIONAR A PAGINA registroDespachoex.php
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
-        if ($_SESSION['parametro1'] == "crear") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
+        if (isset($_REQUEST['QUITAR'])) {
+            $IDQUITAR = $_REQUEST['IDQUITAR'];
+            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
+            // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+            $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoExCambiarEstado($EXIEXPORTACION);            
             echo '<script>
                 Swal.fire({
-                    icon:"success",
-                    title:"Registro Cerrado",
-                    html:"Este registro se encuentra cerrado",
-                    showConfirmButton:true,
-                    confirmButtonText:"OK"
+                    icon:"error",
+                    title:"Accion realizada",
+                    text:"Se ha quitado la existencia del despacho.",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
                 }).then((result)=>{
-                    if(result.value){
-                        location.href ="/fruta/vista/registroDespachoEX.php?op";
-                    }
+                    location.href = "registroDespachoEX.php?op";                            
                 })
             </script>';
         }
-        if ($_SESSION['parametro1'] == "editar") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo '<script>
-                Swal.fire({
-                    icon:"success",
-                    title:"Registro Cerrado",
-                    html:"Este registro se encuentra cerrado",
-                    showConfirmButton:true,
-                    confirmButtonText:"OK"
-                }).then((result)=>{
-                    if(result.value){
-                        location.href ="/fruta/vista/registroDespachoEX.php?op";
-                    }
-                })
-            </script>';
-        }
-    }
-}
-
-if (isset($_REQUEST['QUITAR'])) {
-    $IDQUITAR = $_REQUEST['IDQUITAR'];
-    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $IDQUITAR);
-    // LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EXIEXPORTACION_ADO->actualizarDeselecionarDespachoExCambiarEstado($EXIEXPORTACION);
-     echo '<script>
-                Swal.fire({
-                    icon:"success",
-                    title:"Detalle eliminado",
-                    html:"Se ha quitado este detalle del registro",
-                    showConfirmButton:true,
-                    confirmButtonText:"OK"
-                }).then((result)=>{
-                    if(result.value){
-                        location.href ="/fruta/vista/registroDespachoEX.php?op";
-                    }
-                })
-            </script>';
-}
 ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>

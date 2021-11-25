@@ -251,6 +251,7 @@ include_once "../config/datosUrLP.php";
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
                                                     <th>Tipo Despacho</th>
+                                                    <th>CSG/CSP Despacho</th>
                                                     <th>Destino Despacho</th>
                                                     <th>Fecha Despacho </th>
                                                     <th>Número Guía </th>
@@ -283,14 +284,15 @@ include_once "../config/datosUrLP.php";
                                                     if ($r['ESTADO_DESPACHO'] == "4") {
                                                         $ESTADODESPACHO = "Aprobado";
                                                     }
-                                         
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = "Interplanta";
                                                         $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
                                                         if ($ARRAYPLANTA2) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
                                                             $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
                                                         } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
@@ -299,8 +301,10 @@ include_once "../config/datosUrLP.php";
                                                         $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYPRODUCTOR) {
-                                                            $DESTINO = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+                                                            $DESTINO =  $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
                                                         } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
@@ -309,14 +313,17 @@ include_once "../config/datosUrLP.php";
                                                         $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($r['ID_COMPRADOR']);
                                                         if ($ARRAYCOMPRADOR) {
+                                                            $CSGCSPDESTINO="No Aplica";
                                                             $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
                                                         } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
                                                     if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Despacho de Descarte";
                                                         $NUMEROGUIADEPACHO="No Aplica";
+                                                        $CSGCSPDESTINO="No Aplica";
                                                         $DESTINO = $r['REGALO_DESPACHO'];
                                                     }
                                                     if ($r['TDESPACHO'] == "5") {
@@ -324,8 +331,10 @@ include_once "../config/datosUrLP.php";
                                                         $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
                                                         $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA3']);
                                                         if ($ARRAYPLANTA2) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
                                                             $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
                                                         } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
                                                             $DESTINO = "Sin Datos";
                                                         }
                                                     }
@@ -422,6 +431,7 @@ include_once "../config/datosUrLP.php";
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
+                                                        <td><?php echo $CSGCSPDESTINO; ?></td>
                                                         <td><?php echo $DESTINO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
                                                         <td><?php echo $NUMEROGUIADEPACHO; ?></td>

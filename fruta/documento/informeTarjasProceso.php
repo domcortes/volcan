@@ -398,7 +398,6 @@ foreach ($ARRAYDEXPORTACION as $r) :
   ';
 
   $html=$html.'
-      	<br>
 		<div class="subtitulo2"></div>       
         <div class=" center">
            <b style="font-size: 10px;">  '.$EMPRESA.' </b>

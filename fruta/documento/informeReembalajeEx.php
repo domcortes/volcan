@@ -180,9 +180,11 @@ if($ARRAYREEMBALAJE){
 
   $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
   $ARRAYEXISTENCIATOTALESREEMBALAJE2 = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
-  $TOTALNETOE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['NETO'];
+  $TOTALNETO= $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['NETO'];
+  $TOTALNETOE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['DESHIRATACION'];
   $TOTALENVASEE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['ENVASE'];
-  $TOTALNETOEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['NETO'];
+  $TOTALNETOV= $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['NETO'];
+  $TOTALNETOEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['DESHIRATACION'];
   $TOTALENVASEEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['ENVASE'];
 
   $ARRATDINDUSTRIALTOTALREEMBALAJE = $DRINDUSTRIAL_ADO->obtenerTotales($IDOP);
@@ -461,8 +463,8 @@ $html = $html . '
             <th class="color center"> </th>
             <th class="color right">Sub Total</th>
             <th class="color center">' . $TOTALENVASEEV . '</th>
+            <th class="color center">' . $TOTALNETOV . '</th>
             <th class="color center">' . $TOTALNETOEV . '</th>
-            <th class="color center"></th>
             <th class="color center "> </th>
             <th class="color center "> </th>
             <th class="color center "> </th>
@@ -697,7 +699,7 @@ $html = $html . '
   
           <div id="client">
             <div class="address"><b>RESUMEN KILOS: </b></div>
-            <div class="address">MATERIA PRIMA A PROCESO.:  ' . $TOTALNETOEV . '</div>
+            <div class="address">PRODUCTO TERMINADO A REEMBALAJE.:  ' . $TOTALNETOEV . '</div>
             <div class="address">KILOS NETO EXPORTACION: ' . $TOTALNETOEXV . ' </div>
             <div class="address">KILOS DESHIDRATACIÓN: ' . $TOTALNETOEXPO . ' </div>
             <div class="address">KILOS NETO IQF : ' . $TOTALNETOINDSC . ' </div>

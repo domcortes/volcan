@@ -6,6 +6,9 @@ include_once "../config/validarUsuario.php";
 
 include_once '../controlador/TPRODUCTOR_ADO.php';
 include_once '../controlador/CIUDAD_ADO.php';
+include_once '../controlador/COMUNA_ADO.php';
+include_once '../controlador/PROVINCIA_ADO.php';
+include_once '../controlador/REGION_ADO.php';
 
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../modelo/PRODUCTOR.php';
@@ -15,6 +18,9 @@ include_once '../modelo/PRODUCTOR.php';
 
 $TPRODUCTOR_ADO =  new TPRODUCTOR_ADO();
 $CIUDAD_ADO =  new CIUDAD_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
+$PROVINCIA_ADO =  new PROVINCIA_ADO();
+$REGION_ADO =  new REGION_ADO();
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 //INIICIALIZAR MODELO
@@ -40,6 +46,9 @@ $NOMBREASOCIADOPRODUCTOR = "";
 
 
 $CIUDAD = "";
+$COMUNA = "";
+$PROVINCIA = "";
+$REGION = "";
 $TPRODUCTOR = "";
 $NUMERO = "";
 
@@ -56,15 +65,25 @@ $MENSAJE2 = "";
 //INICIALIZAR ARREGLOS
 $ARRAYPRODUCTOR = "";
 $ARRAYPRODUCTORID = "";
-$ARRAYCIUDAD = "";
 $ARRAYTPRODUCTOR = "";
 $ARRAYVERPRODUCTOR = "";
 $ARRAYNUMERO = "";
+
+
+$ARRAYCIUDAD = "";
+$ARRAYCOMUNA = "";
+$ARRAYPROVINCIA = "";
+$ARRAYREGION = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYTPRODUCTOR = $TPRODUCTOR_ADO->listarTproductorPorEmpresaCBX($EMPRESAS);
 $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
+$ARRAYPROVINCIA  = $PROVINCIA_ADO->listarProvinciaCBX();
+$ARRAYREGION = $REGION_ADO->listarRegionCBX();
+
+
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 
@@ -94,7 +113,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     $PRODUCTOR->__SET('PRB_PRODUCTOR', $_REQUEST['PRBPRODUCTOR']);
     $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
     $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
-    $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
     $PRODUCTOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $PRODUCTOR->__SET('ID_TPRODUCTOR', $_REQUEST['TPRODUCTOR']);
     $PRODUCTOR->__SET('ID_USUARIOI', $IDUSUARIOS);
@@ -421,10 +440,28 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
                 }
 
+                //FUNCION PARA REALIZAR UNA ACTUALIZACION DEL FORMULARIO DE REGISTRO DE RECEPCIONMP
+                function refrescar() {
+                    document.getElementById("form_reg_dato").submit();
+                }
+
+                //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCIONMP
+                function abrirVentana(url) {
+                    var opciones =
+                        "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1600, height=1000'";
+                    window.open(url, 'window', opciones);
+                }
+
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
                     location.href = "" + url;
                 }
+
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
+
                 //FUNCION PARA OBTENER HORA Y FECHA
                 function mueveReloj() {
 
@@ -525,13 +562,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                 -->
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                     <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                         <div class="box-body">
                                             <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
                                             </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Rut </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -540,100 +577,84 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_rut" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <label>DV </label>
                                                         <input type="text" class="form-control" placeholder="DV Productor" id="DVPRODUCTOR" name="DVPRODUCTOR" value="<?php echo $DVPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_dv" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
                                                         <input type="text" class="form-control" placeholder="Nombre Productor" id="NOMBREPRODUCTOR" name="NOMBREPRODUCTOR" value="<?php echo $NOMBREPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Dirreccion </label>
                                                         <input type="text" class="form-control" placeholder="Dirreccion Productor" id="DIRECCIONPRODUCTOR" name="DIRECCIONPRODUCTOR" value="<?php echo $DIRECCIONPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Telefono </label>
                                                         <input type="number" class="form-control" placeholder="Telefono Productor" id="TELEFONOPRODUCTOR" name="TELEFONOPRODUCTOR" value="<?php echo $TELEFONOPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_telefono" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Email </label>
                                                         <input type="text" class="form-control" placeholder="Email Productor" id="EMAILPRODUCTOR" name="EMAILPRODUCTOR" value="<?php echo $EMAILPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_email" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Giro </label>
                                                         <input type="text" class="form-control" placeholder="Giro Productor" id="GIROPRODUCTOR" name="GIROPRODUCTOR" value="<?php echo $GIROPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_giro" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>CSG </label>
                                                         <input type="number" class="form-control" placeholder="CSG Productor" id="CSGPRODUCTOR" name="CSGPRODUCTOR" value="<?php echo $CSGPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_csg" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>SDP </label>
                                                         <input type="number" class="form-control" placeholder="SDP Productor" id="SDPPRODUCTOR" name="SDPPRODUCTOR" value="<?php echo $SDPPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_sdp" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>PRB </label>
                                                         <input type="number" class="form-control" placeholder="PRB Productor" id="PRBPRODUCTOR" name="PRBPRODUCTOR" value="<?php echo $PRBPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_prb" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Codigo Asociado </label>
                                                         <input type="number" class="form-control" placeholder="Codigo Asociado Productor" id="CODIGOASOCIADOPRODUCTOR" name="CODIGOASOCIADOPRODUCTOR" value="<?php echo $CODIGOASOCIADOPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_codigo" class="validacion"> </label>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Nombre Asociado </label>
                                                         <input type="text" class="form-control" placeholder="Nombre Asociado Productor" id="NOMBREASOCIADOPRODUCTOR" name="NOMBREASOCIADOPRODUCTOR" value="<?php echo $NOMBREASOCIADOPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombrea" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Ciudad </label>
                                                         <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
@@ -653,9 +674,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12 col-12">
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                    <div class="form-group">  
+                                                    <label>Agregar</label>                  
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Ciudad" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopCiudad.php' ); ">
+                                                        <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
                                                         <label>Tipo Productor</label>
                                                         <select class="form-control select2" id="TPRODUCTOR" name="TPRODUCTOR" style="width: 100%;" value="<?php echo $TPRODUCTOR; ?>" <?php echo $DISABLED; ?>>
@@ -676,22 +705,35 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_tproductor" class="validacion"> </label>
                                                     </div>
                                                 </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">
+                                                    <div class="form-group">  
+                                                    <label>Agregar</label>                  
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" <?php echo $DISABLED; ?>  title="Agregar Tipo Productor" id="defecto" name="pop" 
+                                                        Onclick="abrirVentana('registroPopTproductor.php' ); ">
+                                                        <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                         <!-- /.box-body -->
+
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProductor.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type=" button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProductor.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Guardar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -708,6 +750,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Número </th>
+                                                        <th>Rut </th>
                                                         <th>CSG </th>
                                                         <th>Nombre </th>
                                                         <th class="text-center">Operaciónes</th>
@@ -720,39 +763,43 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                 <a href="#" class="text-warning hover-warning">
                                                                     <?php echo $r['NUMERO_PRODUCTOR']; ?>
                                                                 </a>
-                                                            </td>
+                                                            </td>   <td> <?php echo $r['RUT_PRODUCTOR']; ?>-<?php echo $r['DV_PRODUCTOR']; ?> </td>                                             
                                                             <td><?php echo $r['CSG_PRODUCTOR']; ?></td>
-                                                            <td><?php echo $r['NOMBRE_PRODUCTOR']; ?></td>
+                                                            <td><?php echo $r['NOMBRE_PRODUCTOR']; ?></td>                                                                                                        
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PRODUCTOR']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProductor" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>

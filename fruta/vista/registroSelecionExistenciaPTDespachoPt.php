@@ -353,8 +353,6 @@ include_once "../config/validarDatosUrlD.php";
                                         </div>
                                     </div>
                                     <!-- /.row -->
-
-
                                     <!-- /.box-body -->                                    
                                     <div class="card-footer">
                                         <div class="btn-group btn-rounded btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">

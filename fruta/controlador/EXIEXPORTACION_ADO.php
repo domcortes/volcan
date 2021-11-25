@@ -2246,7 +2246,8 @@ class EXIEXPORTACION_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
-                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO' 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO', 
+                                                    IFNULL(SUM(KILOS_DESHIRATACION_EXIEXPORTACION),0) AS 'DESHIRATACION'
                                             FROM fruta_exiexportacion
                                             WHERE 
                                                 ID_REEMBALAJE = '" . $IDREEMBALAJE . "' 
@@ -2378,6 +2379,7 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE', 
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO' , 
+                                                    FORMAT(IFNULL(SUM(KILOS_DESHIRATACION_EXIEXPORTACION),0),2,'de_DE') AS 'DESHIRATACION',
                                                     IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETOSF' 
                                             FROM fruta_exiexportacion
                                             WHERE 
@@ -2529,7 +2531,7 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
-    public function obtenerTotalesEmpresaPlantaTemporadaDesachado2($EMPRESA, $PLANTA, $TEMPORADA)
+    public function obtenerTotalesEmpresaPlantaTemporadaDespachado2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 

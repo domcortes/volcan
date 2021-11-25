@@ -673,6 +673,46 @@ class EXIMATERIAPRIMA_ADO
             die($e->getMessage());
         }
     }
+
+
+
+    public function listarEximateriaprimaEmpresaPlantaTemporadaDespachado($EMPRESA,  $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,  
+                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    IFNULL(DATE_FORMAT(INGRESO, '%d-%m-%Y'),'Sin Datos') AS 'INGRESO',
+                                                    IFNULL(DATE_FORMAT(MODIFICACION, '%d-%m-%Y'),'Sin Datos') AS 'MODIFICACION',
+                                                    IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
+                                                    IFNULL(DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y'),'Sin Datos') AS 'RECEPCION',
+                                                    IFNULL(DATE_FORMAT(FECHA_REPALETIZAJE, '%d-%m-%Y'),'Sin Datos') AS 'REPALETIZAJE',
+                                                    IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
+                                                    IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0) AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0) AS 'BRUTO',
+                                                    IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0) AS 'PROMEDIO',
+                                                    IFNULL(PESO_PALLET_EXIMATERIAPRIMA,0) AS 'PALLET'
+                                                    FROM fruta_eximateriaprima
+                                                    WHERE ESTADO_REGISTRO = 1
+                                                    AND ESTADO = 8
+                                                    AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                    AND ID_PLANTA = '" . $PLANTA . "'
+                                                    AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function listarEximateriaprimaEmpresaPlantaTemporada($EMPRESA,  $PLANTA, $TEMPORADA)
     {
         try {
@@ -1181,6 +1221,34 @@ class EXIMATERIAPRIMA_ADO
                                                     FROM fruta_eximateriaprima
                                                     WHERE ESTADO_REGISTRO = 1
                                                     AND ESTADO = 2                                             
+                                                    AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                    AND ID_PLANTA = '" . $PLANTA . "'
+                                                    AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+
+    public function obtenerTotalesEmpresaPlantaTemporadaDespachado2($EMPRESA,  $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                            FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIMATERIAPRIMA),0),0,'de_DE') AS 'ENVASE', 
+                                                            FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                    FROM fruta_eximateriaprima
+                                                    WHERE ESTADO_REGISTRO = 1
+                                                    AND ESTADO = 8                                             
                                                     AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                     AND ID_PLANTA = '" . $PLANTA . "'
                                                     AND ID_TEMPORADA = '" . $TEMPORADA . "' ;");
