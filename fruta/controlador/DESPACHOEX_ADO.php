@@ -676,6 +676,28 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+    public function buscarDespachoExPorIcarga($IDICARGA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT *,
+                                                        DATE_FORMAT(FECHA_DESPACHOEX, '%d/%m/%Y') AS 'FECHA' 
+                                                FROM fruta_despachoex
+                                                WHERE 
+                                                ID_ICARGA = " . $IDICARGA . "    
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     public function consolidadoDespachoExistencia($IDICARGA)

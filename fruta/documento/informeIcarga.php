@@ -198,10 +198,32 @@ if($ARRAYICARGA){
     $ARRAYDCARGATOTAL2 = $DICARGA_ADO->totalesPorIcarga2($IDOP);
     $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
     $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
+
     $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
     $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
     $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
 
+    
+    $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
+    if($ARRAYDESPACHOEX){
+      $FECHADESPACHOEX=$ARRAYDESPACHOEX[0]['FECHA'];
+      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
+      $NUMEROSELLO=$ARRAYDESPACHOEX[0]['NUMERO_SELLO_DESPACHOEX'];
+      $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
+      if($ARRAYVERPLANTA){
+        $LUGARDECARGA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
+        $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
+      }else{
+        $FECHADESPACHOEX="Sin Datos";
+        $LUGARDECARGA="Sin Datos";
+      }
+    }else{
+      $FDADESPACHOEX="Sin Datos";
+      $NUMEROCONTENEDOR="Sin Datos";
+      $NUMEROSELLO="Sin Datos";
+      $FECHADESPACHOEX="Sin Datos";
+      $LUGARDECARGA="Sin Datos";
+    }
     
     $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
     $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
@@ -598,15 +620,15 @@ $html='
        <tbody>
          <tr>                       
            <th class="color2 left">Fecha Despacho</th> 
-           <td class="color2 left">&nbsp;</td>      
+           <td class="color2 left">'.$FECHADESPACHOEX.'</td>      
            <th class="color2 left">Número Contenedor</th>       
-           <td class="color2 left">&nbsp;</td>      
+           <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>      
          </tr>  
          <tr>                       
-           <th class="color2 left">Lugarha Carga</th> 
-           <td class="color2 left">&nbsp;</td>      
+           <th class="color2 left">Lugar Carga</th> 
+           <td class="color2 left">'.$LUGARDECARGA.'</td>      
            <th class="color2 left">Número Sello</th>       
-           <td class="color2 left">&nbsp;</td>      
+           <td class="color2 left">'.$NUMEROSELLO.';</td>      
          </tr>  
          <tr>
            <th class="color2 left">Fecha ETD</th>    
@@ -795,7 +817,7 @@ $html = $html . '
     </tr>    
     <tr>                         
       <th class="color2 left">FDA Packing</th> 
-      <td class="color2 left">&nbsp;</td>       
+      <td class="color2 left">'.$FDADESPACHOEX.'</td>       
     </tr>  
   </tbody>    
   <tfoot>
