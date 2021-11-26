@@ -551,15 +551,13 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
   $TOTALENVASEPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['ENVASE'];
 
   foreach ($ARRAYEXIEXPORTACIONPRODUCTOR as $b) :
-    $ARRAYVERPRODUCTORID2 = $PRODUCTOR_ADO->verProductor($b['ID_PRODUCTOR']);
-    $ARRAYCIUDAD2 = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID2[0]["ID_CIUDAD"]);
-    if($ARRAYCIUDAD2){
-      $ARRAYCOMUNA2 = $COMUNA_ADO->verComuna($ARRAYCIUDAD2[0]["ID_COMUNA"]);
-      $COMUNAPRODUCTOR2 = $ARRAYCOMUNA2[0]["NOMBRE_COMUNA"];
-    }
+    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($b['ID_PRODUCTOR']);
+    $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID[0]["CIUDAD"]);
+    $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
 
-    $CSGPRODUCTOR2 = $ARRAYVERPRODUCTORID2[0]["CSG_PRODUCTOR"];
-    $NOMBREPRODUCTOR2 = $ARRAYVERPRODUCTORID2[0]["NOMBRE_PRODUCTOR"];
+    $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]["CSG_PRODUCTOR"];
+    $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]["NOMBRE_PRODUCTOR"];
+    $COMUNAPRODUCTOR = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
 
 
     $ARRAYEXIEXPORTACIONBOLSA2 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2ProductorDiferenciadoProductorEstandar($IDOP, $b['ID_PRODUCTOR']);
@@ -589,9 +587,9 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
 
             $html = $html . '              
             <tr >
-                <td class="left">' .  $CSGPRODUCTOR2 . '</td>
-                <td class="center">' . $NOMBREPRODUCTOR2 . '</td>
-                <td class="center">' . $COMUNAPRODUCTOR2 . '</td>
+                <td class="left">' .  $CSGPRODUCTOR . '</td>
+                <td class="center">' . $NOMBREPRODUCTOR . '</td>
+                <td class="center">' . $COMUNAPRODUCTOR . '</td>
                 <td class="center">' . $NOMBREESTANDAR . '</td>
                 <td class="center">' . $NOMBREVARIEDAD . '</td>
                 <th class="center">' . $TOTALENVASEVARIEDAD . '</th>
