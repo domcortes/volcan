@@ -27,6 +27,7 @@ $DISABLED = "";
 $NOMBRENOTIFICADOR = "";
 $EORINOTIFICADOR = "";
 $DIRECCIONNOTIFICADOR = "";
+$TELEFONONOTIFICADOR = "";
 $CONTACTONOTIFICADOR1 = "";
 $CARGONOTIFICADOR1 = "";
 $EMAILNOTIFICADOR1 = "";
@@ -71,6 +72,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     $NOTIFICADOR->__SET('NOMBRE_NOTIFICADOR', $_REQUEST['NOMBRENOTIFICADOR']);
     $NOTIFICADOR->__SET('EORI_NOTIFICADOR', $_REQUEST['EORINOTIFICADOR']);
     $NOTIFICADOR->__SET('DIRECCION_NOTIFICADOR', $_REQUEST['DIRECCIONNOTIFICADOR']);
+    $NOTIFICADOR->__SET('TELEFONO_NOTIFICADOR', $_REQUEST['TELEFONONOTIFICADOR']);
     $NOTIFICADOR->__SET('CONTACTO1_NOTIFICADOR', $_REQUEST['CONTACTONOTIFICADOR1']);
     $NOTIFICADOR->__SET('CARGO1_NOTIFICADOR', $_REQUEST['CARGONOTIFICADOR1']);
     $NOTIFICADOR->__SET('EMAIL1_NOTIFICADOR', $_REQUEST['EMAILNOTIFICADOR1']);
@@ -96,6 +98,7 @@ if (isset($_REQUEST['EDITAR'])) {
     $NOTIFICADOR->__SET('NOMBRE_NOTIFICADOR', $_REQUEST['NOMBRENOTIFICADOR']);
     $NOTIFICADOR->__SET('EORI_NOTIFICADOR', $_REQUEST['EORINOTIFICADOR']);
     $NOTIFICADOR->__SET('DIRECCION_NOTIFICADOR', $_REQUEST['DIRECCIONNOTIFICADOR']);
+    $NOTIFICADOR->__SET('TELEFONO_NOTIFICADOR', $_REQUEST['TELEFONONOTIFICADOR']);
     $NOTIFICADOR->__SET('CONTACTO1_NOTIFICADOR', $_REQUEST['CONTACTONOTIFICADOR1']);
     $NOTIFICADOR->__SET('CARGO1_NOTIFICADOR', $_REQUEST['CARGONOTIFICADOR1']);
     $NOTIFICADOR->__SET('EMAIL1_NOTIFICADOR', $_REQUEST['EMAILNOTIFICADOR1']);
@@ -157,6 +160,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NOMBRENOTIFICADOR = "" . $r['NOMBRE_NOTIFICADOR'];
             $EORINOTIFICADOR = "" . $r['EORI_NOTIFICADOR'];
             $DIRECCIONNOTIFICADOR = "" . $r['DIRECCION_NOTIFICADOR'];
+            $TELEFONONOTIFICADOR = "" . $r['TELEFONO_NOTIFICADOR'];
             $CONTACTONOTIFICADOR1 = "" . $r['CONTACTO1_NOTIFICADOR'];
             $CARGONOTIFICADOR1 = "" . $r['CARGO1_NOTIFICADOR'];
             $EMAILNOTIFICADOR1 = "" . $r['EMAIL1_NOTIFICADOR'];
@@ -188,6 +192,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NOMBRENOTIFICADOR = "" . $r['NOMBRE_NOTIFICADOR'];
             $EORINOTIFICADOR = "" . $r['EORI_NOTIFICADOR'];
             $DIRECCIONNOTIFICADOR = "" . $r['DIRECCION_NOTIFICADOR'];
+            $TELEFONONOTIFICADOR = "" . $r['TELEFONO_NOTIFICADOR'];
             $CONTACTONOTIFICADOR1 = "" . $r['CONTACTO1_NOTIFICADOR'];
             $CARGONOTIFICADOR1 = "" . $r['CARGO1_NOTIFICADOR'];
             $EMAILNOTIFICADOR1 = "" . $r['EMAIL1_NOTIFICADOR'];
@@ -538,8 +543,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>EORI </label>
-                                                        <input type="text" class="form-control" placeholder="EORI Notificador" id="EORINOTIFICADOR" name="EORINOTIFICADOR" value="<?php echo $EORINOTIFICADOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label>ID Tributario </label>
+                                                        <input type="text" class="form-control" placeholder="ID Tributario Notificador" id="EORINOTIFICADOR" name="EORINOTIFICADOR" value="<?php echo $EORINOTIFICADOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_eori" class="validacion"> </label>
                                                     </div>
                                                 </div>
@@ -552,7 +557,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_direccion" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Telefono / Fax </label>
+                                                        <input type="text" class="form-control" placeholder="Telefono / Fax Notificador" id="TELEFONONOTIFICADOR" name="TELEFONONOTIFICADOR" value="<?php echo $TELEFONONOTIFICADOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_telefono" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-12">
                                                     <div class="form-group">
                                                         <label>Ciudad </label>
                                                         <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>

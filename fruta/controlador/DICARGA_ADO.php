@@ -219,9 +219,16 @@ class DICARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_dicarga 
-                                        WHERE ID_ICARGA = '" . $IDICARGA . "'  
-                                        AND ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT *, 
+                                                IFNULL(CANTIDAD_ENVASE_DICARGA,0)AS 'ENVASE',
+                                                IFNULL(KILOS_NETO_DICARGA,0)AS 'NETO',
+                                                IFNULL(KILOS_BRUTO_DICARGA,0) AS 'BRUTO',
+                                                IFNULL(PRECIO_US_DICARGA,0) AS 'US',
+                                                IFNULL(TOTAL_PRECIO_US_DICARGA,0) AS 'TOTALUS'
+            
+                                                 FROM fruta_dicarga 
+                                                WHERE ID_ICARGA = '" . $IDICARGA . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

@@ -12,6 +12,7 @@
         private	  $NOMBRE_NOTIFICADOR;
         private	  $EORI_NOTIFICADOR;
         private	  $DIRECCION_NOTIFICADOR;
+        private	  $TELEFONO_NOTIFICADOR;
         private   $CONTACTO1_NOTIFICADOR;
         private   $CARGO1_NOTIFICADOR;
         private   $EMAIL1_NOTIFICADOR;

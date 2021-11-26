@@ -133,8 +133,10 @@ class ICARGA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHAETD_ICARGA, '%Y/%m/%d') AS 'FECHAETD', 
-                                                DATE_FORMAT(FECHAETA_ICARGA, '%Y/%m/%d') AS 'FECHAETA', 
+                                                DATE_FORMAT(FECHA_ICARGA, '%d/%m/%Y') AS 'FECHA', 
+                                                DATE_FORMAT(FECHAETD_ICARGA, '%d/%m/%Y') AS 'FECHAETD', 
+                                                DATE_FORMAT(FECHAETA_ICARGA, '%d/%m/%Y') AS 'FECHAETA', 
+                                                DATE_FORMAT(FECHASTACKING_ICARGA, '%d/%m/%Y') AS 'FECHAESTACKING', 
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
                                             FROM fruta_icarga
@@ -154,6 +156,29 @@ class ICARGA_ADO
     }
 
 
+    public function verIcargaInforme($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_ICARGA, '%d/%m/%Y') AS 'FECHA', 
+                                                DATE_FORMAT(FECHAETD_ICARGA, '%W, %d of %M of %Y'') AS 'FECHAETD', 
+                                                DATE_FORMAT(FECHAETA_ICARGA, '%W, %d of %M of %Y') AS 'FECHAETA', 
+                                            FROM fruta_icarga
+                                            WHERE ID_ICARGA = '" . $IDICARGA . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //REGISTRO DE UNA NUEVA FILA    
     public function agregarIcarga(ICARGA $ICARGA)

@@ -368,10 +368,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
-    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($IDOP);
+    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga2($IDOP);
     $ARRAYDCARGATOTAL = $DICARGA_ADO->totalesPorIcarga($IDOP);
     $ARRAYDCARGATOTAL2 = $DICARGA_ADO->totalesPorIcarga2($IDOP);
     $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
+    $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
+    $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
+    $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
+    $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
 
     $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
     $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
@@ -925,7 +929,7 @@ if (isset($_POST)) {
                 }
                 document.form_reg_dato.NUMEROREFERENCIAINSTRUCTIVO.style.borderColor = "#4AF575";
 
-
+                /*
                 if (EXPORTADORA) {
                     CONSIGNATARIO = document.getElementById("CONSIGNATARIO").selectedIndex;
                     NOTIFICADOR = document.getElementById("NOTIFICADOR").selectedIndex;
@@ -1007,6 +1011,8 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.DFINAL.style.borderColor = "#4AF575";
                 }
+                */
+                /*
                 if (AADUANA) {
 
                     FECHAETD = document.getElementById("FECHAETD").value;
@@ -1206,6 +1212,8 @@ if (isset($_POST)) {
                     }
 
                 }
+                */
+                /*
                 if (TCONTENEDOR) {
 
                     ATMOSFERA = document.getElementById("ATMOSFERA").selectedIndex;
@@ -1244,7 +1252,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TINSTRUCTIVO.style.borderColor = "#4AF575";
 
-                    if (O2INSTRUCTIVO == null || O2INSTRUCTIVO == 0 || /^\s+$/.test(O2INSTRUCTIVO)) {
+                    if (O2INSTRUCTIVO == null ||  /^\s+$/.test(O2INSTRUCTIVO)) {
                         document.form_reg_dato.O2INSTRUCTIVO.focus();
                         document.form_reg_dato.O2INSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_o2').innerHTML = "NO A INGRESADO DATO";
@@ -1252,7 +1260,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.O2INSTRUCTIVO.style.borderColor = "#4AF575";
 
-                    if (CO2INSTRUCTIVO == null || CO2INSTRUCTIVO == 0 || /^\s+$/.test(CO2INSTRUCTIVO)) {
+                    if (CO2INSTRUCTIVO == null || /^\s+$/.test(CO2INSTRUCTIVO)) {
                         document.form_reg_dato.CO2INSTRUCTIVO.focus();
                         document.form_reg_dato.CO2INSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_co2').innerHTML = "NO A INGRESADO DATO";
@@ -1261,7 +1269,7 @@ if (isset($_POST)) {
                     document.form_reg_dato.CO2INSTRUCTIVO.style.borderColor = "#4AF575";
 
 
-                    if (ALAMPAINSTRUCTIVO == null || ALAMPAINSTRUCTIVO == 0 || /^\s+$/.test(ALAMPAINSTRUCTIVO)) {
+                    if (ALAMPAINSTRUCTIVO == null  || /^\s+$/.test(ALAMPAINSTRUCTIVO)) {
                         document.form_reg_dato.ALAMPAINSTRUCTIVO.focus();
                         document.form_reg_dato.ALAMPAINSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_alampa').innerHTML = "NO A INGRESADO DATO";
@@ -1269,7 +1277,8 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.ALAMPAINSTRUCTIVO.style.borderColor = "#4AF575";
 
-                }
+                }*/
+                /*
                 if (FPAGO) {
                     MVENTA = document.getElementById("MVENTA").selectedIndex;
                     CVENTA = document.getElementById("CVENTA").selectedIndex;
@@ -1382,9 +1391,7 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.SEGURO.style.borderColor = "#4AF575";
-                }
-
-
+                }*/
                 /*
                 if (OBSERVACIONINSTRUCTIVO == null || OBSERVACIONINSTRUCTIVO.length == 0 || /^\s+$/.test(OBSERVACIONINSTRUCTIVO)) {
                     document.form_reg_dato.OBSERVACIONINSTRUCTIVO.focus();
@@ -1806,7 +1813,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TINSTRUCTIVO.style.borderColor = "#4AF575";
 
-                    if (O2INSTRUCTIVO == null || O2INSTRUCTIVO == 0 || /^\s+$/.test(O2INSTRUCTIVO)) {
+                    if (O2INSTRUCTIVO == null || /^\s+$/.test(O2INSTRUCTIVO)) {
                         document.form_reg_dato.O2INSTRUCTIVO.focus();
                         document.form_reg_dato.O2INSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_o2').innerHTML = "NO A INGRESADO DATO";
@@ -1814,7 +1821,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.O2INSTRUCTIVO.style.borderColor = "#4AF575";
 
-                    if (CO2INSTRUCTIVO == null || CO2INSTRUCTIVO == 0 || /^\s+$/.test(CO2INSTRUCTIVO)) {
+                    if (CO2INSTRUCTIVO == null  || /^\s+$/.test(CO2INSTRUCTIVO)) {
                         document.form_reg_dato.CO2INSTRUCTIVO.focus();
                         document.form_reg_dato.CO2INSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_co2').innerHTML = "NO A INGRESADO DATO";
@@ -1823,7 +1830,7 @@ if (isset($_POST)) {
                     document.form_reg_dato.CO2INSTRUCTIVO.style.borderColor = "#4AF575";
 
 
-                    if (ALAMPAINSTRUCTIVO == null || ALAMPAINSTRUCTIVO == 0 || /^\s+$/.test(ALAMPAINSTRUCTIVO)) {
+                    if (ALAMPAINSTRUCTIVO == null || /^\s+$/.test(ALAMPAINSTRUCTIVO)) {
                         document.form_reg_dato.ALAMPAINSTRUCTIVO.focus();
                         document.form_reg_dato.ALAMPAINSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_alampa').innerHTML = "NO A INGRESADO DATO";
@@ -2198,7 +2205,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Consignatario" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopConsignatorio.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Consignatario" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopConsignatorio.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2225,7 +2232,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Notificador" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopNotificador.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Notificador" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopNotificador.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2252,7 +2259,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Broker" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopBroker.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Broker" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopBroker.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2279,7 +2286,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Recibidor Final" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopRfinal.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Recibidor Final" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopRfinal.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2325,7 +2332,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Mercado" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopMercado.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Mercado" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopMercado.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2352,7 +2359,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Destino Final" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopDfinal.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Destino Final" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopDfinal.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2399,7 +2406,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Agente Aduana" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAaduana.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Agente Aduana" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAaduana.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2426,7 +2433,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Agente Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAgcarga.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Agente Carga" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAgcarga.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2470,7 +2477,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Transporte" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Transporte" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTransporte.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2497,7 +2504,7 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Lugar Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLcarga.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Lugar Carga" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLcarga.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2524,7 +2531,7 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Lugar Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLdestino.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Lugar Destino" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLdestino.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2553,7 +2560,7 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Linea Aerea" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLaerea.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Linea Aerea" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopLaerea.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2596,7 +2603,7 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Aeropuerto Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAcarga.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Aeropuerto Carga" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAcarga.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2623,7 +2630,7 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Aeropuerto Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAdestino.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Aeropuerto Destino" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAdestino.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2654,7 +2661,7 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Naviera" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopNaviera.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Naviera" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopNaviera.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2705,7 +2712,7 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Puerto Carga" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPcarga.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Puerto Carga" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPcarga.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2732,7 +2739,7 @@ if (isset($_POST)) {
                                                 <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                     <div class="form-group">
                                                         <br>
-                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Puerto Destino" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPdestino.php' ); ">
+                                                        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Puerto Destino" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopPdestino.php' ); ">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </div>
@@ -2764,7 +2771,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Tipo Contenedor" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTcontenedor.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Tipo Contenedor" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTcontenedor.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2791,7 +2798,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Atmósfera" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAtmosfera.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Atmósfera" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopAtmosfera.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2850,7 +2857,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Forma Pago" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopFpago.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Forma Pago" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopFpago.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2877,7 +2884,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Modalidad Venta" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopMventa.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Modalidad Venta" <?php echo $DISABLED; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopMventa.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2904,7 +2911,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cláusula Venta" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopCventa.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cláusula Venta" <?php echo $DISABLED; ?>  id="defecto" name="pop" Onclick="abrirVentana('registroPopCventa.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -2931,7 +2938,7 @@ if (isset($_POST)) {
                                             <div class="col-xxl-1 col-xl-1 col-lg-3 col-md-3 col-sm-3 col-3 col-xs-3">
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cláusula Venta" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> id="defecto" name="pop" Onclick="abrirVentana('registroPopTflete.php' ); ">
+                                                    <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" title="Agregar Cláusula Venta" <?php echo $DISABLED; ?>  id="defecto" name="pop" Onclick="abrirVentana('registroPopTflete.php' ); ">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </button>
                                                 </div>
@@ -3059,7 +3066,7 @@ if (isset($_POST)) {
                                         </div>
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informePcdespacho.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Carga Real" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
@@ -3078,8 +3085,7 @@ if (isset($_POST)) {
                             <div class="card">
                                 <div class="card-header bg-success">
                                     <h4 class="text-white">Detalle Instructivo</h4>
-                                </div>
-                                
+                                </div>                                
                                 <div class="card-header">
                                     <div class="form-row align-items-center">
                                         <form method="post" id="form1">
@@ -3141,7 +3147,10 @@ if (isset($_POST)) {
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Operaciónes</th>
-                                                <th>Estandar </th>
+                                                <th>Codigo Estandar </th>
+                                                <th>Envase/Estandar </th>
+                                                <th>Peso Neto </th>
+                                                <th>Peso Bruto </th>
                                                 <th>Cantidad Envase </th>
                                                 <th>Kilo Neto </th>
                                                 <th>Kilo Bruto </th>
@@ -3157,9 +3166,15 @@ if (isset($_POST)) {
                                                     <?php
                                                     $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
                                                     if ($ARRAYEEXPORTACION) {
+                                                        $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
                                                         $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+                                                        $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
                                                     } else {
+                                                        $CODIGOESTANDAR = "Sin Datos";
                                                         $NOMBREESTANTAR = "Sin Datos";
+                                                        $NETOESTANTAR = "Sin Datos";
+                                                        $BRUTOESTANTAR = "Sin Datos";
                                                     }
                                                     $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
                                                     if ($ARRAYCALIBRE) {
@@ -3197,13 +3212,16 @@ if (isset($_POST)) {
                                                                     </div>
                                                             </form>
                                                         </td>
+                                                        <td><?php echo $CODIGOESTANDAR; ?></td>
                                                         <td><?php echo $NOMBREESTANTAR; ?></td>
-                                                        <td><?php echo $s['CANTIDAD_ENVASE_DICARGA']; ?></td>
-                                                        <td><?php echo $s['KILOS_NETO_DICARGA']; ?></td>
-                                                        <td><?php echo $s['KILOS_BRUTO_DICARGA']; ?></td>
+                                                        <td><?php echo $NETOESTANTAR; ?></td>
+                                                        <td><?php echo $BRUTOESTANTAR; ?></td>
+                                                        <td><?php echo $s['ENVASE']; ?></td>
+                                                        <td><?php echo $s['NETO']; ?></td>
+                                                        <td><?php echo $s['BRUTO']; ?></td>
                                                         <td><?php echo $NOMBRECALIBRE; ?></td>
-                                                        <td><?php echo $s['PRECIO_US_DICARGA']; ?></td>
-                                                        <td><?php echo $s['TOTAL_PRECIO_US_DICARGA']; ?></td>
+                                                        <td><?php echo $s['US']; ?></td>
+                                                        <td><?php echo $s['TOTALUS']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php } ?>
@@ -3216,16 +3234,55 @@ if (isset($_POST)) {
                                 <div class="card-header bg-info">
                                     <h4 class="card-title">Carga Real</h4>
                                 </div>
+                                                             
+                                <div class="card-header">
+                                    <div class="form-row align-items-center">
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALENVASECONSOLIADO" name="TOTALENVASECONSOLIADO" value="<?php echo $TOTALENVASECONSOLIADO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASECONSOLIADO" name="TOTALENVASECONSOLIADO" value="<?php echo $TOTALENVASECONSOLIADO; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALNETOCONSOLIADO" name="TOTALNETOCONSOLIADO" value="<?php echo $TOTALNETOCONSOLIADO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALNETOCONSOLIADOV" name="TOTALNETOCONSOLIADOV" value="<?php echo $TOTALNETOCONSOLIADO; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALBRUTOCONSOLIADO" name="TOTALBRUTOCONSOLIADO" value="<?php echo $TOTALBRUTOCONSOLIADO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALBRUTOCONSOLIADOV" name="TOTALBRUTOCONSOLIADOV" value="<?php echo $TOTALBRUTOCONSOLIADO; ?>" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <table id="salida" class="table table-hover " style="width: 100%;">
                                         <thead>
                                             <tr class="text-left">
+                                                <th>Codigo Estandar </th>
+                                                <th>Envase/Estandar </th>
+                                                <th>Peso Neto </th>
+                                                <th>Peso Bruto </th>
                                                 <th>Cantidad Envases </th>
                                                 <th>Kilos Neto </th>
+                                                <th>Kilos Bruto </th>
                                                 <th>Fecha Embalado </th>
                                                 <th>CSG Productor </th>
                                                 <th>Nombre Productor </th>
-                                                <th>Estandar </th>
                                                 <th>Variedad </th>
                                             </tr>
                                         </thead>
@@ -3244,9 +3301,15 @@ if (isset($_POST)) {
                                                     }
                                                     $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
                                                     if ($ARRAYEEXPORTACION) {
-                                                        $NOMBRESTANDAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
+                                                        $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+                                                        $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
                                                     } else {
-                                                        $NOMBRESTANDAR = "Sin Datos";
+                                                        $CODIGOESTANDAR = "Sin Datos";
+                                                        $NOMBREESTANTAR = "Sin Datos";
+                                                        $NETOESTANTAR = "Sin Datos";
+                                                        $BRUTOESTANTAR = "Sin Datos";
                                                     }
                                                     $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
                                                     if ($ARRAYVERVESPECIESID) {
@@ -3257,12 +3320,16 @@ if (isset($_POST)) {
 
                                                     ?>
                                                     <tr class="text-left">
+                                                        <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                        <td><?php echo $NOMBREESTANTAR; ?></td>
+                                                        <td><?php echo number_format($NETOESTANTAR, 3, ",", ".") ?></td>
+                                                        <td><?php echo number_format($BRUTOESTANTAR, 3, ",", ".") ?></td>
                                                         <td><?php echo $s['ENVASE']; ?></td>
                                                         <td><?php echo $s['NETO']; ?></td>
+                                                        <td><?php echo $s['BRUTO']; ?></td>
                                                         <td><?php echo $s['EMBALADO']; ?></td>
                                                         <td> <?php echo $CSGPRODUCTOR  ?> </td>
                                                         <td> <?php echo $NOMBREPRODUCTOR  ?> </td>
-                                                        <td> <?php echo $NOMBRESTANDAR  ?> </td>
                                                         <td> <?php echo $NOMBREVARIEDAD  ?> </td>
                                                     </tr>
                                                 <?php endforeach; ?>

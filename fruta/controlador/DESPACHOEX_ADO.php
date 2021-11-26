@@ -676,6 +676,28 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+    public function buscarDespachoExPorIcarga($IDICARGA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT *,
+                                                        DATE_FORMAT(FECHA_DESPACHOEX, '%d/%m/%Y') AS 'FECHA' 
+                                                FROM fruta_despachoex
+                                                WHERE 
+                                                ID_ICARGA = " . $IDICARGA . "    
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     public function consolidadoDespachoExistencia($IDICARGA)
@@ -685,6 +707,7 @@ class DESPACHOEX_ADO
             $datos = $this->conexion->prepare("SELECT 
                                             SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION) AS 'ENVASE',
                                             SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION) AS 'NETO',
+                                            SUM(fruta_exiexportacion.KILOS_BRUTO_EXIEXPORTACION) AS 'BRUTO',
                                             DATE_FORMAT(fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y')  AS 'EMBALADO' ,
                                             fruta_exiexportacion.ID_PRODUCTOR,fruta_exiexportacion.ID_VESPECIES,
                                             fruta_exiexportacion.ID_ESTANDAR,fruta_exiexportacion.ID_FOLIO
@@ -720,6 +743,7 @@ class DESPACHOEX_ADO
             $datos = $this->conexion->prepare("SELECT 
                                             FORMAT(IFNULL(SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
                                             FORMAT(IFNULL(SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
+                                            FORMAT(IFNULL(SUM(fruta_exiexportacion.KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO',
                                             DATE_FORMAT(fruta_exiexportacion.FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y')  AS 'EMBALADO' ,
                                             fruta_exiexportacion.ID_PRODUCTOR,fruta_exiexportacion.ID_VESPECIES,
                                             fruta_exiexportacion.ID_ESTANDAR,fruta_exiexportacion.ID_FOLIO
@@ -776,6 +800,33 @@ class DESPACHOEX_ADO
 
     //TOTALES
 
+    public function obtenerTotalconsolidadoDespachoExistencia2($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    FORMAT(IFNULL(SUM(fruta_exiexportacion.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(SUM(fruta_exiexportacion.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(SUM(fruta_exiexportacion.KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO'
+                                        FROM fruta_despachoex, fruta_exiexportacion 
+                                        WHERE  fruta_despachoex.ID_DESPACHOEX=fruta_exiexportacion.ID_DESPACHOEX
+                                        AND fruta_despachoex.ID_ICARGA = '" . $IDICARGA . "'
+                                        AND fruta_exiexportacion.ESTADO_REGISTRO = 1  
+                                        
+                                         ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function obtenerTotalesDespachoexCBX2()
     {
         try {
