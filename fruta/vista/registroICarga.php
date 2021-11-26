@@ -2807,7 +2807,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>T° </label>
                                                     <input type="hidden" class="form-control" placeholder="TINSTRUCTIVOE" id="TINSTRUCTIVOE" name="TINSTRUCTIVOE" value="<?php echo $TINSTRUCTIVO; ?>" />
-                                                    <input type="number" class="form-control" placeholder="Temperatura Instructivo" id="TINSTRUCTIVO" name="TINSTRUCTIVO" value="<?php echo $TINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.01" class="form-control" placeholder="Temperatura Instructivo" id="TINSTRUCTIVO" name="TINSTRUCTIVO" value="<?php echo $TINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_t" class="validacion"> </label>
                                                 </div>
                                             </div>
