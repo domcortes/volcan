@@ -136,6 +136,7 @@ class ICARGA_ADO
                                                 DATE_FORMAT(FECHA_ICARGA, '%d/%m/%Y') AS 'FECHA', 
                                                 DATE_FORMAT(FECHAETD_ICARGA, '%d/%m/%Y') AS 'FECHAETD', 
                                                 DATE_FORMAT(FECHAETA_ICARGA, '%d/%m/%Y') AS 'FECHAETA', 
+                                                DATE_FORMAT(FECHASTACKING_ICARGA, '%d/%m/%Y') AS 'FECHAESTACKING', 
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
                                             FROM fruta_icarga

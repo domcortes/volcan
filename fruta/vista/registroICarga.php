@@ -368,10 +368,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $IDOP = $_SESSION['parametro'];
     $OP = $_SESSION['parametro1'];
 
-    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($IDOP);
+    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga2($IDOP);
     $ARRAYDCARGATOTAL = $DICARGA_ADO->totalesPorIcarga($IDOP);
     $ARRAYDCARGATOTAL2 = $DICARGA_ADO->totalesPorIcarga2($IDOP);
     $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
+    $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
+    $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
+    $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
+    $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
 
     $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
     $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
@@ -3078,8 +3082,7 @@ if (isset($_POST)) {
                             <div class="card">
                                 <div class="card-header bg-success">
                                     <h4 class="text-white">Detalle Instructivo</h4>
-                                </div>
-                                
+                                </div>                                
                                 <div class="card-header">
                                     <div class="form-row align-items-center">
                                         <form method="post" id="form1">
@@ -3141,7 +3144,10 @@ if (isset($_POST)) {
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Operaciónes</th>
-                                                <th>Estandar </th>
+                                                <th>Codigo Estandar </th>
+                                                <th>Envase/Estandar </th>
+                                                <th>Peso Neto </th>
+                                                <th>Peso Bruto </th>
                                                 <th>Cantidad Envase </th>
                                                 <th>Kilo Neto </th>
                                                 <th>Kilo Bruto </th>
@@ -3157,9 +3163,15 @@ if (isset($_POST)) {
                                                     <?php
                                                     $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
                                                     if ($ARRAYEEXPORTACION) {
+                                                        $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
                                                         $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+                                                        $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
                                                     } else {
+                                                        $CODIGOESTANDAR = "Sin Datos";
                                                         $NOMBREESTANTAR = "Sin Datos";
+                                                        $NETOESTANTAR = "Sin Datos";
+                                                        $BRUTOESTANTAR = "Sin Datos";
                                                     }
                                                     $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
                                                     if ($ARRAYCALIBRE) {
@@ -3197,13 +3209,16 @@ if (isset($_POST)) {
                                                                     </div>
                                                             </form>
                                                         </td>
+                                                        <td><?php echo $CODIGOESTANDAR; ?></td>
                                                         <td><?php echo $NOMBREESTANTAR; ?></td>
-                                                        <td><?php echo $s['CANTIDAD_ENVASE_DICARGA']; ?></td>
-                                                        <td><?php echo $s['KILOS_NETO_DICARGA']; ?></td>
-                                                        <td><?php echo $s['KILOS_BRUTO_DICARGA']; ?></td>
+                                                        <td><?php echo $NETOESTANTAR; ?></td>
+                                                        <td><?php echo $BRUTOESTANTAR; ?></td>
+                                                        <td><?php echo $s['ENVASE']; ?></td>
+                                                        <td><?php echo $s['NETO']; ?></td>
+                                                        <td><?php echo $s['BRUTO']; ?></td>
                                                         <td><?php echo $NOMBRECALIBRE; ?></td>
-                                                        <td><?php echo $s['PRECIO_US_DICARGA']; ?></td>
-                                                        <td><?php echo $s['TOTAL_PRECIO_US_DICARGA']; ?></td>
+                                                        <td><?php echo $s['US']; ?></td>
+                                                        <td><?php echo $s['TOTALUS']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php } ?>
@@ -3216,16 +3231,55 @@ if (isset($_POST)) {
                                 <div class="card-header bg-info">
                                     <h4 class="card-title">Carga Real</h4>
                                 </div>
+                                                             
+                                <div class="card-header">
+                                    <div class="form-row align-items-center">
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALENVASECONSOLIADO" name="TOTALENVASECONSOLIADO" value="<?php echo $TOTALENVASECONSOLIADO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASECONSOLIADO" name="TOTALENVASECONSOLIADO" value="<?php echo $TOTALENVASECONSOLIADO; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALNETOCONSOLIADO" name="TOTALNETOCONSOLIADO" value="<?php echo $TOTALNETOCONSOLIADO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALNETOCONSOLIADOV" name="TOTALNETOCONSOLIADOV" value="<?php echo $TOTALNETOCONSOLIADO; ?>" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for=""></label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                </div>
+                                                <input type="hidden" class="form-control" id="TOTALBRUTOCONSOLIADO" name="TOTALBRUTOCONSOLIADO" value="<?php echo $TOTALBRUTOCONSOLIADO; ?>" />
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALBRUTOCONSOLIADOV" name="TOTALBRUTOCONSOLIADOV" value="<?php echo $TOTALBRUTOCONSOLIADO; ?>" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <table id="salida" class="table table-hover " style="width: 100%;">
                                         <thead>
                                             <tr class="text-left">
+                                                <th>Codigo Estandar </th>
+                                                <th>Envase/Estandar </th>
+                                                <th>Peso Neto </th>
+                                                <th>Peso Bruto </th>
                                                 <th>Cantidad Envases </th>
                                                 <th>Kilos Neto </th>
+                                                <th>Kilos Bruto </th>
                                                 <th>Fecha Embalado </th>
                                                 <th>CSG Productor </th>
                                                 <th>Nombre Productor </th>
-                                                <th>Estandar </th>
                                                 <th>Variedad </th>
                                             </tr>
                                         </thead>
@@ -3244,9 +3298,15 @@ if (isset($_POST)) {
                                                     }
                                                     $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
                                                     if ($ARRAYEEXPORTACION) {
-                                                        $NOMBRESTANDAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
+                                                        $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                                                        $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+                                                        $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
                                                     } else {
-                                                        $NOMBRESTANDAR = "Sin Datos";
+                                                        $CODIGOESTANDAR = "Sin Datos";
+                                                        $NOMBREESTANTAR = "Sin Datos";
+                                                        $NETOESTANTAR = "Sin Datos";
+                                                        $BRUTOESTANTAR = "Sin Datos";
                                                     }
                                                     $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
                                                     if ($ARRAYVERVESPECIESID) {
@@ -3257,12 +3317,16 @@ if (isset($_POST)) {
 
                                                     ?>
                                                     <tr class="text-left">
+                                                        <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                        <td><?php echo $NOMBREESTANTAR; ?></td>
+                                                        <td><?php echo number_format($NETOESTANTAR, 3, ",", ".") ?></td>
+                                                        <td><?php echo number_format($BRUTOESTANTAR, 3, ",", ".") ?></td>
                                                         <td><?php echo $s['ENVASE']; ?></td>
                                                         <td><?php echo $s['NETO']; ?></td>
+                                                        <td><?php echo $s['BRUTO']; ?></td>
                                                         <td><?php echo $s['EMBALADO']; ?></td>
                                                         <td> <?php echo $CSGPRODUCTOR  ?> </td>
                                                         <td> <?php echo $NOMBREPRODUCTOR  ?> </td>
-                                                        <td> <?php echo $NOMBRESTANDAR  ?> </td>
                                                         <td> <?php echo $NOMBREVARIEDAD  ?> </td>
                                                     </tr>
                                                 <?php endforeach; ?>

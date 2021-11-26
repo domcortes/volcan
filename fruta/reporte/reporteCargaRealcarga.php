@@ -67,8 +67,18 @@ if($_REQUEST['parametro']){
     $IDOP = $_REQUEST['parametro'];
    }
    
-   $ARRAYCARGAREAL = $DESPACHOEX_ADO->consolidadoDespachoExistencia($IDOP);
+   $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
+   if($ARRAYCONSOLIDADODESPACHO){
+   
+     $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
+     $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
+     $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
+     $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
+   
+   
 
+   }
+   
 
 $html = '
 <table border="0" cellspacing="0" cellpadding="0">
@@ -87,7 +97,7 @@ $html = '
  <tbody>
 
 ';
-foreach ($ARRAYCARGAREAL as $r) :
+foreach ($ARRAYCONSOLIDADODESPACHO as $r) :
     $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
     if ($ARRAYPRODUCTOR) {
         $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
