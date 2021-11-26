@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-11-2021 a las 15:09:34
+-- Tiempo de generación: 26-11-2021 a las 18:03:40
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -2737,7 +2737,8 @@ CREATE TABLE `fruta_pcarga` (
 --
 
 INSERT INTO `fruta_pcarga` (`ID_PCARGA`, `NUMERO_PCARGA`, `NOMBRE_PCARGA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(4, 1, 'puerto carga 1', 1, NULL, NULL, 1, 1, 1);
+(4, 1, 'puerto carga 2', 1, NULL, NULL, 1, 1, 2),
+(5, 2, 'puerto carga 1', 1, NULL, NULL, 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -6186,6 +6187,8 @@ CREATE TABLE `transporte_naviera` (
   `ID_NAVIERA` bigint(20) NOT NULL,
   `NUMERO_NAVIERA` int(11) DEFAULT NULL,
   `NOMBRE_NAVIERA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `RUT_NAVIERA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DV_NAVIERA` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `GIRO_NAVIERA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `RAZON_SOCIAL_NAVIERA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DIRECCION_NAVIERA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -6206,9 +6209,9 @@ CREATE TABLE `transporte_naviera` (
 -- Volcado de datos para la tabla `transporte_naviera`
 --
 
-INSERT INTO `transporte_naviera` (`ID_NAVIERA`, `NUMERO_NAVIERA`, `NOMBRE_NAVIERA`, `GIRO_NAVIERA`, `RAZON_SOCIAL_NAVIERA`, `DIRECCION_NAVIERA`, `CONTACTO_NAVIERA`, `TELEFONO_NAVIERA`, `EMAIL_NAVIERA`, `NOTA_NAVIERA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 1, 'naviera 1', '1', '1', '1', '', 0, '', '', 0, NULL, NULL, 1, NULL, 1, 1),
-(2, 2, 'naviera 2', '1', '1', '1', '', 0, '', '', 1, NULL, NULL, 1, NULL, 1, 1);
+INSERT INTO `transporte_naviera` (`ID_NAVIERA`, `NUMERO_NAVIERA`, `NOMBRE_NAVIERA`, `RUT_NAVIERA`, `DV_NAVIERA`, `GIRO_NAVIERA`, `RAZON_SOCIAL_NAVIERA`, `DIRECCION_NAVIERA`, `CONTACTO_NAVIERA`, `TELEFONO_NAVIERA`, `EMAIL_NAVIERA`, `NOTA_NAVIERA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_EMPRESA`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, 1, 'naviera 1', NULL, NULL, '1', '1', '1', '', 0, '', '', 0, NULL, NULL, 1, NULL, 1, 1),
+(2, 2, 'naviera 2', NULL, NULL, '1', '1', '1', '', 0, '', '', 1, NULL, NULL, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -9152,7 +9155,7 @@ ALTER TABLE `fruta_notificador`
 -- AUTO_INCREMENT de la tabla `fruta_pcarga`
 --
 ALTER TABLE `fruta_pcarga`
-  MODIFY `ID_PCARGA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_PCARGA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `fruta_pcdespacho`
