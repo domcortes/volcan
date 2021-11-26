@@ -7,7 +7,6 @@ $(document).ready(function(){
 	$('#btnPaso3').hide();
 	$('#btnPasoAgregar').hide();
 	$('#btnCrear').hide();
-
 })
 
 //botones paso 1
