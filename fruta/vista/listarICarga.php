@@ -197,6 +197,7 @@ include_once "../config/datosUrLP.php";
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Número </th>
+                                                        <th>Número Referencia</th>
                                                         <th>Estado</th>
                                                         <th>Fecha Instructivo</th>
                                                         <th class="text-center">Operaciónes </th>
@@ -273,6 +274,7 @@ include_once "../config/datosUrLP.php";
                                                         ?>
                                                         <tr class="text-left">
                                                             <td> <?php echo $r['NUMERO_ICARGA']; ?>  </td>
+                                                            <td> <?php echo $r['NREFERENCIA_ICARGA']; ?>  </td>
                                                             <td>
                                                                 <?php if ($r['ESTADO'] == "0") { ?>
                                                                     <button type="button" class="btn btn-block btn-danger">Cerrado</button>
@@ -310,13 +312,18 @@ include_once "../config/datosUrLP.php";
                                                                                 <?php } ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                     <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Report" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Report
+                                                                                    </button>
+                                                                                </span>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
+                                                                                    <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Report Invoice" Onclick="abrirPestana('../documento/informeIcargaInvoice.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Invoice
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">

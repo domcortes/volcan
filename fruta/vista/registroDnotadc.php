@@ -7,6 +7,7 @@ include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TMONEDA_ADO.php';
 include_once '../controlador/DICARGA_ADO.php';
 
 include_once '../controlador/NOTADC_ADO.php';
@@ -24,6 +25,7 @@ $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TMONEDA_ADO =  new TMONEDA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
 
 
@@ -138,6 +140,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $TMONEDA = "" . $r['ID_TMONEDA'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -177,6 +180,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $TMONEDA = "" . $r['ID_TMONEDA'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -215,6 +219,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $TMONEDA = "" . $r['ID_TMONEDA'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -254,6 +259,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $KILOSBRUTO = "" . $r['KILOS_BRUTO_DICARGA'];
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $TMONEDA = "" . $r['ID_TMONEDA'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -443,7 +449,7 @@ if ($_POST) {
                             <form class="form" role="form" method="post" name="form_reg_dato">
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID DNOTA" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID NOTA" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
@@ -459,8 +465,8 @@ if ($_POST) {
                                                     <option></option>
                                                     <?php foreach ($ARRAYESTANDAR as $r) : ?>
                                                         <?php if ($ARRAYESTANDAR) {    ?>
-                                                            <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($EEXPORTACION == $r['ID_ESTANDAR']) {  echo "selected"; } ?>>
-                                                                <?php echo $r['NOMBRE_ESTANDAR'] ?>
+                                                            <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($EEXPORTACION == $r['ID_ESTANDAR']) {  echo "selected"; } ?>>                                                                
+                                                               <?php echo $r['CODIGO_ESTANDAR'] ?> <?php echo $r['NOMBRE_ESTANDAR'] ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
@@ -470,7 +476,7 @@ if ($_POST) {
                                                 <label id="val_estandar" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Especies </label>
                                                 <input type="hidden" class="form-control" placeholder="ESPECIESE" id="ESPECIESE" name="ESPECIESE" value="<?php echo $ESPECIES; ?>" />
@@ -478,7 +484,8 @@ if ($_POST) {
                                                 <label id="val_especies" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
+
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Calibre</label>
                                                 <input type="hidden" class="form-control" placeholder="CALIBREE" id="CALIBREE" name="CALIBREE" value="<?php echo $CALIBRE; ?>" />
@@ -497,7 +504,29 @@ if ($_POST) {
                                                 <label id="val_calibre" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>Tipo Moneda</label>
+                                                <input type="hidden" class="form-control" placeholder="TMONEDAE" id="TMONEDAE" name="TMONEDAE" value="<?php echo $TMONEDA; ?>" />
+                                                <select class="form-control select2" id="TMONEDA" name="TMONEDA" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYTMONEDA as $r) : ?>
+                                                        <?php if ($ARRAYTMONEDA) {    ?>
+                                                            <option value="<?php echo $r['ID_TMONEDA']; ?>" <?php if ($TMONEDA == $r['ID_TMONEDA']) {
+                                                                                                                    echo "selected";
+                                                                                                                } ?>>
+                                                                <?php echo $r['NOMBRE_TMONEDA'] ?>
+                                                            </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_tmoneda" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Cantidad Envase</label>
                                                 <input type="hidden" id="CANTIDADENVASEE" name="CANTIDADENVASEE" value="<?php echo $CANTIDADENVASE; ?>" />
@@ -505,7 +534,7 @@ if ($_POST) {
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Valor NC/ND </label>
                                                 <input type="hidden" id="CANTIDADNOTAE" name="CANTIDADNOTAE" value="<?php echo $CANTIDADNOTA; ?>" />
@@ -513,7 +542,7 @@ if ($_POST) {
                                                 <label id="val_cantidadnota" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Precio Instructivo</label>
                                                 <input type="hidden" id="PRECIOUSE" name="PRECIOUSE" value="<?php echo $PRECIOUS; ?>" />
@@ -521,13 +550,13 @@ if ($_POST) {
                                                 <label id="val_us" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Precio Instru. Con NC/ND</label>                                                
                                                 <input type="number" step="0.01" class="form-control"  placeholder="Precio Instru. Con NC/ND" id="PRECIOUSNCND" name="PRECIOUSNCND" value="<?php echo $PRECIOUSNCND; ?>" disabled/>                                                
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 ">
                                             <div class="form-group">
                                                 <label>Total Instructivo</label>
                                                 <input type="hidden" id="TOTALPRECIOUS" name="TOTALPRECIOUS" value="<?php echo $TOTALPRECIOUS; ?>" />
@@ -535,7 +564,7 @@ if ($_POST) {
                                                 <label id="val_totalus" class="validacion"> </label>
                                             </div>
                                         </div>                                        
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 ">
                                             <div class="form-group">
                                                 <label>Total Instru. Con NC/ND</label>                                                
                                                 <input type="number" step="0.01" class="form-control"  placeholder="Total Instru. Con NC/ND" id="TOTALPRECIOUSNCND" name="TOTALPRECIOUSNCND" value="<?php echo $TOTALPRECIOUSNCND; ?>" disabled/>                                                

@@ -1,37 +1,65 @@
 <?php
 
-//LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
+//BASE
+include_once '../controlador/TUSUARIO_ADO.php';
 include_once '../controlador/USUARIO_ADO.php';
 include_once '../controlador/EMPRESA_ADO.php';
 include_once '../controlador/PLANTA_ADO.php';
 include_once '../controlador/TEMPORADA_ADO.php';
 
+// OPERACION
+include_once '../controlador/MERCADO_ADO.php';
+include_once '../controlador/TSERVICIO_ADO.php';
 
+include_once '../controlador/EXPORTADORA_ADO.php';
 include_once '../controlador/CONSIGNATARIO_ADO.php';
+include_once '../controlador/NOTIFICADOR_ADO.php';
+include_once '../controlador/BROKER_ADO.php';
 include_once '../controlador/RFINAL_ADO.php';
+
+include_once '../controlador/AGCARGA_ADO.php';
+include_once '../controlador/AADUANA_ADO.php';
+include_once '../controlador/DFINAL_ADO.php';
+
+
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/LCARGA_ADO.php';
 include_once '../controlador/LDESTINO_ADO.php';
+
 include_once '../controlador/LAEREA_ADO.php';
+include_once '../controlador/AERONAVE_ADO.php';
 include_once '../controlador/ACARGA_ADO.php';
 include_once '../controlador/ADESTINO_ADO.php';
+
 include_once '../controlador/NAVIERA_ADO.php';
 include_once '../controlador/PCARGA_ADO.php';
 include_once '../controlador/PDESTINO_ADO.php';
-include_once '../controlador/CVENTA_ADO.php';
+
+
 include_once '../controlador/FPAGO_ADO.php';
 include_once '../controlador/MVENTA_ADO.php';
+include_once '../controlador/CVENTA_ADO.php';
+include_once '../controlador/TFLETE_ADO.php';
+
+include_once '../controlador/TCONTENEDOR_ADO.php';
+include_once '../controlador/ATMOSFERA_ADO.php';
+include_once '../controlador/PAIS_ADO.php';
+include_once '../controlador/SEGURO_ADO.php';
+
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TMONEDA_ADO.php';
+
+
 include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../controlador/DESPACHOEX_ADO.php';
+
+
+
 include_once '../controlador/ICARGA_ADO.php';
 include_once '../controlador/DICARGA_ADO.php';
-include_once '../controlador/NOTADC_ADO.php';
-include_once '../controlador/DNOTADC_ADO.php';
-
-
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -42,31 +70,47 @@ $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 
-
+$MERCADO_ADO =  new MERCADO_ADO();
+$TSERVICIO_ADO =  new TSERVICIO_ADO();
+$EXPORTADORA_ADO =  new EXPORTADORA_ADO();
 $CONSIGNATARIO_ADO =  new CONSIGNATARIO_ADO();
+$NOTIFICADOR_ADO =  new NOTIFICADOR_ADO();
+$BROKER_ADO =  new BROKER_ADO();
 $RFINAL_ADO =  new RFINAL_ADO();
+$AGCARGA_ADO =  new AGCARGA_ADO();
+$AADUANA_ADO =  new AADUANA_ADO();
+$DFINAL_ADO =  new DFINAL_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $LCARGA_ADO =  new LCARGA_ADO();
 $LDESTINO_ADO =  new LDESTINO_ADO();
 $LAEREA_ADO =  new LAEREA_ADO();
+$AERONAVE_ADO =  new AERONAVE_ADO();
 $ACARGA_ADO =  new ACARGA_ADO();
 $ADESTINO_ADO =  new ADESTINO_ADO();
 $NAVIERA_ADO =  new NAVIERA_ADO();
 $PCARGA_ADO =  new PCARGA_ADO();
 $PDESTINO_ADO =  new PDESTINO_ADO();
-$CVENTA_ADO =  new CVENTA_ADO();
 $FPAGO_ADO =  new FPAGO_ADO();
 $MVENTA_ADO =  new MVENTA_ADO();
+$CVENTA_ADO =  new CVENTA_ADO();
+$TFLETE_ADO =  new TFLETE_ADO();
+$TCONTENEDOR_ADO =  new TCONTENEDOR_ADO();
+$ATMOSFERA_ADO =  new ATMOSFERA_ADO();
+$SEGURO_ADO =  new SEGURO_ADO();
+
 $EEXPORTACION_ADO = new EEXPORTACION_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
-$PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
+$TMONEDA_ADO = new TMONEDA_ADO();
+
+$PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$DESPACHOEX_ADO = new DESPACHOEX_ADO();
+
 $ICARGA_ADO =  new ICARGA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
-$NOTADC_ADO =  new NOTADC_ADO();
-$DNOTADC_ADO =  new DNOTADC_ADO();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 $NUMERO = "";
@@ -150,52 +194,93 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 
-$ARRAYVERNOTADCNC = $NOTADC_ADO->verNota2($IDOP);
-if ($ARRAYVERNOTADCNC) {
-
-
-  $NUMERO = $ARRAYVERNOTADCNC[0]["NUMERO_NOTA"];
-  $FECHAINOTA = $ARRAYVERNOTADCNC[0]["FECHA"];
-  $TNOTA = $ARRAYVERNOTADCNC[0]["TNOTA"];
-  $ICARGA = $ARRAYVERNOTADCNC[0]["ID_ICARGA"];
   
-  $IDUSUARIOI = $ARRAYVERNOTADCNC[0]['ID_USUARIOI'];  
-  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
-  $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
-  if($TNOTA==1){
-      $NOMBRETNOTA="DEBIT";
-  }else  if($TNOTA==2){
-      $NOMBRETNOTA="CREDIT";
-  }else{
-      $NOMBRETNOTA="Sin Datos";
-  }
-  $ESTADO = $ARRAYVERNOTADCNC[0]['ESTADO'];
-  if ($ARRAYVERNOTADCNC[0]['ESTADO'] == 1) {
-    $ESTADO = "Abierto";
-  }else if ($ARRAYVERNOTADCNC[0]['ESTADO'] == 0) {
-    $ESTADO = "Cerrado";
-  }else{
-    $ESTADO="Sin Datos";
-  }    
-  $ARRAYICARGA=$ICARGA_ADO->verIcarga2($ICARGA);
-  if($ARRAYICARGA){
-      $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga2($ARRAYICARGA[0]["ID_ICARGA"]);
-      $ARRAYDCARGATOTAL = $DICARGA_ADO->totalesPorIcarga2($ARRAYICARGA[0]["ID_ICARGA"]);
-      $TOTALENVASE=$ARRAYDCARGATOTAL[0]["ENVASE"];
-      $TOTALUS=$ARRAYDCARGATOTAL[0]["TOTALUS"];
-      $NUMEROIREFERENCIA=$ARRAYICARGA[0]["NREFERENCIA_ICARGA"];
+$ARRAYICARGA=$ICARGA_ADO->verIcarga2($IDOP);
+if($ARRAYICARGA){
+      
+    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga2($IDOP);
+    $ARRAYDCARGATOTAL2 = $DICARGA_ADO->totalesPorIcarga2($IDOP);
+    $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
+    $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
+
+    $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
+    $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
+    $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
+
+    
+    $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
+    if($ARRAYDESPACHOEX){
+      $FECHADESPACHOEX=$ARRAYDESPACHOEX[0]['FECHA'];
+      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
+      $NUMEROSELLO=$ARRAYDESPACHOEX[0]['NUMERO_SELLO_DESPACHOEX'];
+      $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
+      if($ARRAYVERPLANTA){
+        $LUGARDECARGA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
+        $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
+      }else{
+        $FECHADESPACHOEX="Sin Datos";
+        $LUGARDECARGA="Sin Datos";
+      }
+    }else{
+      $FDADESPACHOEX="Sin Datos";
+      $NUMEROCONTENEDOR="Sin Datos";
+      $NUMEROSELLO="Sin Datos";
+      $FECHADESPACHOEX="Sin Datos";
+      $LUGARDECARGA="Sin Datos";
+    }
+    
+      $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
+      $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
+      $TOTALBRUTOV = $ARRAYDCARGATOTAL2[0]['BRUTO'];
+      $TOTALUSV = $ARRAYDCARGATOTAL2[0]['TOTALUS'];
+      
       $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
+      $NUMEROIREFERENCIA=$ARRAYICARGA[0]["NREFERENCIA_ICARGA"];
+      $FECHA=$ARRAYICARGA[0]["FECHA"];
       $BOOKINGINSTRUCTIVO = $ARRAYICARGA[0]['BOOKING_ICARGA'];
       $TEMBARQUE = $ARRAYICARGA[0]['TEMBARQUE_ICARGA'];
       $FECHAETD = $ARRAYICARGA[0]['FECHAETD'];
       $FECHAETA = $ARRAYICARGA[0]['FECHAETA'];    
       $BOLAWBCRTINSTRUCTIVO = $ARRAYICARGA[0]['BOLAWBCRT_ICARGA'];
 
+
+      $TINSTRUCTIVO = $ARRAYICARGA[0]['T_ICARGA'];
+      $O2INSTRUCTIVO = $ARRAYICARGA[0]['O2_ICARGA'];
+      $CO2INSTRUCTIVO = $ARRAYICARGA[0]['C02_ICARGA'];
+      $ALAMPAINSTRUCTIVO = $ARRAYICARGA[0]['ALAMPA_ICARGA'];
+
+      $OBSERVACIONES = $ARRAYICARGA[0]['OBSERVACION_ICARGA'];
+      if($ARRAYICARGA[0]['FUMIGADO_ICARGA']==1){
+        $FUMIGADO="Si";
+      }else if($ARRAYICARGA[0]['FUMIGADO_ICARGA']==2){
+        $FUMIGADO="No";
+      }else{
+        $FUMIGADO="Sin Datos";
+      }
+
+      $ESTADO = $ARRAYICARGA[0]['ESTADO'];
+      if ($ARRAYICARGA[0]['ESTADO'] == 1) {
+        $ESTADO = "Abierto";
+      }else if ($ARRAYICARGA[0]['ESTADO'] == 0) {
+        $ESTADO = "Cerrado";
+      }else{
+        $ESTADO="Sin Datos";
+      }  
       $ARRAYRFINAL=$RFINAL_ADO->verRfinal($ARRAYICARGA[0]["ID_RFINAL"]);
       if($ARRAYRFINAL){
           $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
       }else{
           $NOMBRERFINAL="Sin Datos";
+      }
+      $ARRYANOTIFICADOR=$NOTIFICADOR_ADO->verNotificador($ARRAYICARGA[0]['ID_NOTIFICADOR']);   
+      if($ARRYANOTIFICADOR){
+        $NOMBRENOTIFICADOR=$ARRYANOTIFICADOR[0]["NOMBRE_NOTIFICADOR"];
+        $DIRECCIONNOTIFICADOR=$ARRYANOTIFICADOR[0]["DIRECCION_NOTIFICADOR"];
+        $EMAIL1NOTIFICADOR=$ARRYANOTIFICADOR[0]["EMAIL1_NOTIFICADOR"];
+      }else{
+        $NOMBRENOTIFICADOR="Sin Datos";
+        $DIRECCIONNOTIFICADOR="Sin Datos";
+        $EMAIL1NOTIFICADOR="Sin Datos";
       }
       $ARRAYCONSIGNATARIO = $CONSIGNATARIO_ADO->verConsignatorio($ARRAYICARGA[0]['ID_CONSIGNATARIO']);            
       if($ARRAYCONSIGNATARIO){
@@ -206,13 +291,6 @@ if ($ARRAYVERNOTADCNC) {
         $NOMBRECONSIGNATARIO="Sin Datos";
         $DIRECCIONCONSIGNATARIO="Sin Datos";
         $EMAIL1CONSIGNATARIO="Sin Datos";
-      }
-      
-      $ARRAYCVENTA = $CVENTA_ADO->verCventa( $ARRAYICARGA[0]['ID_CVENTA']);        
-      if($ARRAYCVENTA){
-        $NOMBRECVENTA=$ARRAYCVENTA[0]["NOMBRE_CVENTA"];
-      }else{
-        $NOMBRECVENTA="Sin Datos";
       }
       $ARRAYFPAGO = $FPAGO_ADO->verFpago(  $ARRAYICARGA[0]['ID_FPAGO']);         
       if($ARRAYFPAGO){
@@ -226,8 +304,55 @@ if ($ARRAYVERNOTADCNC) {
       }else{
         $NOMBREMVENTA="Sin Datos";
       }
-      if ($TEMBARQUE) {
+      $ARRAYCVENTA = $CVENTA_ADO->verCventa( $ARRAYICARGA[0]['ID_CVENTA']);        
+      if($ARRAYMVENTA){
+        $NOMBRECVENTA=$ARRAYCVENTA[0]["NOMBRE_CVENTA"];
+      }else{
+        $NOMBRECVENTA="Sin Datos";
+      }
+      $ARRAYTFLETE= $TFLETE_ADO->verTflete( $ARRAYICARGA[0]['ID_TFLETE']);        
+      if($ARRAYTFLETE){
+        $NOMBRETFLETE=$ARRAYTFLETE[0]["NOMBRE_TFLETE"];
+      }else{
+        $NOMBRETFLETE="Sin Datos";
+      }      
+      $ARRAYATMOSFERA =$ATMOSFERA_ADO->verAtmosfera( $ARRAYICARGA[0]['ID_ATMOSFERA']);
+      if($ARRAYATMOSFERA){
+        $NOMBREATMOSFERA=$ARRAYATMOSFERA[0]["NOMBRE_ATMOSFERA"];
+      }else{
+        $NOMBREATMOSFERA="Sin Datos";
+      }
+      $ARRAYTCONTENEDOR =$TCONTENEDOR_ADO->verTcontenedor( $ARRAYICARGA[0]['ID_TCONTENEDOR']);
+      if($ARRAYTCONTENEDOR){
+        $NOMBRETCONTENEDOR=$ARRAYTCONTENEDOR[0]["NOMBRE_TCONTENEDOR"];
+      }else{
+        $NOMBRETCONTENEDOR="Sin Datos";
+      }      
+      $ARRAYPAIS =$PAIS_ADO->verPais( $ARRAYICARGA[0]['ID_PAIS']);
+      if($ARRAYPAIS){
+        $NOMBREPAIS=$ARRAYPAIS[0]["NOMBRE_PAIS"];
+      }else{
+        $NOMBREPAIS="Sin Datos";
+      }
+      $ARRAYEXPORTADORA = $EXPORTADORA_ADO->verExportadora( $ARRAYICARGA[0]['ID_EXPPORTADORA']);
+      if($ARRAYEXPORTADORA){
+        $RUTEXPPORTADORA=$ARRAYEXPORTADORA[0]["RUT_EXPORTADORA"]."-".$ARRAYEXPORTADORA[0]["DV_EXPORTADORA"];
+        $NOMBREEXPPORTADORA=$ARRAYEXPORTADORA[0]["NOMBRE_EXPORTADORA"];
+      }else{
+        $RUTEXPPORTADORA="Sin Datos";
+        $NOMBREEXPPORTADORA="Sin Datos";
+      }
+      $ARRAYDFINAL =$DFINAL_ADO->verDfinal( $ARRAYICARGA[0]['ID_DFINAL']);
+      if($ARRAYDFINAL){
+        $NOMBREDFINAL=$ARRAYDFINAL[0]["NOMBRE_DFINAL"];
+      }else{
+        $NOMBREDFINAL="Sin Datos";
+      }
+
+    if($TEMBARQUE){
           if ($TEMBARQUE == "1") {
+              $NOMBRETEMBARQUE="Terrestre";
+              $CRT=$ARRAYICARGA[0]['CRT_ICARGA'];
               $ARRAYTRANSPORTE =$TRANSPORTE_ADO->verTransporte( $ARRAYICARGA[0]['ID_TRANSPORTE']);        
               if($ARRAYTRANSPORTE){
                 $NOMBRETRANSPORTE=$ARRAYTRANSPORTE[0]["NOMBRE_TRANSPORTE"];
@@ -248,26 +373,34 @@ if ($ARRAYVERNOTADCNC) {
               }
           }
           if ($TEMBARQUE == "2") {
-            $ARRAYLAEREA = $LAEREA_ADO->verLaerea( $ARRAYICARGA[0]['ID_LAREA']);      
-            if($ARRAYLAEREA){
-              $NOMBRETRANSPORTE=$ARRAYLAEREA[0]["NOMBRE_LAEREA"];
-            }else{
-              $NOMBRETRANSPORTE="Sin Datos";
-            }            
-            $ARRAYACARGA =$ACARGA_ADO->verAcarga(  $ARRAYICARGA[0]['ID_ACARGA']);  
-            if($ARRAYACARGA){
-              $NOMBREORIGEN=$ARRAYACARGA[0]["NOMBRE_ACARGA"];
-            }else{
-              $NOMBREORIGEN="Sin Datos";
-            }
-            $ARRAYADESTINO =$ADESTINO_ADO->verAdestino( $ARRAYICARGA[0]['ID_ADESTINO']);  
-            if($ARRAYADESTINO){
-              $NOMBREDESTINO=$ARRAYADESTINO[0]["NOMBRE_ADESTINO"];
-            }else{
-              $NOMBREDESTINO="Sin Datos";
-            }
+              $NOMBRETEMBARQUE="Aereo";
+              $NAVE=$ARRAYICARGA[0]['NAVE_ICARGA'];
+              $NVIAJE = $ARRAYICARGA[0]['NVIAJE_ICARGA'];
+             
+              $ARRAYLAEREA = $LAEREA_ADO->verLaerea( $ARRAYICARGA[0]['ID_LAREA']);      
+              if($ARRAYLAEREA){
+                $NOMBRETRANSPORTE=$ARRAYLAEREA[0]["NOMBRE_LAEREA"];
+              }else{
+                $NOMBRETRANSPORTE="Sin Datos";
+              }            
+              $ARRAYACARGA =$ACARGA_ADO->verAcarga(  $ARRAYICARGA[0]['ID_ACARGA']);  
+              if($ARRAYACARGA){
+                $NOMBREORIGEN=$ARRAYACARGA[0]["NOMBRE_ACARGA"];
+              }else{
+                $NOMBREORIGEN="Sin Datos";
+              }
+              $ARRAYADESTINO =$ADESTINO_ADO->verAdestino( $ARRAYICARGA[0]['ID_ADESTINO']);  
+              if($ARRAYADESTINO){
+                $NOMBREDESTINO=$ARRAYADESTINO[0]["NOMBRE_ADESTINO"];
+              }else{
+                $NOMBREDESTINO="Sin Datos";
+              }
           }
           if ($TEMBARQUE == "3") {
+              $NOMBRETEMBARQUE="Maritimo";
+              $NAVE  = $ARRAYICARGA[0]['NAVE_ICARGA'];
+              $NVIAJE = $ARRAYICARGA[0]['NVIAJE_ICARGA'];
+              $FECHASTACKING = $ARRAYICARGA[0]['FECHAESTACKING'];
               $ARRAYNAVIERA =$NAVIERA_ADO->verNaviera( $ARRAYICARGA[0]['ID_NAVIERA']);   
               if($ARRAYNAVIERA){
                 $NOMBRETRANSPORTE=$ARRAYNAVIERA[0]["NOMBRE_NAVIERA"];
@@ -287,25 +420,44 @@ if ($ARRAYVERNOTADCNC) {
                 $NOMBREDESTINO="Sin Datos";
               }
           }
-      }               
-    
-  }else{
-      $NOMBRETRANSPORTE="Sin Datos";
-      $NOMBREMVENTA="Sin Datos";
-      $NOMBREFPAGO="Sin Datos";
-      $NOMBREORIGEN="Sin Datos";
-      $NOMBREDESTINO="Sin Datos";
-      $BOOKINGINSTRUCTIVO="Sin Datos";
-      $TEMBARQUE="Sin Datos";
-      $FECHAETD="Sin Datos";
-      $FECHAETA="Sin Datos";
-      $BOLAWBCRTINSTRUCTIVO="Sin Datos";
-      $NUMEROIREFERENCIA="Sin Datos";
-      $NUMEROICARGA="Sin Datos";
-      $NOMBRERFINAL="Sin Datos";
-  } 
+    }      
+  
+    $ARRAYAGCARGA = $AGCARGA_ADO->verAgcarga(  $ARRAYICARGA[0]['ID_AGCARGA']); 
+    if($ARRAYAGCARGA){
+      $RUTAGCARGA=$ARRAYAGCARGA[0]["RUT_AGCARGA"]."-".$ARRAYAGCARGA[0]["DV_AGCARGA"];
+      $NOMBREAGCARGA=$ARRAYAGCARGA[0]["NOMBRE_AGCARGA"];
+      $DIRECCIONAGCARGA=$ARRAYAGCARGA[0]["DIRECCION_AGCARGA"];
+      $CONTACTOAGCARGA=$ARRAYAGCARGA[0]["CONTACTO_AGCARGA"];
+      $EMAILAGCARGA=$ARRAYAGCARGA[0]["EMAIL_AGCARGA"];
+      $TELEFONOAGCARGA=$ARRAYAGCARGA[0]["TELEFONO_AGCARGA"];
+    }else{
+      $RUTAGCARGA="Sin Datos";
+      $NOMBREAGCARGA="Sin Datos";
+      $DIRECCIONAGCARGA="Sin Datos";
+      $CONTACTOAGCARGA="Sin Datos";
+      $EMAILAGCARGA="Sin Datos";
+      $TELEFONOAGCARGA="Sin Datos";
+    } 
+    $ARRAYAADUANA = $AADUANA_ADO->verAaduana( $ARRAYICARGA[0]['ID_AADUANA']);
+    if($ARRAYAADUANA){
+      $RUTAADUANA=$ARRAYAADUANA[0]["RUT_AADUANA"]."-".$ARRAYAADUANA[0]["DV_AADUANA"];
+      $NOMBREAADUANA=$ARRAYAADUANA[0]["NOMBRE_AADUANA"];
+      $DIRECCIONAADUANA=$ARRAYAADUANA[0]["DIRECCION_AADUANA"];
+      $CONTACTOAADUANA=$ARRAYAADUANA[0]["CONTACTO_AADUANA"];
+      $EMAILAADUANA=$ARRAYAADUANA[0]["EMAIL_AADUANA"];
+      $TELEFONOAADUANA=$ARRAYAADUANA[0]["TELEFONO_AADUANA"];
+    }else{
+      $RUTAADUANA="Sin Datos";
+      $NOMBREAADUANA="Sin Datos";
+      $DIRECCIONAADUANA="Sin Datos";
+      $CONTACTOAADUANA="Sin Datos";
+      $EMAILAADUANA="Sin Datos";
+      $TELEFONOAADUANA="Sin Datos";
+    }
 
-  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYVERNOTADCNC[0]['ID_EMPRESA']);
+
+
+  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYICARGA[0]['ID_EMPRESA']);
   if($ARRAYEMPRESA){
     $NOMBREEMPRESA=$ARRAYEMPRESA[0]["NOMBRE_EMPRESA"];
     $RUTEMPRESA=$ARRAYEMPRESA[0]["RUT_EMPRESA"]."-".$ARRAYEMPRESA[0]["DV_EMPRESA"];
@@ -315,23 +467,14 @@ if ($ARRAYVERNOTADCNC) {
     $RUTEMPRESA="Sin Datos";
     $DIRECCIONEMPRESA="Sin Datos";
   }
-  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYVERNOTADCNC[0]['ID_PLANTA']);
-  if($ARRAYPLANTA){
-    $NOMBREPLANTA=$ARRAYPLANTA[0]["NOMBRE_PLANTA"];
-    $FDAPLANTA=$ARRAYPLANTA[0]["FDA_PLANTA"];
-  }else{    
-    $NOMBREPLANTA="Sin Datos";
-    $FDAPLANTA="Sin Datos";
-  }
-  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYVERNOTADCNC[0]['ID_TEMPORADA']);  
+  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYICARGA[0]['ID_TEMPORADA']);  
   if($ARRAYTEMPORADA){
     $NOMBRETEMPORADA=$ARRAYTEMPORADA[0]["NOMBRE_TEMPORADA"];
   }else{
     $NOMBRETEMPORADA="Sin Datos";
   }
 
-
-}
+} 
 
 
 
@@ -409,7 +552,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Report Debit or Credit Note</title>
+    <title>Report Invoice</title>
   </head>
   <body>
 
@@ -429,7 +572,7 @@ $html = '
         <tbody>
           <tr>
             <th class="color2 left">Date: </th>
-            <td class="color2 left">'.$FECHAINOTA.'</td>
+            <td class="color2 left">'.$FECHA.'</td>
             <td class="color2 left">&nbsp;</td>
             <td class="color2 left">&nbsp;</td>
             <td class="color2 left">&nbsp;</td>
@@ -572,8 +715,8 @@ $html = $html . '
 $html = $html . '
 
           <tr>            
-            <td class="color2 left">FDA packing </td>
-            <td class="color2 left"> '.$FDAPLANTA.' </td>            
+            <td class="color2 left">&nbsp; </td>      
+            <td class="color2 left">&nbsp;</td>          
             <td class="color2 left">&nbsp;</td>
             <td class="color2 left">&nbsp;</td>
             <td class="color2 left">&nbsp;</td>
@@ -599,16 +742,18 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="7" class="center">DETAIL.</th>
+            <th colspan="10" class="center">DETAIL.</th>
           </tr>
           <tr>
-            <th class="color left">Amount Boxes</th>
-            <th class="color left">Description of goods</th>
-            <th class="color left">value CN/DN</th>
-            <th class="color left">instructive price</th>
-            <th class="color left">instructive price with CN/DN</th>
-            <th class="color left">total instructive</th>
-            <th class="color left">total instructive with CN/DN</th>
+            <th class="color center ">Amount Boxes</th>
+            <th class="color center ">Description of goods </th>
+            <th class="color center ">Net Weight </th>
+            <th class="color center ">Gross Weight </th>
+            <th class="color center ">Net Kilo </th>
+            <th class="color center ">Gross Kilo </th>
+            <th class="color center ">Type of currency </th>
+            <th class="color center ">Price</th>
+            <th class="color center ">Total</th>    
           </tr>
         </thead>
          <tbody>
@@ -618,59 +763,56 @@ foreach ($ARRAYDCARGA as $s) :
 
   $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
   if ($ARRAYEEXPORTACION) {
+      $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
       $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+      $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+      $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
   } else {
+      $CODIGOESTANDAR = "Sin Datos";
       $NOMBREESTANTAR = "Sin Datos";
+      $NETOESTANTAR = "Sin Datos";
+      $BRUTOESTANTAR = "Sin Datos";
   }
+
   $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
   if ($ARRAYCALIBRE) {
       $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
   } else {
       $NOMBRECALIBRE = "Sin Datos";
   }
-  $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDOP,$s['ID_DICARGA']);
-  if($ARRAYDNOTA){
-      $CANTIDADDNOTA=$ARRAYDNOTA[0]["CANTIDAD"];
-      if($ARRAYDNOTA[0]["TNOTA"] ==1){                                                                        
-          $PRECIONUEVO=$s['PRECIO_US_DICARGA']+$CANTIDADDNOTA;
-          $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
-      }else  if($ARRAYDNOTA[0]["TNOTA"] ==2){
-          $PRECIONUEVO=$s['PRECIO_US_DICARGA']-$CANTIDADDNOTA;
-          $TOTALNUEVO=$s['CANTIDAD_ENVASE_DICARGA']*$PRECIONUEVO;
-      }else{
-          $PRECIONUEVO="Sin Datos";
-          $TOTALNUEVO=0;
-      }
-  }else{
-      $CANTIDADDNOTA="Sin Datos";
-      $PRECIONUEVO="Sin Datos";
-      $TOTALNUEVO=0;
+  $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
+  if ($ARRAYTMONEDA) {
+      $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
+  } else {
+      $NOMBRETMONEDA = "Sin Datos";
   }
-  
-$TOTALPRECIOUSNUEVO=$TOTALPRECIOUSNUEVO+$TOTALNUEVO;
 
 $html = $html . '              
         <tr class="">
-            <td class=" left">'.$s['ENVASE'].'</td>
-            <td class=" left">'.$NOMBREESTANTAR.'</td>
-            <td class=" left">'.$CANTIDADDNOTA.'</td>
-            <td class=" left">'.$s['US'].'</td>
-            <td class=" left">'.$PRECIONUEVO.'</td>
-            <td class=" left">'.$s['TOTALUS'].'</td>
-            <td class=" left">'.number_format($TOTALNUEVO, 0, "", ".").'</td>
+            <td class="center">'.$s['ENVASE'].'</td>
+              <td class="center">'.$NOMBREESTANTAR.'</td>
+              <td class="center">'.number_format($NETOESTANTAR, 2, ",", ".").'</td>
+              <td class="center">'.number_format($BRUTOESTANTAR, 2, ",", ".").'</td>
+              <td class="center">'.$s['NETO'].'</td>
+              <td class="center">'.$s['BRUTO'].'</td>
+              <td class="center">'.$NOMBRETMONEDA.'</td>
+              <td class="center">'.$s['US'].'</td>
+              <td class="center">'.$s['TOTALUS'].'</td>
         </tr>
     ';
  endforeach;
 $html = $html . '
               
                   <tr class="bt">
-                      <th class="color left">'.$TOTALENVASE.'</th>
-                      <th class="color left">&nbsp;</th>
-                      <th class="color left">&nbsp;</th>
-                      <th class="color left">&nbsp;</th>
-                      <th class="color left">&nbsp;</th>
-                      <th class="color left">'.$TOTALUS.'</th>
-                      <th class="color left">'.number_format($TOTALPRECIOUSNUEVO, 0, "", ".").'</th>
+                    <th class="color center">'.$TOTALENVASEV.'</th>
+                    <td class="color center">&nbsp;</td>
+                    <td class="color center">&nbsp;</td>
+                    <th class="color right">Sub total</td>
+                    <th class="color center">'.$TOTALNETOV.'</th>
+                    <th class="color center">'.$TOTALBRUTOV.'</th>
+                    <td class="color center">&nbsp;</td>
+                    <td class="color center">&nbsp;</td>
+                    <th class="color center">'.$TOTALUSV.'</th>
                   </tr>
               ';
 
@@ -707,7 +849,7 @@ $html = $html . '
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO = "ReportDebitCreditNote_";
+$NOMBREARCHIVO = "reportInvoice_";
 $FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
 $TIPODOCUMENTO = "Report";
 $FORMATO = ".pdf";
@@ -721,7 +863,7 @@ $UNICODE = "true";
 $ENCODING = "UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "Report Debit or Credit Note";
+$TIPOINFORME = "Report Invoice";
 $CREADOR = "Usuario";
 $AUTOR = "Usuario";
 $ASUNTO = "Report";
@@ -750,7 +892,7 @@ $PDF->SetHTMLHeader('
       <table class="bor">
         <tr>
           <td class=" color2 center ">
-            '.$NOMBRETNOTA.' NOTE
+             INVOICE
           </td>
         </tr>
         <tr>¿
@@ -767,9 +909,9 @@ $PDF->SetHTMLHeader('
 $PDF->SetHTMLFooter('
 
 <footer>
-Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
-<br>
-Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+  Report generated by IT Department Frutícola Volcán<a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+  <br>
+  Printed by: <b>' . $NOMBREEMPRESA . '.</b> print time: <b>' . $HORAFINAL2 . '</b>
 </footer>
     
 ');

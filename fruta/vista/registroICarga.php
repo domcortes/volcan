@@ -53,8 +53,12 @@ include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TMONEDA_ADO.php';
+
+
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
+
 
 
 include_once '../controlador/ICARGA_ADO.php';
@@ -106,9 +110,11 @@ $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
+$TCALIBRE_ADO = new TCALIBRE_ADO();
+$TMONEDA_ADO =  new TMONEDA_ADO();
+
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $DESPACHOEX_ADO = new DESPACHOEX_ADO();
-$TCALIBRE_ADO = new TCALIBRE_ADO();
 
 $ICARGA_ADO =  new ICARGA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -3064,13 +3070,16 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
+                                        <div class="btn-group  col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcargaEspanol.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Report" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Report
+                                                </button>
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Report Invoice" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcargaInvoice.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                    <i class="fa fa-file-pdf-o"></i> Invoice
                                                 </button>
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Carga Real" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Carga Real
@@ -3158,8 +3167,9 @@ if (isset($_POST)) {
                                                 <th>Kilo Neto </th>
                                                 <th>Kilo Bruto </th>
                                                 <th>Calibre </th>
-                                                <th>Precio US </th>
-                                                <th>Total US </th>
+                                                <th>Tipo Moneda </th>
+                                                <th>Precio </th>
+                                                <th>Total </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -3184,6 +3194,12 @@ if (isset($_POST)) {
                                                         $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
                                                     } else {
                                                         $NOMBRECALIBRE = "Sin Datos";
+                                                    }
+                                                    $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
+                                                    if ($ARRAYTMONEDA) {
+                                                        $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
+                                                    } else {
+                                                        $NOMBRETMONEDA = "Sin Datos";
                                                     }
                                                     ?>
 
@@ -3223,6 +3239,7 @@ if (isset($_POST)) {
                                                         <td><?php echo $s['NETO']; ?></td>
                                                         <td><?php echo $s['BRUTO']; ?></td>
                                                         <td><?php echo $NOMBRECALIBRE; ?></td>
+                                                        <td><?php echo $NOMBRETMONEDA; ?></td>
                                                         <td><?php echo $s['US']; ?></td>
                                                         <td><?php echo $s['TOTALUS']; ?></td>
                                                     </tr>

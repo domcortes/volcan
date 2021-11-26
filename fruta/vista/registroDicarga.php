@@ -7,6 +7,7 @@ include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TMONEDA_ADO.php';
 
 include_once '../controlador/DICARGA_ADO.php';
 include_once '../modelo/DICARGA.php';
@@ -20,6 +21,7 @@ $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TMONEDA_ADO =  new TMONEDA_ADO();
 
 
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -34,6 +36,7 @@ $NOTA = "";
 $EEXPORTACION = "";
 $ESPECIES = "";
 $CALIBRE = "";
+$TMONEDA="";
 $EEXPORTACION = "";
 $KILOSBRUTO = 0;
 $PRECIOUS = 0;
@@ -88,6 +91,7 @@ $ARRAYESTANDARDETALLE = "";
 
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
+$ARRAYTMONEDA = $TMONEDA_ADO->listarTmonedaPorEmpresaCBX($EMPRESAS);
 include_once "../config/validarDatosUrlD.php";
 
 //OPERACIONES
@@ -131,6 +135,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $TMONEDA = "" . $r['ID_TMONEDA'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -153,6 +158,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $TMONEDA = "" . $r['ID_TMONEDA'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -174,6 +180,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $TMONEDA = "" . $r['ID_TMONEDA'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -198,6 +205,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TOTALPRECIOUS = "" . $r['TOTAL_PRECIO_US_DICARGA'];
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
+            $TMONEDA = "" . $r['ID_TMONEDA'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -242,6 +250,9 @@ if ($_POST) {
     }
 
 
+    if (isset($_REQUEST['TMONEDA'])) {
+        $TMONEDA = $_REQUEST['TMONEDA'];
+    }
     if (isset($_REQUEST['NOTA'])) {
         $NOTA = $_REQUEST['NOTA'];
     }
@@ -266,11 +277,13 @@ if ($_POST) {
 
                     EEXPORTACION = document.getElementById("EEXPORTACION").selectedIndex;
                     CALIBRE = document.getElementById("CALIBRE").selectedIndex;
+                    TMONEDA = document.getElementById("TMONEDA").selectedIndex;
                     CANTIDADENVASE = document.getElementById("CANTIDADENVASE").value;
                     PRECIOUS = document.getElementById("PRECIOUS").value;
 
                     document.getElementById('val_estandar').innerHTML = "";
                     document.getElementById('val_calibre').innerHTML = "";
+                    document.getElementById('val_tmoneda').innerHTML = "";
                     document.getElementById('val_cantidad').innerHTML = "";
                     document.getElementById('val_us').innerHTML = "";
 
@@ -289,6 +302,14 @@ if ($_POST) {
                         return false;
                     }
                     document.form_reg_dato.CALIBRE.style.borderColor = "#4AF575";
+
+                    if (TMONEDA == null || TMONEDA == 0) {
+                        document.form_reg_dato.TMONEDA.focus();
+                        document.form_reg_dato.TMONEDA.style.borderColor = "#FF0000";
+                        document.getElementById('val_tmoneda').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.TMONEDA.style.borderColor = "#4AF575";
 
 
                     if (CANTIDADENVASE == null || CANTIDADENVASE.length == 0 || /^\s+$/.test(CANTIDADENVASE)) {
@@ -423,7 +444,7 @@ if ($_POST) {
                             <form class="form" role="form" method="post" name="form_reg_dato">
                                 <div class="box-body form-element">
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID DICARGA" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID ICARGA" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
@@ -441,7 +462,7 @@ if ($_POST) {
                                                             <option value="<?php echo $r['ID_ESTANDAR']; ?>" <?php if ($EEXPORTACION == $r['ID_ESTANDAR']) {
                                                                                                                     echo "selected";
                                                                                                                 } ?>>
-                                                                <?php echo $r['NOMBRE_ESTANDAR'] ?>
+                                                               <?php echo $r['CODIGO_ESTANDAR'] ?> <?php echo $r['NOMBRE_ESTANDAR'] ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option>No Hay Datos Registrados </option>
@@ -451,7 +472,7 @@ if ($_POST) {
                                                 <label id="val_estandar" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 ">
                                             <div class="form-group">
                                                 <label>Especies </label>
                                                 <input type="hidden" class="form-control" placeholder="ESPECIESE" id="ESPECIESE" name="ESPECIESE" value="<?php echo $ESPECIES; ?>" />
@@ -459,7 +480,7 @@ if ($_POST) {
                                                 <label id="val_especies" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Calibre</label>
                                                 <input type="hidden" class="form-control" placeholder="CALIBREE" id="CALIBREE" name="CALIBREE" value="<?php echo $CALIBRE; ?>" />
@@ -480,7 +501,28 @@ if ($_POST) {
                                                 <label id="val_calibre" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>Tipo Moneda</label>
+                                                <input type="hidden" class="form-control" placeholder="TMONEDAE" id="TMONEDAE" name="TMONEDAE" value="<?php echo $TMONEDA; ?>" />
+                                                <select class="form-control select2" id="TMONEDA" name="TMONEDA" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYTMONEDA as $r) : ?>
+                                                        <?php if ($ARRAYTMONEDA) {    ?>
+                                                            <option value="<?php echo $r['ID_TMONEDA']; ?>" <?php if ($TMONEDA == $r['ID_TMONEDA']) {
+                                                                                                                    echo "selected";
+                                                                                                                } ?>>
+                                                                <?php echo $r['NOMBRE_TMONEDA'] ?>
+                                                            </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_tmoneda" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Cantidad Envase</label>
                                                 <input type="hidden" id="KILOSNETO" name="KILOSNETO" value="<?php echo $KILOSNETO; ?>" />
@@ -491,7 +533,7 @@ if ($_POST) {
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Precio $US</label>
                                                 <input type="hidden" id="PRECIOUSE" name="PRECIOUSE" value="<?php echo $PRECIOUS; ?>" />
@@ -499,7 +541,7 @@ if ($_POST) {
                                                 <label id="val_us" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 ">
                                             <div class="form-group">
                                                 <label>Total $US</label>
                                                 <input type="number" step="0.01" class="form-control" placeholder="Total $US" id="PRECIOUSV" name="PRECIOUSV" value="<?php echo $TOTALPRECIOUS; ?>" disabled style="background-color: #eeeeee;" />
@@ -512,7 +554,7 @@ if ($_POST) {
                                     <label id=" val_mensaje" class="validacion"><?php echo $MENSAJEELIMINAR; ?> </label>
                                     
                                 <div class="box-footer">
-                                    <div class="btn-group btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                    <div class="btn-group btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                         <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
                                             <i class="ti-back-left "></i> Volver
                                         </button>
@@ -558,14 +600,27 @@ if ($_POST) {
 <?php
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CREAR'])) {
-    $TOTALPRECIOUS = $_REQUEST['PRECIOUS'] * $_REQUEST['CANTIDADENVASE'];
+    $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['EEXPORTACION']);
+    if ($ARRAYVERESTANDAR) {
+        $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+        $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
+        $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+        $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+        $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+        $KILOSNETO = $_REQUEST['CANTIDADENVASE'] * $PESONETOEESTANDAR;
+        $KILOSDESHIDRATACION = $KILOSNETO * (1 + ($PDESHIDRATACIONEESTANDAR / 100));
+        $KILOSBRUTO = (($_REQUEST['CANTIDADENVASE'] * $PESOENVASEESTANDAR) + $KILOSDESHIDRATACION) + $PESOPALLETEESTANDAR;
+        $TOTALPRECIOUS = $_REQUEST['PRECIOUS'] * $_REQUEST['CANTIDADENVASE'];
+    }
+
     $DICARGA->__SET('CANTIDAD_ENVASE_DICARGA', $_REQUEST['CANTIDADENVASE']);
-    $DICARGA->__SET('KILOS_NETO_DICARGA', $_REQUEST['KILOSNETO']);
-    $DICARGA->__SET('KILOS_BRUTO_DICARGA', $_REQUEST['KILOSBRUTO']);
+    $DICARGA->__SET('KILOS_NETO_DICARGA', $KILOSNETO);
+    $DICARGA->__SET('KILOS_BRUTO_DICARGA', $KILOSBRUTO);
     $DICARGA->__SET('PRECIO_US_DICARGA', $_REQUEST['PRECIOUS']);
     $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $TOTALPRECIOUS);
     $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
     $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
+    $DICARGA->__SET('ID_TMONEDA', $_REQUEST['TMONEDA']);
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
     $DICARGA_ADO->agregarDicarga($DICARGA);
 
@@ -589,14 +644,28 @@ if (isset($_REQUEST['CREAR'])) {
 }
 
 if (isset($_REQUEST['EDITAR'])) {
-    $TOTALPRECIOUS = $_REQUEST['PRECIOUS'] * $_REQUEST['CANTIDADENVASE'];
+
+    $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['EEXPORTACION']);
+    if ($ARRAYVERESTANDAR) {
+        $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+        $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
+        $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+        $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+        $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+        $KILOSNETO = $_REQUEST['CANTIDADENVASE'] * $PESONETOEESTANDAR;
+        $KILOSDESHIDRATACION = $KILOSNETO * (1 + ($PDESHIDRATACIONEESTANDAR / 100));
+        $KILOSBRUTO = (($_REQUEST['CANTIDADENVASE'] * $PESOENVASEESTANDAR) + $KILOSDESHIDRATACION) + $PESOPALLETEESTANDAR;
+        $TOTALPRECIOUS = $_REQUEST['PRECIOUS'] * $_REQUEST['CANTIDADENVASE'];
+    }
+
     $DICARGA->__SET('CANTIDAD_ENVASE_DICARGA', $_REQUEST['CANTIDADENVASE']);
-    $DICARGA->__SET('KILOS_NETO_DICARGA', $_REQUEST['KILOSNETO']);
-    $DICARGA->__SET('KILOS_BRUTO_DICARGA', $_REQUEST['KILOSBRUTO']);
+    $DICARGA->__SET('KILOS_NETO_DICARGA', $KILOSNETO);
+    $DICARGA->__SET('KILOS_BRUTO_DICARGA', $KILOSBRUTO);
     $DICARGA->__SET('PRECIO_US_DICARGA', $_REQUEST['PRECIOUS']);
     $DICARGA->__SET('TOTAL_PRECIO_US_DICARGA', $TOTALPRECIOUS);
     $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
     $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
+    $DICARGA->__SET('ID_TMONEDA', $_REQUEST['TMONEDA']);
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
     $DICARGA->__SET('ID_DICARGA', $_REQUEST['ID']);
     $DICARGA_ADO->actualizarDicarga($DICARGA);

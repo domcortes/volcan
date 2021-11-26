@@ -50,6 +50,9 @@ include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TMONEDA_ADO.php';
+
+
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
 
@@ -100,10 +103,11 @@ $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
+$TCALIBRE_ADO = new TCALIBRE_ADO();
+$TMONEDA_ADO = new TMONEDA_ADO();
+
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $DESPACHOEX_ADO = new DESPACHOEX_ADO();
-$TCALIBRE_ADO = new TCALIBRE_ADO();
-
 
 $ICARGA_ADO =  new ICARGA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -225,10 +229,10 @@ if($ARRAYICARGA){
       $LUGARDECARGA="Sin Datos";
     }
     
-    $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
-    $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
-    $TOTALBRUTOV = $ARRAYDCARGATOTAL2[0]['BRUTO'];
-    $TOTALUSV = $ARRAYDCARGATOTAL2[0]['TOTALUS'];
+      $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
+      $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
+      $TOTALBRUTOV = $ARRAYDCARGATOTAL2[0]['BRUTO'];
+      $TOTALUSV = $ARRAYDCARGATOTAL2[0]['TOTALUS'];
       
       $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
       $NUMEROIREFERENCIA=$ARRAYICARGA[0]["NREFERENCIA_ICARGA"];
@@ -369,7 +373,7 @@ if($ARRAYICARGA){
               }
           }
           if ($TEMBARQUE == "2") {
-              $NOMBRETEMBARQUE="Maritimo";
+              $NOMBRETEMBARQUE="Aereo";
               $NAVE=$ARRAYICARGA[0]['NAVE_ICARGA'];
               $NVIAJE = $ARRAYICARGA[0]['NVIAJE_ICARGA'];
              
@@ -393,7 +397,7 @@ if($ARRAYICARGA){
               }
           }
           if ($TEMBARQUE == "3") {
-              $NOMBRETEMBARQUE="Aereo";
+              $NOMBRETEMBARQUE="Maritimo";
               $NAVE  = $ARRAYICARGA[0]['NAVE_ICARGA'];
               $NVIAJE = $ARRAYICARGA[0]['NVIAJE_ICARGA'];
               $FECHASTACKING = $ARRAYICARGA[0]['FECHAESTACKING'];
@@ -420,7 +424,7 @@ if($ARRAYICARGA){
   
     $ARRAYAGCARGA = $AGCARGA_ADO->verAgcarga(  $ARRAYICARGA[0]['ID_AGCARGA']); 
     if($ARRAYAGCARGA){
-      $RUTAGCARGA=$ARRAYAGCARGA[0]["RUT_AGCARGA"]."-".$ARRAYAADUANA[0]["DV_AGCARGA"];
+      $RUTAGCARGA=$ARRAYAGCARGA[0]["RUT_AGCARGA"]."-".$ARRAYAGCARGA[0]["DV_AGCARGA"];
       $NOMBREAGCARGA=$ARRAYAGCARGA[0]["NOMBRE_AGCARGA"];
       $DIRECCIONAGCARGA=$ARRAYAGCARGA[0]["DIRECCION_AGCARGA"];
       $CONTACTOAGCARGA=$ARRAYAGCARGA[0]["CONTACTO_AGCARGA"];
@@ -560,7 +564,7 @@ $html='
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
-      INFORME INSTRUCTIVO CARGA
+        INSTRUCTIVO EMBARQUE
       <br>
       <b>'.$NUMEROIREFERENCIA.' </b>
       </h2> 
@@ -895,7 +899,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="10" class="center">Carga Instruidad</th>
+      <th colspan="11" class="center">Carga Instruidad</th>
     </tr>
     <tr>                       
       <th class="color center ">Codigo Estandar </th>
@@ -906,8 +910,9 @@ $html=$html.'
       <th class="color center ">Kilo Neto </th>
       <th class="color center ">Kilo Bruto </th>
       <th class="color center ">Calibre </th>
-      <th class="color center ">Precio US </th>
-      <th class="color center ">Total US </th>    
+      <th class="color center ">Tipo moneda </th>
+      <th class="color center ">Precio</th>
+      <th class="color center ">Total</th>    
     </tr> 
   </thead>
   ';
@@ -937,6 +942,12 @@ $html = $html . '
       } else {
           $NOMBRECALIBRE = "Sin Datos";
       }
+      $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
+      if ($ARRAYTMONEDA) {
+          $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
+      } else {
+          $NOMBRETMONEDA = "Sin Datos";
+      }
 
       $html = $html . '  
       <tr>   
@@ -948,6 +959,7 @@ $html = $html . '
               <td class="center">'.$s['NETO'].'</td>
               <td class="center">'.$s['BRUTO'].'</td>
               <td class="center">'.$NOMBRECALIBRE.'</td>
+              <td class="center">'.$NOMBRETMONEDA.'</td>
               <td class="center">'.$s['US'].'</td>
               <td class="center">'.$s['TOTALUS'].'</td>
       </tr>
@@ -965,6 +977,7 @@ $html = $html . '
           <th class="color center">'.$TOTALENVASEV.'</th>
           <th class="color center">'.$TOTALNETOV.'</th>
           <th class="color center">'.$TOTALBRUTOV.'</th>
+          <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <th class="color center">'.$TOTALUSV.'</th>
