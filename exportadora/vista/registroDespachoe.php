@@ -1040,7 +1040,7 @@ if (isset($_POST)) {
                                                     <option value="2" <?php if ($TDESPACHO == "2") { echo "selected"; } ?>> Interplanta </option>
                                                     <option value="3" <?php if ($TDESPACHO == "3") { echo "selected"; } ?>> Devolución a Productor</option>
                                                     <option value="4" <?php if ($TDESPACHO == "4") { echo "selected"; } ?>> Devolución a Proveedor</option>
-                                                    <option value="5" <?php if ($TDESPACHO == "5") { echo "selected"; } ?>> Venta </option>
+                                                    <option value="5" <?php if ($TDESPACHO == "5") { echo "selected"; } ?>> Venta Industrial</option>
                                                     <option value="6" <?php if ($TDESPACHO == "6") { echo "selected"; } ?>> Regalo </option>
                                                     <option value="7" <?php if ($TDESPACHO == "7") { echo "selected"; } ?>> Planta Externa</option>
                                                     <option value="8" <?php if ($TDESPACHO == "8") { echo "selected"; } ?>> Despacho a Productor</option>

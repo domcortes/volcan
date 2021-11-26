@@ -306,7 +306,7 @@ include_once "../config/datosUrLP.php";
                                                             $CSGCSPDESTINO="Sin Datos";
                                                         }
                                                     }else if ($r['TDESPACHO'] == "5") {
-                                                        $TDESPACHO = "Venta";
+                                                        $TDESPACHO = "Venta Industrial";
                                                         $ARRAYVERCOMPRADOR = $COMPRADOR_ADO->verComprador($r["ID_COMPRADOR"]);
                                                         if ($ARRAYVERCOMPRADOR) {
                                                             $NOMBRDESTINO = $ARRAYVERCOMPRADOR[0]["NOMBRE_COMPRADOR"];
