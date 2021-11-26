@@ -156,6 +156,7 @@ class NOTIFICADOR_ADO
                                                     `NOMBRE_NOTIFICADOR`,
                                                     `EORI_NOTIFICADOR`,
                                                     `DIRECCION_NOTIFICADOR`,
+                                                    `TELEFONO_NOTIFICADOR`,
                                                     `CONTACTO1_NOTIFICADOR`, `CARGO1_NOTIFICADOR`, `EMAIL1_NOTIFICADOR`, 
                                                     `CONTACTO2_NOTIFICADOR`, `CARGO2_NOTIFICADOR`, `EMAIL2_NOTIFICADOR`, 
                                                     `CONTACTO3_NOTIFICADOR`, `CARGO3_NOTIFICADOR`, `EMAIL3_NOTIFICADOR`, 
@@ -166,7 +167,7 @@ class NOTIFICADOR_ADO
                                                     `ESTADO_REGISTRO`
                                             ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -174,6 +175,7 @@ class NOTIFICADOR_ADO
                         $NOTIFICADOR->__GET('NOMBRE_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('EORI_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('DIRECCION_NOTIFICADOR'),
+                        $NOTIFICADOR->__GET('TELEFONO_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('CONTACTO1_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('CARGO1_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('EMAIL1_NOTIFICADOR'),
@@ -222,6 +224,7 @@ class NOTIFICADOR_ADO
 			`NOMBRE_NOTIFICADOR` = ?,
 			`EORI_NOTIFICADOR` = ?,
 			`DIRECCION_NOTIFICADOR` = ?,
+			`TELEFONO_NOTIFICADOR` = ?,
 			`CONTACTO1_NOTIFICADOR` = ?,
 			`CARGO1_NOTIFICADOR` = ?,
 			`EMAIL1_NOTIFICADOR` = ?,
@@ -241,6 +244,7 @@ class NOTIFICADOR_ADO
                         $NOTIFICADOR->__GET('NOMBRE_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('EORI_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('DIRECCION_NOTIFICADOR'),
+                        $NOTIFICADOR->__GET('TELEFONO_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('CONTACTO1_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('CARGO1_NOTIFICADOR'),
                         $NOTIFICADOR->__GET('EMAIL1_NOTIFICADOR'),
