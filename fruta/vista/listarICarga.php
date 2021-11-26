@@ -314,6 +314,11 @@ include_once "../config/datosUrLP.php";
                                                                                         <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Report" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Report
+                                                                                    </button>
+                                                                                </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
                                                                                     <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Informe Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Carga Real

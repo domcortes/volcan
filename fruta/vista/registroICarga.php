@@ -3069,6 +3069,9 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcarga.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Report" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                    <i class="fa fa-file-pdf-o"></i> Report
+                                                </button>
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Carga Real" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Carga Real
                                                 </button>

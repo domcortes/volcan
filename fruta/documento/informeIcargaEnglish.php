@@ -247,7 +247,7 @@ if($ARRAYICARGA){
 
       $OBSERVACIONES = $ARRAYICARGA[0]['OBSERVACION_ICARGA'];
       if($ARRAYICARGA[0]['FUMIGADO_ICARGA']==1){
-        $FUMIGADO="Si";
+        $FUMIGADO="Yes";
       }else if($ARRAYICARGA[0]['FUMIGADO_ICARGA']==2){
         $FUMIGADO="No";
       }else{
@@ -256,9 +256,9 @@ if($ARRAYICARGA){
 
       $ESTADO = $ARRAYICARGA[0]['ESTADO'];
       if ($ARRAYICARGA[0]['ESTADO'] == 1) {
-        $ESTADO = "Abierto";
+        $ESTADO = "Open";
       }else if ($ARRAYICARGA[0]['ESTADO'] == 0) {
-        $ESTADO = "Cerrado";
+        $ESTADO = "Closer";
       }else{
         $ESTADO="Sin Datos";
       }  
@@ -544,7 +544,7 @@ $html='
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Instructivo Carga</title>
+    <title>Shipping Instruction Report</title>
   </head>
   <body>
     <header class="clearfix">
@@ -559,22 +559,22 @@ $html='
       </div>
     </header>
     <main>
-      <h2 class="titulo" style="text-align: center; color: black;">
-      INFORME INSTRUCTIVO CARGA
+      <h2 class="titulo" style="text-align: center; color: black;">      
+        SHIPPING INSTRUCTION REPORT
       <br>
       <b>'.$NUMEROIREFERENCIA.' </b>
       </h2> 
       <div id="details" class="clearfix">
         
         <div id="invoice"> 
-          <div class="date"><b>Fecha Instructivo: </b> '.$FECHA.'</div>
-          <div class="date"><b>Empresa: </b> '.$NOMBREEMPRESA.'</div>
-          <div class="date"><b>Temporada: </b> '.$NOMBRETEMPORADA.'</div>
+          <div class="date"><b>Date Instructive : </b> '.$FECHA.'</div>
+          <div class="date"><b>Company: </b> '.$NOMBREEMPRESA.'</div>
+          <div class="date"><b>Season: </b> '.$NOMBRETEMPORADA.'</div>
         </div>             
         <div id="client">
-          <div class="address"> Numero Instructivo: '.$NUMEROICARGA.'  </div>
-          <div class="address"> Numero Referencia: '.$NUMEROIREFERENCIA.'  </div>
-          <div class="address"> Estado Instructivo: '.$ESTADO.' </div>
+          <div class="address"> Instructive Number : '.$NUMEROICARGA.'  </div>
+          <div class="address"> Reference Number : '.$NUMEROIREFERENCIA.'  </div>
+          <div class="address"> Instructive status: '.$ESTADO.' </div>
         </div>
         
       <div id="client">
@@ -613,32 +613,32 @@ $html='
      <table  border="0" cellspacing="0" cellpadding="0">
        <thead>
          <tr>
-           <th colspan="4" class="center">Datos del Embarque</th>
+           <th colspan="4" class="center">Shipment Info</th>
          </tr>
        </thead>
        <tbody>
          <tr>                       
-           <th class="color2 left">Fecha Despacho: </th> 
+           <th class="color2 left">Date  dispatch: </th> 
            <td class="color2 left">'.$FECHADESPACHOEX.'</td>      
-           <th class="color2 left">Número Contenedor: </th>       
+           <th class="color2 left"> container number: </th>       
            <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>      
          </tr>  
          <tr>                       
            <th class="color2 left">Lugar Carga: </th> 
            <td class="color2 left">'.$LUGARDECARGA.'</td>      
-           <th class="color2 left">Número Sello: </th>       
+           <th class="color2 left">Seal Number: </th>       
            <td class="color2 left">'.$NUMEROSELLO.';</td>      
          </tr>  
          <tr>
-           <th class="color2 left">Fecha ETD: </th>    
+           <th class="color2 left">Date ETD: </th>    
            <td class="color2 left">'.$FECHAETD.'</td>      
            <th class="color2 left">Booking: </th>        
            <td class="color2 left">'.$BOOKINGINSTRUCTIVO.'</td>      
          </tr>    
          <tr>                       
-           <th class="color2 left">Fecha ETA: </th> 
+           <th class="color2 left">Date ETA: </th> 
            <td class="color2 left">'.$FECHAETA.'</td>      
-           <th class="color2 left">Fumigado: </th>       
+           <th class="color2 left">Fumigation: </th>       
            <td class="color2 left">'.$FUMIGADO.'</td>      
          </tr>   
          ';
@@ -646,7 +646,7 @@ $html='
            $html = $html . '
            
            <tr>
-             <th class="color2 left">Nombre Trasnporte: </th>    
+             <th class="color2 left"> Transport Name: </th>    
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">CRT: </th> 
              <td class="color2 left">'.$CRT.'</td>     
@@ -658,9 +658,9 @@ $html='
            $html = $html . '
            
            <tr>
-             <th class="color2 left">Nombre Linea Aerea: </th>    
+             <th class="color2 left"> Airline Name: </th>    
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
-             <th class="color2 left">Nave: </th> 
+             <th class="color2 left">Airplane: </th> 
              <td class="color2 left">'.$NAVE.'</td>     
            </tr>    
            ';
@@ -669,13 +669,13 @@ $html='
            $html = $html . '
            
            <tr>
-             <th class="color2 left">Nombre Naviera: </th>    
+             <th class="color2 left">Shipping company name: </th>    
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
-             <th class="color2 left">Nave: </th> 
+             <th class="color2 left">Vessel: </th> 
              <td class="color2 left">'.$NAVE.'</td>     
            </tr>   
            <tr>
-             <th class="color2 left">Fecha Cierre Stacking; </th>   
+             <th class="color2 left">Closing date Stacking; </th>   
              <td class="color2 left">'.$FECHASTACKING.'</td>    
              <td class="color2 left">&nbsp;</td>     
              <td class="color2 left">&nbsp;</td>     
@@ -694,24 +694,24 @@ $html='
      <table  border="0" cellspacing="0" cellpadding="0">
        <thead>
          <tr>
-           <th colspan="4" class="center">Condiciones del Embarque</th>
+           <th colspan="4" class="center">Shipment Conditions</th>
          </tr>
        </thead>
        <tbody>
          <tr>                       
-           <th class="color2 left">Clausula de Venta: </th> 
+           <th class="color2 left">incoterm: </th> 
            <td class="color2 left">'.$NOMBRECVENTA.'</td>     
-           <th class="color2 left">Tipo Flete: </th>     
+           <th class="color2 left">Fraight condition: </th>     
            <td class="color2 left">'.$NOMBRETFLETE.'</td>      
          </tr> 
          <tr>   
-           <th class="color2 left">Modalidad de Venta: </th> 
+           <th class="color2 left">Selling Arragement: </th> 
            <td class="color2 left">'.$NOMBREMVENTA.'</td>    
            <th class="color2 left">BOL/AWB/CRT: </th>   
            <td class="color2 left">'.$BOLAWBCRTINSTRUCTIVO.'</td>        
          </tr>  
          <tr>                       
-           <th class="color2 left">Formato de Pago: </th>    
+           <th class="color2 left">Paynebt condition: </th>    
            <td class="color2 left">'.$NOMBREFPAGO.'</td>      
            <th class="color2 left">&nbsp;</th>       
            <td class="color2 left">&nbsp;</td>      
@@ -726,24 +726,24 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="6" class="center">Información Gasificado</th>
+      <th colspan="6" class="center">info The Aerated</th>
     </tr>
   </thead>
   <tbody>
     <tr>                       
-      <th class="color2 left">Atmosfera: </th> 
+      <th class="color2 left">Atmosphere: </th> 
       <td class="color2 left">'.$NOMBREATMOSFERA.'</td>         
-      <th class="color2 left">Tipo Contenedor: </th>    
+      <th class="color2 left">Type container: </th>    
       <td class="color2 left">'.$NOMBRETCONTENEDOR.'</td>          
-      <th class="color2 left">Apertura Lampa: </th>       
+      <th class="color2 left">Opening Lampa: </th>       
       <td class="color2 left">'.$ALAMPAINSTRUCTIVO.'</td>       
     </tr> 
     <tr>   
-      <th class="color2 left">Temperatura: </th> 
+      <th class="color2 left">Temperature: </th> 
       <td class="color2 left">'.$TINSTRUCTIVO.'</td>      
-      <th class="color2 left">%O2: </th>   
+      <th class="color2 left">% O2: </th>   
       <td class="color2 left">'.$O2INSTRUCTIVO.'</td>       
-      <th class="color2 left">%CO2: </th>   
+      <th class="color2 left">% CO2: </th>   
       <td class="color2 left">'.$CO2INSTRUCTIVO.'</td>              
     </tr>         
   </tbody>  
@@ -754,14 +754,14 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="4" class="center">Otros Datos del Embarque</th>
+      <th colspan="4" class="center">Other Shipment Info</th>
     </tr>
   </thead>
   <tbody>
     <tr>                       
-      <th class="color2 left">Tipo Embarque: </th> 
+      <th class="color2 left">Type of shipment: </th> 
       <td class="color2 left">'.$NOMBRETEMBARQUE.'</td>        
-      <th class="color2 left">Destino Final: </th> 
+      <th class="color2 left">Final Destination: </th> 
       <td class="color2 left">'.$NOMBREDFINAL.'</td>         
     </tr>     
     ';
@@ -769,9 +769,9 @@ $html=$html.'
       $html = $html . '
       
       <tr>
-        <th class="color2 left">Lugar Carga: </th>     
+        <th class="color2 left">Place of Origin: </th>     
         <td class="color2 left">'.$NOMBREORIGEN.'</td>      
-        <th class="color2 left">Lugar Destino: </th>  
+        <th class="color2 left">Place of Destination: </th>  
         <td class="color2 left">'.$NOMBREDESTINO.'</td>      
       </tr>    
       ';
@@ -781,9 +781,9 @@ $html=$html.'
       $html = $html . '
       
       <tr>
-      <th class="color2 left">Aeropuerto Carga: </th>     
+      <th class="color2 left">Airport of Origin: </th>     
       <td class="color2 left">'.$NOMBREORIGEN.'</td>  
-      <th class="color2 left">Aeropuerto Destino: </th>  
+      <th class="color2 left">Airport of Destination: </th>  
       <td class="color2 left">'.$NOMBREDESTINO.'</td>      
       </tr>    
       ';
@@ -792,9 +792,9 @@ $html=$html.'
       $html = $html . '
       
       <tr>
-      <th class="color2 left">Puerto Carga: </th>     
+      <th class="color2 left">Port of Origin: </th>     
       <td class="color2 left">'.$NOMBREORIGEN.'</td>  
-      <th class="color2 left">Puerto Destino: </th>  
+      <th class="color2 left">Port of Destination: </th>  
       <td class="color2 left">'.$NOMBREDESTINO.'</td>      
       </tr>   
         
@@ -803,15 +803,15 @@ $html=$html.'
 
 $html = $html . '  
     <tr>                         
-      <th class="color2 left">Rut Exportador: </th> 
+      <th class="color2 left">Exporter Rut: </th> 
       <td class="color2 left">'.$RUTEXPPORTADORA.'</td>        
-      <th class="color2 left">Nombre Exportador: </th> 
+      <th class="color2 left">Exporter Name: </th> 
       <td class="color2 left">'.$NOMBREEXPPORTADORA.'</td>       
     </tr>         
     <tr>                         
-      <th class="color2 left">Pais Origen: </th> 
+      <th class="color2 left">Country of Origin: </th> 
       <td class="color2 left">Chile</td>        
-      <th class="color2 left">Pais Destino: </th> 
+      <th class="color2 left">Country of Destination: </th> 
       <td class="color2 left">'.$NOMBREPAIS.'</td>        
     </tr>      
   </tbody>    
@@ -830,24 +830,24 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="6" class="center">Información Agente de Carga</th>
+      <th colspan="6" class="center">Cargo Agent Info</th>
     </tr>
   </thead>
   <tbody>
     <tr>                       
       <th class="color2 left">Rut: </th> 
       <td class="color2 left">'.$RUTAGCARGA.'</td>         
-      <th class="color2 left">Nombre: </th>    
+      <th class="color2 left">Name: </th>    
       <td class="color2 left">'.$NOMBREAGCARGA.'</td>            
-      <th class="color2 left">Direccion: </th>       
+      <th class="color2 left">Address: </th>       
       <td class="color2 left">'.$DIRECCIONAGCARGA.'</td>        
     </tr> 
     <tr>   
-      <th class="color2 left">Contacto:</th> 
+      <th class="color2 left">Contact:</th> 
       <td class="color2 left">'.$CONTACTOAGCARGA.'</td>         
-      <th class="color2 left">Telefono Contacto: </th>  
+      <th class="color2 left">Contact Phone: </th>  
       <td class="color2 left">'.$TELEFONOAGCARGA.'</td>   
-      <th class="color2 left">Email Contacto: </th>  
+      <th class="color2 left">Contact Email: </th>  
       <td class="color2 left">'.$EMAILAGCARGA.'</td>          
     </tr>           
   </tbody>  
@@ -861,24 +861,24 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="6" class="center">Información Agencia de Aduana</th>
+      <th colspan="6" class="center">Customs Agency Info</th>
     </tr>
   </thead>
   <tbody>
     <tr>                       
       <th class="color2 left">Rut: </th> 
       <td class="color2 left">'.$RUTAADUANA.'</td>         
-      <th class="color2 left">Nombre: </th>    
+      <th class="color2 left">Name: </th>    
       <td class="color2 left">'.$NOMBREAADUANA.'</td>              
-      <th class="color2 left">Direccion: </th>  
+      <th class="color2 left">Address: </th>  
       <td class="color2 left">'.$DIRECCIONAADUANA.'</td>             
     </tr> 
     <tr>   
-      <th class="color2 left">Contacto: </th> 
+      <th class="color2 left">Contact: </th> 
       <td class="color2 left">'.$CONTACTOAADUANA.'</td>         
-      <th class="color2 left">Telefono Contacto: </th>   
+      <th class="color2 left">Contact Phone: </th>   
       <td class="color2 left">'.$TELEFONOAADUANA.'</td>     
-      <th class="color2 left">Email Contacto: </th>  
+      <th class="color2 left">Contact Email : </th>  
       <td class="color2 left">'.$EMAILAADUANA.'</td>           
     </tr>        
   </tbody>  
@@ -895,18 +895,18 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="10" class="center">Carga Instruidad</th>
+      <th colspan="10" class="center">Instruity Charge</th>
     </tr>
     <tr>                       
-      <th class="color center ">Codigo Estandar </th>
-      <th class="color center ">Descripción De Producto </th>
-      <th class="color center ">Peso Neto </th>
-      <th class="color center ">Peso Bruto </th>
-      <th class="color center ">Cantidad Envase </th>
-      <th class="color center ">Kilo Neto </th>
-      <th class="color center ">Kilo Bruto </th>
-      <th class="color center ">Calibre </th>
-      <th class="color center ">Precio US </th>
+      <th class="color center ">Code </th>
+      <th class="color center ">Description of goods </th>
+      <th class="color center ">Net Weight </th>
+      <th class="color center ">Gross Weight </th>
+      <th class="color center ">Amount </th>
+      <th class="color center ">Net Kilo </th>
+      <th class="color center ">Gross Kilo </th>
+      <th class="color center ">Caliber </th>
+      <th class="color center ">Price  US </th>
       <th class="color center ">Total US </th>    
     </tr> 
   </thead>
@@ -980,12 +980,12 @@ $html = $html . '
 
       <div id="details" class="clearfix">      
         <div id="client">
-          <div class="address"><b>Observaciones</b></div>
+          <div class="address"><b>observations</b></div>
           <div class="address">  '.$OBSERVACIONES.' </div>
         </div>
         <div id="invoice">
           <div class="date"><b><hr></b></div>
-          <div class="date center">  Firma Responsable</div>
+          <div class="date center">  Firm responsible </div>
           <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
         </div>
       </div>
@@ -1003,9 +1003,9 @@ $html = $html . '
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO="InformeInstructivoCarga_";
+$NOMBREARCHIVO="ShippingInstructionReport_";
 $FECHADOCUMENTO = $FECHANORMAL."_".$HORAFINAL;
-$TIPODOCUMENTO="Informe";
+$TIPODOCUMENTO="Report";
 $FORMATO=".pdf";
 $NOMBREARCHIVOFINAL=$NOMBREARCHIVO.$FECHADOCUMENTO.$FORMATO;
 
@@ -1017,10 +1017,10 @@ $UNICODE="true";
 $ENCODING="UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "Informe Instructivo Carga ";
-$CREADOR = "Usuario";
-$AUTOR = "Usuario";
-$ASUNTO = "Informe";
+$TIPOINFORME = "Shipping Instruction Report ";
+$CREADOR = "User";
+$AUTOR = "User";
+$ASUNTO = "Report";
 
 //API DE GENERACION DE PDF
 require_once '../../api/mpdf/mpdf/autoload.php';
@@ -1047,9 +1047,9 @@ $PDF->SetHTMLFooter('
 
 
 <footer>
-Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
-<br>
-Impreso por: <b>' . $NOMBREEMPRESA . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
+  Report generated by IT Department Frutícola Volcán<a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
+  <br>
+  Printed by: <b>' . $NOMBREEMPRESA . '.</b> print time: <b>' . $HORAFINAL2 . '</b>
 </footer>
 
 ');
