@@ -929,7 +929,7 @@ if (isset($_POST)) {
                 }
                 document.form_reg_dato.NUMEROREFERENCIAINSTRUCTIVO.style.borderColor = "#4AF575";
 
-
+                /*
                 if (EXPORTADORA) {
                     CONSIGNATARIO = document.getElementById("CONSIGNATARIO").selectedIndex;
                     NOTIFICADOR = document.getElementById("NOTIFICADOR").selectedIndex;
@@ -1011,6 +1011,8 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.DFINAL.style.borderColor = "#4AF575";
                 }
+                */
+                /*
                 if (AADUANA) {
 
                     FECHAETD = document.getElementById("FECHAETD").value;
@@ -1210,6 +1212,8 @@ if (isset($_POST)) {
                     }
 
                 }
+                */
+                /*
                 if (TCONTENEDOR) {
 
                     ATMOSFERA = document.getElementById("ATMOSFERA").selectedIndex;
@@ -1248,7 +1252,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.TINSTRUCTIVO.style.borderColor = "#4AF575";
 
-                    if (O2INSTRUCTIVO == null || O2INSTRUCTIVO == 0 || /^\s+$/.test(O2INSTRUCTIVO)) {
+                    if (O2INSTRUCTIVO == null ||  /^\s+$/.test(O2INSTRUCTIVO)) {
                         document.form_reg_dato.O2INSTRUCTIVO.focus();
                         document.form_reg_dato.O2INSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_o2').innerHTML = "NO A INGRESADO DATO";
@@ -1256,7 +1260,7 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.O2INSTRUCTIVO.style.borderColor = "#4AF575";
 
-                    if (CO2INSTRUCTIVO == null || CO2INSTRUCTIVO == 0 || /^\s+$/.test(CO2INSTRUCTIVO)) {
+                    if (CO2INSTRUCTIVO == null || /^\s+$/.test(CO2INSTRUCTIVO)) {
                         document.form_reg_dato.CO2INSTRUCTIVO.focus();
                         document.form_reg_dato.CO2INSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_co2').innerHTML = "NO A INGRESADO DATO";
@@ -1265,7 +1269,7 @@ if (isset($_POST)) {
                     document.form_reg_dato.CO2INSTRUCTIVO.style.borderColor = "#4AF575";
 
 
-                    if (ALAMPAINSTRUCTIVO == null || ALAMPAINSTRUCTIVO == 0 || /^\s+$/.test(ALAMPAINSTRUCTIVO)) {
+                    if (ALAMPAINSTRUCTIVO == null  || /^\s+$/.test(ALAMPAINSTRUCTIVO)) {
                         document.form_reg_dato.ALAMPAINSTRUCTIVO.focus();
                         document.form_reg_dato.ALAMPAINSTRUCTIVO.style.borderColor = "#FF0000";
                         document.getElementById('val_alampa').innerHTML = "NO A INGRESADO DATO";
@@ -1273,7 +1277,8 @@ if (isset($_POST)) {
                     }
                     document.form_reg_dato.ALAMPAINSTRUCTIVO.style.borderColor = "#4AF575";
 
-                }
+                }*/
+                /*
                 if (FPAGO) {
                     MVENTA = document.getElementById("MVENTA").selectedIndex;
                     CVENTA = document.getElementById("CVENTA").selectedIndex;
@@ -1386,9 +1391,7 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.SEGURO.style.borderColor = "#4AF575";
-                }
-
-
+                }*/
                 /*
                 if (OBSERVACIONINSTRUCTIVO == null || OBSERVACIONINSTRUCTIVO.length == 0 || /^\s+$/.test(OBSERVACIONINSTRUCTIVO)) {
                     document.form_reg_dato.OBSERVACIONINSTRUCTIVO.focus();
