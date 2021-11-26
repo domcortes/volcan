@@ -61,7 +61,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     $CIUDAD->__SET('NOMBRE_CIUDAD', $_REQUEST['NOMBRECIUDAD']);
     $CIUDAD->__SET('ID_COMUNA', $_REQUEST['COMUNA']);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-   // $CIUDAD_ADO->agregarCiudad($CIUDAD);
+    $CIUDAD_ADO->agregarCiudad($CIUDAD);
     //REDIRECCIONAR A PAGINA registroCiudad.php
     echo "
     <script type='text/javascript'>
