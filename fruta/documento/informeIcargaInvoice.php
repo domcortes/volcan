@@ -564,11 +564,6 @@ $html = '
       </h2>
       <br>
       <table  border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <th colspan="6" class="center"></th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
             <th class="color2 left">Date: </th>
@@ -723,11 +718,6 @@ $html = $html . '
             <td class="color2 left">&nbsp;</td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="6" class="center"></th>
-          </tr>
-        </tfoot>
       </table>
 
 
@@ -889,13 +879,13 @@ $PDF->SetHTMLHeader('
             '.$DIRECCIONEMPRESA.'
     </td>
     <td class=" color2 left  pp20" style="width:30%; ">
-      <table class="bor">
+      <table class="">
         <tr>
           <td class=" color2 center ">
              INVOICE
           </td>
         </tr>
-        <tr>¿
+        <tr>
           <td class=" color2 center ">
             N° '.$NUMEROIREFERENCIA.'
           </td>

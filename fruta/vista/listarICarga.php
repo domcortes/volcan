@@ -311,14 +311,14 @@ include_once "../config/datosUrLP.php";
                                                                                     </span>
                                                                                 <?php } ?>
                                                                                 <hr>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i> Informe
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Instructivo">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Instructivo Español" Onclick="abrirPestana('../documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Instructivo Español
                                                                                     </button>
                                                                                 </span>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Report" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                        <i class="fa fa-file-pdf-o"></i> Report
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Instruction">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Instruction English" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Instruction English
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Carga Real">
