@@ -138,7 +138,7 @@ class INPSAG_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_INPSAG, '%d-%m-%Y') AS 'FECHA',
+            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_INPSAG, '%d/%m/%Y') AS 'FECHA',
                                                     DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                     DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
                                             FROM fruta_inpsag
@@ -414,6 +414,91 @@ class INPSAG_ADO
                                         WHERE  ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function buscarPorSagCategoria($IDINPSAG)
+    {
+        try {
+
+            
+            $datos = $this->conexion->prepare(" SELECT 
+                                                    (
+                                                        SELECT FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') 
+                                                        FROM fruta_exiexportacion existencia, estandar_eexportacion estandar
+                                                        WHERE existencia.ID_INPSAG = inpsag.ID_INPSAG
+                                                        AND existencia.ID_ESTANDAR = estandar.ID_ESTANDAR
+                                                        AND estandar.PESO_ENVASE_ESTANDAR BETWEEN  0 AND 5
+                                                    ) AS 'A',
+                                                    (
+                                                        SELECT FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') 
+                                                        FROM fruta_exiexportacion existencia, estandar_eexportacion estandar
+                                                        WHERE existencia.ID_INPSAG = inpsag.ID_INPSAG
+                                                        AND existencia.ID_ESTANDAR = estandar.ID_ESTANDAR
+                                                        AND estandar.PESO_ENVASE_ESTANDAR BETWEEN  5 AND 10
+                                                    ) AS 'B',	(
+                                                        SELECT FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE')  
+                                                        FROM fruta_exiexportacion existencia, estandar_eexportacion estandar
+                                                        WHERE existencia.ID_INPSAG = inpsag.ID_INPSAG
+                                                        AND existencia.ID_ESTANDAR = estandar.ID_ESTANDAR
+                                                        AND estandar.PESO_ENVASE_ESTANDAR >  10 
+                                                    ) AS 'C'
+                                                FROM fruta_inpsag inpsag
+
+                                                WHERE ID_INPSAG= '" . $IDINPSAG . "'                                               
+                                                AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function buscarPorSagProductoEspecies($IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                            (SELECT productor.CSG_PRODUCTOR
+                                                            FROM fruta_productor productor
+                                                            WHERE productor.ID_PRODUCTOR = existencia.ID_PRODUCTOR      
+                                                            ) AS 'CSG',  
+                                                            (SELECT productor.NOMBRE_PRODUCTOR
+                                                            FROM fruta_productor productor
+                                                            WHERE productor.ID_PRODUCTOR = existencia.ID_PRODUCTOR      
+                                                            ) AS 'PRODUCTOR',  
+                                                            (SELECT especies.NOMBRE_ESPECIES
+                                                            FROM fruta_especies especies
+                                                            WHERE especies.ID_ESPECIES = variedad.ID_ESPECIES      
+                                                            ) AS 'ESPECIES',  
+                                                            FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'CANTIDAD'
+                                                    FROM fruta_inpsag inpsag, fruta_exiexportacion existencia, fruta_vespecies variedad
+                                                    WHERE 
+                                                         inpsag.ID_INPSAG= '" . $IDINPSAG . "'           
+                                                        AND inpsag.ID_INPSAG = existencia.ID_INPSAG
+                                                        AND existencia.ID_VESPECIES = variedad.ID_VESPECIES    
+                                                    GROUP BY existencia.ID_PRODUCTOR, variedad.ID_ESPECIES        
+                                                
+                                                 
+                                                
+                                                ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
