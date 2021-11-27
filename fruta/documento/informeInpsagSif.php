@@ -203,10 +203,20 @@ if($ARRAYINPSAGPT){
     
     
     $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYINPSAGPT[0]['ID_PLANTA']);
+    if($ARRAYPLANTA){
+      $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+      $RAZONSOCIALPLANTA = $ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
+    }else{
+      $NOMBREPLANTA="Sin Datos";
+      $RAZONSOCIALPLANTA="Sin Datos";
+    }
     $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYINPSAGPT[0]['ID_TEMPORADA']);
+    if($ARRAYTEMPORADA){
+      $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
+    }else{
+      $TEMPORADA="Sin Datos";
+    }
     
-    $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-    $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
 }
 
 
@@ -296,7 +306,7 @@ $html = '
        <tbody  >
         <tr class="">
           <th class="color2  left " width="20%">Nombre Planta</th>
-          <td class="color2  left " >'.$PLANTA.'</td>
+          <td class="color2  left " >'.$RAZONSOCIALPLANTA.'</td>
           <td class="color2  left ">&nbsp; </td>
           <td class="color2  left ">&nbsp; </td>
         </tr>   
