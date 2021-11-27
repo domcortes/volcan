@@ -852,8 +852,8 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsag.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe Sif"   id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsagSif.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
-                                                    <i class="fa fa-file-pdf-o"></i> Sif
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title=" S.I.F"   id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsagSif.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                    <i class="fa fa-file-pdf-o"></i>  S.I.F
                                                 </button>
                                                 <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Packing list" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsagPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Packing List
