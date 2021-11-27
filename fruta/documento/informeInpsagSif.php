@@ -115,15 +115,16 @@ if (isset($_REQUEST['parametro'])) {
 $ARRAYINPSAGPT = $INPSAG_ADO->verInpsag2($IDOP);
 
 if($ARRAYINPSAGPT){
+    $ARRAYINPSAGPTPRODUCTORESPECIES = $INPSAG_ADO->buscarPorSagProductoEspecies($IDOP);
     $ARRAYINPSAGPTCATEGORIA = $INPSAG_ADO->buscarPorSagCategoria($IDOP);
     $CATEGORIAA=$ARRAYINPSAGPTCATEGORIA[0]["A"];
     $CATEGORIAB=$ARRAYINPSAGPTCATEGORIA[0]["B"];
     $CATEGORIAC=$ARRAYINPSAGPTCATEGORIA[0]["C"];
-    $ARRAYINPSAGPTPRODUCTORESPECIES = $INPSAG_ADO->buscarPorSagProductoEspecies($IDOP);
 
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorSag2($IDOP);
-    $ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesInspSag2($IDOP);
-    
+    //$ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorSag2($IDOP);
+    $ARRAYEXIEXPORTACIONPALLET=$EXIEXPORTACION_ADO->contarTotalPalletInspSag2($IDOP);
+    $TOTALPALLET=$ARRAYEXIEXPORTACIONPALLET[0]['PALLET'];
+    $ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesInspSag2($IDOP);    
     $TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['ENVASE'];
     $TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['NETO'];
     $TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['BRUTO'];
@@ -301,7 +302,7 @@ $html = '
         </tr>   
         <tr class="">
           <th class="color2  left">Total de Pallet del Lote</th>
-          <td class="color2  left ">&nbsp; </td>
+          <td class="color2  left ">'.$TOTALPALLET.' </td>
           <th class="color2  left ">Peso Neto Total(En Kilos)</th> 
           <td class="color2  left ">'.$TOTALNETO.' </td>
         </tr>    
@@ -533,7 +534,7 @@ $PDF->SetHTMLHeader('
 <table width="100%" >
     <tbody>
         <tr>
-          <th width="55%" class="left f10">' . $EMPRESA . '</th>
+          <th width="55%" class="left f10"></th>
           <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
           <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
         </tr>
