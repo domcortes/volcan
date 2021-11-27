@@ -209,7 +209,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                     <!-- /.box-header -->
                                     <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
                                         <div class="box-body">
-                                            <h4 class="box-title text-info"><i class="ti-user 5"></i> Registro
+                                            <h4 class="box-title text-info"><i class="ti-user 5"></i> Registro Ciudad
                                             </h4>
 
                                             <hr class="my-15">
