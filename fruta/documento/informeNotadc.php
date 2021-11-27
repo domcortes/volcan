@@ -18,6 +18,7 @@ include_once '../controlador/ADESTINO_ADO.php';
 include_once '../controlador/NAVIERA_ADO.php';
 include_once '../controlador/PCARGA_ADO.php';
 include_once '../controlador/PDESTINO_ADO.php';
+include_once '../controlador/CVENTA_ADO.php';
 include_once '../controlador/FPAGO_ADO.php';
 include_once '../controlador/MVENTA_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
@@ -53,6 +54,7 @@ $ADESTINO_ADO =  new ADESTINO_ADO();
 $NAVIERA_ADO =  new NAVIERA_ADO();
 $PCARGA_ADO =  new PCARGA_ADO();
 $PDESTINO_ADO =  new PDESTINO_ADO();
+$CVENTA_ADO =  new CVENTA_ADO();
 $FPAGO_ADO =  new FPAGO_ADO();
 $MVENTA_ADO =  new MVENTA_ADO();
 $EEXPORTACION_ADO = new EEXPORTACION_ADO();
@@ -205,6 +207,13 @@ if ($ARRAYVERNOTADCNC) {
         $DIRECCIONCONSIGNATARIO="Sin Datos";
         $EMAIL1CONSIGNATARIO="Sin Datos";
       }
+      
+      $ARRAYCVENTA = $CVENTA_ADO->verCventa( $ARRAYICARGA[0]['ID_CVENTA']);        
+      if($ARRAYCVENTA){
+        $NOMBRECVENTA=$ARRAYCVENTA[0]["NOMBRE_CVENTA"];
+      }else{
+        $NOMBRECVENTA="Sin Datos";
+      }
       $ARRAYFPAGO = $FPAGO_ADO->verFpago(  $ARRAYICARGA[0]['ID_FPAGO']);         
       if($ARRAYFPAGO){
         $NOMBREFPAGO=$ARRAYFPAGO[0]["NOMBRE_FPAGO"];
@@ -239,24 +248,24 @@ if ($ARRAYVERNOTADCNC) {
               }
           }
           if ($TEMBARQUE == "2") {
-              $ARRAYLAEREA = $LAEREA_ADO->verLaerea( $ARRAYICARGA[0]['ID_LAREA']);      
-              if($ARRAYLAEREA){
-                $NOMBRETRANSPORTE=$ARRAYLAEREA[0]["NOMBRE_LAREA"];
-              }else{
-                $NOMBRETRANSPORTE="Sin Datos";
-              }            
-              $ARRAYACARGA =$ACARGA_ADO->verAcarga(  $ARRAYICARGA[0]['ID_ACARGA']);  
-              if($ARRAYACARGA){
-                $NOMBREORIGEN=$ARRAYACARGA[0]["NOMBRE_ACARGA"];
-              }else{
-                $NOMBREORIGEN="Sin Datos";
-              }
-              $ARRAYADESTINO =$LDESTINO_ADO->verLdestino( $ARRAYICARGA[0]['ID_ADESTINO']);  
-              if($ARRAYADESTINO){
-                $NOMBREDESTINO=$ARRAYADESTINO[0]["NOMBRE_ADESTINO"];
-              }else{
-                $NOMBREDESTINO="Sin Datos";
-              }
+            $ARRAYLAEREA = $LAEREA_ADO->verLaerea( $ARRAYICARGA[0]['ID_LAREA']);      
+            if($ARRAYLAEREA){
+              $NOMBRETRANSPORTE=$ARRAYLAEREA[0]["NOMBRE_LAEREA"];
+            }else{
+              $NOMBRETRANSPORTE="Sin Datos";
+            }            
+            $ARRAYACARGA =$ACARGA_ADO->verAcarga(  $ARRAYICARGA[0]['ID_ACARGA']);  
+            if($ARRAYACARGA){
+              $NOMBREORIGEN=$ARRAYACARGA[0]["NOMBRE_ACARGA"];
+            }else{
+              $NOMBREORIGEN="Sin Datos";
+            }
+            $ARRAYADESTINO =$ADESTINO_ADO->verAdestino( $ARRAYICARGA[0]['ID_ADESTINO']);  
+            if($ARRAYADESTINO){
+              $NOMBREDESTINO=$ARRAYADESTINO[0]["NOMBRE_ADESTINO"];
+            }else{
+              $NOMBREDESTINO="Sin Datos";
+            }
           }
           if ($TEMBARQUE == "3") {
               $ARRAYNAVIERA =$NAVIERA_ADO->verNaviera( $ARRAYICARGA[0]['ID_NAVIERA']);   
@@ -400,7 +409,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Nota Credicto o debito</title>
+    <title>Report Debit or Credit Note</title>
   </head>
   <body>
 
@@ -412,11 +421,7 @@ $html = '
       </h2>
       <br>
       <table  border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <th colspan="6" class="center"></th>
-          </tr>
-        </thead>
+       
         <tbody>
           <tr>
             <th class="color2 left">Date: </th>
@@ -444,7 +449,7 @@ $html = '
             <td class="color2 left">&nbsp;</td>
             <td class="color2 left">&nbsp;</td>
             <th class="color2 left">Incoterm: </th>
-            <td class="color2 left">incoterms valor</td>
+            <td class="color2 left">'.$NOMBRECVENTA.'</td>
           </tr>          
           <tr>            
             <th class="color2 left">&nbsp; </th>
@@ -571,11 +576,6 @@ $html = $html . '
             <td class="color2 left">&nbsp;</td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="6" class="center"></th>
-          </tr>
-        </tfoot>
       </table>
 
 
@@ -593,7 +593,7 @@ $html = $html . '
             <th colspan="7" class="center">DETAIL.</th>
           </tr>
           <tr>
-            <th class="color left">Amount</th>
+            <th class="color left">Amount Boxes</th>
             <th class="color left">Description of goods</th>
             <th class="color left">value CN/DN</th>
             <th class="color left">instructive price</th>
@@ -698,9 +698,9 @@ $html = $html . '
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO = "InformeNotaNCDC_";
+$NOMBREARCHIVO = "ReportDebitCreditNote_";
 $FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
-$TIPODOCUMENTO = "Informe";
+$TIPODOCUMENTO = "Report";
 $FORMATO = ".pdf";
 $NOMBREARCHIVOFINAL = $NOMBREARCHIVO . $FECHADOCUMENTO . $FORMATO;
 
@@ -712,10 +712,10 @@ $UNICODE = "true";
 $ENCODING = "UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "Informe Nota NC/ND";
+$TIPOINFORME = "Report Debit or Credit Note";
 $CREADOR = "Usuario";
 $AUTOR = "Usuario";
-$ASUNTO = "Informe";
+$ASUNTO = "Report";
 
 //API DE GENERACION DE PDF
 require_once '../../api/mpdf/mpdf/autoload.php';
@@ -738,7 +738,7 @@ $PDF->SetHTMLHeader('
             '.$DIRECCIONEMPRESA.'
     </td>
     <td class=" color2 left  pp20" style="width:30%; ">
-      <table class="bor">
+      <table class="">
         <tr>
           <td class=" color2 center ">
             '.$NOMBRETNOTA.' NOTE

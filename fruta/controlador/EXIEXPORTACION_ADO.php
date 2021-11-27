@@ -2502,6 +2502,32 @@ class EXIEXPORTACION_ADO
         }
     }
 
+    public function contarTotalPalletInspSag2($IDINPSAG)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    ID_EMPRESA, COUNT(DISTINCT(FOLIO_AUXILIAR_EXIEXPORTACION))  AS  'PALLET'                                                 
+                                                FROM fruta_exiexportacion
+                                                WHERE ESTADO_REGISTRO = 1
+                                                AND 
+                                                    ID_INPSAG = '" . $IDINPSAG . "' 
+                                                GROUP BY ID_EMPRESA
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     public function obtenerTotalesEmpresaPlantaTemporadaDisponible2($EMPRESA, $PLANTA, $TEMPORADA)
     {

@@ -28,6 +28,7 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../controlador/TMONEDA_ADO.php';
 
 
 include_once '../controlador/ICARGA_ADO.php';
@@ -71,6 +72,7 @@ $ESPECIES_ADO =  new ESPECIES_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
+$TMONEDA_ADO = new TMONEDA_ADO();
 
 $ICARGA_ADO =  new ICARGA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -1078,7 +1080,8 @@ if (isset($_POST)) {
                                                             <th>Cantidad Envase </th>
                                                             <th>Kilo Neto </th>
                                                             <th>Kilo Bruto </th>
-                                                            <th>Calibre </th>                                                         
+                                                            <th>Calibre </th>     
+                                                            <th>Tipo Moneda </th>                                                           
                                                             <th>Valor NC/ND </th>
                                                             <th>Precio Instructivo </th>   
                                                             <th>Precio Instru. Con NC/ND</th>   
@@ -1101,6 +1104,12 @@ if (isset($_POST)) {
                                                                     $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
                                                                 } else {
                                                                     $NOMBRECALIBRE = "Sin Datos";
+                                                                }
+                                                                $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
+                                                                if ($ARRAYTMONEDA) {
+                                                                    $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
+                                                                } else {
+                                                                    $NOMBRETMONEDA = "Sin Datos";
                                                                 }
                                                                 $ARRAYDNOTA=$DNOTADC_ADO->buscarPorNotaDicarga($IDOP,$s['ID_DICARGA']);
                                                                 if($ARRAYDNOTA){
@@ -1157,6 +1166,7 @@ if (isset($_POST)) {
                                                                     <td><?php echo $s['KILOS_NETO_DICARGA']; ?></td>
                                                                     <td><?php echo $s['KILOS_BRUTO_DICARGA']; ?></td>
                                                                     <td><?php echo $NOMBRECALIBRE; ?></td>
+                                                                    <td><?php echo $NOMBRETMONEDA; ?></td>
                                                                     <td><?php echo $CANTIDADDNOTA; ?></td>
                                                                     <td><?php echo $s['PRECIO_US_DICARGA']; ?></td>
                                                                     <td><?php echo $PRECIONUEVO; ?></td>

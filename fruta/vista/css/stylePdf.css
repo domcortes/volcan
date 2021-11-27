@@ -141,13 +141,17 @@ font-face {
 	color: #FFFFFF;
 	background: #4253a1;
   }
+  table .color2 {
+	color: #000000;
+	background: transparent;
+  }
   table .color3 {
 	color: #000000;
 	border-top: 2px solid #000000;
 	background: transparent;
   }
-  table .color2 {
-	color: #000000;
+  table .color4 {
+	color: #FFFFFF;
 	background: transparent;
   }
   table .left {
@@ -218,7 +222,17 @@ font-face {
 	width: 100%;
   }
   
-  
+  .cuadrado , #cuadrado{
+	  font-size: large;
+	  width: 100px;
+	  height: 100px;
+	  border: 2px solid #000000;
+	  border-radius: 1px;
+	  -webkit-border-radius: 1px;
+	  -moz-border-radius: 1px;
+	  -ms-border-radius: 1px;
+	  -o-border-radius: 1px;
+}
 
 
 
@@ -227,6 +241,12 @@ img {
 	max-height: 60px;
 }
 
+
+
+input[type=checkbox] {
+
+	padding: 10px;
+  }
 
 
 .margin10 #margin10{
@@ -273,9 +293,19 @@ img {
 	-ms-border-radius: 7px solid #000000;
 	-o-border-radius: 7px solid #000000;
 }
-.bor, #bor{
+.bor, #bor{	
+	border: 1px solid #000000;
+}
+.bor2, #bor2{
 	
-	border: 2px solid #000000;
+	border: 1px solid #bbb5b5;
+}
+.bor3, #bor3{
+	
+	border-left: 1px solid #bbb5b5;
+	border-right: 1px solid #bbb5b5;
+	border-top: 1px solid #bbb5b5;
+	border-bottom: 1px solid #bbb5b5;
 }
 .bl, #bl{
 	border-left: 1px solid #000000;
@@ -284,22 +314,22 @@ img {
 	border-right: 1px solid #000000;
 }
 .bb, #bb{
-	border-bottom: 1px solid #000000;
+	border-bottom: 2px solid #000000;
 }
 .bt, #bt{
 	border-top: 1px solid #000000;
 }
 .bl2, #bl2{
-	border-left: 1px solid #bbb5b5;
+	border-left: 2px solid #bbb5b5;
 }
-.b2r, #br2{
-	border-right: 1px solid #bbb5b5;
+.br2, #br2{
+	border-right: 2px solid #bbb5b5;
 }
 .bb2, #bb2{
-	border-bottom: 1px solid #bbb5b5;
+	border-bottom: 2px solid #bbb5b5;
 }
 .bt2, #bt2{
-	border-top: 1px solid #bbb5b5;
+	border-top: 2px solid #bbb5b5;
 }
 
 /*style=" border-top: 1px solid #000000;"*/

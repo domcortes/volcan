@@ -18,6 +18,7 @@
         private   $ID_ESTANDAR;
         private   $ID_CALIBRE;
         private   $ID_ICARGA;
+        private   $ID_TMONEDA;
         
         //FUNCIONES GET Y SET
         public function __GET($k){ return $this->$k; }
