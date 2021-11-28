@@ -248,6 +248,12 @@ input[type=checkbox] {
 	padding: 10px;
   }
 
+  .bcolor, #bcolor{
+	color: #FFFFFF;
+	background: #4253a1;
+	padding: 10px;
+	
+  }
 
 .margin10 #margin10{
 	
@@ -287,11 +293,11 @@ input[type=checkbox] {
 }
 .borr, #borr{
 	border: 2px solid #000000;
-	border-radius: 7px solid #000000;
-	-webkit-border-radius: 7px solid #000000;
-	-moz-border-radius: 7px solid #000000;
-	-ms-border-radius: 7px solid #000000;
-	-o-border-radius: 7px solid #000000;
+	border-radius: 15px solid #000000;
+	-webkit-border-radius: 15px solid #000000;
+	-moz-border-radius: 15px solid #000000;
+	-ms-border-radius: 15px solid #000000;
+	-o-border-radius: 15px solid #000000;
 }
 .bor, #bor{	
 	border: 1px solid #000000;
@@ -299,6 +305,14 @@ input[type=checkbox] {
 .bor2, #bor2{
 	
 	border: 1px solid #bbb5b5;
+}
+.bor3, #bor3{
+	border: 2px solid #4253a1;
+	border-radius: 15px solid #4253a1;
+	-webkit-border-radius: 15px solid #4253a1;
+	-moz-border-radius: 15px solid #0e163a;
+	-ms-border-radius: 15px solid #4253a1;
+	-o-border-radius: 15px solid #4253a1;
 }
 .bor3, #bor3{
 	
