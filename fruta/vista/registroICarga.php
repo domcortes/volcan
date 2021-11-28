@@ -58,6 +58,7 @@ include_once '../controlador/TMONEDA_ADO.php';
 
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../controlador/ECOMERCIAL_ADO.php';
 
 
 
@@ -112,6 +113,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO =  new TMONEDA_ADO();
+$ECOMERCIAL_ADO =  new ECOMERCIAL_ADO();
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $DESPACHOEX_ADO = new DESPACHOEX_ADO();
@@ -3295,6 +3297,8 @@ if (isset($_POST)) {
                                             <tr class="text-left">
                                                 <th>Codigo Estandar </th>
                                                 <th>Envase/Estandar </th>
+                                                <th>Codigo Estandar </th>
+                                                <th>Estandar Comercial </th>
                                                 <th>Peso Neto </th>
                                                 <th>Peso Bruto </th>
                                                 <th>Cantidad Envases </th>
@@ -3325,9 +3329,19 @@ if (isset($_POST)) {
                                                         $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
                                                         $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
                                                         $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
+                                                        $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYEEXPORTACION[0]["ID_ECOMERCIAL"]);
+                                                        if($ARRAYECOMERCIAL){
+                                                            $CODIGOECOMERCIAL = $ARRAYECOMERCIAL[0]['CODIGO_ECOMERCIAL'];
+                                                            $NOMBREECOMERCIAL = $ARRAYECOMERCIAL[0]['NOMBRE_ECOMERCIAL'];
+                                                        }else{
+                                                            $CODIGOECOMERCIAL = "Sin Datos";
+                                                            $NOMBREECOMERCIAL = "Sin Datos";
+                                                        }
                                                     } else {
-                                                        $CODIGOESTANDAR = "Sin Datos";
+                                                        $CODIGOECOMERCIAL = "Sin Datos";
+                                                        $NOMBREECOMERCIAL = "Sin Datos";
                                                         $NOMBREESTANTAR = "Sin Datos";
+                                                        $CODIGOESTANDAR = "Sin Datos";
                                                         $NETOESTANTAR = "Sin Datos";
                                                         $BRUTOESTANTAR = "Sin Datos";
                                                     }
@@ -3342,6 +3356,8 @@ if (isset($_POST)) {
                                                     <tr class="text-left">
                                                         <td><?php echo $CODIGOESTANDAR; ?></td>
                                                         <td><?php echo $NOMBREESTANTAR; ?></td>
+                                                        <td><?php echo $CODIGOECOMERCIAL; ?></td>
+                                                        <td><?php echo $NOMBREECOMERCIAL; ?></td>
                                                         <td><?php echo number_format($NETOESTANTAR, 3, ",", ".") ?></td>
                                                         <td><?php echo number_format($BRUTOESTANTAR, 3, ",", ".") ?></td>
                                                         <td><?php echo $s['ENVASE']; ?></td>

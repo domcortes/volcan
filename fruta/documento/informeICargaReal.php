@@ -14,7 +14,7 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
-
+include_once '../controlador/ECOMERCIAL_ADO.php';
 
 
 include_once '../controlador/ICARGA_ADO.php';
@@ -34,6 +34,7 @@ $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $DESPACHOEX_ADO =  new DESPACHOEX_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
+$ECOMERCIAL_ADO =  new ECOMERCIAL_ADO();
 
 
 $ICARGA_ADO =  new ICARGA_ADO();
@@ -192,11 +193,13 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="11" class="center"></th>
+            <th colspan="13" class="center"></th>
           </tr>
           <tr>            
             <th class="color center ">Codigo Estandar </th>
             <th class="color center ">Envase/Estandar </th>
+            <th class="color center ">Codigo Estandar </th>
+            <th class="color center ">Estandar Comercial</th>
             <th class="color center ">Peso Neto </th>
             <th class="color center ">Peso Bruto </th>
             <th class="color center ">Cantidad Envases </th>
@@ -228,9 +231,19 @@ $html = $html . '
               $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
               $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
               $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
+              $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYEEXPORTACION[0]["ID_ECOMERCIAL"]);
+              if($ARRAYECOMERCIAL){
+                  $CODIGOECOMERCIAL = $ARRAYECOMERCIAL[0]['CODIGO_ECOMERCIAL'];
+                  $NOMBREECOMERCIAL = $ARRAYECOMERCIAL[0]['NOMBRE_ECOMERCIAL'];
+              }else{
+                  $CODIGOECOMERCIAL = "Sin Datos";
+                  $NOMBREECOMERCIAL = "Sin Datos";
+              }
           } else {
-              $CODIGOESTANDAR = "Sin Datos";
+              $CODIGOECOMERCIAL = "Sin Datos";
+              $NOMBREECOMERCIAL = "Sin Datos";
               $NOMBREESTANTAR = "Sin Datos";
+              $CODIGOESTANDAR = "Sin Datos";
               $NETOESTANTAR = "Sin Datos";
               $BRUTOESTANTAR = "Sin Datos";
           }
@@ -247,6 +260,8 @@ $html = $html . '
             <tr class="center">      
               <td class="center">'.$CODIGOESTANDAR.'</td>
               <td class="center">'.$NOMBREESTANTAR.'</td>
+              <td class="center">'.$CODIGOECOMERCIAL.'</td>
+              <td class="center">'.$NOMBREECOMERCIAL.'</td>
               <td class="center">'.number_format($NETOESTANTAR, 2, ",", ".").'</td>
               <td class="center">'.number_format($BRUTOESTANTAR, 2, ",", ".").'</td>
               <td class="center">'.$s['ENVASE'].'</td>
@@ -261,6 +276,8 @@ $html = $html . '
         endforeach; 
         $html=$html.'    
         <tr>
+          <td class="color center">&nbsp;</td>
+          <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
