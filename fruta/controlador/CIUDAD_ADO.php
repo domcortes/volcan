@@ -51,7 +51,6 @@ class CIUDAD_ADO {
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
-            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -71,7 +70,6 @@ class CIUDAD_ADO {
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
-            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -89,7 +87,6 @@ class CIUDAD_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            $datos=null;
             $datos=null;
             
             //	print_r($resultado);
@@ -110,7 +107,6 @@ class CIUDAD_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `ID_CIUDAD`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            $datos=null;
             $datos=null;
             
             //	print_r($resultado);
@@ -134,7 +130,6 @@ class CIUDAD_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `NOMBRE_CIUDAD` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            $datos=null;
             $datos=null;
             
             //	print_r($resultado);
@@ -200,7 +195,6 @@ class CIUDAD_ADO {
                                               ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
-            $datos=null;
             $datos=null;
             
             //	print_r($resultado);

@@ -2837,7 +2837,7 @@ if (isset($_POST)) {
                                             </div>
                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label> Apertura Lampa</label>
+                                                    <label> Apertura Lampa (CBM)</label>
                                                     <input type="hidden" class="form-control" placeholder="ALAMPAINSTRUCTIVOE" id="ALAMPAINSTRUCTIVOE" name="ALAMPAINSTRUCTIVOE" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" />
                                                     <input type="number" step="0.01" class="form-control" placeholder="Apertura Lampa Instructivo" id="ALAMPAINSTRUCTIVO" name="ALAMPAINSTRUCTIVO" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_alampa" class="validacion"> </label>

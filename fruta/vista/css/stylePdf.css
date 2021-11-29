@@ -94,6 +94,30 @@ font-face {
 	font-size: 1.1em;
 	color: #777777;
   }
+
+
+  #invoicer {
+	font-size: 10px;
+	width: 200px;
+	float: left;
+	text-align: left;
+	border-left: 6px solid #4253a1;
+  }
+  
+  #invoicer h1, h2 {
+	color: #4253a1;
+	line-height: 1em;
+	font-weight: normal;
+	margin: 0  0 10px 0;
+  }
+  
+  
+  
+  #invoicer .dater {
+	font-size: 1.1em;
+	color: #777777;
+  }
+
   
   h1.titulo{
 	width: 100%;
