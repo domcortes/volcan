@@ -1523,7 +1523,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Guía</label>
                                                     <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIAE" name="NUMEROGUIAE" value="<?php echo $NUMEROGUIA; ?>" />
-                                                    <input type="text" class="form-control"  placeholder="Número Guía" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Número Guía" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLED2; ?> />
                                                     <label id="val_numero" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2540,7 +2540,7 @@ if (isset($_POST)) {
             $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
             $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
             $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
-            $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIAE']);
+            $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIA']);
             $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
             $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
             $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
@@ -2659,7 +2659,7 @@ if (isset($_POST)) {
                 $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
                 $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
                 $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
-                $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIAE']);
+                $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIA']);
                 $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
                 $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
                 $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
