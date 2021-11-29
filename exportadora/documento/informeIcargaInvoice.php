@@ -209,6 +209,10 @@ if($ARRAYICARGA){
     $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
     $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
 
+    $IDUSUARIOI = $ARRAYICARGA[0]['ID_USUARIOI'];  
+    $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+    $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
+    
     
     $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
     if($ARRAYDESPACHOEX){
@@ -561,7 +565,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
-$FECHANORMA2 = $DIA . "/" . $MES . "/" . $ANO;
+$FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -582,18 +586,13 @@ $html = '
               <img src="../vista/img/logo2.png" width="150px" height="45px"/>
           </div>
         </td>
-        <td class="color2 left" width="50%">
+        <td class="color2 left" width="70%">
           <b>'.$RAZONSOCIALEMPRESA.'</b> <br>
           '.$RUTEMPRESA.' <br>
           '.$DIRECCIONEMPRESA.' <br>          
         </td>
         <td class="color2 right">
-          <div id="company">
-            <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
-            <div>Camino a Antuco, Kilómetro N°13</div>
-            <div>Los Ángeles, Chile.</div>
-            <div><a href="mailto:ti@fvolcan.com">ti@fvolcan.cl</a></div>
-          </div>
+        
         </td>
       </tr>
     </table>    

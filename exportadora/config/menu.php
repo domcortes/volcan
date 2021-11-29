@@ -446,6 +446,17 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="listarICarga.php">Agrupado Inst. Carga<i class="ti-more"></i></a></li>
             </ul>
           </li>
+          <li class="treeview">
+            <a href="#">Nota D/C
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="registroNotadc.php">Registro Nota<i class="ti-more"></i></a></li>
+              <li><a href="listarNotadc.php">Agrupado Nota<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li class="treeview">

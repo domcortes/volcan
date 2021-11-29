@@ -5,23 +5,18 @@
     */
 
     //ESTRUCTURA DE LA CLASE
-    class NOTADC {
+    class DNOTADC {
         
         //ATRIBUTOS DE LA CLASE
-        private	  $ID_NOTA; 
-        private	  $NUMERO_NOTA; 
-        private   $FECHA_NOTA;
+        private	  $ID_DNOTA; 
         private	  $TNOTA;
-        private	  $OBSERVACIONES;
+        private	  $CANTIDAD; 
         private   $ESTADO;
         private   $ESTADO_REGISTRO;
         private   $INGRESO;
         private   $MODIFICACION;
-        private   $ID_ICARGA;
-        private   $ID_EMPRESA;
-        private   $ID_TEMPORADA;
-        private   $ID_USUARIOI;
-        private   $ID_USUARIOM;
+        private   $ID_NOTA;
+        private   $ID_DICARGA;
 
 
         //FUNCIONES GET Y SET
