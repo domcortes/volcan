@@ -3213,7 +3213,7 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroICarga" />
                                                                 <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDicarga" />                                                                
-                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                <div class="btn-group btn-rounded col-6 btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn btn-info  btn-sm   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Instructivo">
                                                                                 <i class="ti-eye"></i> Ver
