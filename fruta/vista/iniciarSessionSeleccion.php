@@ -1,4 +1,6 @@
 <?php
+require_once '../../vendor/autoload.php';
+$detect = new Mobile_Detect;
 
 session_start();
 if (isset($_SESSION["ID_EMPRESA"]) && isset($_SESSION["ID_PLANTA"]) && isset($_SESSION["ID_TEMPORADA"])  ) {
