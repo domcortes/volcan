@@ -1036,30 +1036,25 @@ if ($_POST) {
             $ARRAYEXIEXPORTACIONTOMADO = $EXIEXPORTACION_ADO->buscarPorRepaletizaje($_REQUEST['IDP']);
             $ARRAYDREPALETIZAJE = $DREPALETIZAJEEX_ADO->buscarDrepaletizaje($_REQUEST['IDP']);
             $ARRAYEXIEXPORTACIONINGRESANDOREPALETIZADO = $EXIEXPORTACION_ADO->buscarPorRepaletizajeIngresando($_REQUEST['IDP']);
-
-            if (empty($ARRAYEXIEXPORTACIONTOMADO) || empty($ARRAYEXIEXPORTACIONINGRESANDOREPALETIZADO)) {
+            if (empty($ARRAYEXIEXPORTACIONTOMADO) ) {
                 $SINO = "1";
-                $MENSAJE = $MENSAJE." Tiene que haber al menos un registro de existencia selecionado. ";
-
-                if ($ARRAYDREPALETIZAJE) {
-                    $SINO = "0";
-                    $MENSAJE = $MENSAJE;
-                    if ($_REQUEST['DIFERENCIACAJAS'] == 0) {
-                        $SINO = "0";
-                        $MENSAJE = "";
-                    } else {
-                        $SINO = "1";
-                        $MENSAJE = $MENSAJE." La diferencia de envases tiene que ser cero. ";
-                    }
-                } else {
-                    $SINO = "1";
-                    $MENSAJE = $MENSAJE."Tiene que haber al menos un registro en el detalle. ";
-                }
+                $MENSAJE = $MENSAJE." Tiene que haber al menos un registro de existencia selecionado. ";          
             } else {
                 $SINO = "0";
                 $MENSAJE=$MENSAJE;
-
             }
+            if (empty($ARRAYDREPALETIZAJE)) {
+                $SINO = "1";
+                $MENSAJE = $MENSAJE."Tiene que haber al menos un registro en el detalle. ";
+              
+            } else if ($_REQUEST['DIFERENCIACAJAS'] != 0) {
+                $SINO = "1";
+                $MENSAJE = $MENSAJE." La diferencia de envases tiene que ser cero. ";
+            }  else {
+                $SINO = "0";
+                $MENSAJE = $MENSAJE;
+            }
+         
             if($SINO == 1){
                 echo '<script>
                     Swal.fire({
