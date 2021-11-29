@@ -1033,7 +1033,7 @@ if ($_POST) {
                                             <div class="form-group">
                                                 <label>Peso Pallet</label>
                                                 <input type="hidden" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCION" name="PESOPALLETRECEPCION" value="<?php echo $PESOPALLETEESTANDAR; ?>" />
-                                                <input type="number" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCIONV" name="PESOPALLETRECEPCIONV" value="<?php echo $PESOPALLETEESTANDAR; ?>" disabled style="background-color: #eeeeee;" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCIONV" name="PESOPALLETRECEPCIONV" value="<?php echo $PESOPALLETEESTANDAR; ?>" disabled style="background-color: #eeeeee;" />
                                                 <label id="val_pesopallet" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1065,7 +1065,7 @@ if ($_POST) {
                                             <div class="form-group">
                                                 <label>Kilo Neto</label>
                                                 <input type="hidden" class="form-control" placeholder="KILOSNETODRECEPCION" id="KILOSNETODRECEPCION" name="KILOSNETODRECEPCION" value="<?php echo $KILOSNETODRECEPCION; ?>" />
-                                                <input type="number" class="form-control" placeholder="Kilo Neto" step="0.01" id="KILOSNETODRECEPCIONV" name="KILOSNETODRECEPCIONV" value="<?php echo $KILOSNETODRECEPCION; ?>" disabled style='background-color: #eeeeee;'" />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Kilo Neto" step="0.01" id="KILOSNETODRECEPCIONV" name="KILOSNETODRECEPCIONV" value="<?php echo $KILOSNETODRECEPCION; ?>" disabled style='background-color: #eeeeee;'" />
                                                  <label id=" val_kilosneto" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1073,7 +1073,7 @@ if ($_POST) {
                                             <div class="form-group">
                                                 <label>Kilos Netos Reales</label>
                                                 <input type="hidden" id="KILOSNETOREALE" name="KILOSNETOREALE" value="<?php echo $KILOSNETOREALE; ?>" />
-                                                <input type="number" class="form-control" placeholder="Kilos Netos Real" id="KILOSNETOREAL" name="KILOSNETOREAL" value="<?php echo $KILOSNETOREAL; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Kilos Netos Real" id="KILOSNETOREAL" name="KILOSNETOREAL" value="<?php echo $KILOSNETOREAL; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_netoreal" class="validacion"> </label>
                                             </div>
                                         </div>

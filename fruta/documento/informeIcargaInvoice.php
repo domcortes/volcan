@@ -460,10 +460,12 @@ if($ARRAYICARGA){
   $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYICARGA[0]['ID_EMPRESA']);
   if($ARRAYEMPRESA){
     $NOMBREEMPRESA=$ARRAYEMPRESA[0]["NOMBRE_EMPRESA"];
+    $RAZONSOCIALEMPRESA = $ARRAYEMPRESA[0]["RAZON_SOCIAL_EMPRESA"];
     $RUTEMPRESA=$ARRAYEMPRESA[0]["RUT_EMPRESA"]."-".$ARRAYEMPRESA[0]["DV_EMPRESA"];
     $DIRECCIONEMPRESA=$ARRAYEMPRESA[0]["DIRECCION_EMPRESA"];
   }else{    
     $NOMBREEMPRESA="Sin Datos";
+    $RAZONSOCIALEMPRESA="Sin Datos";
     $RUTEMPRESA="Sin Datos";
     $DIRECCIONEMPRESA="Sin Datos";
   }
@@ -547,291 +549,209 @@ $FECHANORMA2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
+
 $html = '
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Report Invoice</title>
+    <title>Invoice</title>
   </head>
   <body>
-
+    <header class="clearfix">
+    <table>
+      <tr>
+        <td class="color2 left">
+          <div id="logo">
+              <img src="../vista/img/logo2.png" width="150px" height="45px"/>
+          </div>
+        </td>
+        <td class="color2 left" width="50%">
+          <b>'.$RAZONSOCIALEMPRESA.'</b> <br>
+          '.$RUTEMPRESA.' <br>
+          '.$DIRECCIONEMPRESA.' <br>          
+        </td>
+        <td class="color2 right">
+          <div id="company">
+            <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
+            <div>Camino a Antuco, Kilómetro N°13</div>
+            <div>Los Ángeles, Chile.</div>
+            <div><a href="mailto:ti@fvolcan.com">ti@fvolcan.cl</a></div>
+          </div>
+        </td>
+      </tr>
+    </table>    
+    </header>
     <main>
-      <h2 class="titulo" style="text-align: center; color: black;">
-        
-        <br>
-        <b> </b>
-      </h2>
-      <br>
-      <table  border="0" cellspacing="0" cellpadding="0">
-        <tbody>
-          <tr>
-            <th class="color2 left">Date: </th>
-            <td class="color2 left">'.$FECHA.'</td>
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-          </tr>
-          <tr>            
-            <th class="color2 left">Consigne: </th>
-            <td class="color2 left">
-                <b>'.$NOMBRECONSIGNATARIO.'</b>  
-            </td>            
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">Sales method: </th>
-            <td class="color2 left">'.$NOMBREMVENTA.'</td>
-          </tr>          
-          <tr>            
-            <th class="color2 left">&nbsp; </th>
-            <td class="color2 left">                
-                '.$DIRECCIONCONSIGNATARIO.'                     
-            </td>            
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">Incoterm: </th>
-            <td class="color2 left">'.$NOMBRECVENTA.'</td>
-          </tr>          
-          <tr>            
-            <th class="color2 left">&nbsp; </th>
-            <td class="color2 left">      
-            '.$EMAIL1CONSIGNATARIO.'            
-            </td>            
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">BL/AWB/CRT: </th>
-            <td class="color2 left">'.$BOLAWBCRTINSTRUCTIVO.'</td>
-          </tr>
-          <tr>                       
-            <td class="color2 left">&nbsp;</td>   
-            <td class="color2 left">&nbsp;</td>         
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">N° Container: </th>
-            <td class="color2 left">'.$BOOKINGINSTRUCTIVO.'</td>
-          </tr>    
-          
-';
-if ($TEMBARQUE == "1") {
-$html = $html . '
-          
-          <tr>                       
-            <th class="color2 left">&nbsp;</th>   
-            <td class="color2 left">&nbsp;</td>         
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">transport: </th>
-            <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>
-          </tr> 
-          
-          <tr>                       
-            <th class="color2 left">Place of Shipment: </th>   
-            <td class="color2 left">'.$NOMBREORIGEN.'</td>         
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">ETD: </th>
-            <td class="color2 left">'.$FECHAETD.'</td>
-          </tr> 
-          
-          <tr>                       
-            <th class="color2 left">Place of Destination: </th>   
-            <td class="color2 left">'.$NOMBREDESTINO.'</td>      
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">ETA: </th>
-            <td class="color2 left">'.$FECHAETA.'</td>
-          </tr> 
-';
-}
+    
+    <div class="titulo bcolor" >
+      <div class="f20 titulo"  style="text-align: left; font-weight: bold;">  INVOICE  </div>    
+      <div class="f15 titulo"  style="text-align: right;">  <b>  Reference Number: ' . $NUMEROIREFERENCIA . '   </b>  </div>      
+    </div>   
 
-if ($TEMBARQUE == "2") {
+    <br><br><br>
+
+
+
+
+
+<div id="details" class="clearfix">
+  <div id="client">
+    <div class="address"> Date Instructive : '.$FECHA.'  </div>
+    <div class="address"> Consigne : '.$NOMBRECONSIGNATARIO.'  </div>
+    <div class="address"> address Consigne : '.$DIRECCIONCONSIGNATARIO.'  </div>
+    <div class="address"> Email Consigne : '.$EMAIL1CONSIGNATARIO.'  </div>
+    <div class="address">Sales method:  '.$NOMBREMVENTA.' </div>
+    <div class="address">Incoterm:   '.$NOMBRECVENTA.'</div>
+    <div class="address"> BL/AWB/CRT: : '.$BOLAWBCRTINSTRUCTIVO.'  </div>
+  </div>
+  <div id="client"> 
+    ';
+    if ($TEMBARQUE == "1") {
+      $html = $html . '
+        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
+        <div class="address">Date ETA:  '.$FECHAETA.' </div>
+        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> transport : '.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> Place of Shipment : '.$NOMBREORIGEN.'  </div>
+        <div class="address"> Place of Destination : '.$NOMBREDESTINO.'  </div>
+      ';
+    }
+    if ($TEMBARQUE == "2") {
+        $html = $html . '
+    
+        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
+        <div class="address">Date ETA:  '.$FECHAETA.' </div>
+        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> Airplane : '.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> Airport of Shipment : '.$NOMBREORIGEN.'  </div>
+        <div class="address"> Airport of Destination : '.$NOMBREDESTINO.'  </div>
+    
+        ';
+     }
+    if ($TEMBARQUE == "3") {
+        $html = $html . '
+    
+        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
+        <div class="address">Date ETA:  '.$FECHAETA.' </div>
+        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> Vessel : '.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> Port of Shipment : '.$NOMBREORIGEN.'  </div>
+        <div class="address"> Port of Destination : '.$NOMBREDESTINO.'  </div>
+    
+        ';
+    }    
 
 $html = $html . '
-          <tr>                       
-            <td class="color2 left">&nbsp;</td>   
-            <td class="color2 left">&nbsp;</td>         
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">Airplane: </th>
-            <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>
-          </tr> 
-          
-          <tr>                       
-            <th class="color2 left">Airport of Shipment: </th>   
-            <td class="color2 left">'.$NOMBREORIGEN.'</td>         
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">ETD: </th>
-            <td class="color2 left">'.$FECHAETD.'</td>
-          </tr> 
-          
-          <tr>                       
-            <th class="color2 left">Airport of Destination: </th>   
-            <td class="color2 left">'.$NOMBREDESTINO.'</td>      
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">ETA: </th>
-            <td class="color2 left">'.$FECHAETA.'</td>
-          </tr> 
-';
-}
-
-if ($TEMBARQUE == "3") {
-
-$html = $html . '
-          <tr>                       
-            <td class="color2 left">&nbsp;</td>   
-            <td class="color2 left">&nbsp;</td>         
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">Vessel: </th>
-            <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>
-          </tr>           
-          <tr>                       
-            <th class="color2 left">Port of Shipment: </th>   
-            <td class="color2 left">'.$NOMBREORIGEN.'</td>         
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">ETD: </th>
-            <td class="color2 left">'.$FECHAETD.'</td>
-          </tr>           
-          <tr>                       
-            <th class="color2 left">Port of Destination: </th>   
-            <td class="color2 left">'.$NOMBREDESTINO.'</td>      
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <th class="color2 left">ETA: </th>
-            <td class="color2 left">'.$FECHAETA.'</td>
-          </tr> 
-';
-}
-
-$html = $html . '
-
-          <tr>            
-            <td class="color2 left">&nbsp; </td>      
-            <td class="color2 left">&nbsp;</td>          
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-            <td class="color2 left">&nbsp;</td>
-          </tr>
-        </tbody>
-      </table>
-
-
-          
-';
-
-
-
-
-
-$html = $html . '        
-      <table border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <th colspan="10" class="center">DETAIL.</th>
-          </tr>
-          <tr>
-            <th class="color center ">Amount Boxes</th>
-            <th class="color center ">Description of goods </th>
-            <th class="color center ">Net Weight </th>
-            <th class="color center ">Gross Weight </th>
-            <th class="color center ">Net Kilo </th>
-            <th class="color center ">Gross Kilo </th>
-            <th class="color center ">Type of currency </th>
-            <th class="color center ">Price</th>
-            <th class="color center ">Total</th>    
-          </tr>
-        </thead>
-         <tbody>
+        </div>          
+      </div>
         ';
 
-foreach ($ARRAYDCARGA as $s) :
+        $html = $html . '        
+        <table border="0" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr>
+              <th colspan="10" class="center">DETAIL.</th>
+            </tr>
+            <tr>
+              <th class="color center ">Amount Boxes</th>
+              <th class="color center ">Description of goods </th>
+              <th class="color center ">Net Weight </th>
+              <th class="color center ">Gross Weight </th>
+              <th class="color center ">Net Kilo </th>
+              <th class="color center ">Gross Kilo </th>
+              <th class="color center ">Type of currency </th>
+              <th class="color center ">Price</th>
+              <th class="color center ">Total</th>    
+            </tr>
+          </thead>
+           <tbody>
+          ';
+          foreach ($ARRAYDCARGA as $s) :
 
-  $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
-  if ($ARRAYEEXPORTACION) {
-      $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
-      $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
-      $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
-      $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
-  } else {
-      $CODIGOESTANDAR = "Sin Datos";
-      $NOMBREESTANTAR = "Sin Datos";
-      $NETOESTANTAR = "Sin Datos";
-      $BRUTOESTANTAR = "Sin Datos";
-  }
+            $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
+            if ($ARRAYEEXPORTACION) {
+            $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
+            $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+            $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+            $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
+            } else {
+            $CODIGOESTANDAR = "Sin Datos";
+            $NOMBREESTANTAR = "Sin Datos";
+            $NETOESTANTAR = "Sin Datos";
+            $BRUTOESTANTAR = "Sin Datos";
+            }
+            
+            $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
+            if ($ARRAYCALIBRE) {
+            $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
+            } else {
+            $NOMBRECALIBRE = "Sin Datos";
+            }
+            $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
+            if ($ARRAYTMONEDA) {
+            $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
+            } else {
+            $NOMBRETMONEDA = "Sin Datos";
+            }
+            
+            $html = $html . '              
+              <tr class="">
+                  <td class="center">'.$s['ENVASE'].'</td>
+                    <td class="center">'.$NOMBREESTANTAR.'</td>
+                    <td class="center">'.number_format($NETOESTANTAR, 2, ",", ".").'</td>
+                    <td class="center">'.number_format($BRUTOESTANTAR, 2, ",", ".").'</td>
+                    <td class="center">'.$s['NETO'].'</td>
+                    <td class="center">'.$s['BRUTO'].'</td>
+                    <td class="center">'.$NOMBRETMONEDA.'</td>
+                    <td class="center">'.$s['US'].'</td>
+                    <td class="center">'.$s['TOTALUS'].'</td>
+              </tr>
+            ';
+            endforeach;
+            $html = $html . '
+                    
+                        <tr class="bt">
+                          <th class="color center">'.$TOTALENVASEV.'</th>
+                          <td class="color center">&nbsp;</td>
+                          <td class="color center">&nbsp;</td>
+                          <th class="color right">Sub total</td>
+                          <th class="color center">'.$TOTALNETOV.'</th>
+                          <th class="color center">'.$TOTALBRUTOV.'</th>
+                          <td class="color center">&nbsp;</td>
+                          <td class="color center">&nbsp;</td>
+                          <th class="color center">'.$TOTALUSV.'</th>
+                        </tr>
+                    ';
+            
+            
+            
 
-  $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
-  if ($ARRAYCALIBRE) {
-      $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
-  } else {
-      $NOMBRECALIBRE = "Sin Datos";
-  }
-  $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
-  if ($ARRAYTMONEDA) {
-      $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
-  } else {
-      $NOMBRETMONEDA = "Sin Datos";
-  }
-
-$html = $html . '              
-        <tr class="">
-            <td class="center">'.$s['ENVASE'].'</td>
-              <td class="center">'.$NOMBREESTANTAR.'</td>
-              <td class="center">'.number_format($NETOESTANTAR, 2, ",", ".").'</td>
-              <td class="center">'.number_format($BRUTOESTANTAR, 2, ",", ".").'</td>
-              <td class="center">'.$s['NETO'].'</td>
-              <td class="center">'.$s['BRUTO'].'</td>
-              <td class="center">'.$NOMBRETMONEDA.'</td>
-              <td class="center">'.$s['US'].'</td>
-              <td class="center">'.$s['TOTALUS'].'</td>
-        </tr>
-    ';
- endforeach;
 $html = $html . '
-              
-                  <tr class="bt">
-                    <th class="color center">'.$TOTALENVASEV.'</th>
-                    <td class="color center">&nbsp;</td>
-                    <td class="color center">&nbsp;</td>
-                    <th class="color right">Sub total</td>
-                    <th class="color center">'.$TOTALNETOV.'</th>
-                    <th class="color center">'.$TOTALBRUTOV.'</th>
-                    <td class="color center">&nbsp;</td>
-                    <td class="color center">&nbsp;</td>
-                    <th class="color center">'.$TOTALUSV.'</th>
-                  </tr>
-              ';
-
-
-
-
-
-$html = $html . '
-        </tbody>
-      </table>
     
-        
+  </tbody>
+  </table>
+<br><br><br><br><br>
+  <div id="details" class="clearfix">
+
         <div id="client">
-    
           <div class="address"><b>observations</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
-         
+        
         <div id="invoice">
           <div class="date "><b><hr></b></div>
           <div class="date  center"> Firm responsible</div>
           <div class="date  center">  ' . $NOMBRERESPONSABLE . '</div>
         </div>
       </div>
+
     </main>
   </body>
 </html>
 
 ';
+
 
 
 
@@ -866,34 +786,18 @@ $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 //CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
 
-<table style=" width:100%; "  border="0" cellspacing="0" cellpadding="0">
-  <tr >
-    <td class=" color2 left " style="width:20%;">
-      <div id="logo">
-        <img src="../vista/img/logo.png" width="150px" height="45px"/>
-      </div>
-    </td>
-    <td  class=" color2 left " style="width:40%;">
-          <b>'.$NOMBREEMPRESA.' </b><br>
-          <b>'.$RUTEMPRESA.' </b><br>
-            '.$DIRECCIONEMPRESA.'
-    </td>
-    <td class=" color2 left  pp20" style="width:30%; ">
-      <table class="">
-        <tr>
-          <td class=" color2 center ">
-             INVOICE
-          </td>
-        </tr>
-        <tr>
-          <td class=" color2 center ">
-            N° '.$NUMEROIREFERENCIA.'
-          </td>
-        </tr>
-      </table> 
-    </td>
-  </tr>  
-</table>  
+
+<table width="100%" >
+<tbody>
+    <tr>
+      <th width="55%" class="left f10"></th>
+      <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
+      <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
+    </tr>
+</tbody>
+</table>
+<br>
+
 ');
 
 $PDF->SetHTMLFooter('

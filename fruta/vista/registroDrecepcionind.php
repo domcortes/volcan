@@ -752,7 +752,7 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Peso Pallet</label>
-                                                <input type="number" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCION" name="PESOPALLETRECEPCION" onchange="neto()" value="<?php echo $PESOPALLETRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Peso Pallet" id="PESOPALLETRECEPCION" name="PESOPALLETRECEPCION" onchange="neto()" value="<?php echo $PESOPALLETRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_pesopallet" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -767,7 +767,7 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Kilo Bruto</label>
-                                                <input type="number" class="form-control" placeholder="Kilo Bruto" id="KILOSBRUTODRECEPCION" name="KILOSBRUTODRECEPCION" onchange="neto()" value="<?php echo $KILOSBRUTODRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                                <input type="number" step="0.01" class="form-control" placeholder="Kilo Bruto" id="KILOSBRUTODRECEPCION" name="KILOSBRUTODRECEPCION" onchange="neto()" value="<?php echo $KILOSBRUTODRECEPCION; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?> />
                                                 <label id="val_kilosbruto" class="validacion"> </label>
                                             </div>
                                         </div>

@@ -1031,6 +1031,7 @@ if (isset($_POST)) {
                                                     <th>Folio</th>
                                                     <th class="text-center">Operaciones</th>
                                                     <th>Fecha Embalado </th>
+                                                    <th>Código Estandar </th>
                                                     <th>Envase/Estandar</th>
                                                     <th>Variedad</th>
                                                     <th>Cantidad Envase</th>
@@ -1068,8 +1069,10 @@ if (isset($_POST)) {
                                                         }
                                                         $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
                                                         if ($ARRAYESTANDAR) {
+                                                            $CODIGOESTANDAR = $ARRAYESTANDAR[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
                                                         } else {
+                                                            $CODIGOESTANDAR = "Sin Datos";
                                                             $NOMBREESTANDAR = "Sin Datos";
                                                         }
                                                         if ($r['EMBOLSADO'] == "0") {
@@ -1111,6 +1114,7 @@ if (isset($_POST)) {
                                                                 </form>
                                                             </td>
                                                             <td><?php echo $r['EMBALADO']; ?></td>
+                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
@@ -1130,8 +1134,10 @@ if (isset($_POST)) {
                                                         <?php
                                                         $ARRAYVEREINDUTRIAL = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
                                                         if ($ARRAYVEREINDUTRIAL) {
+                                                            $CODIGOESTANDARI = $ARRAYVEREINDUTRIAL[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDARI = $ARRAYVEREINDUTRIAL[0]['NOMBRE_ESTANDAR'];
                                                         } else {
+                                                            $CODIGOESTANDARI = "Sin Datos";
                                                             $NOMBREESTANDARI = "Sin Datos";
                                                         }
                                                         ?>
@@ -1166,6 +1172,7 @@ if (isset($_POST)) {
                                                                 </form>
                                                             </td>
                                                             <td><?php echo $r['EMBALADO']; ?></td>
+                                                            <td> <?php echo $CODIGOESTANDARI; ?> </td>
                                                             <td> <?php echo $NOMBREESTANDARI; ?> </td>
                                                             <td>-</td>
                                                             <td>-</td>

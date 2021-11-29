@@ -313,8 +313,8 @@ include_once "../config/datosUrLP.php";
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe"  title="informe Sif" Onclick="abrirPestana('../documento/informeInpsagSif.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Sif
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe"  title=" S.I.F" Onclick="abrirPestana('../documento/informeInpsagSif.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i> S.I.F
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
