@@ -649,6 +649,37 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+    public function listarDespachoexEmpresaTemporada2CBX($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * ,
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' , 
+                                                    DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA' ,
+                                                    DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%d-%m-%Y') AS 'GUIA',
+                                                    DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
+                                                    DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD',
+                                                    FORMAT(CANTIDAD_ENVASE_DESPACHOEX,0,'de_DE')  AS 'ENVASE',
+                                                    FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
+                                                    FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO'
+                                                FROM fruta_despachoex                                                                           
+                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     //BUSCADOR
 
     public function buscarDespachoexPorProductorGuiaEmpresaPlantaTemporada($NUMEROGUIA, $PRODUCTOR, $EMPRESA, $PLANTA, $TEMPORADA)
@@ -820,6 +851,58 @@ class DESPACHOEX_ADO
 
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesDespachoexEmpresaTemporadaCBX($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                 IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0) AS 'ENVASE',   
+                                                 IFNULL(SUM(KILOS_NETO_DESPACHOEX),0) AS 'NETO',  
+                                                 IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0)  AS 'BRUTO'  
+                                        FROM fruta_despachoex 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesDespachoexEmpresaTemporadaCBX2($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0),0,'de_DE') AS 'ENVASE',   
+                                                  FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHOEX),0),2,'de_DE') AS 'NETO',  
+                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0),2,'de_DE')  AS 'BRUTO'  
+                                        FROM fruta_despachoex 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
 
 
             return $resultado;
