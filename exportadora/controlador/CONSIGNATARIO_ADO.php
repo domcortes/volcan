@@ -154,6 +154,8 @@ class CONSIGNATARIO_ADO
                                                     `NUMERO_CONSIGNATARIO`,
                                                     `NOMBRE_CONSIGNATARIO`,
                                                     `DIRECCION_CONSIGNATARIO`,
+                                                    `EORI_CONSIGNATARIO`,
+                                                    `TELEFONO_CONSIGNATARIO`,
                                                     `CONTACTO1_CONSIGNATARIO`, `CARGO1_CONSIGNATARIO`, `EMAIL1_CONSIGNATARIO`, 
                                                     `CONTACTO2_CONSIGNATARIO`, `CARGO2_CONSIGNATARIO`, `EMAIL2_CONSIGNATARIO`, 
                                                     `CONTACTO3_CONSIGNATARIO`, `CARGO3_CONSIGNATARIO`, `EMAIL3_CONSIGNATARIO`, 
@@ -164,7 +166,7 @@ class CONSIGNATARIO_ADO
                                                     `ESTADO_REGISTRO`
                                                 ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -172,6 +174,8 @@ class CONSIGNATARIO_ADO
                         $CONSIGNATARIO->__GET('NUMERO_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('NOMBRE_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('DIRECCION_CONSIGNATARIO'),
+                        $CONSIGNATARIO->__GET('EORI_CONSIGNATARIO'),
+                        $CONSIGNATARIO->__GET('TELEFONO_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('CONTACTO1_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('CARGO1_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('EMAIL1_CONSIGNATARIO'),
@@ -218,6 +222,8 @@ class CONSIGNATARIO_ADO
 		UPDATE `fruta_consignatario` SET
 			`NOMBRE_CONSIGNATARIO` = ?,
 			`DIRECCION_CONSIGNATARIO` = ?,
+			`EORI_CONSIGNATARIO` = ?,
+			`TELEFONO_CONSIGNATARIO` = ?,
 			`CONTACTO1_CONSIGNATARIO` = ?,
 			`CARGO1_CONSIGNATARIO` = ?,
 			`EMAIL1_CONSIGNATARIO` = ?,
@@ -236,6 +242,8 @@ class CONSIGNATARIO_ADO
 
                         $CONSIGNATARIO->__GET('NOMBRE_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('DIRECCION_CONSIGNATARIO'),
+                        $CONSIGNATARIO->__GET('EORI_CONSIGNATARIO'),
+                        $CONSIGNATARIO->__GET('TELEFONO_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('CONTACTO1_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('CARGO1_CONSIGNATARIO'),
                         $CONSIGNATARIO->__GET('EMAIL1_CONSIGNATARIO'),
@@ -304,9 +312,9 @@ class CONSIGNATARIO_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM `fruta_consignatario`  
-                                            WHERE `ESTADO_REGISTRO` = 1
-                                            AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
+            $datos = $this->conexion->prepare(" SELECT * FROM `fruta_consignatario`  
+                                                WHERE `ESTADO_REGISTRO` = 1
+                                                AND ID_EMPRESA = '" . $IDEMPRESA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

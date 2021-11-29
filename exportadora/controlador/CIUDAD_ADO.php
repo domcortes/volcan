@@ -51,6 +51,7 @@ class CIUDAD_ADO {
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -70,6 +71,7 @@ class CIUDAD_ADO {
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
+            $datos=null;
             
             //	print_r($resultado);
             //	VAR_DUMP($resultado);
@@ -87,6 +89,7 @@ class CIUDAD_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `ESTADO_REGISTRO` = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             $datos=null;
             
             //	print_r($resultado);
@@ -107,6 +110,7 @@ class CIUDAD_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `ID_CIUDAD`= '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             $datos=null;
             
             //	print_r($resultado);
@@ -130,6 +134,7 @@ class CIUDAD_ADO {
             $datos=$this->conexion->prepare("SELECT * FROM `ubicacion_ciudad` WHERE `NOMBRE_CIUDAD` LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
+            $datos=null;
             $datos=null;
             
             //	print_r($resultado);
@@ -179,6 +184,36 @@ class CIUDAD_ADO {
         
     }
   
+    //BUSCAR
+    
+    public function listarCiudadeCoProRePACBX($IDCIUDAD){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                             CONCAT(  ciudad.NOMBRE_CIUDAD ,', ', pais.NOMBRE_PAIS ) AS 'UBICACION'
+                                            FROM ubicacion_ciudad ciudad, ubicacion_comuna comuna, ubicacion_provincia provincia, ubicacion_region region, ubicacion_pais pais
+                                            WHERE  ciudad.ID_COMUNA = comuna.ID_COMUNA 
+                                                AND comuna.ID_PROVINCIA = provincia.ID_PROVINCIA 
+                                                AND provincia.ID_REGION = region.ID_REGION 
+                                                AND region.ID_PAIS = pais.ID_PAIS
+                                                AND ciudad.ID_CIUDAD = '".$IDCIUDAD."'
+                                              ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+
     
     //ACTUALIZAR INFORMACION DE LA FILA
     public function actualizarCiudad(CIUDAD $CIUDAD){

@@ -348,7 +348,7 @@ if (isset($_REQUEST['GUARDAR'])) {
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>ID Tributario </label>
+                                        <label>ID Tributario(EORI) </label>
                                         <input type="text" class="form-control" placeholder="ID Tributario Notificador" id="EORINOTIFICADOR" name="EORINOTIFICADOR" value="<?php echo $EORINOTIFICADOR; ?>" <?php echo $DISABLED; ?> />
                                         <label id="val_eori" class="validacion"> </label>
                                     </div>
