@@ -17,6 +17,8 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TTRATAMIENTO1_ADO.php';
+include_once '../controlador/TTRATAMIENTO2_ADO.php';
 
 
 
@@ -37,6 +39,8 @@ $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
+$TTRATAMIENTO1_ADO =  new TTRATAMIENTO1_ADO();
+$TTRATAMIENTO2_ADO =  new TTRATAMIENTO2_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $IDOP = "";
@@ -308,7 +312,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="8" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="10" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -319,6 +323,8 @@ $html = $html . '
             <th class="color center">Kilos Bruto</th>
             <th class="color center ">Variedad </th>
             <th class="color center ">Tipo Manejo </th>
+            <th class="color center ">Tipo Tratamiento 1 </th>
+            <th class="color center ">Tipo Tratamiento 2 </th>
           </tr>
         </thead>
          <tbody>
@@ -357,7 +363,18 @@ foreach ($ARRAYDRECEPCION as $d) :
       $GASIFICACION =  "NO";
     }
 
-    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+    $ARRAYTRATAMIENTO1=$TTRATAMIENTO1_ADO->verTtratamiento($s['ID_TTRATAMIENTO1']);
+    if($ARRAYTRATAMIENTO1){
+        $NOMBRETTRATAMIENTO1 = $ARRAYTRATAMIENTO1[0]["NOMBRE_TTRATAMIENTO"];
+    }else{
+        $NOMBRETTRATAMIENTO1="Sin Datos";
+    }
+    $ARRAYTRATAMIENTO2=$TTRATAMIENTO2_ADO->verTtratamiento($s['ID_TTRATAMIENTO2']);
+    if($ARRAYTRATAMIENTO2){
+        $NOMBRETTRATAMIENTO2 = $ARRAYTRATAMIENTO2[0]["NOMBRE_TTRATAMIENTO"];
+    }else{
+        $NOMBRETTRATAMIENTO2="Sin Datos";
+    }
 
     $html = $html . '
           
@@ -370,6 +387,8 @@ foreach ($ARRAYDRECEPCION as $d) :
                           <td class="center">' . $s['BRUTO'] . '</td>
                           <td class=" center">' . $NOMBREVESPECIES . '</td>
                           <td class=" center">' . $NOMBRETMANEJO . '</td>
+                          <td class=" center">' . $NOMBRETTRATAMIENTO1 . '</td>
+                          <td class=" center">' . $NOMBRETTRATAMIENTO2 . '</td>
                       </tr>
               ';
 
@@ -387,6 +406,8 @@ foreach ($ARRAYDRECEPCION as $d) :
       <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['BRUTO'] . '</th>
       <th class="color3  center">&nbsp;</th>
       <th class="color3 center">&nbsp;</th>
+      <th class="color3 center">&nbsp;</th>
+      <th class="color3 center">&nbsp;</th>
   </tr>
 ';
 
@@ -401,6 +422,8 @@ $html = $html . '
               <th class="color center">' . $TOTALENVASEGENERAL . '</th>
               <th class="color center">' . $TOTALNETOGENERAL . '</th>
               <th class="color center">' . $TOTALBRUTOGENERAL . '</th>
+              <th class="color center">&nbsp;</th>
+              <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
           </tr>

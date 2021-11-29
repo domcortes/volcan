@@ -16,6 +16,8 @@ include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TTRATAMIENTO1_ADO.php';
+include_once '../controlador/TTRATAMIENTO2_ADO.php';
 
 include_once '../controlador/RECEPCIONMP_ADO.php';
 include_once '../controlador/DRECEPCIONMP_ADO.php';
@@ -47,6 +49,9 @@ $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
+$TTRATAMIENTO1_ADO =  new TTRATAMIENTO1_ADO();
+$TTRATAMIENTO2_ADO =  new TTRATAMIENTO2_ADO();
+
 
 $EXIMATERIAPRIMA_ADO = new EXIMATERIAPRIMA_ADO();
 $RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
@@ -1197,6 +1202,7 @@ if (isset($_POST)) {
                                                     <th>Folio</th>
                                                     <th class="text-center">Operaciones</th>
                                                     <th>Fecha Cosecha </th>
+                                                    <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
                                                     <th>Variedad</th>
                                                     <th>Cantidad Envase</th>
@@ -1205,6 +1211,8 @@ if (isset($_POST)) {
                                                     <th>Kilo Bruto </th>
                                                     <th>Gasificacion</th>
                                                     <th>Tipo Manejo </th>
+                                                    <th>Tipo Tratamiento 1 </th>
+                                                    <th>Tipo Tratamiento 2 </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1233,9 +1241,23 @@ if (isset($_POST)) {
                                                         }
                                                         $ARRAYESTANDAR = $ERECEPCION_ADO->verEstandar($s['ID_ESTANDAR']);
                                                         if ($ARRAYESTANDAR) {
+                                                            $CODIGOESTANDAR = $ARRAYESTANDAR[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
                                                         } else {
+                                                            $CODIGOESTANDAR = "Sin Datos";
                                                             $NOMBREESTANDAR = "Sin Datos";
+                                                        }
+                                                        $ARRAYTRATAMIENTO1=$TTRATAMIENTO1_ADO->verTtratamiento($s['ID_TTRATAMIENTO1']);
+                                                        if($ARRAYTRATAMIENTO1){
+                                                            $NOMBRETTRATAMIENTO1 = $ARRAYTRATAMIENTO1[0]["NOMBRE_TTRATAMIENTO"];
+                                                        }else{
+                                                            $NOMBRETTRATAMIENTO1="Sin Datos";
+                                                        }
+                                                        $ARRAYTRATAMIENTO2=$TTRATAMIENTO2_ADO->verTtratamiento($s['ID_TTRATAMIENTO2']);
+                                                        if($ARRAYTRATAMIENTO2){
+                                                            $NOMBRETTRATAMIENTO2 = $ARRAYTRATAMIENTO2[0]["NOMBRE_TTRATAMIENTO"];
+                                                        }else{
+                                                            $NOMBRETTRATAMIENTO2="Sin Datos";
                                                         }
                                                         ?>
                                                         <tr class="text-lef">
@@ -1269,6 +1291,7 @@ if (isset($_POST)) {
                                                                 </form>
                                                             </td>
                                                             <td><?php echo $s['COSECHA']; ?></td>
+                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>
@@ -1277,6 +1300,8 @@ if (isset($_POST)) {
                                                             <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo $NOMBRETTRATAMIENTO1; ?></td>
+                                                            <td><?php echo $NOMBRETTRATAMIENTO2; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php } ?>

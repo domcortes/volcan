@@ -18,6 +18,8 @@ include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TCOLOR_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 
 
@@ -39,6 +41,8 @@ $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
+$TCOLOR_ADO =  new TCOLOR_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $IDOP = "";
@@ -326,7 +330,7 @@ $html .= '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="19" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="20" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -347,6 +351,8 @@ $html .= '
             <th class="color center">Embolsado</th>  
             <th class="color center">Prefrio</th>                
             <th class="color center">Stock</th>
+            <th class="color center">Tipo Categoria </th>
+            <th class="color center">Tipo Color </th>
 
           </tr>
         </thead>
@@ -390,6 +396,18 @@ foreach ($ARRAYDRECEPCIONPT as $d) :
   } else {
     $STOCK = "Sin Stock";
   }
+  $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($d['ID_TCATEGORIA']);
+  if($ARRAYTCATEGORIA){
+     $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+  }else{
+      $NOMBRETCATEGORIA = "Sin Datos";
+  }   
+  $ARRAYTCOLOR=$TCOLOR_ADO->verTcolor($d['ID_TCOLOR']);
+  if($ARRAYTCOLOR){
+      $NOMBRETCOLOR= $ARRAYTCOLOR[0]["NOMBRE_TCOLOR"];
+  }else{
+      $NOMBRETCOLOR = "Sin Datos";
+  } 
 
   $html = $html . '
           
@@ -412,6 +430,8 @@ foreach ($ARRAYDRECEPCIONPT as $d) :
                           <td class="center">' . $EMBOLSADO . '</td>
                           <td class="center">' . $PREFRIO . '</td>
                           <td class="center">' . $STOCK . '</td>
+                          <td class="center">' . $NOMBRETCATEGORIA . '</td>
+                          <td class="center">' . $NOMBRETCOLOR . '</td>
                       </tr>
               ';
 endforeach;
@@ -431,6 +451,8 @@ $html = $html . '
               <th class="color center">' . $TOTALNETOREALGENERAL . '</th>
               <th class="color center">' . $TOTALNETOGENERAL . '</th>
               <th class="color center">' . $TOTALBRUTOGENERAL . '</th>
+              <th class="color center">&nbsp;</th>
+              <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
