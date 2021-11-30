@@ -3091,6 +3091,9 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn  btn-success" id="defecto" name="tarjas" title="Reporte Carga Real" Onclick="abrirPestana('../reporte/reporteCargaRealcarga.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-excel-o"></i> Carga Real
                                                 </button>
+                                                <button type="button" class="btn  btn-success" id="defecto" name="tarjas" title="Reporte Packing List" Onclick="abrirPestana('../reporte/reporteICargaPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-excel-o"></i> Packing  List
+                                                </button>
                                             <?php endif ?>
                                         </div>
                                     </div>
