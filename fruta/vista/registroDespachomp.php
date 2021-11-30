@@ -1543,7 +1543,7 @@ if (isset($_POST)) {
                         $DESPACHOE->__SET('ID_USUARIOI', $IDUSUARIOS);
                         $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $DESPACHOE_ADO->agregarDespachoe($DESPACHOE);
+                        $DESPACHOE_ADO->agregarDespachoeMp($DESPACHOE);
     
                     }
                     //REDIRECCIONAR A PAGINA registroDespachomp.php
@@ -1660,7 +1660,7 @@ if (isset($_POST)) {
                     $DESPACHOE->__SET('ID_USUARIOI', $IDUSUARIOS);
                     $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $DESPACHOE_ADO->agregarDespachoe($DESPACHOE);
+                    $DESPACHOE_ADO->agregarDespachoeMp($DESPACHOE);
                 }else{             
                     $DESPACHOE->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
                     $DESPACHOE->__SET('PATENTE_CAMION', $_REQUEST['PATENTEVEHICULOE']);
@@ -1886,7 +1886,7 @@ if (isset($_POST)) {
                         $DESPACHOE->__SET('ID_USUARIOI', $IDUSUARIOS);
                         $DESPACHOE->__SET('ID_USUARIOM', $IDUSUARIOS);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $DESPACHOE_ADO->agregarDespachoe($DESPACHOE);
+                        $DESPACHOE_ADO->agregarDespachoeMp($DESPACHOE);
 
                         $ARRYAOBTENERIDE = $DESPACHOE_ADO->obtenerId(
                             $_REQUEST['FECHADESPACHO'],
