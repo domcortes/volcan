@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-11-2021 a las 02:56:12
+-- Tiempo de generación: 30-11-2021 a las 13:15:28
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -948,25 +948,26 @@ CREATE TABLE `fruta_dicarga` (
   `MODIFICACION` datetime DEFAULT NULL,
   `ID_ESTANDAR` bigint(20) NOT NULL,
   `ID_TCALIBRE` bigint(20) NOT NULL,
+  `ID_TMONEDA` bigint(20) DEFAULT NULL,
   `ID_ICARGA` bigint(20) NOT NULL,
-  `ID_TMONEDA` bigint(20) DEFAULT NULL
+  `ID_TMANEJO` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `fruta_dicarga`
 --
 
-INSERT INTO `fruta_dicarga` (`ID_DICARGA`, `CANTIDAD_ENVASE_DICARGA`, `KILOS_NETO_DICARGA`, `KILOS_BRUTO_DICARGA`, `PRECIO_US_DICARGA`, `TOTAL_PRECIO_US_DICARGA`, `ESTADO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_ESTANDAR`, `ID_TCALIBRE`, `ID_ICARGA`, `ID_TMONEDA`) VALUES
-(1, 1320, '1980.00', '3418.00', '15.00', '19800.00', 0, 1, '2021-09-06 23:10:41', '2021-09-06 23:10:41', 1, 1, 4, 1),
-(2, 1320, '1980.00', '3418.00', '15.00', '19800.00', 0, 1, '2021-09-06 23:12:36', '2021-09-06 23:12:36', 1, 1, 4, 1),
-(3, 1320, '1980.00', '3418.00', '5.00', '6600.00', 0, 1, '2021-09-06 23:42:56', '2021-09-06 23:42:56', 1, 1, 3, 1),
-(4, 1320, '1980.00', '3418.00', '2.00', '2640.00', 0, 1, '2021-09-06 23:53:04', '2021-09-06 23:53:04', 1, 1, 2, 1),
-(5, 44, '66.00', '132.30', '15.65', '688.60', 0, 1, '2021-10-14 11:32:09', '2021-10-14 11:32:09', 1, 1, 5, 1),
-(6, 44, '66.00', '132.30', '15.65', '688.60', 0, 1, '2021-10-14 11:32:20', '2021-10-14 11:32:20', 1, 1, 5, 1),
-(7, 720, '1080.00', '1873.00', '0.51', '367.20', 0, 1, '2021-11-24 12:38:35', '2021-11-24 12:38:35', 1, 1, 6, 1),
-(8, 720, '1080.00', '1873.00', '0.51', '367.20', 1, 0, '2021-11-24 12:42:31', '2021-11-24 12:42:31', 1, 1, 6, 1),
-(9, 600, '0.00', '19.00', '15.00', '9000.00', 0, 1, '2021-11-25 15:57:31', '2021-11-25 15:57:31', 1, 1, 7, 1),
-(10, 500, '750.00', '1306.50', '1.02', '510.00', 0, 1, '2021-11-26 18:15:16', '2021-11-26 18:15:16', 1, 1, 8, 1);
+INSERT INTO `fruta_dicarga` (`ID_DICARGA`, `CANTIDAD_ENVASE_DICARGA`, `KILOS_NETO_DICARGA`, `KILOS_BRUTO_DICARGA`, `PRECIO_US_DICARGA`, `TOTAL_PRECIO_US_DICARGA`, `ESTADO`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_ESTANDAR`, `ID_TCALIBRE`, `ID_TMONEDA`, `ID_ICARGA`, `ID_TMANEJO`) VALUES
+(1, 1320, '1980.00', '3418.00', '15.00', '19800.00', 0, 1, '2021-09-06 23:10:41', '2021-09-06 23:10:41', 1, 1, 1, 4, 1),
+(2, 1320, '1980.00', '3418.00', '15.00', '19800.00', 0, 1, '2021-09-06 23:12:36', '2021-09-06 23:12:36', 1, 1, 1, 4, 1),
+(3, 1320, '1980.00', '3418.00', '5.00', '6600.00', 0, 1, '2021-09-06 23:42:56', '2021-09-06 23:42:56', 1, 1, 1, 3, 1),
+(4, 1320, '1980.00', '3418.00', '2.00', '2640.00', 0, 1, '2021-09-06 23:53:04', '2021-09-06 23:53:04', 1, 1, 1, 2, 1),
+(5, 44, '66.00', '132.30', '15.65', '688.60', 0, 1, '2021-10-14 11:32:09', '2021-10-14 11:32:09', 1, 1, 1, 5, 1),
+(6, 44, '66.00', '132.30', '15.65', '688.60', 0, 1, '2021-10-14 11:32:20', '2021-10-14 11:32:20', 1, 1, 1, 5, 1),
+(7, 720, '1080.00', '1873.00', '0.51', '367.20', 0, 1, '2021-11-24 12:38:35', '2021-11-24 12:38:35', 1, 1, 1, 6, 1),
+(8, 720, '1080.00', '1873.00', '0.51', '367.20', 1, 0, '2021-11-24 12:42:31', '2021-11-24 12:42:31', 1, 1, 1, 6, NULL),
+(9, 600, '900.00', '1564.00', '15.00', '9000.00', 0, 1, '2021-11-25 15:57:31', '2021-11-25 15:57:31', 1, 1, 1, 7, 1),
+(10, 500, '750.00', '1306.50', '1.02', '510.00', 0, 1, '2021-11-26 18:15:16', '2021-11-26 18:15:16', 1, 1, 1, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -7651,7 +7652,8 @@ ALTER TABLE `fruta_dicarga`
   ADD KEY `fk_fruta_dicarga_estandar_eexportacion_idx` (`ID_ESTANDAR`),
   ADD KEY `fk_fruta_dicarga_fruta_icarga_idx` (`ID_ICARGA`),
   ADD KEY `fk_fruta_dicarga_fruta_tcalibre_idx` (`ID_TCALIBRE`),
-  ADD KEY `fk_fruta_dicarga_fruta_tmoneda_idx` (`ID_TMONEDA`);
+  ADD KEY `fk_fruta_dicarga_fruta_tmoneda_idx` (`ID_TMONEDA`),
+  ADD KEY `fk_fruta_dicarga_fruta_tmanejo_idx` (`ID_TMANEJO`);
 
 --
 -- Indices de la tabla `fruta_dnotadc`
@@ -10094,6 +10096,7 @@ ALTER TABLE `fruta_dicarga`
   ADD CONSTRAINT `fk_fruta_dicarga_estandar_eexportacion` FOREIGN KEY (`ID_ESTANDAR`) REFERENCES `estandar_eexportacion` (`ID_ESTANDAR`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_dicarga_fruta_icarga` FOREIGN KEY (`ID_ICARGA`) REFERENCES `fruta_icarga` (`ID_ICARGA`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_dicarga_fruta_tcalibre` FOREIGN KEY (`ID_TCALIBRE`) REFERENCES `fruta_tcalibre` (`ID_TCALIBRE`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fruta_dicarga_fruta_tmanejo` FOREIGN KEY (`ID_TMANEJO`) REFERENCES `fruta_tmanejo` (`ID_TMANEJO`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fruta_dicarga_fruta_tmoneda` FOREIGN KEY (`ID_TMONEDA`) REFERENCES `fruta_tmoneda` (`ID_TMONEDA`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
