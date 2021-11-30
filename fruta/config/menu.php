@@ -869,6 +869,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroTcalibre.php"><i class="ti-more"></i>Calibre</a></li>
             </ul>
           </li>
+          <!--
           <li class="treeview">
             <a href="#">Estandares
               <span class="pull-left-container">
@@ -881,7 +882,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroEcomercial.php"><i class="ti-more"></i> Expo. Comercial</a></li>
               <li><a href="registroEindustrial.php"><i class="ti-more"></i>Industrial</a></li>
             </ul>
-          </li>
+          </li>-->
           <li class="treeview">
             <a href="#">Ubicacion
               <span class="pull-left-container">
