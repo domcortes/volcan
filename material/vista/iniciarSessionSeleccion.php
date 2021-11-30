@@ -1,4 +1,6 @@
 <?php
+require_once '../../vendor/autoload.php';
+$detect = new Mobile_Detect;
 
 session_start();
 if (isset($_SESSION["ID_EMPRESA"]) && isset($_SESSION["ID_PLANTA"]) && isset($_SESSION["ID_TEMPORADA"])  ) {
@@ -57,12 +59,23 @@ if (isset($_REQUEST['SALIR'])) {
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INICIAR SESSION</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+    <!--Bootsrap 4 CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!--Custom styles-->
+    <link rel="stylesheet" href="../../loginv2.css">
+    <!--sweetalert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
@@ -110,117 +123,140 @@ if (isset($_REQUEST['SALIR'])) {
 
 </head>
 
-<body class="hold-transition theme-primary bg-gradient-primary">
-    <div class="container h-p100">
-        <div class="row align-items-center justify-content-md-center h-p100">
-            <div class="col-12">
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-4 col-md-5 col-12">
-                        <div class="bg-white-10 rounded5">
-                            <div class="content-top-agile p-10 pb-0">
-                            </div>
-                            <div class="p-30">
-                                <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text bg-transparent text-white">
-                                                    <label class="col-lg-2 control-label" id="label" for="EMPRESA">Empresa</label>
-                                                </span>
-                                            </div>
-                                            <div class="input-group mb-3" id="input">
-                                                <select class="form-control select2" id="EMPRESA" name="EMPRESA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYEMPRESA as $r) : ?>
-                                                        <?php if ($ARRAYEMPRESA) {    ?>
-                                                            <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESA == $r['ID_EMPRESA']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_EMPRESA'] ?> </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <label id="val_select_empresa" class="validacion"> <?php echo  $MENSAJE; ?></label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text bg-transparent text-white">
-                                                    <label class="col-lg-2 control-label" id="label" for="PLANTA">Planta</label>
-                                                </span>
-                                            </div>
-                                            <div class="input-group mb-3" id="input">
-                                                <select class="form-control select2" id="PLANTA" name="PLANTA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYPLANTA as $r) : ?>
-                                                        <?php if ($ARRAYPLANTA) {    ?>
-                                                            <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <label id="val_select_planta" class="validacion"> <?php echo  $MENSAJE; ?></label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text bg-transparent text-white">
-                                                    <label class="col-lg-2 control-label" id="label" for="TEMPORADA">Temporada</label>
-                                                </span>
-                                            </div>
-                                            <div class="input-group mb-3" id="input">
-                                                <select class="form-control select2" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYTEMPORADA as $r) : ?>
-                                                        <?php if ($ARRAYTEMPORADA) {    ?>
-                                                            <option value="<?php echo $r['ID_TEMPORADA']; ?>" <?php if ($TEMPORADA == $r['ID_TEMPORADA']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo $r['NOMBRE_TEMPORADA'] ?> </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <label id="val_temporada" class="validacion"> <?php echo  $MENSAJE; ?></label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="input-group mb-0">
-                                                <button type="submit" class="btn btn-primary btn-lg btn-block" id="ENTRAR" name="ENTRAR" value="ENTRAR">
-                                                    Seleccionar
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <form method="post">
-                                            <button type="submit" class="btn btn-danger btn-lg btn-block" id="SALIR" name="SALIR" value="SALIR">
-                                                Salir
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+
+<body class="hold-transition sidebar-collapse sidebar-mini login-page">
+    <div class="login-box">
+        <img src="../../img/volcan-foods-logo-original.png" alt="" height="50px">
+    </div>
+    <div class="card border-0">
+        <div class="card-header bg-info text-white text-center text-uppercase">
+            <img src="../..//img/favicon.png" alt="" height="20px">Seleccion de parametros <strong id="title_section"></strong>
+        </div>
+        <div class="card-body login-card-body">
+            <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">
+                <div class="input-group mb-3" id="input">
+                    <label id="label" for="EMPRESA">Selecionar Empresa</label>
+                    <select class="form-control" id="EMPRESA" name="EMPRESA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                        <option></option>
+                        <?php foreach ($ARRAYEMPRESA as $r) : ?>
+                            <?php if ($ARRAYEMPRESA) {    ?>
+                                <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESA == $r['ID_EMPRESA']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_EMPRESA'] ?> </option>
+                            <?php } else { ?>
+                                <option>No Hay Datos Registrados </option>
+                            <?php } ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <label id="val_select_empresa" class="validacion"> <?php echo  $MENSAJE; ?></label>
+                <div class="input-group mb-3" id="input">
+                    <label id="label" for="PLANTA">Selecionar Planta</label>
+                    <select class="form-control" id="PLANTA" name="PLANTA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                        <option></option>
+                        <?php foreach ($ARRAYPLANTA as $r) : ?>
+                            <?php if ($ARRAYPLANTA) {    ?>
+                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
+                            <?php } else { ?>
+                                <option>No Hay Datos Registrados </option>
+                            <?php } ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <label id="val_select_planta" class="validacion"> <?php echo  $MENSAJE; ?></label>
+                <div class="input-group mb-3" id="input">
+                    <label id="label" for="TEMPORADA">Selecionar Temporada</label>
+                    <select class="form-control" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                        <option></option>
+                        <?php foreach ($ARRAYTEMPORADA as $r) : ?>
+                            <?php if ($ARRAYTEMPORADA) {    ?>
+                                <option value="<?php echo $r['ID_TEMPORADA']; ?>" <?php if ($TEMPORADA == $r['ID_TEMPORADA']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_TEMPORADA'] ?> </option>
+                            <?php } else { ?>
+                                <option>No Hay Datos Registrados </option>
+                            <?php } ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <label id="val_temporada" class="validacion"> <?php echo  $MENSAJE; ?></label>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="btn-group-vertical col-12 d-flex">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" id="ENTRAR" name="ENTRAR" value="ENTRAR"> Ingresar </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+            <form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="btn-group-vertical col-12 d-flex">
+                            <button type="submit" class="btn btn-danger btn-lg btn-block" id="SALIR" name="SALIR" value="SALIR"> Salir </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <?php include_once "../config/urlBaseLogin.php"; ?>
+
+
 </body>
 
 </html>
+         <!-- deteccion celular -->
+         <?php if ($detect->isMobile() && $detect->isiOS() ): ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'info',
+                title: 'Celular iPhone detectado',
+                html:"Hemos detectado que estas desde un iPhone 📱<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
+                showConfirmButton:true,
+                confirmButtonText:"Vale! 😉"
+            })
+        </script>
+    <?php endif ?>
+
+    <!-- deteccion Android -->
+    <?php if ($detect->isMobile() && $detect->isAndroidOS()): ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'info',
+                title: 'Celular Android detectado',
+                html:"Hemos detectado que estas desde un telefono Android 🤖<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
+                showConfirmButton:true,
+                confirmButtonText:"Vale! 😉"
+            })
+        </script>
+    <?php endif ?>
+
+<?php
+        if (isset($_REQUEST['ENTRAR'])) {
+            $_SESSION["ID_EMPRESA"] = $_REQUEST['EMPRESA'];
+            $_SESSION["ID_PLANTA"] = $_REQUEST['PLANTA'];
+            $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];
+            echo "<script> location.href = 'index.php';</script>";
+        }
+        if (isset($_REQUEST['SALIR'])) {
+             session_destroy();
+             echo "<script> location.href = '../../';</script>";
+        }
+    ?>

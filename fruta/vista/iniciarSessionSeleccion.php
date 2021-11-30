@@ -3,8 +3,8 @@ require_once '../../vendor/autoload.php';
 $detect = new Mobile_Detect;
 
 session_start();
-if (isset($_SESSION["ID_EMPRESA"]) && isset($_SESSION["ID_PLANTA"]) && isset($_SESSION["ID_TEMPORADA"])  ) {   
-    echo "<script> location.href = 'index.php';</script>";
+if (isset($_SESSION["ID_EMPRESA"]) && isset($_SESSION["ID_PLANTA"]) && isset($_SESSION["ID_TEMPORADA"])  ) {       
+    header('Location: index.php');
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
@@ -120,7 +120,7 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
         <div class="card-body login-card-body">
             <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">
                 <div class="input-group mb-3" id="input">
-                    <label id="label" for="EMPRESA">Empresa</label>
+                    <label id="label" for="EMPRESA">Selecionar Empresa</label>
                     <select class="form-control" id="EMPRESA" name="EMPRESA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                         <option></option>
                         <?php foreach ($ARRAYEMPRESA as $r) : ?>
@@ -134,7 +134,7 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
                 </div>
                 <label id="val_select_empresa" class="validacion"> <?php echo  $MENSAJE; ?></label>
                 <div class="input-group mb-3" id="input">
-                    <label id="label" for="PLANTA">Planta</label>
+                    <label id="label" for="PLANTA">Selecionar Planta</label>
                     <select class="form-control" id="PLANTA" name="PLANTA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                         <option></option>
                         <?php foreach ($ARRAYPLANTA as $r) : ?>
@@ -148,7 +148,7 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
                 </div>
                 <label id="val_select_planta" class="validacion"> <?php echo  $MENSAJE; ?></label>
                 <div class="input-group mb-3" id="input">
-                    <label id="label" for="TEMPORADA">Temporada</label>
+                    <label id="label" for="TEMPORADA">Selecionar Temporada</label>
                     <select class="form-control" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                         <option></option>
                         <?php foreach ($ARRAYTEMPORADA as $r) : ?>
@@ -165,6 +165,14 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
                     <div class="col-12">
                         <div class="btn-group-vertical col-12 d-flex">
                             <button type="submit" class="btn btn-primary btn-lg btn-block" id="ENTRAR" name="ENTRAR" value="ENTRAR"> Ingresar </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="btn-group-vertical col-12 d-flex">
                             <button type="submit" class="btn btn-danger btn-lg btn-block" id="SALIR" name="SALIR" value="SALIR"> Salir </button>
                         </div>
                     </div>

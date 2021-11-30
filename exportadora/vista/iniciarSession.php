@@ -73,9 +73,10 @@ $ARRAYTEMPORADA = "";
             </div>
             <div class="card border-0">
                 <div class="card-header bg-info text-white text-center text-uppercase">
-                    <img src="../../img/favicon.png" alt="" height="20px">
+                    <img src="../..//img/favicon.png" alt="" height="20px">
                     Inicio de sesion <strong id="title_section"></strong>
                 </div>
+
                 <div class="card-body login-card-body">
                     <form class="form" role="form" method="post" name="form_reg_dato">
                         <div class="input-group mb-3">
@@ -87,7 +88,7 @@ $ARRAYTEMPORADA = "";
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" placeholder="CONTRASE&ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" required>
+                            <input type="password" class="form-control" placeholder="CONTRASE&Ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -106,72 +107,41 @@ $ARRAYTEMPORADA = "";
                 </div>
             </div>
         </div>
-         <!-- deteccion celular -->
-        <?php if ($detect->isMobile() && $detect->isiOS() ): ?>
-            <script>
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    icon: 'info',
-                    title: 'Celular iPhone detectado',
-                    html:"Hemos detectado que estas desde un iPhone 📱<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
-                    showConfirmButton:true,
-                    confirmButtonText:"Vale! 😉"
-                })
-            </script>
-        <?php endif ?>
-
-        <!-- deteccion Android -->
-        <?php if ($detect->isMobile() && $detect->isAndroidOS()): ?>
-            <script>
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    icon: 'info',
-                    title: 'Celular Android detectado',
-                    html:"Hemos detectado que estas desde un telefono Android 🤖<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
-                    showConfirmButton:true,
-                    confirmButtonText:"Vale! 😉"
-                })
-            </script>
-        <?php endif ?>
         <?php
-            if (isset($_REQUEST['ENTRAR'])) {
+        if (isset($_REQUEST['ENTRAR'])) {
+            if ($_REQUEST['NOMBRE']=="" || $_REQUEST['CONTRASENA'] == "") {
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Alerta de inicio de sesion",
+                        text:"El usuario o contraseña se encuentra vacio, por favor llena los datos minimos para iniciar sesion",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
+                    }).then((result)=>{
+                        if(result.value){
+                            location.href = "iniciarSession.php";
+                        }
+                    })
+                </script>';
+            } else {
                 $NOMBRE = $_REQUEST['NOMBRE'];
                 $CONTRASENA = $_REQUEST['CONTRASENA'];
                 $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
-
                 if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
                     echo
                     '<script>
-                        Swal.fire({
-                            icon:"warning",
-                            title:"Error de acceso",
-                            text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "iniciarSession.php";
-                            }
-                        })
-                    </script>';
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Error de acceso",
+                                text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href = "iniciarSession.php";
+                                }
+                            })
+                        </script>';
+                    // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
+                    // $MENSAJE = "";
                 } else {
                     $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
                     $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
@@ -180,18 +150,28 @@ $ARRAYTEMPORADA = "";
                     //$MENSAJE2 = "";
                     echo
                     '<script>
-                        Swal.fire({
-                            icon:"success",
-                            title:"Datos Correctos",
-                            text:"Los datos ingresados son correctos."
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "iniciarSessionSeleccion.php";
+                        const Toast = Swal.mixin({
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener("mouseenter", Swal.stopTimer);
+                                toast.addEventListener("mouseleave", Swal.resumeTimer);
                             }
+                        });
+
+                        Toast.fire({
+                            icon: "success",
+                            title: "Credenciales correctas",
+                            text:"cargando modulo selector"
+                        }).then((result)=>{
+                                location.href = "iniciarSessionSeleccion.php";
                         })
                     </script>';
                 }
             }
+        }
         ?>
     </body>
 </html>

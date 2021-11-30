@@ -53,139 +53,131 @@ $ARRAYTEMPORADA = "";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fruticola Volcan</title>
 
-    <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-    <?php include_once "../config/urlHead.php"; ?>
-    <!- FUNCIONES BASES -!>
-    <script type="text/javascript">
-        function validacion() {
 
-            NOMBRE = document.getElementById("NOMBRE").value;
-            CONTRASENA = document.getElementById("CONTRASENA").value;
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+        <!--Bootsrap 4 CDN-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+        <!--Fontawesome CDN-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-            document.getElementById('val_nombre').innerHTML = "";
-            document.getElementById('val_contrasena').innerHTML = "";
-
-
-
-
-            if (NOMBRE == null || NOMBRE.length == 0 || /^\s+$/.test(NOMBRE)) {
-                document.form_reg_dato.NOMBRE.focus();
-                document.form_reg_dato.NOMBRE.style.borderColor = "#FF0000";
-                document.getElementById('val_nombre').innerHTML = "NO A INGRESADO DATO";
-                return false;
-            }
-            document.form_reg_dato.NOMBRE.style.borderColor = "#4AF575";
-
-            if (CONTRASENA == null || CONTRASENA.length == 0 || /^\s+$/.test(CONTRASENA)) {
-                document.form_reg_dato.CONTRASENA.focus();
-                document.form_reg_dato.CONTRASENA.style.borderColor = "#FF0000";
-                document.getElementById('val_contrasena').innerHTML = "NO A INGRESADO DATO";
-                return false;
-            }
-            document.form_reg_dato.CONTRASENA.style.borderColor = "#4AF575";
-
-        }
-    </script>
+        <!--Custom styles-->
+        <link rel="stylesheet" href="../../loginv2.css">
+        <!--sweetalert-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
-<body class="hold-transition theme-primary bg-gradient-primary">
-    <div class="container h-p100">
-        <div class="row align-items-center justify-content-md-center h-p100">
-            <div class="col-12">
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-4 col-md-5 col-12">
-                        <div class="bg-white-10 rounded5">
-                            <div class="content-top-agile p-10 pb-0">
-                                <h2 class="text-white">INICIO SESSION</h2>
-                                <p class="text-white-50 mb-0">USUARIO</p>
-                            </div>
-                            <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">
-                                <div class="p-30">
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text bg-transparent text-white"><i class="ti-user"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="NOMBRE USUARIO" id="NOMBRE" name="NOMBRE" value="<?php echo $NOMBRE; ?>" autocomplete="on">
-                                            <br>
-                                        </div>
-                                        <label id="val_nombre" class="validacion"> </label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text  bg-transparent text-white"><i class="ti-lock"></i></span>
-                                            </div>
-                                            <input type="password" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="CONTRASE&ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" autocomplete="on">
 
-                                        </div>
-                                        <label id="val_contrasena" class="validacion"> </label>
-                                        <label id="validacion2" class="validacion2"><?php echo  $MENSAJE; ?> </label>
-                                        <label id="validacion" class="validacion"><?php echo  $MENSAJE2; ?> </label>
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-12 text-center">
-                                        <div class="btn-group">
-                                            <a href="../../" class="btn btn-danger">VOLVER</a>
-                                            <button type="submit" class="btn btn-success" id="ENTRAR" name="ENTRAR">ENTRAR</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.col -->
+
+<body class="hold-transition sidebar-collapse sidebar-mini login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="../../img/volcan-foods-logo-original.png" alt="" height="50px">
+            </div>
+            <div class="card border-0">
+                <div class="card-header bg-info text-white text-center text-uppercase">
+                    <img src="../..//img/favicon.png" alt="" height="20px">
+                    Inicio de sesion <strong id="title_section"></strong>
+                </div>
+
+                <div class="card-body login-card-body">
+                    <form class="form" role="form" method="post" name="form_reg_dato">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="NOMBRE USUARIO" id="NOMBRE" name="NOMBRE" value="<?php echo $NOMBRE; ?>" autocomplete="on" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="CONTRASE&Ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="btn-group col-12 d-flex">
+                                    <a href="../../" class="btn btn-danger w-100"> VOLVER</a>
+                                    <button type="submit" class="btn btn-success w-100" id="ENTRAR" name="ENTRAR">ENTRAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <?php //include_once "../config/footer.php";     
-        ?>
-    </div>
 
-    <?php include_once "../config/urlBaseLogin.php"; ?>
     <?php
         if (isset($_REQUEST['ENTRAR'])) {
-            $NOMBRE = $_REQUEST['NOMBRE'];
-            $CONTRASENA = $_REQUEST['CONTRASENA'];
-            $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
-
-            if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
-                echo
-                '<script>
+            if ($_REQUEST['NOMBRE']=="" || $_REQUEST['CONTRASENA'] == "") {
+                echo '<script>
                     Swal.fire({
-                        icon:"warning",
-                        title:"Error de acceso",
-                        text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
+                        icon:"info",
+                        title:"Alerta de inicio de sesion",
+                        text:"El usuario o contraseña se encuentra vacio, por favor llena los datos minimos para iniciar sesion",
+                        showConfirmButton:true,
+                        confirmButtonText:"OK"
                     }).then((result)=>{
                         if(result.value){
                             location.href = "iniciarSession.php";
                         }
                     })
                 </script>';
-                // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
-                // $MENSAJE = "";
             } else {
-                $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
-                $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
-                $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
-                //$MENSAJE = "DATOS CORRECTOS ";
-                //$MENSAJE2 = "";
-                echo
-                '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Datos Correctos",
-                        text:"Los datos ingresados son correctos."
-                    }).then((result)=>{
-                        if(result.value){
-                            location.href = "iniciarSessionSeleccion.php";
-                        }
-                    })
-                </script>';
-                
+                $NOMBRE = $_REQUEST['NOMBRE'];
+                $CONTRASENA = $_REQUEST['CONTRASENA'];
+                $ARRAYINICIOSESSION = $USUARIO_ADO->iniciarSession($NOMBRE, $CONTRASENA);
+                if (empty($ARRAYINICIOSESSION) ||  sizeof($ARRAYINICIOSESSION) == 0) {
+                    echo
+                    '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Error de acceso",
+                                text:"Los datos ingresados no coinciden con nuestros registros, reintenta"
+                            }).then((result)=>{
+                                if(result.value){
+                                    location.href = "iniciarSession.php";
+                                }
+                            })
+                        </script>';
+                    // $MENSAJE2 = "NOMBRE USUARIO O CONTRASE&Ntilde;A INVALIDO";
+                    // $MENSAJE = "";
+                } else {
+                    $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
+                    $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
+                    $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+                    //$MENSAJE = "DATOS CORRECTOS ";
+                    //$MENSAJE2 = "";
+                    echo
+                    '<script>
+                        const Toast = Swal.mixin({
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener("mouseenter", Swal.stopTimer);
+                                toast.addEventListener("mouseleave", Swal.resumeTimer);
+                            }
+                        });
+
+                        Toast.fire({
+                            icon: "success",
+                            title: "Credenciales correctas",
+                            text:"cargando modulo selector"
+                        }).then((result)=>{
+                                location.href = "iniciarSessionSeleccion.php";
+                        })
+                    </script>';
+                }
             }
         }
     ?>

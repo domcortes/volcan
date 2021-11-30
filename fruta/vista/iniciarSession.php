@@ -73,6 +73,9 @@ $ARRAYTEMPORADA = "";
 <!-- fin nuevo head -->
 
 <!-- nuevo body  -->
+
+
+
     <body class="hold-transition sidebar-collapse sidebar-mini login-page">
         <div class="login-box">
             <div class="login-logo">
@@ -95,7 +98,7 @@ $ARRAYTEMPORADA = "";
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" placeholder="CONTRASE&ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" required>
+                            <input type="password" class="form-control" placeholder="CONTRASE&Ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -113,7 +116,6 @@ $ARRAYTEMPORADA = "";
                     </form>
                 </div>
             </div>
-
         </div>
 
 
