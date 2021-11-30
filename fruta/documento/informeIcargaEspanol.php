@@ -51,6 +51,7 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/CIUDAD_ADO.php';
 
 
@@ -106,6 +107,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
 $CIUDAD_ADO = new CIUDAD_ADO();
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
@@ -666,7 +668,7 @@ $html='
      <table  border="0" cellspacing="0" cellpadding="0">
        <thead>
          <tr>
-           <th colspan="4" class="center color">Datos del Embarque</th>
+           <th colspan="6" class="center color">Datos del Embarque</th>
          </tr>
        </thead>
        <tbody> 
@@ -690,7 +692,9 @@ $html='
              <th class="color2 left">Nombre Trasnporte: </th>    
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">CRT: </th> 
-             <td class="color2 left">'.$CRT.'</td>     
+             <td class="color2 left">'.$CRT.'</td>    
+             <th class="color2 left">&nbsp;</th>       
+             <td class="color2 left">&nbsp;</td>       
            </tr>    
            ';
          }
@@ -703,6 +707,8 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Nave: </th> 
              <td class="color2 left">'.$NAVE.'</td>     
+             <th class="color2 left">Flight Number: </th> 
+             <td class="color2 left">'.$NVIAJE.'</td>     
            </tr>    
            ';
          }
@@ -713,7 +719,9 @@ $html='
              <th class="color2 left">Nombre Naviera: </th>    
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Nave: </th> 
-             <td class="color2 left">'.$NAVE.'</td>     
+             <td class="color2 left">'.$NAVE.'</td>   
+             <th class="color2 left">Travel Number: </th> 
+             <td class="color2 left">'.$NVIAJE.'</td>       
            </tr>   
            <tr>
              <th class="color2 left">Fecha Cierre Stacking; </th>   
@@ -926,7 +934,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="11" class="center ">Carga Instruidad</th>
+      <th colspan="12" class="center ">Carga Instruidad</th>
     </tr>
     <tr>                       
       <th class="color center ">Codigo Estandar </th>
@@ -938,6 +946,7 @@ $html=$html.'
       <th class="color center ">Kilo Bruto </th>
       <th class="color center ">Calibre </th>
       <th class="color center ">Tipo moneda </th>
+      <th class="color center ">Tipo Manejo </th>
       <th class="color center ">Precio</th>
       <th class="color center ">Total</th>    
     </tr> 
@@ -975,6 +984,12 @@ $html = $html . '
       } else {
           $NOMBRETMONEDA = "Sin Datos";
       }
+      $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+      if ($ARRAYTMANEJO) {
+          $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+      } else {
+          $NOMBRETMANEJO = "Sin Datos";
+      }
 
       $html = $html . '  
       <tr>   
@@ -987,6 +1002,7 @@ $html = $html . '
               <td class="center">'.$s['BRUTO'].'</td>
               <td class="center">'.$NOMBRECALIBRE.'</td>
               <td class="center">'.$NOMBRETMONEDA.'</td>
+              <td class="center">'.$NOMBRETMANEJO.'</td>
               <td class="center">'.$s['US'].'</td>
               <td class="center">'.$s['TOTALUS'].'</td>
       </tr>
@@ -1004,6 +1020,7 @@ $html = $html . '
           <th class="color center">'.$TOTALENVASEV.'</th>
           <th class="color center">'.$TOTALNETOV.'</th>
           <th class="color center">'.$TOTALBRUTOV.'</th>
+          <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>

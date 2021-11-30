@@ -17,6 +17,8 @@
         private   $ESTADO_REGISTRO;
         private   $ID_ESTANDAR;
         private   $ID_CALIBRE;
+        private   $ID_TMONEDA;
+        private   $ID_TMANEJO;
         private   $ID_ICARGA;
         
         //FUNCIONES GET Y SET

@@ -54,6 +54,7 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
 
 
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -113,6 +114,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO =  new TMONEDA_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
 $ECOMERCIAL_ADO =  new ECOMERCIAL_ADO();
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
@@ -3170,6 +3172,7 @@ if (isset($_POST)) {
                                                 <th>Kilo Bruto </th>
                                                 <th>Calibre </th>
                                                 <th>Tipo Moneda </th>
+                                                <th>Tipo Manejo </th>
                                                 <th>Precio </th>
                                                 <th>Total </th>
                                             </tr>
@@ -3202,6 +3205,12 @@ if (isset($_POST)) {
                                                         $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
                                                     } else {
                                                         $NOMBRETMONEDA = "Sin Datos";
+                                                    }
+                                                    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+                                                    if ($ARRAYTMANEJO) {
+                                                        $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                    } else {
+                                                        $NOMBRETMANEJO = "Sin Datos";
                                                     }
                                                     ?>
 
@@ -3242,6 +3251,7 @@ if (isset($_POST)) {
                                                         <td><?php echo $s['BRUTO']; ?></td>
                                                         <td><?php echo $NOMBRECALIBRE; ?></td>
                                                         <td><?php echo $NOMBRETMONEDA; ?></td>
+                                                        <td><?php echo $NOMBRETMANEJO; ?></td>
                                                         <td><?php echo $s['US']; ?></td>
                                                         <td><?php echo $s['TOTALUS']; ?></td>
                                                     </tr>

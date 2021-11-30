@@ -51,6 +51,7 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/CIUDAD_ADO.php';
 
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -105,6 +106,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
 $CIUDAD_ADO = new CIUDAD_ADO();
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
@@ -209,6 +211,10 @@ if($ARRAYICARGA){
     $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
     $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
 
+    
+    $IDUSUARIOI = $ARRAYICARGA[0]['ID_USUARIOI'];  
+    $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+    $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
     
     $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
     if($ARRAYDESPACHOEX){
@@ -664,7 +670,7 @@ $html='
      <table  border="0" cellspacing="0" cellpadding="0">
        <thead>
          <tr>
-           <th colspan="4" class="center  titulo color">Shipment Info</th>
+           <th colspan="6" class="center  titulo color">Shipment Info</th>
          </tr>
        </thead>
        <tbody>
@@ -689,6 +695,8 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">CRT: </th> 
              <td class="color2 left">'.$CRT.'</td>     
+             <th class="color2 left">&nbsp;</th>       
+             <td class="color2 left">&nbsp;</td>       
            </tr>    
            ';
          }
@@ -701,6 +709,8 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Airplane: </th> 
              <td class="color2 left">'.$NAVE.'</td>     
+             <th class="color2 left">Airplane: </th> 
+             <td class="color2 left">'.$NAVE.'</td>       
            </tr>    
            ';
          }
@@ -712,6 +722,8 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Vessel: </th> 
              <td class="color2 left">'.$NAVE.'</td>     
+             <th class="color2 left">Airplane: </th> 
+             <td class="color2 left">'.$NAVE.'</td>       
            </tr>   
            <tr>
              <th class="color2 left">Closing date Stacking; </th>   
@@ -923,7 +935,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="11" class="center">Instruity Charge</th>
+      <th colspan="12" class="center">Instruity Charge</th>
     </tr>
     <tr>                       
       <th class="color center ">Code </th>
@@ -935,6 +947,7 @@ $html=$html.'
       <th class="color center ">Gross Kilo </th>
       <th class="color center ">Caliber </th>
       <th class="color center ">Type of currency </th>
+      <th class="color center ">Type of condition </th>
       <th class="color center ">Price</th>
       <th class="color center ">Total</th>    
     </tr> 
@@ -972,6 +985,12 @@ $html = $html . '
       } else {
           $NOMBRETMONEDA = "Sin Datos";
       }
+      $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+      if ($ARRAYTMANEJO) {
+          $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+      } else {
+          $NOMBRETMANEJO = "Sin Datos";
+      }
 
       $html = $html . '  
       <tr>   
@@ -984,6 +1003,7 @@ $html = $html . '
               <td class="center">'.$s['BRUTO'].'</td>
               <td class="center">'.$NOMBRECALIBRE.'</td>
               <td class="center">'.$NOMBRETMONEDA.'</td>
+              <td class="center">'.$NOMBRETMANEJO.'</td>
               <td class="center">'.$s['US'].'</td>
               <td class="center">'.$s['TOTALUS'].'</td>
       </tr>
@@ -1001,6 +1021,7 @@ $html = $html . '
           <th class="color center">'.$TOTALENVASEV.'</th>
           <th class="color center">'.$TOTALNETOV.'</th>
           <th class="color center">'.$TOTALBRUTOV.'</th>
+          <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
