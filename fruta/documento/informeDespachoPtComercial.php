@@ -578,7 +578,7 @@ $html = $html . '
       ';
 
 $html = $html . '
-<br><br><br><br><br>
+<br>&nbsp;<br><br><br><br>
       <div id="details" class="clearfix">
         <div id="client">
           <div class="address"><b>Informacion De Transporte</b></div>
