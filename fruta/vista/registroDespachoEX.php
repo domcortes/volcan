@@ -359,7 +359,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             if ($r['SNICARGA'] == "1") {
                 $SNICARGA = "on";
-                $ARRAYICARGA = $ICARGA_ADO->listarIcargaTomadoCBX($EMPRESA, $TEMPORADA);
+                $ARRAYICARGA = $ICARGA_ADO->listarIcargaEmpresaTemporadaCBX($EMPRESA, $TEMPORADA);
                 $ICARGAD  = "" . $r['ID_ICARGA'];
             } else {
                 $SNICARGA = "";
@@ -438,7 +438,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             if ($r['SNICARGA'] == "1") {
                 $SNICARGA = "on";
-                $ARRAYICARGA = $ICARGA_ADO->listarIcargaTomadoCBX($EMPRESA, $TEMPORADA);
+                $ARRAYICARGA = $ICARGA_ADO->listarIcargaEmpresaTemporadaCBX($EMPRESA, $TEMPORADA);
                 $ICARGAD  = "" . $r['ID_ICARGA'];
             } else {
                 $SNICARGA = "";
@@ -518,7 +518,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
             if ($r['SNICARGA'] == "1") {
                 $SNICARGA = "on";
-                $ARRAYICARGA = $ICARGA_ADO->listarIcargaTomadoCBX($EMPRESA, $TEMPORADA);
+                $ARRAYICARGA = $ICARGA_ADO->listarIcargaEmpresaTemporadaCBX($EMPRESA, $TEMPORADA);
                 $ICARGAD  = "" . $r['ID_ICARGA'];
             } else {
                 $SNICARGA = "";
