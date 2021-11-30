@@ -82,6 +82,27 @@ class TCATEGORIA_ADO {
         
     }
 
+    public function listarTcategoriaPorEmpresaCBX($IDEMPRESA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * 
+                                            FROM  fruta_tcategoria  
+                                            WHERE  ESTADO_REGISTRO  = 1
+                                            AND ID_EMPRESA='".$IDEMPRESA."';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
     public function listarTcategoria2CBX(){
         try{
@@ -152,19 +173,23 @@ class TCATEGORIA_ADO {
             
             $query=
             "INSERT INTO  fruta_tcategoria  (
+                                             NUMERO_TCATEGORIA , 
                                              NOMBRE_TCATEGORIA , 
+                                             ID_EMPRESA , 
                                              ID_USUARIOI , 
                                              ID_USUARIOM ,
                                              INGRESO ,
                                              MODIFICACION ,
                                              ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?,  ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
                     
+                    $TCATEGORIA->__GET('NUMERO_TCATEGORIA'),
                     $TCATEGORIA->__GET('NOMBRE_TCATEGORIA'),
+                    $TCATEGORIA->__GET('ID_EMPRESA'),
                     $TCATEGORIA->__GET('ID_USUARIOI'),
                     $TCATEGORIA->__GET('ID_USUARIOM')
                     
@@ -199,12 +224,14 @@ class TCATEGORIA_ADO {
 		UPDATE  fruta_tcategoria  SET
              MODIFICACION = SYSDATE(),
              NOMBRE_TCATEGORIA = ?,
+             ID_EMPRESA = ?,
              ID_USUARIOM = ?            
 		WHERE  ID_TCATEGORIA = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
                     $TCATEGORIA->__GET('NOMBRE_TCATEGORIA'),    
+                    $TCATEGORIA->__GET('ID_EMPRESA'),
                     $TCATEGORIA->__GET('ID_USUARIOM'),     
                     $TCATEGORIA->__GET('ID_TCATEGORIA')
                     
@@ -267,7 +294,27 @@ class TCATEGORIA_ADO {
         }
         
     }
-
+    public function obtenerNumero($IDEMPRESA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT  
+                                                    IFNULL(COUNT(NUMERO_TCATEGORIA),0) AS 'NUMERO'
+                                                FROM `fruta_tcategoria`
+                                                WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+    
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+    
+    
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     
 }
 ?>

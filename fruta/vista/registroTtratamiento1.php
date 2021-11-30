@@ -47,7 +47,7 @@ $ARRAYTTRATAMIENTOID2 = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYTTRATAMIENTO = $TTRATAMIENTO1_ADO->listarTtratamientoCBX();
+$ARRAYTTRATAMIENTO = $TTRATAMIENTO1_ADO->listarTtratamientoPorEmpresaCBX($EMPRESAS);
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 
@@ -56,10 +56,16 @@ include_once "../config/datosUrl.php";
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['GUARDAR'])) {
 
+    $ARRAYNUMERO = $TTRATAMIENTO1_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
 
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $TTRATAMIENTO1->__SET('NUMERO_TTRATAMIENTO', $NUMERO);
     $TTRATAMIENTO1->__SET('NOMBRE_TTRATAMIENTO', $_REQUEST['NOMBRETTRATAMIENTO']);
+    $TTRATAMIENTO1->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TTRATAMIENTO1->__SET('ID_USUARIOI', $IDUSUARIOS);
     $TTRATAMIENTO1->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -76,6 +82,7 @@ if (isset($_REQUEST['EDITAR'])) {
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
 
     $TTRATAMIENTO1->__SET('NOMBRE_TTRATAMIENTO', $_REQUEST['NOMBRETTRATAMIENTO']);
+    $TTRATAMIENTO1->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TTRATAMIENTO1->__SET('ID_USUARIOM', $IDUSUARIOS);
     $TTRATAMIENTO1->__SET('ID_TTRATAMIENTO', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -295,6 +302,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <div class="form-group">
                                                 <label>Nombre </label>
                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                 <input type="text" class="form-control" placeholder="Nombre Tipo Recepcion" id="NOMBRETTRATAMIENTO" name="NOMBRETTRATAMIENTO" value="<?php echo $NOMBRETTRATAMIENTO; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_nombre" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                             </div>
@@ -329,7 +337,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Número </th>
                                                         <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
@@ -339,7 +347,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_TTRATAMIENTO']; ?>
+                                                                    <?php echo $r['NUMERO_TTRATAMIENTO']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_TTRATAMIENTO']; ?></td>

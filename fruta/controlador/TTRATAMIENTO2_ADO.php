@@ -102,6 +102,27 @@ class TTRATAMIENTO2_ADO {
         
     }
 
+    public function listarTtratamientoPorEmpresaCBX($IDEMPRESA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * 
+                                            FROM  fruta_tratamineto2  
+                                            WHERE  ESTADO_REGISTRO  = 1  
+                                            AND ID_EMPRESA ='".$IDEMPRESA."';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
     public function verTtratamiento($ID){
@@ -152,19 +173,23 @@ class TTRATAMIENTO2_ADO {
             
             $query=
             "INSERT INTO  fruta_tratamineto2  (
-                                             NOMBRE_TTRATAMIENTO , 
-                                             ID_USUARIOI , 
-                                             ID_USUARIOM ,
-                                             INGRESO ,
-                                             MODIFICACION ,
-                                             ESTADO_REGISTRO 
+                                                    NUMERO_TTRATAMIENTO , 
+                                                    NOMBRE_TTRATAMIENTO , 
+                                                    ID_EMPRESA , 
+                                                    ID_USUARIOI , 
+                                                    ID_USUARIOM ,
+                                                    INGRESO ,
+                                                    MODIFICACION ,
+                                                    ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
                     
+                    $TTRATAMIENTO2->__GET('NUMERO_TTRATAMIENTO'),
                     $TTRATAMIENTO2->__GET('NOMBRE_TTRATAMIENTO'),
+                    $TTRATAMIENTO2->__GET('ID_EMPRESA'),
                     $TTRATAMIENTO2->__GET('ID_USUARIOI'),
                     $TTRATAMIENTO2->__GET('ID_USUARIOM')
                     
@@ -199,12 +224,14 @@ class TTRATAMIENTO2_ADO {
 		UPDATE  fruta_tratamineto2  SET
              MODIFICACION = SYSDATE(),
              NOMBRE_TTRATAMIENTO = ?,
+             ID_EMPRESA = ?,           
              ID_USUARIOM = ?            
 		WHERE  ID_TTRATAMIENTO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
-                    $TTRATAMIENTO2->__GET('NOMBRE_TTRATAMIENTO'),    
+                    $TTRATAMIENTO2->__GET('NOMBRE_TTRATAMIENTO'), 
+                    $TTRATAMIENTO2->__GET('ID_EMPRESA'),   
                     $TTRATAMIENTO2->__GET('ID_USUARIOM'),     
                     $TTRATAMIENTO2->__GET('ID_TTRATAMIENTO')
                     
@@ -268,6 +295,27 @@ class TTRATAMIENTO2_ADO {
         
     }
 
+    public function obtenerNumero($IDEMPRESA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT  
+                                                    IFNULL(COUNT(NUMERO_TTRATAMIENTO),0) AS 'NUMERO'
+                                                FROM `fruta_tratamineto2`
+                                                WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+    
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+    
+    
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     
 }
 ?>

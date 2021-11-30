@@ -81,7 +81,27 @@ class TTRATAMIENTO1_ADO {
         }
         
     }
-
+    public function listarTtratamientoPorEmpresaCBX($IDEMPRESA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * 
+                                            FROM  fruta_tratamineto1  
+                                            WHERE  ESTADO_REGISTRO  = 1  
+                                            AND ID_EMPRESA ='".$IDEMPRESA."';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
     public function listarTtratamiento2CBX(){
         try{
@@ -152,19 +172,23 @@ class TTRATAMIENTO1_ADO {
             
             $query=
             "INSERT INTO  fruta_tratamineto1  (
+                                             NUMERO_TTRATAMIENTO , 
                                              NOMBRE_TTRATAMIENTO , 
+                                             ID_EMPRESA , 
                                              ID_USUARIOI , 
                                              ID_USUARIOM ,
                                              INGRESO ,
                                              MODIFICACION ,
                                              ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
                     
+                    $TTRATAMIENTO1->__GET('NUMERO_TTRATAMIENTO'),
                     $TTRATAMIENTO1->__GET('NOMBRE_TTRATAMIENTO'),
+                    $TTRATAMIENTO1->__GET('ID_EMPRESA'),
                     $TTRATAMIENTO1->__GET('ID_USUARIOI'),
                     $TTRATAMIENTO1->__GET('ID_USUARIOM')
                     
@@ -199,12 +223,14 @@ class TTRATAMIENTO1_ADO {
 		UPDATE  fruta_tratamineto1  SET
              MODIFICACION = SYSDATE(),
              NOMBRE_TTRATAMIENTO = ?,
+             ID_EMPRESA = ?,
              ID_USUARIOM = ?            
 		WHERE  ID_TTRATAMIENTO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
-                    $TTRATAMIENTO1->__GET('NOMBRE_TTRATAMIENTO'),    
+                    $TTRATAMIENTO1->__GET('NOMBRE_TTRATAMIENTO'),   
+                    $TTRATAMIENTO1->__GET('ID_EMPRESA'), 
                     $TTRATAMIENTO1->__GET('ID_USUARIOM'),     
                     $TTRATAMIENTO1->__GET('ID_TTRATAMIENTO')
                     
@@ -267,7 +293,27 @@ class TTRATAMIENTO1_ADO {
         }
         
     }
-
+    public function obtenerNumero($IDEMPRESA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT  
+                                                    IFNULL(COUNT(NUMERO_TTRATAMIENTO),0) AS 'NUMERO'
+                                                FROM `fruta_tratamineto1`
+                                                WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+    
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+    
+    
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     
 }
 ?>

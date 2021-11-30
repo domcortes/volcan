@@ -138,8 +138,8 @@ $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 $ARRAYTCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 
-$ARRAYTCATEGORIA=$TCATEGORIA_ADO->listarTcategoriaCBX();;
-$ARRAYTCOLOR=$TCOLOR_ADO->listarTcolorCBX();
+$ARRAYTCATEGORIA=$TCATEGORIA_ADO->listarTcategoriaPorEmpresaCBX($EMPRESAS);
+$ARRAYTCOLOR=$TCOLOR_ADO->listarTcolorPorEmpresaCBX($EMPRESAS);
 
 $ARRAYFECHAACTUAL = $DRECEPCIONPT_ADO->obtenerFecha();
 $FECHAEMBALADORECEPCION = $ARRAYFECHAACTUAL[0]['FECHA'];
@@ -1148,7 +1148,7 @@ if ($_POST) {
                                         <?php if ($CATEGORIAESTANDAR == "1") { ?>
                                             <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label>Tippo Categoria</label>
+                                                    <label>Tipo Categoria</label>
                                                     <input type="hidden" id="TCATEGORIAE" name="TCATEGORIAE" value="<?php echo $TCATEGORIA; ?>" />                                                   
                                                     <select class="form-control select2" id="TCATEGORIA" name="TCATEGORIA" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                         <option></option>
@@ -1402,6 +1402,12 @@ if ($_POST) {
                         if($_REQUEST['STOCKESTANDAR']==1){
                             $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
                         }
+                        if($_REQUEST['CATEGORIAESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                        }
+                        if($_REQUEST['COLORESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                        }  
                         $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
                         $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
                         $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
@@ -1420,7 +1426,7 @@ if ($_POST) {
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                         }
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        //  $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
+                        $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
                         
                         //REDIRECCIONAR A PAGINA registroRecepcionmp.php
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -1534,6 +1540,12 @@ if ($_POST) {
                         if($_REQUEST['STOCKESTANDAR']==1){
                             $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
                         }
+                        if($_REQUEST['CATEGORIAESTANDAR']==1){  
+                            $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                        }
+                        if($_REQUEST['COLORESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                        }
                         $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
                         $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
                         $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
@@ -1582,6 +1594,12 @@ if ($_POST) {
                         if($_REQUEST['STOCKESTANDAR']==1){
                             $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
                         }
+                        if($_REQUEST['CATEGORIAESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                        }
+                        if($_REQUEST['COLORESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                        }
                         $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
                         $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
                         $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
@@ -1600,7 +1618,7 @@ if ($_POST) {
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                         }
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                        $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
+                       $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
                     }
 
                     //REDIRECCIONAR A PAGINA registroRecepcionmp.php

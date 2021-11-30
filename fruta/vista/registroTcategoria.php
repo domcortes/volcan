@@ -47,7 +47,7 @@ $ARRAYTCATEGORIAID2 = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYTCATEGORIA = $TCATEGORIA_ADO->listarTcategoriaCBX();
+$ARRAYTCATEGORIA = $TCATEGORIA_ADO->listarTcategoriaPorEmpresaCBX($EMPRESAS);
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 
@@ -56,10 +56,15 @@ include_once "../config/datosUrl.php";
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['GUARDAR'])) {
 
+    $ARRAYNUMERO = $TCATEGORIA_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
 
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $TCATEGORIA->__SET('NUMERO_TCATEGORIA', $NUMERO);
     $TCATEGORIA->__SET('NOMBRE_TCATEGORIA', $_REQUEST['NOMBRETCATEGORIA']);
+    $TCATEGORIA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TCATEGORIA->__SET('ID_USUARIOI', $IDUSUARIOS);
     $TCATEGORIA->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -76,6 +81,7 @@ if (isset($_REQUEST['EDITAR'])) {
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
 
     $TCATEGORIA->__SET('NOMBRE_TCATEGORIA', $_REQUEST['NOMBRETCATEGORIA']);
+    $TCATEGORIA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TCATEGORIA->__SET('ID_USUARIOM', $IDUSUARIOS);
     $TCATEGORIA->__SET('ID_TCATEGORIA', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -295,6 +301,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <div class="form-group">
                                                 <label>Nombre </label>
                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                 <input type="text" class="form-control" placeholder="Nombre Tipo Recepcion" id="NOMBRETCATEGORIA" name="NOMBRETCATEGORIA" value="<?php echo $NOMBRETCATEGORIA; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_nombre" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                             </div>
@@ -329,7 +336,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Número </th>
                                                         <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
@@ -339,7 +346,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_TCATEGORIA']; ?>
+                                                                    <?php echo $r['NUMERO_TCATEGORIA']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_TCATEGORIA']; ?></td>

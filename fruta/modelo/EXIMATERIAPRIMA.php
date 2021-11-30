@@ -30,6 +30,8 @@ class EXIMATERIAPRIMA {
     private	  $INGRESO;
     private	  $MODIFICACION;   
     private   $ID_TMANEJO;
+    private   $ID_TTRATAMIENTO1;
+    private   $ID_TTRATAMIENTO2;
     private	  $ID_FOLIO;
     private	  $ID_ESTANDAR;
     private	  $ID_PRODUCTOR;

@@ -18,6 +18,8 @@ include_once '../controlador/TPROCESO_ADO.php';
 include_once '../controlador/TREEMBALAJE_ADO.php';
 include_once '../controlador/COMPRADOR_ADO.php';
 include_once '../controlador/DFINAL_ADO.php';
+include_once '../controlador/TCOLOR_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
  
 
@@ -47,6 +49,8 @@ $TPROCESO_ADO =  new TPROCESO_ADO();
 $TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 $COMPRADOR_ADO =  new COMPRADOR_ADO();
 $DFINAL_ADO =  new DFINAL_ADO();
+$TCOLOR_ADO =  new TCOLOR_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 
 
@@ -253,6 +257,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Embolsado</th>
                                                         <th>Gasificacion</th>
                                                         <th>Prefrío</th>
+                                                        <th>Tipo Categoria </th>
+                                                        <th>Tipo Color </th>      
                                                         <th>Días</th>
                                                         <th>Ingreso</th>
                                                         <th>Modificación</th>
@@ -519,6 +525,24 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         } else {
                                                             $NOMBRETEMBALAJE = "Sin Datos";
                                                         }
+                                                        $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                        if ($ARRAYTEMBALAJE) {
+                                                            $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                        } else {
+                                                            $NOMBRETEMBALAJE = "Sin Datos";
+                                                        }
+                                                        $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
+                                                        if($ARRAYTCATEGORIA){
+                                                           $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+                                                        }else{
+                                                            $NOMBRETCATEGORIA = "Sin Datos";
+                                                        }   
+                                                        $ARRAYTCOLOR=$TCOLOR_ADO->verTcolor($r['ID_TCOLOR']);
+                                                        if($ARRAYTCOLOR){
+                                                            $NOMBRETCOLOR= $ARRAYTCOLOR[0]["NOMBRE_TCOLOR"];
+                                                        }else{
+                                                            $NOMBRETCOLOR = "Sin Datos";
+                                                        } 
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                         if ($ARRAYEMPRESA) {
                                                             $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -614,6 +638,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
+                                                            <td><?php echo $NOMBRETCATEGORIA; ?></td>
+                                                            <td><?php echo $NOMBRETCOLOR; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['MODIFICACION']; ?></td>
@@ -671,6 +697,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Embolsado</th>
                                                         <th>Gasificacion</th>
                                                         <th>Prefrío</th>
+                                                        <th>Tipo Categoria </th>
+                                                        <th>Tipo Color </th>      
                                                         <th>Días</th>
                                                         <th>Ingreso</th>
                                                         <th>Modificación</th>

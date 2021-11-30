@@ -3,8 +3,8 @@ require_once '../../vendor/autoload.php';
 $detect = new Mobile_Detect;
 
 session_start();
-if (isset($_SESSION["ID_EMPRESA"]) && isset($_SESSION["ID_PLANTA"]) && isset($_SESSION["ID_TEMPORADA"])  ) {
-    header('Location: index.php');
+if (isset($_SESSION["ID_EMPRESA"]) && isset($_SESSION["ID_PLANTA"]) && isset($_SESSION["ID_TEMPORADA"])  ) {   
+    echo "<script> location.href = 'index.php';</script>";
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
@@ -230,7 +230,7 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
             $_SESSION["ID_EMPRESA"] = $_REQUEST['EMPRESA'];
             $_SESSION["ID_PLANTA"] = $_REQUEST['PLANTA'];
             $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];
-             header('Location: index.php');
+            echo "<script> location.href = 'index.php';</script>";
         }
         if (isset($_REQUEST['SALIR'])) {
              session_destroy();

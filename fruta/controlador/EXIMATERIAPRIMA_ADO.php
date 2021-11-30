@@ -133,6 +133,12 @@ class EXIMATERIAPRIMA_ADO
     {
         try {
 
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
             $query =
                 "INSERT INTO fruta_eximateriaprima ( 
 
@@ -151,6 +157,8 @@ class EXIMATERIAPRIMA_ADO
                                                             GASIFICADO,
                                                             FECHA_RECEPCION,
                                                             ID_TMANEJO,
+                                                            ID_TTRATAMIENTO1,
+                                                            ID_TTRATAMIENTO2,
                                                             ID_FOLIO,
                                                             ID_ESTANDAR,
                                                             ID_PRODUCTOR,
@@ -164,7 +172,7 @@ class EXIMATERIAPRIMA_ADO
                                                             ESTADO,  
                                                             ESTADO_REGISTRO
                                                     ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -183,6 +191,8 @@ class EXIMATERIAPRIMA_ADO
                         $EXIMATERIAPRIMA->__GET('GASIFICADO'),
                         $EXIMATERIAPRIMA->__GET('FECHA_RECEPCION'),
                         $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
                         $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
                         $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
                         $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
@@ -204,6 +214,13 @@ class EXIMATERIAPRIMA_ADO
     {
         try {
 
+
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
             $query =
                 "INSERT INTO fruta_eximateriaprima ( 
 
@@ -225,6 +242,8 @@ class EXIMATERIAPRIMA_ADO
                                                            INGRESO,
                                                            ID_TMANEJO,
                                                            ID_FOLIO,
+                                                           ID_TTRATAMIENTO1,
+                                                           ID_TTRATAMIENTO2,
                                                            
                                                            ID_ESTANDAR,
                                                            ID_PRODUCTOR,
@@ -240,7 +259,7 @@ class EXIMATERIAPRIMA_ADO
                                                            ESTADO,  
                                                            ESTADO_REGISTRO
                                                    ) VALUES
-              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
+              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -262,6 +281,8 @@ class EXIMATERIAPRIMA_ADO
                         $EXIMATERIAPRIMA->__GET('INGRESO'),
                         $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
                         $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
 
                         $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
                         $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
@@ -286,6 +307,13 @@ class EXIMATERIAPRIMA_ADO
     {
         try {
 
+
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
             $query =
                 "INSERT INTO fruta_eximateriaprima ( 
 
@@ -307,6 +335,8 @@ class EXIMATERIAPRIMA_ADO
                                                            INGRESO,
                                                            ID_TMANEJO,
                                                            ID_FOLIO,
+                                                           ID_TTRATAMIENTO1,
+                                                           ID_TTRATAMIENTO2,
                                                            
                                                            ID_ESTANDAR,
                                                            ID_PRODUCTOR,
@@ -323,7 +353,7 @@ class EXIMATERIAPRIMA_ADO
                                                            ESTADO,  
                                                            ESTADO_REGISTRO
                                                    ) VALUES
-              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?,  ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
+              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?, ?,     ?, ?, ?,  ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -345,6 +375,8 @@ class EXIMATERIAPRIMA_ADO
                         $EXIMATERIAPRIMA->__GET('INGRESO'),
                         $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
                         $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
 
                         $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
                         $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
@@ -369,6 +401,13 @@ class EXIMATERIAPRIMA_ADO
     {
         try {
 
+
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
             $query =
                 "INSERT INTO fruta_eximateriaprima ( 
 
@@ -390,6 +429,8 @@ class EXIMATERIAPRIMA_ADO
                                                            INGRESO,
                                                            ID_TMANEJO,
                                                            ID_FOLIO,
+                                                           ID_TTRATAMIENTO1,
+                                                           ID_TTRATAMIENTO2,
                                                            
                                                            ID_ESTANDAR,
                                                            ID_PRODUCTOR,
@@ -407,7 +448,7 @@ class EXIMATERIAPRIMA_ADO
                                                            ESTADO,  
                                                            ESTADO_REGISTRO
                                                    ) VALUES
-              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?,   ?, ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
+              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,    ?, ?, ?,   ?, ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -429,6 +470,8 @@ class EXIMATERIAPRIMA_ADO
                         $EXIMATERIAPRIMA->__GET('INGRESO'),
                         $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
                         $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
 
                         $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
                         $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
@@ -472,6 +515,13 @@ class EXIMATERIAPRIMA_ADO
     public function actualizarEximateriaprimaRecepcion(EXIMATERIAPRIMA $EXIMATERIAPRIMA)
     {
         try {
+            
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', NULL);
+            }
+            if ($EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2') == NULL) {
+                $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', NULL);
+            }
             $query = "
 		UPDATE fruta_eximateriaprima SET
             MODIFICACION = SYSDATE(),
@@ -484,6 +534,8 @@ class EXIMATERIAPRIMA_ADO
             GASIFICADO = ?,
             FECHA_RECEPCION = ?,
             ID_TMANEJO = ?, 
+            ID_TTRATAMIENTO1 = ?, 
+            ID_TTRATAMIENTO2 = ?, 
             ID_ESTANDAR = ?,
             ID_PRODUCTOR = ?,
             ID_VESPECIES = ?   ,
@@ -504,6 +556,8 @@ class EXIMATERIAPRIMA_ADO
                         $EXIMATERIAPRIMA->__GET('GASIFICADO'),
                         $EXIMATERIAPRIMA->__GET('FECHA_RECEPCION'),
                         $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
+                        $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO2'),
                         $EXIMATERIAPRIMA->__GET('ID_ESTANDAR'),
                         $EXIMATERIAPRIMA->__GET('ID_PRODUCTOR'),
                         $EXIMATERIAPRIMA->__GET('ID_VESPECIES'),

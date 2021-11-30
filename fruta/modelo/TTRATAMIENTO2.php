@@ -9,12 +9,15 @@ class TTRATAMIENTO2 {
 
     //ATRIBUTOS DE LA CLASE    
     private	  $ID_TTRATAMIENTO; 
+    private	  $NUMERO_TTRATAMIENTO;
     private	  $NOMBRE_TTRATAMIENTO;
     private   $ESTADO_REGISTRO; 
     private   $INGRESO; 
     private   $MODIFICACION; 
+    private   $ID_EMPRESA; 
     private   $ID_USUARIOI; 
     private   $ID_USUARIOM; 
+
     
     //FUNCIONES GET Y SET
     public function __GET($k){ return $this->$k; }
