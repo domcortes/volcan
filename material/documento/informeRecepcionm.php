@@ -98,11 +98,10 @@ $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion2($IDOP);
 if ($ARRAYRECEPCION) {
   $ARRAYDRECEPCION = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcion2CBX($IDOP);
   $ARRAYDRECEPCIONTOTAL = $DRECEPCIONM_ADO->obtenerTotalesDrecepcionPorRecepcion2CBX($IDOP);
-
+  $ARRAYTARJAM = $TARJAM_ADO->listarTarjaPorRecepcionCBX($IDOP);
 
 
   $TOTALCANTIDAD = $ARRAYDRECEPCIONTOTAL[0]["CANTIDAD"];
-
   $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
   $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
   $NUMERODOCUMENTO = $ARRAYRECEPCION[0]["NUMERO_DOCUMENTO_RECEPCION"];
@@ -110,6 +109,10 @@ if ($ARRAYRECEPCION) {
   $PATENTECAMION = $ARRAYRECEPCION[0]["PATENTE_CAMION"];
   $PATENTECARRO = $ARRAYRECEPCION[0]["PATENTE_CARRO"];
   $OBSERVACIONES = $ARRAYRECEPCION[0]['OBSERVACIONES_RECEPCION'];
+  
+  $IDUSUARIOI = $ARRAYRECEPCION[0]['ID_USUARIOI'];  
+  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+  $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
   
   $ESTADO = $ARRAYRECEPCION[0]['ESTADO'];
   if ($ARRAYRECEPCION[0]['ESTADO'] == 1) {
@@ -310,12 +313,11 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="7" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="6" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Codigo Producto</th>
             <th class="color left">Producto</th>
-            <th class="color left">Tipo Contenedor</th>
             <th class="color left">Unidad Medida</th>
             <th class="color left">Cantidad</th>
             <th class="color left">Valor Unitario</th>
@@ -335,20 +337,13 @@ foreach ($ARRAYDRECEPCION as $d) :
     $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
   }
 
-  $ARRAYTARJAM = $TARJAM_ADO->listarTarjaPorDrecepcionCBX($d['ID_DRECEPCION']);
-  if ($ARRAYTARJAM) {
-    $ARRAYTCONTENDOR = $TCONTENEDOR_ADO->verTcontenedor($ARRAYTARJAM[0]["ID_TCONTENEDOR"]);
-    if ($ARRAYTCONTENDOR) {
-      $NOMBRETCONETEDOR = $ARRAYTCONTENDOR[0]["NOMBRE_TCONTENEDOR"];
-    }
-  }
+
 
   $html = $html . '
           
                       <tr >
                           <th class="left">' . $CODIGOPRODUCTO . '</th>
                           <th class="left">' . $NOMBREPRODUCTO . '</th>
-                          <td class="left">' . $NOMBRETCONETEDOR . '</td>
                           <td class="left">' . $NOMBRETUMEDIDA . '</td>
                           <td class="left">' . $d['CANTIDAD'] . '</td>
                           <td class="left">$ ' . $d['VALOR_UNITARIO'] . '</td>
@@ -367,7 +362,6 @@ $html = $html . '
                       <th class="color right">SUB TOTAL</th>
                       <th class="color left"> ' . $TOTALCANTIDAD . '</th>
                       <th class="color left">&nbsp;</th>
-                      <th class="color left">&nbsp;</th>
                   </tr>
               ';
 
@@ -378,6 +372,7 @@ $html = $html . '
 $html = $html . '
         </tbody>
       </table>
+
       <table border="0" cellspacing="0" cellpadding="0">
       <thead>
         <tr>
@@ -424,8 +419,66 @@ $html = $html . '
                 <th class="color2 left"> <input type="checkbox" > </th>
             </tr>
         </tbody>
-      </table>
+      </table>';
 
+      $html = $html . '
+
+    </div>
+    
+  </div>
+  <table border="0" cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th colspan="6" class="center">FOLIOS.</th>
+        </tr>
+        <tr>
+          <th class="color left">Número Folio</th>
+          <th class="color left">Codigo Producto</th>
+          <th class="color left">Producto</th>
+          <th class="color left">Tipo Contenedor</th>
+          <th class="color left">Unidad Medida</th>
+          <th class="color left">Cantidad</th>
+        </tr>
+      </thead>
+     <tbody>';
+
+
+     foreach ($ARRAYTARJAM as $s) :
+
+      $ARRAYVERPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+      if ($ARRAYVERPRODUCTO) {
+        $CODIGOPRODUCTO = $ARRAYVERPRODUCTO[0]["CODIGO_PRODUCTO"];
+        $NOMBREPRODUCTO = $ARRAYVERPRODUCTO[0]["NOMBRE_PRODUCTO"];
+      }
+      $ARRAYVERTCONTENDOR = $TCONTENEDOR_ADO->verTcontenedor($s['ID_TCONTENEDOR']);
+      if ($ARRAYVERTCONTENDOR) {
+        $NOMBRETCONTEDOR = $ARRAYVERTCONTENDOR[0]["NOMBRE_TCONTENEDOR"];
+      }
+      $ARRAYVERTUMEDIDA = $TUMEDIDA_ADO->verTumedida($s['ID_TUMEDIDA']);
+      if ($ARRAYVERTUMEDIDA) {
+        $NOMBRETUMEDIDA = $ARRAYVERTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+      }
+
+     $html = $html . '
+          
+      <tr >
+          <td class="left">' . $s['FOLIO_TARJA'] . '</td>
+          <td class="left">' . $CODIGOPRODUCTO . '</td>
+          <td class="left">' . $NOMBREPRODUCTO . '</td>
+          <td class="left">' . $NOMBRETCONTEDOR . '</td>
+          <td class="left">' . $NOMBRETUMEDIDA . '</td>
+          <td class="left">' . $s['CANTIDAD_TARJA'] . '</td>
+      </tr>
+  ';
+
+endforeach;
+
+
+$html = $html . '
+
+    </tbody>
+    </table>
+    <br>&nbsp;<br><br><br>
 
       <div id="details" class="clearfix">
         <div id="client">
