@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-12-2021 a las 02:28:18
+-- Tiempo de generación: 01-12-2021 a las 02:51:23
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -6200,6 +6200,7 @@ CREATE TABLE `principal_planta` (
   `DIRECCION_PLANTA` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `CODIGO_SAG_PLANTA` int(11) DEFAULT NULL,
   `FDA_PLANTA` bigint(20) DEFAULT NULL,
+  `GGN_PLANTA` bigint(20) DEFAULT NULL,
   `TPLANTA` int(11) DEFAULT NULL,
   `ESTADO_REGISTRO` int(11) DEFAULT NULL,
   `INGRESO` date DEFAULT NULL,
@@ -6213,11 +6214,11 @@ CREATE TABLE `principal_planta` (
 -- Volcado de datos para la tabla `principal_planta`
 --
 
-INSERT INTO `principal_planta` (`ID_PLANTA`, `NOMBRE_PLANTA`, `RAZON_SOCIAL_PLANTA`, `DIRECCION_PLANTA`, `CODIGO_SAG_PLANTA`, `FDA_PLANTA`, `TPLANTA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
-(1, 'Prueba Planta', 'Razon social Prueba', '-', 1, 1, 1, 1, '2021-07-20', '2021-11-27', 1, 1, 2),
-(2, 'Planta El Alamo', '-', '-', 1, 1, 1, 1, '2021-07-30', '2021-07-30', 1, 1, 1),
-(3, 'Prueba Externa', '11', '1', 1, 1, 2, 1, '2021-09-12', '2021-09-12', 1, 1, 1),
-(5, 'prueba planta 2', '1', '1', 1, 1, 2, 1, '2021-09-18', '2021-09-18', 1, 1, 1);
+INSERT INTO `principal_planta` (`ID_PLANTA`, `NOMBRE_PLANTA`, `RAZON_SOCIAL_PLANTA`, `DIRECCION_PLANTA`, `CODIGO_SAG_PLANTA`, `FDA_PLANTA`, `GGN_PLANTA`, `TPLANTA`, `ESTADO_REGISTRO`, `INGRESO`, `MODIFICACION`, `ID_CIUDAD`, `ID_USUARIOI`, `ID_USUARIOM`) VALUES
+(1, 'Prueba Planta', 'Razon social Prueba', '-', 1, 1, NULL, 1, 1, '2021-07-20', '2021-11-27', 1, 1, 2),
+(2, 'Planta El Alamo', '-', '-', 1, 1, NULL, 1, 1, '2021-07-30', '2021-07-30', 1, 1, 1),
+(3, 'Prueba Externa', '11', '1', 1, 1, NULL, 2, 1, '2021-09-12', '2021-09-12', 1, 1, 1),
+(5, 'prueba planta 2', '1', '1', 1, 1, NULL, 2, 1, '2021-09-18', '2021-09-18', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -9746,12 +9747,6 @@ ALTER TABLE `principal_bodega`
 --
 ALTER TABLE `principal_empresa`
   MODIFY `ID_EMPRESA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `principal_planta`
---
-ALTER TABLE `principal_planta`
-  MODIFY `ID_PLANTA` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `principal_temporada`

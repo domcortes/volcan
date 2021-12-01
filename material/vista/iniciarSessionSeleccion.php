@@ -124,10 +124,7 @@ if (isset($_REQUEST['SALIR'])) {
 </head>
 
 
-<body class="hold-transition sidebar-collapse sidebar-mini login-page">
-    <div class="login-box">
-        <img src="../../img/volcan-foods-logo-original.png" alt="" height="50px">
-    </div>
+<body class="hold-transition sidebar-collapse sidebar-mini login-page">  
     <div class="card border-0">
         <div class="card-header bg-info text-white text-center text-uppercase">
             <img src="../..//img/favicon.png" alt="" height="20px">Seleccion de parametros <strong id="title_section"></strong>

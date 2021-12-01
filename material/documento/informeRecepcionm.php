@@ -371,61 +371,11 @@ $html = $html . '
 
 $html = $html . '
         </tbody>
-      </table>
-
-      <table border="0" cellspacing="0" cellpadding="0">
-      <thead>
-        <tr>
-          <th colspan="7" class=" center">CHEQUEO DE LA INFORMACVIÓN Y CONDICIONES DE LA RECEPCIÓN.</th>
-        </tr>
-        
-      </thead>
-      
-        <tbody>
-            <tr class="">
-                <th class="color2 left">1- La información ingresada en esta despacho concuerda con la documentación y lo fisico.</th>
-                <th class="color2 left">Si</th>
-                <th class="color2 left"> <input type="checkbox" > </th>
-                <th class="color2 left">No</th>
-                <th class="color2 left"> <input type="checkbox" > </th>
-                <th class="color2 left">No Aplica</th>              
-                <th class="color2 left"> <input type="checkbox" > </th>
-            </tr>          
-            <tr class="">
-                <th class="color2 left">2- si es No, se informa la diferencia a quien correponde.</th>
-                <th class="color2 left">Si</th>
-                <th class="color2 left"> <input type="checkbox" > </th>
-                <th class="color2 left">No</th>
-                <th class="color2 left"> <input type="checkbox" > </th>
-                <th class="color2 left">No Aplica</th>              
-                <th class="color2 left"> <input type="checkbox" > </th>
-            </tr>
-            <tr class="">
-                <th class="color2 left">3- El transporte donde llegaron los materiales cumple con las condiciones de transporte.</th>
-                <th class="color2 left">Si</th>
-                <th class="color2 left"> <input type="checkbox" > </th>
-                <th class="color2 left">No</th>
-                <th class="color2 left"> <input type="checkbox" > </th>
-                <th class="color2 left">No Aplica</th>              
-                <th class="color2 left"> <input type="checkbox" > </th>
-            </tr>
-            <tr class="">
-                <th class="color2 left">4- Los materiales despachados estan en optimas condiciones para la recepción.</th>
-                <th class="color2 left">Si</th>
-                <th class="color2 left"> <input type="checkbox" > </th>
-                <th class="color2 left">No</th>
-                <th class="color2 left"> <input type="checkbox" > </th>
-                <th class="color2 left">No Aplica</th>              
-                <th class="color2 left"> <input type="checkbox" > </th>
-            </tr>
-        </tbody>
       </table>';
+
 
       $html = $html . '
 
-    </div>
-    
-  </div>
   <table border="0" cellspacing="0" cellpadding="0">
       <thead>
         <tr>
@@ -477,7 +427,58 @@ endforeach;
 $html = $html . '
 
     </tbody>
-    </table>
+    </table>';
+
+    $html = $html . '
+    <table border="0" cellspacing="0" cellpadding="0">
+    <thead>
+      <tr>
+        <th colspan="7" class=" center">CHEQUEO DE LA INFORMACIÓN Y CONDICIONES DE LA RECEPCIÓN.</th>
+      </tr>
+      
+    </thead>
+    
+      <tbody>
+          <tr class="">
+              <th class="color2 left">1- La información ingresada en esta despacho concuerda con la documentación y lo fisico.</th>
+              <th class="color2 left">Si</th>
+              <th class="color2 left"> <input type="checkbox" > </th>
+              <th class="color2 left">No</th>
+              <th class="color2 left"> <input type="checkbox" > </th>
+              <th class="color2 left">No Aplica</th>              
+              <th class="color2 left"> <input type="checkbox" > </th>
+          </tr>          
+          <tr class="">
+              <th class="color2 left">2- si es No, se informa la diferencia a quien correponde.</th>
+              <th class="color2 left">Si</th>
+              <th class="color2 left"> <input type="checkbox" > </th>
+              <th class="color2 left">No</th>
+              <th class="color2 left"> <input type="checkbox" > </th>
+              <th class="color2 left">No Aplica</th>              
+              <th class="color2 left"> <input type="checkbox" > </th>
+          </tr>
+          <tr class="">
+              <th class="color2 left">3- El transporte donde llegaron los materiales cumple con las condiciones de transporte.</th>
+              <th class="color2 left">Si</th>
+              <th class="color2 left"> <input type="checkbox" > </th>
+              <th class="color2 left">No</th>
+              <th class="color2 left"> <input type="checkbox" > </th>
+              <th class="color2 left">No Aplica</th>              
+              <th class="color2 left"> <input type="checkbox" > </th>
+          </tr>
+          <tr class="">
+              <th class="color2 left">4- Los materiales despachados estan en optimas condiciones para la recepción.</th>
+              <th class="color2 left">Si</th>
+              <th class="color2 left"> <input type="checkbox" > </th>
+              <th class="color2 left">No</th>
+              <th class="color2 left"> <input type="checkbox" > </th>
+              <th class="color2 left">No Aplica</th>              
+              <th class="color2 left"> <input type="checkbox" > </th>
+          </tr>
+      </tbody>
+    </table>';
+
+    $html=$html.'
     <br>&nbsp;<br><br><br>
 
       <div id="details" class="clearfix">
@@ -534,7 +535,7 @@ $ASUNTO = "Informe";
 //API DE GENERACION DE PDF
 require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
-$PDF = new \Mpdf\Mpdf(['format' => 'letter-L']);
+$PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
 //CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('

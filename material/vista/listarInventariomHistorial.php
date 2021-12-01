@@ -400,7 +400,7 @@ include_once "../config/reporteUrl.php";
                                         </table>
                                     </div>
                                 </div>
-                            </div>¿
+                            </div>
                         </div>
                         <!-- /.box -->
 
