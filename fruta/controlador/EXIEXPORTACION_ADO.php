@@ -466,6 +466,12 @@ class EXIEXPORTACION_ADO
     {
         try {
 
+            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (                    
                                                     FOLIO_EXIEXPORTACION,
@@ -499,6 +505,8 @@ class EXIEXPORTACION_ADO
                                                     ID_TEMBALAJE,
 
                                                     ID_TMANEJO,
+                                                    ID_TCATEGORIA,
+                                                    ID_TCOLOR,
                                                     ID_FOLIO,
                                                     ID_ESTANDAR,
                                                     ID_PRODUCTOR,   
@@ -518,7 +526,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?,    SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?,    SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -552,8 +560,10 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('INGRESO'),
                         $EXIEXPORTACION->__GET('ID_TCALIBRE'),
                         $EXIEXPORTACION->__GET('ID_TEMBALAJE'),
-
+                      
                         $EXIEXPORTACION->__GET('ID_TMANEJO'),
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
+                        $EXIEXPORTACION->__GET('ID_TCOLOR'),
                         $EXIEXPORTACION->__GET('ID_FOLIO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
