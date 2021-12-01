@@ -676,7 +676,7 @@ if ($TEMBARQUE == "1") {
 if ($TEMBARQUE == "2") {
 
  $html=$html.'
-                <td class=" center ">'.$NOMBRETRANSPORTE.' / '.$NVIAJE.' </td>  
+                <td class=" center ">'.$NAVE.' / '.$NVIAJE.' </td>  
                 <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
                 <td class=" center ">'.$NOMBREORIGEN.'</td>
                 <td class=" center "> '.$NOMBREDESTINO.'</td>
@@ -686,7 +686,7 @@ if ($TEMBARQUE == "2") {
 if ($TEMBARQUE == "3") {
 
  $html=$html.'
-                <td class=" center ">'.$NOMBRETRANSPORTE.' / '.$NVIAJE.' </td>  
+                <td class=" center ">'.$NAVE.' / '.$NVIAJE.' </td>  
                 <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
                 <td class=" center ">'.$NOMBREORIGEN.'</td>
                 <td class=" center "> '.$NOMBREDESTINO.'</td>
@@ -836,11 +836,11 @@ $EXCEL = $reader->loadFromString($html);
 //$reader->setSheetIndex(1);
 //$EXCEL = $reader->loadFromString($secondHtmlString, $EXCEL);
 
-
+/*
 $EXCEL->getActiveSheet()->setAutoFilter(
     $EXCEL->getActiveSheet()
         ->calculateWorksheetDimension()
-);
+);*/
 
 
 //$FORMATO->setCellValue('1', 'Hello World !');
