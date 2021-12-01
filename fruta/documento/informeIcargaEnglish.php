@@ -652,7 +652,7 @@ $html='
         <tr>                       
           <th class="color2 left">Loading place: </th> 
           <td class="color2 left">'.$LUGARDECARGA.'</td>      
-          <th class="color2 left">Seal Number: </th>       
+          <th class="color2 left">Packing seal: </th>       
           <td class="color2 left">'.$NUMEROSELLO.'</td>      
         </tr> 
         <tr>                       

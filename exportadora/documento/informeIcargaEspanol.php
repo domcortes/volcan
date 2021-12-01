@@ -617,7 +617,7 @@ $html='
           <div class="dater"> <b> Consignatario  </b></div>
           <div class="dater"> <b> Nombre: </b>'.$NOMBRECONSIGNATARIO.'  </div>
           <div class="dater"> <b> Direccion: </b>'.$DIRECCIONCONSIGNATARIO.'  </div>
-          <div class="dater"> <b> Id Tributario(EORI): </b>'.$EORICONSIGNATARIO.'  </div>
+          <div class="dater"> <b> Id Tributario: </b>'.$EORICONSIGNATARIO.'  </div>
           <div class="dater"> <b> Telefono / Fax: </b>'.$TELEFONOCONSIGNATARIO.'  </div>
           <div class="dater"> <b> Email: </b>'.$EMAIL1CONSIGNATARIO.'  </div>
         </div> 
@@ -650,7 +650,7 @@ $html='
         <tr>                       
           <th class="color2 left">Lugar Carga: </th> 
           <td class="color2 left">'.$LUGARDECARGA.'</td>      
-          <th class="color2 left">Número Sello: </th>       
+          <th class="color2 left">Sello Planta: </th>       
           <td class="color2 left">'.$NUMEROSELLO.'</td>      
         </tr> 
         <tr>                       
@@ -707,7 +707,7 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Nave: </th> 
              <td class="color2 left">'.$NAVE.'</td>     
-             <th class="color2 left">Flight Number: </th> 
+             <th class="color2 left">Numero Vuelo: </th> 
              <td class="color2 left">'.$NVIAJE.'</td>     
            </tr>    
            ';
@@ -720,7 +720,7 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Nave: </th> 
              <td class="color2 left">'.$NAVE.'</td>   
-             <th class="color2 left">Travel Number: </th> 
+             <th class="color2 left">Numero Viaje: </th> 
              <td class="color2 left">'.$NVIAJE.'</td>       
            </tr>   
            <tr>
