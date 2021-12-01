@@ -158,124 +158,9 @@ $html = '
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Tarja Repaletizaje Producto Terminado </title>
-
-<style type="text/css">	
-	{
-		padding: 0px;
-		border: 0px;
-		margin: 0px;
-	}
-	div.contenido
-	{
-		width: calc(8cm - 22px);
-		height: auto;
-		border: solid 1px rgba(0,0,0,0.5);
-		margin: 0 auto;
-		padding: 2px 0px;
-		overflow: hidden;
-	}
-	div.contenido div.titulo
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 15px;
-		padding: 5px 0px 0px 0px;
-	}
-	div.contenido div.subtitulo
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		font-weight: lighter;
-
-	}
-	div.contenido div.subtitulo2
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 12px;
-		margin-bottom: 5px;
-		text-decoration: underline;
-		text-transform: uppercase;
-		text-align: center;
-		margin-top: 5px;
-		border-top: dotted 1px black;
-		padding-top: 5px;
-	}
-	div.contenido div.info
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 11px;
-		padding: 0px 0px;
-		text-align: justify;
-		padding-left: 10px;
-	}
-	div.contenido div.valor
-	{
-		width: calc(100% - 2px);
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 30px;
-		padding: 5px 0px;
-		text-align: right;
-		border:solid 1px rgba(0,0,0,0.5);
-		overflow: hidden;
-		margin-top: 5px;
-	}
-
-	div.contenido div.valor span
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 16px;
-		padding: 5px 0px;
-		text-align: right;
-	}
-	b{
-		/*text-transform: uppercase;*/
-	}
-	div.contenido div.desc
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		padding: 5px 0px;
-		text-align: justify;
-	}
-	div.contenido div.chip
-	{
-		width: calc(50% - 2px);
-		height: 2cm;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		padding: 5px 0px;
-		text-align: center;
-		line-height: 2cm;
-		float: left;
-		border:solid 1px rgba(0,0,0,0.3);
-	}
-
-</style>
-
+	<meta charset="utf-8">
+	<title>Tarja Repaletizaje Producto Terminado </title>
 </head>
-
 <body>
     
 
@@ -288,6 +173,7 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
 	$ARRAYEXIMATERIAPRIMA = $DREPALETIZAJEEX_ADO->buscarDrepaletizajePorFolio($r['FOLIO_NUEVO_DREPALETIZAJE'], $r['ID_REPALETIZAJE']);
 
 	$ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+
 	if ($r['EMBOLSADO'] == "1") {
 		$EMBOLSADO = "SI";
 	}
@@ -297,57 +183,38 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
 
 
 	$html = $html . '
-    <div class="contenido" style="height:250px!important;">
-		<div class="titulo" style="text-align: center; font-size: 14px; ">
-             <b > 
-                <img src="../vista/img/logo.png" width="100px" height="30px"/>
-             </b>
-             <br>
-            <b> PRODUCTO TERMINADO : </b> <b class="center f14">  ' . $r['FOLIO_NUEVO_DREPALETIZAJE'] . ' </b>	
-		</div>				
-		<div class="subtitulo2"></div>  
-		<br> 
-				
-		<div class="info ">
-			<b> Estandar : </b>  ' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '
-		</div>
-		<div class="info ">
-			<b> Total Envase : </b> ' . $r['ENVASE'] . '
-		</div>
-		<div class="info ">
-			<b> Total Neto : </b>  ' . $r['NETO'] . '
-		</div>
-		<div class="info ">
-			<b>  </b>  
-		</div>  
+    <div class=" " >
+		<div class="titulotarja" style="text-align: center; >
+             <b  "> 
+				 <img src="../vista/img/logo.png" width="90px" height="25px"/>
+             </b><br>
+            <b > 
+				PRODUCTO TERMINADO :   ' . $r['FOLIO_NUEVO_DREPALETIZAJE'] . ' 
+			</b>	
+		</div>							
+		<div class="subtitulotarja " > 
+			&nbsp;<b> Estandar : </b> ' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '<br>
+			&nbsp;<b> Total Envase : </b> ' . $r['ENVASE'] . '<br>
+			&nbsp;<b> Total Neto : </b>   ' . $r['NETO'] . '<br>       
+		</div>	
 ';
-	if (count($ARRAYEXIMATERIAPRIMA) == 1) {
-		$html = $html . '  <br>
-	
-';
-	}
-	$html = $html . '  
-		<div class="subtitulo2"></div>
-        
-  ';
+
+
 
 	$html = $html . '   
   <table border="0" cellspacing="0" cellpadding="0"  >
-    <thead>   
-	  <tr>
-            <th colspan="8" class="center color2"></th>
-      </tr>
-      <tr style="font-size:8px;">
-        <th class=" center">Fecha Embalado</th>
-        <th class=" center ">CSG </th>
-        <th class=" center ">Nombre Productor </th>
-        <th class=" center">Cant. Envase</th>
-        <th class=" center">Kilos Neto</th>
-        <th class=" center ">Embolsado </th>
-        <th class=" center ">Variedad </th>
+    <thead>   	  
+      <tr>
+        <th class="color center">Fecha Embalado</th>
+        <th class="color center ">CSG </th>
+        <th class="color center ">Nombre Productor </th>
+        <th class="color center ">Cant. Envase</th>
+        <th class="color center ">Kilos Neto</th>
+        <th class="color center ">Embolsado </th>
+        <th class="color center ">Variedad </th>
       </tr>
     </thead>
-     <tbody>
+     <tbody >
 	 
     ';
 
@@ -358,7 +225,7 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
 
 		$html = $html . ' 
     <tr >
-        <td class="center"> ' . $s['FECHA'] . '</td>
+        <td  class="center"> ' . $s['FECHA'] . '</td>
         <td  class="center  ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
         <td  class="center  ">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>
         <td  class="center  ">' . $s['ENVASE'] . '</td>
@@ -377,11 +244,8 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
   ';
 
 	$html = $html . '
-		<div class="subtitulo2"></div>       
-        <div class=" center">
-           <b style="font-size: 10px;">  ' . $EMPRESA . ' </b>
-        </div>
-      </div>  
+	
+</div>  
 	  <div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
 
 
@@ -437,30 +301,24 @@ $PDF = new \Mpdf\Mpdf(['format' => [150, 100]]);
 //$mpdf=new mPDF('utf-8','Letter');
 //$mpdf=new mPDF('utf-8','150mm 150mm');
 //$mpdf=new mPDF('utf-8','11.69in 8.27in');
-/*
+
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-            </tr>
-        </tbody>
-    </table>
-    <br>
+   
     
 ');
 
 $PDF->SetHTMLFooter('
 
 
-    <table width="100%" >
-        <tbody>
-            <tr>
-            </tr>
-        </tbody>
-    </table>
+    
+<footer>
+<div class="" style="text-align: center;  ">
+	<b>' . $EMPRESA . '.</b> 
+  </div>
+</footer>
     
 ');
-*/
+
 $PDF->SetTitle($TIPOINFORME); //titulo pdf
 $PDF->SetCreator($CREADOR); //CREADOR PDF
 $PDF->SetAuthor($AUTOR); //AUTOR PDF
@@ -472,9 +330,9 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 
-$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
-$PDF->WriteHTML($stylesheet, 1);
+$stylesheet1 = file_get_contents('../../assest/css/styleTarja.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
+$PDF->WriteHTML($stylesheet1, 1);
 $PDF->WriteHTML($stylesheet2, 1);
 $PDF->WriteHTML($html);
 //$PDF->Output();
