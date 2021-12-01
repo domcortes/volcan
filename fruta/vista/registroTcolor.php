@@ -47,7 +47,7 @@ $ARRAYTCOLORID2 = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYTCOLOR = $TCOLOR_ADO->listarTcolorCBX();
+$ARRAYTCOLOR = $TCOLOR_ADO->listarTcolorPorEmpresaCBX($EMPRESAS);
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 
@@ -57,9 +57,15 @@ include_once "../config/datosUrl.php";
 if (isset($_REQUEST['GUARDAR'])) {
 
 
+    $ARRAYNUMERO = $TCOLOR_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $TCOLOR->__SET('NUMERO_TCOLOR', $NUMERO);
     $TCOLOR->__SET('NOMBRE_TCOLOR', $_REQUEST['NOMBRETCOLOR']);
+    $TCOLOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TCOLOR->__SET('ID_USUARIOI', $IDUSUARIOS);
     $TCOLOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -71,11 +77,11 @@ if (isset($_REQUEST['GUARDAR'])) {
 if (isset($_REQUEST['EDITAR'])) {
 
 
-
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
 
     $TCOLOR->__SET('NOMBRE_TCOLOR', $_REQUEST['NOMBRETCOLOR']);
+    $TCOLOR->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TCOLOR->__SET('ID_USUARIOM', $IDUSUARIOS);
     $TCOLOR->__SET('ID_TCOLOR', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
@@ -295,6 +301,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <div class="form-group">
                                                 <label>Nombre </label>
                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                 <input type="text" class="form-control" placeholder="Nombre Tipo Recepcion" id="NOMBRETCOLOR" name="NOMBRETCOLOR" value="<?php echo $NOMBRETCOLOR; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_nombre" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                             </div>
@@ -329,7 +336,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Número </th>
                                                         <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
@@ -339,7 +346,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_TCOLOR']; ?>
+                                                                    <?php echo $r['NUMERO_TCOLOR']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_TCOLOR']; ?></td>

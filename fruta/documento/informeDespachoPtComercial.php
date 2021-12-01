@@ -23,6 +23,9 @@ include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/PROVINCIA_ADO.php';
 include_once '../controlador/COMUNA_ADO.php';
 include_once '../controlador/CIUDAD_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../controlador/TRANSPORTE_ADO.php';
 
 
 
@@ -56,6 +59,9 @@ $TMANEJO_ADO =  new TMANEJO_ADO();
 $PROVINCIA_ADO =  new PROVINCIA_ADO();
 $COMUNA_ADO =  new COMUNA_ADO();
 $CIUDAD_ADO =  new CIUDAD_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TRANSPORTE_ADO =  new TRANSPORTE_ADO();
+$CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -209,6 +215,10 @@ if($ARRAYDESPACHOEX){
   $FECHAETA= $ARRAYDESPACHOEX[0]['ETA'];
   $FECHAETD= $ARRAYDESPACHOEX[0]['ETD'];  
   $ESTADO = $ARRAYDESPACHOEX[0]['ESTADO'];
+  $PATENTECAMION = $ARRAYDESPACHOEX[0]['PATENTE_CAMION'];
+  $PATENTECARRO = $ARRAYDESPACHOEX[0]['PATENTE_CARRO'];
+  $OBSERVACIONES = $ARRAYDESPACHOEX[0]['OBSERVACION_DESPACHOEX'];
+  
   if ($ARRAYDESPACHOEX[0]['ESTADO'] == 1) {
     $ESTADO = "Abierto";
   }else if ($ARRAYDESPACHOEX[0]['ESTADO'] == 0) {
@@ -216,6 +226,22 @@ if($ARRAYDESPACHOEX){
   }else{
     $ESTADO="Sin Datos";
   }  
+
+  
+  $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYDESPACHOEX[0]['ID_TRANSPORTE']);
+  if($ARRAYTRANSPORTE){
+    $TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+  }else{
+    $TRANSPORTE="Sin Datos";
+  }
+  $ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYDESPACHOEX[0]['ID_CONDUCTOR']);
+  if($ARRAYCONDUCTOR){
+    $CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+  }else{
+    $CONDUCTOR="Sin Datos";
+  }
+  
+
   $ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->verContraparte($ARRAYDESPACHOEX[0]['ID_CONTRAPARTE']);
   if($ARRAYCONTRAPARTE){
       $NOMBRECONTRAPARTE = $ARRAYCONTRAPARTE[0]['ID_CONTRAPARTE'];
@@ -552,15 +578,25 @@ $html = $html . '
       ';
 
 $html = $html . '
+<br>&nbsp;<br><br><br><br>
       <div id="details" class="clearfix">
         <div id="client">
-          <div class="address"><b></b></div>
-          <div class="address"> </div>
-          <div class="address"></div>
-          <div class="address"></div>
-          <div class="address"></div>
+          <div class="address"><b>Informacion De Transporte</b></div>
+          <div class="address">Empresa Transporte:  ' . $TRANSPORTE . ' </div>
+          <div class="address">Conductor: ' . $CONDUCTOR . '</div>
+          <div class="address">Patente Camión: ' . $PATENTECAMION . '</div>
+          <div class="address">Patente Carro: ' . $PATENTECARRO . '</div>
         </div>
-      </div> 
+        <div id="client">
+          <div class="address"><b>Observaciones</b></div>
+          <div class="address">  ' . $OBSERVACIONES . ' </div>
+        </div>
+        <div id="invoice">
+          <div class="date"><b><hr></b></div>
+          <div class="date center">  Firma Contraparte <br> o <br> Despachador Autorizado</div>
+          <div class="date center">  </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>

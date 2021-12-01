@@ -10,7 +10,9 @@
         private	  $ID_CONSIGNATARIO; 
         private	  $NUMERO_CONSIGNATARIO;
         private	  $NOMBRE_CONSIGNATARIO;
+        private	  $EORI_CONSIGNATARIO;
         private	  $DIRECCION_CONSIGNATARIO;
+        private	  $TELEFONO_CONSIGNATARIO;
         private   $CONTACTO1_CONSIGNATARIO;
         private   $CARGO1_CONSIGNATARIO;
         private   $EMAIL1_CONSIGNATARIO;

@@ -47,7 +47,7 @@ $ARRAYTTRATAMIENTOID2 = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-$ARRAYTTRATAMIENTO = $TTRATAMIENTO2_ADO->listarTtratamientoCBX();
+$ARRAYTTRATAMIENTO = $TTRATAMIENTO2_ADO->listarTtratamientoPorEmpresaCBX($EMPRESAS);
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 
@@ -57,15 +57,20 @@ include_once "../config/datosUrl.php";
 if (isset($_REQUEST['GUARDAR'])) {
 
 
+    $ARRAYNUMERO = $TTRATAMIENTO2_ADO->obtenerNumero($_REQUEST['EMPRESA']);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $TTRATAMIENTO2->__SET('NUMERO_TTRATAMIENTO', $NUMERO);
     $TTRATAMIENTO2->__SET('NOMBRE_TTRATAMIENTO', $_REQUEST['NOMBRETTRATAMIENTO']);
+    $TTRATAMIENTO2->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TTRATAMIENTO2->__SET('ID_USUARIOI', $IDUSUARIOS);
     $TTRATAMIENTO2->__SET('ID_USUARIOM', $IDUSUARIOS);
     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
     $TTRATAMIENTO2_ADO->agregarTtratamiento($TTRATAMIENTO2);
-    //REDIRECCIONAR A PAGINA registroTtratamiento1.php
-    echo "<script type='text/javascript'> location.href ='registroTtratamiento1.php';</script>";
+    //REDIRECCIONAR A PAGINA registroTtratamiento2.php
+    echo "<script type='text/javascript'> location.href ='registroTtratamiento2.php';</script>";
 }
 //OPERACION DE EDICION DE FILA
 if (isset($_REQUEST['EDITAR'])) {
@@ -76,12 +81,13 @@ if (isset($_REQUEST['EDITAR'])) {
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
 
     $TTRATAMIENTO2->__SET('NOMBRE_TTRATAMIENTO', $_REQUEST['NOMBRETTRATAMIENTO']);
+    $TTRATAMIENTO2->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $TTRATAMIENTO2->__SET('ID_USUARIOM', $IDUSUARIOS);
     $TTRATAMIENTO2->__SET('ID_TTRATAMIENTO', $_REQUEST['ID']);
     //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
     $TTRATAMIENTO2_ADO->actualizarTtratamiento($TTRATAMIENTO2);
-    //REDIRECCIONAR A PAGINA registroTtratamiento1.php
-    echo "<script type='text/javascript'> location.href ='registroTtratamiento1.php';</script>";
+    //REDIRECCIONAR A PAGINA registroTtratamiento2.php
+    echo "<script type='text/javascript'> location.href ='registroTtratamiento2.php';</script>";
 }
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -100,14 +106,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         $TTRATAMIENTO2->__SET('ID_TTRATAMIENTO', $IDOP);
         $TTRATAMIENTO2_ADO->deshabilitar($TTRATAMIENTO2);
 
-        echo "<script type='text/javascript'> location.href ='registroTtratamiento1.php';</script>";
+        echo "<script type='text/javascript'> location.href ='registroTtratamiento2.php';</script>";
     }
     //1 = ACTIVAR
     if ($OP == "1") {
 
         $BODEGA->__SET('ID_TTRATAMIENTO', $IDOP);
         $TTRATAMIENTO2_ADO->habilitar($TTRATAMIENTO2);
-        echo "<script type='text/javascript'> location.href ='registroTtratamiento1.php';</script>";
+        echo "<script type='text/javascript'> location.href ='registroTtratamiento2.php';</script>";
     }
     //editar =  OBTENCION DE DATOS PARA LA EDICION DE REGISTRO
 
@@ -248,7 +254,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page"> Mantenedores </li>
                                             <li class="breadcrumb-item" aria-current="page"> Tipo </li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroTtratamiento1.php">Operaciones Tipo Tratamiento 2 </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="registroTtratamiento2.php">Operaciones Tipo Tratamiento 2 </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -295,6 +301,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <div class="form-group">
                                                 <label>Nombre </label>
                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                 <input type="text" class="form-control" placeholder="Nombre Tipo Recepcion" id="NOMBRETTRATAMIENTO" name="NOMBRETTRATAMIENTO" value="<?php echo $NOMBRETTRATAMIENTO; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_nombre" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                             </div>
@@ -302,7 +309,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroTtratamiento1.php'); ">
+                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroTtratamiento2.php'); ">
                                                 <i class="ti-trash"></i> Cancelar
                                             </button>
                                             <?php if ($OP != "editar") { ?>
@@ -329,7 +336,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
-                                                        <th>Id </th>
+                                                        <th>Número </th>
                                                         <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
@@ -339,7 +346,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_TTRATAMIENTO']; ?>
+                                                                    <?php echo $r['NUMERO_TTRATAMIENTO']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_TTRATAMIENTO']; ?></td>
@@ -352,7 +359,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                             </a>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_TTRATAMIENTO']; ?>" />
-                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroTtratamiento1" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroTtratamiento2" />
                                                                                 <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
                                                                                     <i class="ti-eye"></i>
                                                                                 </button>Ver

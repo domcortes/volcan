@@ -122,6 +122,13 @@ class DICARGA_ADO
     {
         try {
 
+            if ($DICARGA->__GET('ID_TMONEDA') == NULL) {
+                $DICARGA->__SET('ID_TMONEDA', NULL);
+            }
+            if ($DICARGA->__GET('ID_TMANEJO') == NULL) {
+                $DICARGA->__SET('ID_TMANEJO', NULL);
+            }
+
             $query =
                 "INSERT INTO fruta_dicarga 
                                         (
@@ -132,6 +139,8 @@ class DICARGA_ADO
                                             TOTAL_PRECIO_US_DICARGA, 
                                             ID_ESTANDAR,  
                                             ID_TCALIBRE, 
+                                            ID_TMONEDA, 
+                                            ID_TMANEJO, 
                                             ID_ICARGA, 
                                             INGRESO, 
                                             MODIFICACION, 
@@ -139,7 +148,7 @@ class DICARGA_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(),SYSDATE(), 1, 1);";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -151,6 +160,8 @@ class DICARGA_ADO
                         $DICARGA->__GET('TOTAL_PRECIO_US_DICARGA'),
                         $DICARGA->__GET('ID_ESTANDAR'),
                         $DICARGA->__GET('ID_TCALIBRE'),
+                        $DICARGA->__GET('ID_TMONEDA'),
+                        $DICARGA->__GET('ID_TMANEJO'),
                         $DICARGA->__GET('ID_ICARGA')
 
                     )
@@ -178,6 +189,13 @@ class DICARGA_ADO
     public function actualizarDicarga(DICARGA $DICARGA)
     {
 
+        
+        if ($DICARGA->__GET('ID_TMONEDA') == NULL) {
+            $DICARGA->__SET('ID_TMONEDA', NULL);
+        }
+        if ($DICARGA->__GET('ID_TMANEJO') == NULL) {
+            $DICARGA->__SET('ID_TMANEJO', NULL);
+        }
         try {
             $query = "
                     UPDATE fruta_dicarga SET
@@ -188,6 +206,8 @@ class DICARGA_ADO
                         TOTAL_PRECIO_US_DICARGA = ?,
                         ID_ESTANDAR = ?,
                         ID_TCALIBRE= ?,
+                        ID_TMONEDA= ?,
+                        ID_TMANEJO= ?,
                         ID_ICARGA= ?
                     WHERE ID_DICARGA = ?  ;";
             $this->conexion->prepare($query)
@@ -201,6 +221,8 @@ class DICARGA_ADO
                         $DICARGA->__GET('TOTAL_PRECIO_US_DICARGA'),
                         $DICARGA->__GET('ID_ESTANDAR'),
                         $DICARGA->__GET('ID_TCALIBRE'),
+                        $DICARGA->__GET('ID_TMONEDA'),
+                        $DICARGA->__GET('ID_TMANEJO'),
                         $DICARGA->__GET('ID_ICARGA'),
                         $DICARGA->__GET('ID_DICARGA')
 
@@ -219,9 +241,43 @@ class DICARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_dicarga 
-                                        WHERE ID_ICARGA = '" . $IDICARGA . "'  
-                                        AND ESTADO_REGISTRO = 1;	");
+            $datos = $this->conexion->prepare("SELECT *, 
+                                                IFNULL(CANTIDAD_ENVASE_DICARGA,0)AS 'ENVASE',
+                                                IFNULL(KILOS_NETO_DICARGA,0)AS 'NETO',
+                                                IFNULL(KILOS_BRUTO_DICARGA,0) AS 'BRUTO',
+                                                IFNULL(PRECIO_US_DICARGA,0) AS 'US',
+                                                IFNULL(TOTAL_PRECIO_US_DICARGA,0) AS 'TOTALUS'
+            
+                                                 FROM fruta_dicarga 
+                                                WHERE ID_ICARGA = '" . $IDICARGA . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function buscarPorIcarga2($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, 
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_DICARGA,0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(KILOS_NETO_DICARGA,0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(KILOS_BRUTO_DICARGA,0),2,'de_DE') AS 'BRUTO',
+                                                    FORMAT(IFNULL(PRECIO_US_DICARGA,0),2,'de_DE') AS 'US',
+                                                    FORMAT(IFNULL(TOTAL_PRECIO_US_DICARGA,0),2,'de_DE') AS 'TOTALUS'
+                                                FROM fruta_dicarga 
+                                                WHERE ID_ICARGA = '" . $IDICARGA . "'  
+                                                AND ESTADO_REGISTRO = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;

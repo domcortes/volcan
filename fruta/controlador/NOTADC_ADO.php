@@ -163,7 +163,6 @@ class NOTADC_ADO
                                                 ID_ICARGA,  
 
                                                 ID_EMPRESA, 
-                                                ID_PLANTA, 
                                                 ID_TEMPORADA, 
                                                 ID_USUARIOI, 
                                                 ID_USUARIOM, 
@@ -174,7 +173,7 @@ class NOTADC_ADO
                                                 ESTADO_REGISTRO
                                             )
              VALUES
-               ( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,     SYSDATE(),  SYSDATE(),  1, 1);";
+               ( ?, ?, ?, ?, ?,     ?, ?, ?, ?,     SYSDATE(),  SYSDATE(),  1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
@@ -186,7 +185,6 @@ class NOTADC_ADO
                         $NOTADC->__GET('ID_ICARGA'),
 
                         $NOTADC->__GET('ID_EMPRESA'),
-                        $NOTADC->__GET('ID_PLANTA'),
                         $NOTADC->__GET('ID_TEMPORADA'),
                         $NOTADC->__GET('ID_USUARIOI'),
                         $NOTADC->__GET('ID_USUARIOM')
@@ -226,7 +224,6 @@ class NOTADC_ADO
                         ID_ICARGA = ?,
 
                         ID_EMPRESA = ?,
-                        ID_PLANTA = ?, 
                         ID_TEMPORADA = ?, 
                         ID_USUARIOM = ? 
 
@@ -240,7 +237,6 @@ class NOTADC_ADO
                         $NOTADC->__GET('ID_ICARGA'),
 
                         $NOTADC->__GET('ID_EMPRESA'),
-                        $NOTADC->__GET('ID_PLANTA'),
                         $NOTADC->__GET('ID_TEMPORADA'),
                         $NOTADC->__GET('ID_USUARIOM'),
 
@@ -340,7 +336,7 @@ class NOTADC_ADO
 
 
     //LISTAR
-    public function listarNotaEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    public function listarNotaEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
     {
         try {
 
@@ -350,7 +346,6 @@ class NOTADC_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                         FROM fruta_notadc                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                        AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -366,7 +361,7 @@ class NOTADC_ADO
         }
     }
     
-    public function listarNotaEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
+    public function listarNotaEmpresaPlantaTemporadaCBX2($EMPRESA,  $TEMPORADA)
     {
         try {
 
@@ -376,7 +371,6 @@ class NOTADC_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                         FROM fruta_notadc                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                        AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -399,7 +393,7 @@ class NOTADC_ADO
     //OTRAS FUNCIONALIDADES
 
     //CONSULTA PARA OBTENER LA FILA EN EL MISMO MOMENTO DE REGISTRAR LA FILA
-    public function obtenerId($FECHANOTADC, $EMPRESA, $PLANTA, $TEMPORADA)
+    public function obtenerId($FECHANOTADC, $EMPRESA,  $TEMPORADA)
     {
         try {
             $datos = $this->conexion->prepare(" SELECT *
@@ -409,7 +403,6 @@ class NOTADC_ADO
                                              AND DATE_FORMAT(INGRESO, '%Y-%m-%d %H:%i') =  DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i') 
                                              AND DATE_FORMAT(MODIFICACION, '%Y-%m-%d %H:%i') = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')   
                                              AND ID_EMPRESA = '" . $EMPRESA . "'                                      
-                                             AND ID_PLANTA = '" . $PLANTA . "'                                      
                                              AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                              ORDER BY ID_NOTA DESC
                                             
@@ -447,14 +440,13 @@ class NOTADC_ADO
         }
     }
 
-    public function obtenerNumero($EMPRESA, $PLANTA, $TEMPORADA)
+    public function obtenerNumero($EMPRESA,  $TEMPORADA)
     {
         try {
             $datos = $this->conexion->prepare(" SELECT  COUNT(IFNULL(NUMERO_NOTA,0)) AS 'NUMERO'
                                             FROM fruta_notadc
                                             WHERE  
                                                 ID_EMPRESA = '" . $EMPRESA . "' 
-                                            AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'     
                                                 ; ");
             $datos->execute();

@@ -113,6 +113,12 @@ class EXIEXPORTACION_ADO
             if ($EXIEXPORTACION->__GET('ID_PLANTA2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_PLANTA2', NULL);
             }
+            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (
                                                     FOLIO_EXIEXPORTACION,
@@ -135,6 +141,8 @@ class EXIEXPORTACION_ADO
                                                     ID_TCALIBRE,
                                                     ID_TEMBALAJE,
                                                     ID_TMANEJO,
+                                                    ID_TCATEGORIA,
+                                                    ID_TCOLOR,
                                                     ID_FOLIO,
                                                     ID_ESTANDAR, 
                                                     ID_PRODUCTOR,
@@ -149,7 +157,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, SYSDATE(),SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -174,6 +182,8 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_TCALIBRE'),
                         $EXIEXPORTACION->__GET('ID_TEMBALAJE'),
                         $EXIEXPORTACION->__GET('ID_TMANEJO'),
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
+                        $EXIEXPORTACION->__GET('ID_TCOLOR'),
                         $EXIEXPORTACION->__GET('ID_FOLIO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
@@ -358,6 +368,12 @@ class EXIEXPORTACION_ADO
     {
         try {
 
+            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (                    
                                                     FOLIO_EXIEXPORTACION,
@@ -382,6 +398,8 @@ class EXIEXPORTACION_ADO
                                                     ID_TCALIBRE,  
                                                     ID_TEMBALAJE,
                                                     ID_TMANEJO,
+                                                    ID_TCATEGORIA,
+                                                    ID_TCOLOR,
                                                     ID_FOLIO,
                                                     ID_ESTANDAR,
                                                     ID_PRODUCTOR,   
@@ -395,7 +413,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?,     SYSDATE(), 2, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?,     SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -422,6 +440,8 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_TCALIBRE'),
                         $EXIEXPORTACION->__GET('ID_TEMBALAJE'),
                         $EXIEXPORTACION->__GET('ID_TMANEJO'),
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
+                        $EXIEXPORTACION->__GET('ID_TCOLOR'),
                         $EXIEXPORTACION->__GET('ID_FOLIO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
@@ -583,6 +603,12 @@ class EXIEXPORTACION_ADO
             if ($EXIEXPORTACION->__GET('ID_PLANTA2') == NULL) {
                 $EXIEXPORTACION->__SET('ID_PLANTA2', NULL);
             }
+            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
+            if ($EXIEXPORTACION->__GET('ID_TCOLOR') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCOLOR', NULL);
+            }
             $query = "
                 UPDATE fruta_exiexportacion SET
                     MODIFICACION = SYSDATE(),
@@ -601,6 +627,8 @@ class EXIEXPORTACION_ADO
                     ID_TCALIBRE = ? ,
                     ID_TEMBALAJE = ? ,  
                     ID_TMANEJO = ? , 
+                    ID_TCATEGORIA = ? , 
+                    ID_TCOLOR = ? , 
                     ID_ESTANDAR = ?, 
                     ID_PRODUCTOR = ?,
                     ID_VESPECIES = ?,
@@ -629,6 +657,8 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_TCALIBRE'),
                         $EXIEXPORTACION->__GET('ID_TEMBALAJE'),
                         $EXIEXPORTACION->__GET('ID_TMANEJO'),
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
+                        $EXIEXPORTACION->__GET('ID_TCOLOR'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),

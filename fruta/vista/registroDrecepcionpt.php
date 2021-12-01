@@ -102,7 +102,8 @@ $DISABLED3 = "";
 $DISABLEDSTYLE = "";
 $DISABLEDSTYLE2 = "";
 $DISABLEDSTYLE3 = "";
-
+$SINO2="";
+$SINO="";
 $IDOP = "";
 $IDOP2 = "";
 $OP = "";
@@ -137,8 +138,8 @@ $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 $ARRAYTCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 
-$ARRAYTCATEGORIA=$TCATEGORIA_ADO->listarTcategoriaCBX();;
-$ARRAYTCOLOR=$TCOLOR_ADO->listarTcolorCBX();
+$ARRAYTCATEGORIA=$TCATEGORIA_ADO->listarTcategoriaPorEmpresaCBX($EMPRESAS);
+$ARRAYTCOLOR=$TCOLOR_ADO->listarTcolorPorEmpresaCBX($EMPRESAS);
 
 $ARRAYFECHAACTUAL = $DRECEPCIONPT_ADO->obtenerFecha();
 $FECHAEMBALADORECEPCION = $ARRAYFECHAACTUAL[0]['FECHA'];
@@ -1147,7 +1148,7 @@ if ($_POST) {
                                         <?php if ($CATEGORIAESTANDAR == "1") { ?>
                                             <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label>Tippo Categoria</label>
+                                                    <label>Tipo Categoria</label>
                                                     <input type="hidden" id="TCATEGORIAE" name="TCATEGORIAE" value="<?php echo $TCATEGORIA; ?>" />                                                   
                                                     <select class="form-control select2" id="TCATEGORIA" name="TCATEGORIA" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                         <option></option>
@@ -1310,6 +1311,168 @@ if ($_POST) {
                     $CANTIDADENVASERECIBIDO = $_REQUEST['CANTIDADENVASERECIBIDO'];
                     $CANTIDADENVASERECHAZADO = $_REQUEST['CANTIDADENVASERECHAZADO'];
                     $CANTIDADENVASEAPROBADO = $CANTIDADENVASERECIBIDO - $CANTIDADENVASERECHAZADO;
+                    if($CANTIDADENVASEAPROBADO<=0){
+                        $SINO2="1";
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        $_SESSION["dparametro"] =  $_REQUEST['ID'];                   
+                        echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"La cantidad de envases aprobados debe ser mayor que zero.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                                }).then((result)=>{
+                                    location.href ="registroDrecepcionpt.php?op";                       
+                                })
+                            </script>';                    
+                    }else{
+                        $SINO2="0"; 
+                    }                    
+                    if($SINO2=="0"){        
+                        $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['ESTANDAR']);
+                        if ($ARRAYVERESTANDAR) {
+                            $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
+                            $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
+                            $EMBOLSADO = $ARRAYVERESTANDAR[0]['EMBOLSADO'];
+                            $TEMBALAJE = $ARRAYVERESTANDAR[0]['ID_TEMBALAJE'];
+                            $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
+                            $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                            $KILOSNETODRECEPCION = $CANTIDADENVASEAPROBADO * $PESONETOEESTANDAR;
+                            $KILOSDESHIDRATACION = $KILOSNETODRECEPCION * (1 + ($PDESHIDRATACIONEESTANDAR / 100));
+                            $KILOSBRUTORECEPCION = (($CANTIDADENVASEAPROBADO * $PESOENVASEESTANDAR) + $KILOSDESHIDRATACION) + $PESOPALLETEESTANDAR;
+                        }
+        
+
+                        $DRECEPCIONPT->__SET('FOLIO_DRECEPCION', $NUMEROFOLIODRECEPCION);
+                        $DRECEPCIONPT->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                        $DRECEPCIONPT->__SET('FECHA_EMBALADO_DRECEPCION', $_REQUEST['FECHAEMBALADORECEPCION']);
+                        $DRECEPCIONPT->__SET('CANTIDAD_ENVASE_RECIBIDO_DRECEPCION', $_REQUEST['CANTIDADENVASERECIBIDO']);
+                        $DRECEPCIONPT->__SET('CANTIDAD_ENVASE_RECHAZADO_DRECEPCION', $_REQUEST['CANTIDADENVASERECHAZADO']);
+                        $DRECEPCIONPT->__SET('CANTIDAD_ENVASE_APROBADO_DRECEPCION', $CANTIDADENVASEAPROBADO);
+                        $DRECEPCIONPT->__SET('KILOS_NETO_REAL_DRECEPCION', $_REQUEST['KILOSNETOREAL']);
+
+                        $DRECEPCIONPT->__SET('KILOS_NETO_DRECEPCION', $KILOSNETODRECEPCION);
+                        $DRECEPCIONPT->__SET('KILOS_BRUTO_DRECEPCION', $KILOSBRUTORECEPCION);
+                        $DRECEPCIONPT->__SET('PDESHIDRATACION_DRECEPCION', $PDESHIDRATACIONEESTANDAR);
+                        $DRECEPCIONPT->__SET('KILOS_DESHIDRATACION_DRECEPCION', $KILOSDESHIDRATACION);
+
+                        $DRECEPCIONPT->__SET('EMBOLSADO_DRECEPCION', $_REQUEST['EMBOLSADO']);
+                        $DRECEPCIONPT->__SET('TEMPERATURA_DRECEPCION', $_REQUEST['TEMPERATURA']);
+                        if($_REQUEST['STOCKESTANDAR']==1){
+                            $DRECEPCIONPT->__SET('STOCK_DRECEPCION', $_REQUEST['STOCK']);
+                        }
+                        if($_REQUEST['CATEGORIAESTANDAR']==1){
+                            $DRECEPCIONPT->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                        }
+                        if($_REQUEST['COLORESTANDAR']==1){
+                            $DRECEPCIONPT->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                        }                    
+                        $DRECEPCIONPT->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
+                        $DRECEPCIONPT->__SET('PREFRIO_DRECEPCION', $_REQUEST['PREFRIO']);
+                        $DRECEPCIONPT->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
+                        $DRECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                        $DRECEPCIONPT->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
+                        $DRECEPCIONPT->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                        $DRECEPCIONPT->__SET('ID_FOLIO', $FOLIO);
+                        $DRECEPCIONPT->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
+                        $DRECEPCIONPT->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                        $DRECEPCIONPT->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
+                        $DRECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $DRECEPCIONPT_ADO->agregarDrecepcion($DRECEPCIONPT);
+
+                        $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
+                        $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
+                        $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                        $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
+                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
+
+                        $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
+                        $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
+                        $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHIDRATACIONEESTANDAR);
+                        $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACION);
+
+                        $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $_REQUEST['NOTADRECEPCION']);
+                        $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $FOLIOALIASDIANAMICO);
+                        $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $FOLIOALIASESTACTICO);
+                        $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                        if($_REQUEST['STOCKESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                        }
+                        if($_REQUEST['CATEGORIAESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                        }
+                        if($_REQUEST['COLORESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                        }  
+                        $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+                        $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
+                        $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
+                        $EXIEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
+                        $EXIEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
+                        $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                        $EXIEXPORTACION->__SET('ID_FOLIO',  $FOLIO);
+                        $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                        $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                        $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                        $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                        $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                        $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                        $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        if ($_REQUEST['TRECEPCION'] == 2) {
+                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+                        }
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
+                        
+                        //REDIRECCIONAR A PAGINA registroRecepcionmp.php
+                        $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                        echo '<script>
+                            Swal.fire({
+                                icon:"success",
+                                title:"Registro creado",
+                                text:"El registro de detalle de recepción se ha creado correctamente",
+                                showConfirmButton:true,
+                                confirmButtonText:"Volver a recepcion"
+                            }).then((result)=>{
+                                location.href ="' . $_REQUEST['URLO'] . '.php?op";                            
+                            })
+                        </script>';   
+                        // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
+                    }
+                }
+            }
+            if (isset($_REQUEST['EDITAR'])) {
+                $CANTIDADENVASERECIBIDO = $_REQUEST['CANTIDADENVASERECIBIDO'];
+                $CANTIDADENVASERECHAZADO = $_REQUEST['CANTIDADENVASERECHAZADO'];
+               
+                $CANTIDADENVASEAPROBADO = $CANTIDADENVASERECIBIDO - $CANTIDADENVASERECHAZADO;
+           
+                if($CANTIDADENVASEAPROBADO<=0){
+                    $SINO="1";  
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    $_SESSION["dparametro"] =  $_REQUEST['ID'];                   
+                    echo '<script>
+                    Swal.fire({
+                        icon:"warning",
+                        title:"Accion restringida",
+                        text:"La cantidad de envases aprobados debe ser mayor que zero. ",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                            }).then((result)=>{
+                               // location.href ="registroDrecepcionpt.php?op";                       
+                            })
+                        </script>';                    
+                }else{
+                    $SINO="0";   
+                }
+                if($SINO=="0"){      
                     $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['ESTANDAR']);
                     if ($ARRAYVERESTANDAR) {
                         $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
@@ -1322,10 +1485,7 @@ if ($_POST) {
                         $KILOSDESHIDRATACION = $KILOSNETODRECEPCION * (1 + ($PDESHIDRATACIONEESTANDAR / 100));
                         $KILOSBRUTORECEPCION = (($CANTIDADENVASEAPROBADO * $PESOENVASEESTANDAR) + $KILOSDESHIDRATACION) + $PESOPALLETEESTANDAR;
                     }
-    
 
-                    $DRECEPCIONPT->__SET('FOLIO_DRECEPCION', $NUMEROFOLIODRECEPCION);
-                    $DRECEPCIONPT->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
                     $DRECEPCIONPT->__SET('FECHA_EMBALADO_DRECEPCION', $_REQUEST['FECHAEMBALADORECEPCION']);
                     $DRECEPCIONPT->__SET('CANTIDAD_ENVASE_RECIBIDO_DRECEPCION', $_REQUEST['CANTIDADENVASERECIBIDO']);
                     $DRECEPCIONPT->__SET('CANTIDAD_ENVASE_RECHAZADO_DRECEPCION', $_REQUEST['CANTIDADENVASERECHAZADO']);
@@ -1347,231 +1507,135 @@ if ($_POST) {
                     }
                     if($_REQUEST['COLORESTANDAR']==1){
                         $DRECEPCIONPT->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
-                    }                    
+                    }
+                    
                     $DRECEPCIONPT->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
                     $DRECEPCIONPT->__SET('PREFRIO_DRECEPCION', $_REQUEST['PREFRIO']);
                     $DRECEPCIONPT->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
                     $DRECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                     $DRECEPCIONPT->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
                     $DRECEPCIONPT->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-                    $DRECEPCIONPT->__SET('ID_FOLIO', $FOLIO);
                     $DRECEPCIONPT->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
                     $DRECEPCIONPT->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
                     $DRECEPCIONPT->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
                     $DRECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    $DRECEPCIONPT->__SET('ID_DRECEPCION', $_REQUEST['ID']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $DRECEPCIONPT_ADO->agregarDrecepcion($DRECEPCIONPT);
+                    $DRECEPCIONPT_ADO->actualizarDrecepcion($DRECEPCIONPT);
 
-                    $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
-                    $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
-                    $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-                    $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
-                    $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
 
-                    $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
-                    $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
-                    $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHIDRATACIONEESTANDAR);
-                    $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACION);
+                    $ARRAYVERFOLIOEXISTENCIA = $EXIEXPORTACION_ADO->buscarPorRecepcionNumeroFolio($_REQUEST['IDP'], $_REQUEST['NUMEROFOLIODRECEPCIONE']);
 
-                    $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $_REQUEST['NOTADRECEPCION']);
-                    $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $FOLIOALIASDIANAMICO);
-                    $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $FOLIOALIASESTACTICO);
-                    $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                    if($_REQUEST['STOCKESTANDAR']==1){
-                        $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                    if ($ARRAYVERFOLIOEXISTENCIA) {
+                        $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
+                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
+
+                        $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
+                        $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
+                        $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHIDRATACIONEESTANDAR);
+                        $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACION);
+
+                        $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $_REQUEST['NOTADRECEPCION']);
+                        $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                        if($_REQUEST['STOCKESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                        }
+                        if($_REQUEST['CATEGORIAESTANDAR']==1){  
+                            $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                        }
+                        if($_REQUEST['COLORESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                        }
+                        $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+                        $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
+                        $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
+                        $EXIEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
+                        $EXIEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
+                        $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                        $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                        $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                        $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                        $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                        $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                        $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                        $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        if ($_REQUEST['TRECEPCION'] == 2) {
+                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+                        }
+                        $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIEXPORTACION"]);
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                        $EXIEXPORTACION_ADO->actualizarExiexportacionRecepcion($EXIEXPORTACION);
+                    } else {
+                        $NUMEROFOLIODRECEPCION = $_REQUEST["NUMEROFOLIODRECEPCIONE"];
+                        $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
+                        $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
+                            "_TIPO_FOLIO:MATERIA PRIMA_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
+                        if ($_REQUEST["FOLIOMANUALE"] != "on") {
+                            $FOLIOMANUALR = "0";
+                        }
+                        if ($_REQUEST["FOLIOMANUALE"] == "on") {
+                            $FOLIOMANUALR = "1";
+                        }
+                        $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
+                        $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
+                        $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
+                        $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
+                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
+
+                        $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
+                        $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
+                        $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHIDRATACIONEESTANDAR);
+                        $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACION);
+
+                        $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $_REQUEST['NOTADRECEPCION']);
+                        $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $FOLIOALIASDIANAMICO);
+                        $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $FOLIOALIASESTACTICO);
+                        $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
+                        if($_REQUEST['STOCKESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                        }
+                        if($_REQUEST['CATEGORIAESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                        }
+                        if($_REQUEST['COLORESTANDAR']==1){
+                            $EXIEXPORTACION->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
+                        }
+                        $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+                        $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
+                        $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
+                        $EXIEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
+                        $EXIEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
+                        $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+                        $EXIEXPORTACION->__SET('ID_FOLIO',   $_REQUEST['FOLIO']);
+                        $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                        $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                        $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                        $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                        $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                        $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                        $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        if ($_REQUEST['TRECEPCION'] == 2) {
+                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
+                        }
+                        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                       $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
                     }
-                    $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
-                    $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
-                    $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
-                    $EXIEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
-                    $EXIEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
-                    $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-                    $EXIEXPORTACION->__SET('ID_FOLIO',  $FOLIO);
-                    $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-                    $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                    $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-                    $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                    $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                    $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                    $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                    if ($_REQUEST['TRECEPCION'] == 2) {
-                        $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-                    }
-                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                  $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
 
                     //REDIRECCIONAR A PAGINA registroRecepcionmp.php
                     $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];                    
                     echo '<script>
                         Swal.fire({
-                            icon:"success",
-                            title:"Registro creado",
-                            text:"El registro de detalle de recepción se ha creado correctamente",
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro del detalle de recepcion se ha modificada correctamente",
                             showConfirmButton:true,
                             confirmButtonText:"Volver a recepcion"
                         }).then((result)=>{
-                            location.href ="' . $_REQUEST['URLO'] . '.php?op";                            
+                            location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
                         })
                     </script>';   
-                    // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-                }
-            }
-            if (isset($_REQUEST['EDITAR'])) {
-
-                $CANTIDADENVASERECIBIDO = $_REQUEST['CANTIDADENVASERECIBIDO'];
-                $CANTIDADENVASERECHAZADO = $_REQUEST['CANTIDADENVASERECHAZADO'];
-                $CANTIDADENVASEAPROBADO = $CANTIDADENVASERECIBIDO - $CANTIDADENVASERECHAZADO;
-                $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['ESTANDAR']);
-                if ($ARRAYVERESTANDAR) {
-                    $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
-                    $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
-                    $EMBOLSADO = $ARRAYVERESTANDAR[0]['EMBOLSADO'];
-                    $TEMBALAJE = $ARRAYVERESTANDAR[0]['ID_TEMBALAJE'];
-                    $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
-                    $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
-                    $KILOSNETODRECEPCION = $CANTIDADENVASEAPROBADO * $PESONETOEESTANDAR;
-                    $KILOSDESHIDRATACION = $KILOSNETODRECEPCION * (1 + ($PDESHIDRATACIONEESTANDAR / 100));
-                    $KILOSBRUTORECEPCION = (($CANTIDADENVASEAPROBADO * $PESOENVASEESTANDAR) + $KILOSDESHIDRATACION) + $PESOPALLETEESTANDAR;
-                }
-
-                $DRECEPCIONPT->__SET('FECHA_EMBALADO_DRECEPCION', $_REQUEST['FECHAEMBALADORECEPCION']);
-                $DRECEPCIONPT->__SET('CANTIDAD_ENVASE_RECIBIDO_DRECEPCION', $_REQUEST['CANTIDADENVASERECIBIDO']);
-                $DRECEPCIONPT->__SET('CANTIDAD_ENVASE_RECHAZADO_DRECEPCION', $_REQUEST['CANTIDADENVASERECHAZADO']);
-                $DRECEPCIONPT->__SET('CANTIDAD_ENVASE_APROBADO_DRECEPCION', $CANTIDADENVASEAPROBADO);
-                $DRECEPCIONPT->__SET('KILOS_NETO_REAL_DRECEPCION', $_REQUEST['KILOSNETOREAL']);
-
-                $DRECEPCIONPT->__SET('KILOS_NETO_DRECEPCION', $KILOSNETODRECEPCION);
-                $DRECEPCIONPT->__SET('KILOS_BRUTO_DRECEPCION', $KILOSBRUTORECEPCION);
-                $DRECEPCIONPT->__SET('PDESHIDRATACION_DRECEPCION', $PDESHIDRATACIONEESTANDAR);
-                $DRECEPCIONPT->__SET('KILOS_DESHIDRATACION_DRECEPCION', $KILOSDESHIDRATACION);
-
-                $DRECEPCIONPT->__SET('EMBOLSADO_DRECEPCION', $_REQUEST['EMBOLSADO']);
-                $DRECEPCIONPT->__SET('TEMPERATURA_DRECEPCION', $_REQUEST['TEMPERATURA']);
-                if($_REQUEST['STOCKESTANDAR']==1){
-                    $DRECEPCIONPT->__SET('STOCK_DRECEPCION', $_REQUEST['STOCK']);
-                }
-                if($_REQUEST['CATEGORIAESTANDAR']==1){
-                    $DRECEPCIONPT->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
-                }
-                if($_REQUEST['COLORESTANDAR']==1){
-                    $DRECEPCIONPT->__SET('ID_TCOLOR', $_REQUEST['TCOLOR']);
-                }
-                
-                $DRECEPCIONPT->__SET('GASIFICADO_DRECEPCION', $_REQUEST['GASIFICADORECEPCION']);
-                $DRECEPCIONPT->__SET('PREFRIO_DRECEPCION', $_REQUEST['PREFRIO']);
-                $DRECEPCIONPT->__SET('NOTA_DRECEPCION', $_REQUEST['NOTADRECEPCION']);
-                $DRECEPCIONPT->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                $DRECEPCIONPT->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
-                $DRECEPCIONPT->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-                $DRECEPCIONPT->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
-                $DRECEPCIONPT->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-                $DRECEPCIONPT->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
-                $DRECEPCIONPT->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                $DRECEPCIONPT->__SET('ID_DRECEPCION', $_REQUEST['ID']);
-                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $DRECEPCIONPT_ADO->actualizarDrecepcion($DRECEPCIONPT);
-
-
-                $ARRAYVERFOLIOEXISTENCIA = $EXIEXPORTACION_ADO->buscarPorRecepcionNumeroFolio($_REQUEST['IDP'], $_REQUEST['NUMEROFOLIODRECEPCIONE']);
-
-                if ($ARRAYVERFOLIOEXISTENCIA) {
-                    $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
-                    $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
-
-                    $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
-                    $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
-                    $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHIDRATACIONEESTANDAR);
-                    $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACION);
-
-                    $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $_REQUEST['NOTADRECEPCION']);
-                    $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                    if($_REQUEST['STOCKESTANDAR']==1){
-                        $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
-                    }
-                    $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
-                    $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
-                    $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
-                    $EXIEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
-                    $EXIEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
-                    $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-                    $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-                    $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                    $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-                    $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                    $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                    $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                    $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                    if ($_REQUEST['TRECEPCION'] == 2) {
-                        $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-                    }
-                    $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIEXPORTACION"]);
-                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $EXIEXPORTACION_ADO->actualizarExiexportacionRecepcion($EXIEXPORTACION);
-                } else {
-                    $NUMEROFOLIODRECEPCION = $_REQUEST["NUMEROFOLIODRECEPCIONE"];
-                    $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
-                    $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
-                        "_TIPO_FOLIO:MATERIA PRIMA_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
-                    if ($_REQUEST["FOLIOMANUALE"] != "on") {
-                        $FOLIOMANUALR = "0";
-                    }
-                    if ($_REQUEST["FOLIOMANUALE"] == "on") {
-                        $FOLIOMANUALR = "1";
-                    }
-                    $EXIEXPORTACION->__SET('FOLIO_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
-                    $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
-                    $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
-                    $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
-                    $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
-
-                    $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
-                    $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
-                    $EXIEXPORTACION->__SET('PDESHIDRATACION_EXIEXPORTACION', $PDESHIDRATACIONEESTANDAR);
-                    $EXIEXPORTACION->__SET('KILOS_DESHIRATACION_EXIEXPORTACION', $KILOSDESHIDRATACION);
-
-                    $EXIEXPORTACION->__SET('OBSERVACION_EXIESPORTACION', $_REQUEST['NOTADRECEPCION']);
-                    $EXIEXPORTACION->__SET('ALIAS_DINAMICO_FOLIO_EXIESPORTACION', $FOLIOALIASDIANAMICO);
-                    $EXIEXPORTACION->__SET('ALIAS_ESTATICO_FOLIO_EXIESPORTACION', $FOLIOALIASESTACTICO);
-                    $EXIEXPORTACION->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                    if($_REQUEST['STOCKESTANDAR']==1){
-                        $EXIEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
-                    }
-                    $EXIEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
-                    $EXIEXPORTACION->__SET('GASIFICADO', $_REQUEST['GASIFICADORECEPCION']);
-                    $EXIEXPORTACION->__SET('PREFRIO', $_REQUEST['PREFRIO']);
-                    $EXIEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
-                    $EXIEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
-                    $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
-                    $EXIEXPORTACION->__SET('ID_FOLIO',   $_REQUEST['FOLIO']);
-                    $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-                    $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
-                    $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
-                    $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                    $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                    $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                    $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                    if ($_REQUEST['TRECEPCION'] == 2) {
-                        $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-                    }
-                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                    $EXIEXPORTACION_ADO->agregarExiexportacionRecepcion($EXIEXPORTACION);
-                }
-
-                //REDIRECCIONAR A PAGINA registroRecepcionmp.php
-                $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];                    
-                echo '<script>
-                    Swal.fire({
-                        icon:"info",
-                        title:"Registro Modificado",
-                        text:"El registro del detalle de recepcion se ha modificada correctamente",
-                        showConfirmButton:true,
-                        confirmButtonText:"Volver a recepcion"
-                    }).then((result)=>{
-                        location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
-                    })
-                </script>';                
+                }             
             }
             if (isset($_REQUEST['ELIMINAR'])) {
                 $FOLIOELIMINAR = $_REQUEST['NUMEROFOLIODRECEPCIONE'];

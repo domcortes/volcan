@@ -559,6 +559,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIMATERIAPRIMA->__SET('GASIFICADO', $r['GASIFICADO']);
                             $EXIMATERIAPRIMA->__SET('INGRESO', $r['INGRESO']);
                             $EXIMATERIAPRIMA->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
+                            $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO1', $r['ID_TTRATAMIENTO1']);
+                            $EXIMATERIAPRIMA->__SET('ID_TTRATAMIENTO2', $r['ID_TTRATAMIENTO2']);
                             $EXIMATERIAPRIMA->__SET('ID_FOLIO', $r['ID_FOLIO']);
                             $EXIMATERIAPRIMA->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
                             $EXIMATERIAPRIMA->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);

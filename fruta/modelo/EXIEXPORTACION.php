@@ -49,6 +49,8 @@ class EXIEXPORTACION {
     private   $ID_TCALIBRE;
     private   $ID_TEMBALAJE;
     private   $ID_TMANEJO;
+    private   $ID_TCATEGORIA;
+    private   $ID_TCOLOR;
     private   $ID_EMPRESA;
     private   $ID_PLANTA;
     private   $ID_TEMPORADA;

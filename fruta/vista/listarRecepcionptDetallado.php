@@ -12,6 +12,8 @@ include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../controlador/TCOLOR_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/RECEPCIONPT_ADO.php';
@@ -29,6 +31,8 @@ $EEXPORTACION_ADO = new EEXPORTACION_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+$TCOLOR_ADO =  new TCOLOR_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 $EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
 $RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
@@ -248,7 +252,9 @@ include_once "../config/datosUrLP.php";
                                                     <th>Stock </th>
                                                     <th>Embolsado</th>
                                                     <th>Gasificacion</th>   
-                                                    <th>Prefrío</th>                                                    
+                                                    <th>Prefrío</th>      
+                                                    <th>Tipo Categoria </th>
+                                                    <th>Tipo Color </th>                                              
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -402,6 +408,18 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $PREFRIO = "Sin Datos";
                                                         }  
+                                                        $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($s['ID_TCATEGORIA']);
+                                                        if($ARRAYTCATEGORIA){
+                                                           $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+                                                        }else{
+                                                            $NOMBRETCATEGORIA = "Sin Datos";
+                                                        }   
+                                                        $ARRAYTCOLOR=$TCOLOR_ADO->verTcolor($s['ID_TCOLOR']);
+                                                        if($ARRAYTCOLOR){
+                                                            $NOMBRETCOLOR= $ARRAYTCOLOR[0]["NOMBRE_TCOLOR"];
+                                                        }else{
+                                                            $NOMBRETCOLOR = "Sin Datos";
+                                                        } 
                                                         ?>
                                                         <tr class="center">                                                        
                                                             <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
@@ -431,6 +449,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
+                                                            <td><?php echo $NOMBRETCATEGORIA; ?></td>
+                                                            <td><?php echo $NOMBRETCOLOR; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>

@@ -127,11 +127,16 @@ class ICARGA_ADO
         }
     }
 
+
     public function verIcarga2($IDICARGA)
     {
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_ICARGA, '%d/%m/%Y') AS 'FECHA', 
+                                                DATE_FORMAT(FECHAETD_ICARGA, '%d/%m/%Y') AS 'FECHAETD', 
+                                                DATE_FORMAT(FECHAETA_ICARGA, '%d/%m/%Y') AS 'FECHAETA', 
+                                                DATE_FORMAT(FECHASTACKING_ICARGA, '%d/%m/%Y') AS 'FECHAESTACKING', 
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
                                             FROM fruta_icarga
@@ -151,6 +156,29 @@ class ICARGA_ADO
     }
 
 
+    public function verIcargaInforme($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_ICARGA, '%d/%m/%Y') AS 'FECHA', 
+                                                DATE_FORMAT(FECHAETD_ICARGA, '%W, %d of %M of %Y'') AS 'FECHAETD', 
+                                                DATE_FORMAT(FECHAETA_ICARGA, '%W, %d of %M of %Y') AS 'FECHAETA', 
+                                            FROM fruta_icarga
+                                            WHERE ID_ICARGA = '" . $IDICARGA . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //REGISTRO DE UNA NUEVA FILA    
     public function agregarIcarga(ICARGA $ICARGA)
@@ -618,8 +646,16 @@ class ICARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
-                                                         DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
+            $datos = $this->conexion->prepare("SELECT *,DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                        DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL',
+                                                        DATE_FORMAT(FECHA_ICARGA, '%d-%m-%Y') AS 'FECHA', 
+                                                        DATE_FORMAT(FECHAETD_ICARGA, '%d-%m-%Y') AS 'FECHAETD', 
+                                                        DATE_FORMAT(FECHAETA_ICARGA, '%d-%m-%Y') AS 'FECHAETA', 
+                                                        IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'CONTENEDOR',
+                                                        IFNULL(TOTAL_ENVASE_ICAGRA,0) AS 'ENVASE',
+                                                        IFNULL(TOTAL_NETO_ICARGA,0) AS 'NETO',
+                                                        IFNULL(TOTAL_BRUTO_ICARGA,0) AS 'BRUTO',
+                                                        IFNULL(TOTAL_US_ICARGA,0) AS 'US'
                                             FROM fruta_icarga  
                                             WHERE ESTADO_REGISTRO = 1                                                                                                        
                                             AND ID_EMPRESA = '" . $EMPRESA . "' 
@@ -681,6 +717,31 @@ class ICARGA_ADO
                                             FROM fruta_icarga  
                                             WHERE ESTADO_REGISTRO = 1
                                             AND  ESTADO_ICARGA = 2
+                                            AND ID_EMPRESA = '" . $IDEMPRESA . "'
+                                            AND ID_TEMPORADA = '" . $IDTEMPORADA . "' ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function listarIcargaDespachadoCBX($IDEMPRESA, $IDTEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
+                                                       DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL'
+                                            FROM fruta_icarga  
+                                            WHERE ESTADO_REGISTRO = 1
+                                            AND  ESTADO_ICARGA = 3
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "'
                                             AND ID_TEMPORADA = '" . $IDTEMPORADA . "' ; ");
             $datos->execute();

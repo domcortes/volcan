@@ -15,6 +15,7 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/ECOMERCIAL_ADO.php';
 
 
 
@@ -35,6 +36,7 @@ $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $DESPACHOEX_ADO =  new DESPACHOEX_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
+$ECOMERCIAL_ADO =  new ECOMERCIAL_ADO();
 
 
 $ICARGA_ADO =  new ICARGA_ADO();
@@ -67,18 +69,33 @@ if($_REQUEST['parametro']){
     $IDOP = $_REQUEST['parametro'];
    }
    
-   $ARRAYCARGAREAL = $DESPACHOEX_ADO->consolidadoDespachoExistencia($IDOP);
+   $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia($IDOP);
+   if($ARRAYCONSOLIDADODESPACHO){
+   
+     $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
+     $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
+     $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
+     $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
+   
+   
 
+   }
+   
 
 $html = '
 <table border="0" cellspacing="0" cellpadding="0">
     <thead>
     <tr>   
-        <th class="color center ">Fecha Embalado </th>
-        <th class="color center ">Cantidad Envase</th>
-        <th class="color center ">Kilos Neto</th>
-        <th class="color center ">Código Estandar </th>
+        <th class="color center ">Codigo Estandar </th>
         <th class="color center ">Envase/Estandar </th>
+        <th class="color center ">Codigo Estandar </th>
+        <th class="color center ">Estandar Comercial</th>
+        <th class="color center ">Peso Neto </th>
+        <th class="color center ">Peso Bruto </th>
+        <th class="color center ">Cantidad Envases </th>
+        <th class="color center ">Kilos Neto </th>
+        <th class="color center ">Kilos Bruto </th>
+        <th class="color center ">Fecha Embalado </th>
         <th class="color center ">CSG Productor </th>
         <th class="color center ">Nombre Productor </th>
         <th class="color center ">Variedad </th>
@@ -87,8 +104,8 @@ $html = '
  <tbody>
 
 ';
-foreach ($ARRAYCARGAREAL as $r) :
-    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+foreach ($ARRAYCONSOLIDADODESPACHO as $s) :
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($s['ID_PRODUCTOR']);
     if ($ARRAYPRODUCTOR) {
         $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
         $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
@@ -96,32 +113,50 @@ foreach ($ARRAYCARGAREAL as $r) :
         $CSGPRODUCTOR = "Sin Datos";
         $NOMBREPRODUCTOR = "Sin Datos";
     }
-    $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+    $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
     if ($ARRAYEEXPORTACION) {
-        $CODIGOSTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
-        $NOMBRESTANDAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+        $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
+        $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+        $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+        $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
+        $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYEEXPORTACION[0]["ID_ECOMERCIAL"]);
+        if($ARRAYECOMERCIAL){
+            $CODIGOECOMERCIAL = $ARRAYECOMERCIAL[0]['CODIGO_ECOMERCIAL'];
+            $NOMBREECOMERCIAL = $ARRAYECOMERCIAL[0]['NOMBRE_ECOMERCIAL'];
+        }else{
+            $CODIGOECOMERCIAL = "Sin Datos";
+            $NOMBREECOMERCIAL = "Sin Datos";
+        }
     } else {
-        $CODIGOSTANDAR = "Sin Datos";
-        $NOMBRESTANDAR = "Sin Datos";
+        $CODIGOECOMERCIAL = "Sin Datos";
+        $NOMBREECOMERCIAL = "Sin Datos";
+        $NOMBREESTANTAR = "Sin Datos";
+        $CODIGOESTANDAR = "Sin Datos";
+        $NETOESTANTAR = "Sin Datos";
+        $BRUTOESTANTAR = "Sin Datos";
     }
-    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
     if ($ARRAYVERVESPECIESID) {
         $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
     } else {
         $NOMBREVARIEDAD = "Sin Datos";
     }
 
-
     $html = $html . '    
             <tr class="center">
-                <td class="center">' . $r['EMBALADO'] . '</td>
-                <td class="center">' . $r['ENVASE'] . '</td>
-                <td class="center">' . $r['NETO'] . '</td> 
-                <td class="center">' . $CODIGOSTANDAR . '</td>
-                <td class="center">' . $NOMBRESTANDAR . '</td>
-                <td class="center">' . $CSGPRODUCTOR . ' </td>
-                <td class="center">' . $NOMBREPRODUCTOR . '</td>
-                <td class="center">' . $NOMBREVARIEDAD . '</td>
+                <td class="center">'.$CODIGOESTANDAR.'</td>
+                <td class="center">'.$NOMBREESTANTAR.'</td>
+                <td class="center">'.$CODIGOECOMERCIAL.'</td>
+                <td class="center">'.$NOMBREECOMERCIAL.'</td>
+                <td class="center">'.$NETOESTANTAR.'</td>
+                <td class="center">'.$BRUTOESTANTAR.'</td>
+                <td class="center">'.$s['ENVASE'].'</td>
+                <td class="center">'.$s['NETO'].'</td>
+                <td class="center">'.$s['BRUTO'].'</td>
+                <td class="center">'.$s['EMBALADO'].'</td>
+                <td class="center">'.$CSGPRODUCTOR.'</td>
+                <td class="center">'.$NOMBREPRODUCTOR.'</td>
+                <td class="center">'.$NOMBREVARIEDAD.'</td>
             </tr>
             ';
 endforeach;

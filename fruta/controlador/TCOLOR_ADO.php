@@ -102,6 +102,27 @@ class TCOLOR_ADO {
         
     }
 
+    public function listarTcolorPorEmpresaCBX($IDEMPRESA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * 
+                                            FROM  fruta_tcolor 
+                                            WHERE  ESTADO_REGISTRO  = 1
+                                            AND ID_EMPRESA='".$IDEMPRESA."';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
     public function verTcolor($ID){
@@ -152,19 +173,23 @@ class TCOLOR_ADO {
             
             $query=
             "INSERT INTO  fruta_tcolor  (
+                                             NUMERO_TCOLOR , 
                                              NOMBRE_TCOLOR , 
+                                             ID_EMPRESA , 
                                              ID_USUARIOI , 
                                              ID_USUARIOM ,
                                              INGRESO ,
                                              MODIFICACION ,
                                              ESTADO_REGISTRO 
                                         ) VALUES
-	       	( ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
                     
+                    $TCOLOR->__GET('NUMERO_TCOLOR'),
                     $TCOLOR->__GET('NOMBRE_TCOLOR'),
+                    $TCOLOR->__GET('ID_EMPRESA'),
                     $TCOLOR->__GET('ID_USUARIOI'),
                     $TCOLOR->__GET('ID_USUARIOM')
                     
@@ -199,12 +224,14 @@ class TCOLOR_ADO {
 		UPDATE  fruta_tcolor  SET
              MODIFICACION = SYSDATE(),
              NOMBRE_TCOLOR = ?,
+             ID_EMPRESA = ?,
              ID_USUARIOM = ?            
 		WHERE  ID_TCOLOR = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
-                    $TCOLOR->__GET('NOMBRE_TCOLOR'),    
+                    $TCOLOR->__GET('NOMBRE_TCOLOR'),  
+                    $TCOLOR->__GET('ID_EMPRESA'),  
                     $TCOLOR->__GET('ID_USUARIOM'),     
                     $TCOLOR->__GET('ID_TCOLOR')
                     
@@ -268,6 +295,28 @@ class TCOLOR_ADO {
         
     }
 
+    public function obtenerNumero($IDEMPRESA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT  
+                                                    IFNULL(COUNT(NUMERO_TCOLOR),0) AS 'NUMERO'
+                                                FROM `fruta_tcolor`
+                                                WHERE ID_EMPRESA = '" . $IDEMPRESA . "'     
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+    
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+    
+    
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
     
 }
 ?>

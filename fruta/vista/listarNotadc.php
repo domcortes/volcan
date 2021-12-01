@@ -88,9 +88,9 @@ $ARRAYNOTADC = "";
 
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS   && $TEMPORADAS) {
 
-    $ARRAYNOTADC = $NOTADC_ADO->listarNotaEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYNOTADC = $NOTADC_ADO->listarNotaEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
 
  
 }
@@ -251,7 +251,6 @@ include_once "../config/datosUrLP.php";
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                     <th>Empresa</th>
-                                                    <th>Planta</th>
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
@@ -288,12 +287,6 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
                                                     } else {
                                                         $NOMBREEMPRESA = "Sin Datos";
-                                                    }
-                                                    $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
-                                                    if ($ARRAYPLANTA) {
-                                                        $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-                                                    } else {
-                                                        $NOMBREPLANTA = "Sin Datos";
                                                     }
                                                     $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
                                                     if ($ARRAYTEMPORADA) {
@@ -362,7 +355,6 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
-                                                        <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>

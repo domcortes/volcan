@@ -19,7 +19,6 @@
         private   $MODIFICACION;
         private   $ID_ICARGA;
         private   $ID_EMPRESA;
-        private   $ID_PLANTA;
         private   $ID_TEMPORADA;
         private   $ID_USUARIOI;
         private   $ID_USUARIOM;

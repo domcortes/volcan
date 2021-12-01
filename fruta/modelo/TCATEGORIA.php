@@ -9,10 +9,12 @@ class TCATEGORIA {
 
     //ATRIBUTOS DE LA CLASE    
     private	  $ID_TCATEGORIA; 
+    private	  $NUMERO_TCATEGORIA; 
     private	  $NOMBRE_TCATEGORIA;
     private   $ESTADO_REGISTRO; 
     private   $INGRESO; 
     private   $MODIFICACION; 
+    private   $ID_EMPRESA; 
     private   $ID_USUARIOI; 
     private   $ID_USUARIOM; 
     

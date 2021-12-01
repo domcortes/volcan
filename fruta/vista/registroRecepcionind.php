@@ -1205,6 +1205,7 @@ if (isset($_POST)) {
                                                     <th>Folio</th>
                                                     <th class="text-center">Operaciones</th>
                                                     <th>Fecha Embalado </th>
+                                                    <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
                                                     <th>Variedad</th>
                                                     <th>Cantidad Envase</th>
@@ -1234,8 +1235,10 @@ if (isset($_POST)) {
                                                         }
                                                         $ARRAYESTANDAR = $EINDUSTRIAL_ADO->verEstandar($s['ID_ESTANDAR']);
                                                         if ($ARRAYESTANDAR) {
+                                                            $CODIGOESTANDAR = $ARRAYESTANDAR[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
                                                         } else {
+                                                            $CODIGOESTANDAR = "Sin Datos";
                                                             $NOMBREESTANDAR = "Sin Datos";
                                                         }                                                        
                                                         if ($s['GASIFICADO_DRECEPCION'] == "1") {
@@ -1278,6 +1281,7 @@ if (isset($_POST)) {
                                                                 </form>
                                                             </td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
+                                                            <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>

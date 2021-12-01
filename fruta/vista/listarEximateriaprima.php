@@ -11,6 +11,8 @@ include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/RECEPCIONMP_ADO.php';
 include_once '../controlador/DESPACHOMP_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/TTRATAMIENTO1_ADO.php';
+include_once '../controlador/TTRATAMIENTO2_ADO.php';
 
 
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
@@ -26,6 +28,8 @@ $ESPECIES_ADO =  new ESPECIES_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
+$TTRATAMIENTO1_ADO =  new TTRATAMIENTO1_ADO();
+$TTRATAMIENTO2_ADO =  new TTRATAMIENTO2_ADO();
 
 
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
@@ -201,6 +205,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Número Guía Recepción </th>
                                                         <th>Fecha Guía Recepción
                                                         <th>Tipo Manejo</th>
+                                                        <th>Tipo Tratamiento 1 </th>
+                                                        <th>Tipo Tratamiento 2 </th>
                                                         <th>Gasificacion</th>
                                                         <th>Días</th>
                                                         <th>Ingreso</th>
@@ -342,6 +348,19 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         } else {
                                                             $GASIFICADO = "Sin Datos";
                                                         }
+                                                        
+                                                        $ARRAYTRATAMIENTO1=$TTRATAMIENTO1_ADO->verTtratamiento($r['ID_TTRATAMIENTO1']);
+                                                        if($ARRAYTRATAMIENTO1){
+                                                            $NOMBRETTRATAMIENTO1 = $ARRAYTRATAMIENTO1[0]["NOMBRE_TTRATAMIENTO"];
+                                                        }else{
+                                                            $NOMBRETTRATAMIENTO1="Sin Datos";
+                                                        }
+                                                        $ARRAYTRATAMIENTO2=$TTRATAMIENTO2_ADO->verTtratamiento($r['ID_TTRATAMIENTO2']);
+                                                        if($ARRAYTRATAMIENTO2){
+                                                            $NOMBRETTRATAMIENTO2 = $ARRAYTRATAMIENTO2[0]["NOMBRE_TTRATAMIENTO"];
+                                                        }else{
+                                                            $NOMBRETTRATAMIENTO2="Sin Datos";
+                                                        }
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                         if ($ARRAYEMPRESA) {
                                                             $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -393,6 +412,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>      
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo $NOMBRETTRATAMIENTO1; ?></td>
+                                                            <td><?php echo $NOMBRETTRATAMIENTO2; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>

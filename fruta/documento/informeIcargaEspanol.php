@@ -51,6 +51,8 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
+include_once '../controlador/CIUDAD_ADO.php';
 
 
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -105,6 +107,8 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
+$CIUDAD_ADO = new CIUDAD_ADO();
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $DESPACHOEX_ADO = new DESPACHOEX_ADO();
@@ -208,6 +212,10 @@ if($ARRAYICARGA){
     $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
 
     
+    $IDUSUARIOI = $ARRAYICARGA[0]['ID_USUARIOI'];  
+    $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+    $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
+  
     $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
     if($ARRAYDESPACHOEX){
       $FECHADESPACHOEX=$ARRAYDESPACHOEX[0]['FECHA'];
@@ -215,7 +223,7 @@ if($ARRAYICARGA){
       $NUMEROSELLO=$ARRAYDESPACHOEX[0]['NUMERO_SELLO_DESPACHOEX'];
       $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
       if($ARRAYVERPLANTA){
-        $LUGARDECARGA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
+        $LUGARDECARGA=$ARRAYVERPLANTA[0]["RAZON_SOCIAL_PLANTA"];
         $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
       }else{
         $FECHADESPACHOEX="Sin Datos";
@@ -276,9 +284,13 @@ if($ARRAYICARGA){
       if($ARRYANOTIFICADOR){
         $NOMBRENOTIFICADOR=$ARRYANOTIFICADOR[0]["NOMBRE_NOTIFICADOR"];
         $DIRECCIONNOTIFICADOR=$ARRYANOTIFICADOR[0]["DIRECCION_NOTIFICADOR"];
+        $EORINOTIFICADOR=$ARRYANOTIFICADOR[0]["EORI_NOTIFICADOR"];
+        $TELEFONONOTIFICADOR=$ARRYANOTIFICADOR[0]["TELEFONO_NOTIFICADOR"];
         $EMAIL1NOTIFICADOR=$ARRYANOTIFICADOR[0]["EMAIL1_NOTIFICADOR"];
       }else{
         $NOMBRENOTIFICADOR="Sin Datos";
+        $EORINOTIFICADOR="Sin Datos";
+        $TELEFONONOTIFICADOR="Sin Datos";
         $DIRECCIONNOTIFICADOR="Sin Datos";
         $EMAIL1NOTIFICADOR="Sin Datos";
       }
@@ -286,9 +298,13 @@ if($ARRAYICARGA){
       if($ARRAYCONSIGNATARIO){
         $NOMBRECONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["NOMBRE_CONSIGNATARIO"];
         $DIRECCIONCONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["DIRECCION_CONSIGNATARIO"];
+        $EORICONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["EORI_CONSIGNATARIO"];
+        $TELEFONOCONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["TELEFONO_CONSIGNATARIO"];
         $EMAIL1CONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["EMAIL1_CONSIGNATARIO"];
       }else{
         $NOMBRECONSIGNATARIO="Sin Datos";
+        $EORICONSIGNATARIO="Sin Datos";
+        $TELEFONOCONSIGNATARIO="Sin Datos";
         $DIRECCIONCONSIGNATARIO="Sin Datos";
         $EMAIL1CONSIGNATARIO="Sin Datos";
       }
@@ -460,8 +476,21 @@ if($ARRAYICARGA){
   $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYICARGA[0]['ID_EMPRESA']);
   if($ARRAYEMPRESA){
     $NOMBREEMPRESA=$ARRAYEMPRESA[0]["NOMBRE_EMPRESA"];
+    $RAZONSOCIALEMPRESA = $ARRAYEMPRESA[0]["RAZON_SOCIAL_EMPRESA"];
+    $RUTEMPRESA=$ARRAYEMPRESA[0]["RUT_EMPRESA"]."-".$ARRAYEMPRESA[0]["DV_EMPRESA"];
+    $DIRECCIONEMPRESA=$ARRAYEMPRESA[0]["DIRECCION_EMPRESA"];
+    $ARRAYCIUDAD=$CIUDAD_ADO->listarCiudadeCoProRePACBX($ARRAYEMPRESA[0]["ID_CIUDAD"]);
+    if($ARRAYCIUDAD){
+      $UBICACION=$ARRAYCIUDAD[0]["UBICACION"];
+      $DIRECCIONEMPRESA=$DIRECCIONEMPRESA.", ".$UBICACION;
+    }else{
+      $DIRECCIONEMPRESA=$DIRECCIONEMPRESA;
+    }
   }else{    
     $NOMBREEMPRESA="Sin Datos";
+    $RAZONSOCIALEMPRESA="Sin Datos";
+    $RUTEMPRESA="Sin Datos";
+    $DIRECCIONEMPRESA="Sin Datos";
   }
   $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYICARGA[0]['ID_TEMPORADA']);  
   if($ARRAYTEMPORADA){
@@ -548,91 +577,101 @@ $html='
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Instructivo Carga</title>
+    <title>Instructivo Emabarque</title>
   </head>
   <body>
     <header class="clearfix">
-      <div id="logo">
-           <img src="../vista/img/logo.png" width="150px" height="45px"/>
-      </div>
-      <div id="company">
-        <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
-        <div>Camino a Antuco, Kilómetro N°13</div>
-        <div>Los Ángeles, Chile.</div>
-        <div><a href="mailto:ti@fvolcan.com">ti@fvolcan.cl</a></div>
-      </div>
+    <table>
+      <tr>
+        <td class="color2 left">
+          <div id="logo">
+              <img src="../vista/img/logo2.png" width="150px" height="45px"/>
+          </div>
+        </td>
+        <td class="color2 left" width="70%">
+          <b>'.$RAZONSOCIALEMPRESA.'</b> <br>
+          '.$RUTEMPRESA.' <br>
+          '.$DIRECCIONEMPRESA.' <br>          
+        </td>
+        <td class="color2 right">
+            &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>  
     </header>
     <main>
-      <h2 class="titulo" style="text-align: center; color: black;">
-        INSTRUCTIVO EMBARQUE
-      <br>
-      <b>'.$NUMEROIREFERENCIA.' </b>
-      </h2> 
-      <div id="details" class="clearfix">
-        
-        <div id="invoice"> 
+    <div class="titulo bcolor" >
+      <div class="f20 titulo"  style="text-align: left; font-weight: bold;">  INSTRUCTIVO EMBARQUE  </div>    
+      <div class="f15 titulo"  style="text-align: right;">  <b>  Numero Referencia: ' . $NUMEROIREFERENCIA . '   </b>  </div>      
+    </div>   
+    <br>
+      <div id="details" class="clearfix">            
+        <div id="invoice">
           <div class="date"><b>Fecha Instructivo: </b> '.$FECHA.'</div>
-          <div class="date"><b>Empresa: </b> '.$NOMBREEMPRESA.'</div>
+          <div class="date"><b> Numero Instructivo </b>: '.$NUMEROICARGA.'  </div>
+          <div class="date"><b> Numero Referencia </b>: '.$NUMEROIREFERENCIA.'  </div>
+          <div class="date"><b> Estado Instructivo </b>: '.$ESTADO.' </div>
           <div class="date"><b>Temporada: </b> '.$NOMBRETEMPORADA.'</div>
-        </div>             
-        <div id="client">
-          <div class="address"> Numero Instructivo: '.$NUMEROICARGA.'  </div>
-          <div class="address"> Numero Referencia: '.$NUMEROIREFERENCIA.'  </div>
-          <div class="address"> Estado Instructivo: '.$ESTADO.' </div>
         </div>
-        
-      <div id="client">
-          <div class="address">   </div>
-          <div class="address">   </div>
-      </div>
-      </div>
-     ';
+        <div id="invoicer"> 
+          <div class="dater"> <b> Consignatario  </b></div>
+          <div class="dater"> <b> Nombre: </b>'.$NOMBRECONSIGNATARIO.'  </div>
+          <div class="dater"> <b> Direccion: </b>'.$DIRECCIONCONSIGNATARIO.'  </div>
+          <div class="dater"> <b> Id Tributario(EORI): </b>'.$EORICONSIGNATARIO.'  </div>
+          <div class="dater"> <b> Telefono / Fax: </b>'.$TELEFONOCONSIGNATARIO.'  </div>
+          <div class="dater"> <b> Email: </b>'.$EMAIL1CONSIGNATARIO.'  </div>
+        </div> 
+        <div id="invoicer"> 
+          <div class="dater"> <b> Notificador  </b></div>
+          <div class="dater"> <b> Nombre: </b>'.$NOMBRENOTIFICADOR.'  </div>
+          <div class="dater"> <b> Direccion: </b>'.$DIRECCIONNOTIFICADOR.'  </div>
+          <div class="dater"> <b> Id Tributario(EORI): </b>'.$EORINOTIFICADOR.'  </div>
+          <div class="dater"> <b> Telefono / Fax: </b>'.$TELEFONONOTIFICADOR.'  </div>
+          <div class="dater"> <b> Email: </b>'.$EMAIL1NOTIFICADOR.'  </div>
+        </div>     
+      </div> 
 
-     $html=$html.'
-     <table  border="0" cellspacing="0" cellpadding="0">
-       <tbody>
-         <tr>
-           <th class="color2 right">Consigne: </th>
-           <td class="color2 left">'.$NOMBRECONSIGNATARIO.'</td>
-           <th class="color2 right">Notifier: </th>
-           <td class="color2 left">'.$NOMBRENOTIFICADOR.'</td>
-         </tr>    
-         <tr>                       
-           <td class="color2 right">Address: </td>   
-           <td class="color2 left">'.$DIRECCIONCONSIGNATARIO.'</td>    
-           <td class="color2 right">Address: </td>
-           <td class="color2 left">'.$DIRECCIONNOTIFICADOR.'</td>  
-         </tr>  
-         <tr>                       
-           <td class="color2 right">Email: </td>   
-           <td class="color2 left">'.$EMAIL1CONSIGNATARIO.'</td>    
-           <td class="color2 right">Email: </td>
-           <td class="color2 left">'.$EMAIL1NOTIFICADOR.'</td>      
-         </tr>     
-       </tbody>
-     </table>    
      ';
 
      $html=$html.'
      <table  border="0" cellspacing="0" cellpadding="0">
        <thead>
-         <tr>
-           <th colspan="4" class="center">Datos del Embarque</th>
+         <tr class="">
+           <th colspan="4" class="center titulo color">Datos del Despacho</th>
          </tr>
        </thead>
-       <tbody>
-         <tr>                       
-           <th class="color2 left">Fecha Despacho: </th> 
-           <td class="color2 left">'.$FECHADESPACHOEX.'</td>      
-           <th class="color2 left">Número Contenedor: </th>       
-           <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>      
-         </tr>  
-         <tr>                       
-           <th class="color2 left">Lugar Carga: </th> 
-           <td class="color2 left">'.$LUGARDECARGA.'</td>      
-           <th class="color2 left">Número Sello: </th>       
-           <td class="color2 left">'.$NUMEROSELLO.';</td>      
-         </tr>  
+       <tbody>          
+          <tr>                       
+          <th class="color2 left">Fecha Despacho: </th> 
+          <td class="color2 left">'.$FECHADESPACHOEX.'</td>      
+          <th class="color2 left">Número Contenedor: </th>       
+          <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>      
+        </tr>  
+        <tr>                       
+          <th class="color2 left">Lugar Carga: </th> 
+          <td class="color2 left">'.$LUGARDECARGA.'</td>      
+          <th class="color2 left">Número Sello: </th>       
+          <td class="color2 left">'.$NUMEROSELLO.'</td>      
+        </tr> 
+        <tr>                       
+          <th class="color2 left">FDA Packing: </th> 
+          <td class="color2 left">'.$FDADESPACHOEX.'</td>      
+          <th class="color2 left">&nbsp;</th>       
+          <td class="color2 left">&nbsp;</td>      
+        </tr> 
+       </tbody>  
+     </table>
+       
+       ' ;
+
+     $html=$html.'
+     <table  border="0" cellspacing="0" cellpadding="0">
+       <thead>
+         <tr>
+           <th colspan="6" class="center color">Datos del Embarque</th>
+         </tr>
+       </thead>
+       <tbody> 
          <tr>
            <th class="color2 left">Fecha ETD: </th>    
            <td class="color2 left">'.$FECHAETD.'</td>      
@@ -653,7 +692,9 @@ $html='
              <th class="color2 left">Nombre Trasnporte: </th>    
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">CRT: </th> 
-             <td class="color2 left">'.$CRT.'</td>     
+             <td class="color2 left">'.$CRT.'</td>    
+             <th class="color2 left">&nbsp;</th>       
+             <td class="color2 left">&nbsp;</td>       
            </tr>    
            ';
          }
@@ -666,6 +707,8 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Nave: </th> 
              <td class="color2 left">'.$NAVE.'</td>     
+             <th class="color2 left">Flight Number: </th> 
+             <td class="color2 left">'.$NVIAJE.'</td>     
            </tr>    
            ';
          }
@@ -676,7 +719,9 @@ $html='
              <th class="color2 left">Nombre Naviera: </th>    
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Nave: </th> 
-             <td class="color2 left">'.$NAVE.'</td>     
+             <td class="color2 left">'.$NAVE.'</td>   
+             <th class="color2 left">Travel Number: </th> 
+             <td class="color2 left">'.$NVIAJE.'</td>       
            </tr>   
            <tr>
              <th class="color2 left">Fecha Cierre Stacking; </th>   
@@ -698,7 +743,7 @@ $html='
      <table  border="0" cellspacing="0" cellpadding="0">
        <thead>
          <tr>
-           <th colspan="4" class="center">Condiciones del Embarque</th>
+           <th colspan="4" class="center color">Condiciones del Embarque</th>
          </tr>
        </thead>
        <tbody>
@@ -730,7 +775,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="6" class="center">Información Gasificado</th>
+      <th colspan="6" class="center color">Información Gasificado</th>
     </tr>
   </thead>
   <tbody>
@@ -739,16 +784,16 @@ $html=$html.'
       <td class="color2 left">'.$NOMBREATMOSFERA.'</td>         
       <th class="color2 left">Tipo Contenedor: </th>    
       <td class="color2 left">'.$NOMBRETCONTENEDOR.'</td>          
-      <th class="color2 left">Apertura Lampa: </th>       
-      <td class="color2 left">'.$ALAMPAINSTRUCTIVO.'</td>       
+      <th class="color2 left">Apertura Lampa(CBM): </th>       
+      <td class="color2 left">'.$ALAMPAINSTRUCTIVO.'%</td>       
     </tr> 
     <tr>   
       <th class="color2 left">Temperatura: </th> 
       <td class="color2 left">'.$TINSTRUCTIVO.'</td>      
-      <th class="color2 left">%O2: </th>   
-      <td class="color2 left">'.$O2INSTRUCTIVO.'</td>       
-      <th class="color2 left">%CO2: </th>   
-      <td class="color2 left">'.$CO2INSTRUCTIVO.'</td>              
+      <th class="color2 left">O2: </th>   
+      <td class="color2 left">'.$O2INSTRUCTIVO.'%</td>       
+      <th class="color2 left">CO2: </th>   
+      <td class="color2 left">'.$CO2INSTRUCTIVO.'%</td>              
     </tr>         
   </tbody>  
 </table>    
@@ -758,7 +803,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="4" class="center">Otros Datos del Embarque</th>
+      <th colspan="4" class="center color">Otros Datos del Embarque</th>
     </tr>
   </thead>
   <tbody>
@@ -819,11 +864,6 @@ $html = $html . '
       <td class="color2 left">'.$NOMBREPAIS.'</td>        
     </tr>      
   </tbody>    
-  <tfoot>
-    <tr>
-      <th colspan="4" class="center"></th>
-    </tr>
-  </tfoot>
 </table>    
 ';
 $html=$html.'
@@ -834,7 +874,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="6" class="center">Información Agente de Carga</th>
+      <th colspan="6" class="center color">Información Agente de Carga</th>
     </tr>
   </thead>
   <tbody>
@@ -865,7 +905,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="6" class="center">Información Agencia de Aduana</th>
+      <th colspan="6" class="center color">Información Agencia de Aduana</th>
     </tr>
   </thead>
   <tbody>
@@ -887,11 +927,6 @@ $html=$html.'
     </tr>        
   </tbody>  
   
-  <tfoot>
-    <tr>
-      <th colspan="6" class="center"></th>
-    </tr>
-  </tfoot>
 </table>    
 ';
 
@@ -899,7 +934,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="11" class="center">Carga Instruidad</th>
+      <th colspan="12" class="center ">Carga Instruidad</th>
     </tr>
     <tr>                       
       <th class="color center ">Codigo Estandar </th>
@@ -911,6 +946,7 @@ $html=$html.'
       <th class="color center ">Kilo Bruto </th>
       <th class="color center ">Calibre </th>
       <th class="color center ">Tipo moneda </th>
+      <th class="color center ">Tipo Manejo </th>
       <th class="color center ">Precio</th>
       <th class="color center ">Total</th>    
     </tr> 
@@ -948,6 +984,12 @@ $html = $html . '
       } else {
           $NOMBRETMONEDA = "Sin Datos";
       }
+      $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+      if ($ARRAYTMANEJO) {
+          $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+      } else {
+          $NOMBRETMANEJO = "Sin Datos";
+      }
 
       $html = $html . '  
       <tr>   
@@ -960,6 +1002,7 @@ $html = $html . '
               <td class="center">'.$s['BRUTO'].'</td>
               <td class="center">'.$NOMBRECALIBRE.'</td>
               <td class="center">'.$NOMBRETMONEDA.'</td>
+              <td class="center">'.$NOMBRETMANEJO.'</td>
               <td class="center">'.$s['US'].'</td>
               <td class="center">'.$s['TOTALUS'].'</td>
       </tr>
@@ -980,6 +1023,7 @@ $html = $html . '
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
+          <td class="color center">&nbsp;</td>
           <th class="color center">'.$TOTALUSV.'</th>
         </tr>
   </tbody>    
@@ -991,6 +1035,7 @@ $html = $html . '
 
 $html = $html . '  
 
+  <br><br><br><br><br> <br><br><br><br><br>
       <div id="details" class="clearfix">      
         <div id="client">
           <div class="address"><b>Observaciones</b></div>
@@ -1016,7 +1061,7 @@ $html = $html . '
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO="InformeInstructivoCarga_";
+$NOMBREARCHIVO="InstructivoCarga_";
 $FECHADOCUMENTO = $FECHANORMAL."_".$HORAFINAL;
 $TIPODOCUMENTO="Informe";
 $FORMATO=".pdf";
@@ -1030,10 +1075,10 @@ $UNICODE="true";
 $ENCODING="UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "Informe Instructivo Carga ";
+$TIPOINFORME = "Instructivo Carga ";
 $CREADOR = "Usuario";
 $AUTOR = "Usuario";
-$ASUNTO = "Informe";
+$ASUNTO = "Instructivo";
 
 //API DE GENERACION DE PDF
 require_once '../../api/mpdf/mpdf/autoload.php';
@@ -1084,8 +1129,8 @@ $stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo c
 $stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
 
 //ENLASAR CSS CON LA VISTA DEL PDF
-$PDF->WriteHTML($stylesheet, 1); 
-$PDF->WriteHTML($stylesheet2, 1); 
+$PDF->WriteHTML($stylesheet, 1);
+$PDF->WriteHTML($stylesheet2, 1);
 
 //GENERAR PDF
 $PDF->WriteHTML($html);

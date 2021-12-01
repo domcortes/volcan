@@ -8,6 +8,7 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
 
 include_once '../controlador/DICARGA_ADO.php';
 include_once '../modelo/DICARGA.php';
@@ -22,6 +23,7 @@ $ESPECIES_ADO =  new ESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TMONEDA_ADO =  new TMONEDA_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
 
 
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -37,6 +39,7 @@ $EEXPORTACION = "";
 $ESPECIES = "";
 $CALIBRE = "";
 $TMONEDA="";
+$TMANEJO="";
 $EEXPORTACION = "";
 $KILOSBRUTO = 0;
 $PRECIOUS = 0;
@@ -83,6 +86,7 @@ $NODATOURL = "";
 $ARRAYESTANDAR = "";
 $ARRAYCALIBRE = "";
 $ARRAYESTANDARDETALLE = "";
+$ARRAYTMANEJO = "";
 
 
 
@@ -92,6 +96,7 @@ $ARRAYESTANDARDETALLE = "";
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 $ARRAYTMONEDA = $TMONEDA_ADO->listarTmonedaPorEmpresaCBX($EMPRESAS);
+$ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 include_once "../config/validarDatosUrlD.php";
 
 //OPERACIONES
@@ -136,6 +141,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
             $TMONEDA = "" . $r['ID_TMONEDA'];
+            $TMANEJO = "" . $r['ID_TMANEJO'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -159,6 +165,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
             $TMONEDA = "" . $r['ID_TMONEDA'];
+            $TMANEJO = "" . $r['ID_TMANEJO'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -181,6 +188,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
             $TMONEDA = "" . $r['ID_TMONEDA'];
+            $TMANEJO = "" . $r['ID_TMANEJO'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -206,6 +214,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $EEXPORTACION = "" . $r['ID_ESTANDAR'];
             $CALIBRE = "" . $r['ID_TCALIBRE'];
             $TMONEDA = "" . $r['ID_TMONEDA'];
+            $TMANEJO = "" . $r['ID_TMANEJO'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
@@ -253,6 +262,9 @@ if ($_POST) {
     if (isset($_REQUEST['TMONEDA'])) {
         $TMONEDA = $_REQUEST['TMONEDA'];
     }
+    if (isset($_REQUEST['TMANEJO'])) {
+        $TMANEJO = $_REQUEST['TMANEJO'];
+    }
     if (isset($_REQUEST['NOTA'])) {
         $NOTA = $_REQUEST['NOTA'];
     }
@@ -277,12 +289,14 @@ if ($_POST) {
 
                     EEXPORTACION = document.getElementById("EEXPORTACION").selectedIndex;
                     CALIBRE = document.getElementById("CALIBRE").selectedIndex;
+                    TMANEJO = document.getElementById("TMANEJO").selectedIndex;
                     TMONEDA = document.getElementById("TMONEDA").selectedIndex;
                     CANTIDADENVASE = document.getElementById("CANTIDADENVASE").value;
                     PRECIOUS = document.getElementById("PRECIOUS").value;
 
                     document.getElementById('val_estandar').innerHTML = "";
                     document.getElementById('val_calibre').innerHTML = "";
+                    document.getElementById('val_tmanejo').innerHTML = "";
                     document.getElementById('val_tmoneda').innerHTML = "";
                     document.getElementById('val_cantidad').innerHTML = "";
                     document.getElementById('val_us').innerHTML = "";
@@ -302,6 +316,14 @@ if ($_POST) {
                         return false;
                     }
                     document.form_reg_dato.CALIBRE.style.borderColor = "#4AF575";
+
+                    if (TMANEJO == null || TMANEJO == 0) {
+                        document.form_reg_dato.TMANEJO.focus();
+                        document.form_reg_dato.TMANEJO.style.borderColor = "#FF0000";
+                        document.getElementById('val_tmanejo').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.TMANEJO.style.borderColor = "#4AF575";
 
                     if (TMONEDA == null || TMONEDA == 0) {
                         document.form_reg_dato.TMONEDA.focus();
@@ -503,6 +525,27 @@ if ($_POST) {
                                         </div>
                                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
+                                                <label>Tipo Manejo</label>
+                                                <input type="hidden" class="form-control" placeholder="TMANEJOE" id="TMANEJOE" name="TMANEJOE" value="<?php echo $TMANEJO; ?>" />
+                                                <select class="form-control select2" id="TMANEJO" name="TMANEJO" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYTMANEJO as $r) : ?>
+                                                        <?php if ($ARRAYTMANEJO) {    ?>
+                                                            <option value="<?php echo $r['ID_TMANEJO']; ?>" <?php if ($TMANEJO == $r['ID_TMANEJO']) {
+                                                                                                                    echo "selected";
+                                                                                                                } ?>>
+                                                                <?php echo $r['NOMBRE_TMANEJO'] ?>
+                                                            </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados </option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_tmanejo" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="form-group">
                                                 <label>Tipo Moneda</label>
                                                 <input type="hidden" class="form-control" placeholder="TMONEDAE" id="TMONEDAE" name="TMONEDAE" value="<?php echo $TMONEDA; ?>" />
                                                 <select class="form-control select2" id="TMONEDA" name="TMONEDA" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -621,6 +664,7 @@ if (isset($_REQUEST['CREAR'])) {
     $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
     $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
     $DICARGA->__SET('ID_TMONEDA', $_REQUEST['TMONEDA']);
+    $DICARGA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
     $DICARGA_ADO->agregarDicarga($DICARGA);
 
@@ -666,6 +710,7 @@ if (isset($_REQUEST['EDITAR'])) {
     $DICARGA->__SET('ID_ESTANDAR', $_REQUEST['EEXPORTACION']);
     $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
     $DICARGA->__SET('ID_TMONEDA', $_REQUEST['TMONEDA']);
+    $DICARGA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
     $DICARGA->__SET('ID_DICARGA', $_REQUEST['ID']);
     $DICARGA_ADO->actualizarDicarga($DICARGA);

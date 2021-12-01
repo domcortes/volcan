@@ -337,6 +337,11 @@ include_once "../config/datosUrLP.php";
                                                                                       <i class="fa fa-file-excel-o"></i> Carga Real
                                                                                     </button>
                                                                                 </span>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Reporte Packing List">
+                                                                                    <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Reporte Carga Real" Onclick="abrirPestana('../reporte/reporteICargaPackingList.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                      <i class="fa fa-file-excel-o"></i> Packing List
+                                                                                    </button>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>

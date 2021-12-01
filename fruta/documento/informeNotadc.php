@@ -28,6 +28,7 @@ include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../controlador/CIUDAD_ADO.php';
  
 include_once '../controlador/ICARGA_ADO.php';
 include_once '../controlador/DICARGA_ADO.php';
@@ -68,6 +69,7 @@ $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
 $DESPACHOEX_ADO = new DESPACHOEX_ADO();
+$CIUDAD_ADO = new CIUDAD_ADO();
 
 $ICARGA_ADO =  new ICARGA_ADO();
 $DICARGA_ADO =  new DICARGA_ADO();
@@ -197,6 +199,7 @@ if ($ARRAYVERNOTADCNC) {
       $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
       $BOOKINGINSTRUCTIVO = $ARRAYICARGA[0]['BOOKING_ICARGA'];
       $TEMBARQUE = $ARRAYICARGA[0]['TEMBARQUE_ICARGA'];
+      $FECHA=$ARRAYICARGA[0]["FECHA"];
       $FECHAETD = $ARRAYICARGA[0]['FECHAETD'];
       $FECHAETA = $ARRAYICARGA[0]['FECHAETA'];    
       $BOLAWBCRTINSTRUCTIVO = $ARRAYICARGA[0]['BOLAWBCRT_ICARGA'];
@@ -210,6 +213,7 @@ if ($ARRAYVERNOTADCNC) {
         $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
         if($ARRAYVERPLANTA){
           $LUGARDECARGA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
+          $RAZONSOCIALPLANTA=$ARRAYVERPLANTA[0]["RAZON_SOCIAL_PLANTA"];
           $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
         }else{
           $FECHADESPACHOEX="Sin Datos";
@@ -228,14 +232,18 @@ if ($ARRAYVERNOTADCNC) {
           $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
       }else{
           $NOMBRERFINAL="Sin Datos";
-      }
+      }     
       $ARRAYCONSIGNATARIO = $CONSIGNATARIO_ADO->verConsignatorio($ARRAYICARGA[0]['ID_CONSIGNATARIO']);            
       if($ARRAYCONSIGNATARIO){
         $NOMBRECONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["NOMBRE_CONSIGNATARIO"];
         $DIRECCIONCONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["DIRECCION_CONSIGNATARIO"];
+        $EORICONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["EORI_CONSIGNATARIO"];
+        $TELEFONOCONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["TELEFONO_CONSIGNATARIO"];
         $EMAIL1CONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["EMAIL1_CONSIGNATARIO"];
       }else{
         $NOMBRECONSIGNATARIO="Sin Datos";
+        $EORICONSIGNATARIO="Sin Datos";
+        $TELEFONOCONSIGNATARIO="Sin Datos";
         $DIRECCIONCONSIGNATARIO="Sin Datos";
         $EMAIL1CONSIGNATARIO="Sin Datos";
       }
@@ -343,21 +351,20 @@ if ($ARRAYVERNOTADCNC) {
     $RAZONSOCIALEMPRESA =$ARRAYEMPRESA[0]["RAZON_SOCIAL_EMPRESA"];
     $RUTEMPRESA=$ARRAYEMPRESA[0]["RUT_EMPRESA"]."-".$ARRAYEMPRESA[0]["DV_EMPRESA"];
     $DIRECCIONEMPRESA=$ARRAYEMPRESA[0]["DIRECCION_EMPRESA"];
+    $ARRAYCIUDAD=$CIUDAD_ADO->listarCiudadeCoProRePACBX($ARRAYEMPRESA[0]["ID_CIUDAD"]);
+    if($ARRAYCIUDAD){
+      $UBICACION=$ARRAYCIUDAD[0]["UBICACION"];
+      $DIRECCIONEMPRESA=$DIRECCIONEMPRESA.", ".$UBICACION;
+    }else{
+      $DIRECCIONEMPRESA=$DIRECCIONEMPRESA;
+    }
+
   }else{    
     $NOMBREEMPRESA="Sin Datos";
     $RUTEMPRESA="Sin Datos";
     $DIRECCIONEMPRESA="Sin Datos";
   }
-  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYVERNOTADCNC[0]['ID_PLANTA']);
-  if($ARRAYPLANTA){
-    $NOMBREPLANTA=$ARRAYPLANTA[0]["NOMBRE_PLANTA"];
-    $RAZONSOCIALPLANTA = $ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
-    $FDAPLANTA=$ARRAYPLANTA[0]["FDA_PLANTA"];
-  }else{    
-    $NOMBREPLANTA="Sin Datos";
-    $RAZONSOCIALPLANTA="Sin Datos";
-    $FDAPLANTA="Sin Datos";
-  }
+
   $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYVERNOTADCNC[0]['ID_TEMPORADA']);  
   if($ARRAYTEMPORADA){
     $NOMBRETEMPORADA=$ARRAYTEMPORADA[0]["NOMBRE_TEMPORADA"];
@@ -435,7 +442,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
-$FECHANORMA2 = $DIA . "/" . $MES . "/" . $ANO;
+$FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -447,7 +454,7 @@ $html = '
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Report Debit or Credit Note</title>
+    <title>Debit or Credit Note</title>
   </head>
   <body>
     <header class="clearfix">
@@ -458,18 +465,13 @@ $html = '
               <img src="../vista/img/logo2.png" width="150px" height="45px"/>
           </div>
         </td>
-        <td class="color2 left" width="50%">
+        <td class="color2 left" width="70%">
           <b>'.$RAZONSOCIALEMPRESA.'</b> <br>
           '.$RUTEMPRESA.' <br>
           '.$DIRECCIONEMPRESA.' <br>          
         </td>
         <td class="color2 right">
-          <div id="company">
-            <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
-            <div>Camino a Antuco, Kilómetro N°13</div>
-            <div>Los Ángeles, Chile.</div>
-            <div><a href="mailto:ti@fvolcan.com">ti@fvolcan.cl</a></div>
-          </div>
+     
         </td>
       </tr>
     </table>    
@@ -481,58 +483,63 @@ $html = '
       <div class="f15 titulo"  style="text-align: right;">  <b>  Reference Number: ' . $NUMEROIREFERENCIA . '   </b>  </div>      
     </div>   
 
-    <br><br><br>
-
-
-
-
-
+    <br>
 <div id="details" class="clearfix">
   <div id="client">
-    <div class="address"> Date Instructive : '.$FECHA.'  </div>
-    <div class="address"> Consigne : '.$NOMBRECONSIGNATARIO.'  </div>
-    <div class="address"> address Consigne : '.$DIRECCIONCONSIGNATARIO.'  </div>
-    <div class="address"> Email Consigne : '.$EMAIL1CONSIGNATARIO.'  </div>
-    <div class="address">Sales method:  '.$NOMBREMVENTA.' </div>
-    <div class="address">Incoterm:   '.$NOMBRECVENTA.'</div>
-    <div class="address"> BL/AWB/CRT: : '.$BOLAWBCRTINSTRUCTIVO.'  </div>
+    <div class="address"> <b> Date Instructive:  </b> '.$FECHA.'  </div>
+    <div class="address"> <b>  Consigne:  </b> '.$NOMBRECONSIGNATARIO.'  </div>
+    <div class="address"> <b>  Address Consigne:  </b> '.$DIRECCIONCONSIGNATARIO.'  </div>
+    <div class="address"> <b> Tributary id Consigne: </b>'.$EORICONSIGNATARIO.'  </div>
+    <div class="address"> <b> Phone / Fax Consigne: </b>'.$TELEFONOCONSIGNATARIO.'  </div>
+    <div class="address"> <b>  Email Consigne:  </b> '.$EMAIL1CONSIGNATARIO.'  </div>
+    <div class="address"> <b>  Sales method:  </b>  '.$NOMBREMVENTA.' </div>
+    <div class="address"> <b>  Incoterm:  </b>   '.$NOMBRECVENTA.'</div>
+    <div class="address"> <b>  BL/AWB/CRT:  </b> '.$BOLAWBCRTINSTRUCTIVO.'  </div>
+    <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
   </div>
   <div id="client"> 
     ';
     if ($TEMBARQUE == "1") {
       $html = $html . '
-        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
-        <div class="address">Date ETA:  '.$FECHAETA.' </div>
-        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> transport : '.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> Place of Shipment : '.$NOMBREORIGEN.'  </div>
-        <div class="address"> Place of Destination : '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
+        <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
+        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  Transport Name:  </b> '.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> <b>  CRT:  </b> '.$CRT.'  </div>
+        <div class="address"> <b>  Place of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
+        <div class="address"> <b>  Place of Destination:  </b> '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Loading place:   </b> '.$LUGARDECARGA.'  </div>
       ';
     }
     if ($TEMBARQUE == "2") {
         $html = $html . '
     
-        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
-        <div class="address">Date ETA:  '.$FECHAETA.' </div>
-        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> Airplane : '.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> Airport of Shipment : '.$NOMBREORIGEN.'  </div>
-        <div class="address"> Airport of Destination : '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
+        <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
+        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  Airline Name:   </b>'.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> <b>  Airplane:   </b>'.$NAVE.'  </div>
+        <div class="address"> <b>  Airport of Shipment:  </b> '.$NOMBREORIGEN.'  </div>
+        <div class="address"> <b>  Airport of Destination:   </b>'.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Loading place:   </b>'.$LUGARDECARGA.'  </div>
     
         ';
      }
     if ($TEMBARQUE == "3") {
         $html = $html . '
     
-        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
-        <div class="address">Date ETA:  '.$FECHAETA.' </div>
-        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> Vessel : '.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> Port of Shipment : '.$NOMBREORIGEN.'  </div>
-        <div class="address"> Port of Destination : '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Date ETD:  </b>   '.$FECHAETD.'</div>  
+        <div class="address"> <b>  Date ETA:   </b> '.$FECHAETA.' </div>
+        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  Shipping company name:  </b> '.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> <b>  Vessel:   </b>'.$NAVE.'  </div>
+        <div class="address"> <b>  Port of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
+        <div class="address"> <b>  Port of Destination:  </b> '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Loading place:   </b>'.$LUGARDECARGA.'  </div>
     
         ';
     }    
+
 
 $html = $html . '
         </div>          
@@ -679,9 +686,9 @@ $html = $html . '
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO = "ReportDebitCreditNote_";
+$NOMBREARCHIVO = "DebitCreditNote_";
 $FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
-$TIPODOCUMENTO = "Report";
+$TIPODOCUMENTO = "Note";
 $FORMATO = ".pdf";
 $NOMBREARCHIVOFINAL = $NOMBREARCHIVO . $FECHADOCUMENTO . $FORMATO;
 
@@ -693,10 +700,10 @@ $UNICODE = "true";
 $ENCODING = "UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "Report Debit or Credit Note";
+$TIPOINFORME = "Debit or Credit Note";
 $CREADOR = "Usuario";
 $AUTOR = "Usuario";
-$ASUNTO = "Report";
+$ASUNTO = "Note";
 
 //API DE GENERACION DE PDF
 require_once '../../api/mpdf/mpdf/autoload.php';

@@ -176,7 +176,7 @@ $ARRAYNUMERO = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-$ARRAYICARGA = $ICARGA_ADO->listarIcargaConfirmadoCBX($EMPRESAS, $TEMPORADAS);
+$ARRAYICARGA = $ICARGA_ADO->listarIcargaDespachadoCBX($EMPRESAS, $TEMPORADAS);
 $ARRAYCONSIGNATARIO = $CONSIGNATARIO_ADO->listarConsignatorioPorEmpresaCBX($EMPRESAS);
 $ARRAYRFINAL = $RFINAL_ADO->listarRfinalPorEmpresaCBX($EMPRESAS);
 $ARRAYTRANSPORTE = $TRANSPORTE_ADO->listarTransportePorEmpresaCBX($EMPRESAS);
@@ -270,7 +270,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $MVENTA = $ARRAYVERICARGA[0]['ID_MVENTA'];
             }
             $EMPRESA = $r['ID_EMPRESA'];
-            $PLANTA    = $r['ID_PLANTA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
             $ESTADO = $r['ESTADO'];
         endforeach;
@@ -330,7 +329,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $MVENTA = $ARRAYVERICARGA[0]['ID_MVENTA'];
             }
             $EMPRESA = $r['ID_EMPRESA'];
-            $PLANTA    = $r['ID_PLANTA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
             $ESTADO = $r['ESTADO'];
         endforeach;
@@ -393,7 +391,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $MVENTA = $ARRAYVERICARGA[0]['ID_MVENTA'];
             }
             $EMPRESA = $r['ID_EMPRESA'];
-            $PLANTA    = $r['ID_PLANTA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
             $ESTADO = $r['ESTADO'];
         endforeach;
@@ -450,9 +447,6 @@ if (isset($_POST)) {
     }
     if (isset($_REQUEST['EMPRESA'])) {
         $EMPRESA = "" . $_REQUEST['EMPRESA'];
-    }
-    if (isset($_REQUEST['PLANTA'])) {
-        $PLANTA = "" . $_REQUEST['PLANTA'];
     }
     if (isset($_REQUEST['TEMPORADA'])) {
         $TEMPORADA = "" . $_REQUEST['TEMPORADA'];
@@ -1138,15 +1132,15 @@ if (isset($_POST)) {
                                                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroNotadc" />
                                                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDnotadc" />
-                                                                            <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                            <div class="btn-group btn-rounded  col-6 btn-block" role="group" aria-label="Operaciones Detalle">
                                                                                 <?php if ($ESTADO == "0") { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-info btn-sm  " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Valor NC/ND  ">
+                                                                                    <button type="submit" class="btn btn-info btn-sm  " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Valor NC/ND  ">
                                                                                         <i class="ti-eye"></i> Ver Valor
                                                                                     </button>
                                                                                 <?php } ?>
                                                                                 <?php if ($ESTADO == "1") { ?>                                                                                    
                                                                                      <?php if ( empty($ARRAYDNOTA)) { ?>
-                                                                                        <button type="submit" class="btn  btn-rounded   btn-success  btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Agregar Valor NC/ND " >
+                                                                                        <button type="submit" class="btn   btn-success  btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Agregar Valor NC/ND " >
                                                                                             <i class="ti-plus"></i> Agregar Valor
                                                                                         </button>
                                                                                     <?php }else{ ?>
@@ -1206,7 +1200,6 @@ if (isset($_POST)) {
                 $NOTADC->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONINOTA']);
                 $NOTADC->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
                 $NOTADC->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                $NOTADC->__SET('ID_PLANTA',  $_REQUEST['PLANTA']);
                 $NOTADC->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                 $NOTADC->__SET('ID_USUARIOI', $IDUSUARIOS);
                 $NOTADC->__SET('ID_USUARIOM', $IDUSUARIOS);
@@ -1216,7 +1209,6 @@ if (isset($_POST)) {
                 $ARRYAOBTENERID = $NOTADC_ADO->obtenerId(
                     $_REQUEST['FECHANOTA'],
                     $_REQUEST['EMPRESA'],
-                    $_REQUEST['PLANTA'],
                     $_REQUEST['TEMPORADA'],
 
                 );
@@ -1244,7 +1236,6 @@ if (isset($_POST)) {
                 $NOTADC->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONINOTA']);
                 $NOTADC->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
                 $NOTADC->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                $NOTADC->__SET('ID_PLANTA',  $_REQUEST['PLANTA']);
                 $NOTADC->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                 $NOTADC->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $NOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);
@@ -1309,7 +1300,6 @@ if (isset($_POST)) {
                     $NOTADC->__SET('OBSERVACIONES', $_REQUEST['OBSERVACIONINOTA']);
                     $NOTADC->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
                     $NOTADC->__SET('ID_EMPRESA',  $_REQUEST['EMPRESA']);
-                    $NOTADC->__SET('ID_PLANTA',  $_REQUEST['PLANTA']);
                     $NOTADC->__SET('ID_TEMPORADA',  $_REQUEST['TEMPORADA']);
                     $NOTADC->__SET('ID_USUARIOM', $IDUSUARIOS);
                     $NOTADC->__SET('ID_NOTA', $_REQUEST['IDP']);

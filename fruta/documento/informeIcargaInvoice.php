@@ -51,6 +51,7 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
+include_once '../controlador/CIUDAD_ADO.php';
 
 
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -105,6 +106,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
+$CIUDAD_ADO = new CIUDAD_ADO();
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $DESPACHOEX_ADO = new DESPACHOEX_ADO();
@@ -207,6 +209,10 @@ if($ARRAYICARGA){
     $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
     $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
 
+    $IDUSUARIOI = $ARRAYICARGA[0]['ID_USUARIOI'];  
+    $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+    $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
+    
     
     $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
     if($ARRAYDESPACHOEX){
@@ -272,13 +278,16 @@ if($ARRAYICARGA){
       }else{
           $NOMBRERFINAL="Sin Datos";
       }
-      $ARRYANOTIFICADOR=$NOTIFICADOR_ADO->verNotificador($ARRAYICARGA[0]['ID_NOTIFICADOR']);   
       if($ARRYANOTIFICADOR){
         $NOMBRENOTIFICADOR=$ARRYANOTIFICADOR[0]["NOMBRE_NOTIFICADOR"];
         $DIRECCIONNOTIFICADOR=$ARRYANOTIFICADOR[0]["DIRECCION_NOTIFICADOR"];
+        $EORINOTIFICADOR=$ARRYANOTIFICADOR[0]["EORI_NOTIFICADOR"];
+        $TELEFONONOTIFICADOR=$ARRYANOTIFICADOR[0]["TELEFONO_NOTIFICADOR"];
         $EMAIL1NOTIFICADOR=$ARRYANOTIFICADOR[0]["EMAIL1_NOTIFICADOR"];
       }else{
         $NOMBRENOTIFICADOR="Sin Datos";
+        $EORINOTIFICADOR="Sin Datos";
+        $TELEFONONOTIFICADOR="Sin Datos";
         $DIRECCIONNOTIFICADOR="Sin Datos";
         $EMAIL1NOTIFICADOR="Sin Datos";
       }
@@ -286,9 +295,13 @@ if($ARRAYICARGA){
       if($ARRAYCONSIGNATARIO){
         $NOMBRECONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["NOMBRE_CONSIGNATARIO"];
         $DIRECCIONCONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["DIRECCION_CONSIGNATARIO"];
+        $EORICONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["EORI_CONSIGNATARIO"];
+        $TELEFONOCONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["TELEFONO_CONSIGNATARIO"];
         $EMAIL1CONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["EMAIL1_CONSIGNATARIO"];
       }else{
         $NOMBRECONSIGNATARIO="Sin Datos";
+        $EORICONSIGNATARIO="Sin Datos";
+        $TELEFONOCONSIGNATARIO="Sin Datos";
         $DIRECCIONCONSIGNATARIO="Sin Datos";
         $EMAIL1CONSIGNATARIO="Sin Datos";
       }
@@ -463,6 +476,13 @@ if($ARRAYICARGA){
     $RAZONSOCIALEMPRESA = $ARRAYEMPRESA[0]["RAZON_SOCIAL_EMPRESA"];
     $RUTEMPRESA=$ARRAYEMPRESA[0]["RUT_EMPRESA"]."-".$ARRAYEMPRESA[0]["DV_EMPRESA"];
     $DIRECCIONEMPRESA=$ARRAYEMPRESA[0]["DIRECCION_EMPRESA"];
+    $ARRAYCIUDAD=$CIUDAD_ADO->listarCiudadeCoProRePACBX($ARRAYEMPRESA[0]["ID_CIUDAD"]);
+    if($ARRAYCIUDAD){
+      $UBICACION=$ARRAYCIUDAD[0]["UBICACION"];
+      $DIRECCIONEMPRESA=$DIRECCIONEMPRESA.", ".$UBICACION;
+    }else{
+      $DIRECCIONEMPRESA=$DIRECCIONEMPRESA;
+    }
   }else{    
     $NOMBREEMPRESA="Sin Datos";
     $RAZONSOCIALEMPRESA="Sin Datos";
@@ -545,7 +565,7 @@ $NOMBREDIA = $DIASNOMBRES[$NOMBREDIA];
 $NOMBREMES = $MESESNOMBRES[$NOMBREMES];
 // SE JUNTA LA INFORMAICON DE LA FECHA Y SE LE DA UN FORMATO
 $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
-$FECHANORMA2 = $DIA . "/" . $MES . "/" . $ANO;
+$FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
@@ -566,78 +586,75 @@ $html = '
               <img src="../vista/img/logo2.png" width="150px" height="45px"/>
           </div>
         </td>
-        <td class="color2 left" width="50%">
+        <td class="color2 left" width="70%">
           <b>'.$RAZONSOCIALEMPRESA.'</b> <br>
           '.$RUTEMPRESA.' <br>
           '.$DIRECCIONEMPRESA.' <br>          
         </td>
         <td class="color2 right">
-          <div id="company">
-            <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
-            <div>Camino a Antuco, Kilómetro N°13</div>
-            <div>Los Ángeles, Chile.</div>
-            <div><a href="mailto:ti@fvolcan.com">ti@fvolcan.cl</a></div>
-          </div>
+        
         </td>
       </tr>
     </table>    
     </header>
-    <main>
-    
+    <main>    
     <div class="titulo bcolor" >
       <div class="f20 titulo"  style="text-align: left; font-weight: bold;">  INVOICE  </div>    
       <div class="f15 titulo"  style="text-align: right;">  <b>  Reference Number: ' . $NUMEROIREFERENCIA . '   </b>  </div>      
-    </div>   
-
-    <br><br><br>
-
-
-
-
-
+    </div>  
+    <br>
 <div id="details" class="clearfix">
   <div id="client">
-    <div class="address"> Date Instructive : '.$FECHA.'  </div>
-    <div class="address"> Consigne : '.$NOMBRECONSIGNATARIO.'  </div>
-    <div class="address"> address Consigne : '.$DIRECCIONCONSIGNATARIO.'  </div>
-    <div class="address"> Email Consigne : '.$EMAIL1CONSIGNATARIO.'  </div>
-    <div class="address">Sales method:  '.$NOMBREMVENTA.' </div>
-    <div class="address">Incoterm:   '.$NOMBRECVENTA.'</div>
-    <div class="address"> BL/AWB/CRT: : '.$BOLAWBCRTINSTRUCTIVO.'  </div>
+    <div class="address"> <b> Date Instructive:  </b> '.$FECHA.'  </div>
+    <div class="address"> <b>  Consigne:  </b> '.$NOMBRECONSIGNATARIO.'  </div>
+    <div class="address"> <b>  Address Consigne:  </b> '.$DIRECCIONCONSIGNATARIO.'  </div>
+    <div class="address"> <b> Tributary id Consigne: </b>'.$EORICONSIGNATARIO.'  </div>
+    <div class="address"> <b> Phone / Fax Consigne: </b>'.$TELEFONOCONSIGNATARIO.'  </div>
+    <div class="address"> <b>  Email Consigne:  </b> '.$EMAIL1CONSIGNATARIO.'  </div>
+    <div class="address"> <b>  Sales method:  </b>  '.$NOMBREMVENTA.' </div>
+    <div class="address"> <b>  Incoterm:  </b>   '.$NOMBRECVENTA.'</div>
+    <div class="address"> <b>  BL/AWB/CRT:  </b> '.$BOLAWBCRTINSTRUCTIVO.'  </div>
+    <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
   </div>
   <div id="client"> 
     ';
     if ($TEMBARQUE == "1") {
       $html = $html . '
-        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
-        <div class="address">Date ETA:  '.$FECHAETA.' </div>
-        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> transport : '.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> Place of Shipment : '.$NOMBREORIGEN.'  </div>
-        <div class="address"> Place of Destination : '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
+        <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
+        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  Transport Name:  </b> '.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> <b>  CRT:  </b> '.$CRT.'  </div>
+        <div class="address"> <b>  Place of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
+        <div class="address"> <b>  Place of Destination:  </b> '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Loading place:   </b> '.$LUGARDECARGA.'  </div>
       ';
     }
     if ($TEMBARQUE == "2") {
         $html = $html . '
     
-        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
-        <div class="address">Date ETA:  '.$FECHAETA.' </div>
-        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> Airplane : '.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> Airport of Shipment : '.$NOMBREORIGEN.'  </div>
-        <div class="address"> Airport of Destination : '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
+        <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
+        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  Airline Name:   </b>'.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> <b>  Airplane:   </b>'.$NAVE.'  </div>
+        <div class="address"> <b>  Airport of Shipment:  </b> '.$NOMBREORIGEN.'  </div>
+        <div class="address"> <b>  Airport of Destination:   </b>'.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Loading place:   </b>'.$LUGARDECARGA.'  </div>
     
         ';
      }
     if ($TEMBARQUE == "3") {
         $html = $html . '
     
-        <div class="address">Date ETD:   '.$FECHAETD.'</div>  
-        <div class="address">Date ETA:  '.$FECHAETA.' </div>
-        <div class="address"> container number:: : '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> Vessel : '.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> Port of Shipment : '.$NOMBREORIGEN.'  </div>
-        <div class="address"> Port of Destination : '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Date ETD:  </b>   '.$FECHAETD.'</div>  
+        <div class="address"> <b>  Date ETA:   </b> '.$FECHAETA.' </div>
+        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  Shipping company name:  </b> '.$NOMBRETRANSPORTE.'  </div>
+        <div class="address"> <b>  Vessel:   </b>'.$NAVE.'  </div>
+        <div class="address"> <b>  Port of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
+        <div class="address"> <b>  Port of Destination:  </b> '.$NOMBREDESTINO.'  </div>
+        <div class="address"> <b>  Loading place:   </b>'.$LUGARDECARGA.'  </div>
     
         ';
     }    
@@ -735,7 +752,7 @@ $html = $html . '
   <div id="details" class="clearfix">
 
         <div id="client">
-          <div class="address"><b>observations</b></div>
+          <div class="address"><b>Observations</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
         

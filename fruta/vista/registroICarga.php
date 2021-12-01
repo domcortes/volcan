@@ -54,6 +54,7 @@ include_once '../controlador/ESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
 
 
 include_once '../controlador/PRODUCTOR_ADO.php';
@@ -113,6 +114,7 @@ $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO =  new TMONEDA_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
 $ECOMERCIAL_ADO =  new ECOMERCIAL_ADO();
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
@@ -2837,7 +2839,7 @@ if (isset($_POST)) {
                                             </div>
                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label> Apertura Lampa</label>
+                                                    <label> Apertura Lampa (CBM)</label>
                                                     <input type="hidden" class="form-control" placeholder="ALAMPAINSTRUCTIVOE" id="ALAMPAINSTRUCTIVOE" name="ALAMPAINSTRUCTIVOE" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" />
                                                     <input type="number" step="0.01" class="form-control" placeholder="Apertura Lampa Instructivo" id="ALAMPAINSTRUCTIVO" name="ALAMPAINSTRUCTIVO" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_alampa" class="validacion"> </label>
@@ -3089,6 +3091,9 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn  btn-success" id="defecto" name="tarjas" title="Reporte Carga Real" Onclick="abrirPestana('../reporte/reporteCargaRealcarga.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-excel-o"></i> Carga Real
                                                 </button>
+                                                <button type="button" class="btn  btn-success" id="defecto" name="tarjas" title="Reporte Packing List" Onclick="abrirPestana('../reporte/reporteICargaPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-excel-o"></i> Packing  List
+                                                </button>
                                             <?php endif ?>
                                         </div>
                                     </div>
@@ -3170,6 +3175,7 @@ if (isset($_POST)) {
                                                 <th>Kilo Bruto </th>
                                                 <th>Calibre </th>
                                                 <th>Tipo Moneda </th>
+                                                <th>Tipo Manejo </th>
                                                 <th>Precio </th>
                                                 <th>Total </th>
                                             </tr>
@@ -3203,6 +3209,12 @@ if (isset($_POST)) {
                                                     } else {
                                                         $NOMBRETMONEDA = "Sin Datos";
                                                     }
+                                                    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
+                                                    if ($ARRAYTMANEJO) {
+                                                        $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                    } else {
+                                                        $NOMBRETMANEJO = "Sin Datos";
+                                                    }
                                                     ?>
 
                                                     <tr class="center">
@@ -3213,7 +3225,7 @@ if (isset($_POST)) {
                                                                 <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                 <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroICarga" />
                                                                 <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDicarga" />                                                                
-                                                                <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                <div class="btn-group btn-rounded col-6 btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn btn-info  btn-sm   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Instructivo">
                                                                                 <i class="ti-eye"></i> Ver
@@ -3242,6 +3254,7 @@ if (isset($_POST)) {
                                                         <td><?php echo $s['BRUTO']; ?></td>
                                                         <td><?php echo $NOMBRECALIBRE; ?></td>
                                                         <td><?php echo $NOMBRETMONEDA; ?></td>
+                                                        <td><?php echo $NOMBRETMANEJO; ?></td>
                                                         <td><?php echo $s['US']; ?></td>
                                                         <td><?php echo $s['TOTALUS']; ?></td>
                                                     </tr>

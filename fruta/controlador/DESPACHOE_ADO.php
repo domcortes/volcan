@@ -215,6 +215,112 @@ class DESPACHOE_ADO
                                                 ESTADO_REGISTRO
                                             )
              VALUES
+               (  ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?,  ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   0,  SYSDATE(),  SYSDATE(), 1, 1, 1);";
+
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $DESPACHOE->__GET('NUMERO_DESPACHO'),
+                        $DESPACHOE->__GET('FECHA_DESPACHO'),
+                        $DESPACHOE->__GET('NUMERO_DOCUMENTO'),
+                        $DESPACHOE->__GET('PATENTE_CAMION'),
+                        $DESPACHOE->__GET('PATENTE_CARRO'),
+
+                        $DESPACHOE->__GET('TDESPACHO'),
+                        $DESPACHOE->__GET('OBSERVACIONES'),
+                        $DESPACHOE->__GET('REGALO_DESPACHO'),
+                        $DESPACHOE->__GET('ID_TDOCUMENTO'),
+                        $DESPACHOE->__GET('ID_TRANSPORTE'),
+                        $DESPACHOE->__GET('ID_CONDUCTOR'),
+
+                        $DESPACHOE->__GET('ID_BODEGA'),
+                        $DESPACHOE->__GET('ID_PLANTA2'),
+                        $DESPACHOE->__GET('ID_BODEGA2'),
+                        $DESPACHOE->__GET('ID_PRODUCTOR'),
+
+                        $DESPACHOE->__GET('ID_PROVEEDOR'),
+                        $DESPACHOE->__GET('ID_PLANTA3'),
+                        $DESPACHOE->__GET('ID_COMPRADOR'),
+                        $DESPACHOE->__GET('ID_DESPACHOMP'),
+                        $DESPACHOE->__GET('ID_BODEGAO'),
+
+                        $DESPACHOE->__GET('ID_EMPRESA'),
+                        $DESPACHOE->__GET('ID_PLANTA'),
+                        $DESPACHOE->__GET('ID_TEMPORADA'),
+                        $DESPACHOE->__GET('ID_USUARIOI'),
+                        $DESPACHOE->__GET('ID_USUARIOM')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+   
+    public function agregarDespachoeMp(DESPACHOE $DESPACHOE)
+    {
+        try {
+            if ($DESPACHOE->__GET('ID_BODEGA') == NULL) {
+                $DESPACHOE->__SET('ID_BODEGA', NULL);
+            }
+            if ($DESPACHOE->__GET('ID_PLANTA2') == NULL) {
+                $DESPACHOE->__SET('ID_PLANTA2', NULL);
+            }
+            if ($DESPACHOE->__GET('ID_BODEGA2') == NULL) {
+                $DESPACHOE->__SET('ID_BODEGA2', NULL);
+            }
+            if ($DESPACHOE->__GET('ID_PRODUCTOR') == NULL) {
+                $DESPACHOE->__SET('ID_PRODUCTOR', NULL);
+            }
+            if ($DESPACHOE->__GET('ID_PROVEEDOR') == NULL) {
+                $DESPACHOE->__SET('ID_PROVEEDOR', NULL);
+            }
+            if ($DESPACHOE->__GET('ID_PLANTA3') == NULL) {
+                $DESPACHOE->__SET('ID_PLANTA3', NULL);
+            }
+            if ($DESPACHOE->__GET('ID_COMPRADOR') == NULL) {
+                $DESPACHOE->__SET('ID_COMPRADOR', NULL);
+            }
+            $query =
+                "INSERT INTO material_despachoe ( 
+                                                NUMERO_DESPACHO, 
+                                                FECHA_DESPACHO, 
+                                                NUMERO_DOCUMENTO, 
+                                                PATENTE_CAMION,
+                                                PATENTE_CARRO,
+
+                                                TDESPACHO, 
+                                                OBSERVACIONES,
+                                                REGALO_DESPACHO,
+                                                ID_TDOCUMENTO, 
+                                                ID_TRANSPORTE, 
+                                                ID_CONDUCTOR, 
+
+                                                ID_BODEGA, 
+                                                ID_PLANTA2, 
+                                                ID_BODEGA2, 
+                                                ID_PRODUCTOR,  
+
+                                                ID_PROVEEDOR, 
+                                                ID_PLANTA3,  
+                                                ID_COMPRADOR,  
+                                                ID_DESPACHOMP,  
+                                                ID_BODEGAO,  
+
+                                                ID_EMPRESA, 
+                                                ID_PLANTA, 
+                                                ID_TEMPORADA, 
+                                                ID_USUARIOI, 
+                                                ID_USUARIOM, 
+
+                                                CANTIDAD_DESPACHO,   
+                                                INGRESO, 
+                                                MODIFICACION, 
+                                                ESTADO, 
+                                                ESTADO_DESPACHO,  
+                                                ESTADO_REGISTRO
+                                            )
+             VALUES
                (  ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?,  ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   0,  SYSDATE(),  SYSDATE(), 0, 1, 1);";
 
             $this->conexion->prepare($query)

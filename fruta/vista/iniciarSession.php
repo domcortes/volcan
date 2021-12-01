@@ -73,6 +73,9 @@ $ARRAYTEMPORADA = "";
 <!-- fin nuevo head -->
 
 <!-- nuevo body  -->
+
+
+
     <body class="hold-transition sidebar-collapse sidebar-mini login-page">
         <div class="login-box">
             <div class="login-logo">
@@ -95,7 +98,7 @@ $ARRAYTEMPORADA = "";
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" placeholder="CONTRASE&ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" required>
+                            <input type="password" class="form-control" placeholder="CONTRASE&Ntilde;A" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -113,56 +116,9 @@ $ARRAYTEMPORADA = "";
                     </form>
                 </div>
             </div>
-
         </div>
 
-         <!-- deteccion celular -->
-    <?php if ($detect->isMobile() && $detect->isiOS() ): ?>
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
 
-            Toast.fire({
-                icon: 'info',
-                title: 'Celular iPhone detectado',
-                html:"Hemos detectado que estas desde un iPhone 📱<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
-                showConfirmButton:true,
-                confirmButtonText:"Vale! 😉"
-            })
-        </script>
-    <?php endif ?>
-
-    <!-- deteccion Android -->
-    <?php if ($detect->isMobile() && $detect->isAndroidOS()): ?>
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                icon: 'info',
-                title: 'Celular Android detectado',
-                html:"Hemos detectado que estas desde un telefono Android 🤖<br>De momento algunas vistas no estan adaptadas, por lo que sugerimos que te conectes desde un tablet Android / iPad o un computador",
-                showConfirmButton:true,
-                confirmButtonText:"Vale! 😉"
-            })
-        </script>
-    <?php endif ?>
 
     <!-- entrar -->
     <?php

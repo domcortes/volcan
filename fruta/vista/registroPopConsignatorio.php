@@ -25,7 +25,9 @@ $OP = "";
 $DISABLED = "";
 
 $NOMBRECONSIGNATARIO = "";
+$EORICONSIGNATARIO = "";
 $DIRECCIONCONSIGNATARIO = "";
+$TELEFONOCONSIGNATARIO = "";
 $CONTACTOCONSIGNATARIO1 = "";
 $CARGOCONSIGNATARIO1 = "";
 $EMAILCONSIGNATARIO1 = "";
@@ -67,7 +69,9 @@ if (isset($_REQUEST['GUARDAR'])) {
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
     $CONSIGNATARIO->__SET('NUMERO_CONSIGNATARIO', $NUMERO);
     $CONSIGNATARIO->__SET('NOMBRE_CONSIGNATARIO', $_REQUEST['NOMBRECONSIGNATARIO']);
+    $CONSIGNATARIO->__SET('EORI_CONSIGNATARIO', $_REQUEST['EORICONSIGNATARIO']);
     $CONSIGNATARIO->__SET('DIRECCION_CONSIGNATARIO', $_REQUEST['DIRECCIONCONSIGNATARIO']);
+    $CONSIGNATARIO->__SET('TELEFONO_CONSIGNATARIO', $_REQUEST['TELEFONOCONSIGNATARIO']);
     $CONSIGNATARIO->__SET('CONTACTO1_CONSIGNATARIO', $_REQUEST['CONTACTOCONSIGNATARIO1']);
     $CONSIGNATARIO->__SET('CARGO1_CONSIGNATARIO', $_REQUEST['CARGOCONSIGNATARIO1']);
     $CONSIGNATARIO->__SET('EMAIL1_CONSIGNATARIO', $_REQUEST['EMAILCONSIGNATARIO1']);
@@ -322,13 +326,20 @@ if (isset($_REQUEST['GUARDAR'])) {
                             </h4>
                             <hr class="my-15">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nombre </label>
                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                         <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                         <input type="text" class="form-control" placeholder="Nombre Consignatorio" id="NOMBRECONSIGNATARIO" name="NOMBRECONSIGNATARIO" value="<?php echo $NOMBRECONSIGNATARIO; ?>" <?php echo $DISABLED; ?> />
                                         <label id="val_nombre" class="validacion"> </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>ID Tributario(EORI) </label>
+                                        <input type="text" class="form-control" placeholder="ID Tributario Consignatorio" id="EORICONSIGNATARIO" name="EORICONSIGNATARIO" value="<?php echo $EORICONSIGNATARIO; ?>" <?php echo $DISABLED; ?> />
+                                        <label id="val_eori" class="validacion"> </label>
                                     </div>
                                 </div>
                             </div>
@@ -338,6 +349,13 @@ if (isset($_REQUEST['GUARDAR'])) {
                                         <label>Direccion </label>
                                         <input type="text" class="form-control" placeholder="Direccion Consignatorio" id="DIRECCIONCONSIGNATARIO" name="DIRECCIONCONSIGNATARIO" value="<?php echo $DIRECCIONCONSIGNATARIO; ?>" <?php echo $DISABLED; ?> />
                                         <label id="val_direccion" class="validacion"> </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Telefono / Fax </label>
+                                        <input type="text" class="form-control" placeholder="Telefono / Fax Consignatorio" id="TELEFONOCONSIGNATARIO" name="TELEFONOCONSIGNATARIO" value="<?php echo $TELEFONOCONSIGNATARIO; ?>" <?php echo $DISABLED; ?> />
+                                        <label id="val_telefono" class="validacion"> </label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">

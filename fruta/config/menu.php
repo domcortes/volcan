@@ -869,6 +869,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroTcalibre.php"><i class="ti-more"></i>Calibre</a></li>
             </ul>
           </li>
+          <!--
           <li class="treeview">
             <a href="#">Estandares
               <span class="pull-left-container">
@@ -881,7 +882,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroEcomercial.php"><i class="ti-more"></i> Expo. Comercial</a></li>
               <li><a href="registroEindustrial.php"><i class="ti-more"></i>Industrial</a></li>
             </ul>
-          </li>
+          </li>-->
           <li class="treeview">
             <a href="#">Ubicacion
               <span class="pull-left-container">
@@ -1021,7 +1022,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroTmanejo.php"><i class="ti-more"></i>Tipo Manejo</a></li>
               <li><a href="registroTinpsag.php"><i class="ti-more"></i>Tipo Inpeccion Sag</a></li>
               <li><a href="registroTtratamiento1.php"><i class="ti-more"></i>Tipo Tratamiento 1</a></li>
-              <li><a href="registroTtratamiento2.php"><i class="ti-more"></i>Tipo Tratamiento 1</a></li>
+              <li><a href="registroTtratamiento2.php"><i class="ti-more"></i>Tipo Tratamiento 2</a></li>
               <li><a href="registroTcategoria.php"><i class="ti-more"></i>Tipo Categoria</a></li>
               <li><a href="registroTcolor.php"><i class="ti-more"></i>Tipo Color</a></li>    
             </ul>

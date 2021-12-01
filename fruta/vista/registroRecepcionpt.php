@@ -13,6 +13,8 @@ include_once '../controlador/TRANSPORTE_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TCOLOR_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/RECEPCIONPT_ADO.php';
@@ -37,6 +39,8 @@ $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $EEXPORTACION_ADO = new EEXPORTACION_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
+$TCOLOR_ADO =  new TCOLOR_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 $EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
 $RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
@@ -1115,6 +1119,7 @@ if (isset($_POST)) {
                                                             <th>Folio</th>
                                                             <th class="text-center">Operaciones</th>
                                                             <th>Fecha Embalado </th>
+                                                            <th>Código Estandar</th>
                                                             <th>Envase/Estandar</th>
                                                             <th>Variedad</th>
                                                             <th>Cantidad Envase</th>
@@ -1126,6 +1131,8 @@ if (isset($_POST)) {
                                                             <th>Embolsado</th>
                                                             <th>Tipo Manejo </th>
                                                             <th>Tipo Calibre </th>
+                                                            <th>Tipo Categoria </th>
+                                                            <th>Tipo Color </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1160,8 +1167,10 @@ if (isset($_POST)) {
                                                                 }
                                                                 $ARRAYESTANDAR = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
                                                                 if ($ARRAYESTANDAR) {
+                                                                    $CODIGOESTANDAR = $ARRAYESTANDAR[0]['CODIGO_ESTANDAR'];
                                                                     $NOMBREESTANDAR = $ARRAYESTANDAR[0]['NOMBRE_ESTANDAR'];
                                                                 } else {
+                                                                    $CODIGOESTANDAR = "Sin Datos";
                                                                     $NOMBREESTANDAR = "Sin Datos";
                                                                 }
                                                                 if ($s['EMBOLSADO_DRECEPCION'] == "0") {
@@ -1171,6 +1180,18 @@ if (isset($_POST)) {
                                                                 } else {
                                                                     $EMBOLSADO = "Sin Datos";
                                                                 }
+                                                                $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($s['ID_TCATEGORIA']);
+                                                                if($ARRAYTCATEGORIA){
+                                                                   $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+                                                                }else{
+                                                                    $NOMBRETCATEGORIA = "Sin Datos";
+                                                                }   
+                                                                $ARRAYTCOLOR=$TCOLOR_ADO->verTcolor($s['ID_TCOLOR']);
+                                                                if($ARRAYTCOLOR){
+                                                                    $NOMBRETCOLOR= $ARRAYTCOLOR[0]["NOMBRE_TCOLOR"];
+                                                                }else{
+                                                                    $NOMBRETCOLOR = "Sin Datos";
+                                                                } 
                                                                 ?>
                                                                 <tr class="text-lef">
                                                                     <td><?php echo $CONTADOR ?></td>
@@ -1203,6 +1224,7 @@ if (isset($_POST)) {
                                                                         </form>
                                                                     </td>
                                                                     <td><?php echo $s['EMBALADO']; ?></td>
+                                                                    <td><?php echo $CODIGOESTANDAR; ?></td>
                                                                     <td><?php echo $NOMBREESTANDAR; ?></td>
                                                                     <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                                     <td><?php echo $s['ENVASEA']; ?></td>
@@ -1214,6 +1236,8 @@ if (isset($_POST)) {
                                                                     <td><?php echo $EMBOLSADO; ?></td>
                                                                     <td><?php echo $NOMBRETMANEJO; ?></td>
                                                                     <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                                    <td><?php echo $NOMBRETCATEGORIA; ?></td>
+                                                                    <td><?php echo $NOMBRETCOLOR; ?></td>
                                                                 </tr>
                                                             <?php endforeach; ?>
                                                         <?php } ?>

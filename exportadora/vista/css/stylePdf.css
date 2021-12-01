@@ -94,6 +94,30 @@ font-face {
 	font-size: 1.1em;
 	color: #777777;
   }
+
+
+  #invoicer {
+	font-size: 10px;
+	width: 200px;
+	float: left;
+	text-align: left;
+	border-left: 6px solid #4253a1;
+  }
+  
+  #invoicer h1, h2 {
+	color: #4253a1;
+	line-height: 1em;
+	font-weight: normal;
+	margin: 0  0 10px 0;
+  }
+  
+  
+  
+  #invoicer .dater {
+	font-size: 1.1em;
+	color: #777777;
+  }
+
   
   h1.titulo{
 	width: 100%;
@@ -141,13 +165,17 @@ font-face {
 	color: #FFFFFF;
 	background: #4253a1;
   }
+  table .color2 {
+	color: #000000;
+	background: transparent;
+  }
   table .color3 {
 	color: #000000;
 	border-top: 2px solid #000000;
 	background: transparent;
   }
-  table .color2 {
-	color: #000000;
+  table .color4 {
+	color: #FFFFFF;
 	background: transparent;
   }
   table .left {
@@ -209,17 +237,26 @@ font-face {
   
   footer {
 	color: #777777;	
-	height: 30px;
-	position: absolute;
+	height: 10px;
 	bottom: 0;
 	border-top: 1px solid #AAAAAA;
-	padding: 8px 0;
+	padding: 4px 0;
 	text-align: left;
 	font-size: 10px;
 	width: 100%;
   }
   
-  
+  .cuadrado , #cuadrado{
+	  font-size: large;
+	  width: 100px;
+	  height: 100px;
+	  border: 2px solid #000000;
+	  border-radius: 1px;
+	  -webkit-border-radius: 1px;
+	  -moz-border-radius: 1px;
+	  -ms-border-radius: 1px;
+	  -o-border-radius: 1px;
+}
 
 
 
@@ -229,6 +266,18 @@ img {
 }
 
 
+
+input[type=checkbox] {
+
+	padding: 10px;
+  }
+
+  .bcolor, #bcolor{
+	color: #FFFFFF;
+	background: #4253a1;
+	padding: 10px;
+	
+  }
 
 .margin10 #margin10{
 	
@@ -244,7 +293,10 @@ img {
 .pp30,  #pp30{
 	padding: 30px;
 }
-
+.ppb, #ppb{
+	
+	padding-bottom: 20px;
+}
 
 .pprl , #pprl{
 	padding-left: 20px;
@@ -263,10 +315,35 @@ img {
 .tarja, #tarja{
 	font-size: 7px;
 }
-
-.bor, #bor{
-	
+.borr, #borr{
 	border: 2px solid #000000;
+	border-radius: 15px solid #000000;
+	-webkit-border-radius: 15px solid #000000;
+	-moz-border-radius: 15px solid #000000;
+	-ms-border-radius: 15px solid #000000;
+	-o-border-radius: 15px solid #000000;
+}
+.bor, #bor{	
+	border: 1px solid #000000;
+}
+.bor2, #bor2{
+	
+	border: 1px solid #bbb5b5;
+}
+.bor3, #bor3{
+	border: 2px solid #4253a1;
+	border-radius: 15px solid #4253a1;
+	-webkit-border-radius: 15px solid #4253a1;
+	-moz-border-radius: 15px solid #0e163a;
+	-ms-border-radius: 15px solid #4253a1;
+	-o-border-radius: 15px solid #4253a1;
+}
+.bor3, #bor3{
+	
+	border-left: 1px solid #bbb5b5;
+	border-right: 1px solid #bbb5b5;
+	border-top: 1px solid #bbb5b5;
+	border-bottom: 1px solid #bbb5b5;
 }
 .bl, #bl{
 	border-left: 1px solid #000000;
@@ -275,22 +352,22 @@ img {
 	border-right: 1px solid #000000;
 }
 .bb, #bb{
-	border-bottom: 1px solid #000000;
+	border-bottom: 2px solid #000000;
 }
 .bt, #bt{
 	border-top: 1px solid #000000;
 }
 .bl2, #bl2{
-	border-left: 1px solid #bbb5b5;
+	border-left: 2px solid #bbb5b5;
 }
-.b2r, #br2{
-	border-right: 1px solid #bbb5b5;
+.br2, #br2{
+	border-right: 2px solid #bbb5b5;
 }
 .bb2, #bb2{
-	border-bottom: 1px solid #bbb5b5;
+	border-bottom: 2px solid #bbb5b5;
 }
 .bt2, #bt2{
-	border-top: 1px solid #bbb5b5;
+	border-top: 2px solid #bbb5b5;
 }
 
 /*style=" border-top: 1px solid #000000;"*/

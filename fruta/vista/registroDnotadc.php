@@ -97,6 +97,7 @@ $ARRAYESTANDARDETALLE = "";
 
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
+$ARRAYTMONEDA = $TMONEDA_ADO->listarTmonedaPorEmpresaCBX($EMPRESAS);
 include_once "../config/validarDatosUrlD.php";
 
 
@@ -509,7 +510,7 @@ if ($_POST) {
                                             <div class="form-group">
                                                 <label>Tipo Moneda</label>
                                                 <input type="hidden" class="form-control" placeholder="TMONEDAE" id="TMONEDAE" name="TMONEDAE" value="<?php echo $TMONEDA; ?>" />
-                                                <select class="form-control select2" id="TMONEDA" name="TMONEDA" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                <select class="form-control select2" id="TMONEDA" name="TMONEDA" style="width: 100%;"  disabled >
                                                     <option></option>
                                                     <?php foreach ($ARRAYTMONEDA as $r) : ?>
                                                         <?php if ($ARRAYTMONEDA) {    ?>
