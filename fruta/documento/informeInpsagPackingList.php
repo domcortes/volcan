@@ -358,7 +358,6 @@ $html = '
           <div class="address"><b>Condición: </b>' . $NOMBRETESTADOSAG . '</div>
           <div class="address"><b>Inpector: </b>' . $INPECTOR . '</div>
           <div class="address"><b>Contraparte: </b>' . $CONTRAPARTE . '</div>
-          <div class="address"><b>Valor CIF: </b>' . $CIF . '</div>
           <div class="address"><b>Paises: </b>' . $PAIS . '</div>
         </div>        
       </div>

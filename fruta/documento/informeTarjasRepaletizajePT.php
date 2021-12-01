@@ -205,13 +205,13 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
   <table border="0" cellspacing="0" cellpadding="0"  >
     <thead>   	  
       <tr>
-        <th class="color center">Fecha Embalado</th>
-        <th class="color center ">CSG </th>
-        <th class="color center ">Nombre Productor </th>
-        <th class="color center ">Cant. Envase</th>
-        <th class="color center ">Kilos Neto</th>
-        <th class="color center ">Embolsado </th>
-        <th class="color center ">Variedad </th>
+        <th class=" center">Fecha Embalado</th>
+        <th class=" center ">CSG </th>
+        <th class=" center ">Nombre Productor </th>
+        <th class=" center ">Cant. Envase</th>
+        <th class=" center ">Kilos Neto</th>
+        <th class=" center ">Embolsado </th>
+        <th class=" center ">Variedad </th>
       </tr>
     </thead>
      <tbody >
