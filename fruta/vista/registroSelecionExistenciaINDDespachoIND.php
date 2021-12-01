@@ -465,6 +465,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $NETONUEVO);
                             $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASESTACTICO);
                             $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $FOLIOALIASDIANAMICO);
+                            $EXIINDUSTRIAL->__SET('TCOBRO', $r['TCOBRO']);
                             $EXIINDUSTRIAL->__SET('INGRESO', $r['INGRESO']);
                             $EXIINDUSTRIAL->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
                             $EXIINDUSTRIAL->__SET('ID_FOLIO',  $r['ID_FOLIO']);

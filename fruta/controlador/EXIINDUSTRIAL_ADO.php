@@ -127,7 +127,7 @@ class EXIINDUSTRIAL_ADO
                                                     KILOS_PROMEDIO_EXIINDUSTRIAL,  
                                                     PESO_PALLET_EXIINDUSTRIAL,        
 
-                                                    GASIFICADO,     
+                                                    GASIFICADO,    
                                                     ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL, 
                                                     ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,   
                                                     FECHA_RECEPCION,    
@@ -144,11 +144,12 @@ class EXIINDUSTRIAL_ADO
                                                     ID_RECEPCION,
 
                                                     INGRESO,
-                                                    MODIFICACION,
+                                                    MODIFICACION,  
+                                                    TCOBRO,    
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(),  1, 1);";
+	       	( ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?, ?, ?, ?,  SYSDATE(), SYSDATE(), 1,  1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -200,7 +201,8 @@ class EXIINDUSTRIAL_ADO
                                                     KILOS_NETO_EXIINDUSTRIAL,       
                                                     ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
                                                     ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,        
-                                                    FECHA_PROCESO,    
+                                                    FECHA_PROCESO,          
+                                                    TCOBRO,    
                                                     ID_TMANEJO, 
                                                     ID_FOLIO,
                                                     ID_ESTANDAR,
@@ -215,7 +217,7 @@ class EXIINDUSTRIAL_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -227,6 +229,7 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FECHA_PROCESO'),
+                        $EXIINDUSTRIAL->__GET('TCOBRO'),
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_FOLIO'),
                         $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
@@ -256,7 +259,8 @@ class EXIINDUSTRIAL_ADO
                                                     KILOS_NETO_EXIINDUSTRIAL,       
                                                     ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
                                                     ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,        
-                                                    FECHA_REEMBALAJE,    
+                                                    FECHA_REEMBALAJE,       
+                                                    TCOBRO,    
                                                     ID_TMANEJO, 
                                                     ID_FOLIO,
                                                     ID_ESTANDAR,
@@ -271,7 +275,7 @@ class EXIINDUSTRIAL_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(),  1, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(),  1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -283,6 +287,7 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FECHA_REEMBALAJE'),
+                        $EXIINDUSTRIAL->__GET('TCOBRO'),
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_FOLIO'),
                         $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
@@ -312,7 +317,8 @@ class EXIINDUSTRIAL_ADO
                                                     KILOS_NETO_EXIINDUSTRIAL,       
                                                     ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
 
-                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,        
+                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,   
+                                                    TCOBRO,         
                                                     INGRESO,    
                                                     ID_TMANEJO, 
                                                     ID_FOLIO,
@@ -331,7 +337,7 @@ class EXIINDUSTRIAL_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -342,6 +348,7 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('TCOBRO'),
                         $EXIINDUSTRIAL->__GET('INGRESO'),
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_FOLIO'),
@@ -372,7 +379,8 @@ class EXIINDUSTRIAL_ADO
                                                     KILOS_NETO_EXIINDUSTRIAL,       
                                                     ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL,   
 
-                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,        
+                                                    ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL,    
+                                                    TCOBRO,              
                                                     INGRESO,    
                                                     ID_TMANEJO, 
                                                     ID_FOLIO,
@@ -395,7 +403,7 @@ class EXIINDUSTRIAL_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?,   ?, ?, ?, ?,  ?, ?, ?,  SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?,?, ?, ?, ?, ?,    ?, ?,   ?, ?, ?, ?,  ?, ?, ?,  SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -407,6 +415,7 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL'),
 
                         $EXIINDUSTRIAL->__GET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL'),
+                        $EXIINDUSTRIAL->__GET('TCOBRO'),
                         $EXIINDUSTRIAL->__GET('INGRESO'),
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_FOLIO'),
@@ -463,10 +472,11 @@ class EXIINDUSTRIAL_ADO
 
                                                     INGRESO,
                                                     MODIFICACION,
+                                                    TCOBRO,              
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?,    ?, ?, ?, ?, ?,     ?, ?, ?,   ?, ?, ?,   ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(),  2, 1);";
+	       	( ?, ?, ?,    ?, ?, ?, ?, ?,     ?, ?, ?,   ?, ?, ?,   ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 1, 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -586,6 +596,7 @@ class EXIINDUSTRIAL_ADO
                 FECHA_EMBALADO_EXIINDUSTRIAL = ?,
                 KILOS_NETO_EXIINDUSTRIAL = ?,
                 FECHA_PROCESO = ?,
+                TCOBRO = ?,
                 ID_TMANEJO = ?, 
                 ID_ESTANDAR = ?, 
                 ID_PRODUCTOR = ?,
@@ -601,6 +612,7 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FECHA_PROCESO'),
+                        $EXIINDUSTRIAL->__GET('TCOBRO'),
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
@@ -627,6 +639,7 @@ class EXIINDUSTRIAL_ADO
                 FECHA_EMBALADO_EXIINDUSTRIAL = ?,
                 KILOS_NETO_EXIINDUSTRIAL = ?,
                 FECHA_REEMBALAJE = ?,
+                TCOBRO = ?,
                 ID_TMANEJO = ?, 
                 ID_ESTANDAR = ?, 
                 ID_PRODUCTOR = ?,
@@ -642,6 +655,7 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('FECHA_EMBALADO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('KILOS_NETO_EXIINDUSTRIAL'),
                         $EXIINDUSTRIAL->__GET('FECHA_REEMBALAJE'),
+                        $EXIINDUSTRIAL->__GET('TCOBRO'),
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),

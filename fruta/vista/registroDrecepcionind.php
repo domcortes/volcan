@@ -172,6 +172,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $COBRO = $ARRAYVERESTANDAR[0]['COBRO'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             }            $TMANEJO = "" . $r['ID_TMANEJO'];
@@ -204,6 +205,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $COBRO = $ARRAYVERESTANDAR[0]['COBRO'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             }            $TMANEJO = "" . $r['ID_TMANEJO'];
@@ -239,6 +241,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $COBRO = $ARRAYVERESTANDAR[0]['COBRO'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             }            $TMANEJO = "" . $r['ID_TMANEJO'];
@@ -273,6 +276,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $COBRO = $ARRAYVERESTANDAR[0]['COBRO'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             }            $TMANEJO = "" . $r['ID_TMANEJO'];
@@ -305,6 +309,7 @@ if ($_POST) {
         $ESTANDAR = $_REQUEST['ESTANDAR'];
         $ARRAYVERESTANDAR = $EINDUSTRIAL_ADO->verEstandar($ESTANDAR);
         if ($ARRAYVERESTANDAR) {
+            $COBRO = $ARRAYVERESTANDAR[0]['COBRO'];
             $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
             $ARRAYVESPECIES = $VESPECIES_ADO->buscarVespeciesPorEspeciesPorEmpresaCBX($ARRAYVERESTANDAR[0]['ID_ESPECIES'],$EMPRESAS);
             if ($_REQUEST['PESOPALLETRECEPCION']) {
@@ -686,6 +691,7 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6 ">
                                             <div class="form-group">
                                                 <label>Estandar </label>
+                                                <input type="hidden" class="form-control" placeholder="COBRO" id="COBRO" name="COBRO" value="<?php echo $COBRO; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="PESOENVASEESTANDAR" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR; ?>" />
                                                 <select class="form-control select2" id="ESTANDAR" name="ESTANDAR" style="width: 100%;" onchange="this.form.submit();" <?php echo $DISABLED; ?> <?php echo $DISABLEDSTYLE; ?>>
                                                     <option></option>
