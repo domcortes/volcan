@@ -403,12 +403,12 @@ if ($TDESPACHO == "3") {
                       <th class="color center">Kilos Neto</th>
                       <th class="color center">Precio Por Kilo.</th>
                       <th class="color center">Total Precio.</th>
-                      <th class="color center ">Variedad </th>
-                      <th class="color center ">CSG </th>
-                      <th class="color center ">Productor </th>
                       ';
 }
 $html .= '
+                    <th class="color center ">Variedad </th>
+                    <th class="color center ">CSG </th>
+                    <th class="color center ">Productor </th>
                 </tr>
             </thead>
             <tbody>
