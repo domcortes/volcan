@@ -150,21 +150,24 @@ if($ARRAYRECEPCIONPT){
   $IDUSUARIOI = $ARRAYRECEPCIONPT[0]['ID_USUARIOI'];  
   $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
   $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
-  
-  $NOMBRETIPO = $ARRAYRECEPCIONPT[0]['TRECEPCION'];
-  if ($NOMBRETIPO == "1") {
+
+  $TIPORECEPCION=$ARRAYRECEPCIONPT[0]['TRECEPCION'];
+  if ($ARRAYRECEPCIONPT[0]['TRECEPCION'] == "1") {
     $NOMBRETIPO = "Desde Productor";
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCIONPT[0]['ID_PRODUCTOR']);
+    if ($ARRAYPRODUCTOR) {
+      $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+      $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+    }
   }
-  if ($NOMBRETIPO == "2") {
-    $NOMBRETIPO = "Planta Externa";
-  }
-  
-  $PLANTAORIGEN = $ARRAYRECEPCIONPT[0]['ID_PLANTA2'];
-  $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONPT[0]['ID_PLANTA2']);
-  if ($ARRAYPLANTA2) {
-    $PLANTAORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-  } else {
-    $PLANTAORIGEN = "";
+  if ($ARRAYRECEPCIONPT[0]['TRECEPCION'] == "2") {
+    $NOMBRETIPO = "Planta Externa";  
+    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCIONPT[0]['ID_PLANTA2']);
+    if ($ARRAYPLANTA2) {
+      $PLANTAORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+    } else {
+      $PLANTAORIGEN = "";
+    }
   }
   
   
@@ -310,12 +313,13 @@ $html = '
           <div class="address"><b>Estado Recepcion: </b> ' . $ESTADO . ' </div>
           <div class="address"><b>Número Guía: </b>' . $NUMEROGUIA . ' </div>
           ';
-if ($PLANTAORIGEN != "") {
+ if ($TIPORECEPCION == "2") {
   $html .= '
             <div class="address"><b> Planta Origen:  </b>' . $PLANTAORIGEN . '</div>
             <div class="address"><b> Planta Destino: </b>' . $PLANTA . '</div>
             ';
-} else {
+}
+if($TIPORECEPCION == "1") {
   $html .= '
   <div class="address"><b> CSG:  </b>' . $CSGPRODUCTOR . '</div>
   <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>
