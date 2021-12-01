@@ -162,6 +162,7 @@ class PRODUCTOR_ADO {
                                          CSG_PRODUCTOR , 
                                          SDP_PRODUCTOR , 
                                          PRB_PRODUCTOR , 
+                                         GGN_PRODUCTOR , 
                                          CODIGO_ASOCIADO_PRODUCTOR , 
                                          NOMBRE_ASOCIADO_PRODUCTOR , 
                                          ID_EMPRESA ,  
@@ -173,7 +174,7 @@ class PRODUCTOR_ADO {
                                          MODIFICACION , 
                                          ESTADO_REGISTRO  ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1 );";
+	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE() , SYSDATE(),  1 );";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -189,6 +190,7 @@ class PRODUCTOR_ADO {
                     $PRODUCTOR->__GET('CSG_PRODUCTOR'),
                     $PRODUCTOR->__GET('SDP_PRODUCTOR'),
                     $PRODUCTOR->__GET('PRB_PRODUCTOR'),
+                    $PRODUCTOR->__GET('GGN_PRODUCTOR'),
                     $PRODUCTOR->__GET('CODIGO_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('NOMBRE_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('ID_EMPRESA'),
@@ -243,6 +245,7 @@ class PRODUCTOR_ADO {
                          CSG_PRODUCTOR  = ?,
                          SDP_PRODUCTOR = ?,
                          PRB_PRODUCTOR = ?,
+                         GGN_PRODUCTOR = ?,
                          CODIGO_ASOCIADO_PRODUCTOR = ?,
                          NOMBRE_ASOCIADO_PRODUCTOR = ?,
                          ID_EMPRESA = ?,
@@ -263,6 +266,7 @@ class PRODUCTOR_ADO {
                     $PRODUCTOR->__GET('CSG_PRODUCTOR'),
                     $PRODUCTOR->__GET('SDP_PRODUCTOR'),
                     $PRODUCTOR->__GET('PRB_PRODUCTOR'),
+                    $PRODUCTOR->__GET('GGN_PRODUCTOR'),
                     $PRODUCTOR->__GET('CODIGO_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('NOMBRE_ASOCIADO_PRODUCTOR'),
                     $PRODUCTOR->__GET('ID_EMPRESA'),
