@@ -868,7 +868,6 @@ $html = $html . '
 </table>    
 ';
 $html=$html.'
-<div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
 ';
 
 $html=$html.'

@@ -625,7 +625,7 @@ $html='
           <div class="dater"> <b> Notificador  </b></div>
           <div class="dater"> <b> Nombre: </b>'.$NOMBRENOTIFICADOR.'  </div>
           <div class="dater"> <b> Direccion: </b>'.$DIRECCIONNOTIFICADOR.'  </div>
-          <div class="dater"> <b> Id Tributario(EORI): </b>'.$EORINOTIFICADOR.'  </div>
+          <div class="dater"> <b> Id Tributario: </b>'.$EORINOTIFICADOR.'  </div>
           <div class="dater"> <b> Telefono / Fax: </b>'.$TELEFONONOTIFICADOR.'  </div>
           <div class="dater"> <b> Email: </b>'.$EMAIL1NOTIFICADOR.'  </div>
         </div>     
@@ -867,7 +867,6 @@ $html = $html . '
 </table>    
 ';
 $html=$html.'
-<div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
 ';
 
 $html=$html.'
