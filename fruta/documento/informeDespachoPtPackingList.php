@@ -208,9 +208,10 @@ if($ARRAYDESPACHOEX){
   $TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
   
   $NUMERODESPACHOEX = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
+  $NUMEROPLANILLA = $ARRAYDESPACHOEX[0]['NUMERO_PLANILLA_DESPACHOEX'];
   $FECHADESPACHOEX = $ARRAYDESPACHOEX[0]['FECHA'];
   $EMBARQUE = $ARRAYDESPACHOEX[0]['TEMBARQUE_DESPACHOEX'];
-  $NUMEROGUIA = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
+  $NUMEROGUIA = $ARRAYDESPACHOEX[0]['NUMERO_GUIA_DESPACHOEX'];
   $NUMEROCONTENEDOR = $ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
   $FECHAETA = $ARRAYDESPACHOEX[0]['ETA'];
   $FECHAETD = $ARRAYDESPACHOEX[0]['ETD'];  
@@ -391,20 +392,19 @@ $html = '
   <body>
     <header class="clearfix">
       <div id="logo">
-           <img src="../vista/img/logo.png" width="150px" height="45px"/>
+          <img src="../../assest/img/logo.png" width="100px" height="30px"/>
       </div>
       <div id="company">
         <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
         <div>Camino a Antuco, Kilómetro N°13</div>
         <div>Los Ángeles, Chile.</div>
-        <div><a href="mailto:ti@fvolcan.com">ti@fvolcan.cl</a></div>
       </div>
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
         INFORME DESPACHO EXPORTACION
         <br>
-        <b> Número Despacho: ' . $NUMERODESPACHOEX . '</b>
+        <b> Número Despacho: ' . $NUMEROPLANILLA . '</b>
       </h2>
       <div id="details" class="clearfix">        
         <div id="invoice">
@@ -784,16 +784,7 @@ $PDF = new \Mpdf\Mpdf(['format' => 'letter-L']);
 //CONFIGURACION FOOTER Y HEADER DEL PDF
 //CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-              <th width="55%" class="left f10">' . $EMPRESA . '</th>
-              <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
-              <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
+
     
 ');
 
@@ -802,8 +793,6 @@ $PDF->SetHTMLFooter('
 
 
 <footer>
-  Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
-  <br>
   Impreso por: <b>' . $NOMBRE . '.</b> Hora impresión: <b>' . $HORAFINAL2 . '</b>
 </footer>
     
@@ -822,12 +811,12 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //INICIALIZACION DEL CSS
-$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
-
+$stylesheet1 = file_get_contents('../../assest/css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
 //ENLASAR CSS CON LA VISTA DEL PDF
-$PDF->WriteHTML($stylesheet, 1);
+$PDF->WriteHTML($stylesheet1, 1);
 $PDF->WriteHTML($stylesheet2, 1);
+
 
 //GENERAR PDF
 $PDF->WriteHTML($html);
