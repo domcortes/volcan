@@ -569,11 +569,11 @@ if (isset($_POST)) {
     if (isset($_REQUEST['SNICARGA'])) {
         $SNICARGA = "" . $_REQUEST['SNICARGA'];
         if ($SNICARGA == "on") {
+            $DISABLED4 = "disabled";
             if (isset($_REQUEST['ICARGAD'])) {
                 $ICARGAD = "" . $_REQUEST['ICARGAD'];
                 $ARRAYVERICARGA = $ICARGA_ADO->verIcarga($ICARGAD);
                 if ($ARRAYVERICARGA) {
-                    $DISABLED4 = "disabled";
                     $TEMBARQUE = $ARRAYVERICARGA[0]['TEMBARQUE_ICARGA'];
                     $FECHAETD = $ARRAYVERICARGA[0]['FECHAETD_ICARGA'];
                     $FECHAETA = $ARRAYVERICARGA[0]['FECHAETA_ICARGA'];
@@ -2715,13 +2715,7 @@ if (isset($_POST)) {
 
                 $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $DESPACHOEX_ADO->cerrado($DESPACHOEX);
-
-                if (isset($_REQUEST['ICARGADE'])) {
-                    $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
-                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                    $ICARGA_ADO->Despachado($ICARGA);
-                }
+                $DESPACHOEX_ADO->cerrado($DESPACHOEX);           
 
                 $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEx($_REQUEST['IDP']);
                 $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho($_REQUEST['IDP']);
