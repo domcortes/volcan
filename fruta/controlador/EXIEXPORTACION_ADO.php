@@ -233,6 +233,7 @@ class EXIEXPORTACION_ADO
                                                     ID_VESPECIES,
 
                                                     ID_EMPRESA, 
+                                                    ID_PLANTA2, 
                                                     ID_PLANTA, 
                                                     ID_TEMPORADA, 
                                                     ID_PROCESO,
@@ -242,7 +243,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 2, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -271,6 +272,7 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
 
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
+                        $EXIEXPORTACION->__GET('ID_PLANTA2'),
                         $EXIEXPORTACION->__GET('ID_PLANTA'),
                         $EXIEXPORTACION->__GET('ID_TEMPORADA'),
                         $EXIEXPORTACION->__GET('ID_PROCESO')
@@ -313,6 +315,7 @@ class EXIEXPORTACION_ADO
                                                     ID_VESPECIES,
 
                                                     ID_EMPRESA, 
+                                                    ID_PLANTA2, 
                                                     ID_PLANTA, 
                                                     ID_TEMPORADA, 
                                                     ID_REEMBALAJE,
@@ -322,7 +325,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,    SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -351,6 +354,7 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
 
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
+                        $EXIEXPORTACION->__GET('ID_PLANTA2'),
                         $EXIEXPORTACION->__GET('ID_PLANTA'),
                         $EXIEXPORTACION->__GET('ID_TEMPORADA'),
                         $EXIEXPORTACION->__GET('ID_REEMBALAJE')
@@ -610,9 +614,6 @@ class EXIEXPORTACION_ADO
     public function actualizarExiexportacionRecepcion(EXIEXPORTACION $EXIEXPORTACION)
     {
         try {
-            if ($EXIEXPORTACION->__GET('ID_PLANTA2') == NULL) {
-                $EXIEXPORTACION->__SET('ID_PLANTA2', NULL);
-            }
             if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
                 $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
             }
@@ -645,8 +646,7 @@ class EXIEXPORTACION_ADO
                     ID_RECEPCION = ? ,
                     ID_EMPRESA = ?,
                     ID_PLANTA = ?, 
-                    ID_TEMPORADA = ?  , 
-                    ID_PLANTA2 = ?   
+                    ID_TEMPORADA = ?  
                 WHERE ID_EXIEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
@@ -676,7 +676,6 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
                         $EXIEXPORTACION->__GET('ID_PLANTA'),
                         $EXIEXPORTACION->__GET('ID_TEMPORADA'),
-                        $EXIEXPORTACION->__GET('ID_PLANTA2'),
                         $EXIEXPORTACION->__GET('ID_EXIEXPORTACION')
 
                     )

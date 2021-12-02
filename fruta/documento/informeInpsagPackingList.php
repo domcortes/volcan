@@ -364,7 +364,7 @@ $html = '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="16" class="center">DETALLE DE INSPECCIÓN.</th>
+            <th colspan="17" class="center">DETALLE DE INSPECCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -375,6 +375,7 @@ $html = '
             <th class="color center ">Comuna  </th>       
             <th class="color center ">CSP </th>            
             <th class="color center ">Planta </th>
+            <th class="color center ">Región  </th>    
             <th class="color center ">Provincia  </th>  
             <th class="color center ">Comuna  </th> 
             <th class="color center">Fecha Embalado</th>

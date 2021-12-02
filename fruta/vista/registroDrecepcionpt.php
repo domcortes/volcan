@@ -1421,7 +1421,10 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                         $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                         $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                        $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);   
+                        if ($_REQUEST['TRECEPCION'] == 1) {
+                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA']);
+                        }
                         if ($_REQUEST['TRECEPCION'] == 2) {
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                         }
@@ -1559,9 +1562,6 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                         $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                         $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                        if ($_REQUEST['TRECEPCION'] == 2) {
-                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-                        }
                         $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIEXPORTACION"]);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIEXPORTACION_ADO->actualizarExiexportacionRecepcion($EXIEXPORTACION);
@@ -1614,6 +1614,9 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                         $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                         $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        if ($_REQUEST['TRECEPCION'] == 1) {
+                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA']);
+                        }
                         if ($_REQUEST['TRECEPCION'] == 2) {
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                         }
