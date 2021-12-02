@@ -335,7 +335,7 @@ foreach ($ARRAYDRECEPCIONPT as $r) :
 			<b> Envase/Estandar : </b>  ' . $ARRAYEVERECEPCIONPTID[0]['NOMBRE_ESTANDAR'] . '
 		</div>
         <div class="info ">
-			<b> Total Envase : </b> ' . $r['ENVASE'] . '
+			<b> Total Envase : </b> ' . $r['ENVASEA'] . '
 		</div>
 		<div class="info ">
 			<b> Total Neto : </b>   ' . $r['NETO'] . '
