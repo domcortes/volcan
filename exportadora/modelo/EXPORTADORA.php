@@ -7,8 +7,9 @@
     //ESTRUCTURA DE LA CLASE
     class EXPORTADORA {
         
-        //ATRIBUTOS DE LA CLASE
+        //ATRIBUTOS DE LA CLASE 
         private	  $ID_EXPORTADORA; 
+        private	  $NUMERO_EXPORTADORA; 
         private	  $RUT_EXPORTADORA;
         private	  $DV_EXPORTADORA;
         private	  $NOMBRE_EXPORTADORA;
@@ -24,6 +25,7 @@
         private	  $LOGO_EXPORTADORA;
         private   $ESTADO_REGISTRO;
         private	  $ID_CIUDAD;
+        private	  $ID_EMPRESA; 
         private	  $ID_USUARIOI; 
         private	  $ID_USUARIOM; 
         
