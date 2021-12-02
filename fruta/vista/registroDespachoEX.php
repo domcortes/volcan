@@ -2395,12 +2395,16 @@ if (isset($_POST)) {
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../config/footer.php"; ?>
                 <?php include_once "../config/menuExtra.php"; ?>
-<?php
+
+    </div>
+    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
+        <?php include_once "../config/urlBase.php"; ?>
+        <script src="../../js/multistepsregistrodespachoex.js"></script>
+        <?php
         //OPERACION DE REGISTRO DE FILA
         if (isset($_REQUEST['CREAR'])) {
             $ARRAYNUMERO = $DESPACHOEX_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
             $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
-
             //UTILIZACION METODOS SET DEL MODELO
             //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
             $DESPACHOEX->__SET('NUMERO_DESPACHOEX', $NUMERO);
@@ -2501,11 +2505,7 @@ if (isset($_POST)) {
             $DESPACHOEX_ADO->agregarDespachoex($DESPACHOEX);
 
 
-            if (isset($_REQUEST['ICARGAD'])) {
-                $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGAD']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $ICARGA_ADO->Despachado($ICARGA);
-            }
+          
             //OBTENER EL ID DE LA DESPACHOEX CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
             $ARRYAOBTENERID = $DESPACHOEX_ADO->obtenerId(
                 $_REQUEST['FECHADESPACHOEX'],
@@ -2514,6 +2514,7 @@ if (isset($_POST)) {
                 $_REQUEST['PLANTA'],
                 $_REQUEST['TEMPORADA'],
             );
+            
             //REDIRECCIONAR A PAGINA registroDespachoEX.php
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_DESPACHOEX'];
             $_SESSION["parametro1"] = "crear";
@@ -2594,12 +2595,7 @@ if (isset($_POST)) {
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
             $DESPACHOEX_ADO->actualizarDespachoex($DESPACHOEX);
 
-            if (isset($_REQUEST['ICARGADE'])) {
-                $ICARGA->__SET('ID_ICARGA', $_REQUEST['ICARGADE']);
-                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $ICARGA_ADO->Despachado($ICARGA);
-            }
-
+     
             
             if ($_SESSION['parametro1'] == "crear") {
                 $_SESSION["parametro"] = $_REQUEST['IDP'];
@@ -2715,8 +2711,9 @@ if (isset($_POST)) {
 
                 $DESPACHOEX->__SET('ID_DESPACHOEX', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                $DESPACHOEX_ADO->cerrado($DESPACHOEX);           
+                $DESPACHOEX_ADO->cerrado($DESPACHOEX);
 
+           
                 $ARRAYEXISENCIADESPACHOEX = $EXIEXPORTACION_ADO->verExistenciaPorDespachoEx($_REQUEST['IDP']);
                 $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorDespacho($_REQUEST['IDP']);
 
@@ -2790,10 +2787,6 @@ if (isset($_POST)) {
             </script>';
         }
 ?>
-    </div>
-    <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
-        <script src="../../js/multistepsregistrodespachoex.js"></script>
 
 </body>
 
