@@ -216,19 +216,25 @@ if($ARRAYICARGA){
     $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
     $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
     
+  
     $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
+    $ARRAYDESPACHOEX2=$DESPACHOEX_ADO->buscarDespachoExPorIcargaAgrupadoPorPlanta($IDOP);
     if($ARRAYDESPACHOEX){
-      $FECHADESPACHOEX=$ARRAYDESPACHOEX[0]['FECHA'];
-      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
-      $NUMEROSELLO=$ARRAYDESPACHOEX[0]['NUMERO_SELLO_DESPACHOEX'];
-      $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
-      if($ARRAYVERPLANTA){
-        $LUGARDECARGA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
-        $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
-      }else{
-        $FECHADESPACHOEX="Sin Datos";
-        $LUGARDECARGA="Sin Datos";
-      }
+      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];   
+
+      foreach ($ARRAYDESPACHOEX2 as $r) :  
+        $FECHADESPACHOEX=$FECHADESPACHOEX.$r['FECHA']."<br> ";   
+        $NUMEROSELLO=$NUMEROSELLO.$r['NUMERO_SELLO_DESPACHOEX']."<br> ";
+        $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+        if($ARRAYVERPLANTA){
+          $LUGARDECARGA= $LUGARDECARGA.$ARRAYVERPLANTA[0]["RAZON_SOCIAL_PLANTA"]."<br> ";
+          $FDADESPACHOEX= $FDADESPACHOEX.$ARRAYVERPLANTA[0]["FDA_PLANTA"]."<br> ";
+        }else{
+          $FECHADESPACHOEX=$FECHADESPACHOEX;
+          $LUGARDECARGA=$LUGARDECARGA;
+        }
+      endforeach;     
+
     }else{
       $FDADESPACHOEX="Sin Datos";
       $NUMEROCONTENEDOR="Sin Datos";
@@ -236,7 +242,6 @@ if($ARRAYICARGA){
       $FECHADESPACHOEX="Sin Datos";
       $LUGARDECARGA="Sin Datos";
     }
-    
     $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
     $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
     $TOTALBRUTOV = $ARRAYDCARGATOTAL2[0]['BRUTO'];
@@ -642,25 +647,19 @@ $html='
            <th colspan="4" class="center titulo color">dispatch info</th>
          </tr>
        </thead>
-       <tbody>          
-          <tr>                       
-          <th class="color2 left">Date  dispatch: </th> 
-          <td class="color2 left">'.$FECHADESPACHOEX.'</td>      
-          <th class="color2 left">Container number: </th>       
-          <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>      
-        </tr>  
+       <tbody>     
         <tr>                       
           <th class="color2 left">Loading place: </th> 
-          <td class="color2 left">'.$LUGARDECARGA.'</td>      
-          <th class="color2 left">Packing seal: </th>       
-          <td class="color2 left">'.$NUMEROSELLO.'</td>      
-        </tr> 
-        <tr>                       
+          <td class="color2 left">'.$LUGARDECARGA.'</td>   
           <th class="color2 left">FDA Packing: </th> 
-          <td class="color2 left">'.$FDADESPACHOEX.'</td>      
-          <th class="color2 left">&nbsp;</th>       
-          <td class="color2 left">&nbsp;</td>      
-        </tr> 
+          <td class="color2 left">'.$FDADESPACHOEX.'</td>       
+        </tr>      
+          <tr>                       
+            <th class="color2 left">Date  dispatch: </th> 
+            <td class="color2 left">'.$FECHADESPACHOEX.'</td>   
+            <th class="color2 left">Packing seal: </th>       
+            <td class="color2 left">'.$NUMEROSELLO.'</td>        
+        </tr>  
        </tbody>  
      </table>
        
@@ -679,6 +678,8 @@ $html='
            <td class="color2 left">'.$FECHAETD.'</td>      
            <th class="color2 left">Booking: </th>        
            <td class="color2 left">'.$BOOKINGINSTRUCTIVO.'</td>      
+           <th class="color2 left">Container number: </th>       
+           <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>    
          </tr>    
          <tr>                       
            <th class="color2 left">Date ETA: </th> 
