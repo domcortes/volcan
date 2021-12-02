@@ -462,6 +462,7 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
                           <td class="center">' . $COMUNAPRODUCTOR . '</td>            
                           <td class="center">' . $CSPPLANTA . '</td>     
                           <td class="center">' . $NOMBREPLANTA . '</td>   
+                          <td class="center">' . $REGIONPLANTA . '</td>  
                           <td class="center">' . $PROVINCIAPLANTA . '</td>  
                           <td class="center">' . $COMUNAPLANTA . '</td>    
                           <td class=" center">' . $d['EMBALADO'] . '</td>
@@ -494,6 +495,7 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
               <th class="color3 center">&nbsp;</th>
               <th class="color3 center">&nbsp;</th>
               <th class="color3 center">&nbsp;</th>
+              <th class="color3 center">&nbsp;</th>
               <th class="color3 right"> Total </th>
               <th class="color3 center">' . $TOTALENVASE2 . '</th>
           </tr>
@@ -505,6 +507,7 @@ $html = $html . '
               
           <tr class="bt">
               <th class="color left">&nbsp;</th>
+              <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
