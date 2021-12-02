@@ -364,18 +364,19 @@ $html = '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="15" class="center">DETALLE DE INSPECCIÓN.</th>
+            <th colspan="16" class="center">DETALLE DE INSPECCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
             <th class="color center ">CSG </th>
             <th class="color center ">Productor </th>
-            <th class="color center ">Comuna  </th>
-            <th class="color center ">Provincia  </th>            
+            <th class="color center ">Región  </th>     
+            <th class="color center ">Provincia  </th>     
+            <th class="color center ">Comuna  </th>       
             <th class="color center ">CSP </th>            
             <th class="color center ">Planta </th>
-            <th class="color center ">Comuna  </th>
-            <th class="color center ">Provincia  </th>   
+            <th class="color center ">Provincia  </th>  
+            <th class="color center ">Comuna  </th> 
             <th class="color center">Fecha Embalado</th>
             <th class="color center">Código Estandar</th>
             <th class="color center">Envase/Estandar</th>
@@ -403,23 +404,25 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
 
   foreach ($ARRAYEXIEXPORTACION2 as $d) :
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($d['ID_PRODUCTOR']);
-    $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID[0]["ID_CIUDAD"]);
-    $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
-    $COMUNAPRODUCTOR = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
-    $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);    
-    $PROVINCIAPRODUCTOR = $ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
+    
+    $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadeUbicaciónCompleta($ARRAYVERPRODUCTORID[0]["ID_CIUDAD"]);
+    $CIUDADPRODUCTOR=$ARRAYCIUDAD[0]["CIUDAD"];   
+    $COMUNAPRODUCTOR=$ARRAYCIUDAD[0]["COMUNA"];
+    $PROVINCIAPRODUCTOR=$ARRAYCIUDAD[0]["PROVINCIA"];
+    $REGIONPRODUCTOR=$ARRAYCIUDAD[0]["REGION"];
+    $PAISPRODUCTOR=$ARRAYCIUDAD[0]["PAIS"];
+
 
     $ARRAYPLANTA2=$PLANTA_ADO->verPlanta($d['ID_PLANTA']);
     if($ARRAYPLANTA2){
-      $CSPPLANTA2=$ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
-      $NOMBREPLANTA2=$ARRAYPLANTA2[0]["NOMBRE_PLANTA"];
-  
-      $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYPLANTA2[0]["ID_CIUDAD"]);
-      $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
-      $COMUNAPLANTA2 = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
-      $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);    
-      $PROVINCIAPLANTA2 = $ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
-
+      $CSPPLANTA=$ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
+      $NOMBREPLANTA=$ARRAYPLANTA2[0]["NOMBRE_PLANTA"];  
+      $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadeUbicaciónCompleta($ARRAYPLANTA2[0]["ID_CIUDAD"]);
+      $CIUDADPLANTA=$ARRAYCIUDAD[0]["CIUDAD"];   
+      $COMUNAPLANTA=$ARRAYCIUDAD[0]["COMUNA"];
+      $PROVINCIAPLANTA=$ARRAYCIUDAD[0]["PROVINCIA"];
+      $REGIONPLANTA=$ARRAYCIUDAD[0]["REGION"];
+      $PAISPLANTA=$ARRAYCIUDAD[0]["PAIS"];
     }
 
 
@@ -453,12 +456,13 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
                           <th class=" left">' . $d['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
                           <td class="center">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
                           <td class="center">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>       
-                          <td class="center">' . $COMUNAPRODUCTOR . '</td>          
-                          <td class="center">' . $PROVINCIAPRODUCTOR . '</td>      
-                          <td class="center">' . $CSPPLANTA2 . '</td>     
-                          <td class="center">' . $NOMBREPLANTA2 . '</td>   
-                          <td class="center">' . $COMUNAPLANTA2 . '</td>   
-                          <td class="center">' . $PROVINCIAPLANTA2 . '</td>   
+                          <td class="center">' . $REGIONPRODUCTOR . '</td>      
+                          <td class="center">' . $PROVINCIAPRODUCTOR . '</td>    
+                          <td class="center">' . $COMUNAPRODUCTOR . '</td>            
+                          <td class="center">' . $CSPPLANTA . '</td>     
+                          <td class="center">' . $NOMBREPLANTA . '</td>   
+                          <td class="center">' . $PROVINCIAPLANTA . '</td>  
+                          <td class="center">' . $COMUNAPLANTA . '</td>    
                           <td class=" center">' . $d['EMBALADO'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '</td>
@@ -488,6 +492,7 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
               <th class="color3 center">&nbsp;</th>
               <th class="color3 center">&nbsp;</th>
               <th class="color3 center">&nbsp;</th>
+              <th class="color3 center">&nbsp;</th>
               <th class="color3 right"> Total </th>
               <th class="color3 center">' . $TOTALENVASE2 . '</th>
           </tr>
@@ -499,6 +504,7 @@ $html = $html . '
               
           <tr class="bt">
               <th class="color left">&nbsp;</th>
+              <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
@@ -551,14 +557,16 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
 
   foreach ($ARRAYEXIEXPORTACIONPRODUCTOR as $b) :
     $ARRAYVERPRODUCTORID2 = $PRODUCTOR_ADO->verProductor($b['ID_PRODUCTOR']);
-    $ARRAYCIUDAD2 = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID2[0]["ID_CIUDAD"]);
-    if($ARRAYCIUDAD2){
-      $ARRAYCOMUNA2 = $COMUNA_ADO->verComuna($ARRAYCIUDAD2[0]["ID_COMUNA"]);
-      $COMUNAPRODUCTOR2 = $ARRAYCOMUNA2[0]["NOMBRE_COMUNA"];
-    }
-
     $CSGPRODUCTOR2 = $ARRAYVERPRODUCTORID2[0]["CSG_PRODUCTOR"];
     $NOMBREPRODUCTOR2 = $ARRAYVERPRODUCTORID2[0]["NOMBRE_PRODUCTOR"];
+    $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadeUbicaciónCompleta($ARRAYVERPRODUCTORID2[0]["ID_CIUDAD"]);
+    $CIUDADPRODUCTOR2=$ARRAYCIUDAD[0]["CIUDAD"];   
+    $COMUNAPRODUCTOR2=$ARRAYCIUDAD[0]["COMUNA"];
+    $PROVINCIAPRODUCTOR2=$ARRAYCIUDAD[0]["PROVINCIA"];
+    $REGIONPRODUCTOR2=$ARRAYCIUDAD[0]["REGION"];
+    $PAISPRODUCTOR2=$ARRAYCIUDAD[0]["PAIS"];
+
+
 
 
     $ARRAYEXIEXPORTACIONBOLSA2 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaInspeccion2ProductorDiferenciadoProductorEstandar($IDOP, $b['ID_PRODUCTOR']);
