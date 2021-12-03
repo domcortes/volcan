@@ -2,9 +2,9 @@
 
 //LLAMADA DE LOS ARCHIVOS NECESAROP PARA LA OPERACION DEL CONTROLADOR
 //LLAMADA AL MODELO DE CLASE
-include_once '../modelo/REPALETIZAJEEX.php';
+include_once '../../assest/modelo/REPALETIZAJEEX.php';
 //LLAMADA AL CONFIGURACION DE LA BASE DE DATOS
-include_once '../config/BDCONFIG.php';
+include_once '../../assest/config/BDCONFIG.php';
 
 //INICIALIZAR VARIABLES
 $HOST = "";

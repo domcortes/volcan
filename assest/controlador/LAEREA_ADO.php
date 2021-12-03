@@ -1,8 +1,8 @@
 <?php
 
 
-include_once '../modelo/LAEREA.php';
-include_once '../config/BDCONFIG.php';
+include_once '../../assest/modelo/LAEREA.php';
+include_once '../../assest/config/BDCONFIG.php';
 
 $HOST="";
 $DBNAME="";
