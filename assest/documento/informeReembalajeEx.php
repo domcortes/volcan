@@ -7,18 +7,18 @@ include_once '../controlador/EMPRESA_ADO.php';
 include_once '../controlador/PLANTA_ADO.php';
 include_once '../controlador/TEMPORADA_ADO.php';
 
-
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/DPEXPORTACION_ADO.php';
-include_once '../controlador/DPINDUSTRIAL_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
+include_once '../controlador/TREEMBALAJE_ADO.php';
+include_once '../controlador/DREXPORTACION_ADO.php';
+include_once '../controlador/DRINDUSTRIAL_ADO.php';
+include_once '../controlador/REEMBALAJE_ADO.php';
 
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/EEXPORTACION_ADO.php';
 include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
@@ -29,43 +29,39 @@ $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
-
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
-$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
-$TPROCESO_ADO =  new TPROCESO_ADO();
+$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
+$TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 
-$DPEXPORTACION_ADO =  new DPEXPORTACION_ADO();
-$DPINDUSTRIAL_ADO =  new DPINDUSTRIAL_ADO();
+$DREXPORTACION_ADO =  new DREXPORTACION_ADO();
+$DRINDUSTRIAL_ADO =  new DRINDUSTRIAL_ADO();
 
-$PROCESO_ADO =  new PROCESO_ADO();
+$REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $IDOP = "";
-$NUMEROPROCESO = "";
+$NUMEROREEMBALAJE = "";
 $VARIEDAD = "";
-$FECHAPROCESO = "";
-$TIPOPROCESO = "";
+$FECHAREEMBALAJE = "";
+$TIPOREEMBALAJE = "";
 $TURNO = "";
 $EMBOLSADO = "";
-$PDEXPORTACION = "";
-$PDINDUSTRIAL = "";
-$PDTOTAL = "";
+
 $PRODUCTOR = "";
 $CSGPRODUCTOR = "";
 $NOMBREPRODUCTOR = "";
+$PLANTA = "";
 
 $TOTALENVASE = "";
 $TOTALNETO = "";
 $TOTALBRUTO = 0;
-$TOTALSALIDASF = 0;
-$NETOEXPOR = 0;
-$NETOINDU = 0;
 
 $TOTALENVASEDEXPORTACION = "";
 $TOTALNETODEXPORTACION = "";
@@ -75,8 +71,10 @@ $TOTALDESHIDRATACIONDEXPORTACION = "";
 $TOTALENVASEDINDUSTRIAL = "";
 $TOTALNETODINDUSTRIAL = "";
 $TOTALBRUTODINDUSTRIAL = "";
-$TOTALENVASE="";
-$TOTALNETO="";
+
+$PDEXPORTACION = "";
+$PDINDUSTRIAL = "";
+$PDTOTAL = "";
 
 $TOTALSALIDA = "";
 $TOTAL2 = "";
@@ -91,7 +89,7 @@ $html = '';
 
 //INICIALIZAR ARREGLOS
 
-$ARRAYVERTPROCESO = "";
+$ARRAYVERTREEMBALAJE = "";
 $ARRAYVERPVESPECIES = "";
 $ARRAYVERVESPECIES = "";
 
@@ -100,7 +98,6 @@ $ARRAYPVESPECIES = "";
 
 $ARRAYDEXPORTACION = "";
 $ARRAYDEXPORTACION2 = "";
-$ARRAYDEXPORTACIONCALIBRE = "";
 $ARRAYDEXPORTACIONTOTALES = "";
 
 $ARRAYDINDUSTRIAL = "";
@@ -115,8 +112,8 @@ $ARRAYEVERERECEPCIONID = "";
 $ARRAYEVEINDUSTRIALID;
 
 $ARRAYEMPRESA = "";
-$ARRAYPROCESO = "";
-$ARRAYPROCESOTOTALES = "";
+$ARRAYREEMBALAJE = "";
+$ARRAYREEMBALAJETOTALES = "";
 $ARRAYUSUARIO = "";
 
 if (isset($_REQUEST['usuario'])) {
@@ -125,90 +122,96 @@ if (isset($_REQUEST['usuario'])) {
   $NOMBRE = $ARRAYUSUARIO[0]["NOMBRE_COMPLETO"];
 }
 
+
 if (isset($_REQUEST['parametro'])) {
-  $IDOP = $_REQUEST['parametro'];  
+  $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYPROCESO = $PROCESO_ADO->verProceso2($IDOP);
-if($ARRAYPROCESO){
+$ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($IDOP);
+if($ARRAYREEMBALAJE){
 
+  $ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorReembalaje2($IDOP);
+  $ARRAYDEXPORTACIONCALIBRE = $DREXPORTACION_ADO->buscarPorReembalajeAgrupadoCalibre($IDOP);
+  $ARRAYDEXPORTACION = $DREXPORTACION_ADO->buscarPorReembalaje2($IDOP);
+  $ARRAYDINDUSTRIAL = $DRINDUSTRIAL_ADO->buscarPorReembalaje2($IDOP);
+  
+  $NUMEROREEMBALAJE = $ARRAYREEMBALAJE[0]['NUMERO_REEMBALAJE'];
+  $OBSERVACIONES = $ARRAYREEMBALAJE[0]['OBSERVACIONE_REEMBALAJE'];
+  $FECHAREEMBALAJE = $ARRAYREEMBALAJE[0]['FECHA'];
+  
 
-  $FECHAPROCESO = $ARRAYPROCESO[0]['FECHA'];
-  $NUMEROPROCESO = $ARRAYPROCESO[0]['NUMERO_PROCESO'];
-  $OBSERVACIONES = $ARRAYPROCESO[0]['OBSERVACIONE_PROCESO'];
-
-  $ESTADO = $ARRAYPROCESO[0]['ESTADO'];
-  if ($ARRAYPROCESO[0]['ESTADO'] == 1) {
+  $ESTADO = $ARRAYREEMBALAJE[0]['ESTADO'];
+  if ($ARRAYREEMBALAJE[0]['ESTADO'] == 1) {
     $ESTADO = "Abierto";
-  }else if ($ARRAYPROCESO[0]['ESTADO'] == 0) {
+  }else if ($ARRAYREEMBALAJE[0]['ESTADO'] == 0) {
     $ESTADO = "Cerrado";
   }else{
     $ESTADO="Sin Datos";
   }  
-  if ($ARRAYPROCESO[0]['TURNO'] == 1) {
+  if ($ARRAYREEMBALAJE[0]['TURNO'] == 1) {
     $TURNO = "DIA";
-  }else if ($ARRAYPROCESO[0]['TURNO'] == 2) {
+  }else if ($ARRAYREEMBALAJE[0]['TURNO'] == 2) {
     $TURNO = "NOCHE";
   }else{
     $TURNO="Sin Datos";
   }
-
-  $ARRAYVERVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYPROCESO[0]['ID_VESPECIES']);
+  $ARRAYVERVESPECIES = $VESPECIES_ADO->verVespecies($ARRAYREEMBALAJE[0]['ID_VESPECIES']);
   if($ARRAYVERVESPECIES){
     $VARIEDAD = $ARRAYVERVESPECIES[0]['NOMBRE_VESPECIES'];
   }else{
     $VARIEDAD="Sin Datos";
   }
-  $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]['ID_TPROCESO']);
-  if($ARRAYTPROCESO){
-    $TIPOPROCESO = $ARRAYTPROCESO[0]['NOMBRE_TPROCESO'];
+  $ARRAYTREEMBALAJE = $TREEMBALAJE_ADO->verTreembalaje($ARRAYREEMBALAJE[0]['ID_TREEMBALAJE']);
+  if($ARRAYTREEMBALAJE){
+    $TIPOREEMBALAJE = $ARRAYTREEMBALAJE[0]['NOMBRE_TREEMBALAJE'];
   }else{
-    $TIPOPROCESO="Sin Datos";
+    $TIPOREEMBALAJE="Sin Datos";
   }
-  $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYPROCESO[0]['ID_PRODUCTOR']);
+  $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYREEMBALAJE[0]['ID_PRODUCTOR']);
   if($ARRAYPRODUCTOR){
     $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
     $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-  }else{    
-    $NOMBREPRODUCTOR = "Sin Datos";
-    $CSGPRODUCTOR  = "Sin Datos";
   }
 
 
-  $ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPorProceso2($IDOP);
-  $ARRAYDEXPORTACION = $DPEXPORTACION_ADO->buscarPorProceso2($IDOP);
-  $ARRAYDINDUSTRIAL = $DPINDUSTRIAL_ADO->buscarPorProceso2($IDOP);
-  $ARRAYDEXPORTACIONCALIBRE = $DPEXPORTACION_ADO->buscarPorProcesoAgrupadoCalibre($IDOP);
-
-  $ARRAYEXISTENCIAMPTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso($IDOP);
-  $ARRAYEXISTENCIAMPTOTAL2 = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($IDOP);
-  $TOTALNETOE = $ARRAYEXISTENCIAMPTOTAL[0]['NETO'];
-  $TOTALENVASEE = $ARRAYEXISTENCIAMPTOTAL[0]['ENVASE'];
-  $TOTALNETOEV = $ARRAYEXISTENCIAMPTOTAL2[0]['NETO'];
-  $TOTALENVASEEV = $ARRAYEXISTENCIAMPTOTAL2[0]['ENVASE'];
 
 
-  $ARRATDINDUSTRIALTOTALPROCESO = $DPINDUSTRIAL_ADO->obtenerTotales($IDOP);
-  $ARRATDINDUSTRIALTOTALPROCESO2 = $DPINDUSTRIAL_ADO->obtenerTotales2($IDOP);
-  $ARRATDINDUSTRIALTOTALSC = $DPINDUSTRIAL_ADO->obtenerTotalesSC($IDOP);
-  $ARRATDINDUSTRIALTOTALNC = $DPINDUSTRIAL_ADO->obtenerTotalesNC($IDOP);
 
-  $TOTALNETOIND = $ARRATDINDUSTRIALTOTALPROCESO[0]['NETO'];
-  $TOTALNETOINDV = $ARRATDINDUSTRIALTOTALPROCESO2[0]['NETO'];
+
+  $ARRAYEXISTENCIATOTALESREEMBALAJE = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje($IDOP);
+  $ARRAYEXISTENCIATOTALESREEMBALAJE2 = $EXIEXPORTACION_ADO->obtenerTotalesReembalaje2($IDOP);
+  $TOTALNETO= $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['NETO'];
+  $TOTALNETOE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['DESHIRATACION'];
+  $TOTALENVASEE = $ARRAYEXISTENCIATOTALESREEMBALAJE[0]['ENVASE'];
+  $TOTALNETOV= $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['NETO'];
+  $TOTALNETOEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['DESHIRATACION'];
+  $TOTALENVASEEV = $ARRAYEXISTENCIATOTALESREEMBALAJE2[0]['ENVASE'];
+
+  $ARRATDINDUSTRIALTOTALREEMBALAJE = $DRINDUSTRIAL_ADO->obtenerTotales($IDOP);
+  $ARRATDINDUSTRIALTOTALREEMBALAJE2 = $DRINDUSTRIAL_ADO->obtenerTotales2($IDOP);    
+  $ARRATDINDUSTRIALTOTALSC = $DRINDUSTRIAL_ADO->obtenerTotalesSC($IDOP);
+  $ARRATDINDUSTRIALTOTALNC = $DRINDUSTRIAL_ADO->obtenerTotalesNC($IDOP);
+  $TOTALNETOIND = $ARRATDINDUSTRIALTOTALREEMBALAJE[0]['NETO'];
+  $TOTALNETOINDV = $ARRATDINDUSTRIALTOTALREEMBALAJE2[0]['NETO'];
   $TOTALNETOINDSC = $ARRATDINDUSTRIALTOTALSC[0]['NETO'];
   $TOTALNETOINDNC = $ARRATDINDUSTRIALTOTALNC[0]['NETO'];
 
-  $ARRAYDEXPORTACIONTOTALPROCESO = $DPEXPORTACION_ADO->obtenerTotales($IDOP);
-  $ARRAYDEXPORTACIONTOTALPROCES2 = $DPEXPORTACION_ADO->obtenerTotales2($IDOP);
-  $TOTALENVASEEX = $ARRAYDEXPORTACIONTOTALPROCESO[0]['ENVASE'];
-  $TOTALNETOEX = $ARRAYDEXPORTACIONTOTALPROCESO[0]['NETO'];
-  $TOTALBRUTOEX = $ARRAYDEXPORTACIONTOTALPROCESO[0]['BRUTO'];
-  $TOTALDESHIDRATACIONEX = $ARRAYDEXPORTACIONTOTALPROCESO[0]['DESHIDRATACION'];
 
-  $TOTALENVASEEXV = $ARRAYDEXPORTACIONTOTALPROCES2[0]['ENVASE'];
-  $TOTALNETOEXV = $ARRAYDEXPORTACIONTOTALPROCES2[0]['NETO'];
-  $TOTALBRUTOEXV = $ARRAYDEXPORTACIONTOTALPROCES2[0]['BRUTO'];
-  $TOTALDESHIDRATACIONEXV = $ARRAYDEXPORTACIONTOTALPROCES2[0]['DESHIDRATACION'];
+  $ARRAYDEXPORTACIONTOTALREEMBALAJE = $DREXPORTACION_ADO->obtenerTotales($IDOP);
+  $ARRAYDEXPORTACIONTOTALREEMBALAJE2 = $DREXPORTACION_ADO->obtenerTotales2($IDOP);
+  $TOTALENVASEEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['ENVASE'];
+  $TOTALNETOEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['NETO'];
+  $TOTALBRUTOEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['BRUTO'];
+  $TOTALDESHIDRATACIONEX = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['DESHIDRATACION'];
+  
+  $TOTALENVASEEXV = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['ENVASE'];
+  $TOTALNETOEXV = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['NETO'];
+  $TOTALBRUTOEXV = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['BRUTO'];
+  $TOTALDESHIDRATACIONEXV = $ARRAYDEXPORTACIONTOTALREEMBALAJE[0]['DESHIDRATACION'];
+
+  $TOTALENVASEEXPO = $TOTALENVASEEX + $TOTALENVASEIND;
+  $TOTALNETOEXPO = $TOTALNETOEX + $TOTALNETOIND;
+  $TOTALBRUTOEXPO = $TOTALBRUTOEX + $TOTALBRUTOIND;
 
 
 
@@ -219,7 +222,7 @@ if($ARRAYPROCESO){
   if ($TOTALSALIDASF > 0) {
     if ($TOTALNETOEX > 0) {
       $PDEXPORTACION = ($TOTALNETOEX / $TOTALNETOE) * 100;
-      $PEXPORTACIONEXPOEXDESHI = ($TOTALDESHIDRATACIONEX / $TOTALNETOE) * 100;
+      $PEXPORTACIONEXPOEXDESHI = ($TOTALNETOEX / $TOTALNETOE) * 100;
       $PDEXPORTACIONTOTAL=(($TOTALDESHIDRATACIONEX-$TOTALNETOEX)/$TOTALNETOE)*100;
     } else {
       $PDEXPORTACION = 0;
@@ -238,22 +241,32 @@ if($ARRAYPROCESO){
   $PDTOTAL = number_format($PDEXPORTACION +$PDEXPORTACIONTOTAL+ $PDINDUSTRIAL, 2, ",", ".");
 
 
-  $IDUSUARIOI = $ARRAYPROCESO[0]['ID_USUARIOI'];
-  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
-  $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
 
-  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYPROCESO[0]['ID_PLANTA']);
-  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYPROCESO[0]['ID_EMPRESA']);
-  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYPROCESO[0]['ID_TEMPORADA']);
+
+
+
+
+  
+  $IDUSUARIOI = $ARRAYREEMBALAJE[0]['ID_USUARIOI'];
+  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+  $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];  
+
+  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYREEMBALAJE[0]['ID_PLANTA']);
+  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYREEMBALAJE[0]['ID_EMPRESA']);
+  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYREEMBALAJE[0]['ID_TEMPORADA']);
   $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
   $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
   $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
   $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-
+  
   if ($EMPRESAURL == "") {
     $EMPRESAURL = "img/empresa/no_disponible.png";
-  }
+  } 
+
+
 }
+
+
 
 
 //OBTENCION DE LA FECHA
@@ -321,12 +334,13 @@ $FECHANORMAL = $DIA . "" . $MES . "" . $ANO;
 $FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
+
 $html = '
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Informe Proceso</title>
+    <title>Informe Reembalaje</title>
   </head>
   <body>
     <header class="clearfix">
@@ -342,23 +356,23 @@ $html = '
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
-        INFORME PROCESO 
+        INFORME REEMBALAJE 
         <br>
-        <b> Número Proceso: ' . $NUMEROPROCESO . '</b>
+        <b> Numero Reembalaje: ' . $NUMEROREEMBALAJE . '</b>
       </h2>
       <div id="details" class="clearfix">
         
         <div id="invoice">
-          <div class="date"><b>Código BRC: </b>REP-PROC </div>    
-          <div class="date"><b>Fecha Proceso: </b>' . $FECHAPROCESO . ' </div>    
-          <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>   
+          <div class="date"><b>Código BRC: </b>REP-REEMB </div>   
+          <div class="date"><b>Fecha Reembalaje: </b>' . $FECHAREEMBALAJE . ' </div>
+          <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
           <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
         </div>
 
         <div id="client">
-          <div class="address"><b>Tipo Proceso: </b>' . $TIPOPROCESO . '</div>
-          <div class="address"><b>Estado Proceso: </b> ' . $ESTADO . ' </div>
+          <div class="address"><b>Tipo Reembalaje: </b>' . $TIPOREEMBALAJE . '</div>
+          <div class="address"><b>Estado Reembalaje: </b> ' . $ESTADO . ' </div>
           <div class="address"><b>CSG: </b>' . $CSGPRODUCTOR . '</div>
           <div class="address"><b>Nombre Productor: </b>' . $NOMBREPRODUCTOR . '</div>
           <div class="address"><b>Variedad: </b>' . $VARIEDAD . ' </div>
@@ -371,7 +385,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="7" class="center">INGRESO.</th>
+            <th colspan="11" class="center">INGRESO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -380,19 +394,24 @@ $html = $html . '
             <th class="color center">Envase/Estandar</th>
             <th class="color center">Cant. Envase</th>
             <th class="color center">Kilos Neto</th>
+            <th class="color center">Kilos Con Deshidratacion</th>
             <th class="color center ">Variedad </th>
+            <th class="color center">Embolsado</th>
+            <th class="color center">Tipo Manejo</th>     
+            <th class="color center">Calibre</th>       
           </tr>
         </thead>
          <tbody>
         ';
 foreach ($ARRAYEXISTENCIATOMADA as $r) :
-  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']); 
+
+  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   if($ARRAYVERVESPECIESID){
     $NOMBREVARIEDAD=$ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
   }else{    
     $NOMBREVARIEDAD = "Sin Datos";
   }
-  $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);  
+  $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
   if($ARRAYEVERERECEPCIONID){
     $CODIGOESTANDAR=$ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
     $NOMBREESTANDAR=$ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
@@ -400,16 +419,37 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
     $CODIGOESTANDAR = "Sin Datos";
     $NOMBREESTANDAR = "Sin Datos";
   }
-
+  $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+  if($ARRAYTMANEJO){
+    $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+  }else{    
+    $NOMBRETMANEJO = "Sin Datos";
+  }
+  $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+  if ($ARRAYTCALIBRE) {
+    $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+  } else {
+    $NOMBRETCALIBRE = "Sin Datos";
+  }
+  if ($r['EMBOLSADO'] == "1") {
+    $EMBOLSADO = "SI";
+  }
+  if ($r['EMBOLSADO'] == "0") {
+    $EMBOLSADO = "NO";
+  }
   $html = $html . '    
             <tr>
-                <th class=" left">' . $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA'] . '</th>
-                <td class=" center">' . $r['COSECHA'] . '</td>
-                <td class=" center">' . $CODIGOESTANDAR . '</td>
-                <td class=" center">' . $NOMBREESTANDAR . '</td>
+                <th class=" left">' . $r['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
+                <td class=" center">' . $r['EMBALADO'] . '</td>
+                <td class=" center"> ' . $CODIGOESTANDAR . '</td>
+                <td class=" center"> ' . $NOMBREESTANDAR . '</td>
                 <td class=" center">' . $r['ENVASE'] . '</td>
                 <td class=" center">' . $r['NETO'] . '</td>
+                <td class=" center">' . $r['DESHIRATACION'] . '</td>
                 <td class=" center ">' . $NOMBREVARIEDAD . ' </td>
+                <td class=" center">' . $EMBOLSADO . '</td>
+                <td class=" center">' . $NOMBRETMANEJO . '</td>
+                <td class=" center">' . $NOMBRETCALIBRE . '</td>
             </tr>
 ';
 
@@ -418,13 +458,17 @@ endforeach;
 $html = $html . '
     
         <tr>
-            <th class="color left"></th>
             <th class="color center"></th>
             <th class="color center"></th>
+            <th class="color center"> </th>
             <th class="color right">Sub Total</th>
-            <th class="color center"> ' . $TOTALENVASEEV . '</th>
-            <th class="color center"> ' . $TOTALNETOEV . '</th>
+            <th class="color center">' . $TOTALENVASEEV . '</th>
+            <th class="color center">' . $TOTALNETOV . '</th>
+            <th class="color center">' . $TOTALNETOEV . '</th>
             <th class="color center "> </th>
+            <th class="color center "> </th>
+            <th class="color center "> </th>
+            <th class="color left"></th>
         </tr>
 ';
 
@@ -439,10 +483,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
             <tr>
-            <th colspan="11" class="center">SALIDA.</th>
+            <th colspan="12" class="center">SALIDA.</th>
             </tr>
           <tr>
-            <th colspan="11" class="center">PRODUCTO TERMINADO.</th>
+            <th colspan="12" class="center">PRODUCTO TERMINADO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -452,10 +496,11 @@ $html = $html . '
             <th class="color center">Cant. Envase</th>
             <th class="color center">Kilos Neto</th>
             <th class="color center">Kilos Con Deshidratacion</th>
-            <th class="color center">%</th>
-            <th class="color center">Embolsado</th>
-            <th class="color center">Calibre</th>
+            <th class="color center ">% </th>
             <th class="color center ">Variedad </th>
+            <th class="color center">Embolsado</th>
+            <th class="color center">Tipo Manejo</th>    
+            <th class="color center">Calibre</th>          
           </tr>
         </thead>
          <tbody>
@@ -470,10 +515,16 @@ foreach ($ARRAYDEXPORTACION as $r) :
   $ARRAYEVEEXPORTACIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
   if($ARRAYEVEEXPORTACIONID){
     $CODIGOESTANDAR=$ARRAYEVEEXPORTACIONID[0]['CODIGO_ESTANDAR'];
-    $NOMBREESTANDAR=$ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'];
+    $NOMBREESTANDAR=$ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
   }else{    
     $CODIGOESTANDAR = "Sin Datos";
     $NOMBREESTANDAR = "Sin Datos";
+  }
+  $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+  if($ARRAYTMANEJO){
+    $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+  }else{    
+    $NOMBRETMANEJO = "Sin Datos";
   }
   $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
   if ($ARRAYTCALIBRE) {
@@ -481,49 +532,50 @@ foreach ($ARRAYDEXPORTACION as $r) :
   } else {
     $NOMBRETCALIBRE = "Sin Datos";
   }
+  if ($TOTALSALIDASF > 0) {
+    $NETOEXPOR = number_format(($r['KILOS_NETO_DREXPORTACION'] / $TOTALNETOE) * 100, 2, ",", ".");
+  } else {
+    $NETOEXPOR = 0;
+  }
+
   if ($r['EMBOLSADO'] == "1") {
     $EMBOLSADO = "SI";
   }
   if ($r['EMBOLSADO'] == "0") {
     $EMBOLSADO = "NO";
   }
-  if ($TOTALSALIDASF > 0) {
-    $NETOEXPOR = number_format(($r['KILOS_DESHIDRATACION_DPEXPORTACION'] / $TOTALNETOE) * 100, 2, ",", ".");
-  } else {
-    $NETOEXPOR = 0;
-  }
-  $NETOINDU = 0;
-
-
   $html = $html . '    
         <tr>
-            <th class=" left"> ' . $r['FOLIO_DPEXPORTACION'] . '</th>
+            <th class=" left"> ' . $r['FOLIO_DREXPORTACION'] . '</th>
             <td class=" center"> ' . $r['EMBALADO'] . '</td>
             <td class=" center"> ' . $CODIGOESTANDAR . '</td>
             <td class=" center"> ' . $NOMBREESTANDAR . '</td>
             <td class=" center">' . $r['ENVASE'] . ' </td>
             <td class=" center"> ' . $r['NETO'] . '</td>
             <td class=" center "> ' . $r['DESHIDRATACION'] . ' </td>
-            <td class=" center"> ' . $NETOEXPOR . '%</td>
-            <td class=" center "> ' . $EMBOLSADO . ' </td>
-            <td class=" center "> ' . $NOMBRETCALIBRE . ' </td>
+            <td class=" center "> ' . $NETOEXPOR . ' </td>
             <td class=" center "> ' . $NOMBREVARIEDAD . ' </td>
+            <td class=" center "> ' . $EMBOLSADO . ' </td>
+            <td class=" center">' . $NOMBRETMANEJO . '</td>
+            <td class=" center">' . $NOMBRETCALIBRE . '</td>
         </tr>
         ';
+
 endforeach;
 $html = $html . '    
             <tr>
-                <th class="color left"> </th>
+                <th class="color center"> </th>
                 <th class="color center"> </th>
                 <th class="color center"> </th>
                 <th class="color right">Sub Total </th>
                 <th class="color center"> ' . $TOTALENVASEEXV . '</th>
-                <th class="color center "> ' . $TOTALNETOEX . ' </th>
+                <th class="color center">' . $TOTALNETOEX . ' </th>
                 <th class="color center "> ' . $TOTALDESHIDRATACIONEXV . ' </th>
-                <th class="color center "> ' . number_format($PEXPORTACIONEXPOEXDESHI, 2, ",", ".") . '% </th>
+                <th class="color center "> ' . number_format($PDEXPORTACION, 2, ",", ".") . '% </th>
                 <th class="color center ">  </th>
-                <th class="color center ">  </th>
-                <th class="color center ">  </th>
+                <th class="color left"></th>
+                <th class="color center"> </th>
+                <th class="color left"></th>
             </tr>
             ';
 
@@ -546,7 +598,7 @@ $html = $html . '
             <th class="color center">Código Estandar</th>
             <th class="color center">Envase/Estandar</th>
             <th class="color center">Kilos Neto</th>
-            <th class="color center">%</th>
+            <th class="color center ">% </th>
             <th class="color center ">Variedad </th>
           </tr>
         </thead>
@@ -569,19 +621,18 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
   }
 
   if ($TOTALSALIDASF > 0) {
-    $NETOINDU = number_format(($r['KILOS_NETO_DPINDUSTRIAL'] / $TOTALNETOE) * 100, 2, ",", ".");
+    $NETOINDU = number_format(($r['KILOS_NETO_DRINDUSTRIAL'] / $TOTALNETOE) * 100, 2, ",", ".");
   } else {
     $NETOINDU = 0;
   }
-
   $html = $html . '    
         <tr>
-            <th class=" left"> ' . $r['FOLIO_DPINDUSTRIAL'] . '</th>
+            <th class=" left"> ' . $r['FOLIO_DRINDUSTRIAL'] . '</th>
             <td class=" center"> ' . $r['EMBALADO'] . '</td>
             <td class=" center"> ' . $CODIGOESTANDAR . '</td>
             <td class=" center"> ' . $NOMBREESTANDAR . '</td>
-            <td class=" center"> ' . $r['NETO'] . '</td>
-            <td class=" center"> ' . $NETOINDU . '%</td>
+            <td class=" center"> ' . $r['KILOS_NETO_DRINDUSTRIAL'] . '</td>
+            <td class=" center"> ' . $NETOINDU . '</td>
             <td class=" center "> ' . $NOMBREVARIEDAD . ' </td>
         </tr>
         ';
@@ -593,9 +644,9 @@ $html = $html . '
             <th class="color center"> </th>
             <th class="color center"> </th>
             <th class="color right">Sub Total </th>
-            <th class="color center"> ' . $TOTALNETOINDV . '</th>
+            <th class="color center">' . $TOTALNETOINDV . ' </th>
             <th class="color center "> ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </th>
-            <th class="color center ">  </th>
+            <th class="color center"> </th>
         </tr>
         ';
 
@@ -603,64 +654,63 @@ $html = $html . '
         </tbody>
       </table>
       ';
-
-$html = $html . '
+      $html = $html . '
      
-    </div>
-
- 
-
-
-      <div id="details" class="clearfix">      
-       
-      
-        <div id="client">
-        <div class="address"><b>PORCENTAJES CALIBRE: </b></div>
-      ';
-      foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
-        $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-        if ($ARRAYTCALIBRE) {
-          $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-        } else {
-          $NOMBRETCALIBRE = "Sin Datos";
-        }
-        if ($TOTALNETOEXV > 0) {
-          $NETOCALIBRE = number_format(($r['NETO'] / $TOTALNETOE) * 100, 2, ",", ".");
-        } else {
-          $NETOCALIBRE = 0;
-        }   
-        
-$html = $html . '   
-        <div class="address"> <b>' . $NOMBRETCALIBRE . ' </b>:( ' . $r['NETOF'] . ' KG)  ' . $NETOCALIBRE . '%</div>         
-        
-        ';
-      endforeach;
-      
-$html = $html . '  
-          
-          <div class="address"><br></div>
-          <div class="address"><b>PORCENTAJES: </b></div>
-          <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
-          <div class="address">DESHIDRATACIÓN:  ' . number_format($PDEXPORTACIONTOTAL, 2, ",", ".") . '%</div>
-          <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
-          <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
-
-        </div>
-
-        <div id="client">
-          <div class="address"><b>RESUMEN KILOS: </b></div>
-          <div class="address">MATERIA PRIMA A PROCESO.:  ' . $TOTALNETOEV . '</div>
-          <div class="address">KILOS NETO EXPORTACION: ' . $TOTALNETOEXV . ' </div>
-          <div class="address">KILOS DESHIDRATACIÓN: ' . $TOTALNETOEXPO . ' </div>
-          <div class="address">KILOS NETO IQF : ' . $TOTALNETOINDSC . ' </div>
-          <div class="address">KILOS NETO MERMA/DESECHO : ' . $TOTALNETOINDNC . ' </div>
-          <div class="address">DIFERENCIA: ' . number_format($TOTAL2, 2, ",", ".") . '</div>
-        </div>
-        
       </div>
-
-
-      ';     
+  
+   
+  
+  
+        <div id="details" class="clearfix">      
+         
+        
+          <div id="client">
+          <div class="address"><b>PORCENTAJES CALIBRE: </b></div>
+        ';
+        foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
+          $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+          if ($ARRAYTCALIBRE) {
+            $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+          } else {
+            $NOMBRETCALIBRE = "Sin Datos";
+          }
+          if ($TOTALNETOEXV > 0) {
+            $NETOCALIBRE = number_format(($r['NETO'] / $TOTALNETOE) * 100, 2, ",", ".");
+          } else {
+            $NETOCALIBRE = 0;
+          }   
+          
+  $html = $html . '   
+          <div class="address"> <b>' . $NOMBRETCALIBRE . ' </b>:( ' . $r['NETOF'] . ' KG)  ' . $NETOCALIBRE . '%</div>         
+          
+          ';
+        endforeach;
+        
+  $html = $html . '  
+            
+            <div class="address"><br></div>
+            <div class="address"><b>PORCENTAJES: </b></div>
+            <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
+            <div class="address">DESHIDRATACIÓN:  ' . number_format($PDEXPORTACIONTOTAL, 2, ",", ".") . '%</div>
+            <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
+            <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
+  
+          </div>
+  
+          <div id="client">
+            <div class="address"><b>RESUMEN KILOS: </b></div>
+            <div class="address">PRODUCTO TERMINADO A REEMBALAJE.:  ' . $TOTALNETOEV . '</div>
+            <div class="address">KILOS NETO EXPORTACION: ' . $TOTALNETOEXV . ' </div>
+            <div class="address">KILOS DESHIDRATACIÓN: ' . $TOTALNETOEXPO . ' </div>
+            <div class="address">KILOS NETO IQF : ' . $TOTALNETOINDSC . ' </div>
+            <div class="address">KILOS NETO MERMA/DESECHO : ' . $TOTALNETOINDNC . ' </div>
+            <div class="address">DIFERENCIA: ' . number_format($TOTAL2, 2, ",", ".") . '</div>
+          </div>
+          
+        </div>
+  
+  
+        ';  
 $html = $html . '   
     <div id="details" class="clearfix">
         <div id="client">
@@ -673,18 +723,18 @@ $html = $html . '
           <div class="date center">  ' . $NOMBRERESPONSABLE . '</div>
       </div>
     </div>  
-    </main> 
+            
+    </main>
   </body>
 </html>
 
 ';
 
 
-
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO = "InformeProceso_";
+$NOMBREARCHIVO = "InformeReembalaje_";
 $FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
-$TIPODOCUMENTO = "INFORME";
+$TIPODOCUMENTO = "Informe";
 $FORMATO = ".pdf";
 $NOMBREARCHIVOFINAL = $NOMBREARCHIVO . $FECHADOCUMENTO . $FORMATO;
 
@@ -696,10 +746,11 @@ $UNICODE = "true";
 $ENCODING = "UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "INFORME PROCESO";
-$CREADOR = "USUARIO";
-$AUTOR = "USUARIO";
-$ASUNTO = "INFORME";
+$TIPOINFORME = "Informe Reembalaje";
+$CREADOR = "Usuario";
+$AUTOR = "Usuario";
+$ASUNTO = "Informe";
+
 //API DE GENERACION DE PDF
 require_once '../../api/mpdf/mpdf/autoload.php';
 //$PDF = new \Mpdf\Mpdf();W
@@ -707,23 +758,19 @@ $PDF = new \Mpdf\Mpdf(['format' => 'letter']);
 
 //CONFIGURACION FOOTER Y HEADER DEL PDF
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-              <th width="55%" class="left f10">' . $EMPRESA . '</th>
-              <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
-              <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    
+  <table width="100%" >
+      <tbody>
+          <tr>
+            <th width="55%" class="left f10">' . $EMPRESA . '</th>
+            <td width="45%" class="right f10">' . $FECHANORMAL2 . '</td>
+            <td width="5%"  class="right f10"><span>{PAGENO}/{nbpg}</span></td>
+          </tr>
+      </tbody>
+  </table>
+  <br>    
 ');
 
 $PDF->SetHTMLFooter('
-
-
-
 <footer>
   Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl.</a>
   <br>
