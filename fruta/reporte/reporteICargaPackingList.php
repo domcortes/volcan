@@ -61,6 +61,7 @@ include_once '../controlador/EXIEXPORTACION_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
 include_once '../controlador/ECOMERCIAL_ADO.php';
 include_once '../controlador/TETIQUETA_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 
 
@@ -119,6 +120,7 @@ $EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
 $TEMBALAJE_ADO = new TEMBALAJE_ADO();
 $ECOMERCIAL_ADO = new ECOMERCIAL_ADO();
 $TETIQUETA_ADO = new TETIQUETA_ADO();
+$TCATEGORIA_ADO = new TCATEGORIA_ADO();
 
 
 $ICARGA_ADO =  new ICARGA_ADO();
@@ -511,16 +513,16 @@ $html = '
     <tr>   
         <th class="color center ">N° InsFinal </th>
         <th class="color center ">Nombre Exportadora </th>
+        <th class="color center ">Nombre Productor </th>
         <th class="color center ">CSG Productor</th>
         <th class="color center ">GGN Productor</th>
-        <th class="color center ">Nombre Productor </th>
         <th class="color center ">Especies </th>
         <th class="color center ">Variedad </th>
-        <th class="color center ">CSP Planta </th>
         <th class="color center ">Nombre Planta </th>
+        <th class="color center ">CSP Planta </th>
         <th class="color center ">N° Folio </th>
         <th class="color center ">Embalaje </th>
-        <th class="color center ">Fecha Embalado </th>
+        <th class="color center ">Fecha Embalaje </th>
         <th class="color center ">Calibres </th>
         <th class="color center ">Categoria </th>
         <th class="color center ">Calidad </th>
@@ -529,13 +531,12 @@ $html = '
         <th class="color center ">Kilos Neto </th>
         <th class="color center ">Kilos Bruto </th>
         <th class="color center ">Recibiddor</th>
-        <th class="color center ">Contenedor</th>
-        <th class="color center ">Termografo </th>
 ';
 
 if ($TEMBARQUE == "1") {
 $html=$html.'
             <th class="color center ">Transporte </th>
+            <th class="color center ">Contenedor</th>
             <th class="color center ">Lugar de Carga</th>
             <th class="color center ">Lugar de Destino</th>
         ';
@@ -543,23 +544,24 @@ $html=$html.'
 
 if ($TEMBARQUE == "2") {
 $html=$html.'
-        <th class="color center ">Aeronave </th>
+        <th class="color center ">Aeronave/ N° Vuelo </th>
+        <th class="color center ">Contenedor</th>
         <th class="color center ">Aeropuerto de Carga</th>
         <th class="color center ">Aeropuerto de Destino</th>
-        <th class="color center ">N° Vuelo</th>
         ';
 
 }
 if ($TEMBARQUE == "3") {
 $html=$html.'
-            <th class="color center ">Nave </th>
+            <th class="color center ">Nave / N° Viaje </th>
+            <th class="color center ">Contenedor</th>
             <th class="color center ">Puerto de Carga</th>
             <th class="color center ">Puerto de Destino</th>
-            <th class="color center ">N° Viaje</th>
         ';
 }
 
 $html=$html.'
+            <th class="color center ">Termografo </th>
     </tr>
     </thead>
  <tbody>
@@ -570,11 +572,19 @@ foreach ($ARRAYTOMADO as $r) :
 
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
     if ($ARRAYVERPRODUCTORID) {
+        $GGNPRODUCTOR = $ARRAYVERPRODUCTORID[0]['GGN_PRODUCTOR'];
         $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
         $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
     } else {
+        $GGNPRODUCTOR = "Sin Datos";
         $CSGPRODUCTOR = "Sin Datos";
         $NOMBREPRODUCTOR = "Sin Datos";
+    }
+    $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
+    if($ARRAYTCATEGORIA){      
+      $NOMBRETCATEGORIA = $ARRAYTCATEGORIA[0]['NOMBRE_TCATEGORIA'];
+    }else{
+      $NOMBRETCATEGORIA="CAT1";
     }
 
     
@@ -632,9 +642,9 @@ foreach ($ARRAYTOMADO as $r) :
             <tr class="center">        
                 <td class=" center ">' . $NUMEROIREFERENCIA . ' </td>
                 <td class=" center ">' . $NOMBREEXPPORTADORA . ' </td>
-                <td class=" center ">' . $CSGPRODUCTOR . ' </td>
-                <td class=" center ">&nbsp;</td>
                 <td class=" center ">' . $NOMBREPRODUCTOR . ' </td>
+                <td class=" center ">' . $CSGPRODUCTOR . ' </td>
+                <td class=" center ">' . $GGNPRODUCTOR . ' </td>
                 <td class=" center ">' . $NOMBRESPECIES . ' </td>
                 <td class=" center ">' . $NOMBREVESPECIES . ' </td>
                 <td class=" center ">' . $NOMBREPLANTA . ' </td>
@@ -643,15 +653,13 @@ foreach ($ARRAYTOMADO as $r) :
                 <td class=" center ">' . $NOMBREECOMERCIAL . ' </td>
                 <td class=" center">' . $r['EMBALADO'] . '</td>
                 <td class=" center ">' . $NOMBRETCALIBRE . ' </td>
-                <td class=" center ">&nbsp;</td>
+                <td class=" center ">' . $NOMBRETCATEGORIA . ' </td>
                 <td class=" center ">Exportacion</td>
                 <td class=" center ">' . $NOMBRETETIQUETA . ' </td>
                 <td class=" center">' . $r['ENVASE'] . '</td>
                 <td class=" center">' . $r['NETO'] . '</td>
                 <td class=" center">' . $r['BRUTO'] . '</td>
                 <td class=" center ">' . $NOMBRERFINAL . ' </td>  
-                <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
-                <td class=" center ">' . $TERMOGRAFODESPACHOEX . ' </td>   
 
                 ';
 
@@ -659,6 +667,7 @@ if ($TEMBARQUE == "1") {
 
  $html=$html.'
                 <td class=" center ">'.$NOMBRETRANSPORTE.' </td>  
+                <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
                 <td class=" center ">'.$NOMBREORIGEN.'</td>
                 <td class=" center "> '.$NOMBREDESTINO.'</td>
                 ';
@@ -667,25 +676,26 @@ if ($TEMBARQUE == "1") {
 if ($TEMBARQUE == "2") {
 
  $html=$html.'
-                <td class=" center ">'.$NOMBRETRANSPORTE.' </td>  
+                <td class=" center ">'.$NAVE.' / '.$NVIAJE.' </td>  
+                <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
                 <td class=" center ">'.$NOMBREORIGEN.'</td>
                 <td class=" center "> '.$NOMBREDESTINO.'</td>
-                <td class=" center ">'.$NVIAJE.'</td>
                 ';
 }
 
 if ($TEMBARQUE == "3") {
 
  $html=$html.'
-                <td class=" center ">'.$NOMBRETRANSPORTE.' </td>  
+                <td class=" center ">'.$NAVE.' / '.$NVIAJE.' </td>  
+                <td class=" center ">' . $NUMEROCONTENEDOR . ' </td>   
                 <td class=" center ">'.$NOMBREORIGEN.'</td>
                 <td class=" center "> '.$NOMBREDESTINO.'</td>
-                <td class=" center ">'.$NVIAJE.'</td>
                 ';
 }
 
  $html=$html.'
 
+              <td class=" center ">' . $TERMOGRAFODESPACHOEX . ' </td>   
             </tr>
             ';
 
@@ -826,11 +836,11 @@ $EXCEL = $reader->loadFromString($html);
 //$reader->setSheetIndex(1);
 //$EXCEL = $reader->loadFromString($secondHtmlString, $EXCEL);
 
-
+/*
 $EXCEL->getActiveSheet()->setAutoFilter(
     $EXCEL->getActiveSheet()
         ->calculateWorksheetDimension()
-);
+);*/
 
 
 //$FORMATO->setCellValue('1', 'Hello World !');

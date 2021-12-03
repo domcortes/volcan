@@ -482,69 +482,103 @@ $html = '
       <div class="f20 titulo"  style="text-align: left; font-weight: bold;"> '.$NOMBRETNOTA.' NOTE  </div>    
       <div class="f15 titulo"  style="text-align: right;">  <b>  Reference Number: ' . $NUMEROIREFERENCIA . '   </b>  </div>      
     </div>   
-
     <br>
-<div id="details" class="clearfix">
-  <div id="client">
-    <div class="address"> <b> Date Instructive:  </b> '.$FECHA.'  </div>
-    <div class="address"> <b>  Consigne:  </b> '.$NOMBRECONSIGNATARIO.'  </div>
-    <div class="address"> <b>  Address Consigne:  </b> '.$DIRECCIONCONSIGNATARIO.'  </div>
-    <div class="address"> <b> Tributary id Consigne: </b>'.$EORICONSIGNATARIO.'  </div>
-    <div class="address"> <b> Phone / Fax Consigne: </b>'.$TELEFONOCONSIGNATARIO.'  </div>
-    <div class="address"> <b>  Email Consigne:  </b> '.$EMAIL1CONSIGNATARIO.'  </div>
-    <div class="address"> <b>  Sales method:  </b>  '.$NOMBREMVENTA.' </div>
-    <div class="address"> <b>  Incoterm:  </b>   '.$NOMBRECVENTA.'</div>
-    <div class="address"> <b>  BL/AWB/CRT:  </b> '.$BOLAWBCRTINSTRUCTIVO.'  </div>
-    <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
-  </div>
-  <div id="client"> 
-    ';
-    if ($TEMBARQUE == "1") {
-      $html = $html . '
-        <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
-        <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
-        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> <b>  Transport Name:  </b> '.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> <b>  CRT:  </b> '.$CRT.'  </div>
-        <div class="address"> <b>  Place of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
-        <div class="address"> <b>  Place of Destination:  </b> '.$NOMBREDESTINO.'  </div>
-        <div class="address"> <b>  Loading place:   </b> '.$LUGARDECARGA.'  </div>
-      ';
-    }
-    if ($TEMBARQUE == "2") {
-        $html = $html . '
-    
-        <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
-        <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
-        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> <b>  Airline Name:   </b>'.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> <b>  Airplane:   </b>'.$NAVE.'  </div>
-        <div class="address"> <b>  Airport of Shipment:  </b> '.$NOMBREORIGEN.'  </div>
-        <div class="address"> <b>  Airport of Destination:   </b>'.$NOMBREDESTINO.'  </div>
-        <div class="address"> <b>  Loading place:   </b>'.$LUGARDECARGA.'  </div>
+    <div id="details" class="clearfix">
+      <div id="client">
+        <div class="address"> <b>  Consigne:  </b> '.$NOMBRECONSIGNATARIO.'  </div>
+        <div class="address"> <b>  Address Consigne:  </b> '.$DIRECCIONCONSIGNATARIO.'  </div>
+        <div class="address"> <b> Tributary id Consigne: </b>'.$EORICONSIGNATARIO.'  </div>
+        <div class="address"> <b> Phone / Fax Consigne: </b>'.$TELEFONOCONSIGNATARIO.'  </div>
+        <div class="address"> <b>  Email Consigne:  </b> '.$EMAIL1CONSIGNATARIO.'  </div>
+        <div class="address">&nbsp;  </div>
     
         ';
-     }
-    if ($TEMBARQUE == "3") {
-        $html = $html . '
+        if ($TEMBARQUE == "1") {
+          $html = $html . '
+            <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
+            <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
+            <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+            <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
+          ';
+        }
+        if ($TEMBARQUE == "2") {
+            $html = $html . '
+        
+            <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
+            <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
+            <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+            <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
+        
+            ';
+         }
+        if ($TEMBARQUE == "3") {
+            $html = $html . '
+        
+            <div class="address"> <b>  Date ETD:  </b>   '.$FECHAETD.'</div>  
+            <div class="address"> <b>  Date ETA:   </b> '.$FECHAETA.' </div>
+            <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+            <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
+        
+            ';
+        }    
     
-        <div class="address"> <b>  Date ETD:  </b>   '.$FECHAETD.'</div>  
-        <div class="address"> <b>  Date ETA:   </b> '.$FECHAETA.' </div>
-        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
-        <div class="address"> <b>  Shipping company name:  </b> '.$NOMBRETRANSPORTE.'  </div>
-        <div class="address"> <b>  Vessel:   </b>'.$NAVE.'  </div>
-        <div class="address"> <b>  Port of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
-        <div class="address"> <b>  Port of Destination:  </b> '.$NOMBREDESTINO.'  </div>
-        <div class="address"> <b>  Loading place:   </b>'.$LUGARDECARGA.'  </div>
+    $html = $html . '
     
-        ';
-    }    
-
-
-$html = $html . '
-        </div>          
+    
+    
       </div>
+      <div id="client"> 
+      
+        <div class="address"> <b> Date Instructive:  </b> '.$FECHA.'  </div>
+        <div class="address"> <b>  Sales method:  </b>  '.$NOMBREMVENTA.' </div>
+        <div class="address"> <b>  Incoterm:  </b>   '.$NOMBRECVENTA.'</div>
+        <div class="address"> <b>  BL/AWB/CRT:  </b> '.$BOLAWBCRTINSTRUCTIVO.'  </div>
+    
         ';
+        if ($TEMBARQUE == "1") {
+          $html = $html . '
+            <div class="address">&nbsp;  </div>
+            <div class="address">&nbsp;  </div>
+            <div class="address"> <b>  Transport Name:  </b> '.$NOMBRETRANSPORTE.'  </div>
+            <div class="address"> <b>  CRT:  </b> '.$CRT.'  </div>
+            <div class="address"> <b>  Place of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
+            <div class="address"> <b>  Place of Destination:  </b> '.$NOMBREDESTINO.'  </div>
+            <div class="address"> <b>  Loading place:   </b> '.$LUGARDECARGA.'  </div>
+          ';
+        }
+        if ($TEMBARQUE == "2") {
+            $html = $html . '
+        
+            <div class="address">&nbsp;  </div>
+            <div class="address">&nbsp;  </div>
+            <div class="address"> <b>  Airline Name:   </b>'.$NOMBRETRANSPORTE.'  </div>
+            <div class="address"> <b>  Airplane:   </b>'.$NAVE.'  </div>
+            <div class="address"> <b>  Airport of Shipment:  </b> '.$NOMBREORIGEN.'  </div>
+            <div class="address"> <b>  Airport of Destination:   </b>'.$NOMBREDESTINO.'  </div>
+            <div class="address"> <b>  Loading place:   </b>'.$LUGARDECARGA.'  </div>
+        
+            ';
+         }
+        if ($TEMBARQUE == "3") {
+            $html = $html . '
+        
+            <div class="address">&nbsp;  </div>
+            <div class="address">&nbsp;  </div>
+            <div class="address"> <b>  Shipping company name:  </b> '.$NOMBRETRANSPORTE.'  </div>
+            <div class="address"> <b>  Vessel:   </b>'.$NAVE.'  </div>
+            <div class="address"> <b>  Port of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
+            <div class="address"> <b>  Port of Destination:  </b> '.$NOMBREDESTINO.'  </div>
+            <div class="address"> <b>  Loading place:   </b>'.$LUGARDECARGA.'  </div>
+        
+            ';
+        }    
+    
+    $html = $html . '
+    
+    
+            </div>          
+          </div>
+            ';
 
         $html = $html . '        
         <table border="0" cellspacing="0" cellpadding="0">

@@ -729,6 +729,32 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+    
+    public function buscarDespachoExPorIcargaAgrupadoPorPlanta($IDICARGA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT 
+                                                        ID_PLANTA, 
+                                                        DATE_FORMAT(FECHA_DESPACHOEX, '%d/%m/%Y') AS 'FECHA' ,
+                                                        NUMERO_SELLO_DESPACHOEX
+                                                    FROM fruta_despachoex
+                                                WHERE 
+                                                    ID_ICARGA = '" . $IDICARGA . "'   
+                                                GROUP BY id_planta       
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     public function consolidadoDespachoExistencia($IDICARGA)

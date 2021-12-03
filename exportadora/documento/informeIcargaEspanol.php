@@ -217,18 +217,23 @@ if($ARRAYICARGA){
     $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
   
     $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
+    $ARRAYDESPACHOEX2=$DESPACHOEX_ADO->buscarDespachoExPorIcargaAgrupadoPorPlanta($IDOP);
     if($ARRAYDESPACHOEX){
-      $FECHADESPACHOEX=$ARRAYDESPACHOEX[0]['FECHA'];
-      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
-      $NUMEROSELLO=$ARRAYDESPACHOEX[0]['NUMERO_SELLO_DESPACHOEX'];
-      $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
-      if($ARRAYVERPLANTA){
-        $LUGARDECARGA=$ARRAYVERPLANTA[0]["RAZON_SOCIAL_PLANTA"];
-        $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
-      }else{
-        $FECHADESPACHOEX="Sin Datos";
-        $LUGARDECARGA="Sin Datos";
-      }
+      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];   
+
+      foreach ($ARRAYDESPACHOEX2 as $r) :  
+        $FECHADESPACHOEX=$FECHADESPACHOEX.$r['FECHA']."<br> ";   
+        $NUMEROSELLO=$NUMEROSELLO.$r['NUMERO_SELLO_DESPACHOEX']."<br> ";
+        $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+        if($ARRAYVERPLANTA){
+          $LUGARDECARGA= $LUGARDECARGA.$ARRAYVERPLANTA[0]["RAZON_SOCIAL_PLANTA"]."<br> ";
+          $FDADESPACHOEX= $FDADESPACHOEX.$ARRAYVERPLANTA[0]["FDA_PLANTA"]."<br> ";
+        }else{
+          $FECHADESPACHOEX=$FECHADESPACHOEX;
+          $LUGARDECARGA=$LUGARDECARGA;
+        }
+      endforeach;     
+
     }else{
       $FDADESPACHOEX="Sin Datos";
       $NUMEROCONTENEDOR="Sin Datos";
@@ -617,7 +622,7 @@ $html='
           <div class="dater"> <b> Consignatario  </b></div>
           <div class="dater"> <b> Nombre: </b>'.$NOMBRECONSIGNATARIO.'  </div>
           <div class="dater"> <b> Direccion: </b>'.$DIRECCIONCONSIGNATARIO.'  </div>
-          <div class="dater"> <b> Id Tributario(EORI): </b>'.$EORICONSIGNATARIO.'  </div>
+          <div class="dater"> <b> Id Tributario: </b>'.$EORICONSIGNATARIO.'  </div>
           <div class="dater"> <b> Telefono / Fax: </b>'.$TELEFONOCONSIGNATARIO.'  </div>
           <div class="dater"> <b> Email: </b>'.$EMAIL1CONSIGNATARIO.'  </div>
         </div> 
@@ -625,7 +630,7 @@ $html='
           <div class="dater"> <b> Notificador  </b></div>
           <div class="dater"> <b> Nombre: </b>'.$NOMBRENOTIFICADOR.'  </div>
           <div class="dater"> <b> Direccion: </b>'.$DIRECCIONNOTIFICADOR.'  </div>
-          <div class="dater"> <b> Id Tributario(EORI): </b>'.$EORINOTIFICADOR.'  </div>
+          <div class="dater"> <b> Id Tributario: </b>'.$EORINOTIFICADOR.'  </div>
           <div class="dater"> <b> Telefono / Fax: </b>'.$TELEFONONOTIFICADOR.'  </div>
           <div class="dater"> <b> Email: </b>'.$EMAIL1NOTIFICADOR.'  </div>
         </div>     
@@ -640,25 +645,19 @@ $html='
            <th colspan="4" class="center titulo color">Datos del Despacho</th>
          </tr>
        </thead>
-       <tbody>          
-          <tr>                       
-          <th class="color2 left">Fecha Despacho: </th> 
-          <td class="color2 left">'.$FECHADESPACHOEX.'</td>      
-          <th class="color2 left">Número Contenedor: </th>       
-          <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>      
-        </tr>  
+       <tbody>   
         <tr>                       
           <th class="color2 left">Lugar Carga: </th> 
-          <td class="color2 left">'.$LUGARDECARGA.'</td>      
-          <th class="color2 left">Número Sello: </th>       
-          <td class="color2 left">'.$NUMEROSELLO.'</td>      
-        </tr> 
-        <tr>                       
+          <td class="color2 left">'.$LUGARDECARGA.'</td>     
           <th class="color2 left">FDA Packing: </th> 
           <td class="color2 left">'.$FDADESPACHOEX.'</td>      
-          <th class="color2 left">&nbsp;</th>       
-          <td class="color2 left">&nbsp;</td>      
-        </tr> 
+        </tr>        
+        <tr>                       
+          <th class="color2 left">Fecha Despacho: </th> 
+          <td class="color2 left">'.$FECHADESPACHOEX.'</td>    
+          <th class="color2 left">Sello Planta: </th>       
+          <td class="color2 left">'.$NUMEROSELLO.'</td>         
+        </tr>  
        </tbody>  
      </table>
        
@@ -676,7 +675,9 @@ $html='
            <th class="color2 left">Fecha ETD: </th>    
            <td class="color2 left">'.$FECHAETD.'</td>      
            <th class="color2 left">Booking: </th>        
-           <td class="color2 left">'.$BOOKINGINSTRUCTIVO.'</td>      
+           <td class="color2 left">'.$BOOKINGINSTRUCTIVO.'</td>  
+           <th class="color2 left">Número Contenedor: </th>       
+           <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>       
          </tr>    
          <tr>                       
            <th class="color2 left">Fecha ETA: </th> 
@@ -707,7 +708,7 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Nave: </th> 
              <td class="color2 left">'.$NAVE.'</td>     
-             <th class="color2 left">Flight Number: </th> 
+             <th class="color2 left">Numero Vuelo: </th> 
              <td class="color2 left">'.$NVIAJE.'</td>     
            </tr>    
            ';
@@ -720,7 +721,7 @@ $html='
              <td class="color2 left">'.$NOMBRETRANSPORTE.'</td>     
              <th class="color2 left">Nave: </th> 
              <td class="color2 left">'.$NAVE.'</td>   
-             <th class="color2 left">Travel Number: </th> 
+             <th class="color2 left">Numero Viaje: </th> 
              <td class="color2 left">'.$NVIAJE.'</td>       
            </tr>   
            <tr>
@@ -867,7 +868,6 @@ $html = $html . '
 </table>    
 ';
 $html=$html.'
-<div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
 ';
 
 $html=$html.'

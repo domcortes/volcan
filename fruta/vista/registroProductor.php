@@ -42,6 +42,7 @@ $SDPPRODUCTOR = "";
 $PRBPRODUCTOR = "";
 $CODIGOASOCIADOPRODUCTOR = "";
 $NOMBREASOCIADOPRODUCTOR = "";
+$GGNPRODUCTOR="";
 
 
 
@@ -111,6 +112,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     $PRODUCTOR->__SET('CSG_PRODUCTOR', $_REQUEST['CSGPRODUCTOR']);
     $PRODUCTOR->__SET('SDP_PRODUCTOR', $_REQUEST['SDPPRODUCTOR']);
     $PRODUCTOR->__SET('PRB_PRODUCTOR', $_REQUEST['PRBPRODUCTOR']);
+    $PRODUCTOR->__SET('GGN_PRODUCTOR', $_REQUEST['GGNPRODUCTOR']);    
     $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
     $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
     $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);    
@@ -138,6 +140,7 @@ if (isset($_REQUEST['EDITAR'])) {
     $PRODUCTOR->__SET('CSG_PRODUCTOR', $_REQUEST['CSGPRODUCTOR']);
     $PRODUCTOR->__SET('SDP_PRODUCTOR', $_REQUEST['SDPPRODUCTOR']);
     $PRODUCTOR->__SET('PRB_PRODUCTOR', $_REQUEST['PRBPRODUCTOR']);
+    $PRODUCTOR->__SET('GGN_PRODUCTOR', $_REQUEST['GGNPRODUCTOR']);
     $PRODUCTOR->__SET('CODIGO_ASOCIADO_PRODUCTOR', $_REQUEST['CODIGOASOCIADOPRODUCTOR']);
     $PRODUCTOR->__SET('NOMBRE_ASOCIADO_PRODUCTOR', $_REQUEST['NOMBREASOCIADOPRODUCTOR']);
     $PRODUCTOR->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
@@ -198,6 +201,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CSGPRODUCTOR = "" . $r['CSG_PRODUCTOR'];
             $SDPPRODUCTOR = "" . $r['SDP_PRODUCTOR'];
             $PRBPRODUCTOR = "" . $r['PRB_PRODUCTOR'];
+            $GGNPRODUCTOR = "" . $r['GGN_PRODUCTOR'];            
             $CODIGOASOCIADOPRODUCTOR = "" . $r['CODIGO_ASOCIADO_PRODUCTOR'];
             $NOMBREASOCIADOPRODUCTOR = "" . $r['NOMBRE_ASOCIADO_PRODUCTOR'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
@@ -230,6 +234,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $CSGPRODUCTOR = "" . $r['CSG_PRODUCTOR'];
             $SDPPRODUCTOR = "" . $r['SDP_PRODUCTOR'];
             $PRBPRODUCTOR = "" . $r['PRB_PRODUCTOR'];
+            $GGNPRODUCTOR = "" . $r['GGN_PRODUCTOR'];  
             $CODIGOASOCIADOPRODUCTOR = "" . $r['CODIGO_ASOCIADO_PRODUCTOR'];
             $NOMBREASOCIADOPRODUCTOR = "" . $r['NOMBRE_ASOCIADO_PRODUCTOR'];
             $EMPRESA = "" . $r['ID_EMPRESA'];
@@ -638,6 +643,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label>PRB </label>
                                                         <input type="number" class="form-control" placeholder="PRB Productor" id="PRBPRODUCTOR" name="PRBPRODUCTOR" value="<?php echo $PRBPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_prb" class="validacion"> </label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>GGN </label>
+                                                        <input type="number" class="form-control" placeholder="GGN Productor" id="GGNPRODUCTOR" name="GGNPRODUCTOR" value="<?php echo $GGNPRODUCTOR; ?>" <?php echo $DISABLED; ?> />
+                                                        <label id="val_ggn" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">

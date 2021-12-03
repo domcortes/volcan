@@ -135,25 +135,24 @@ if ($ARRAYRECEPCION) {
   $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
   $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
 
-  $NOMBRETIPO = $ARRAYRECEPCION[0]['TRECEPCION'];
-  if ($NOMBRETIPO == "1") {
+
+  $TIPORECEPCION=$ARRAYRECEPCIONPT[0]['TRECEPCION'];
+  if ($ARRAYRECEPCION[0]['TRECEPCION'] == "1") {
     $NOMBRETIPO = "Desde Productor";
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+    if ($ARRAYPRODUCTOR) {
+      $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+      $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+    }
   }
-  if ($NOMBRETIPO == "2") {
-    $NOMBRETIPO = "Planta Externa";
-  }
-  $PLANTAORIGEN = $ARRAYRECEPCION[0]['ID_PLANTA2'];
-  $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
-  if ($ARRAYPLANTA2) {
-    $PLANTAORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-  } else {
-    $PLANTAORIGEN = "";
-  }
-  $PRODUCTOR = $ARRAYRECEPCION[0]['ID_PRODUCTOR'];
-  $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
-  if ($ARRAYPRODUCTOR) {
-    $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-    $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+  if ($ARRAYRECEPCION[0]['TRECEPCION'] == "2") {
+    $NOMBRETIPO = "Planta Externa";  
+    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
+    if ($ARRAYPLANTA2) {
+      $PLANTAORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+    } else {
+      $PLANTAORIGEN = "";
+    }
   }
   $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYRECEPCION[0]['ID_TRANSPORTE']);
   if ($ARRAYTRANSPORTE) {
@@ -289,16 +288,17 @@ $html = '
           <div class="address"><b>Estado Recepcion: </b> ' . $ESTADO . ' </div>
           <div class="address"><b>Numero Guia: </b>' . $NUMEROGUIA . ' </div>
           <div class="address"><b>Kilos Guia: </b>' . $TOTALGUIA . '  </div>          ';
-if ($PLANTAORIGEN != "") {
-  $html .= '
-                      <div class="address"><b> Planta Origen:  </b>' . $PLANTAORIGEN . '</div>
+          if ($TIPORECEPCION == "2") {
+            $html .= '
+                                <div class="address"><b> Planta Origen:  </b>' . $PLANTAORIGEN . '</div>
+                                ';
+          } 
+          if($TIPORECEPCION == "1") {
+            $html .= '
+                      <div class="address"><b> CSG:  </b>' . $CSGPRODUCTOR . '</div>
+                      <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>
                       ';
-} else {
-  $html .= '
-            <div class="address"><b> CSG:</b>' . $CSGPRODUCTOR . '</div>
-            <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>
-            ';
-}
+          }
 
 $html = $html . '
         </div>

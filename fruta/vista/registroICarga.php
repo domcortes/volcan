@@ -3705,18 +3705,7 @@ if (isset($_POST)) {
                     $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                     $ICARGA_ADO->cerrrado($ICARGA);
-
-                    $ICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
-                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                    $ICARGA_ADO->confirmado($ICARGA);
-
-                    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga($_REQUEST['IDP']);
-                    foreach ($ARRAYDCARGA as $f) :
-                        $DICARGA->__SET('ID_DICARGA', $f['ID_DICARGA']);
-                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-                        $DICARGA_ADO->cerrado($DICARGA);
-                    endforeach;
-
+                
 
                     //REDIRECCIONAR A PAGINA registroICarga.php 
                     //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL

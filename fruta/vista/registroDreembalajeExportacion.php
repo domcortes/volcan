@@ -980,6 +980,7 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
                     $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                     $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA']);
                     $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                     $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                     $EXIEXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);
@@ -1097,6 +1098,7 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
                     $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                     $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA']);
                     $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                     $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                     $EXIEXPORTACION->__SET('ID_REEMBALAJE', $_REQUEST['IDP']);

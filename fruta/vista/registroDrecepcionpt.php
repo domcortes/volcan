@@ -1302,15 +1302,15 @@ if ($_POST) {
                         })
                     </script>';
                 }
-             
                 if ($SINO == "0") {
+             
+                    $CANTIDADENVASERECIBIDO = $_REQUEST['CANTIDADENVASERECIBIDO'];
+                    $CANTIDADENVASERECHAZADO = $_REQUEST['CANTIDADENVASERECHAZADO'];
+                    $CANTIDADENVASEAPROBADO = $CANTIDADENVASERECIBIDO - $CANTIDADENVASERECHAZADO;
                     $FOLIOALIASESTACTICO = $NUMEROFOLIODRECEPCION;
                     $FOLIOALIASDIANAMICO = "EMPRESA:" . $_REQUEST['EMPRESA'] . "_PLANTA:" . $_REQUEST['PLANTA'] . "_TEMPORADA:" . $_REQUEST['TEMPORADA'] .
                         "_TIPO_FOLIO:PRODUCTO TERMINADO_RECEPCION:" . $_REQUEST['IDP'] . "_FOLIO:" . $NUMEROFOLIODRECEPCION;
     
-                    $CANTIDADENVASERECIBIDO = $_REQUEST['CANTIDADENVASERECIBIDO'];
-                    $CANTIDADENVASERECHAZADO = $_REQUEST['CANTIDADENVASERECHAZADO'];
-                    $CANTIDADENVASEAPROBADO = $CANTIDADENVASERECIBIDO - $CANTIDADENVASERECHAZADO;
                     if($CANTIDADENVASEAPROBADO<=0){
                         $SINO2="1";
                         $_SESSION["parametro"] =  $_REQUEST['IDP'];
@@ -1388,7 +1388,7 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
                         $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
                         $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
-                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
+                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $CANTIDADENVASEAPROBADO);
 
                         $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
                         $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
@@ -1421,7 +1421,10 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                         $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                         $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                        $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);   
+                        if ($_REQUEST['TRECEPCION'] == 1) {
+                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA']);
+                        }
                         if ($_REQUEST['TRECEPCION'] == 2) {
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                         }
@@ -1528,7 +1531,7 @@ if ($_POST) {
 
                     if ($ARRAYVERFOLIOEXISTENCIA) {
                         $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
-                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
+                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $CANTIDADENVASEAPROBADO);
 
                         $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
                         $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
@@ -1559,9 +1562,6 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                         $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                         $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                        if ($_REQUEST['TRECEPCION'] == 2) {
-                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
-                        }
                         $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $ARRAYVERFOLIOEXISTENCIA[0]["ID_EXIEXPORTACION"]);
                         //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                         $EXIEXPORTACION_ADO->actualizarExiexportacionRecepcion($EXIEXPORTACION);
@@ -1580,7 +1580,7 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $NUMEROFOLIODRECEPCION);
                         $EXIEXPORTACION->__SET('FOLIO_MANUAL', $FOLIOMANUALR);
                         $EXIEXPORTACION->__SET('FECHA_EMBALADO_EXIEXPORTACION', $_REQUEST['FECHAEMBALADORECEPCION']);
-                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $_REQUEST['CANTIDADENVASEAPROBADO']);
+                        $EXIEXPORTACION->__SET('CANTIDAD_ENVASE_EXIEXPORTACION', $CANTIDADENVASEAPROBADO);
 
                         $EXIEXPORTACION->__SET('KILOS_NETO_EXIEXPORTACION', $KILOSNETODRECEPCION);
                         $EXIEXPORTACION->__SET('KILOS_BRUTO_EXIEXPORTACION', $KILOSBRUTORECEPCION);
@@ -1614,6 +1614,9 @@ if ($_POST) {
                         $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                         $EXIEXPORTACION->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
                         $EXIEXPORTACION->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        if ($_REQUEST['TRECEPCION'] == 1) {
+                            $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA']);
+                        }
                         if ($_REQUEST['TRECEPCION'] == 2) {
                             $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                         }

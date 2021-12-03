@@ -18,6 +18,7 @@
         private   $CSG_PRODUCTOR;
         private   $SDP_PRODUCTOR;
         private   $PRB_PRODUCTOR;
+        private   $GGN_PRODUCTOR;
         private   $CODIGO_ASOCIADO_PRODUCTOR;
         private   $NOMBRE_ASOCIADO_PRODUCTOR;
         private   $ESTADO_REGISTRO;

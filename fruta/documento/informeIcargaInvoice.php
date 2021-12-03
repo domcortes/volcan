@@ -52,7 +52,8 @@ include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMONEDA_ADO.php';
 include_once '../controlador/CIUDAD_ADO.php';
-
+include_once '../controlador/ECOMERCIAL_ADO.php';
+ 
 
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/DESPACHOEX_ADO.php';
@@ -107,6 +108,8 @@ $PAIS_ADO =  new PAIS_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TMONEDA_ADO = new TMONEDA_ADO();
 $CIUDAD_ADO = new CIUDAD_ADO();
+$ECOMERCIAL_ADO = new ECOMERCIAL_ADO();
+
 
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $DESPACHOEX_ADO = new DESPACHOEX_ADO();
@@ -215,18 +218,21 @@ if($ARRAYICARGA){
     
     
     $ARRAYDESPACHOEX=$DESPACHOEX_ADO->buscarDespachoExPorIcarga($IDOP);
+    $ARRAYDESPACHOEX2=$DESPACHOEX_ADO->buscarDespachoExPorIcargaAgrupadoPorPlanta($IDOP);
     if($ARRAYDESPACHOEX){
-      $FECHADESPACHOEX=$ARRAYDESPACHOEX[0]['FECHA'];
-      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
-      $NUMEROSELLO=$ARRAYDESPACHOEX[0]['NUMERO_SELLO_DESPACHOEX'];
-      $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
-      if($ARRAYVERPLANTA){
-        $LUGARDECARGA=$ARRAYVERPLANTA[0]["NOMBRE_PLANTA"];
-        $FDADESPACHOEX=$ARRAYVERPLANTA[0]["FDA_PLANTA"];
-      }else{
-        $FECHADESPACHOEX="Sin Datos";
-        $LUGARDECARGA="Sin Datos";
-      }
+      $NUMEROCONTENEDOR=$ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];   
+
+      foreach ($ARRAYDESPACHOEX2 as $r) :  
+        $ARRAYVERPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
+        if($ARRAYVERPLANTA){
+          $LUGARDECARGA= $LUGARDECARGA.$ARRAYVERPLANTA[0]["RAZON_SOCIAL_PLANTA"]."  ";
+          $FDADESPACHOEX= $FDADESPACHOEX.$ARRAYVERPLANTA[0]["FDA_PLANTA"]."  ";
+        }else{
+          $FECHADESPACHOEX=$FECHADESPACHOEX;
+          $LUGARDECARGA=$LUGARDECARGA;
+        }
+      endforeach;     
+
     }else{
       $FDADESPACHOEX="Sin Datos";
       $NUMEROCONTENEDOR="Sin Datos";
@@ -278,12 +284,13 @@ if($ARRAYICARGA){
       }else{
           $NOMBRERFINAL="Sin Datos";
       }
-      if($ARRYANOTIFICADOR){
-        $NOMBRENOTIFICADOR=$ARRYANOTIFICADOR[0]["NOMBRE_NOTIFICADOR"];
-        $DIRECCIONNOTIFICADOR=$ARRYANOTIFICADOR[0]["DIRECCION_NOTIFICADOR"];
-        $EORINOTIFICADOR=$ARRYANOTIFICADOR[0]["EORI_NOTIFICADOR"];
-        $TELEFONONOTIFICADOR=$ARRYANOTIFICADOR[0]["TELEFONO_NOTIFICADOR"];
-        $EMAIL1NOTIFICADOR=$ARRYANOTIFICADOR[0]["EMAIL1_NOTIFICADOR"];
+      $ARRAYNOTIFICADOR=$NOTIFICADOR_ADO->verNotificador($ARRAYICARGA[0]["ID_NOTIFICADOR"]);
+      if($ARRAYNOTIFICADOR){
+        $NOMBRENOTIFICADOR=$ARRAYNOTIFICADOR[0]["NOMBRE_NOTIFICADOR"];
+        $DIRECCIONNOTIFICADOR=$ARRAYNOTIFICADOR[0]["DIRECCION_NOTIFICADOR"];
+        $EORINOTIFICADOR=$ARRAYNOTIFICADOR[0]["EORI_NOTIFICADOR"];
+        $TELEFONONOTIFICADOR=$ARRAYNOTIFICADOR[0]["TELEFONO_NOTIFICADOR"];
+        $EMAIL1NOTIFICADOR=$ARRAYNOTIFICADOR[0]["EMAIL1_NOTIFICADOR"];
       }else{
         $NOMBRENOTIFICADOR="Sin Datos";
         $EORINOTIFICADOR="Sin Datos";
@@ -605,24 +612,60 @@ $html = '
     <br>
 <div id="details" class="clearfix">
   <div id="client">
-    <div class="address"> <b> Date Instructive:  </b> '.$FECHA.'  </div>
     <div class="address"> <b>  Consigne:  </b> '.$NOMBRECONSIGNATARIO.'  </div>
     <div class="address"> <b>  Address Consigne:  </b> '.$DIRECCIONCONSIGNATARIO.'  </div>
     <div class="address"> <b> Tributary id Consigne: </b>'.$EORICONSIGNATARIO.'  </div>
     <div class="address"> <b> Phone / Fax Consigne: </b>'.$TELEFONOCONSIGNATARIO.'  </div>
     <div class="address"> <b>  Email Consigne:  </b> '.$EMAIL1CONSIGNATARIO.'  </div>
-    <div class="address"> <b>  Sales method:  </b>  '.$NOMBREMVENTA.' </div>
-    <div class="address"> <b>  Incoterm:  </b>   '.$NOMBRECVENTA.'</div>
-    <div class="address"> <b>  BL/AWB/CRT:  </b> '.$BOLAWBCRTINSTRUCTIVO.'  </div>
-    <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
-  </div>
-  <div id="client"> 
+    <div class="address">&nbsp;  </div>
+
     ';
     if ($TEMBARQUE == "1") {
       $html = $html . '
         <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
         <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
         <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
+      ';
+    }
+    if ($TEMBARQUE == "2") {
+        $html = $html . '
+    
+        <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
+        <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
+        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
+    
+        ';
+     }
+    if ($TEMBARQUE == "3") {
+        $html = $html . '
+    
+        <div class="address"> <b>  Date ETD:  </b>   '.$FECHAETD.'</div>  
+        <div class="address"> <b>  Date ETA:   </b> '.$FECHAETA.' </div>
+        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address"> <b>  FDA Packing:  </b> '.$FDADESPACHOEX.'  </div>
+    
+        ';
+    }    
+
+$html = $html . '
+
+
+
+  </div>
+  <div id="client"> 
+  
+    <div class="address"> <b> Date Instructive:  </b> '.$FECHA.'  </div>
+    <div class="address"> <b>  Sales method:  </b>  '.$NOMBREMVENTA.' </div>
+    <div class="address"> <b>  Incoterm:  </b>   '.$NOMBRECVENTA.'</div>
+    <div class="address"> <b>  BL/AWB/CRT:  </b> '.$BOLAWBCRTINSTRUCTIVO.'  </div>
+
+    ';
+    if ($TEMBARQUE == "1") {
+      $html = $html . '
+        <div class="address">&nbsp;  </div>
+        <div class="address">&nbsp;  </div>
         <div class="address"> <b>  Transport Name:  </b> '.$NOMBRETRANSPORTE.'  </div>
         <div class="address"> <b>  CRT:  </b> '.$CRT.'  </div>
         <div class="address"> <b>  Place of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
@@ -633,9 +676,8 @@ $html = '
     if ($TEMBARQUE == "2") {
         $html = $html . '
     
-        <div class="address"> <b>  Date ETD:   </b>  '.$FECHAETD.'</div>  
-        <div class="address"> <b>  Date ETA:  </b>  '.$FECHAETA.' </div>
-        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address">&nbsp;  </div>
+        <div class="address">&nbsp;  </div>
         <div class="address"> <b>  Airline Name:   </b>'.$NOMBRETRANSPORTE.'  </div>
         <div class="address"> <b>  Airplane:   </b>'.$NAVE.'  </div>
         <div class="address"> <b>  Airport of Shipment:  </b> '.$NOMBREORIGEN.'  </div>
@@ -647,9 +689,8 @@ $html = '
     if ($TEMBARQUE == "3") {
         $html = $html . '
     
-        <div class="address"> <b>  Date ETD:  </b>   '.$FECHAETD.'</div>  
-        <div class="address"> <b>  Date ETA:   </b> '.$FECHAETA.' </div>
-        <div class="address"> <b>  Container number:  </b> '.$NUMEROCONTENEDOR.'  </div>
+        <div class="address">&nbsp;  </div>
+        <div class="address">&nbsp;  </div>
         <div class="address"> <b>  Shipping company name:  </b> '.$NOMBRETRANSPORTE.'  </div>
         <div class="address"> <b>  Vessel:   </b>'.$NAVE.'  </div>
         <div class="address"> <b>  Port of Shipment:   </b>'.$NOMBREORIGEN.'  </div>
@@ -660,6 +701,8 @@ $html = '
     }    
 
 $html = $html . '
+
+
         </div>          
       </div>
         ';
@@ -671,15 +714,13 @@ $html = $html . '
               <th colspan="10" class="center">DETAIL.</th>
             </tr>
             <tr>
-              <th class="color center ">Amount Boxes</th>
+              <th class="color center ">Quantity Boxes</th>
               <th class="color center ">Description of goods </th>
-              <th class="color center ">Net Weight </th>
-              <th class="color center ">Gross Weight </th>
               <th class="color center ">Net Kilo </th>
               <th class="color center ">Gross Kilo </th>
               <th class="color center ">Type of currency </th>
-              <th class="color center ">Price</th>
-              <th class="color center ">Total</th>    
+              <th class="color center ">Price Box</th>
+              <th class="color center ">Total Price</th>    
             </tr>
           </thead>
            <tbody>
@@ -688,15 +729,25 @@ $html = $html . '
 
             $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
             if ($ARRAYEEXPORTACION) {
-            $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
-            $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
-            $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
-            $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
+                $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
+                $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
+                $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
+                $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
+                $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYEEXPORTACION[0]["ID_ECOMERCIAL"]);
+                if($ARRAYECOMERCIAL){
+                    $CODIGOECOMERCIAL = $ARRAYECOMERCIAL[0]['CODIGO_ECOMERCIAL'];
+                    $NOMBREECOMERCIAL = $ARRAYECOMERCIAL[0]['NOMBRE_ECOMERCIAL'];
+                }else{
+                    $CODIGOECOMERCIAL = "Sin Datos";
+                    $NOMBREECOMERCIAL = "Sin Datos";
+                }
             } else {
-            $CODIGOESTANDAR = "Sin Datos";
-            $NOMBREESTANTAR = "Sin Datos";
-            $NETOESTANTAR = "Sin Datos";
-            $BRUTOESTANTAR = "Sin Datos";
+                $CODIGOECOMERCIAL = "Sin Datos";
+                $NOMBREECOMERCIAL = "Sin Datos";
+                $NOMBREESTANTAR = "Sin Datos";
+                $CODIGOESTANDAR = "Sin Datos";
+                $NETOESTANTAR = "Sin Datos";
+                $BRUTOESTANTAR = "Sin Datos";
             }
             
             $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
@@ -715,9 +766,7 @@ $html = $html . '
             $html = $html . '              
               <tr class="">
                   <td class="center">'.$s['ENVASE'].'</td>
-                    <td class="center">'.$NOMBREESTANTAR.'</td>
-                    <td class="center">'.number_format($NETOESTANTAR, 2, ",", ".").'</td>
-                    <td class="center">'.number_format($BRUTOESTANTAR, 2, ",", ".").'</td>
+                    <td class="center">'.$NOMBREECOMERCIAL.'</td>
                     <td class="center">'.$s['NETO'].'</td>
                     <td class="center">'.$s['BRUTO'].'</td>
                     <td class="center">'.$NOMBRETMONEDA.'</td>
@@ -730,9 +779,7 @@ $html = $html . '
                     
                         <tr class="bt">
                           <th class="color center">'.$TOTALENVASEV.'</th>
-                          <td class="color center">&nbsp;</td>
-                          <td class="color center">&nbsp;</td>
-                          <th class="color right">Sub total</td>
+                          <th class="color right">Overall Kilogram </td>
                           <th class="color center">'.$TOTALNETOV.'</th>
                           <th class="color center">'.$TOTALBRUTOV.'</th>
                           <td class="color center">&nbsp;</td>
@@ -756,11 +803,6 @@ $html = $html . '
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
         
-        <div id="invoice">
-          <div class="date "><b><hr></b></div>
-          <div class="date  center"> Firm responsible</div>
-          <div class="date  center">  ' . $NOMBRERESPONSABLE . '</div>
-        </div>
       </div>
 
     </main>

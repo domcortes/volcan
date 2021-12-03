@@ -207,6 +207,37 @@ class CIUDAD_ADO {
         }
         
     }
+    
+    public function listarCiudadeUbicaciónCompleta($IDCIUDAD){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                             ciudad.NOMBRE_CIUDAD  AS 'CIUDAD',
+                                             comuna.NOMBRE_COMUNA  AS 'COMUNA',
+                                             provincia.NOMBRE_PROVINCIA  AS 'PROVINCIA',
+                                             region.NOMBRE_REGION  AS 'REGION',
+                                             pais.NOMBRE_PAIS  AS 'PAIS'
+                                            FROM ubicacion_ciudad ciudad, ubicacion_comuna comuna, ubicacion_provincia provincia, ubicacion_region region, ubicacion_pais pais
+                                            WHERE  ciudad.ID_COMUNA = comuna.ID_COMUNA 
+                                                AND comuna.ID_PROVINCIA = provincia.ID_PROVINCIA 
+                                                AND provincia.ID_REGION = region.ID_REGION 
+                                                AND region.ID_PAIS = pais.ID_PAIS
+                                                AND ciudad.ID_CIUDAD = '".$IDCIUDAD."'
+                                              ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 
     
     //ACTUALIZAR INFORMACION DE LA FILA

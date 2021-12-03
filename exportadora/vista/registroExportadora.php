@@ -93,9 +93,13 @@ if (isset($_REQUEST['GUARDAR'])) {
         $URL_IMG = "";
     }
 
+    $ARRAYNUMERO = $EXPORTADORA_ADO->obtenerNumero($EMPRESAS);
+    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
 
     //UTILIZACION METODOS SET DEL MODELO
     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+    $EXPORTADORA->__SET('NUMERO_EXPORTADORA', $NUMERO);
     $EXPORTADORA->__SET('RUT_EXPORTADORA', $_REQUEST['RUTEXPORTADORA']);
     $EXPORTADORA->__SET('DV_EXPORTADORA', $_REQUEST['DVEXPORTADORA']);
     $EXPORTADORA->__SET('NOMBRE_EXPORTADORA', $_REQUEST['NOMBREXPORTADORA']);
@@ -103,6 +107,7 @@ if (isset($_REQUEST['GUARDAR'])) {
     $EXPORTADORA->__SET('GIRO_EXPORTADORA', $_REQUEST['GIROEXPORTADORA']);
     $EXPORTADORA->__SET('DIRECCION_EXPORTADORA', $_REQUEST['DIRECCIONEXPORTADORA']);
     $EXPORTADORA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $EXPORTADORA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $EXPORTADORA->__SET('CONTACTO1_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA1']);
     $EXPORTADORA->__SET('TELEFONO1_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA1']);
     $EXPORTADORA->__SET('EMAIL1_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA1']);
@@ -141,6 +146,7 @@ if (isset($_REQUEST['EDITAR'])) {
     $EXPORTADORA->__SET('GIRO_EXPORTADORA', $_REQUEST['GIROEXPORTADORA']);
     $EXPORTADORA->__SET('DIRECCION_EXPORTADORA', $_REQUEST['DIRECCIONEXPORTADORA']);
     $EXPORTADORA->__SET('ID_CIUDAD', $_REQUEST['CIUDAD']);
+    $EXPORTADORA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $EXPORTADORA->__SET('CONTACTO1_EXPORTADORA', $_REQUEST['CONTACTOEXPORTADORA1']);
     $EXPORTADORA->__SET('TELEFONO1_EXPORTADORA', $_REQUEST['TELEFONOEXPORTADORA1']);
     $EXPORTADORA->__SET('EMAIL1_EXPORTADORA', $_REQUEST['EMAILEXPORTADORA1']);
@@ -198,7 +204,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NOMBREXPORTADORA = "" . $r['NOMBRE_EXPORTADORA'];
             $RAZONSOCIALEXPORTADORA = "" . $r['RAZON_SOCIAL_EXPORTADORA'];
             $GIROEXPORTADORA = "" . $r['GIRO_EXPORTADORA'];
-            $DIRECCIONEXPORTADORA = "" . $r['DIRECCION_EXPORTADORA'];
+            $DIRECCIONEXPORTADORA = "" . $r['DIRECCION_EXPORTADORA'];            
+            $EMPRESA = "" . $r['ID_EMPRESA'];
             $CIUDAD = "" . $r['ID_CIUDAD'];
             $CONTACTOEXPORTADORA1 = "" . $r['CONTACTO1_EXPORTADORA'];
             $TELEFONOEXPORTADORA1 = "" . $r['TELEFONO1_EXPORTADORA'];
@@ -229,7 +236,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NOMBREXPORTADORA = "" . $r['NOMBRE_EXPORTADORA'];
             $RAZONSOCIALEXPORTADORA = "" . $r['RAZON_SOCIAL_EXPORTADORA'];
             $GIROEXPORTADORA = "" . $r['GIRO_EXPORTADORA'];
-            $DIRECCIONEXPORTADORA = "" . $r['DIRECCION_EXPORTADORA'];
+            $DIRECCIONEXPORTADORA = "" . $r['DIRECCION_EXPORTADORA'];      
+            $EMPRESA = "" . $r['ID_EMPRESA'];
             $CIUDAD = "" . $r['ID_CIUDAD'];
             $CONTACTOEXPORTADORA1 = "" . $r['CONTACTO1_EXPORTADORA'];
             $TELEFONOEXPORTADORA1 = "" . $r['TELEFONO1_EXPORTADORA'];
@@ -568,6 +576,7 @@ if ($_POST) {
                                                     <div class="form-group">
                                                         <label>Rut </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
+                                                        <input type="hidden" class="form-control" placeholder="EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                         <input type="text" class="form-control" placeholder="Rut Exportadora" id="RUTEXPORTADORA" name="RUTEXPORTADORA" value="<?php echo $RUTEXPORTADORA; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_rut" class="validacion"> </label>
                                                     </div>
@@ -694,7 +703,6 @@ if ($_POST) {
                                                 <?php } else { ?>
                                                     <img src="img/empresa/no_disponible.png" alt="Logo Exportadora" class="rounded mx-auto d-block" style="max-width:100px; max-height:100px;width: auto;height: auto;">
                                                 <?php } ?>
-                                                <input type="hidden" id="ID" name="ID" value="<?php echo $ID; ?>" />
                                                 <input type="hidden" id="URL" name="URL" value="<?php echo $URL_IMG; ?>" />
                                             </div>
                                         </div>
@@ -727,7 +735,7 @@ if ($_POST) {
                                             <table id="listar" class="table table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Id </th>
+                                                        <th>Número </th>
                                                         <th>Nombre </th>
                                                         <th>Operaciones</th>
                                                     </tr>
@@ -737,7 +745,7 @@ if ($_POST) {
                                                         <tr class="center">
                                                             <td>
                                                                 <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $r['ID_EXPORTADORA']; ?>
+                                                                    <?php echo $r['NUMERO_EXPORTADORA']; ?>
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_EXPORTADORA']; ?></td>

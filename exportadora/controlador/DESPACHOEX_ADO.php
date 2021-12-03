@@ -729,6 +729,32 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+    
+    public function buscarDespachoExPorIcargaAgrupadoPorPlanta($IDICARGA)
+    {
+        try {
+            $datos = $this->conexion->prepare(" SELECT 
+                                                        ID_PLANTA, 
+                                                        DATE_FORMAT(FECHA_DESPACHOEX, '%d/%m/%Y') AS 'FECHA' ,
+                                                        NUMERO_SELLO_DESPACHOEX
+                                                    FROM fruta_despachoex
+                                                WHERE 
+                                                    ID_ICARGA = '" . $IDICARGA . "'   
+                                                GROUP BY id_planta       
+                                                    ; ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     public function consolidadoDespachoExistencia($IDICARGA)
@@ -858,58 +884,6 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
-    public function obtenerTotalesDespachoexEmpresaTemporadaCBX($EMPRESA,  $TEMPORADA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT  
-                                                 IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0) AS 'ENVASE',   
-                                                 IFNULL(SUM(KILOS_NETO_DESPACHOEX),0) AS 'NETO',  
-                                                 IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0)  AS 'BRUTO'  
-                                        FROM fruta_despachoex 
-                                                                                                             
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
-                                        ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    public function obtenerTotalesDespachoexEmpresaTemporadaCBX2($EMPRESA,  $TEMPORADA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT  
-                                                  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0),0,'de_DE') AS 'ENVASE',   
-                                                  FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHOEX),0),2,'de_DE') AS 'NETO',  
-                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0),2,'de_DE')  AS 'BRUTO'  
-                                        FROM fruta_despachoex 
-                                                                                                             
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
-                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
-                                        ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	var_dump($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
     public function obtenerTotalesDespachoexCBX2()
     {
         try {
@@ -973,6 +947,58 @@ class DESPACHOEX_ADO
                                                                                                              
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesDespachoexEmpresaTemporadaCBX($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                 IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0) AS 'ENVASE',   
+                                                 IFNULL(SUM(KILOS_NETO_DESPACHOEX),0) AS 'NETO',  
+                                                 IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0)  AS 'BRUTO'  
+                                        FROM fruta_despachoex 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesDespachoexEmpresaTemporadaCBX2($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHOEX),0),0,'de_DE') AS 'ENVASE',   
+                                                  FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHOEX),0),2,'de_DE') AS 'NETO',  
+                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0),2,'de_DE')  AS 'BRUTO'  
+                                        FROM fruta_despachoex 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();

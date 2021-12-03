@@ -26,6 +26,7 @@ class EXIINDUSTRIAL {
     private	  $TESTADOSAG;
     private	  $GASIFICADO;
     private	  $PRECIO_KILO;  
+    private	  $TCOBRO;  
     private   $FECHA_RECEPCION;  
     private   $FECHA_PROCESO;  
     private   $FECHA_REEMBALAJE;  

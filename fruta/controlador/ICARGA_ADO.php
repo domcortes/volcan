@@ -538,6 +538,7 @@ class ICARGA_ADO
             TOTAL_NETO_ICARGA = ?, 
             TOTAL_BRUTO_ICARGA = ?,
             TOTAL_US_ICARGA = ?,   
+            ESTADO_ICARGA = 2, 
             ID_EXPPORTADORA = ?, 
             ID_CONSIGNATARIO = ?, 
             ID_NOTIFICADOR = ?, 
@@ -943,7 +944,7 @@ class ICARGA_ADO
         }
     }
 
-    public function confirmado(ICARGA $ICARGA)
+    public function PorCargar(ICARGA $ICARGA)
     {
         try {
             $query = "
@@ -963,7 +964,7 @@ class ICARGA_ADO
         }
     }
 
-    public function Despachado(ICARGA $ICARGA)
+    public function Cargado(ICARGA $ICARGA)
     {
         try {
             $query = "
@@ -1024,6 +1025,29 @@ class ICARGA_ADO
     }
 
 
+
+    
+    public function CargadoCerrado(ICARGA $ICARGA)
+    {
+        try {
+            $query = "
+		UPDATE fruta_icarga SET	
+            MODIFICACION = SYSDATE(),    
+            ID_USUARIOM = ?  , 		
+            ESTADO_ICARGA = 3
+		WHERE ID_ICARGA= ?;";
+            $this->conexion->prepare($query)
+                ->execute(
+                    array(
+                        $ICARGA->__GET('ID_USUARIOM'),
+                        $ICARGA->__GET('ID_ICARGA')
+                    )
+
+                );
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //OTRAS FUNCIONES
     //BUSCAR FECHA ACTUAL DEL SISTEMA
