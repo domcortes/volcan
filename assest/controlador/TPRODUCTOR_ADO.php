@@ -1,6 +1,6 @@
 <?php
-include_once '../modelo/TPRODUCTOR.php';
-include_once '../config/BDCONFIG.php';
+include_once '../../assest/modelo/TPRODUCTOR.php';
+include_once '../../assest/config/BDCONFIG.php';
 
 $HOST="";
 $DBNAME="";

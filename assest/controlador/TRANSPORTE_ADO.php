@@ -1,8 +1,8 @@
 <?php
 
 
-include_once '../modelo/TRANSPORTE.php';
-include_once '../config/BDCONFIG.php';
+include_once '../../assest/modelo/TRANSPORTE.php';
+include_once '../../assest/config/BDCONFIG.php';
 
 $HOST = "";
 $DBNAME = "";
