@@ -10,6 +10,7 @@
         //ATRIBUTOS DE LA CLASE
         private	  $ID_INPSAG; 
         private   $NUMERO_INPSAG;
+        private   $CORRELATIVO_INPSAG;
         private   $FECHA_INPSAG;
         private   $FECHA_INGRESO_INPSAG;
         private   $FECHA_MODIFICACION_INPSAG;

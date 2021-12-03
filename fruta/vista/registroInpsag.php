@@ -50,6 +50,7 @@ $NUMEROVER = "";
 $IDINPSAG = "";
 $FECHAINGRESOINPSAG = "";
 $FECHAMODIFCIACIONINPSAG = "";
+$CORRELATIVOINPSAG="";
 $TINPSAG = "";
 $TESTADOSAG = "";
 
@@ -183,6 +184,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_INPSAG'];
             $IDINPSAG = $IDOP;
             $FECHAINPSAG = "" . $r['FECHA_INPSAG'];
+            $CORRELATIVOINPSAG = "" . $r['CORRELATIVO_INPSAG'];
             $FECHAINGRESOINPSAG = "" . $r['FECHA_INGRESOR'];
             $FECHAMODIFCIACIONINPSAG = "" . $r['FECHA_MODIFICACIONR'];
             $OBSERVACIONINPSAG = "" . $r['OBSERVACION_INPSAG'];
@@ -220,6 +222,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         foreach ($ARRAYINPSAG as $r) :
             $NUMEROVER = "" . $r['NUMERO_INPSAG'];
             $IDINPSAG = $IDOP;
+            $CORRELATIVOINPSAG = "" . $r['CORRELATIVO_INPSAG'];
             $FECHAINPSAG = "" . $r['FECHA_INPSAG'];
             $FECHAINGRESOINPSAG = "" . $r['FECHA_INGRESOR'];
             $FECHAMODIFCIACIONINPSAG = "" . $r['FECHA_MODIFICACIONR'];
@@ -260,6 +263,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         foreach ($ARRAYINPSAG as $r) :
             $NUMEROVER = "" . $r['NUMERO_INPSAG'];
             $IDINPSAG = $IDOP;
+            $CORRELATIVOINPSAG = "" . $r['CORRELATIVO_INPSAG'];
             $FECHAINPSAG = "" . $r['FECHA_INPSAG'];
             $FECHAINGRESOINPSAG = "" . $r['FECHA_INGRESOR'];
             $FECHAMODIFCIACIONINPSAG = "" . $r['FECHA_MODIFICACIONR'];
@@ -284,6 +288,10 @@ if (isset($_POST)) {
 
     if (isset($_REQUEST['FECHAINPSAG'])) {
         $FECHAINPSAG = "" . $_REQUEST['FECHAINPSAG'];
+    }
+    
+    if (isset($_REQUEST['CORRELATIVOINPSAG'])) {
+        $CORRELATIVOINPSAG = "" . $_REQUEST['CORRELATIVOINPSAG'];
     }
     if (isset($_REQUEST['TINPSAG'])) {
         $TINPSAG = "" . $_REQUEST['TINPSAG'];
@@ -341,8 +349,15 @@ if (isset($_POST)) {
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
                 function validacion() {
+                     
+
+
 
                     FECHAINPSAG = document.getElementById("FECHAINPSAG").value;
+                    CORRELATIVOINPSAG = document.getElementById("CORRELATIVOINPSAG").value;
+
+
+                    
                     TINPSAG = document.getElementById("TINPSAG").selectedIndex;
                     TESTADOSAG = document.getElementById("TESTADOSAG").selectedIndex;
                     INPECTOR = document.getElementById("INPECTOR").selectedIndex;
@@ -355,8 +370,9 @@ if (isset($_POST)) {
                     //OBSERVACIONINPSAG = document.getElementById("OBSERVACIONINPSAG").value;
 
                     document.getElementById('val_fechar').innerHTML = "";
-                    document.getElementById('val_tinpsag').innerHTML = "";
-                    document.getElementById('val_testado').innerHTML = "";
+                    document.getElementById('val_correlativo').innerHTML = "";             
+                    document.getElementById('val_tinpsag').innerHTML = "";    
+                    document.getElementById('val_testado').innerHTML = ""; 
                     document.getElementById('val_inpector').innerHTML = "";
                     document.getElementById('val_cif').innerHTML = "";
                     document.getElementById('val_contraparte').innerHTML = "";
@@ -364,7 +380,6 @@ if (isset($_POST)) {
                     document.getElementById('val_pais2').innerHTML = "";
                     document.getElementById('val_pais3').innerHTML = "";
                     document.getElementById('val_pais4').innerHTML = "";
-
                     //  document.getElementById('val_observacion').innerHTML = "";
 
                     if (FECHAINPSAG == null || FECHAINPSAG.length == 0 || /^\s+$/.test(FECHAINPSAG)) {
@@ -374,6 +389,16 @@ if (isset($_POST)) {
                         return false
                     }
                     document.form_reg_dato.FECHAINPSAG.style.borderColor = "#4AF575";
+                    
+
+                    if (CORRELATIVOINPSAG == null || CORRELATIVOINPSAG == 0) {
+                        document.form_reg_dato.CORRELATIVOINPSAG.focus();
+                        document.form_reg_dato.INPECTOR.style.borderColor = "#FF0000";
+                        document.getElementById('val_correlativo').innerHTML = "NO HA INGRESADO DATOS";
+                        return false
+                    }
+                    document.form_reg_dato.CORRELATIVOINPSAG.style.borderColor = "#4AF575";
+
 
                     if (TINPSAG == null || TINPSAG == 0) {
                         document.form_reg_dato.TINPSAG.focus();
@@ -411,6 +436,7 @@ if (isset($_POST)) {
                                         }
                                         document.form_reg_dato.CIF.style.borderColor = "#4AF575";
                                         */
+                                       
 
                     if (CONTRAPARTE == null || CONTRAPARTE == 0) {
                         document.form_reg_dato.CONTRAPARTE.focus();
@@ -638,6 +664,14 @@ if (isset($_POST)) {
                                                 <input type="date" class="form-control"  placeholder="Fecha Inspección " id="FECHAINPSAG" name="FECHAINPSAG" value="<?php echo $FECHAINPSAG; ?>" <?php echo $DISABLED2; ?>  />
                                                 <label id="val_fechar" class="validacion"> </label>
                                             </div>
+                                        </div> 
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Correlativo de Inspección</label>
+                                                <input type="hidden" class="form-control" placeholder="Correlativo de Inspección" id="CORRELATIVOINPSAGE" name="CORRELATIVOINPSAGE" value="<?php echo $CORRELATIVOINPSAG; ?>" />
+                                                <input type="number" class="form-control"  placeholder="Correlativo de Inspección " id="CORRELATIVOINPSAG" name="CORRELATIVOINPSAG" value="<?php echo $CORRELATIVOINPSAG; ?>" <?php echo $DISABLED2; ?>  />
+                                                <label id="val_correlativo" class="validacion"> </label>
+                                            </div>
                                         </div>
                                         <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
@@ -670,11 +704,12 @@ if (isset($_POST)) {
                                                     <option value="4" <?php if ($TESTADOSAG == "4") { echo "selected"; } ?>>Fumigado </option>
                                                     <option value="5" <?php if ($TESTADOSAG == "5") { echo "selected"; } ?>>Rechazado </option>
                                                 </select>
+                                                <label id="val_testado" class="validacion"> </label>
                                             </div>
                                         </div>
                                         <div class="col-xxl-3 col-xl-5 col-lg-9 col-md-9 col-sm-9 col-9 col-xs-9">
                                             <div class="form-group">
-                                                <label>Inpector</label>
+                                                <label>Inspector</label>
                                                 <input type="hidden" class="form-control" placeholder="INPECTORE" id="INPECTORE" name="INPECTORE" value="<?php echo $INPECTOR; ?>" />
                                                 <select class="form-control select2" id="INPECTOR" name="INPECTOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
                                                     <option></option>
@@ -1066,6 +1101,7 @@ if (isset($_POST)) {
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
                 $INPSAG->__SET('NUMERO_INPSAG', $NUMERO);
                 $INPSAG->__SET('FECHA_INPSAG', $_REQUEST['FECHAINPSAG']);
+                $INPSAG->__SET('CORRELATIVO_INPSAG', $_REQUEST['CORRELATIVOINPSAG']);
                 $INPSAG->__SET('OBSERVACION_INPSAG', $_REQUEST['OBSERVACIONINPSAG']);
                 $INPSAG->__SET('CIF_INPSAG', $_REQUEST['CIF']);
                 $INPSAG->__SET('TESTADOSAG', $_REQUEST['TESTADOSAG']);
@@ -1115,6 +1151,7 @@ if (isset($_POST)) {
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO
                 $INPSAG->__SET('FECHA_INPSAG', $_REQUEST['FECHAINPSAG']);
+                $INPSAG->__SET('CORRELATIVO_INPSAG', $_REQUEST['CORRELATIVOINPSAG']);
                 $INPSAG->__SET('CANTIDAD_ENVASE_INPSAG', $_REQUEST['TOTALENVASE']);
                 $INPSAG->__SET('KILOS_NETO_INPSAG', $_REQUEST['TOTALNETO']);
                 $INPSAG->__SET('KILOS_BRUTO_INPSAG', $_REQUEST['TOTALBRUTO']);
@@ -1134,7 +1171,7 @@ if (isset($_POST)) {
                 $INPSAG->__SET('ID_INPSAG', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
                 $INPSAG_ADO->actualizarInpsag($INPSAG);
-
+/*
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "crear";
@@ -1166,7 +1203,7 @@ if (isset($_POST)) {
                             location.href = "registroInpsag.php?op";                            
                         })
                     </script>';
-                }
+                }*/
 
             }
             //OPERACION PARA CERRAR LA INPSAG
@@ -1202,11 +1239,12 @@ if (isset($_POST)) {
                     </script>';
                 }
                 if ($SINO == "0") {
-                        $INPSAG->__SET('FECHA_INPSAG', $_REQUEST['FECHAINPSAGE']);
+                        $INPSAG->__SET('FECHA_INPSAG', $_REQUEST['FECHAINPSAG']);
+                        $INPSAG->__SET('CORRELATIVO_INPSAG', $_REQUEST['CORRELATIVOINPSAG']);
                         $INPSAG->__SET('CANTIDAD_ENVASE_INPSAG', $_REQUEST['TOTALENVASE']);
                         $INPSAG->__SET('KILOS_NETO_INPSAG', $_REQUEST['TOTALNETO']);
                         $INPSAG->__SET('KILOS_BRUTO_INPSAG', $_REQUEST['TOTALBRUTO']);
-                        $INPSAG->__SET('OBSERVACION_INPSAG', $_REQUEST['OBSERVACIONINPSAGE']);
+                        $INPSAG->__SET('OBSERVACION_INPSAG', $_REQUEST['OBSERVACIONINPSAG']);
                         $INPSAG->__SET('CIF_INPSAG', $_REQUEST['CIFE']);
                         $INPSAG->__SET('TESTADOSAG', $_REQUEST['TESTADOSAG']);
                         $INPSAG->__SET('ID_TINPSAG', $_REQUEST['TINPSAGE']);

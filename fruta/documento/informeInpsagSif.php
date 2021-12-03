@@ -134,6 +134,7 @@ if($ARRAYINPSAGPT){
     
     
     $NUMEROINPSAG = $ARRAYINPSAGPT[0]['NUMERO_INPSAG'];
+    $CORRELATIVOINPSAG = $ARRAYINPSAGPT[0]['CORRELATIVO_INPSAG'];
     $FECHAINPSAG = $ARRAYINPSAGPT[0]['FECHA'];
     $ARRAYTINPSAG = $TINPSAG_ADO->verTinpsag($ARRAYINPSAGPT[0]['ID_TINPSAG']);
     $NOMBRETINPSAG = $ARRAYTINPSAG[0]['NOMBRE_TINPSAG'];
@@ -298,7 +299,7 @@ $html = '
       <h2 class="titulo" style="text-align: center; color: black;">
         <b>SOLICITUD INSPECCIÓN</b>
         <br>
-        <b> N° SIF:'.$NUMEROINPSAG.' </b> 
+        <b> N° SIF:'.$CORRELATIVOINPSAG.' </b> 
       </h2>
       <br>
       <br>
