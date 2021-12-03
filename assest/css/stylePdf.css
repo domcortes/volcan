@@ -60,7 +60,7 @@ font-face {
 	font-size: 10px;
 	width: 300px;
 	padding-left: 6px;
-	border-left: 6px solid #4253a1;
+	border-left: 6px solid #777777;
 	float: left;
   }
   
@@ -101,7 +101,7 @@ font-face {
 	width: 200px;
 	float: left;
 	text-align: left;
-	border-left: 6px solid #4253a1;
+	border-left: 6px solid #777777;
   }
   
   #invoicer h1, h2 {
@@ -165,7 +165,7 @@ font-face {
   
   table .color {
 	color: #FFFFFF;
-	background: #4253a1;
+	background: #777777;
 	text-transform: uppercase;
   }
   table .color2 {
