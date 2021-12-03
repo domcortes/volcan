@@ -173,6 +173,7 @@ if($ARRAYINPSAGPT){
     $TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
     
     $NUMEROINPSAG = $ARRAYINPSAGPT[0]['NUMERO_INPSAG'];
+    $CORRELATIVOINPSAG = $ARRAYINPSAGPT[0]['CORRELATIVO_INPSAG'];
     $FECHAINPSAG = $ARRAYINPSAGPT[0]['FECHA'];
     $ARRAYTINPSAG = $TINPSAG_ADO->verTinpsag($ARRAYINPSAGPT[0]['ID_TINPSAG']);
     $NOMBRETINPSAG = $ARRAYTINPSAG[0]['NOMBRE_TINPSAG'];
@@ -341,7 +342,7 @@ $html = '
       <h2 class="titulo" style="text-align: center; color: black;">
         INFORME INSPECCIÓN SAG
         <br>
-        <b> Número Inspección: ' . $NUMEROINPSAG . '</b>
+        <b> Número Inspección: ' . $CORRELATIVOINPSAG . '</b>
       </h2>
       <div id="details" class="clearfix">
         

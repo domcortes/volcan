@@ -199,6 +199,7 @@ class INPSAG_ADO
             $query =
                 "INSERT INTO fruta_inpsag (         
                                                 NUMERO_INPSAG,
+                                                CORRELATIVO_INPSAG,
                                                 FECHA_INPSAG,                                            
                                                 OBSERVACION_INPSAG, 
                                                 CIF_INPSAG, 
@@ -223,12 +224,13 @@ class INPSAG_ADO
                                                 ESTADO_REGISTRO
                                             )
              VALUES
-               ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, SYSDATE(),  SYSDATE(),  1, 1);";
+               ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, SYSDATE(),  SYSDATE(),  1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $INPSAG->__GET('NUMERO_INPSAG'),
+                        $INPSAG->__GET('CORRELATIVO_INPSAG'),
                         $INPSAG->__GET('FECHA_INPSAG'),
                         $INPSAG->__GET('OBSERVACION_INPSAG'),
                         $INPSAG->__GET('CIF_INPSAG'),
@@ -287,6 +289,7 @@ class INPSAG_ADO
             UPDATE fruta_inpsag SET
                 MODIFICACION = SYSDATE(),
                 FECHA_INPSAG = ?,
+                CORRELATIVO_INPSAG = ?,
                 CANTIDAD_ENVASE_INPSAG = ?,
                 KILOS_NETO_INPSAG = ?, 
                 KILOS_BRUTO_INPSAG = ?, 
@@ -309,6 +312,7 @@ class INPSAG_ADO
                     array(
 
                         $INPSAG->__GET('FECHA_INPSAG'),
+                        $INPSAG->__GET('CORRELATIVO_INPSAG'),
                         $INPSAG->__GET('CANTIDAD_ENVASE_INPSAG'),
                         $INPSAG->__GET('KILOS_NETO_INPSAG'),
                         $INPSAG->__GET('KILOS_BRUTO_INPSAG'),
