@@ -219,7 +219,7 @@ if($ARRAYPROCESO){
   if ($TOTALSALIDASF > 0) {
     if ($TOTALNETOEX > 0) {
       $PDEXPORTACION = ($TOTALNETOEX / $TOTALNETOE) * 100;
-      $PEXPORTACIONEXPOEXDESHI = ($TOTALNETOEX / $TOTALNETOE) * 100;
+      $PEXPORTACIONEXPOEXDESHI = ($TOTALDESHIDRATACIONEX / $TOTALNETOE) * 100;
       $PDEXPORTACIONTOTAL=(($TOTALDESHIDRATACIONEX-$TOTALNETOEX)/$TOTALNETOE)*100;
     } else {
       $PDEXPORTACION = 0;
@@ -488,7 +488,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
     $EMBOLSADO = "NO";
   }
   if ($TOTALSALIDASF > 0) {
-    $NETOEXPOR = number_format(($r['KILOS_NETO_DPEXPORTACION'] / $TOTALNETOE) * 100, 2, ",", ".");
+    $NETOEXPOR = number_format(($r['KILOS_DESHIDRATACION_DPEXPORTACION'] / $TOTALNETOE) * 100, 2, ",", ".");
   } else {
     $NETOEXPOR = 0;
   }
@@ -520,7 +520,7 @@ $html = $html . '
                 <th class="color center"> ' . $TOTALENVASEEXV . '</th>
                 <th class="color center "> ' . $TOTALNETOEX . ' </th>
                 <th class="color center "> ' . $TOTALDESHIDRATACIONEXV . ' </th>
-                <th class="color center "> ' . number_format($PDEXPORTACION, 2, ",", ".") . '% </th>
+                <th class="color center "> ' . number_format($PEXPORTACIONEXPOEXDESHI, 2, ",", ".") . '% </th>
                 <th class="color center ">  </th>
                 <th class="color center ">  </th>
                 <th class="color center ">  </th>
