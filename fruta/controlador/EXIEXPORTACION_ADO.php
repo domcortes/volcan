@@ -2047,7 +2047,6 @@ class EXIEXPORTACION_ADO
                                                 AND ID_EMPRESA = '" . $EMPRESA . "'
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "'
-                                                AND ID_INPSAG  IS NOT NULL
                                                 AND TESTADOSAG BETWEEN 2 AND 4  
                                                         ;");
             $datos->execute();
