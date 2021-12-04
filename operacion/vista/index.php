@@ -123,7 +123,7 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">                           
-                                            <table class="table  table-hover" style="width: 100%;"  id="resumen">        
+                                            <table class="table  table-hover" style="width: 100%;"  id="stockmp">        
                                                 <thead>                                        
                                                     <tr>
                                                         <th>Empresa/Planta</th>                           
