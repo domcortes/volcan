@@ -310,7 +310,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $ESTADOSAG =  "Aprobado Origen";
                                                         }
                                                         if ($r['TESTADOSAG'] == "3") {
-                                                            $ESTADOSAG =  "Aprobado USLA";
+                                                            $ESTADOSAG =  "Aprobado USDA";
                                                         }
                                                         if ($r['TESTADOSAG'] == "4") {
                                                             $ESTADOSAG =  "Fumigado";

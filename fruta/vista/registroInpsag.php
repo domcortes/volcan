@@ -700,7 +700,7 @@ if (isset($_POST)) {
                                                     <option></option>
                                                     <option value="1" <?php if ($TESTADOSAG == "1") { echo "selected"; } ?>>En Inspección </option>
                                                     <option value="2" <?php if ($TESTADOSAG == "2") { echo "selected"; } ?>>Aprobado Origen </option>
-                                                    <option value="3" <?php if ($TESTADOSAG == "3") { echo "selected"; } ?>>Aprobado USLA </option>
+                                                    <option value="3" <?php if ($TESTADOSAG == "3") { echo "selected"; } ?>>Aprobado USDA </option>
                                                     <option value="4" <?php if ($TESTADOSAG == "4") { echo "selected"; } ?>>Fumigado </option>
                                                     <option value="5" <?php if ($TESTADOSAG == "5") { echo "selected"; } ?>>Rechazado </option>
                                                 </select>
