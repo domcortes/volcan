@@ -9,10 +9,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>		
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         
-        <link rel="stylesheet" type="text/css"  href="vista/css/style.css"/>
-        <link rel="stylesheet" type="text/css"  href="vista/css/menu.css"/>
-        <link rel="stylesheet" type="text/css"  href="vista/css/footer.css"/>
-        <link rel="stylesheet" type="text/css" HREF="vista/css/reset.css"/>
+        <link rel="stylesheet" type="text/css"  href="../assest/css/style.css"/>
+        <link rel="stylesheet" type="text/css"  href="../assest/css/menu.css"/>
+        <link rel="stylesheet" type="text/css"  href="../assest/css/footer.css"/>
+        <link rel="stylesheet" type="text/css" HREF="../assest/css/reset.css"/>
 
       
         <link rel="stylesheet" href="../api/bootstrap/css/bootstrap.css"/>
@@ -24,7 +24,7 @@
 <body>
 
 
-<?php include_once "config/footer.php"; ?>  
+<?php include_once "../assest/config/footer.php"; ?>  
 </body>
 </html>
 

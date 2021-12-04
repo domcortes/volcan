@@ -5,11 +5,11 @@ $detect = new Mobile_Detect;
 // Any mobile device (phones or tablets).
 session_start();
 if (isset($_SESSION["NOMBRE_USUARIO"])) {
-     header('Location: iniciarSessionSeleccion.php');
+     header('Location: index.php');
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
 //include_once '../controlador/EMPRESA_ADO.php';
 //include_once '../controlador/PLANTA_ADO.php';
 //include_once '../controlador/TEMPORADA_ADO.php';
@@ -180,7 +180,7 @@ $ARRAYTEMPORADA = "";
                             title: "Credenciales correctas",
                             text:"cargando modulo selector"
                         }).then((result)=>{
-                                location.href = "iniciarSessionSeleccion.php";
+                                location.href = "index.php";
                         })
                     </script>';
                 }

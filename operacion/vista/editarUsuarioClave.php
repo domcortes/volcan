@@ -1,11 +1,11 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioOpe.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/AUSUARIO_ADO.php';
-include_once '../modelo/USUARIO.php';
+include_once '../../assest/controlador/AUSUARIO_ADO.php';
+include_once '../../assest/modelo/USUARIO.php';
 
 //INICIALIZAR CONTROLADOR
 
