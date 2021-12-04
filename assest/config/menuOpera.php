@@ -1,5 +1,5 @@
 <?php
-//include_once "../../config/indicadorEconomico.php";
+//include_once "../../assest/config/indicadorEconomico.php";
 ?>
 <header class="main-header">
   <div class="d-flex align-items-center logo-box pl-20">
@@ -10,8 +10,8 @@
     <a href="index.php" class="logo">
       <!-- logo-->
       <div class="logo-lg">
-        <span class="light-logo"><img src="img/logo.png" alt="logo"></span>
-        <span class="dark-logo"><img src="img/logo.png" alt="logo"></span>
+        <span class="light-logo"><img src="../../assest/img/logo.png" alt="logo"></span>
+        <span class="dark-logo"><img src="../../assest/img/logo.png" alt="logo"></span>
       </div>
     </a>
   </div>
@@ -30,83 +30,12 @@
             <img src="../../api/cryptioadmin10/html/images/svg-icon/fullscreen.svg" class="img-fluid svg-icon" alt="">
           </a>
         </li>
-        <li class="btn-group d-md-inline-flex d-none">
-          <div class="search-bx ml-10">
-            <form id="fechahora" name="fechahora">
-              <div class="input-group">
-                <input type="search" class="form-control" name="fechahora" id="fechahora" placeholder="FECHA Y HORA" aria-describedby="button-addon2" disabled style="background-color: white;">
-                <div class="input-group-append">
-                  <div class="btn border-transparent" id="button-addon2" style="background-color: white;">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                  </div>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </li>
         <li class="btn-group nav-item">
           <div class="search-bx ml-10">
             <div class="input-group" style="font-size: 12px;">
-              <?php
-              if (isset($_SESSION["NOMBRE_USUARIO"])) {
-                $ARRAYEMPRESAS = $EMPRESA_ADO->verEmpresa($EMPRESAS);
-                if ($ARRAYEMPRESAS) {
-                  echo $ARRAYEMPRESAS[0]['NOMBRE_EMPRESA'];
-                  $EMPRESA = $ARRAYEMPRESAS[0]['ID_EMPRESA'];
-                } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
-                }
-              } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
-              }
-              ?>
-              <br>
-              <?php
-              if (isset($_SESSION["NOMBRE_USUARIO"])) {
-                $ARRAYPLANTAS = $PLANTA_ADO->verPlanta($PLANTAS);
-                if ($ARRAYPLANTAS) {
-                  echo $ARRAYPLANTAS[0]['NOMBRE_PLANTA'];
-                  $PLANTA = $ARRAYPLANTAS[0]['ID_PLANTA'];
-                } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
-                }
-              } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
-              }
-              ?>
-              <br>
-              <?php
-              if (isset($_SESSION["NOMBRE_USUARIO"])) {
-                $ARRAYTEMPORADAS = $TEMPORADA_ADO->verTemporada($TEMPORADAS);
-                if ($ARRAYTEMPORADAS) {
-                  echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
-                  $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
-                } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
-                }
-              } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
-              }
-              ?>
             </div>
           </div>
-        </li>
-        <li class="btn-group nav-item">
-          <div class="search-bx ml-10">
-            <div class="input-group" style="font-size: 12px;">
-            <?php echo $EURO; ?>
-            <br>
-            <?php echo $DOLAR; ?>
-            </div>
-          </div>
-        </li>  
+        </li> 
       </ul>
     </div>
 
@@ -228,14 +157,7 @@
               <?php } ?>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="verUsuarioActividad.php"><i class="ion ion-bag"></i> Mi Actividad</a>
-              <!--actividadUsuario.php-->
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" data-toggle="modal" data-target="#modal-empresa" title="Cambiar">
-                <i class="ti-settings"></i>Cambiar Empresa
-              </a>
-              <a class="dropdown-item" data-toggle="modal" data-target="#modal-planta" title="Cambiar">
-                <i class="ti-settings"></i>Cambiar Planta
-              </a>
+              <!--actividadUsuario.php-->         
               <div class="dropdown-divider"></div>
               <div class="p-10">
                 <center>
@@ -250,105 +172,24 @@
             </li>
           </ul>
         </li>
-        <?php //include_once "../../config/menuExtra.php"; 
+        <?php //include_once "../../config/menuOperaExtra.php"; 
         ?>
         <!-- Control Sidebar Toggle Button -->
-        <!--
+          <!--      
         <li>
           <a href="#" data-toggle="control-sidebar" title="Setting" class="waves-effect waves-light">
             <img src="../../api/cryptioadmin10/html/images/svg-icon/settings.svg" class="img-fluid svg-icon" alt="">
           </a>
-        </li>
-        -->
+        </li>-->
+        
       </ul>
     </div>
   </nav>
 </header>
 
 <?php
-$ARRAYEMPRESACAMBIAR = $EMPRESA_ADO->listarEmpresaCBX();
-$ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
 ?>
 <!-- modal Area -->
-<div class="modal center-modal fade" id="modal-empresa" tabindex="-1">
-  <form method="POST">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Cambiar </h5>
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>
-          <div class="form-group">
-            <label>Empresa</label>
-            <select class="form-control select2" id="EMPRESACAMBIAR" name="EMPRESACAMBIAR" style="width: 100%;" <?php echo $DISABLEDMENU; ?>>
-              <option></option>
-              <?php foreach ($ARRAYEMPRESACAMBIAR as $r) : ?>
-                <?php if ($ARRAYEMPRESACAMBIAR) {    ?>
-                  <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESA == $r['ID_EMPRESA']) {
-                                                                    echo "selected";
-                                                                  } ?>> <?php echo $r['NOMBRE_EMPRESA'] ?> </option>
-                <?php } else { ?>
-                  <option>No Hay Datos Registrados </option>
-                <?php } ?>
-              <?php endforeach; ?>
-            </select>
-            <label id="val_empresa" class="validacion"> </label>
-          </div>
-          </p>
-
-        </div>
-        <div class="modal-footer modal-footer-uniform">
-          <button type="button" class="btn btn-rounded btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-rounded btn-primary float-right" id="CAMBIARE" name="CAMBIARE" <?php echo $DISABLEDMENU; ?>>Cambiar</button>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
-<div class="modal center-modal fade" id="modal-planta" tabindex="-1">
-  <form method="POST">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Cambiar </h5>
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>
-          <div class="form-group">
-            <label>Planta</label>
-            <select class="form-control select2" id="PLANTACAMBIAR" name="PLANTACAMBIAR" style="width: 100%;" <?php echo $DISABLEDMENU; ?>>
-              <option></option>
-              <?php foreach ($ARRAYPLANTACAMBIAR as $r) : ?>
-                <?php if ($ARRAYPLANTACAMBIAR) {    ?>
-                  <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) {
-                                                                    echo "selected";
-                                                                  } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
-                <?php } else { ?>
-                  <option>No Hay Datos Registrados </option>
-                <?php } ?>
-              <?php endforeach; ?>
-            </select>
-            <label id="val_planta" class="validacion"> </label>
-          </div>
-          </p>
-
-        </div>
-        <div class="modal-footer modal-footer-uniform">
-          <button type="button" class="btn btn-rounded btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-rounded btn-primary float-right" id="CAMBIARP" name="CAMBIARP" <?php echo $DISABLEDMENU; ?>>Cambiar</button>
-        </div>
-      </div>
-    </div>
-
-  </form>
-</div>
 
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
@@ -364,6 +205,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </a>
       </li>
       <li class="header">Modulo</li>
+      <!--
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/layout.svg" class="svg-icon" alt="">
@@ -412,204 +254,9 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarInventariomResumen.php">Resumen Materiales<i class="ti-more"></i></a></li>
           <li><a href="listarInventariomHistorial.php">Historial Materiales<i class="ti-more"></i></a></li>
         </ul>
-      </li> 
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/apps.svg" class="svg-icon" alt="">
-          <span>Envases</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Recepcion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroRecepcione.php">Registro Recepción<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcione.php"> Agrupado Recepción<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcioneDetallado.php"> Detallado Recepción <i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcioneInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
-            </ul>
-          </li>          
-          <li class="treeview">
-            <a href="#">Despacho
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroDespachoe.php">Registro Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoe.php">Agrupado Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoeDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Guía Por Recibir
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirE.php">Envases<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li><a href="listarInventarioeRecepcion.php">Existencia Envases<i class="ti-more"></i></a></li>
-        </ul>
-      </li>            
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/invoice.svg" class="svg-icon" alt="">
-          <span>Administración</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Orden Compra
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroOcompra.php">Registro Orden<i class="ti-more"></i></a></li>
-              <li><a href="listarOcompra.php"> Agrupado Orden<i class="ti-more"></i></a></li>
-              <li><a href="listarOcompraDetallado.php"> Detallado Orden<i class="ti-more"></i></a></li>
-              <li><a href="listarOcompraAR.php"> Aprobar/Rechazar<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li><a href="listarInventariomOcompra.php">Existencia Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventarioeOcompra.php">Existencia Envases<i class="ti-more"></i></a></li>
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
-          <span>Kardex</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="listarHInventariom.php">Kardex Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarHInventarioe.php">Kardex Envases<i class="ti-more"></i></a></li>
-        </ul>
-      </li>
+      </li>-->  
       <li class="header">Configuraciones</li>
-      <li class="treeview">
-        <a href="#">
-          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/forms2.svg" class="svg-icon" alt="">
-          <span>Mantenedores</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Principal
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroEmpresa.php">Empresa<i class="ti-more"></i></a></li>
-              <li><a href="registroPlanta.php">Planta<i class="ti-more"></i></a></li>
-              <li><a href="registroBodega.php">Bodega<i class="ti-more"></i></a></li>
-              <li><a href="registroTemporada.php">Temporada<i class="ti-more"></i></a></li>
-              <li><a href="registroFolio.php">Folio<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Ubicacion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroCiudad.php">Ciudad<i class="ti-more"></i></a></li>
-              <li><a href="registroComuna.php">Comuna<i class="ti-more"></i></a></li>
-              <li><a href="registroProvincia.php">Provincia<i class="ti-more"></i></a></li>
-              <li><a href="registroRegion.php">Region<i class="ti-more"></i></a></li>
-              <li><a href="registroPais.php">Pais<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Productor
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroEspecies.php">Especies<i class="ti-more"></i></a></li>
-              <li><a href="registroProductor.php">Productor<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Producto
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroFamilia.php">Familia<i class="ti-more"></i></a></li>
-              <li><a href="registroSubfamilia.php">Sub Familia<i class="ti-more"></i></a></li>
-              <li><a href="registroProveedor.php">Proveedor<i class="ti-more"></i></a></li>
-              <li><a href="registroProducto.php">Producto<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Transporte
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroTransporte.php">Transporte<i class="ti-more"></i></a></li>
-              <li><a href="registroConductor.php">Conductor<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Tipo
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroTmoneda.php">Tipo Moneda<i class="ti-more"></i></a></li>
-              <li><a href="registroTdocumento.php">Tipo Documento<i class="ti-more"></i></a></li>
-              <li><a href="registroTumedida.php">Tipo Unid. Medida<i class="ti-more"></i></a></li>
-              <li><a href="registroTcontenedor.php">Tipo Contenedor<i class="ti-more"></i></a></li>
-              <li><a href="registroTproductor.php">Tipo Productor<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Control
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroEau.php">Empresa Usuario<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Otros
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroCliente.php">Cliente<i class="ti-more"></i></a></li>
-              <li><a href="registroFpago.php">Formato Pago<i class="ti-more"></i></a></li>
-              <li><a href="registroResponsable.php">Responsable<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+  
     </ul>
   </section>
 </aside>

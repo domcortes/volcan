@@ -43,28 +43,9 @@
     if (isset($_SESSION["NOMBRE_USUARIO"])) {
         $IDUSUARIOS = $_SESSION["ID_USUARIO"];
         $NOMBREUSUARIOS = $_SESSION["NOMBRE_USUARIO"];
-        $TUSUARIO = $_SESSION["TIPO_USUARIO"];
-        $EMPRESAS = $_SESSION["ID_EMPRESA"];
-        $PLANTAS = $_SESSION["ID_PLANTA"];
-        $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];    
-
+        $TUSUARIO = $_SESSION["TIPO_USUARIO"];        
     } else {
         session_destroy();
         header('Location: iniciarSession.php');
     }
-    if (isset($_REQUEST['CAMBIARE'])) {
-        $_SESSION["ID_EMPRESA"] = $_REQUEST['EMPRESACAMBIAR'];
-        echo "<script type='text/javascript'> 
-                var url= window.location;
-                location.href = url ;
-              </script>"
-        ;   
-    }    
-    if (isset($_REQUEST['CAMBIARP'])) {
-        $_SESSION["ID_PLANTA"] = $_REQUEST['PLANTACAMBIAR'];
-        echo "<script type='text/javascript'> 
-                var url= window.location;
-                location.href = url ;
-              </script>"
-        ;   
-    }
+
