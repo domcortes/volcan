@@ -3,19 +3,17 @@ require_once '../../vendor/autoload.php';
 $detect = new Mobile_Detect;
 
 session_start();
-if (isset($_SESSION["ID_EMPRESA"]) && isset($_SESSION["ID_PLANTA"]) && isset($_SESSION["ID_TEMPORADA"])  ) {
+if (isset($_SESSION["ID_EMPRESA"])  && isset($_SESSION["ID_TEMPORADA"])  ) {
     header('Location: index.php');
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
 include_once '../controlador/TEMPORADA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $EMPRESA_ADO = new EMPRESA_ADO();
-$PLANTA_ADO = new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -37,7 +35,6 @@ $ARRAYTEMPORADA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
-$ARRAYPLANTA = $PLANTA_ADO->listarPlantaPropiaCBX();
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 
 
@@ -72,13 +69,11 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
                 function validacion() {
 
                     EMPRESA = document.getElementById("EMPRESA").selectedIndex;
-                    PLANTA = document.getElementById("PLANTA").selectedIndex;
                     TEMPORADA = document.getElementById("TEMPORADA").selectedIndex;
 
 
 
                     document.getElementById('val_select_empresa').innerHTML = "";
-                    document.getElementById('val_select_planta').innerHTML = "";
                     document.getElementById('val_temporada').innerHTML = "";
 
 
@@ -90,15 +85,6 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
                         return false;
                     }
                     document.form_reg_dato.EMPRESA.style.borderColor = "#4AF575";
-
-
-                    if (PLANTA == null || PLANTA == 0) {
-                        document.form_reg_dato.PLANTA.focus();
-                        document.form_reg_dato.PLANTA.style.borderColor = "#FF0000";
-                        document.getElementById('val_select_planta').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
-                        return false;
-                    }
-                    document.form_reg_dato.PLANTA.style.borderColor = "#4AF575";
 
                     if (TEMPORADA == null || TEMPORADA == 0) {
                         document.form_reg_dato.TEMPORADA.focus();
@@ -127,20 +113,6 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
                         <?php foreach ($ARRAYEMPRESA as $r) : ?>
                             <?php if ($ARRAYEMPRESA) {    ?>
                                 <option value="<?php echo $r['ID_EMPRESA']; ?>" <?php if ($EMPRESA == $r['ID_EMPRESA']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_EMPRESA'] ?> </option>
-                            <?php } else { ?>
-                                <option>No Hay Datos Registrados </option>
-                            <?php } ?>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <label id="val_select_empresa" class="validacion"> <?php echo  $MENSAJE; ?></label>
-                <div class="input-group mb-3" id="input">
-                    <label id="label" for="PLANTA">Selecionar Planta</label>
-                    <select class="form-control" id="PLANTA" name="PLANTA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
-                        <option></option>
-                        <?php foreach ($ARRAYPLANTA as $r) : ?>
-                            <?php if ($ARRAYPLANTA) {    ?>
-                                <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
                             <?php } else { ?>
                                 <option>No Hay Datos Registrados </option>
                             <?php } ?>
@@ -238,7 +210,6 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 <?php
         if (isset($_REQUEST['ENTRAR'])) {
             $_SESSION["ID_EMPRESA"] = $_REQUEST['EMPRESA'];
-            $_SESSION["ID_PLANTA"] = $_REQUEST['PLANTA'];
             $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];
             echo "<script> location.href = 'index.php';</script>";
         }
