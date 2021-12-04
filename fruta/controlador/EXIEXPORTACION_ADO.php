@@ -2550,7 +2550,6 @@ class EXIEXPORTACION_ADO
                                                 WHERE ESTADO_REGISTRO = 1
                                                 AND 
                                                     ID_INPSAG = '" . $IDINPSAG . "' 
-                                                GROUP BY ID_EMPRESA
                                                 ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
