@@ -54,7 +54,6 @@ if (isset($NOMBREUSUARIOS)) {
         $TELEFONO = "" . $r['TELEFONO_USUARIO'];
     endforeach;
     $DISABLED = "disabled";
-    $ARRAYYVERAUSUARIOIDMAX5 = $AUSUARIO_ADO->buscarAusuarioPorNombreUsuarioUltimasCinco($NOMBREUSUARIO);
 }
 
 
@@ -72,7 +71,7 @@ if (isset($NOMBREUSUARIOS)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -186,52 +185,15 @@ if (isset($NOMBREUSUARIOS)) {
                     location.href = "" + url;
                 }
                 //FUNCION PARA OBTENER HORA Y FECHA
-                function mueveReloj() {
-
-
-                    momentoActual = new Date();
-
-                    dia = momentoActual.getDate();
-                    mes = momentoActual.getMonth() + 1;
-                    ano = momentoActual.getFullYear();
-
-                    hora = momentoActual.getHours();
-                    minuto = momentoActual.getMinutes();
-                    segundo = momentoActual.getSeconds();
-
-                    if (dia < 10) {
-                        dia = "0" + dia;
-                    }
-
-                    if (mes < 10) {
-                        mes = "0" + mes;
-                    }
-                    if (hora < 10) {
-                        hora = "0" + hora;
-                    }
-                    if (minuto < 10) {
-                        minuto = "0" + minuto;
-                    }
-                    if (segundo < 10) {
-                        segundo = "0" + segundo;
-                    }
-
-                    horaImprimible = hora + " : " + minuto;
-                    fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-                    setTimeout("mueveReloj()", 1000);
-                }
+           
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuOpera.php"; ?>
             <div class="content-wrapper">
                 <div class="container-full">
 
@@ -339,46 +301,18 @@ if (isset($NOMBREUSUARIOS)) {
                                             <h3 class="title w-p100 mt-10 mb-0 p-20">Ultimas 5 Operaciones</h3>
                                             <div class="col-12">
                                                 <div class="media-list media-list-hover w-p100 mt-0">
-                                                    <?php foreach ($ARRAYYVERAUSUARIOIDMAX5 as $r) : ?>
                                                         <h5 class="media media-single py-10 px-0 w-p100 justify-content-between">
                                                             <p>
-                                                                <i class="fa fa-circle text-success pr-10 font-size-12"></i> <?php echo $r['TABLA_OBJETIVO_AUSUARIO']; ?>
-                                                                <span class="subtitle pl-20 mt-10"> ID
+                                                                <i class="fa fa-circle text-success pr-10 font-size-12"></i>
                                                                     <span class="text-success">
-                                                                        <?php echo $r['ID_AUSUARIO']; ?>
                                                                     </span>
                                                                 </span>
                                                             </p>
                                                             <p class="text-right pull-right">
 
-                                                                <?php if ($r['TIPO_OPERACION_AUSUARIO'] == "1") { ?>
-                                                                    <span class="badge badge-sm badge-success mb-10">
-                                                                        <?php echo "REGISTRO"; ?>
-                                                                    </span>
-                                                                <?php     } ?>
-
-                                                                <?php if ($r['TIPO_OPERACION_AUSUARIO'] == "2") { ?>
-                                                                    <span class="badge badge-sm badge-Warning  mb-10">
-                                                                        <?php echo "MODIFICACION"; ?>
-                                                                    </span>
-                                                                <?php     } ?>
-
-                                                                <?php if ($r['TIPO_OPERACION_AUSUARIO'] == "3") { ?>
-                                                                    <span class="badge badge-sm badge-Danger   mb-10">
-                                                                        <?php echo "DESACTIVAR"; ?>
-                                                                    </span>
-                                                                <?php     } ?>
-
-                                                                <?php if ($r['TIPO_OPERACION_AUSUARIO'] == "4") { ?>
-                                                                    <span class="badge badge-sm badge-primary    mb-10">
-                                                                        <?php echo "ACTIVAR"; ?>
-                                                                    </span>
-                                                                <?php     } ?>
                                                                 <br>
-                                                                <?php echo $r['FECHA_AUSUARIO||']; ?>
                                                             </p>
                                                         </h5>
-                                                    <?php endforeach; ?>
 
 
                                                 </div>
@@ -494,11 +428,11 @@ if (isset($NOMBREUSUARIOS)) {
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+            <?php include_once "../../assest/config/footer.php"; ?>
+            <?php include_once "../../assest/config/menuOperaExtra.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>
