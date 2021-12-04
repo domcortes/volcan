@@ -53,12 +53,10 @@
                   echo $ARRAYEMPRESAS[0]['NOMBRE_EMPRESA'];
                   $EMPRESA = $ARRAYEMPRESAS[0]['ID_EMPRESA'];
                 } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                  echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
               }
               ?>
               <br>
@@ -69,12 +67,10 @@
                   echo $ARRAYPLANTAS[0]['NOMBRE_PLANTA'];
                   $PLANTA = $ARRAYPLANTAS[0]['ID_PLANTA'];
                 } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                  echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
               }
               ?>
               <br>
@@ -85,12 +81,10 @@
                   echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
                   $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
                 } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                  echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
               }
               ?>
             </div>
