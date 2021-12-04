@@ -1,6 +1,7 @@
 <?php ?>
 <!--Estilo base-->
 <link rel="stylesheet" type="text/css" HREF="../../assest/css/reset.css" />
+<link rel="stylesheet" type="text/css" HREF="../../assest/css/style.css" />
 
 <!--        icono de  las pestaña  del navegado    -->
 <link rel="icon" href="../../assest/img/favicon.png">
