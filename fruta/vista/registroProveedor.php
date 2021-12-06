@@ -190,6 +190,36 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 }
 
 
+if (isset($_POST)) {
+    //DATOS GENERALES   
+    if (isset($_REQUEST['RUTPROVEEDOR'])) {
+        $RUTPROVEEDOR = $_REQUEST['RUTPROVEEDOR'];
+    } 
+    if (isset($_REQUEST['DVPROVEEDOR'])) {
+        $DVPROVEEDOR = $_REQUEST['DVPROVEEDOR'];
+    } 
+    if (isset($_REQUEST['RAZONPROVEEDOR'])) {
+        $RAZONPROVEEDOR = $_REQUEST['RAZONPROVEEDOR'];
+    } 
+    if (isset($_REQUEST['GIROPRODUCTOR'])) {
+        $GIROPRODUCTOR = $_REQUEST['GIROPRODUCTOR'];
+    } 
+    if (isset($_REQUEST['DIRECCIONPROVEEDOR'])) {
+        $DIRECCIONPROVEEDOR = $_REQUEST['DIRECCIONPROVEEDOR'];
+    } 
+    if (isset($_REQUEST['TELEFONOPROVEEDOR'])) {
+        $TELEFONOPROVEEDOR = $_REQUEST['TELEFONOPROVEEDOR'];
+    } 
+    if (isset($_REQUEST['EMAILPROVEEDOR'])) {
+        $EMAILPROVEEDOR = $_REQUEST['EMAILPROVEEDOR'];
+    } 
+    if (isset($_REQUEST['CIUDAD'])) {
+        $CIUDAD = $_REQUEST['CIUDAD'];
+    } 
+
+}
+
+
 ?>
 
 
