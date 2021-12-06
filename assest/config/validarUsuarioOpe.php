@@ -43,7 +43,11 @@
     if (isset($_SESSION["NOMBRE_USUARIO"])) {
         $IDUSUARIOS = $_SESSION["ID_USUARIO"];
         $NOMBREUSUARIOS = $_SESSION["NOMBRE_USUARIO"];
-        $TUSUARIO = $_SESSION["TIPO_USUARIO"];        
+        $TUSUARIO = $_SESSION["TIPO_USUARIO"];                 
+        if (isset($_SESSION["ID_TEMPORADA"])) {
+            $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];   
+        }       
+
     } else {
         session_destroy();
         header('Location: iniciarSession.php');

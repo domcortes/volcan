@@ -40,7 +40,7 @@ class CONSULTA_ADO
 
     //FUNCIONES ESPECIALIZADAS 
     //RECEPCION VS PROCESO
-    public function acumuladoRecepcionMp()
+    public function acumuladoRecepcionMp($TEMPORADA)
     {
         try {
 
@@ -51,6 +51,7 @@ class CONSULTA_ADO
                                                 AND  recepcion.ESTADO = 0
                                                 AND  recepcion.ESTADO_REGISTRO = 1
                                                 AND  detalle.ESTADO_REGISTRO = 1 
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -66,7 +67,7 @@ class CONSULTA_ADO
         }
     }
     
-    public function acumuladoRecepcionMpPorEmpresa($EMPRESA)
+    public function acumuladoRecepcionMpPorEmpresa($EMPRESA,$TEMPORADA)
     {
         try {
 
@@ -78,6 +79,7 @@ class CONSULTA_ADO
                                                 AND  recepcion.ESTADO_REGISTRO = 1
                                                 AND  detalle.ESTADO_REGISTRO = 1
                                                 AND recepcion.ID_EMPRESA = '".$EMPRESA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -93,7 +95,7 @@ class CONSULTA_ADO
         }
     }
     
-    public function acumuladoRecepcionMpPorPlanta($PLANTA)
+    public function acumuladoRecepcionMpPorPlanta($PLANTA, $TEMPORADA)
     {
         try {
 
@@ -105,6 +107,7 @@ class CONSULTA_ADO
                                                 AND  recepcion.ESTADO_REGISTRO = 1
                                                 AND  detalle.ESTADO_REGISTRO = 1
                                                 AND recepcion.ID_PLANTA = '".$PLANTA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -119,7 +122,7 @@ class CONSULTA_ADO
             die($e->getMessage());
         }
     }
-    public function acumuladoRecepcionMpPorEmpresaPlanta($EMPRESA, $PLANTA)
+    public function acumuladoRecepcionMpPorEmpresaPlanta($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
@@ -132,6 +135,7 @@ class CONSULTA_ADO
                                                 AND  detalle.ESTADO_REGISTRO = 1
                                                 AND recepcion.ID_EMPRESA = '".$EMPRESA."'
                                                 AND recepcion.ID_PLANTA = '".$PLANTA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -147,7 +151,7 @@ class CONSULTA_ADO
         }
     }
 
-    public function acumuladoProcesadoMp()
+    public function acumuladoProcesadoMp($TEMPORADA)
     {
         try {
 
@@ -155,32 +159,8 @@ class CONSULTA_ADO
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ESTADO_REGISTRO = 1 
-                                                AND ID_PROCESO IS NOT NULL
-                                                ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    
-    public function acumuladoProcesadoMpPorEmpresa($EMPRESA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT 
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
-                                                FROM fruta_eximateriaprima 
-                                                WHERE ESTADO_REGISTRO = 1 
-                                                AND ID_PROCESO IS NOT NULL
-                                                AND ID_EMPRESA = '".$EMPRESA."'
+                                                AND ID_PROCESO IS NOT NULL                                                
+                                                AND  ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -196,7 +176,7 @@ class CONSULTA_ADO
         }
     }
     
-    public function acumuladoProcesadoMpPorPlanta($PLANTA)
+    public function acumuladoProcesadoMpPorEmpresa($EMPRESA,$TEMPORADA)
     {
         try {
 
@@ -205,7 +185,8 @@ class CONSULTA_ADO
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_PROCESO IS NOT NULL
-                                                AND ID_PLANTA = '".$PLANTA."'
+                                                AND ID_EMPRESA = '".$EMPRESA."'                                    
+                                                AND  ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -220,7 +201,33 @@ class CONSULTA_ADO
             die($e->getMessage());
         }
     }
-    public function acumuladoProcesadoMpPorEmpresaPlanta($EMPRESA, $PLANTA)
+    
+    public function acumuladoProcesadoMpPorPlanta($PLANTA,$TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                FROM fruta_eximateriaprima 
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ID_PROCESO IS NOT NULL
+                                                AND ID_PLANTA = '".$PLANTA."'                                    
+                                                AND  ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function acumuladoProcesadoMpPorEmpresaPlanta($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
 
@@ -230,7 +237,8 @@ class CONSULTA_ADO
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_PROCESO IS NOT NULL
                                                 AND ID_EMPRESA = '".$EMPRESA."'
-                                                AND ID_PLANTA = '".$PLANTA."'
+                                                AND ID_PLANTA = '".$PLANTA."'                                    
+                                                AND  ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -249,7 +257,7 @@ class CONSULTA_ADO
 
  
     //EXISTENCIA DISPONIBLE
-    public function existenciaDisponibleMp()
+    public function existenciaDisponibleMp($TEMPORADA)
     {
         try {
 
@@ -257,7 +265,8 @@ class CONSULTA_ADO
                                                      FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ESTADO_REGISTRO = 1 
-                                                AND ESTADO = 2             
+                                                AND ESTADO = 2                                                 
+                                                AND  ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -273,32 +282,7 @@ class CONSULTA_ADO
         }
     }
     
-    public function existenciaDisponibleMpPorEmpresa($EMPRESA)
-    {
-        try {
-
-            $datos = $this->conexion->prepare("SELECT 
-                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
-                                                FROM fruta_eximateriaprima 
-                                                WHERE ESTADO_REGISTRO = 1 
-                                                AND ESTADO = 2      
-                                                AND ID_EMPRESA  = '".$EMPRESA."'      
-                                                ;	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    
-    public function existenciaDisponibleMpPorPlanta($PLANTA)
+    public function existenciaDisponibleMpPorEmpresa($EMPRESA, $TEMPORADA)
     {
         try {
 
@@ -307,7 +291,8 @@ class CONSULTA_ADO
                                                 FROM fruta_eximateriaprima 
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ESTADO = 2      
-                                                AND ID_PLANTA = '".$PLANTA ."'          
+                                                AND ID_EMPRESA  = '".$EMPRESA."'                                          
+                                                AND  ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -323,7 +308,33 @@ class CONSULTA_ADO
         }
     }
     
-    public function existenciaDisponibleMpPorEmpresaPlanta($EMPRESA,$PLANTA)
+    public function existenciaDisponibleMpPorPlanta($PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                     FORMAT(IFNULL(SUM(KILOS_NETO_EXIMATERIAPRIMA),0),2,'de_DE') AS 'NETO' 
+                                                FROM fruta_eximateriaprima 
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ESTADO = 2      
+                                                AND ID_PLANTA = '".$PLANTA ."'                                         
+                                                AND  ID_TEMPORADA = '".$TEMPORADA."'     
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function existenciaDisponibleMpPorEmpresaPlanta($EMPRESA,$PLANTA, $TEMPORADA)
     {
         try {
 
@@ -333,7 +344,8 @@ class CONSULTA_ADO
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ESTADO = 2         
                                                 AND ID_EMPRESA = '".$EMPRESA."'        
-                                                AND ID_PLANTA  = '".$PLANTA ."'          
+                                                AND ID_PLANTA  = '".$PLANTA ."'                                              
+                                                AND  ID_TEMPORADA = '".$TEMPORADA."'
 
                                                 ;	");
             $datos->execute();

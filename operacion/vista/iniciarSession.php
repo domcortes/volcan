@@ -10,6 +10,7 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 //include_once '../controlador/EMPRESA_ADO.php';
 //include_once '../controlador/PLANTA_ADO.php';
 //include_once '../controlador/TEMPORADA_ADO.php';
@@ -17,6 +18,7 @@ include_once '../../assest/controlador/USUARIO_ADO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $USUARIO_ADO = new USUARIO_ADO();
+$TEMPORADA_ADO = new TEMPORADA_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -43,6 +45,7 @@ $ARRAYTEMPORADA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
+$ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 ?>
 
 
@@ -69,6 +72,25 @@ $ARRAYTEMPORADA = "";
         <link rel="stylesheet" href="../../loginv2.css">
         <!--sweetalert-->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        
+        <!- FUNCIONES BASES -!>
+            <script type="text/javascript">
+                function validacion() {
+                    TEMPORADA = document.getElementById("TEMPORADA").selectedIndex;
+                    document.getElementById('val_temporada').innerHTML = "";
+
+           
+                    if (TEMPORADA == null || TEMPORADA == 0) {
+                        document.form_reg_dato.TEMPORADA.focus();
+                        document.form_reg_dato.TEMPORADA.style.borderColor = "#FF0000";
+                        document.getElementById('val_temporada').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.TEMPORADA.style.borderColor = "#4AF575";
+
+                }
+            </script>
     </head>
 <!-- fin nuevo head -->
 
@@ -90,7 +112,7 @@ $ARRAYTEMPORADA = "";
                 <div class="card-body login-card-body">
                     <form class="form" role="form" method="post" name="form_reg_dato">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="NOMBRE USUARIO" id="NOMBRE" name="NOMBRE" value="<?php echo $NOMBRE; ?>" autocomplete="on" required>
+                            <input type="text" class="form-control" placeholder="NOMBRE USUARIO" id="NOMBRE" name="NOMBRE" value="<?php echo $NOMBRE; ?>" autocomplete="on" required >
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -104,12 +126,26 @@ $ARRAYTEMPORADA = "";
                                     <span class="fas fa-user"></span>
                                 </div>
                             </div>
+                        </div>                        
+                        <div class="input-group mb-3" id="input">
+                            <label id="label" for="TEMPORADA">Selecionar Temporada</label>
+                            <select class="form-control" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> required>
+                                <option></option>
+                                <?php foreach ($ARRAYTEMPORADA as $r) : ?>
+                                    <?php if ($ARRAYTEMPORADA) {    ?>
+                                        <option value="<?php echo $r['ID_TEMPORADA']; ?>" <?php if ($TEMPORADA == $r['ID_TEMPORADA']) { echo "selected"; } ?>> <?php echo $r['NOMBRE_TEMPORADA'] ?> </option>
+                                    <?php } else { ?>
+                                        <option>No Hay Datos Registrados </option>
+                                    <?php } ?>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
+                        <label id="val_temporada" class="validacion"> <?php echo  $MENSAJE; ?></label>
                         <div class="row">
                             <div class="col-12">
                                 <div class="btn-group col-12 d-flex">
                                     <a href="../../" class="btn btn-danger w-100"> VOLVER</a>
-                                    <button type="submit" class="btn btn-success w-100" id="ENTRAR" name="ENTRAR">ENTRAR</button>
+                                    <button type="submit" class="btn btn-success w-100" id="ENTRAR" name="ENTRAR" onclick="return validacion()">ENTRAR</button>
                                 </div>
                             </div>
                         </div>
@@ -160,8 +196,10 @@ $ARRAYTEMPORADA = "";
                     $_SESSION["ID_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_USUARIO'];
                     $_SESSION["NOMBRE_USUARIO"] = $ARRAYINICIOSESSION[0]['NOMBRE_USUARIO'];
                     $_SESSION["TIPO_USUARIO"] = $ARRAYINICIOSESSION[0]['ID_TUSUARIO'];
+                    $_SESSION["ID_TEMPORADA"] = $_REQUEST['TEMPORADA'];
                     //$MENSAJE = "DATOS CORRECTOS ";
                     //$MENSAJE2 = "";
+                    
                     echo
                     '<script>
                         const Toast = Swal.mixin({

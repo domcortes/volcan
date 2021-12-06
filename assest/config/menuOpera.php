@@ -32,10 +32,24 @@
         </li>
         <li class="btn-group nav-item">
           <div class="search-bx ml-10">
-            <div class="input-group" style="font-size: 12px;">
+            <div class="input-group" style="font-size: 12px;">            
+         
+              <?php
+              if (isset($_SESSION["NOMBRE_USUARIO"])) {
+                $ARRAYTEMPORADAS = $TEMPORADA_ADO->verTemporada($TEMPORADAS);
+                if ($ARRAYTEMPORADAS) {
+                  echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
+                  $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
+                } else {
+                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                }
+              } else {
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+              }
+              ?>
             </div>
           </div>
-        </li> 
+        </li>
       </ul>
     </div>
 

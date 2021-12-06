@@ -18,14 +18,14 @@ $ARRAYLISTARPLANTA="";
 $ARRAYLISTAREMPRESA=$EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYLISTARPLANTA=$PLANTA_ADO->listarPlantaPropiaCBX();
 
-$ARRAYEXISTENCIAMP=$CONSULTA_ADO->existenciaDisponibleMp();
+$ARRAYEXISTENCIAMP=$CONSULTA_ADO->existenciaDisponibleMp($TEMPORADAS);
 $TOTALEXISTENCIAMP=$ARRAYEXISTENCIAMP[0]["NETO"];
 
-$ARRAYRECEPCIONMP=$CONSULTA_ADO->acumuladoRecepcionMp();
+$ARRAYRECEPCIONMP=$CONSULTA_ADO->acumuladoRecepcionMp($TEMPORADAS);
 $TOTALRECECPCIOANDO=$ARRAYRECEPCIONMP[0]["NETO"];
 
 
-$ARRAYPROCESADOMP=$CONSULTA_ADO->acumuladoProcesadoMp();
+$ARRAYPROCESADOMP=$CONSULTA_ADO->acumuladoProcesadoMp($TEMPORADAS);
 $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
 
 
@@ -83,13 +83,13 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                                 </thead>
                                                 <tbody>                                                    
                                                 <?php foreach ($ARRAYLISTAREMPRESA as $r) : ?>
-                                                    <?php $ARRAYRECEPCIONMPEMPRESA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresa($r["ID_EMPRESA"])?>
-                                                    <?php $ARRAYPROCESADOMPEMPRESA=$CONSULTA_ADO->acumuladoProcesadoMpPorEmpresa($r["ID_EMPRESA"])?>
+                                                    <?php $ARRAYRECEPCIONMPEMPRESA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS)?>
+                                                    <?php $ARRAYPROCESADOMPEMPRESA=$CONSULTA_ADO->acumuladoProcesadoMpPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS)?>
                                                         <tr >
                                                         <th> <?php echo $r["NOMBRE_EMPRESA"];?> </th>                    
                                                         <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>     
-                                                            <?php $ARRAYRECEPCIONMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"])?>  
-                                                            <?php $ARRAYPROCESADOMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"])?>  
+                                                            <?php $ARRAYRECEPCIONMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
+                                                            <?php $ARRAYPROCESADOMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
                                                             <td><?php echo $ARRAYRECEPCIONMPEMPRESAPLANTA[0]["NETO"]; ?></td>
                                                             <td><?php echo $ARRAYPROCESADOMPEMPRESAPLANTA[0]["NETO"]; ?></td>                                                                                                                        
                                                         <?php endforeach; ?>    
@@ -102,8 +102,8 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                                     <tr>
                                                         <th>Sub Total</th>                           
                                                         <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>    
-                                                            <?php $ARRAYRECEPCIONMPPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorPlanta($s["ID_PLANTA"])?>      
-                                                            <?php $ARRAYPROCESADOMPPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorPlanta($s["ID_PLANTA"])?>      
+                                                            <?php $ARRAYRECEPCIONMPPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>      
+                                                            <?php $ARRAYPROCESADOMPPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>      
                                                             <td><?php echo $ARRAYRECEPCIONMPPLANTA[0]["NETO"]; ?></td>
                                                             <td><?php echo $ARRAYPROCESADOMPPLANTA[0]["NETO"]; ?></td>
                                                         <?php endforeach; ?>  
@@ -133,24 +133,24 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                                         <th>Total</th>    
                                                     </tr>
                                                 </thead>
-                                                <?php foreach ($ARRAYLISTAREMPRESA as $r) : ?>
-                                                    <?php $ARRAYEXISTENCIAMPEMPRESA=$CONSULTA_ADO->existenciaDisponibleMpPorEmpresa($r["ID_EMPRESA"]);?>    
                                                     <tbody>
-                                                            <tr >
-                                                                <th> <?php echo $r["NOMBRE_EMPRESA"];?> </th>                    
-                                                                <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>    
-                                                                    <?php $ARRAYEXISTENCIAMPEMPRESAPLANTA=$CONSULTA_ADO->existenciaDisponibleMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"]);?>       
-                                                                    <td><?php echo $ARRAYEXISTENCIAMPEMPRESAPLANTA[0]["NETO"]; ?></td>                                              
-                                                                <?php endforeach; ?>    
-                                                                <td><?php echo $ARRAYEXISTENCIAMPEMPRESA[0]["NETO"]; ?></td>                                                                                                    
-                                                            </tr>                                                                                                       
+                                                        <?php foreach ($ARRAYLISTAREMPRESA as $r) : ?>
+                                                            <?php $ARRAYEXISTENCIAMPEMPRESA=$CONSULTA_ADO->existenciaDisponibleMpPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS);?>    
+                                                                    <tr >
+                                                                        <th> <?php echo $r["NOMBRE_EMPRESA"];?> </th>                    
+                                                                        <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>    
+                                                                            <?php $ARRAYEXISTENCIAMPEMPRESAPLANTA=$CONSULTA_ADO->existenciaDisponibleMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS);?>       
+                                                                            <td><?php echo $ARRAYEXISTENCIAMPEMPRESAPLANTA[0]["NETO"]; ?></td>                                              
+                                                                        <?php endforeach; ?>    
+                                                                        <td><?php echo $ARRAYEXISTENCIAMPEMPRESA[0]["NETO"]; ?></td>                                                                                                    
+                                                                    </tr>      
+                                                        <?php endforeach; ?>                                                                                                 
                                                     </tbody>
-                                                <?php endforeach; ?>
                                                 <tfoot>
                                                     <tr>
                                                         <th>Total</th>
                                                         <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>  
-                                                            <?php $ARRAYEXISTENCIAMPEMPRESAPLANTA=$CONSULTA_ADO->existenciaDisponibleMpPorPlanta($s["ID_PLANTA"]);?> 
+                                                            <?php $ARRAYEXISTENCIAMPEMPRESAPLANTA=$CONSULTA_ADO->existenciaDisponibleMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS);?> 
                                                             <td><?php echo $ARRAYEXISTENCIAMPEMPRESAPLANTA[0]["NETO"]; ?></td>                                                                                                         
                                                         <?php endforeach; ?>
                                                         <td><?php echo $TOTALEXISTENCIAMP;?> </td>
