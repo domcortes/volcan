@@ -218,6 +218,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>% Deshitación</th>
                                                     <th>% Industrial</th>
                                                     <th>% Total</th>
+                                                    <th>PT Embolsado</th>       
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificacion</th>
                                                     <th>Empresa</th>
@@ -230,6 +231,8 @@ include_once "../config/datosUrLP.php";
 
                                                     <?php
 
+                                                    $ARRAYTOTALENVASESEMBOLSADO=$REEMBALAJE_ADO->obtenerTotalEnvasesEmbolsado($r['ID_REEMBALAJE']);
+                                                    $ENVASESEMBOLSADO=$ARRAYTOTALENVASESEMBOLSADO[0]["ENVASE"];
 
                                                     $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
                                                     if ($ARRAYVERVESPECIESID) {
@@ -365,6 +368,7 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['PDINDUSTRIAL_REEMBALAJE']; ?></td>
                                                         <td><?php echo number_format($r['PORCENTAJE_REEMBALAJE'], 2, ",", ".");  ?></td>
 
+                                                        <td><?php echo $ENVASESEMBOLSADO; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
