@@ -19,9 +19,8 @@ include_once '../controlador/EINDUSTRIAL_ADO.php';
 
 include_once '../controlador/FOLIO_ADO.php';
 include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PVESPECIES_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/CALIBRE_ADO.php';
+include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/PRODUCTOR_ADO.php';
 
 
@@ -45,10 +44,9 @@ $DRINDUSTRIAL_ADO= new DRINDUSTRIAL_ADO();
 $EEXPORTACION_ADO= new EEXPORTACION_ADO();
 $EINDUSTRIAL_ADO= new EINDUSTRIAL_ADO();
 
-$CALIBRE_ADO= new CALIBRE_ADO();
+$TCALIBRE_ADO= new TCALIBRE_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 $EMPRESA_ADO = new EMPRESA_ADO();
-$PVESPECIES_ADO = new PVESPECIES_ADO();
 $VESPECIES_ADO = new VESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 

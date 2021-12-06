@@ -111,6 +111,17 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
+                
+                function abrirPestana(url) {
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
+                //FUNCION PARA ABRIR VENTANA QUE SE ENCUENTRA LA OPERACIONES DE DETALLE DE RECEPCION
+                function abrirVentana(url) {
+                    var opciones =
+                        "'directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=1000, height=800'";
+                    window.open(url, 'window', opciones);
+                }
                 //FUNCION PARA OBTENER HORA Y FECHA
                 function mueveReloj() {
 
@@ -595,7 +606,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             ?>
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_EXIEXPORTACION']; ?> </td>
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                <td>
+                                                                    <a Onclick="abrirPestana('../documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>'); ">
+                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
+                                                                    </a>                                                                
+                                                                </td>
                                                                 <td><?php echo $r['EMBALADO']; ?></td>
                                                                 <td><?php echo $ESTADO; ?></td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>
