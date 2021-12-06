@@ -111,7 +111,7 @@ if ($_POST) {
                     document.form_reg_dato.FOLION.style.borderColor = "#4AF575";
 
 
-                    if (FOLION.length > 9) {
+                    if (FOLION.length > 10) {
                         document.form_reg_dato.FOLION.focus();
                         document.form_reg_dato.FOLION.style.borderColor = "#FF0000";
                         document.getElementById('val_fn').innerHTML = "NO SE PUEDEN INGRESAR UN FOLIO CON MAS DE DIES DIJITOS";
