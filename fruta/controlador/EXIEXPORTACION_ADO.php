@@ -1660,6 +1660,7 @@ class EXIEXPORTACION_ADO
             $datos = $this->conexion->prepare("SELECT 
                                                     FOLIO_AUXILIAR_EXIEXPORTACION,
                                                     ID_ESTANDAR,
+                                                    ID_EMPRESA,
                                                     IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE',
                                                     IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0)  AS 'NETO',
                                                     IFNULL(SUM(KILOS_DESHIRATACION_EXIEXPORTACION),0) AS 'DESHIRATACION',
