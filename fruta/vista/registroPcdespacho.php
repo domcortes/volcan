@@ -478,6 +478,12 @@ if ($_POST) {
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informePcdespacho.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informePCdespachoPtPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                    <i class="fa fa-file-pdf-o"></i> Packing List
+                                                </button>
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informePCdespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                    <i class="fa fa-file-pdf-o"></i> Comercial
+                                                </button>
                                             <?php endif ?>
                                         </div>
                                     </div>
