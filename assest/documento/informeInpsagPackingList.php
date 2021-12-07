@@ -173,6 +173,7 @@ if($ARRAYINPSAGPT){
     $TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
     
     $NUMEROINPSAG = $ARRAYINPSAGPT[0]['NUMERO_INPSAG'];
+    $CORRELATIVOINPSAG = $ARRAYINPSAGPT[0]['CORRELATIVO_INPSAG'];
     $FECHAINPSAG = $ARRAYINPSAGPT[0]['FECHA'];
     $ARRAYTINPSAG = $TINPSAG_ADO->verTinpsag($ARRAYINPSAGPT[0]['ID_TINPSAG']);
     $NOMBRETINPSAG = $ARRAYTINPSAG[0]['NOMBRE_TINPSAG'];
@@ -198,7 +199,7 @@ if($ARRAYINPSAGPT){
       $NOMBRETESTADOSAG = "Aprobado Origen";
     }
     if ($TESTADOSAG == "3") {
-      $NOMBRETESTADOSAG = "Aprobado USLA";
+      $NOMBRETESTADOSAG = "Aprobado USDA";
     }
     if ($TESTADOSAG == "4") {
       $NOMBRETESTADOSAG = "Fumigado";
@@ -341,7 +342,7 @@ $html = '
       <h2 class="titulo" style="text-align: center; color: black;">
         INFORME INSPECCIÓN SAG
         <br>
-        <b> Número Inspección: ' . $NUMEROINPSAG . '</b>
+        <b> Número Inspección: ' . $CORRELATIVOINPSAG . '</b>
       </h2>
       <div id="details" class="clearfix">
         
@@ -391,12 +392,12 @@ $html = '
         ';
 
 
-foreach ($ARRAYEXIEXPORTACION as $d) :
+foreach ($ARRAYEXIEXPORTACION as $r) :
 
 
 
-  $ARRAYEXIEXPORTACION2 = $EXIEXPORTACION_ADO->buscarPorFolio2ActivoInspeccion2($d['FOLIO_AUXILIAR_EXIEXPORTACION'],$IDOP);
-  $ARRAYEXIEXPORTACIONTOTAL2 = $EXIEXPORTACION_ADO->obtenerTotalesFolio2ActivoInspeccion2($d['FOLIO_AUXILIAR_EXIEXPORTACION'],$IDOP);
+  $ARRAYEXIEXPORTACION2 = $EXIEXPORTACION_ADO->buscarPorFolio2ActivoInspeccion2($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$IDOP);
+  $ARRAYEXIEXPORTACIONTOTAL2 = $EXIEXPORTACION_ADO->obtenerTotalesFolio2ActivoInspeccion2($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$IDOP);
 
   $TOTALENVASE2 = $ARRAYEXIEXPORTACIONTOTAL2[0]['ENVASE'];
   $TOTALNETO2 = $ARRAYEXIEXPORTACIONTOTAL2[0]['NETO'];

@@ -322,6 +322,11 @@ include_once "../config/datosUrLP.php";
                                                                                     <i class="fa fa-file-pdf-o"></i>Packing List
                                                                                 </button>
                                                                             </span>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="CSV">
+                                                                                <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="CSV" Onclick="abrirPestana('../../assest/csv/CsvInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-excel-o"></i> CSV
+                                                                                </button>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
