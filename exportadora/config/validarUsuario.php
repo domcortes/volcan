@@ -48,10 +48,14 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
  
     if (isset($_SESSION["ID_EMPRESA"])) {
         $EMPRESAS = $_SESSION["ID_EMPRESA"];
+    }else {
+        echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
     }
     if (isset($_SESSION["ID_TEMPORADA"])) {
         $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];   
-    } 
+    } else {
+        echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+    }
 
 
     if (isset($_SESSION["DOLAR"]) && isset($_SESSION["EURO"])) {

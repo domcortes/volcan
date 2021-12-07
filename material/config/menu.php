@@ -58,7 +58,7 @@
                   echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -72,7 +72,7 @@
                   echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -86,7 +86,7 @@
                   echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
             </div>
