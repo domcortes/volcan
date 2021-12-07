@@ -71,6 +71,8 @@ $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $TOTALNETO = "";
 $TOTALENVASE = "";
+$TAMAÑO=0;
+$CONTADOR=0;
 
 
 //INICIALIZAR ARREGLOS
@@ -184,7 +186,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Existencia</li>
-                                            <li class="breadcrumb-item" aria-current="page">Disponible</li>
+                                            <li class="breadcrumb-item" aria-current="page">Historial</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Existencia Producto Terminado </a>
                                             </li>
                                         </ol>
@@ -282,7 +284,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     <?php foreach ($ARRAYEXIEXPORTACION as $s) : ?>
 
                                                         <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaPorFolio($EMPRESAS, $PLANTAS, $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                            
+                                                        <?php   $TAMAÑO= sizeof($ARRAYEXISTENCIA);  ?>
                                                         <?php foreach ($ARRAYEXISTENCIA as $r) : ?>
+                                                            <?php  $CONTADOR+=1;   ?>
                                                             <?php
                                                             if ($r['ESTADO'] == "0") {
                                                                 $ESTADO = "Elimnado";
@@ -662,9 +666,70 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 <td><?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td><?php echo $NOMBREPLANTA; ?></td>
                                                                 <td><?php echo $NOMBRETEMPORADA; ?></td>
-
                                                             </tr>
-                                                        <?php endforeach; ?>                                                        
+                                                            <?php  if($TAMAÑO==$CONTADOR){ ?>                                                                
+                                                            <tr class="text-left">
+                                                                <td> </td>
+                                                                <th>
+                                                                    <a Onclick="abrirPestana('../documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $EMPRESAS; ?>');">
+                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
+                                                                    </a>                                                                
+                                                                </th>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <th> Sub Total</th>
+                                                                <th><?php echo $s['ENVASE']; ?></th>
+                                                                <th><?php echo $s['NETO']; ?></th>
+                                                                <td> </td>
+                                                                <th><?php echo $s['DESHIRATACION']; ?></th>
+                                                                <th><?php echo $s['BRUTO']; ?></th>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                            </tr>
+                                                            <?php }?>
+                                                        <?php endforeach; ?>                                                                
+                                                        <?php $CONTADOR=0;   ?>
                                                     <?php endforeach; ?>
                                                 </tbody>
                                                 <tfoot>

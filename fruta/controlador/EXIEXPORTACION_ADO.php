@@ -1308,10 +1308,10 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     FOLIO_AUXILIAR_EXIEXPORTACION,                                               
-                                                    IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0) AS 'ENVASE', 
-                                                    IFNULL(KILOS_NETO_EXIEXPORTACION,0)AS 'NETO',
-                                                    IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0) AS 'DESHIRATACION',
-                                                    IFNULL(KILOS_BRUTO_EXIEXPORTACION,0)AS 'BRUTO'
+                                                    IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0)AS 'NETO',
+                                                    IFNULL(SUM(KILOS_DESHIRATACION_EXIEXPORTACION),0) AS 'DESHIRATACION',
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0)AS 'BRUTO'
                                                 FROM fruta_exiexportacion 
                                                 WHERE 
                                                         ID_EMPRESA = '" . $EMPRESA . "' 
@@ -1382,10 +1382,10 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     FOLIO_AUXILIAR_EXIEXPORTACION,                                               
-                                                    IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0) AS 'ENVASE', 
-                                                    IFNULL(KILOS_NETO_EXIEXPORTACION,0)AS 'NETO',
-                                                    IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0) AS 'DESHIRATACION',
-                                                    IFNULL(KILOS_BRUTO_EXIEXPORTACION,0)AS 'BRUTO'
+                                                    IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0)AS 'NETO',
+                                                    IFNULL(SUM(KILOS_DESHIRATACION_EXIEXPORTACION),0) AS 'DESHIRATACION',
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0)AS 'BRUTO'
                                                 FROM fruta_exiexportacion 
                                                 WHERE 
                                                         ID_EMPRESA = '" . $EMPRESA . "' 
@@ -1459,10 +1459,10 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     FOLIO_AUXILIAR_EXIEXPORTACION,                                               
-                                                    IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0) AS 'ENVASE', 
-                                                    IFNULL(KILOS_NETO_EXIEXPORTACION,0)AS 'NETO',
-                                                    IFNULL(KILOS_DESHIRATACION_EXIEXPORTACION,0) AS 'DESHIRATACION',
-                                                    IFNULL(KILOS_BRUTO_EXIEXPORTACION,0)AS 'BRUTO'
+                                                    IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE', 
+                                                    IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0)AS 'NETO',
+                                                    IFNULL(SUM(KILOS_DESHIRATACION_EXIEXPORTACION),0) AS 'DESHIRATACION',
+                                                    IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0)AS 'BRUTO'
                                                 FROM fruta_exiexportacion 
                                                 WHERE 
                                                         ID_EMPRESA = '" . $EMPRESA . "' 

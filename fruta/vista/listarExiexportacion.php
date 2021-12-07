@@ -61,6 +61,8 @@ $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $TOTALNETO = "";
 $TOTALENVASE = "";
+$TAMAÑO=0;
+$CONTADOR=0;
 
 
 //INICIALIZAR ARREGLOS
@@ -214,7 +216,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="hexistencia" class="table table-hover " style="width: 300%;">
+                                            <table id="existencia" class="table table-hover table-bordered" style="width: 300%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
@@ -276,7 +278,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     <?php foreach ($ARRAYEXIEXPORTACION as $s) : ?>
 
                                                         <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaPorFolioDisponible($EMPRESAS, $PLANTAS, $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                            
+                                                        <?php   $TAMAÑO= sizeof($ARRAYEXISTENCIA);  ?>
                                                         <?php foreach ($ARRAYEXISTENCIA as $r) : ?>
+                                                            <?php  $CONTADOR+=1;   ?>
                                                             <?php
                                                             if ($r['ESTADO'] == "0") {
                                                                 $ESTADO = "Elimnado";
@@ -656,9 +660,70 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 <td><?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td><?php echo $NOMBREPLANTA; ?></td>
                                                                 <td><?php echo $NOMBRETEMPORADA; ?></td>
-
                                                             </tr>
-                                                        <?php endforeach; ?>                                                        
+                                                            <?php  if($TAMAÑO==$CONTADOR){ ?>                                                                
+                                                            <tr class="text-left">
+                                                                <td> </td>
+                                                                <th>
+                                                                    <a Onclick="abrirPestana('../documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $EMPRESAS; ?>');">
+                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
+                                                                    </a>                                                                
+                                                                </th>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <th> Sub Total</th>
+                                                                <th><?php echo $s['ENVASE']; ?></th>
+                                                                <th><?php echo $s['NETO']; ?></th>
+                                                                <td> </td>
+                                                                <th><?php echo $s['DESHIRATACION']; ?></th>
+                                                                <th><?php echo $s['BRUTO']; ?></th>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                                <td> </td>
+                                                            </tr>
+                                                            <?php }?>
+                                                        <?php endforeach; ?>                                                                
+                                                        <?php $CONTADOR=0;   ?>
                                                     <?php endforeach; ?>
                                                 </tbody>
                                             </table>
@@ -667,6 +732,30 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                 </div>
                             </div>
                             <div class="box-footer">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- /.box -->
