@@ -111,17 +111,19 @@ $(function () {
 
 
     $('#existencia').DataTable({
+        "fixedHeader": true,
         "scrollY": 450,
         "scrollX": true,
         'paging': false,
         'lengthChange': true, //ordernar por 10 25 100 500
         'searching': false, //buscador
-        'ordering': true,
+        'ordering': false,
+        "orderCellsTop": false,
         'info': true,
         'autoWidth': false,
-        'responsive': false,
+        'responsive': false,        
         'order': [
-            [0, 'desc'], //desc ->descente asc -> ascedente
+            [1, 'desc'],
         ],
         "pagingType": "full_numbers",
         "language": {
@@ -200,8 +202,8 @@ $(function () {
         'paging': false,
         'lengthChange': true, //ordernar por 10 25 100 500
         'searching': false, //buscador
-        'ordering': true,
-        "orderCellsTop": true,
+        'ordering': false,
+        "orderCellsTop": false,
         'info': true,
         'autoWidth': false,
         'responsive': false,        
