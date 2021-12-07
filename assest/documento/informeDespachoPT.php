@@ -107,7 +107,7 @@ if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
   $NUMERODESPACHO = $IDOP;
 }
-$ARRAYDESPACHO = $DESPACHOPT_ADO->verDespachopt2($NUMERODESPACHO);
+$ARRAYDESPACHO = $DESPACHOPT_ADO->verDespachopt2($IDOP);
 if($ARRAYDESPACHO){
 
   $ARRAYDESPACHOTOTAL = $DESPACHOPT_ADO->obtenerTotalesDespachoptPorDespachoCBX2($IDOP);

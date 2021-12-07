@@ -98,14 +98,14 @@ if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
   $NUMERODESPACHO = $IDOP;
 }
-$ARRAYDESPACHO = $DESPACHOMP_ADO->verDespachomp2($NUMERODESPACHO);
+$ARRAYDESPACHO = $DESPACHOMP_ADO->verDespachomp2($IDOP);
 
 if($ARRAYDESPACHO){
 
   //$ARRAYDESPACHOTOTAL = $DESPACHOMP_ADO->obtenerTotalesDespachompCBX2($IDOP);
 
 
-  $ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPordespacho2($NUMERODESPACHO);
+  $ARRAYEXISTENCIATOMADA = $EXIMATERIAPRIMA_ADO->buscarPordespacho2($IDOP);
   $ARRAYDESPACHOTOTAL = $EXIMATERIAPRIMA_ADO->obtenerTotalesDespacho2($IDOP);
   $TOTALENVASE = $ARRAYDESPACHOTOTAL[0]['ENVASE'];
   $TOTALNETO = $ARRAYDESPACHOTOTAL[0]['NETO'];
@@ -313,7 +313,7 @@ $html = '
       <h2 class="titulo" style="text-align: center; color: black;">
         INFORME DESPACHO
         <br>
-        <b> Numero Despacho: ' . $NUMERODESPACHO . '</b>
+        <b> Numero Despacho: ' . $NUMERO . '</b>
       </h2>
       <div id="details" class="clearfix">
         
