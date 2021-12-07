@@ -249,6 +249,7 @@ if($ARRAYICARGA){
       
       $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
       $NUMEROIREFERENCIA=$ARRAYICARGA[0]["NREFERENCIA_ICARGA"];
+      $FECHACDOCUMENTALICARGA = $ARRAYICARGA[0]["FECHACD"];
       $FECHA=$ARRAYICARGA[0]["FECHA"];
       $BOOKINGINSTRUCTIVO = $ARRAYICARGA[0]['BOOKING_ICARGA'];
       $TEMBARQUE = $ARRAYICARGA[0]['TEMBARQUE_ICARGA'];
@@ -678,14 +679,16 @@ $html='
            <td class="color2 left">'.$FECHAETD.'</td>      
            <th class="color2 left">Booking: </th>        
            <td class="color2 left">'.$BOOKINGINSTRUCTIVO.'</td>      
-           <th class="color2 left">Container number: </th>       
-           <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>    
+           <th class="color2 left">Date Documentary cut : </th>       
+           <td class="color2 left">'.$FECHACDOCUMENTALICARGA.'</td>               
          </tr>    
          <tr>                       
            <th class="color2 left">Date ETA: </th> 
            <td class="color2 left">'.$FECHAETA.'</td>      
            <th class="color2 left">Fumigation: </th>       
-           <td class="color2 left">'.$FUMIGADO.'</td>      
+           <td class="color2 left">'.$FUMIGADO.'</td>    
+           <th class="color2 left">Container number: </th>       
+           <td class="color2 left">'.$NUMEROCONTENEDOR.'</td>      
          </tr>   
          ';
          if ($TEMBARQUE == "1") {
@@ -940,6 +943,7 @@ $html=$html.'
     <tr>                       
       <th class="color center ">Code </th>
       <th class="color center ">Description of goods </th>
+      <th class="color center ">Type of condition </th>
       <th class="color center ">Net Weight </th>
       <th class="color center ">Gross Weight </th>
       <th class="color center ">Amount Boxes</th>
@@ -947,7 +951,6 @@ $html=$html.'
       <th class="color center ">Gross Kilo </th>
       <th class="color center ">Caliber </th>
       <th class="color center ">Type of currency </th>
-      <th class="color center ">Type of condition </th>
       <th class="color center ">Price</th>
       <th class="color center ">Total</th>    
     </tr> 
@@ -996,6 +999,7 @@ $html = $html . '
       <tr>   
               <td class="center">'.$CODIGOESTANDAR.'</td>
               <td class="center">'.$NOMBREESTANTAR.'</td>
+              <td class="center">'.$NOMBRETMANEJO.'</td>
               <td class="center">'.number_format($NETOESTANTAR, 2, ",", ".").'</td>
               <td class="center">'.number_format($BRUTOESTANTAR, 2, ",", ".").'</td>
               <td class="center">'.$s['ENVASE'].'</td>
@@ -1003,7 +1007,6 @@ $html = $html . '
               <td class="center">'.$s['BRUTO'].'</td>
               <td class="center">'.$NOMBRECALIBRE.'</td>
               <td class="center">'.$NOMBRETMONEDA.'</td>
-              <td class="center">'.$NOMBRETMANEJO.'</td>
               <td class="center">'.$s['US'].'</td>
               <td class="center">'.$s['TOTALUS'].'</td>
       </tr>
@@ -1017,11 +1020,11 @@ $html = $html . '
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
+          <td class="color center">&nbsp;</td>
           <th class="color right">Sub total</td>
           <th class="color center">'.$TOTALENVASEV.'</th>
           <th class="color center">'.$TOTALNETOV.'</th>
           <th class="color center">'.$TOTALBRUTOV.'</th>
-          <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>

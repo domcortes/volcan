@@ -132,7 +132,7 @@ $DICARGA =  new DICARGA();
 
 $NUMERO = "";
 $NUMEROVER = "";
-
+$FECHACDOCUMENTALICARGA="";
 $IDINSTRUCTIVO = "";
 $FECHAINSTRUCTIVO = "";
 $TSERVICIO = "";
@@ -506,6 +506,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
             $NUMEROVER = $r['NUMERO_ICARGA'];
             $FECHAINSTRUCTIVO = $r['FECHA_ICARGA'];
+            $FECHACDOCUMENTALICARGA = $r['FECHA_CDOCUMENTAL_ICARGA'];
             $TSERVICIO = $r['ID_TSERVICIO'];
             $BOOKINGINSTRUCTIVO = $r['BOOKING_ICARGA'];
             $NUMEROREFERENCIAINSTRUCTIVO = $r['NREFERENCIA_ICARGA'];
@@ -596,6 +597,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         foreach ($ARRAYVERICARGA as $r) :
             $NUMEROVER = $r['NUMERO_ICARGA'];
             $FECHAINSTRUCTIVO = $r['FECHA_ICARGA'];
+            $FECHACDOCUMENTALICARGA = $r['FECHA_CDOCUMENTAL_ICARGA'];
             $TSERVICIO = $r['ID_TSERVICIO'];
             $BOOKINGINSTRUCTIVO = $r['BOOKING_ICARGA'];
             $NUMEROREFERENCIAINSTRUCTIVO = $r['NREFERENCIA_ICARGA'];
@@ -686,6 +688,10 @@ if (isset($_POST)) {
     if (isset($_REQUEST['MERCADO'])) {
         $MERCADO = $_REQUEST['MERCADO'];
     }
+    if (isset($_REQUEST['FECHACDOCUMENTALICARGA'])) {
+        $FECHACDOCUMENTALICARGA = $_REQUEST['FECHACDOCUMENTALICARGA'];
+    } 
+
     //DATOS EXPORTACION 
     if (isset($_REQUEST['EXPORTADORA'])) {
         $EXPORTADORA = $_REQUEST['EXPORTADORA'];
@@ -1417,8 +1423,8 @@ if (isset($_POST)) {
             }
 
             function validacionCerrar() {
-
                 FECHAINSTRUCTIVO = document.getElementById("FECHAINSTRUCTIVO").value;
+                FECHACDOCUMENTALICARGA = document.getElementById("FECHACDOCUMENTALICARGA").value;
                 TSERVICIO = document.getElementById("TSERVICIO").selectedIndex;
                 TEMBARQUE = document.getElementById("TEMBARQUE").selectedIndex;
                 BOOKINGINSTRUCTIVO = document.getElementById("BOOKINGINSTRUCTIVO").value;
@@ -1464,6 +1470,7 @@ if (isset($_POST)) {
 
 
                 document.getElementById('val_fecha').innerHTML = "";
+                document.getElementById('val_fechacd').innerHTML = "";
                 document.getElementById('val_tservicio').innerHTML = "";
                 document.getElementById('val_tembarque').innerHTML = "";
                 document.getElementById('val_booking').innerHTML = "";
@@ -1511,6 +1518,16 @@ if (isset($_POST)) {
                     return false;
                 }
                 document.form_reg_dato.FECHAINSTRUCTIVO.style.borderColor = "#4AF575";
+
+
+                if (FECHACDOCUMENTALICARGA == null || FECHACDOCUMENTALICARGA.length == 0 || /^\s+$/.test(FECHACDOCUMENTALICARGA)) {
+                    document.form_reg_dato.FECHACDOCUMENTALICARGA.focus();
+                    document.form_reg_dato.FECHACDOCUMENTALICARGA.style.borderColor = "#FF0000";
+                    document.getElementById('val_fechacd').innerHTML = "NO A INGRESADO DATO";
+                    return false;
+                }
+                document.form_reg_dato.FECHACDOCUMENTALICARGA.style.borderColor = "#4AF575";                
+                 
 
                 if (TSERVICIO == null || TSERVICIO == 0) {
                     document.form_reg_dato.TSERVICIO.focus();
@@ -2124,6 +2141,14 @@ if (isset($_POST)) {
                                                     <input type="hidden" class="form-control" placeholder="Instructivo Carga" id="FECHAINSTRUCTIVOE" name="FECHAINSTRUCTIVOE" value="<?php echo $FECHAINSTRUCTIVO; ?>" />
                                                     <input type="date" class="form-control" placeholder="Fecha Instructivo Carga" id="FECHAINSTRUCTIVO" name="FECHAINSTRUCTIVO" value="<?php echo $FECHAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_fecha" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Fecha Corte Documental</label>
+                                                    <input type="hidden" class="form-control" placeholder="Instructivo Carga" id="FECHACDOCUMENTALICARGAE" name="FECHACDOCUMENTALICARGAE" value="<?php echo $FECHACDOCUMENTALICARGA; ?>" />
+                                                    <input type="date" class="form-control" placeholder="Fecha Corte Documental" id="FECHACDOCUMENTALICARGA" name="FECHACDOCUMENTALICARGA" value="<?php echo $FECHACDOCUMENTALICARGA; ?>" <?php echo $DISABLED; ?> />
+                                                    <label id="val_fechacd" class="validacion"> </label>
                                                 </div>
                                             </div>
                                             <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
@@ -3408,6 +3433,7 @@ if (isset($_POST)) {
                 $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
                 $ICARGA->__SET('NUMERO_ICARGA', $NUMERO);
                 $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
+                $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
                 $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
                 $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
                 $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
@@ -3504,6 +3530,7 @@ if (isset($_POST)) {
             //OPERACION EDICION DE FILA    
             if (isset($_REQUEST['GUARDAR'])) {
                 $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
+                $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
                 $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
                 $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
                 $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
@@ -3631,6 +3658,7 @@ if (isset($_POST)) {
                 }
                 if ($SINO == "0") {
                     $ICARGA->__SET('FECHA_ICARGA', $_REQUEST['FECHAINSTRUCTIVO']);
+                    $ICARGA->__SET('FECHA_CDOCUMENTAL_ICARGA', $_REQUEST['FECHACDOCUMENTALICARGA']);
                     $ICARGA->__SET('BOOKING_ICARGA', $_REQUEST['BOOKINGINSTRUCTIVO']);
                     $ICARGA->__SET('NREFERENCIA_ICARGA', $_REQUEST['NUMEROREFERENCIAINSTRUCTIVO']);
                     $ICARGA->__SET('FECHAETD_ICARGA', $_REQUEST['FECHAETD']);
