@@ -222,7 +222,7 @@ if($ARRAYREEMBALAJE){
   if ($TOTALSALIDASF > 0) {
     if ($TOTALNETOEX > 0) {
       $PDEXPORTACION = ($TOTALNETOEX / $TOTALNETOE) * 100;
-      $PEXPORTACIONEXPOEXDESHI = ($TOTALNETOEX / $TOTALNETOE) * 100;
+      $PEXPORTACIONEXPOEXDESHI = ($TOTALDESHIDRATACIONEX / $TOTALNETOE) * 100;
       $PDEXPORTACIONTOTAL=(($TOTALDESHIDRATACIONEX-$TOTALNETOEX)/$TOTALNETOE)*100;
     } else {
       $PDEXPORTACION = 0;
@@ -533,7 +533,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
     $NOMBRETCALIBRE = "Sin Datos";
   }
   if ($TOTALSALIDASF > 0) {
-    $NETOEXPOR = number_format(($r['KILOS_NETO_DREXPORTACION'] / $TOTALNETOE) * 100, 2, ",", ".");
+    $NETOEXPOR = number_format(($r['KILOS_DESHIDRATACION_DREXPORTACION'] / $TOTALNETOE) * 100, 2, ",", ".");
   } else {
     $NETOEXPOR = 0;
   }
@@ -571,7 +571,7 @@ $html = $html . '
                 <th class="color center"> ' . $TOTALENVASEEXV . '</th>
                 <th class="color center">' . $TOTALNETOEX . ' </th>
                 <th class="color center "> ' . $TOTALDESHIDRATACIONEXV . ' </th>
-                <th class="color center "> ' . number_format($PDEXPORTACION, 2, ",", ".") . '% </th>
+                <th class="color center "> ' . number_format($PEXPORTACIONEXPOEXDESHI, 2, ",", ".") . '% </th>
                 <th class="color center ">  </th>
                 <th class="color left"></th>
                 <th class="color center"> </th>
@@ -653,64 +653,7 @@ $html = $html . '
 $html = $html . '
         </tbody>
       </table>
-      ';
-      $html = $html . '
-     
-      </div>
-  
-   
-  
-  
-        <div id="details" class="clearfix">      
-         
-        
-          <div id="client">
-          <div class="address"><b>PORCENTAJES CALIBRE: </b></div>
-        ';
-        foreach ($ARRAYDEXPORTACIONCALIBRE as $r) :
-          $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-          if ($ARRAYTCALIBRE) {
-            $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-          } else {
-            $NOMBRETCALIBRE = "Sin Datos";
-          }
-          if ($TOTALNETOEXV > 0) {
-            $NETOCALIBRE = number_format(($r['NETO'] / $TOTALNETOE) * 100, 2, ",", ".");
-          } else {
-            $NETOCALIBRE = 0;
-          }   
-          
-  $html = $html . '   
-          <div class="address"> <b>' . $NOMBRETCALIBRE . ' </b>:( ' . $r['NETOF'] . ' KG)  ' . $NETOCALIBRE . '%</div>         
-          
-          ';
-        endforeach;
-        
-  $html = $html . '  
-            
-            <div class="address"><br></div>
-            <div class="address"><b>PORCENTAJES: </b></div>
-            <div class="address">EXPORTACION:  ' . number_format($PDEXPORTACION, 2, ",", ".") . '%</div>
-            <div class="address">DESHIDRATACIÓN:  ' . number_format($PDEXPORTACIONTOTAL, 2, ",", ".") . '%</div>
-            <div class="address">INDUSTRIAL: ' . number_format($PDINDUSTRIAL, 2, ",", ".") . '% </div>
-            <div class="address">TOTAL: ' . $PDTOTAL . '%</div>
-  
-          </div>
-  
-          <div id="client">
-            <div class="address"><b>RESUMEN KILOS: </b></div>
-            <div class="address">PRODUCTO TERMINADO A REEMBALAJE.:  ' . $TOTALNETOEV . '</div>
-            <div class="address">KILOS NETO EXPORTACION: ' . $TOTALNETOEXV . ' </div>
-            <div class="address">KILOS DESHIDRATACIÓN: ' . $TOTALNETOEXPO . ' </div>
-            <div class="address">KILOS NETO IQF : ' . $TOTALNETOINDSC . ' </div>
-            <div class="address">KILOS NETO MERMA/DESECHO : ' . $TOTALNETOINDNC . ' </div>
-            <div class="address">DIFERENCIA: ' . number_format($TOTAL2, 2, ",", ".") . '</div>
-          </div>
-          
-        </div>
-  
-  
-        ';  
+      '; 
 $html = $html . '   
     <div id="details" class="clearfix">
         <div id="client">
