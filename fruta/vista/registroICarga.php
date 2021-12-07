@@ -2842,7 +2842,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>T° </label>
                                                     <input type="hidden" class="form-control" placeholder="TINSTRUCTIVOE" id="TINSTRUCTIVOE" name="TINSTRUCTIVOE" value="<?php echo $TINSTRUCTIVO; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="Temperatura Instructivo" id="TINSTRUCTIVO" name="TINSTRUCTIVO" value="<?php echo $TINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Temperatura Instructivo" id="TINSTRUCTIVO" name="TINSTRUCTIVO" value="<?php echo $TINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_t" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2850,7 +2850,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>% O2 </label>
                                                     <input type="hidden" class="form-control" placeholder="O2INSTRUCTIVOE" id="O2INSTRUCTIVOE" name="O2INSTRUCTIVOE" value="<?php echo $O2INSTRUCTIVO; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="% O2 Instructivo" id="O2INSTRUCTIVO" name="O2INSTRUCTIVO" value="<?php echo $O2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="% O2 Instructivo" id="O2INSTRUCTIVO" name="O2INSTRUCTIVO" value="<?php echo $O2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_o2" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2858,7 +2858,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>% CO2 </label>
                                                     <input type="hidden" class="form-control" placeholder="CO2INSTRUCTIVOE" id="CO2INSTRUCTIVOE" name="CO2INSTRUCTIVOE" value="<?php echo $CO2INSTRUCTIVO; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="% CO2 Instructivo" id="CO2INSTRUCTIVO" name="CO2INSTRUCTIVO" value="<?php echo $CO2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="% CO2 Instructivo" id="CO2INSTRUCTIVO" name="CO2INSTRUCTIVO" value="<?php echo $CO2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_co2" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2866,7 +2866,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label> Apertura Lampa (CBM)</label>
                                                     <input type="hidden" class="form-control" placeholder="ALAMPAINSTRUCTIVOE" id="ALAMPAINSTRUCTIVOE" name="ALAMPAINSTRUCTIVOE" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="Apertura Lampa Instructivo" id="ALAMPAINSTRUCTIVO" name="ALAMPAINSTRUCTIVO" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Apertura Lampa Instructivo" id="ALAMPAINSTRUCTIVO" name="ALAMPAINSTRUCTIVO" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_alampa" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2994,7 +2994,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Costo Flete </label>
                                                     <input type="hidden" class="form-control" placeholder="COSTOFLETEE" id="COSTOFLETEE" name="COSTOFLETEE" value="<?php echo $COSTOFLETE; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="Costo Flete" id="COSTOFLETE" name="COSTOFLETE" value="<?php echo $COSTOFLETE; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Costo Flete" id="COSTOFLETE" name="COSTOFLETE" value="<?php echo $COSTOFLETE; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_costoflete" class="validacion"> </label>
                                                 </div>
                                             </div>
