@@ -89,12 +89,12 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                                         <th> <?php echo $r["NOMBRE_EMPRESA"];?> </th>                    
                                                         <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>     
                                                             <?php $ARRAYRECEPCIONMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
-                                                            <?php $ARRAYPROCESADOMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
+                                                            <?php $ARRAYPROCESADOMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
                                                             <td><?php echo $ARRAYRECEPCIONMPEMPRESAPLANTA[0]["NETO"]; ?></td>
                                                             <td><?php echo $ARRAYPROCESADOMPEMPRESAPLANTA[0]["NETO"]; ?></td>                                                                                                                        
                                                         <?php endforeach; ?>    
                                                         <td><?php echo $ARRAYRECEPCIONMPEMPRESA[0]["NETO"]; ?></td>
-                                                        <td><?php echo $ARRAYPROCESADOMPEMPRESAPLANTA[0]["NETO"]; ?></td>
+                                                        <td><?php echo $ARRAYPROCESADOMPEMPRESA[0]["NETO"]; ?></td>
                                                     </tr>    
                                                 <?php endforeach; ?>       
                                                 </tbody>
