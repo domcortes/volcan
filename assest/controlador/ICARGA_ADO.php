@@ -2,9 +2,9 @@
 
 //LLAMADA DE LOS ARCHIVOS NECESAROP PARA LA OPERACION DEL CONTROLADOR
 //LLAMADA AL MODELO DE CLASE
-include_once '../modelo/ICARGA.php';
+include_once '../../assest/modelo/ICARGA.php';
 //LLAMADA AL CONFIGURACION DE LA BASE DE DATOS
-include_once '../config/BDCONFIG.php';
+include_once '../../assest/config/BDCONFIG.php';
 
 //INICIALIZAR VARIABLES
 $HOST = "";
@@ -134,6 +134,7 @@ class ICARGA_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                 DATE_FORMAT(FECHA_ICARGA, '%d/%m/%Y') AS 'FECHA', 
+                                                DATE_FORMAT(FECHA_CDOCUMENTAL_ICARGA, '%d/%m/%Y') AS 'FECHACD', 
                                                 DATE_FORMAT(FECHAETD_ICARGA, '%d/%m/%Y') AS 'FECHAETD', 
                                                 DATE_FORMAT(FECHAETA_ICARGA, '%d/%m/%Y') AS 'FECHAETA', 
                                                 DATE_FORMAT(FECHASTACKING_ICARGA, '%d/%m/%Y') AS 'FECHAESTACKING', 
@@ -293,6 +294,7 @@ class ICARGA_ADO
                                             NETO_ICARGA, 
                                             REBATE_ICARGA,
                                             PUBLICA_ICARGA,  
+                                            FECHA_CDOCUMENTAL_ICARGA, 
                                             OBSERVACION_ICARGA, 
                                             NAVE_ICARGA, 
                                             ID_EXPPORTADORA, 
@@ -337,7 +339,7 @@ class ICARGA_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	    ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+	       	    ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
                  0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
@@ -364,6 +366,7 @@ class ICARGA_ADO
                         $ICARGA->__GET('NETO_ICARGA'),
                         $ICARGA->__GET('REBATE_ICARGA'),
                         $ICARGA->__GET('PUBLICA_ICARGA'),
+                        $ICARGA->__GET('FECHA_CDOCUMENTAL_ICARGA'),
                         $ICARGA->__GET('OBSERVACION_ICARGA'),
                         $ICARGA->__GET('NAVE_ICARGA'),
                         $ICARGA->__GET('ID_EXPPORTADORA'),
@@ -532,6 +535,7 @@ class ICARGA_ADO
             NETO_ICARGA = ?, 
             REBATE_ICARGA = ?,
             PUBLICA_ICARGA = ?,
+            FECHA_CDOCUMENTAL_ICARGA = ?, 
             OBSERVACION_ICARGA = ?, 
             NAVE_ICARGA = ?, 
             TOTAL_ENVASE_ICAGRA = ?, 
@@ -594,6 +598,7 @@ class ICARGA_ADO
                         $ICARGA->__GET('NETO_ICARGA'),
                         $ICARGA->__GET('REBATE_ICARGA'),
                         $ICARGA->__GET('PUBLICA_ICARGA'),
+                        $ICARGA->__GET('FECHA_CDOCUMENTAL_ICARGA'),
                         $ICARGA->__GET('OBSERVACION_ICARGA'),
                         $ICARGA->__GET('NAVE_ICARGA'),
                         $ICARGA->__GET('TOTAL_ENVASE_ICAGRA'),

@@ -43,7 +43,7 @@ $ARRAYFOLIOPOEXPO = "";
 //OPERACIONES
 //OPERACION DE REGISTRO DE FILA
 if (isset($_REQUEST['CAMBIAR'])) {
-
+/*
     $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($_REQUEST['FOLION']);
     if ($ARRAYFOLIOPOEXPO) {
         $SINO = "1";
@@ -53,13 +53,13 @@ if (isset($_REQUEST['CAMBIAR'])) {
         $$MENSAJE = "";
     }
 
-    if ($SINO == "0") {
+    if ($SINO == "0") {}*/
 
         $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $_REQUEST['FOLION']);
         $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $_REQUEST['ID']);
         $EXIEXPORTACION_ADO->cambioFolio($EXIEXPORTACION);
         echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php';</script>";
-    }
+    
 }
 
 
@@ -111,7 +111,7 @@ if ($_POST) {
                     document.form_reg_dato.FOLION.style.borderColor = "#4AF575";
 
 
-                    if (FOLION.length > 9) {
+                    if (FOLION.length > 10) {
                         document.form_reg_dato.FOLION.focus();
                         document.form_reg_dato.FOLION.style.borderColor = "#FF0000";
                         document.getElementById('val_fn').innerHTML = "NO SE PUEDEN INGRESAR UN FOLIO CON MAS DE DIES DIJITOS";

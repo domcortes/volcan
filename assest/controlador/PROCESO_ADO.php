@@ -2,9 +2,9 @@
 
 //LLAMADA DE LOS ARCHIVOS NECESAROP PARA LA OPERACION DEL CONTROLADOR
 //LLAMADA AL MODELO DE CLASE
-include_once '../modelo/PROCESO.php';
+include_once '../../assest/modelo/PROCESO.php';
 //LLAMADA AL CONFIGURACION DE LA BASE DE DATOS
-include_once '../config/BDCONFIG.php';
+include_once '../../assest/config/BDCONFIG.php';
 
 //INICIALIZAR VARIABLES
 $HOST = "";
@@ -360,6 +360,36 @@ class PROCESO_ADO
     }
 
     //LISTAR
+
+    public function obtenerTotalEnvasesEmbolsado($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    IFNULL(SUM(detalle.CANTIDAD_ENVASE_DPEXPORTACION),0) AS 'ENVASE'
+                                                FROM fruta_proceso proceso, fruta_dpexportacion detalle
+                                                WHERE proceso.ID_PROCESO = detalle.ID_PROCESO
+                                                AND detalle.ESTADO_REGISTRO = 1
+                                                AND detalle.EMBOLSADO = 1
+                                                AND proceso.ID_PROCESO ='" . $ID . "'
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
     public function listarProcesoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

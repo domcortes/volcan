@@ -52,28 +52,10 @@
                   echo $ARRAYEMPRESAS[0]['NOMBRE_EMPRESA'];
                   $EMPRESA = $ARRAYEMPRESAS[0]['ID_EMPRESA'];
                 } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                  echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
-              }
-              ?>
-              <br>
-              <?php
-              if (isset($_SESSION["NOMBRE_USUARIO"])) {
-                $ARRAYPLANTAS = $PLANTA_ADO->verPlanta($PLANTAS);
-                if ($ARRAYPLANTAS) {
-                  echo $ARRAYPLANTAS[0]['NOMBRE_PLANTA'];
-                  $PLANTA = $ARRAYPLANTAS[0]['ID_PLANTA'];
-                } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
-                }
-              } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
               }
               ?>
               <br>
@@ -84,12 +66,10 @@
                   echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
                   $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
                 } else {
-                  session_destroy();
-                  echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+              //    echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                session_destroy();
-                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+                //echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
               }
               ?>
             </div>
@@ -628,8 +608,10 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroEexportacion.php">Exportacion<i class="ti-more"></i></a></li>
-              <li><a href="registroEcomercial.php">Expo. Comercial<i class="ti-more"></i></a></li>
+              <li><a href="registroErecepcion.php"><i class="ti-more"></i>Granel</a></li>
+              <li><a href="registroEexportacion.php"><i class="ti-more"></i>Exportacion</a></li>
+              <li><a href="registroEcomercial.php"><i class="ti-more"></i> Expo. Comercial</a></li>
+              <li><a href="registroEindustrial.php"><i class="ti-more"></i>Industrial</a></li>
             </ul>
           </li>
           <li class="treeview">

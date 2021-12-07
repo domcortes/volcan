@@ -1,10 +1,10 @@
 <?php ?>
 <!--Estilo base-->
-<link rel="stylesheet" type="text/css" href="css/style.css" />
-<link rel="stylesheet" type="text/css" HREF="css/reset.css" />
+<link rel="stylesheet" type="text/css" HREF="../../assest/css/reset.css" />
+<link rel="stylesheet" type="text/css" HREF="../../assest/css/style.css" />
 
 <!--        icono de  las pestaña  del navegado    -->
-<link rel="icon" href="img/favicon.png">
+<link rel="icon" href="../../assest/img/favicon.png">
 <!--     bootstrap  -->
 <!--
 <link rel="stylesheet" href="../api/bootstrap/css/bootstrap.css" />

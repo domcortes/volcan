@@ -226,7 +226,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>% Exportación</th>
                                                     <th>% Deshitación</th>
                                                     <th>% Industrial</th>
-                                                    <th>% Total</th>                                                    
+                                                    <th>% Total</th>     
+                                                    <th>PT Embolsado</th>                                                     
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificacion</th>
                                                     <th>Empresa</th>
@@ -238,7 +239,8 @@ include_once "../config/datosUrLP.php";
                                                 <?php foreach ($ARRAYPROCESO as $r) : ?>
 
                                                     <?php
-
+                                                    $ARRAYTOTALENVASESEMBOLSADO=$PROCESO_ADO->obtenerTotalEnvasesEmbolsado($r['ID_PROCESO']);
+                                                    $ENVASESEMBOLSADO=$ARRAYTOTALENVASESEMBOLSADO[0]["ENVASE"];
                                                     $ARRAYEXISMATERIPRIMAPROCESO = $EXIMATERIAPRIMA_ADO->obtenerTotalesProceso2($r['ID_PROCESO']);
                                                     if ($ARRAYEXISMATERIPRIMAPROCESO) {
                                                         $NETOENTRADA = $ARRAYEXISMATERIPRIMAPROCESO[0]['NETOSF'];
@@ -377,6 +379,7 @@ include_once "../config/datosUrLP.php";
                                                         <td><?php echo $r['PDINDUSTRIAL_PROCESO']; ?></td>
                                                         <td><?php echo number_format($r['PORCENTAJE_PROCESO'], 2, ",", ".");  ?></td>
 
+                                                        <td><?php echo $ENVASESEMBOLSADO; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>

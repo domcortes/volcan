@@ -165,7 +165,7 @@ if($ARRAYINPSAGPT){
       $NOMBRETESTADOSAG = "Aprobado Origen";
     }
     if ($TESTADOSAG == "3") {
-      $NOMBRETESTADOSAG = "Aprobado USLA";
+      $NOMBRETESTADOSAG = "Aprobado USDA";
     }
     if ($TESTADOSAG == "4") {
       $NOMBRETESTADOSAG = "Fumigado";

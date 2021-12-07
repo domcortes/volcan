@@ -327,6 +327,9 @@ foreach ($ARRAYDRECEPCION as $d) :
 
   $ARRAYDRECEPCION2 = $DRECEPCIONIND_ADO->buscarPorIdRecepcionPorVespecies2($IDOP, $d['ID_VESPECIES']);
   $ARRAYDRECEPCION2TOTALES = $DRECEPCIONIND_ADO->obtenerTotalPorRecepcionVariedad2($IDOP, $d['ID_VESPECIES']);
+  $TOTALENVASESDRECEPCION = $ARRAYDRECEPCION2TOTALES[0]['ENVASE'] ;
+  $TOTALNETOSDRECEPCION = $ARRAYDRECEPCION2TOTALES[0]['NETO'] ;
+  $TOTALBRUTOSDRECEPCION = $ARRAYDRECEPCION2TOTALES[0]['BRUTO'] ;
 
   foreach ($ARRAYDRECEPCION2 as $s) :
 
@@ -383,9 +386,9 @@ foreach ($ARRAYDRECEPCION as $d) :
       <th class="color3 left">&nbsp;</th>
       <th class="color3 left">&nbsp;</th>
       <th class="color3 left">SUB TOTAL</th>
-      <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['ENVASE'] . '</th>
-      <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['NETO'] . '</th>
-      <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['BRUTO'] . '</th>
+      <th class="color3 center">' . $TOTALENVASESDRECEPCION . '</th>
+      <th class="color3 center">' . $TOTALNETOSDRECEPCION . '</th>
+      <th class="color3 center">' . $TOTALBRUTOSDRECEPCION . '</th>
       <th class="color3 center">&nbsp;</th>
       <th class="color3 center">&nbsp;</th>
   </tr>

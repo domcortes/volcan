@@ -38,6 +38,78 @@ $(function () {
         "dom": 'Bfrtip',
         "buttons": ["excel"],
     });
+
+    $('#resumen').DataTable({
+
+        "scrollY": true,
+        "scrollX": true,
+        'paging': false,
+        'lengthChange': false, //ordernar por 10 25 100 500
+        'searching': false, //buscador
+        'ordering': true,
+        'info': false,
+        'autoWidth': true,
+        'responsive': false,
+        "pagingType": "full_numbers",
+        'order': [
+            [0, 'asc'], //desc ->descente asc -> ascedente
+        ],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ Registros Por Paginas",
+            "zeroRecords": "No Se Han Encotrado Datos Registrados.",
+            "info": "Mostrando  _START_-_END_ de _TOTAL_ Registros",
+            //"info": "Mostrando Paginas _PAGE_ De _PAGES_  <br> _START_-_END_ de _TOTAL_ Registros",
+            "infoEmpty": "Registros No Disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar",
+            "paginate": {
+                "first": "<i class='ti-angle-double-left'> </i>",
+                "last": "<i class='ti-angle-double-right'> </i>",
+                "next": "<i class='ti-angle-right'> </i>",
+                "previous": "<i class='ti-angle-left'> </i>",
+            },
+        },
+        "dom": 'Bfrtip',
+        "buttons": ["excel"],
+    });
+    
+    $('#stockmp').DataTable({
+
+        "scrollY": true,
+        "scrollX": true,
+        'paging': false,
+        'lengthChange': false, //ordernar por 10 25 100 500
+        'searching': false, //buscador
+        'ordering': true,
+        'info': false,
+        'autoWidth': true,
+        'responsive': false,
+        "pagingType": "full_numbers",
+        'order': [
+            [0, 'asc'], //desc ->descente asc -> ascedente
+        ],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ Registros Por Paginas",
+            "zeroRecords": "No Se Han Encotrado Datos Registrados.",
+            "info": "Mostrando  _START_-_END_ de _TOTAL_ Registros",
+            //"info": "Mostrando Paginas _PAGE_ De _PAGES_  <br> _START_-_END_ de _TOTAL_ Registros",
+            "infoEmpty": "Registros No Disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar",
+            "paginate": {
+                "first": "<i class='ti-angle-double-left'> </i>",
+                "last": "<i class='ti-angle-double-right'> </i>",
+                "next": "<i class='ti-angle-right'> </i>",
+                "previous": "<i class='ti-angle-left'> </i>",
+            },
+        },
+        "dom": 'Bfrtip',
+        "buttons": ["excel"],
+    });
+
+
+
+
     $('#existencia').DataTable({
         "scrollY": 450,
         "scrollX": true,
@@ -70,6 +142,13 @@ $(function () {
         "dom": 'Bfrtip',
         "buttons": ["excel"],
     });
+
+
+
+
+
+
+
     // $('#existencia thead tr').clone(true).appendTo('#existencia thead');
     $('#hexistencia #filtro th').each(function () {
         var title = $(this).text();

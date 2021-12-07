@@ -372,6 +372,35 @@ class REEMBALAJE_ADO
     }
 
     //LISTAR
+
+    public function obtenerTotalEnvasesEmbolsado($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    IFNULL(SUM(detalle.CANTIDAD_ENVASE_DREXPORTACION),0) AS 'ENVASE'
+                                                FROM fruta_reembalaje reemabaleje, fruta_drexportacion detalle
+                                                WHERE reemabaleje.ID_REEMBALAJE = detalle.ID_REEMBALAJE
+                                                    AND detalle.ESTADO_REGISTRO = 1
+                                                    AND detalle.EMBOLSADO = 1       
+                                                    AND reemabaleje.ID_REEMBALAJE ='" . $ID . "'
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
     public function listarReembalajeEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

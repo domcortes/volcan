@@ -44,9 +44,15 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
     $IDUSUARIOS = $_SESSION["ID_USUARIO"];
     $NOMBREUSUARIOS = $_SESSION["NOMBRE_USUARIO"];
     $TUSUARIO = $_SESSION["TIPO_USUARIO"];
-    $EMPRESAS = $_SESSION["ID_EMPRESA"];
-    $PLANTAS = $_SESSION["ID_PLANTA"];
-    $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];
+    
+ 
+    if (isset($_SESSION["ID_EMPRESA"])) {
+        $EMPRESAS = $_SESSION["ID_EMPRESA"];
+    }
+    if (isset($_SESSION["ID_TEMPORADA"])) {
+        $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];   
+    } 
+
 
     if (isset($_SESSION["DOLAR"]) && isset($_SESSION["EURO"])) {
         $DOLAR = $_SESSION["DOLAR"];
@@ -68,10 +74,4 @@ if (isset($_REQUEST['CAMBIARE'])) {
                 location.href = url ;
               </script>";
 }
-if (isset($_REQUEST['CAMBIARP'])) {
-    $_SESSION["ID_PLANTA"] = $_REQUEST['PLANTACAMBIAR'];
-    echo "<script type='text/javascript'> 
-                var url= window.location;
-                location.href = url ;
-              </script>";
-}
+

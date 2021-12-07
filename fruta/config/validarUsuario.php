@@ -43,10 +43,18 @@
     if (isset($_SESSION["NOMBRE_USUARIO"])) {
         $IDUSUARIOS = $_SESSION["ID_USUARIO"];
         $NOMBREUSUARIOS = $_SESSION["NOMBRE_USUARIO"];
-        $TUSUARIO = $_SESSION["TIPO_USUARIO"];
-        $EMPRESAS = $_SESSION["ID_EMPRESA"];
-        $PLANTAS = $_SESSION["ID_PLANTA"];
-        $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];    
+        $TUSUARIO = $_SESSION["TIPO_USUARIO"];        
+           
+        if (isset($_SESSION["ID_EMPRESA"])) {
+            $EMPRESAS = $_SESSION["ID_EMPRESA"];
+        }
+        if (isset($_SESSION["ID_PLANTA"])) {
+            $PLANTAS = $_SESSION["ID_PLANTA"];
+        }
+        if (isset($_SESSION["ID_TEMPORADA"])) {
+            $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];   
+        } 
+    
 
     } else {
         session_destroy();

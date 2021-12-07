@@ -287,6 +287,16 @@ include_once "../config/datosUrLP.php";
                                                                                         <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="Packing List" title="Informe" Onclick="abrirPestana('../documento/informePCdespachoPtPackingList.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Packing List
+                                                                                    </button>
+                                                                                </span>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="Comercial" title="Informe" Onclick="abrirPestana('../documento/informePCdespachoPtComercial.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-pdf-o"></i> Comercial
+                                                                                    </button>
+                                                                                </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>

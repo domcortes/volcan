@@ -247,7 +247,7 @@ include_once "../config/datosUrLP.php";
                                                         $TESTADOSAG = "Aprobado Origen";
                                                     }
                                                     if ($r['TESTADOSAG'] == "3") {
-                                                        $TESTADOSAG = "Aprobado USLA";
+                                                        $TESTADOSAG = "Aprobado USDA";
                                                     }
                                                     if ($r['TESTADOSAG'] == "4") {
                                                         $TESTADOSAG = "Fumigado";

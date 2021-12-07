@@ -656,7 +656,7 @@ $html = $html . '
   </div>
   <div id="client"> 
   
-    <div class="address"> <b> Date Instructive:  </b> '.$FECHA.'  </div>
+    <div class="address"> <b> Date Inovice:  </b> '.$FECHAETD.'  </div>
     <div class="address"> <b>  Sales method:  </b>  '.$NOMBREMVENTA.' </div>
     <div class="address"> <b>  Incoterm:  </b>   '.$NOMBRECVENTA.'</div>
     <div class="address"> <b>  BL/AWB/CRT:  </b> '.$BOLAWBCRTINSTRUCTIVO.'  </div>
@@ -799,7 +799,7 @@ $html = $html . '
   <div id="details" class="clearfix">
 
         <div id="client">
-          <div class="address"><b>Observations</b></div>
+          <div class="address"><b>Note</b></div>
           <div class="address">  ' . $OBSERVACIONES . ' </div>
         </div>
         

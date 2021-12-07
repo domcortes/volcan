@@ -179,7 +179,7 @@ $(function () {
   // Create the tab button
   var $tabButton = $('<li />', { 'class': 'nav-item' })
     .html('<a href=\'#control-sidebar-theme-demo-options-tab\' class=\'active\' data-toggle=\'tab\' title=\'Setting\'>'
-      + '<img src="../api/cryptioadmin10/html/images/svg-icon/settings.svg" class="img-fluid svg-icon" alt="">'
+      + '<img src="./../../api/cryptioadmin10/html/images/svg-icon/settings.svg" class="img-fluid svg-icon" alt="">'
       + '</a>')
 
   // Add the tab button to the right sidebar tabs

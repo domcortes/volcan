@@ -1,7 +1,7 @@
 <?php
-include_once '../modelo/TCALIBRE.php';
+include_once '../../assest/modelo/TCALIBRE.php';
 //LLAMADA AL CONFIGURACION DE LA BASE DE DATOS
-include_once '../config/BDCONFIG.php';
+include_once '../../assest/config/BDCONFIG.php';
 
 //INICIALIZAR VARIABLES
 $HOST="";
