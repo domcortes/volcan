@@ -210,9 +210,6 @@
               <a class="dropdown-item" data-toggle="modal" data-target="#modal-empresa" title="Cambiar">
                 <i class="ti-settings"></i>Cambiar Empresa
               </a>
-              <a class="dropdown-item" data-toggle="modal" data-target="#modal-planta" title="Cambiar">
-                <i class="ti-settings"></i>Cambiar Planta
-              </a>
               <div class="dropdown-divider"></div>
               <div class="p-10">
                 <center>
@@ -287,46 +284,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
         </div>
       </div>
     </div>
-  </form>
-</div>
-<div class="modal center-modal fade" id="modal-planta" tabindex="-1">
-  <form method="POST">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Cambiar </h5>
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>
-          <div class="form-group">
-            <label>Planta</label>
-            <select class="form-control select2" id="PLANTACAMBIAR" name="PLANTACAMBIAR" style="width: 100%;" <?php echo $DISABLEDMENU; ?>>
-              <option></option>
-              <?php foreach ($ARRAYPLANTACAMBIAR as $r) : ?>
-                <?php if ($ARRAYPLANTACAMBIAR) {    ?>
-                  <option value="<?php echo $r['ID_PLANTA']; ?>" <?php if ($PLANTA == $r['ID_PLANTA']) {
-                                                                    echo "selected";
-                                                                  } ?>> <?php echo $r['NOMBRE_PLANTA'] ?> </option>
-                <?php } else { ?>
-                  <option>No Hay Datos Registrados </option>
-                <?php } ?>
-              <?php endforeach; ?>
-            </select>
-            <label id="val_planta" class="validacion"> </label>
-          </div>
-          </p>
-
-        </div>
-        <div class="modal-footer modal-footer-uniform">
-          <button type="button" class="btn btn-rounded btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-rounded btn-primary float-right" id="CAMBIARP" name="CAMBIARP" <?php echo $DISABLEDMENU; ?>>Cambiar</button>
-        </div>
-      </div>
-    </div>
-
   </form>
 </div>
 
