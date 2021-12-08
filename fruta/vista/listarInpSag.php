@@ -39,6 +39,8 @@ $TOTALENVASE = "";
 $FECHADESDE = "";
 $FECHAHASTA = "";
 
+$DISABLEDC="";
+$DISABLEDT="";
 $PRODUCTOR = "";
 $NUMEROGUIA = "";
 
@@ -254,7 +256,19 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TESTADOSAG'] == "5") {
                                                         $TESTADOSAG = "Rechazado";
+                                                    }                                                    
+                                                    if( strlen($r['CORRELATIVO_INPSAG'])==0){
+                                                        $DISABLEDC="disabled";
+                                                    }else{
+                                                        $DISABLEDC="";
                                                     }
+                                                    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPorSag2($r['ID_INPSAG']);
+                                                    if(empty($ARRAYTOMADO)){
+                                                        $DISABLEDT="disabled";
+                                                    }else{
+                                                        $DISABLEDT="";
+                                                    }
+                                                
                                                 
                                                     $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
                                                     if ($ARRAYPLANTA) {
@@ -323,8 +337,8 @@ include_once "../config/datosUrLP.php";
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="CSV">
-                                                                                <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="CSV" Onclick="abrirPestana('../../assest/csv/CsvInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-excel-o"></i> CSV
+                                                                                <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDC; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                                                 </button>
                                                                             </span>
                                                                         </div>

@@ -100,6 +100,8 @@ $CALIBRE = "";
 $PRODUCTOR = "";
 
 $DISABLED = "";
+$DISABLEDC = "";
+$DISABLEDT = "";
 $DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLED4 = "";
@@ -159,6 +161,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $TOTALENVASE2 = $ARRAYDESPACHOTOTAL2[0]['ENVASE'];
     $TOTALNETO2 = $ARRAYDESPACHOTOTAL2[0]['NETO'];
     $TOTALBRUTO2 = $ARRAYDESPACHOTOTAL2[0]['BRUTO'];
+    if(empty($ARRAYTOMADO)){
+        $DISABLEDT="disabled";
+    }else{
+        $DISABLEDT="";
+    }
 
 
 
@@ -185,6 +192,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $IDINPSAG = $IDOP;
             $FECHAINPSAG = "" . $r['FECHA_INPSAG'];
             $CORRELATIVOINPSAG = "" . $r['CORRELATIVO_INPSAG'];
+            if( strlen($CORRELATIVOINPSAG)==0){
+                $DISABLEDC="disabled";
+            }else{
+                $DISABLEDC="";
+            }
             $FECHAINGRESOINPSAG = "" . $r['FECHA_INGRESOR'];
             $FECHAMODIFCIACIONINPSAG = "" . $r['FECHA_MODIFICACIONR'];
             $OBSERVACIONINPSAG = "" . $r['OBSERVACION_INPSAG'];
@@ -223,6 +235,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_INPSAG'];
             $IDINPSAG = $IDOP;
             $CORRELATIVOINPSAG = "" . $r['CORRELATIVO_INPSAG'];
+            if( strlen($CORRELATIVOINPSAG)==0){
+                $DISABLEDC="disabled";
+            }else{
+                $DISABLEDC="";
+            }
             $FECHAINPSAG = "" . $r['FECHA_INPSAG'];
             $FECHAINGRESOINPSAG = "" . $r['FECHA_INGRESOR'];
             $FECHAMODIFCIACIONINPSAG = "" . $r['FECHA_MODIFICACIONR'];
@@ -264,6 +281,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROVER = "" . $r['NUMERO_INPSAG'];
             $IDINPSAG = $IDOP;
             $CORRELATIVOINPSAG = "" . $r['CORRELATIVO_INPSAG'];
+            if( strlen($CORRELATIVOINPSAG)==0){
+                $DISABLEDC="disabled";
+            }else{
+                $DISABLEDC="";
+            }
             $FECHAINPSAG = "" . $r['FECHA_INPSAG'];
             $FECHAINGRESOINPSAG = "" . $r['FECHA_INGRESOR'];
             $FECHAMODIFCIACIONINPSAG = "" . $r['FECHA_MODIFICACIONR'];
@@ -893,8 +915,8 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Packing list" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsagPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Packing List
                                                 </button>
-                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="CSV" Onclick="abrirPestana('../../assest/csv/CsvInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                    <i class="fa fa-file-excel-o"></i> CSV
+                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDC; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvInpsag.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                 </button>                                                
                                             <?php endif ?>
                                         </div>
