@@ -190,6 +190,8 @@ $VESPECIES = "";
 $CALIBRE = "";
 $PRODUCTOR = "";
 
+$DISABLEDP = "";
+$DISABLEDT = "";
 $DISABLED = "";
 $DISABLED2 = "";
 $DISABLED3 = "";
@@ -315,6 +317,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $TOTALENVASEV = $ARRAYDESPACHOTOTAL2[0]['ENVASE'];
     $TOTALNETOV = $ARRAYDESPACHOTOTAL2[0]['NETO'];
     $TOTALBRUTOV = $ARRAYDESPACHOTOTAL2[0]['BRUTO'];
+    
+    if(empty($ARRAYTOMADO)){
+        $DISABLEDT="disabled";
+    }else{
+        $DISABLEDT="";
+    }
 
 
     //FUNCION PARA LA OBTENCION DE LOS TOTALES DEL DETALLE ASOCIADO A DESPACHOEX
@@ -344,6 +352,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROSELLO = "" . $r['NUMERO_SELLO_DESPACHOEX'];
             $NUMEROCONTENDORDESPACHOEX = "" . $r['NUMERO_CONTENEDOR_DESPACHOEX'];
             $NUMEROPLANILLADESPACHOEX =  "" . $r['NUMERO_PLANILLA_DESPACHOEX'];
+            if( strlen($NUMEROPLANILLADESPACHOEX)==0){
+                $DISABLEDP="disabled";
+            }else{
+                $DISABLEDP="";
+            }
             $TERMOGRAFODESPACHOEX =  "" . $r['TERMOGRAFO_DESPACHOEX'];
             $FECHAGUIA = "" . $r['FECHA_GUIA_DESPACHOEX'];
             $NUMEROGUIA = "" . $r['NUMERO_GUIA_DESPACHOEX'];
@@ -423,6 +436,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROSELLO = "" . $r['NUMERO_SELLO_DESPACHOEX'];
             $NUMEROCONTENDORDESPACHOEX = "" . $r['NUMERO_CONTENEDOR_DESPACHOEX'];
             $NUMEROPLANILLADESPACHOEX =  "" . $r['NUMERO_PLANILLA_DESPACHOEX'];
+            if( strlen($NUMEROPLANILLADESPACHOEX)==0){
+                $DISABLEDP="disabled";
+            }else{
+                $DISABLEDP="";
+            }
             $TERMOGRAFODESPACHOEX =  "" . $r['TERMOGRAFO_DESPACHOEX'];
             $FECHAGUIA = "" . $r['FECHA_GUIA_DESPACHOEX'];
             $NUMEROGUIA = "" . $r['NUMERO_GUIA_DESPACHOEX'];
@@ -503,6 +521,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $NUMEROSELLO = "" . $r['NUMERO_SELLO_DESPACHOEX'];
             $NUMEROCONTENDORDESPACHOEX = "" . $r['NUMERO_CONTENEDOR_DESPACHOEX'];
             $NUMEROPLANILLADESPACHOEX =  "" . $r['NUMERO_PLANILLA_DESPACHOEX'];
+            if( strlen($NUMEROPLANILLADESPACHOEX)==0){
+                $DISABLEDP="disabled";
+            }else{
+                $DISABLEDP="";
+            }
             $TERMOGRAFODESPACHOEX =  "" . $r['TERMOGRAFO_DESPACHOEX'];
             $FECHAGUIA = "" . $r['FECHA_GUIA_DESPACHOEX'];
             $NUMEROGUIA = "" . $r['NUMERO_GUIA_DESPACHOEX'];
@@ -2182,6 +2205,9 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe Comercial
                                                 </button>
+                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDP; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvDespachoEx.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-excel-o"></i> Archivo Plano
+                                                </button>  
                                             <?php endif ?>
                                         </div>
                                     </div>

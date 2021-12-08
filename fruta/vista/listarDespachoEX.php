@@ -38,6 +38,8 @@ $TOTALNETO = "";
 $TOTALENVASE = "";
 $FECHADESDE = "";
 $FECHAHASTA = "";
+$DISABLEDP="";
+$DISABLEDT="";
 
 $PRODUCTOR = "";
 $NUMEROGUIA = "";
@@ -264,6 +266,17 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
+                                                    }                                                    
+                                                    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespachoEx2($r['ID_DESPACHOEX']);
+                                                    if(empty($ARRAYTOMADO)){
+                                                        $DISABLEDT="disabled";
+                                                    }else{
+                                                        $DISABLEDT="";
+                                                    }
+                                                    if( strlen($r['NUMERO_PLANILLA_DESPACHOEX'])==0){
+                                                        $DISABLEDP="disabled";
+                                                    }else{
+                                                        $DISABLEDP="";
                                                     }
                                                     ?>
 
@@ -312,6 +325,11 @@ include_once "../config/datosUrLP.php";
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe Comercial">
                                                                                 <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Comercial
+                                                                                </button>
+                                                                            </span>
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="CSV">
+                                                                                <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDP; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvDespachoEx.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                                                 </button>
                                                                             </span>
                                                                         </div>
