@@ -812,7 +812,7 @@ if ($_POST) {
                     }
                       
   
-
+                    /*
 
                     if (CATEGORIAESTANDAR == 1) {
                         TCATEGORIA = document.getElementById("TCATEGORIA").value;
@@ -839,7 +839,7 @@ if ($_POST) {
                         }
                         document.form_reg_dato.TCOLOR.style.borderColor = "#4AF575";
                     }
-
+                    */
 
                 }
 
