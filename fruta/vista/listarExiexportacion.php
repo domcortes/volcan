@@ -605,9 +605,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_EXIEXPORTACION']; ?> </td>
                                                                 <td>
-                                                                    <a Onclick="abrirPestana('../documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $EMPRESAS; ?>');">
-                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
-                                                                    </a>                                                                
+                                                                    <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
+                                                                    <!--
+                                                                    <a Onclick="abrirPestana('../documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $EMPRESAS; ?>');">                                                                        
+                                                                    </a>-->
                                                                 </td>
                                                                 <td><?php echo $r['EMBALADO']; ?></td>
                                                                 <td><?php echo $ESTADO; ?></td>
