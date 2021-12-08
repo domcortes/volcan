@@ -157,6 +157,28 @@ class INPSAG_ADO
         }
     }
 
+    public function verInpsagCsv($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_INPSAG, '%Y%m%d') AS 'FECHA'
+                                            FROM fruta_inpsag
+                                            WHERE ID_INPSAG = '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
 
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
     public function buscarNombreInpsag($NOMBRE)

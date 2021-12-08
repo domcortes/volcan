@@ -111,17 +111,19 @@ $(function () {
 
 
     $('#existencia').DataTable({
+        "fixedHeader": true,
         "scrollY": 450,
         "scrollX": true,
         'paging': false,
         'lengthChange': true, //ordernar por 10 25 100 500
         'searching': false, //buscador
         'ordering': true,
+        "orderCellsTop": true,
         'info': true,
         'autoWidth': false,
-        'responsive': false,
+        'responsive': false,        
         'order': [
-            [0, 'desc'], //desc ->descente asc -> ascedente
+            [0, 'desc'],
         ],
         "pagingType": "full_numbers",
         "language": {
@@ -144,19 +146,6 @@ $(function () {
     });
 
 
-
-
-
-
-
-    // $('#existencia thead tr').clone(true).appendTo('#existencia thead');
-    $('#hexistencia #filtro th').each(function () {
-        var title = $(this).text();
-        $(this).html('<input type="text" title="' + title + '" placeholder=" ' + title + '" />');
-    });
-
-
-    var table = $('#hexistencia').DataTable({
         /* initComplete: function(){
              this.api().columns().every( function (d) {
                  var column = this;
@@ -181,6 +170,18 @@ $(function () {
              });
          },
          */
+
+
+
+
+    // $('#existencia thead tr').clone(true).appendTo('#existencia thead');
+    $('#hexistencia tfoot #filtro th').each(function () {
+        var title = $(this).text();
+        $(this).html('<input type="text" title="' + title + '" placeholder=" ' + title + '" />');
+    });
+
+
+    var table = $('#hexistencia').DataTable({
         initComplete: function () {
             // Apply the search
             this.api().columns().every(function () {
@@ -195,7 +196,6 @@ $(function () {
                 });
             });
         },
-        "orderCellsTop": true,
         "fixedHeader": true,
         "scrollY": 450,
         "scrollX": true,
@@ -203,9 +203,10 @@ $(function () {
         'lengthChange': true, //ordernar por 10 25 100 500
         'searching': false, //buscador
         'ordering': true,
+        "orderCellsTop": true,
         'info': true,
         'autoWidth': false,
-        'responsive': false,
+        'responsive': false,        
         'order': [
             [0, 'desc'],
         ],

@@ -37,6 +37,13 @@ $ARRAYTEMPORADA = "";
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 
+if (isset($_SESSION["ID_EMPRESA"])) {
+    $EMPRESA = $_SESSION["ID_EMPRESA"];
+}
+if (isset($_SESSION["ID_TEMPORADA"])) {
+    $TEMPORADA = $_SESSION["ID_TEMPORADA"];   
+} 
+
 
 ?>
 
@@ -108,7 +115,7 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
             <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">
                 <div class="input-group mb-3" id="input">
                     <label id="label" for="EMPRESA">Selecionar Empresa</label>
-                    <select class="form-control" id="EMPRESA" name="EMPRESA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                    <select class="form-control" id="EMPRESA" name="EMPRESA" style="width: 100%;">
                         <option></option>
                         <?php foreach ($ARRAYEMPRESA as $r) : ?>
                             <?php if ($ARRAYEMPRESA) {    ?>
@@ -122,7 +129,7 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
                 <label id="val_select_planta" class="validacion"> <?php echo  $MENSAJE; ?></label>
                 <div class="input-group mb-3" id="input">
                     <label id="label" for="TEMPORADA">Selecionar Temporada</label>
-                    <select class="form-control" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                    <select class="form-control" id="TEMPORADA" name="TEMPORADA" style="width: 100%;">
                         <option></option>
                         <?php foreach ($ARRAYTEMPORADA as $r) : ?>
                             <?php if ($ARRAYTEMPORADA) {    ?>

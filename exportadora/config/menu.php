@@ -55,7 +55,7 @@
                   echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
               <br>
@@ -66,10 +66,10 @@
                   echo $ARRAYTEMPORADAS[0]['NOMBRE_TEMPORADA'];
                   $TEMPORADA = $ARRAYTEMPORADAS[0]['ID_TEMPORADA'];
                 } else {
-              //    echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+                  echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
                 }
               } else {
-                //echo "<script type='text/javascript'> location.href ='iniciarSessionSeleccion.php';</script>";
+                echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
               }
               ?>
             </div>

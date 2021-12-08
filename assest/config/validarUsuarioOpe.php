@@ -46,7 +46,9 @@
         $TUSUARIO = $_SESSION["TIPO_USUARIO"];                 
         if (isset($_SESSION["ID_TEMPORADA"])) {
             $TEMPORADAS  = $_SESSION["ID_TEMPORADA"];   
-        }       
+        }  else {
+            echo "<script type='text/javascript'> location.href ='iniciarSession.php';</script>";
+        }      
 
     } else {
         session_destroy();

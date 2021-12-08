@@ -71,6 +71,8 @@ $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $TOTALNETO = "";
 $TOTALENVASE = "";
+$TAMAÑO=0;
+$CONTADOR=0;
 
 
 //INICIALIZAR ARREGLOS
@@ -184,7 +186,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Existencia</li>
-                                            <li class="breadcrumb-item" aria-current="page">Disponible</li>
+                                            <li class="breadcrumb-item" aria-current="page">Historial</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Existencia Producto Terminado </a>
                                             </li>
                                         </ol>
@@ -281,8 +283,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 <tbody>
                                                     <?php foreach ($ARRAYEXIEXPORTACION as $s) : ?>
 
-                                                        <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaPorFolio($EMPRESAS, $PLANTAS, $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                            
+                                                        <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaPorFolio($EMPRESAS, $PLANTAS, $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                                                                                    
                                                         <?php foreach ($ARRAYEXISTENCIA as $r) : ?>
+                                                            <?php  $CONTADOR+=1;   ?>
                                                             <?php
                                                             if ($r['ESTADO'] == "0") {
                                                                 $ESTADO = "Elimnado";
@@ -662,9 +665,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 <td><?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td><?php echo $NOMBREPLANTA; ?></td>
                                                                 <td><?php echo $NOMBRETEMPORADA; ?></td>
-
-                                                            </tr>
-                                                        <?php endforeach; ?>                                                        
+                                                            </tr>                                                       
+                                                        <?php endforeach; ?>        
                                                     <?php endforeach; ?>
                                                 </tbody>
                                                 <tfoot>

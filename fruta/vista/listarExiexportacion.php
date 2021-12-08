@@ -61,6 +61,8 @@ $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $TOTALNETO = "";
 $TOTALENVASE = "";
+$TAMAÑO=0;
+$CONTADOR=0;
 
 
 //INICIALIZAR ARREGLOS
@@ -214,7 +216,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="hexistencia" class="table table-hover " style="width: 300%;">
+                                            <table id="existencia" class="table table-hover table-bordered" style="width: 300%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
@@ -230,6 +232,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Especies</th>
                                                         <th>Variedad</th>
                                                         <th>Cantidad Envase</th>
+                                                        <th>Total Envase</th>
                                                         <th>Kilos Neto</th>
                                                         <th>% Deshidratacion</th>
                                                         <th>Kilos Deshidratacion</th>
@@ -275,8 +278,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 <tbody>
                                                     <?php foreach ($ARRAYEXIEXPORTACION as $s) : ?>
 
-                                                        <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaPorFolioDisponible($EMPRESAS, $PLANTAS, $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                            
+                                                        <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaPorFolio($EMPRESAS, $PLANTAS, $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                                                                                    
                                                         <?php foreach ($ARRAYEXISTENCIA as $r) : ?>
+                                                            <?php  $CONTADOR+=1;   ?>
                                                             <?php
                                                             if ($r['ESTADO'] == "0") {
                                                                 $ESTADO = "Elimnado";
@@ -616,6 +620,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 <td><?php echo $NOMBRESPECIES; ?></td>
                                                                 <td><?php echo $NOMBREVESPECIES; ?></td>
                                                                 <td><?php echo $r['ENVASE']; ?></td>
+                                                                <th><?php echo $s['ENVASE']; ?></th>
                                                                 <td><?php echo $r['NETO']; ?></td>
                                                                 <td><?php echo $r['PORCENTAJE']; ?></td>
                                                                 <td><?php echo $r['DESHIRATACION']; ?></td>
@@ -656,9 +661,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 <td><?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td><?php echo $NOMBREPLANTA; ?></td>
                                                                 <td><?php echo $NOMBRETEMPORADA; ?></td>
-
-                                                            </tr>
-                                                        <?php endforeach; ?>                                                        
+                                                            </tr>                                                       
+                                                        <?php endforeach; ?>        
                                                     <?php endforeach; ?>
                                                 </tbody>
                                             </table>
@@ -667,6 +671,30 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                 </div>
                             </div>
                             <div class="box-footer">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- /.box -->

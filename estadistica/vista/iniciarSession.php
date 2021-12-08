@@ -46,6 +46,9 @@ $ARRAYTEMPORADA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
+if (isset($_SESSION["ID_TEMPORADA"])) {
+    $TEMPORADA = $_SESSION["ID_TEMPORADA"];   
+} 
 ?>
 
 
@@ -129,7 +132,7 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
                         </div>                        
                         <div class="input-group mb-3" id="input">
                             <label id="label" for="TEMPORADA">Selecionar Temporada</label>
-                            <select class="form-control" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> required>
+                            <select class="form-control" id="TEMPORADA" name="TEMPORADA" style="width: 100%;" required>
                                 <option></option>
                                 <?php foreach ($ARRAYTEMPORADA as $r) : ?>
                                     <?php if ($ARRAYTEMPORADA) {    ?>
