@@ -283,8 +283,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                 <tbody>
                                                     <?php foreach ($ARRAYEXIEXPORTACION as $s) : ?>
 
-                                                        <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaPorFolio($EMPRESAS, $PLANTAS, $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                            
-                                                        <?php   $TAMAÑO= sizeof($ARRAYEXISTENCIA);  ?>
+                                                        <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaPorFolio($EMPRESAS, $PLANTAS, $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                                                                                    
                                                         <?php foreach ($ARRAYEXISTENCIA as $r) : ?>
                                                             <?php  $CONTADOR+=1;   ?>
                                                             <?php
@@ -666,70 +665,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 <td><?php echo $NOMBREEMPRESA; ?></td>
                                                                 <td><?php echo $NOMBREPLANTA; ?></td>
                                                                 <td><?php echo $NOMBRETEMPORADA; ?></td>
-                                                            </tr>
-                                                            <?php  if($TAMAÑO==$CONTADOR){ ?>                                                                
-                                                            <tr class="text-left">
-                                                                <td> </td>
-                                                                <th>
-                                                                    <a Onclick="abrirPestana('../documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $EMPRESAS; ?>');">
-                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
-                                                                    </a>                                                                
-                                                                </th>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <th> Sub Total</th>
-                                                                <th><?php echo $s['ENVASE']; ?></th>
-                                                                <th><?php echo $s['NETO']; ?></th>
-                                                                <td> </td>
-                                                                <th><?php echo $s['DESHIRATACION']; ?></th>
-                                                                <th><?php echo $s['BRUTO']; ?></th>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                            </tr>
-                                                            <?php }?>
-                                                        <?php endforeach; ?>                                                                
-                                                        <?php $CONTADOR=0;   ?>
+                                                            </tr>                                                       
+                                                        <?php endforeach; ?>        
                                                     <?php endforeach; ?>
                                                 </tbody>
                                                 <tfoot>
