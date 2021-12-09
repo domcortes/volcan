@@ -1513,7 +1513,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Contenedor </label>
                                                     <input type="hidden" class="form-control" placeholder="Número Contenedor" id="NUMEROCONTENDORDESPACHOEXE" name="NUMEROCONTENDORDESPACHOEXE" value="<?php echo $NUMEROCONTENDORDESPACHOEX; ?>" />
-                                                    <input type="text" class="form-control"  placeholder="Numero Contenedor" id="NUMEROCONTENDORDESPACHOEX" name="NUMEROCONTENDORDESPACHOEX" value="<?php echo $NUMEROCONTENDORDESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Numero Contenedor" id="NUMEROCONTENDORDESPACHOEX" name="NUMEROCONTENDORDESPACHOEX" value="<?php echo $NUMEROCONTENDORDESPACHOEX; ?>" <?php echo $DISABLED2; ?>  />
                                                     <label id="val_numerocontenedor" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1521,7 +1521,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Temorgrafo </label>
                                                     <input type="hidden" class="form-control" placeholder="TERMOGRAFODESPACHOEXE" id="TERMOGRAFODESPACHOEXE" name="TERMOGRAFODESPACHOEXE" value="<?php echo $TERMOGRAFODESPACHOEX; ?>" />
-                                                    <input type="text" class="form-control"  placeholder="Temórgrafo" id="TERMOGRAFODESPACHOEX" name="TERMOGRAFODESPACHOEX" value="<?php echo $TERMOGRAFODESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Temórgrafo" id="TERMOGRAFODESPACHOEX" name="TERMOGRAFODESPACHOEX" value="<?php echo $TERMOGRAFODESPACHOEX; ?>" <?php echo $DISABLED2; ?>  />
                                                     <label id="val_temorgrafo" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1529,7 +1529,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Planilla </label>
                                                     <input type="hidden" class="form-control" placeholder="Numero Planilla" id="NUMEROPLANILLADESPACHOEXE" name="NUMEROPLANILLADESPACHOEXE" value="<?php echo $FECHADESPACHOEX; ?>" />
-                                                    <input type="text" class="form-control"  placeholder="Número Planilla" id="NUMEROPLANILLADESPACHOEX" name="NUMEROPLANILLADESPACHOEX" value="<?php echo $NUMEROPLANILLADESPACHOEX; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Número Planilla" id="NUMEROPLANILLADESPACHOEX" name="NUMEROPLANILLADESPACHOEX" value="<?php echo $NUMEROPLANILLADESPACHOEX; ?>" <?php echo $DISABLED2; ?>  />
                                                     <label id="val_numeroplanilla" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -1538,7 +1538,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Sello</label>
                                                     <input type="hidden" class="form-control" placeholder="Número Sello" id="NUMEROSELLOE" name="NUMEROSELLOE" value="<?php echo $NUMEROSELLO; ?>" />
-                                                    <input type="text" class="form-control"  placeholder="Número Sello" id="NUMEROSELLO" name="NUMEROSELLO" value="<?php echo $NUMEROSELLO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control"  placeholder="Número Sello" id="NUMEROSELLO" name="NUMEROSELLO" value="<?php echo $NUMEROSELLO; ?>" <?php echo $DISABLED2; ?>  />
                                                     <label id="val_numeros" class="validacion"><?php echo $MENSAJE3; ?> </label>
                                                 </div>
                                             </div>
@@ -2565,12 +2565,12 @@ if (isset($_POST)) {
         if (isset($_REQUEST['GUARDAR'])) {
 
             $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
-            $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
+            $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLO']);
             $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
             $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIA']);
-            $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
-            $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
-            $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
+            $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEX']);
+            $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEX']);
+            $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEX']);
             $DESPACHOEX->__SET('CANTIDAD_ENVASE_DESPACHOEX', $_REQUEST['TOTALENVASE']);
             $DESPACHOEX->__SET('KILOS_NETO_DESPACHOEX', $_REQUEST['TOTALNETO']);
             $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
@@ -2679,12 +2679,12 @@ if (isset($_POST)) {
             }
             if ($SINO == "0") {
                 $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
-                $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLOE']);
+                $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLO']);
                 $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
                 $DESPACHOEX->__SET('NUMERO_GUIA_DESPACHOEX', $_REQUEST['NUMEROGUIA']);
-                $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEXE']);
-                $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEXE']);
-                $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEXE']);
+                $DESPACHOEX->__SET('NUMERO_CONTENEDOR_DESPACHOEX', $_REQUEST['NUMEROCONTENDORDESPACHOEX']);
+                $DESPACHOEX->__SET('NUMERO_PLANILLA_DESPACHOEX', $_REQUEST['NUMEROPLANILLADESPACHOEX']);
+                $DESPACHOEX->__SET('TERMOGRAFO_DESPACHOEX', $_REQUEST['TERMOGRAFODESPACHOEX']);
                 $DESPACHOEX->__SET('CANTIDAD_ENVASE_DESPACHOEX', $_REQUEST['TOTALENVASE']);
                 $DESPACHOEX->__SET('KILOS_NETO_DESPACHOEX', $_REQUEST['TOTALNETO']);
                 $DESPACHOEX->__SET('KILOS_BRUTO_DESPACHOEX', $_REQUEST['TOTALBRUTO']);
