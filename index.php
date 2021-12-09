@@ -58,6 +58,7 @@
                                         </a>
                                     </div>
                                 </div>
+                                <!--
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="form-group">
                                         <a href="mantencion/index.php">
@@ -65,6 +66,7 @@
                                         </a>
                                     </div>
                                 </div>
+                                -->
                                 <!-- /.col -->
                             </div>
                         </div>

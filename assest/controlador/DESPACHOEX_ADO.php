@@ -149,6 +149,27 @@ class DESPACHOEX_ADO
     }
 
 
+    public function verDespachoexCsv($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, 
+                                                     DATE_FORMAT(FECHA_DESPACHOEX, '%Y%m%d') AS 'FECHA' 
+                                            FROM fruta_despachoex
+                                            WHERE ID_DESPACHOEX= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
     public function buscarNombreDespachoex($NOMBRE)
     {
@@ -681,6 +702,38 @@ class DESPACHOEX_ADO
     }
 
     //BUSCADOR
+    
+    public function buscarPorDespachoexEspecies($IDDESPACHOEX)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT   
+                                                    (
+                                                        SELECT especies.CODIGO_SAG_ESPECIES
+                                                        FROM fruta_especies especies
+                                                        WHERE especies.ID_ESPECIES = vespecies.ID_ESPECIES      
+                                                    )  AS 'CODIGO'
+                                                FROM fruta_despachoex despacho, fruta_exiexportacion existencia, fruta_vespecies vespecies
+                                                WHERE despacho.ID_DESPACHOEX = existencia.ID_DESPACHOEX
+                                                    AND existencia.ID_VESPECIES = vespecies.ID_VESPECIES
+                                                    AND despacho.ID_DESPACHOEX= '" . $IDDESPACHOEX . "'                  
+                                                
+                                                 
+                                                
+                                                ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function buscarDespachoexPorProductorGuiaEmpresaPlantaTemporada($NUMEROGUIA, $PRODUCTOR, $EMPRESA, $PLANTA, $TEMPORADA)
     {

@@ -2834,6 +2834,28 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function contarTotalPalletDespachoEx2($IDDESPACHOEX)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                ID_EMPRESA, COUNT(DISTINCT(FOLIO_AUXILIAR_EXIEXPORTACION))  AS  'PALLET'                                                 
+                                            FROM fruta_exiexportacion
+                                            WHERE ESTADO_REGISTRO = 1
+                                            AND ID_DESPACHOEX= '" . $IDDESPACHOEX . "'  ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function obtenerTotalesInspSag2($IDINPSAG)
     {
@@ -4458,6 +4480,37 @@ class EXIEXPORTACION_ADO
         }
     }
 
+
+
+    public function buscarPorDespachoexAgrupadoFolio($IDDESPACHOEX)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(FECHA_EMBALADO_EXIEXPORTACION, '%d-%m-%Y') AS 'FECHA',
+                                                IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE',
+                                                IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0) AS 'NETO',
+                                                IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0) AS 'BRUTO'
+                                        FROM fruta_exiexportacion 
+                                        WHERE ID_DESPACHOEX= '" . $IDDESPACHOEX . "'                                          
+                                        AND ESTADO_REGISTRO = 1
+                                        GROUP BY FOLIO_AUXILIAR_EXIEXPORTACION;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+    
     //PACKING LIST DESPACHO EXPORTACION
     public function buscarPorDespachoex2AgrupadoFolio($IDDESPACHOEX)
     {

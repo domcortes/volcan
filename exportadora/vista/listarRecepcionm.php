@@ -4,72 +4,66 @@ include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
+include_once '../controlador/TDOCUMENTO_ADO.php';
+include_once '../controlador/BODEGA_ADO.php';
 include_once '../controlador/TRANSPORTE_ADO.php';
-
-
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/ICARGA_ADO.php';
 include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../controlador/PROVEEDOR_ADO.php';
+include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../controlador/FOLIO_ADO.php';
+include_once '../controlador/RECEPCIONM_ADO.php';
+
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-$TUSUARIO_ADO = new TUSUARIO_ADO();
-
-$DESPACHOEX_ADO =  new DESPACHOEX_ADO();
+$TDOCUMENTO_ADO =  new TDOCUMENTO_ADO();
+$BODEGA_ADO =  new BODEGA_ADO();
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
+$PROVEEDOR_ADO =  new PROVEEDOR_ADO();
+$PRODUCTOR_ADO =  new PRODUCTOR_ADO();
+$FOLIO_ADO =  new FOLIO_ADO();
 
-$VESPECIES_ADO =  new VESPECIES_ADO();
-$PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
-$EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
-$ICARGA_ADO =  new ICARGA_ADO();
-
+$RECEPCIONM_ADO =  new RECEPCIONM_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
+$EMPRESA = "";
+$PLANTA = "";
+$TEMPORADA = "";
 
-$TOTALBRUTO = "";
-$TOTALNETO = "";
-$TOTALENVASE = "";
+$TOTALCANTIDAD = "";
+$TOTCALVALOR = "";
+
 $FECHADESDE = "";
 $FECHAHASTA = "";
-$DISABLEDP="";
-$DISABLEDT="";
-
 $PRODUCTOR = "";
+
 $NUMEROGUIA = "";
 
 //INICIALIZAR ARREGLOS
-$ARRAYDESPACHOEX = "";
-$ARRAYDESPACHOEXTOTALES = "";
+$ARRAYRECEPCION = "";
+$ARRAYRECEPCIONTOTALES = "";
 $ARRAYVEREMPRESA = "";
+
+
+$ARRAYVERBODEGA = "";
+$ARRAYVERTDOCUMENTO = "";
+$ARRAYVERPROVEEDOR = "";
 $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-
-
-
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
-    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOEXTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoexEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-
-    $TOTALBRUTO = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
+if ($EMPRESAS  && $TEMPORADAS) {
+    $ARRAYRECEPCION = $RECEPCIONM_ADO->listarRecepcionPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYRECEPCIONTOTALES = $RECEPCIONM_ADO->obtenerTotalesRecepcionPorEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
+    $TOTALCANTIDAD = $ARRAYRECEPCIONTOTALES[0]['CANTIDAD'];
 }
-
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrLP.php";
-
-
 
 
 ?>
@@ -79,7 +73,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Agrupado Despacho Exportación</title>
+    <title>Agrupado Recepción Materiales</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -139,7 +133,6 @@ include_once "../config/datosUrLP.php";
                 function refrescar() {
                     document.getElementById("form_reg_dato").submit();
                 }*/
-
                 function abrirPestana(url) {
                     var win = window.open(url, '_blank');
                     win.focus();
@@ -164,39 +157,21 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Despacho Exportación</h3>
+                            <h3 class="page-title">Agrupado Recepción</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
-                                        <li class="breadcrumb-item" aria-current="page">Depacho Exportación</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Depacho </a>
+                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                        <li class="breadcrumb-item" aria-current="page">Materiales</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Recepción </a>
                                         </li>
                                     </ol>
                                 </nav>
                             </div>
                         </div>
-                        <div class="right-title">
-                            <div class="d-flex mt-10 justify-content-end">
-                                <div class="d-lg-flex mr-20 ml-10 d-none">
-                                    <div class="chart-text mr-10">
-                                        <!--
-								<h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                <h4 class="mt-0 text-primary">$12,125</h4>-->
-                                    </div>
-                                </div>
-                                <div class="d-lg-flex mr-20 ml-10 d-none">
-                                    <div class="chart-text mr-10">
-                                        <!--
-								<h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                <h4 class="mt-0 text-danger">$22,754</h4>-->
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        <?php include_once "../config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
 
@@ -209,32 +184,83 @@ include_once "../config/datosUrLP.php";
                                     <div class="table-responsive">
                                         <table id="modulo" class="table table-hover " style="width: 100%;">
                                             <thead>
-                                                <tr class="text-left">
-                                                    <th>Número </th>
+                                                <tr>
+                                                    <th>Número Recepción </th>
                                                     <th>Estado</th>
-                                                    <th class="text-center">Operaciónes</th>
-                                                    <th>Fecha Despacho </th>
-                                                    <th>Número Sello</th>
-                                                    <th>Número Guía </th>
-                                                    <th>Fecha Guía </th>
-                                                    <th>Cantidad Envase</th>
-                                                    <th>Kilos Neto</th>
-                                                    <th>Kilos Bruto</th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Modificación</th>
+                                                    <th>Operaciónes</th>
+                                                    <th>Fecha Recepción </th>
+                                                    <th>Tipo Recepción</th>
+                                                    <th>CSG/CSP Recepción</th>
+                                                    <th>Origen Recepción</th>
+                                                    <th>Tipo Documento </th>
+                                                    <th>Número Documento </th>
+                                                    <th>Total Cantidad</th>
+                                                    <th>Bodega</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
+                                                    <th>Fecha Ingreso</th>
+                                                    <th>Fecha Modificación</th>
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYDESPACHOEX as $r) : ?>
-
+                                                <?php foreach ($ARRAYRECEPCION as $r) : ?>
                                                     <?php
+                                                    if ($r['TRECEPCION'] == "1") {
+                                                        $TRECEPCION = "Desde Proveedor";
+                                                        $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
+                                                        if ($ARRAYPROVEEDOR) {
+                                                            $CSGCSPORIGEN="No Aplica";
+                                                            $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                        } else {
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                            $CSGCSPORIGEN = "Sin Datos";
+                                                        }
+                                                    } else if ($r['TRECEPCION'] == "2") {
+                                                        $TRECEPCION = "Desde Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $CSGCSPORIGEN=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] ;
+                                                            $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                        } else {
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                            $CSGCSPORIGEN = "Sin Datos";
+                                                        }
+                                                    } else if ($r['TRECEPCION'] == "3") {
+                                                        $TRECEPCION = "Planta Externa";
+                                                        $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA2"]);
+                                                        if ($ARRAYPLANTAEXTERNA) {
+                                                            $CSGCSPORIGEN=$ARRAYPLANTAEXTERNA[0]['CODIGO_SAG_PLANTA'];
+                                                            $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                        } else {
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                            $CSGCSPORIGEN = "Sin Datos";
+                                                        }
+                                                    } else if ($r['TRECEPCION'] == "4") {
+                                                        $CSGCSPORIGEN="No Aplica";
+                                                        $TRECEPCION = "Inventario Inicial";                                                    
+                                                        $NOMBREORIGEN = "Sin Datos";                                                        
+                                                    } else {
+                                                        $CSGCSPORIGEN = "Sin Datos";
+                                                        $TRECEPCION = "Sin Datos";
+                                                        $NOMBREORIGEN = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($r['ID_TDOCUMENTO']);
+                                                    if ($ARRAYVERTDOCUMENTO) {
+                                                        $TDOCUMENTO = $ARRAYVERTDOCUMENTO[0]['NOMBRE_TDOCUMENTO'];
+                                                    } else {
+                                                        $TDOCUMENTO = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r['ID_BODEGA']);
+                                                    if ($ARRAYVERBODEGA) {
+                                                        $NOMBREBODEGA = $ARRAYVERBODEGA[0]['NOMBRE_BODEGA'];
+                                                    } else {
+                                                        $NOMBREBODEGA = "Sin Datos";
+                                                    }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
@@ -243,8 +269,7 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     $ARRAYVERCONDUCTOR = $CONDUCTOR_ADO->verConductor($r['ID_CONDUCTOR']);
                                                     if ($ARRAYVERCONDUCTOR) {
-
-                                                        $NOMBRECONDUCTOR = $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
+                                                        $NOMBRECONDUCTOR= $ARRAYVERCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
                                                     } else {
                                                         $NOMBRECONDUCTOR = "Sin Datos";
                                                     }
@@ -266,22 +291,14 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
-                                                    }                                                    
-                                                    $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPordespachoEx2($r['ID_DESPACHOEX']);
-                                                    if(empty($ARRAYTOMADO)){
-                                                        $DISABLEDT="disabled";
-                                                    }else{
-                                                        $DISABLEDT="";
-                                                    }
-                                                    if( strlen($r['NUMERO_PLANILLA_DESPACHOEX'])==0){
-                                                        $DISABLEDP="disabled";
-                                                    }else{
-                                                        $DISABLEDP="";
                                                     }
                                                     ?>
-
-                                                    <tr class="text-left">
-                                                        <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
+                                                    <tr class="center">
+                                                        <td>
+                                                            <a href="#" class="text-warning hover-warning">
+                                                                <?php echo $r['NUMERO_RECEPCION']; ?>
+                                                            </a>
+                                                        </td>
                                                         <td>
                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                 <button type="button" class="btn btn-block btn-danger">Cerrado</button>
@@ -298,10 +315,9 @@ include_once "../config/datosUrLP.php";
                                                                             <i class="glyphicon glyphicon-cog"></i>
                                                                         </button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                                            <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
-                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHOEX']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoEX" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoEX" />
+                                                                            <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_RECEPCION']; ?>" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroRecepcionm" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarRecepcionm" />
                                                                             <?php if ($r['ESTADO'] == "0") { ?>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
                                                                                     <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
@@ -309,27 +325,10 @@ include_once "../config/datosUrLP.php";
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
-                                                                            <?php if ($r['ESTADO'] == "1") { ?>
-                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
-                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
-                                                                                        <i class="ti-pencil-alt"></i> Editar
-                                                                                    </button>
-                                                                                </span>
-                                                                            <?php } ?>
                                                                             <hr>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoPtPackingList.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Packing List
-                                                                                </button>
-                                                                            </span>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe Comercial">
-                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i> Comercial
-                                                                                </button>
-                                                                            </span>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="CSV">
-                                                                                <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDP; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvDespachoEx.php?parametro=<?php echo $r['ID_DESPACHOEX']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-excel-o"></i> Archivo Plano
+                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRecepcionm.php?parametro=<?php echo $r['ID_RECEPCION']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                         </div>
@@ -338,18 +337,19 @@ include_once "../config/datosUrLP.php";
                                                             </form>
                                                         </td>
                                                         <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $r['NUMERO_SELLO_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
-                                                        <td><?php echo $r['GUIA']; ?></td>
-                                                        <td><?php echo $r['ENVASE']; ?></td>
-                                                        <td><?php echo $r['NETO']; ?></td>
-                                                        <td><?php echo $r['BRUTO']; ?></td>
-                                                        <td><?php echo $r['INGRESO']; ?></td>
-                                                        <td><?php echo $r['MODIFICACION']; ?></td>
+                                                        <td><?php echo $TRECEPCION; ?></td>
+                                                        <td><?php echo $CSGCSPORIGEN; ?></td>
+                                                        <td><?php echo $NOMBREORIGEN; ?></td>
+                                                        <td><?php echo $TDOCUMENTO; ?></td>
+                                                        <td><?php echo $r['NUMERO_DOCUMENTO_RECEPCION']; ?></td>
+                                                        <td><?php echo $r['CANTIDAD']; ?></td>
+                                                        <td><?php echo $NOMBREBODEGA; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                        <td><?php echo $r['INGRESO']; ?></td>
+                                                        <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
@@ -359,39 +359,18 @@ include_once "../config/datosUrLP.php";
                                         </table>
                                     </div>
                                 </div>
-
-                            </div>
+                            </div>                            
                             <div class="box-footer">
-                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <div class="input-group-text">Total Cantidad </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
-                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
+                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>

@@ -68,7 +68,7 @@ $ARRAYMGUIAMP = "";
 
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS  &&  $TEMPORADAS) {
 
     $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaTemporadaCBX2($EMPRESAS,  $TEMPORADAS);

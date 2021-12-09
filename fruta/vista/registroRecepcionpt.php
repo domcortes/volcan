@@ -826,7 +826,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Guía</label>
                                                 <input type="hidden" class="form-control" placeholder="Número Guía" id="NUMEROGUIAE" name="NUMEROGUIAE" value="<?php echo $NUMEROGUIA; ?>" />
-                                                <input type="number" class="form-control" placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="number" class="form-control" placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?> />
                                                 <label id="val_numerog" class="validacion"><?php echo $MENSAJE3; ?> </label>
                                             </div>
                                         </div>
@@ -1372,7 +1372,7 @@ if (isset($_POST)) {
                 $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
                 $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
                 $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-                $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
                 $RECEPCIONPT->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
                 $RECEPCIONPT->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
                 $RECEPCIONPT->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);
@@ -1457,7 +1457,7 @@ if (isset($_POST)) {
                     $RECEPCIONPT->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
                     $RECEPCIONPT->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
                     $RECEPCIONPT->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIAE']);
-                    $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                    $RECEPCIONPT->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
                     $RECEPCIONPT->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
                     $RECEPCIONPT->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
                     $RECEPCIONPT->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);

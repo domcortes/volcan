@@ -892,7 +892,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Guía</label>
                                                 <input type="hidden" class="form-control" placeholder="Número Guía" id="NUMEROGUIAE" name="NUMEROGUIAE" value="<?php echo $NUMEROGUIA; ?>" />
-                                                <input type="number" class="form-control"  placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="number" class="form-control"  placeholder="Numero Guia" id="NUMEROGUIA" name="NUMEROGUIA" value="<?php echo $NUMEROGUIA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?>  />
                                                 <label id="val_numerog" class="validacion"><?php echo $MENSAJE3; ?> </label>
                                             </div>
                                         </div>
@@ -1316,7 +1316,6 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
-
         <?php
         //OPERACION DE REGISTRO DE FILA
         if (isset($_REQUEST['CREAR'])) {
@@ -1470,7 +1469,7 @@ if (isset($_POST)) {
             $RECEPCIONIND->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
             $RECEPCIONIND->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
             $RECEPCIONIND->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
-            $RECEPCIONIND->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+            $RECEPCIONIND->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
 
             $RECEPCIONIND->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
             $RECEPCIONIND->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
@@ -1505,7 +1504,7 @@ if (isset($_POST)) {
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
                 $RECEPCIONE->__SET('NUMERO_RECEPCION', $NUMERO);
                 $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIA']);
                 $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                 $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                 $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
@@ -1545,7 +1544,7 @@ if (isset($_POST)) {
                 $RECEPCIONE_ADO->cerrado($RECEPCIONE);
             }else{
                 $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIA']);
                 $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                 $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                 $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
@@ -1631,7 +1630,7 @@ if (isset($_POST)) {
                 $RECEPCIONIND->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
                 $RECEPCIONIND->__SET('HORA_RECEPCION', $_REQUEST['HORARECEPCIONE']);
                 $RECEPCIONIND->__SET('FECHA_GUIA_RECEPCION', $_REQUEST['FECHAGUIA']);
-                $RECEPCIONIND->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                $RECEPCIONIND->__SET('NUMERO_GUIA_RECEPCION', $_REQUEST['NUMEROGUIA']);
                 $RECEPCIONIND->__SET('CANTIDAD_ENVASE_RECEPCION', $_REQUEST['CANTIDADENVASERECEPCION']);
                 $RECEPCIONIND->__SET('KILOS_NETO_RECEPCION', $_REQUEST['KILOSNETORECEPCION']);
                 $RECEPCIONIND->__SET('KILOS_BRUTO_RECEPCION', $_REQUEST['KILOSBRUTORECEPCION']);    
@@ -1676,7 +1675,7 @@ if (isset($_POST)) {
                     //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
                     $RECEPCIONE->__SET('NUMERO_RECEPCION', $NUMERO);
                     $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                    $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                    $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIA']);
                     $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                     $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                     $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
@@ -1735,7 +1734,7 @@ if (isset($_POST)) {
 
                 }else{
                     $RECEPCIONE->__SET('FECHA_RECEPCION', $_REQUEST['FECHARECEPCION']);
-                    $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIAE']);
+                    $RECEPCIONE->__SET('NUMERO_DOCUMENTO_RECEPCION', $_REQUEST['NUMEROGUIA']);
                     $RECEPCIONE->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                     $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                     $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);

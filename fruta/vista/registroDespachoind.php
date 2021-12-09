@@ -883,7 +883,7 @@ if (isset($_POST)) {
                                                     <option value="1" <?php if ($TDESPACHO == "1") { echo "selected"; } ?>> Interplanta</option>
                                                     <option value="2" <?php if ($TDESPACHO == "2") { echo "selected"; } ?>> Devolución Productor </option>
                                                     <option value="3" <?php if ($TDESPACHO == "3") { echo "selected"; } ?>> Venta</option>
-                                                    <option value="4" <?php if ($TDESPACHO == "4") { echo "selected"; } ?>> Despacho de Descarte</option>
+                                                    <option value="4" <?php if ($TDESPACHO == "4") { echo "selected"; } ?>> Despacho de Descarte(R)</option>
                                                     <option value="5" <?php if ($TDESPACHO == "5") { echo "selected"; } ?>> Planta Externa</option>
                                                 </select>
                                                 <label id="val_tdespacho" class="validacion"> </label>
@@ -894,7 +894,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Número Guía </label>
                                                     <input type="hidden" class="form-control" placeholder="Numero Guia" id="NUMEROGUIADESPACHOE" name="NUMEROGUIADESPACHOE" value="<?php echo $NUMEROGUIADESPACHO; ?>" />
-                                                    <input type="text" class="form-control" placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="text" class="form-control" placeholder="Número Guía" id="NUMEROGUIADESPACHO" name="NUMEROGUIADESPACHO" value="<?php echo $NUMEROGUIADESPACHO; ?>" <?php echo $DISABLED2; ?> />
                                                     <label id="val_numeroguia" class="validacion"> </label>
                                                 </div>
                                             </div>                                               
@@ -1362,22 +1362,22 @@ if (isset($_POST)) {
                 $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
                 if ($_REQUEST['TDESPACHOE'] == "1") {
                     $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
-                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "2") {
                     $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "3") {
                     $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
-                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "4") {
                     $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
                 }
                 if ($_REQUEST['TDESPACHOE'] == "5") {
                     $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
-                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                    $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                 }
                 $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1475,22 +1475,22 @@ if (isset($_POST)) {
                     $DESPACHOIND->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
                     if ($_REQUEST['TDESPACHOE'] == "1") {
                         $DESPACHOIND->__SET('ID_PLANTA2', $_REQUEST['PLANTADESTINOE']);
-                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "2") {
                         $DESPACHOIND->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
-                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "3") {
                         $DESPACHOIND->__SET('ID_COMPRADOR', $_REQUEST['COMPRADORE']);
-                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "4") {
                         $DESPACHOIND->__SET('REGALO_DESPACHO', $_REQUEST['REGALOE']);
                     }
                     if ($_REQUEST['TDESPACHOE'] == "5") {
                         $DESPACHOIND->__SET('ID_PLANTA3', $_REQUEST['PLANTAEXTERNAE']);
-                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHOE']);
+                        $DESPACHOIND->__SET('NUMERO_GUIA_DESPACHO', $_REQUEST['NUMEROGUIADESPACHO']);
                     }
                     $DESPACHOIND->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                     $DESPACHOIND->__SET('ID_PLANTA', $_REQUEST['PLANTA']);

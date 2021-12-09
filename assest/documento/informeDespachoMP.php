@@ -167,7 +167,7 @@ if($ARRAYDESPACHO){
   }
   if ($TDESPACHO == "4") {
     $TDESPACHON = "Regalo";
-    $TDESPACHON = "Despacho de Descarte";
+    $TDESPACHON = "Despacho de Descarte(R)";
     $NUMEROGUIA = "No Aplica";
     $DESTINO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
   }
