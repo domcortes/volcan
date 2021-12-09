@@ -439,10 +439,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
             <tr>
-            <th colspan="11" class="center">SALIDA.</th>
+            <th colspan="12" class="center">SALIDA.</th>
             </tr>
           <tr>
-            <th colspan="11" class="center">PRODUCTO TERMINADO.</th>
+            <th colspan="12" class="center">PRODUCTO TERMINADO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -451,7 +451,8 @@ $html = $html . '
             <th class="color center">Envase/Estandar</th>
             <th class="color center">Cant. Envase</th>
             <th class="color center">Kilos Neto</th>
-            <th class="color center">Kilos Con Deshidratacion</th>
+            <th class="color center">% Deshi.</th>
+            <th class="color center">Kilos Con Deshi.</th>
             <th class="color center">%</th>
             <th class="color center">Embolsado</th>
             <th class="color center">Calibre</th>
@@ -503,6 +504,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
             <td class=" center"> ' . $NOMBREESTANDAR . '</td>
             <td class=" center">' . $r['ENVASE'] . ' </td>
             <td class=" center"> ' . $r['NETO'] . '</td>
+            <td class=" center"> ' . $r['PORCENTAJE'] .   '%</td>
             <td class=" center "> ' . $r['DESHIDRATACION'] . ' </td>
             <td class=" center"> ' . $NETOEXPOR . '%</td>
             <td class=" center "> ' . $EMBOLSADO . ' </td>
@@ -514,6 +516,7 @@ endforeach;
 $html = $html . '    
             <tr>
                 <th class="color left"> </th>
+                <th class="color center"> </th>
                 <th class="color center"> </th>
                 <th class="color center"> </th>
                 <th class="color right">Sub Total </th>
