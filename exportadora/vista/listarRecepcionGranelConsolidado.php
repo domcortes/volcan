@@ -99,14 +99,19 @@ if ($EMPRESAS  && $TEMPORADAS) {
     $ARRAYRECEPCIONIND = $RECEPCIONIND_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYRECEPCIONINDTOTALES = $RECEPCIONIND_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $TOTALNETOIND = $ARRAYRECEPCIONINDTOTALES[0]['NETO'];
-
-
+    $TOTALBRUTOIND = $ARRAYRECEPCIONINDTOTALES[0]['BRUTO'];
+    $TOTALENVASEIND = $ARRAYRECEPCIONINDTOTALES[0]['ENVASE'];
 
     $ARRAYRECEPCIONMP = $RECEPCIONMP_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYRECEPCIONMPTOTALES = $RECEPCIONMP_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
+    $TOTALBRUTOMP = $ARRAYRECEPCIONMPTOTALES[0]['BRUTO'];
     $TOTALNETOMP = $ARRAYRECEPCIONMPTOTALES[0]['NETO'];
+    $TOTALENVASEMP = $ARRAYRECEPCIONMPTOTALES[0]['ENVASE'];
 
-    $TOTALNETO = number_format($TOTALNETOIND + $TOTALNETOMP, 2, ",", ".");
+    
+    $TOTALNETO  = number_format( $TOTALNETOMP + $TOTALNETOIND, 2, ",", ".");
+    $TOTALBRUTO = number_format( $TOTALBRUTOMP + $TOTALBRUTOIND, 2, ",", ".");
+    $TOTALENVASE  = number_format( $TOTALENVASEMP + $TOTALENVASEIND, 2, ",", ".");
 }
 
 include_once "../config/validarDatosUrl.php";
@@ -125,7 +130,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Consolidado Recep. GranelD</title>
+    <title>Consolidado Recep. Granel</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -525,12 +530,12 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                            <td><?php echo $NOMBRECONDUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION; ?></td>
@@ -554,16 +559,36 @@ include_once "../config/datosUrLP.php";
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
+                                        </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
                                                 </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>

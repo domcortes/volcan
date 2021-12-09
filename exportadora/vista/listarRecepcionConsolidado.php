@@ -91,26 +91,29 @@ $ARRAYPRODUCTOR = "";
 if ($EMPRESAS && $TEMPORADAS) {
 
 
+    $ARRAYRECEPCIONIND = $RECEPCIONIND_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYRECEPCIONINDTOTALES = $RECEPCIONIND_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $TOTALNETOIND = $ARRAYRECEPCIONINDTOTALES[0]['NETO'];
+    $TOTALBRUTOIND = $ARRAYRECEPCIONINDTOTALES[0]['BRUTO'];
+    $TOTALENVASEIND = $ARRAYRECEPCIONINDTOTALES[0]['ENVASE'];
+
     $ARRAYRECEPCIONMP = $RECEPCIONMP_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYRECEPCIONMPTOTALES = $RECEPCIONMP_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
     $TOTALBRUTOMP = $ARRAYRECEPCIONMPTOTALES[0]['BRUTO'];
     $TOTALNETOMP = $ARRAYRECEPCIONMPTOTALES[0]['NETO'];
     $TOTALENVASEMP = $ARRAYRECEPCIONMPTOTALES[0]['ENVASE'];
 
-    $ARRAYRECEPCIONIND = $RECEPCIONIND_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYRECEPCIONINDTOTALES = $RECEPCIONIND_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $TOTALNETOIND = $ARRAYRECEPCIONINDTOTALES[0]['NETO'];
-
-    $ARRAYRECEPCION = $RECEPCIONPT_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    
+    $ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYRECEPCIONPTTOTALES = $RECEPCIONPT_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $TOTALNETOPT = $ARRAYRECEPCIONPTTOTALES[0]['BRUTO'];
-    $TOTALBRUTOPT = $ARRAYRECEPCIONPTTOTALES[0]['NETO'];
+    $TOTALBRUTOPT = $ARRAYRECEPCIONPTTOTALES[0]['BRUTO'];
+    $TOTALNETOPT = $ARRAYRECEPCIONPTTOTALES[0]['NETO'];
     $TOTALENVASEPT = $ARRAYRECEPCIONPTTOTALES[0]['ENVASE'];
 
-
-    $TOTALNETO  = number_format($TOTALNETOPT + $TOTALNETOMP + $TOTALNETOIND, 2, ",", ".");
-    $TOTALBRUTO = number_format($TOTALBRUTOPT +  $TOTALBRUTOMP, 2, ",", ".");
-    $TOTALENVASE  = number_format($TOTALENVASEPT + $TOTALENVASEMP, 2, ",", ".");
+    
+    $TOTALNETO  = number_format( $TOTALNETOMP + $TOTALNETOIND + $TOTALNETOPT, 2, ",", ".");
+    $TOTALBRUTO = number_format( $TOTALBRUTOMP + $TOTALBRUTOIND + $TOTALBRUTOPT, 2, ",", ".");
+    $TOTALENVASE  = number_format( $TOTALENVASEMP + $TOTALENVASEIND + $TOTALENVASEPT, 2, ",", ".");
 }
 
 include_once "../config/validarDatosUrl.php";
@@ -299,8 +302,7 @@ include_once "../config/datosUrLP.php";
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYRECEPCION as $r) : ?>
-
+                                                <?php foreach ($ARRAYRECEPCIONPT as $r) : ?>
                                                     <?php
                                                     if ($r['TRECEPCION'] == "1") {
                                                         $TRECEPCION = "Desde Productor ";
@@ -582,14 +584,14 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                            <td><?php echo $NOMBRECONDUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION; ?></td>

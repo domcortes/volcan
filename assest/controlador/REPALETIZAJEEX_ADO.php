@@ -156,6 +156,27 @@ class REPALETIZAJEEX_ADO
             die($e->getMessage());
         }
     }
+    public function verRepaletizajeCsv($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(INGRESO, '%Y%m%d') AS 'INGRESO' 
+                                                FROM fruta_repaletizajeex 
+                                                WHERE ID_REPALETIZAJE= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
     //REGISTRO DE UNA NUEVA FILA    
     public function agregarRepaletizaje(REPALETIZAJEEX $REPALETIZAJEEX)
@@ -324,6 +345,33 @@ class REPALETIZAJEEX_ADO
         }
     }
 
+    public function buscarPorRepaletizajePorEspecies($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT   
+                                                    (
+                                                    SELECT especies.CODIGO_SAG_ESPECIES
+                                                    FROM fruta_especies especies
+                                                    WHERE especies.ID_ESPECIES = vespecies.ID_ESPECIES      
+                                                    )  AS 'CODIGO'
+                                                FROM fruta_repaletizajeex repaletizaje, fruta_exiexportacion existencia, fruta_vespecies vespecies
+                                                WHERE repaletizaje.ID_REPALETIZAJE = existencia.ID_REPALETIZAJE
+                                                AND existencia.ID_VESPECIES = vespecies.ID_VESPECIES
+                                                AND repaletizaje.ID_REPALETIZAJE= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //TOTALES
 

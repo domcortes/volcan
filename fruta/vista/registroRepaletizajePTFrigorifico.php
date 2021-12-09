@@ -106,6 +106,7 @@ $TEMPORADA = "";
 $TMANEJO = "";
 
 $FOCUS = "";
+$DISABLEDT="";
 $DISABLED0 = "disabled";
 $DISABLED = "";
 $DISABLED2 = "";
@@ -224,10 +225,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     $TOTALENVASEREPALETIZAJE2 = $ARRAYDREPALETIZAJETOTALES2[0]['ENVASE'];
 
 
-    if (empty($ARRAYEXIEXPORTACIONTOMADO)) {
-        $DISABLED5 = "disabled";
+    if (empty($ARRAYTOMADO)) {
+        $DISABLEDT = "disabled";
     }
 
+    if (empty($ARRAYTOMADO)) {        
+        $DISABLEDT = "disabled";
+    }
     //IDENTIFICACIONES DE OPERACIONES
     //crear =  OBTENCION DE DATOS INICIALES PARA PODER CREAR LA RECEPCION
     if ($OP == "crear") {
@@ -572,6 +576,9 @@ if ($_POST) {
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $IDOP; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Tarjas
                                                 </button>
+                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDT; ?>  Onclick="abrirPestana('../../assest/csv/CsvRepa.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                    <i class="fa fa-file-excel-o"></i> Archivo Plano
+                                                </button>  
                                             <?php endif ?>
                                         </div>
                                     </div>

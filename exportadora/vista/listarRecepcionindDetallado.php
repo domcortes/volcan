@@ -88,7 +88,10 @@ if ($EMPRESAS  && $TEMPORADAS) {
 
     $ARRAYRECEPCIONIND = $RECEPCIONIND_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYRECEPCIONTOTALES = $RECEPCIONIND_ADO->obtenerTotalesRecepcionEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
+    $TOTALBRUTO = $ARRAYRECEPCIONTOTALES[0]['BRUTO'];
     $TOTALNETO = $ARRAYRECEPCIONTOTALES[0]['NETO'];
+    $TOTALENVASE = $ARRAYRECEPCIONTOTALES[0]['ENVASE'];
+
 }
 
 include_once "../config/validarDatosUrl.php";
@@ -248,7 +251,9 @@ include_once "../config/datosUrLP.php";
                                                     <th>Productor</th>
                                                     <th>Especies</th>
                                                     <th>Variedad</th>
+                                                    <th>Cantidad Envases</th>
                                                     <th>Kilos Neto</th>
+                                                    <th>Kilos Bruto</th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
@@ -371,10 +376,12 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                            <td><?php echo $NOMBRECONDUCTOR; ?></td>
+                                                            <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                            <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
+                                                            <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION; ?></td>
@@ -397,16 +404,36 @@ include_once "../config/datosUrLP.php";
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
+                                        </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
                                                 </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                <!-- /input -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                </div>
+                                                <!-- input -->
+                                                <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>

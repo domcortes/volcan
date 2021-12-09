@@ -35,7 +35,7 @@ $FECHADESDE = "";
 $FECHAHASTA = "";
 $FOLIOORIGINAL="";
 $FOLIONUEVO="";
-
+$DISABLEDT="";
 
 //INICIALIZAR ARREGLOS
 $ARRAYREPALETIZAJEEX = "";
@@ -211,6 +211,12 @@ include_once "../config/datosUrLP.php";
                                                     <?php foreach ($ARRAYREPALETIZAJEEX as $r) : ?>
 
                                                         <?php
+                                                        $ARRAYTOMADO = $EXIEXPORTACION_ADO->buscarPorRepaletizaje2($r['ID_REPALETIZAJE']);
+                                                        if (empty($ARRAYTOMADO)) {
+                                                            $DISABLEDT = "disabled"; 
+                                                        }else{
+                                                            $DISABLEDT = ""; 
+                                                        }
                                                         $ARRAYFOLIOREPALETIZAJE = $EXIEXPORTACION_ADO->buscarPorRepaletizajeAgrupado($r['ID_REPALETIZAJE']);
                                                         if ($ARRAYFOLIOREPALETIZAJE) {
                                                             foreach ($ARRAYFOLIOREPALETIZAJE as $dr) :
@@ -292,6 +298,11 @@ include_once "../config/datosUrLP.php";
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarja">
                                                                                     <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Tarja
+                                                                                    </button>
+                                                                                </span>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="CSV">
+                                                                                    <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Archivo Plano"  <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvRepa.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                                                     </button>
                                                                                 </span>
                                                                             </div>
