@@ -211,7 +211,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAIS3 = "" . $r['ID_PAIS3'];
             $PAIS4 = "" . $r['ID_PAIS4'];
             $PLANTA = "" . $r['ID_PLANTA'];
-            $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            $TEMPORADA = "" . $r['ID_TEMPORADA'];            
+            $ARRAYCONTRAPARTE =  $CONTRAPARTE_ADO->listarContraparteCBX();
+            $ARRAYINPECTOR = $INPECTOR_ADO->listarInpectorCBX();
         endforeach;
     }
 
@@ -256,6 +258,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAIS4 = "" . $r['ID_PAIS4'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            $ARRAYCONTRAPARTE =  $CONTRAPARTE_ADO->listarContraparteCBX();
+            $ARRAYINPECTOR = $INPECTOR_ADO->listarInpectorCBX();
         endforeach;
     }
 
@@ -302,6 +306,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PAIS4 = "" . $r['ID_PAIS4'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            $ARRAYCONTRAPARTE =  $CONTRAPARTE_ADO->listarContraparteCBX();
+            $ARRAYINPECTOR = $INPECTOR_ADO->listarInpectorCBX();
         endforeach;
     }
 }
