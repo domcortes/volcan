@@ -597,19 +597,19 @@ $html = $html . '
       ';
 
 
-      $html = $html . '
+$html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="7" class="center">RESUMEN.</th>
+            <th colspan="6" class="center">RESUMEN.</th>
           </tr>
           <tr>
             <th class="color left">CSG</th>
             <th class="color center ">Nombre Productor </th>
             <th class="color center ">Comuna </th>
-            <th class="color center ">Provincia </th>
+            <th class="color center">Envase/Estandar</th>
             <th class="color center ">Variedad </th>
-            <th class="color center ">Cantidad Envases </th>
+            <th class="color center">Cantidad Envase</th>
           </tr>
         </thead>
          <tbody>
@@ -620,27 +620,37 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
   $ARRAYEXIEXPORTACIONPRODUCTOR = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2DiferenciadoProductor($IDOP, $a['ID_PRODUCTOR']);
   $ARRAYEXIEXPORTACIONPRODUCTORTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeExnDiferenciadoProductor2($IDOP, $a['ID_PRODUCTOR']);
   $TOTALENVASEPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['ENVASE'];
-  $TOTALNETOPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['NETO'];
 
   foreach ($ARRAYEXIEXPORTACIONPRODUCTOR as $b) :
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($b['ID_PRODUCTOR']);
     $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID[0]["ID_CIUDAD"]);
     $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
+
     $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]["CSG_PRODUCTOR"];
     $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]["NOMBRE_PRODUCTOR"];
     $COMUNAPRODUCTOR = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
-    $ARRAYPROVINCIA= $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);
-    $NOMBREPROVINICA=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
 
 
+    $ARRAYEXIEXPORTACIONBOLSA2 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorDiferenciadoProductorEstandar($IDOP, $b['ID_PRODUCTOR']);
+    foreach ($ARRAYEXIEXPORTACIONBOLSA2 as $c) :
 
-        $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorVariedad($IDOP, $b['ID_PRODUCTOR']);
+      $ARRAYEXIEXPORTACIONPRODUCTORESTANDAR = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
+      $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
+      $TOTALENVASEESTANDAR = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL[0]['ENVASE'];
+
+
+      foreach ($ARRAYEXIEXPORTACIONPRODUCTORESTANDAR as $d) :
+        $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($d['ID_ESTANDAR']);
+        $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]["CODIGO_ESTANDAR"];
+        $NOMBREESTANDAR = $ARRAYEEXPORTACION[0]["NOMBRE_ESTANDAR"];
+
+        $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandarVariedad($IDOP, $d['ID_PRODUCTOR'], $d['ID_ESTANDAR']);
         foreach ($ARRAYEXIEXPORTACIONBOLSA3 as $e) :
 
-          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoeEx2ProductorVariedadDiferenciadoProductorVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_VESPECIES']);
-          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2ProductorVariedadDiferenciadoProductorVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_VESPECIES']);
+          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoeEx2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_VESPECIES']);
+          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_VESPECIES']);
           $TOTALENVASEVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['ENVASE'];
-          $TOTALNETOVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['NETO'];
+
           foreach ($ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD as $f) :
 
             $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($f['ID_VESPECIES']);
@@ -651,7 +661,7 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
                 <td class="left">' .  $CSGPRODUCTOR . '</td>
                 <td class="center">' . $NOMBREPRODUCTOR . '</td>
                 <td class="center">' . $COMUNAPRODUCTOR . '</td>
-                <td class="center">' . $NOMBREPROVINICA . '</td>
+                <td class="center">' . $NOMBREESTANDAR . '</td>
                 <td class="center">' . $NOMBREVARIEDAD . '</td>
                 <th class="center">' . $TOTALENVASEVARIEDAD . '</th>
             </tr>
@@ -662,8 +672,26 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
 
 
         endforeach;
+
+
       endforeach;
 
+      $html = $html . '              
+        <tr class="bt">
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 right"> Total Estandar </th>
+            <th class="color2 center">' . $TOTALENVASEESTANDAR . '</th>¿
+        </tr>
+      ';
+
+    endforeach;
+
+
+
+  endforeach;
   $html = $html . '              
   <tr class="bt">
       <th class="color2 center">&nbsp;</th>
@@ -671,7 +699,7 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
       <th class="color2 center">&nbsp;</th>
       <th class="color2 center">&nbsp;</th>
       <th class="color2 right"> Total Productor </th>
-      <th class="color2 center">' . $TOTALENVASEPRODUCTOR . '</th>
+      <th class="color2 center">' . $TOTALENVASEPRODUCTOR . '</th>¿
   </tr>
 ';
 
@@ -684,7 +712,7 @@ $html = $html . '
     <th class="color center">&nbsp;</th>
     <th class="color center">&nbsp;</th>
     <th class="color right"> Total  </th>
-    <th class="color center">' . $TOTALENVASEBOLSA . '</th>
+    <th class="color center">' . $TOTALENVASEBOLSA . '</th>¿
 </tr>
 ';
 
@@ -694,7 +722,6 @@ $html = $html . '
       </table>
 
       ';
-
 
 $html = $html . '
 <br>&nbsp;<br><br><br><br>

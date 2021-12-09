@@ -87,7 +87,7 @@ $CALIBRE = "";
 $TMANEJO = "";
 $EMPRESAURL = "";
 
-$CIF = "";
+$CIF="";
 
 $TOTALENVASE = "";
 $TOTALNETO = "";
@@ -100,34 +100,34 @@ $TOTALBRUTO2 = "";
 $CSGPRODUCTOR = "";
 $NOMBREPRODUCTOR = "";
 $COMUNAPRODUCTOR = "";
-$PROVINCIAPRODUCTOR = "";
+$PROVINCIAPRODUCTOR="";
 
 $CODIGOESTANDAR = "";
 $NOMBREESTANDAR = "";
 $NOMBREVARIEDAD = "";
 
 
-$CSPPLANTA = "";
-$RAZONPLANTA = "";
-$COMUNAPLANTA = "";
-$CIUDADPLANTA = "";
+$CSPPLANTA="";
+$RAZONPLANTA="";
+$COMUNAPLANTA="";
+$CIUDADPLANTA="";
+$NOMBREPROVINICA="";
+$CSPPLANTA2="";
+$NOMBREPLANTA2="";
+$COMUNAPLANTA2="";
+$PROVINCIAPLANTA2="";
 
-$CSPPLANTA2 = "";
-$NOMBREPLANTA2 = "";
-$COMUNAPLANTA2 = "";
-$PROVINCIAPLANTA2 = "";
 
+$CSPPLANTA3="";
+$NOMBREPLANTA3="";
+$COMUNAPLANTA3="";
+$PROVINCIAPLANTA3="";
+$NOMBRENAVE="";
+$NOMBREEXPORTADORA="";
+$NOMBRECONTRAPARTE="";
 
-$CSPPLANTA3 = "";
-$NOMBREPLANTA3 = "";
-$COMUNAPLANTA3 = "";
-$PROVINCIAPLANTA3 = "";
-$NOMBRENAVE = "";
-$NOMBREEXPORTADORA = "";
-$NOMBRECONTRAPARTE = "";
-
-$FECHAETA = "";
-$FECHAETD = "";
+$FECHAETA="";
+$FECHAETD="";
 
 //INICIALIZAR ARREGLOS
 $ARRAYDESPACHOEX = "";
@@ -158,12 +158,12 @@ $ARRAYPROVINCIA = "";
 
 
 $ARRAYCIUDAD3 = "";
-$ARRAYCOMUNA3 = "";
+$ARRAYCOMUNA3= "";
 $ARRAYCIUDAD2 = "";
 $ARRAYCOMUNA2 = "";
-$ARRAYNAVE = "";
+$ARRAYNAVE="";
 
-$ARRAYEXPORTADORA = "";
+$ARRAYEXPORTADORA="";
 $ARRAYFOLIO = "";
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
@@ -175,9 +175,8 @@ $ARRAYEEXPORTACION = "";
 $ARRAYPRODUCTOR = "";
 $ARRAYCALIBRE = "";
 $ARRAYTMANEJO = "";
-$ARRAYUSUARIO = "";
-$ARRAYICARGA = "";
-$ARRAYCALIBRE="";
+$ARRAYUSUARIO="";
+$ARRAYICARGA="";
 
 
 
@@ -189,12 +188,12 @@ if (isset($_REQUEST['usuario'])) {
 
 
 
-
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
 }
 
 $ARRAYDESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($IDOP);
+
 if($ARRAYDESPACHOEX){
 
   $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorDespachoex2AgrupadoFolio($IDOP);
@@ -206,16 +205,17 @@ if($ARRAYDESPACHOEX){
   $ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaDespachoexInspeccion2($IDOP);
   $ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2($IDOP);
   $TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
+  $TOTALNETOBOLSA= $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['NETO'];
   
   $NUMERODESPACHOEX = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
   $NUMEROPLANILLA = $ARRAYDESPACHOEX[0]['NUMERO_PLANILLA_DESPACHOEX'];
   $FECHADESPACHOEX = $ARRAYDESPACHOEX[0]['FECHA'];
   $EMBARQUE = $ARRAYDESPACHOEX[0]['TEMBARQUE_DESPACHOEX'];
   $NUMEROGUIA = $ARRAYDESPACHOEX[0]['NUMERO_GUIA_DESPACHOEX'];
-  $NUMEROCONTENEDOR = $ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];
-  $FECHAETA = $ARRAYDESPACHOEX[0]['ETA'];
-  $FECHAETD = $ARRAYDESPACHOEX[0]['ETD'];  
-  $ESTADO = $ARRAYDESPACHOEX[0]['ESTADO'];  
+  $NUMEROCONTENEDOR = $ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];  
+  $FECHAETA= $ARRAYDESPACHOEX[0]['ETA'];
+  $FECHAETD= $ARRAYDESPACHOEX[0]['ETD'];  
+  $ESTADO = $ARRAYDESPACHOEX[0]['ESTADO'];
   $PATENTECAMION = $ARRAYDESPACHOEX[0]['PATENTE_CAMION'];
   $PATENTECARRO = $ARRAYDESPACHOEX[0]['PATENTE_CARRO'];
   $OBSERVACIONES = $ARRAYDESPACHOEX[0]['OBSERVACION_DESPACHOEX'];
@@ -227,6 +227,7 @@ if($ARRAYDESPACHOEX){
   }else{
     $ESTADO="Sin Datos";
   }  
+
   
   $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYDESPACHOEX[0]['ID_TRANSPORTE']);
   if($ARRAYTRANSPORTE){
@@ -241,32 +242,32 @@ if($ARRAYDESPACHOEX){
     $CONDUCTOR="Sin Datos";
   }
   
-  
 
   $ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->verContraparte($ARRAYDESPACHOEX[0]['ID_CONTRAPARTE']);
-  if ($ARRAYCONTRAPARTE) {
-    $NOMBRECONTRAPARTE = $ARRAYCONTRAPARTE[0]['ID_CONTRAPARTE'];
+  if($ARRAYCONTRAPARTE){
+      $NOMBRECONTRAPARTE = $ARRAYCONTRAPARTE[0]['ID_CONTRAPARTE'];
   }
   
   
-  $ARRAYEXPORTADORA =$EXPORTADORA_ADO->verExportadora( $ARRAYDESPACHOEX[0]['ID_EXPPORTADORA']);
-  if ($ARRAYEXPORTADORA) {
-    $NOMBREEXPORTADORA = $ARRAYEXPORTADORA[0]['RAZON_SOCIAL_EXPORTADORA'];
+  $ARRAYEXPORTADORA=$EXPORTADORA_ADO->verExportadora($ARRAYDESPACHOEX[0]['ID_EXPPORTADORA']);
+  if($ARRAYEXPORTADORA){
+    $NOMBREEXPORTADORA=$ARRAYEXPORTADORA[0]['RAZON_SOCIAL_EXPORTADORA'];
   }
   
-  if ($ARRAYDESPACHOEX[0]['ID_ICARGA']) {
-    $ARRAYICARGA = $ICARGA_ADO->verIcarga($ARRAYDESPACHOEX[0]['ID_ICARGA']);
-    if ($ARRAYICARGA) {
+  if($ARRAYDESPACHOEX[0]['ID_ICARGA']){
+    $ARRAYICARGA=$ICARGA_ADO->verIcarga($ARRAYDESPACHOEX[0]['ID_ICARGA']);
+    if($ARRAYICARGA){
+      
+    $NUMEROICARGA=$ARRAYICARGA[0]['NUMERO_ICARGA'];
+    $NUMEROICARGAFINAL=$ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
   
-      $NUMEROICARGA = $ARRAYICARGA[0]['NUMERO_ICARGA'];
-      $NUMEROICARGAFINAL = $ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
     }
-  } else {
-    $NUMEROICARGA = "Sin Datos";
-    $NUMEROICARGAFINAL = "Sin Datos";
+  }else{
+    $NUMEROICARGA="Sin Datos";
+    $NUMEROICARGAFINAL="Sin Datos";
   }
   
-  $NOMBRENAVE = $ARRAYDESPACHOEX[0]['NAVE_DESPACHOEX'];
+  $NOMBRENAVE= $ARRAYDESPACHOEX[0]['NAVE_DESPACHOEX'];
   
   
   if ($EMBARQUE == null || $EMBARQUE == "0") {
@@ -290,21 +291,20 @@ if($ARRAYDESPACHOEX){
   $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYDESPACHOEX[0]['ID_EMPRESA']);
   $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYDESPACHOEX[0]['ID_TEMPORADA']);
   $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
+  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA']; 
   
   
   
-  
-  $CSPPLANTA = $ARRAYPLANTA[0]['CODIGO_SAG_PLANTA'];
-  $RAZONPLANTA = $ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
+  $CSPPLANTA=$ARRAYPLANTA[0]['CODIGO_SAG_PLANTA'];
+  $RAZONPLANTA=$ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
   
   
   $ARRAYCIUDAD3 = $CIUDAD_ADO->verCiudad($ARRAYPLANTA[0]['ID_CIUDAD']);
-  $CIUDADPLANTA = $ARRAYCIUDAD3[0]['NOMBRE_CIUDAD'];
+  $CIUDADPLANTA=$ARRAYCIUDAD3[0]['NOMBRE_CIUDAD'];
   
   
   $ARRAYCOMUNA3 = $COMUNA_ADO->verComuna($ARRAYCIUDAD3[0]['ID_COMUNA']);
-  $COMUNAPLANTA = $ARRAYCOMUNA3[0]['NOMBRE_COMUNA'];;
+  $COMUNAPLANTA=$ARRAYCOMUNA3[0]['NOMBRE_COMUNA'];;
   
   $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
   $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
@@ -312,9 +312,9 @@ if($ARRAYDESPACHOEX){
   if ($EMPRESAURL == "") {
     $EMPRESAURL = "img/empresa/no_disponible.png";
   }
+  
+  
 }
-
-
 
 //OBTENCION DE LA FECHA
 date_default_timezone_set('America/Santiago');
@@ -392,7 +392,7 @@ $html = '
   <body>
     <header class="clearfix">
       <div id="logo">
-          <img src="../../assest/img/logo.png" width="100px" height="30px"/>
+           <img src="../vista/img/logo.png" width="100px" height="30px"/>
       </div>
       <div id="company">
         <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
@@ -408,7 +408,7 @@ $html = '
       </h2>
       <div id="details" class="clearfix">        
         <div id="invoice">
-          <div class="date"><b>Código BRC: </b>REP-DESPTPL </div>  
+          <div class="date"><b>Código BRC: </b>REP-DESPCOM </div>  
           <div class="date"><b>Fecha Despacho: </b>' . $FECHADESPACHOEX . ' </div>
           <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
           <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
@@ -434,182 +434,25 @@ $html = '
            <div class="address"><b>Fecha ETA: </b>' . $FECHAETA . '</div>
         </div>            
       </div>     
-      <table border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <th colspan="15" class="center">DETALLE DE DESPACHO.</th>
-          </tr>
-          <tr>
-            <th class="color left">Folio</th>
-            <th class="color center ">CSG </th>
-            <th class="color center ">Productor </th>
-            <th class="color center ">Comuna  </th>
-            <th class="color center ">Provincia  </th>            
-            <th class="color center ">CSP </th>            
-            <th class="color center ">Planta </th>
-            <th class="color center ">Comuna  </th>
-            <th class="color center ">Provincia  </th>   
-            <th class="color center">Fecha Embalado</th>
-            <th class="color center">Código Estandar</th>
-            <th class="color center">Envase/Estandar</th>
-            <th class="color center ">Variedad </th>
-            <th class="color center">Calibre</th>
-            <th class="color center">Cantidad Envase</th>
-
-          </tr>
-        </thead>
-         <tbody>
         ';
 
 
-foreach ($ARRAYEXIEXPORTACION as $d) :
-
-
-
-  $ARRAYEXIEXPORTACION2 = $EXIEXPORTACION_ADO->buscarPorFolio2Activo2DespachoEX($d['FOLIO_AUXILIAR_EXIEXPORTACION'], $IDOP);
-  $ARRAYEXIEXPORTACIONTOTAL2 = $EXIEXPORTACION_ADO->obtenerTotalesFolio2DespachoExActivo2($d['FOLIO_AUXILIAR_EXIEXPORTACION'], $IDOP);
-
-  $TOTALENVASE2 = $ARRAYEXIEXPORTACIONTOTAL2[0]['ENVASE'];
-  $TOTALNETO2 = $ARRAYEXIEXPORTACIONTOTAL2[0]['NETO'];
-  $TOTALBRUTO2 = $ARRAYEXIEXPORTACIONTOTAL2[0]['BRUTO'];
-
-
-  foreach ($ARRAYEXIEXPORTACION2 as $d) :
-    $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($d['ID_PRODUCTOR']);
-    $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID[0]["ID_CIUDAD"]);
-    $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
-    $COMUNAPRODUCTOR = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
-    $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);
-    $PROVINCIAPRODUCTOR = $ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
-
-    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($d['ID_PLANTA']);
-    if ($ARRAYPLANTA2) {
-      $CSPPLANTA2 = $ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
-      $NOMBREPLANTA2 = $ARRAYPLANTA2[0]["NOMBRE_PLANTA"];
-
-      $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYPLANTA2[0]["ID_CIUDAD"]);
-      $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
-      $COMUNAPLANTA2 = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
-      $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);
-      $PROVINCIAPLANTA2 = $ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
-    }
-
-
-    $ARRAYVESPECIES = $VESPECIES_ADO->verVespecies($d['ID_VESPECIES']);
-    $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($d['ID_ESTANDAR']);
-    $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($d['ID_TMANEJO']);
-    $TMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-
-    if ($d['STOCK']) {
-      $STOCK = $d['STOCK'];
-    } else {
-      $STOCK = "-";
-    }
-    if ($d['EMBOLSADO'] == "1") {
-      $EMBOLSADO = "SI";
-    }
-    if ($d['EMBOLSADO'] == "0") {
-      $EMBOLSADO = "NO";
-    }
-
-    $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($d['ID_TCALIBRE']);
-    if ($ARRAYCALIBRE) {
-      $CALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
-    } else {
-      $CALIBRE  = "Sin Calibre";
-    }
-
-    $html = $html . '
-          
-                      <tr >
-                          <th class=" left">' . $d['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
-                          <td class="center">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
-                          <td class="center">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>       
-                          <td class="center">' . $COMUNAPRODUCTOR . '</td>          
-                          <td class="center">' . $PROVINCIAPRODUCTOR . '</td>      
-                          <td class="center">' . $CSPPLANTA2 . '</td>     
-                          <td class="center">' . $NOMBREPLANTA2 . '</td>   
-                          <td class="center">' . $COMUNAPLANTA2 . '</td>   
-                          <td class="center">' . $PROVINCIAPLANTA2 . '</td>   
-                          <td class=" center">' . $d['EMBALADO'] . '</td>
-                          <td class="center">' . $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'] . '</td>
-                          <td class="center">' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '</td>
-                          <td class="center">' . $ARRAYVESPECIES[0]['NOMBRE_VESPECIES'] . '</td>
-                          <td class="center">' . $CALIBRE . '</td>
-                          <td class="center">' . $d['ENVASE'] . '</td>
-                      </tr>
-              ';
-
-
-
-  endforeach;
-
-  $html = $html . '
-              
-          <tr class="bt">
-              <th class="color3 left">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 right"> Total </th>
-              <th class="color3 center">' . $TOTALENVASE2 . '</th>
-          </tr>
-      ';
-
-endforeach;
 
 $html = $html . '
-              
-          <tr class="bt">
-              <th class="color left">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color right"> Total </th>
-              <th class="color center">' . $TOTALENVASE . '</th>
-          </tr>
-      ';
-
-
-
-$html = $html . '
-        </tbody>
-      </table>
-
-      ';
-
-
-      $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="7" class="center">RESUMEN.</th>
+            <th colspan="8" class="center">RESUMEN.</th>
           </tr>
           <tr>
             <th class="color left">CSG</th>
             <th class="color center ">Nombre Productor </th>
             <th class="color center ">Comuna </th>
             <th class="color center ">Provincia </th>
+            <th class="color center ">Envase/Estandar</th>
             <th class="color center ">Variedad </th>
             <th class="color center ">Cantidad Envases </th>
+            <th class="color center ">Kilos Netos</th>
           </tr>
         </thead>
          <tbody>
@@ -621,24 +464,36 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
   $ARRAYEXIEXPORTACIONPRODUCTORTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeExnDiferenciadoProductor2($IDOP, $a['ID_PRODUCTOR']);
   $TOTALENVASEPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['ENVASE'];
   $TOTALNETOPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['NETO'];
-
   foreach ($ARRAYEXIEXPORTACIONPRODUCTOR as $b) :
     $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($b['ID_PRODUCTOR']);
     $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYVERPRODUCTORID[0]["ID_CIUDAD"]);
     $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
+
     $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]["CSG_PRODUCTOR"];
     $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]["NOMBRE_PRODUCTOR"];
     $COMUNAPRODUCTOR = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
     $ARRAYPROVINCIA= $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);
+
     $NOMBREPROVINICA=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
 
+    $ARRAYEXIEXPORTACIONBOLSA2 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorDiferenciadoProductorEstandar($IDOP, $b['ID_PRODUCTOR']);
+    foreach ($ARRAYEXIEXPORTACIONBOLSA2 as $c) :
 
+      $ARRAYEXIEXPORTACIONPRODUCTORESTANDAR = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
+      $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandar($IDOP, $c['ID_PRODUCTOR'], $c['ID_ESTANDAR']);
+      $TOTALENVASEESTANDAR = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL[0]['ENVASE'];
+      $TOTALNETOESTANDAR = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL[0]['NETO'];
 
-        $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorVariedad($IDOP, $b['ID_PRODUCTOR']);
+      foreach ($ARRAYEXIEXPORTACIONPRODUCTORESTANDAR as $d) :
+        $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($d['ID_ESTANDAR']);
+        $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]["CODIGO_ESTANDAR"];
+        $NOMBREESTANDAR = $ARRAYEEXPORTACION[0]["NOMBRE_ESTANDAR"];
+
+        $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorEstandarVariedad($IDOP, $d['ID_PRODUCTOR'], $d['ID_ESTANDAR']);
         foreach ($ARRAYEXIEXPORTACIONBOLSA3 as $e) :
 
-          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoeEx2ProductorVariedadDiferenciadoProductorVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_VESPECIES']);
-          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2ProductorVariedadDiferenciadoProductorVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_VESPECIES']);
+          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoeEx2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_VESPECIES']);
+          $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2ProductorEstandarVariedadDiferenciadoProductorEstandarVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_ESTANDAR'], $e['ID_VESPECIES']);
           $TOTALENVASEVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['ENVASE'];
           $TOTALNETOVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['NETO'];
           foreach ($ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD as $f) :
@@ -652,8 +507,10 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
                 <td class="center">' . $NOMBREPRODUCTOR . '</td>
                 <td class="center">' . $COMUNAPRODUCTOR . '</td>
                 <td class="center">' . $NOMBREPROVINICA . '</td>
+                <td class="center">' . $NOMBREESTANDAR . '</td>
                 <td class="center">' . $NOMBREVARIEDAD . '</td>
                 <th class="center">' . $TOTALENVASEVARIEDAD . '</th>
+                <th class="center">' . $TOTALNETOVARIEDAD . '</th>
             </tr>
             ';
 
@@ -662,16 +519,38 @@ foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
 
 
         endforeach;
+
+
       endforeach;
 
+      $html = $html . '              
+        <tr class="bt">
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 center">&nbsp;</th>
+            <th class="color2 right"> Total Estandar </th>
+            <th class="color2 center">' . $TOTALENVASEVARIEDAD . '</th>
+            <th class="color2 center">' . $TOTALNETOVARIEDAD . '</th>
+        </tr>
+      ';
+
+    endforeach;
+
+
+
+  endforeach;
   $html = $html . '              
   <tr class="bt">
       <th class="color2 center">&nbsp;</th>
       <th class="color2 center">&nbsp;</th>
       <th class="color2 center">&nbsp;</th>
       <th class="color2 center">&nbsp;</th>
+      <th class="color2 center">&nbsp;</th>
       <th class="color2 right"> Total Productor </th>
       <th class="color2 center">' . $TOTALENVASEPRODUCTOR . '</th>
+      <th class="color2 center">' . $TOTALNETOPRODUCTOR . '</th>
   </tr>
 ';
 
@@ -683,8 +562,10 @@ $html = $html . '
     <th class="color center">&nbsp;</th>
     <th class="color center">&nbsp;</th>
     <th class="color center">&nbsp;</th>
+    <th class="color center">&nbsp;</th>
     <th class="color right"> Total  </th>
     <th class="color center">' . $TOTALENVASEBOLSA . '</th>
+    <th class="color center">' . $TOTALNETOBOLSA . '</th>
 </tr>
 ';
 
@@ -695,29 +576,26 @@ $html = $html . '
 
       ';
 
-
 $html = $html . '
 <br>&nbsp;<br><br><br><br>
-          <div id="details" class="clearfix">
-            <div id="client">
-              <div class="address"><b>Informacion De Transporte</b></div>
-              <div class="address">Empresa Transporte:  ' . $TRANSPORTE . ' </div>
-              <div class="address">Conductor: ' . $CONDUCTOR . '</div>
-              <div class="address">Patente Camión: ' . $PATENTECAMION . '</div>
-              <div class="address">Patente Carro: ' . $PATENTECARRO . '</div>
-            </div>
-            <div id="client">
-              <div class="address"><b>Observaciones</b></div>
-              <div class="address">  ' . $OBSERVACIONES . ' </div>
-            </div>
-            <div id="invoice">
-              <div class="date"><b><hr></b></div>
-              <div class="date center">  Firma Contraparte <br> o <br> Despachador Autorizado</div>
-              <div class="date center">  </div>
-            </div>
-          </div>
-            
-
+      <div id="details" class="clearfix">
+        <div id="client">
+          <div class="address"><b>Informacion De Transporte</b></div>
+          <div class="address">Empresa Transporte:  ' . $TRANSPORTE . ' </div>
+          <div class="address">Conductor: ' . $CONDUCTOR . '</div>
+          <div class="address">Patente Camión: ' . $PATENTECAMION . '</div>
+          <div class="address">Patente Carro: ' . $PATENTECARRO . '</div>
+        </div>
+        <div id="client">
+          <div class="address"><b>Observaciones</b></div>
+          <div class="address">  ' . $OBSERVACIONES . ' </div>
+        </div>
+        <div id="invoice">
+          <div class="date"><b><hr></b></div>
+          <div class="date center">  Firma Contraparte <br> o <br> Despachador Autorizado</div>
+          <div class="date center">  </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>
@@ -730,7 +608,7 @@ $html = $html . '
 
 
 //CREACION NOMBRE DEL ARCHIVO
-$NOMBREARCHIVO = "InformeDespachoexPackingList_";
+$NOMBREARCHIVO = "InformeDespachoexComercial_";
 $FECHADOCUMENTO = $FECHANORMAL . "_" . $HORAFINAL;
 $TIPODOCUMENTO = "Informe";
 $FORMATO = ".pdf";
@@ -744,7 +622,7 @@ $UNICODE = "true";
 $ENCODING = "UTF-8";
 
 //DETALLE DEL CREADOR DEL INFORME
-$TIPOINFORME = "Informe Despacho Exportación Packing List";
+$TIPOINFORME = "Informe Despacho Exportación Comercial";
 $CREADOR = "Usuario";
 $AUTOR = "Usuario";
 $ASUNTO = "Informe";
@@ -770,6 +648,7 @@ $PDF->SetHTMLFooter('
 </footer>
     
 ');
+
 
 
 $PDF->SetTitle($TIPOINFORME); //titulo pdf
