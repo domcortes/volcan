@@ -336,7 +336,7 @@ class DRECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * , DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'COSECHA',
+            $datos = $this->conexion->prepare("SELECT * , FECHA_COSECHA_DRECEPCION AS 'COSECHA',
                                                         IFNULL(CANTIDAD_ENVASE_DRECEPCION,0) AS 'ENVASE', 
                                                         IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO', 
                                                         IFNULL(KILOS_PROMEDIO_DRECEPCION,0) AS 'PROMEDIO' , 

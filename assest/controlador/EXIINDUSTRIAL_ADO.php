@@ -1479,11 +1479,11 @@ class EXIINDUSTRIAL_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                    DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',
-                                                    IFNULL(DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y'),'Sin Datos') AS 'RECEPCION',
-                                                    IFNULL(DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y'),'Sin Datos') AS 'PROCESO',
-                                                    IFNULL(DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y'),'Sin Datos') AS 'REEMBALAJE',
-                                                    IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
+                                                    FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',
+                                                    IFNULL(FECHA_RECEPCION,'Sin Datos') AS 'RECEPCION',
+                                                    IFNULL(FECHA_PROCESO,'Sin Datos') AS 'PROCESO',
+                                                    IFNULL(FECHA_REEMBALAJE,'Sin Datos') AS 'REEMBALAJE',
+                                                    IFNULL(FECHA_DESPACHO,'Sin Datos') AS 'DESPACHO',
                                                     IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO'  ,
                                                     IFNULL(PRECIO_KILO,0) AS 'KILOP'  ,  
                                                     IFNULL(KILOS_NETO_EXIINDUSTRIAL*PRECIO_KILO,0) AS 'PRECIO'   

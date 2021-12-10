@@ -965,8 +965,8 @@ class EXIMATERIAPRIMA_ADO
         try {
 
             $datos = $this->conexion->prepare("  SELECT * ,  
-                                                    IFNULL(DATE_FORMAT(FECHA_COSECHA_EXIMATERIAPRIMA, '%d-%m-%Y'),'Sin Datos') AS 'COSECHA',
-                                                    IFNULL(DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y'),'Sin Datos') AS 'RECEPCION',
+                                                    IFNULL(FECHA_COSECHA_EXIMATERIAPRIMA,'Sin Datos') AS 'COSECHA',
+                                                    IFNULL(FECHA_RECEPCION,'Sin Datos') AS 'RECEPCION',
                                                     IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0) AS 'ENVASE',
                                                     IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0) AS 'NETO',
                                                     IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0) AS 'BRUTO',

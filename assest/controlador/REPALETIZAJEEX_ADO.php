@@ -137,8 +137,8 @@ class REPALETIZAJEEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO' ,
-                                                       DATE_FORMAT(MODIFICACION, '%d-%m-%Y')  AS 'MODIFICACION'  ,
+            $datos = $this->conexion->prepare("SELECT *, INGRESO AS 'INGRESO' ,
+                                                       MODIFICACION  AS 'MODIFICACION'  ,
                                                        FORMAT(CANTIDAD_ENVASE_REPALETIZAJE,0,'de_DE') AS 'ENVASE',
                                                        FORMAT(KILOS_NETO_REPALETIZAJE,2,'de_DE') AS 'NETO'
                                                 FROM fruta_repaletizajeex 
