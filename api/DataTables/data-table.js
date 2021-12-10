@@ -270,7 +270,7 @@ $(function () {
 
         "scrollY": 450,
         "scrollX": true,
-        'scrollCollapse': false,
+        'scrollCollapse': true,
         //'deferRender':    true,
         //'scroller': true,
         'paging': false,
@@ -309,7 +309,7 @@ $(function () {
             },  
             'searchBuilder': {
                 'add': 'Agregar',
-                'condition': 'Filtar Por',
+                'condition': 'Filtrar Por',
                 'clearAll': 'Limpiar',
                 'delete': 'Quitar',
                 'deleteTitle': 'Titulo Quitar',
