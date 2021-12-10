@@ -682,7 +682,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="registroTusuario.php">Tipo Usuario<i class="ti-more"></i></a></li>
           <li><a href="registroUsuario.php">Usuario<i class="ti-more"></i></a></li>
           <li><a href="registroPtusuario.php">Privilegio Tipo Usuario<i class="ti-more"></i></a></li>
-          <li><a href="listarAusuario.php">Actividad Usuario<i class="ti-more"></i></a></li>
         </ul>
       </li>
     </ul>
