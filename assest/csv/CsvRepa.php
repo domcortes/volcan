@@ -1,25 +1,26 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
 
-include_once '../controlador/DREPALETIZAJEEX_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
-include_once '../controlador/INPSAG_ADO.php';
+include_once '../../assest/controlador/DREPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/INPSAG_ADO.php';
+include_once '../../assest/controlador/PAIS_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -41,6 +42,7 @@ $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
 $DREPALETIZAJEEX_ADO =  new DREPALETIZAJEEX_ADO();
 $INPSAG_ADO =  new INPSAG_ADO();
+$PAIS_ADO =  new PAIS_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 $IDOP = "";
