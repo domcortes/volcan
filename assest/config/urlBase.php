@@ -44,7 +44,10 @@
 	<script src="../../api/cryptioadmin10/html/main/js/pages/advanced-form-element.js"></script>   
 	<script src="../../api/cryptioadmin10/html/main/js/pages/steps.js"></script>   
 
+	<!--Api Datatabkes-->
 	<script src="../../api/cryptioadmin10/html/main/js/pages/data-table.js"></script>
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/dataTables.fixedHeader.min.js"></script>
+
 
 
 	<!-- JS personalizados -->

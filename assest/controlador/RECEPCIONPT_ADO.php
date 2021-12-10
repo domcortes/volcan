@@ -507,6 +507,36 @@ class RECEPCIONPT_ADO
             die($e->getMessage());
         }
     }
+    public function listarRecepcionEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *  ,
+                                                    DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
+                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                    IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
+                                                    IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0) AS 'GUIA'
+                                            FROM fruta_recepcionpt 
+                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'   
+                                            ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //TOTALES
     public function obtenerTotalesRecepcionCBX()
@@ -540,6 +570,32 @@ class RECEPCIONPT_ADO
                                                      FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE') AS 'NETO',  
                                                      FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')  AS 'BRUTO'  
                                             FROM fruta_recepcionpt ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESA,   $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  IFNULL(SUM(TOTAL_KILOS_GUIA_RECEPCION),0)  AS 'GUIA',   
+                                                        IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0) AS 'ENVASE',  
+                                                        IFNULL(SUM(KILOS_NETO_RECEPCION),0)  AS 'NETO',  
+                                                        IFNULL(SUM(KILOS_BRUTO_RECEPCION),0)   AS 'BRUTO'  
+                                            FROM fruta_recepcionpt 
+                                            WHERE  
+                                                ID_EMPRESA = '" . $EMPRESA . "' 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                            ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
