@@ -1,33 +1,33 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/RECEPCIONPT_ADO.php';
-include_once '../controlador/DRECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/RECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONPT_ADO.php';
 
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../controlador/RECEPCIONMP_ADO.php';
-include_once '../controlador/DRECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONMP_ADO.php';
 
-include_once '../controlador/EINDUSTRIAL_ADO.php';
-include_once '../controlador/RECEPCIONIND_ADO.php';
-include_once '../controlador/DRECEPCIONIND_ADO.php';
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
@@ -116,9 +116,6 @@ if ($EMPRESAS && $TEMPORADAS) {
     $TOTALENVASE  = number_format( $TOTALENVASEMP + $TOTALENVASEIND + $TOTALENVASEPT, 2, ",", ".");
 }
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
-
 
 
 
@@ -129,7 +126,7 @@ include_once "../config/datosUrLP.php";
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ES-es">
 
 <head>
     <title>Consolidado Recepción</title>
@@ -138,7 +135,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -210,7 +207,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuExpo.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -262,7 +259,7 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="consolidado" class=" table-hover  " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>N° Folio </th>
@@ -302,6 +299,7 @@ include_once "../config/datosUrLP.php";
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                
                                                 <?php foreach ($ARRAYRECEPCIONPT as $r) : ?>
                                                     <?php
                                                     if ($r['TRECEPCION'] == "1") {
@@ -357,7 +355,6 @@ include_once "../config/datosUrLP.php";
                                                     }
 
                                                     $ARRAYTOMADO = $DRECEPCIONPT_ADO->buscarPorIdRecepcion($r['ID_RECEPCION']);
-
                                                     ?>
 
                                                     <?php foreach ($ARRAYTOMADO as $s) : ?>
@@ -478,6 +475,7 @@ include_once "../config/datosUrLP.php";
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
+
                                                 <?php foreach ($ARRAYRECEPCIONIND as $r) : ?>
 
                                                     <?php
@@ -809,10 +807,10 @@ include_once "../config/datosUrLP.php";
 
 
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest//config/menuExtraExpo.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>
