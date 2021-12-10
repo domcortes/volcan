@@ -432,17 +432,62 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="listarEximateriaprima.php">Detallado Existencia MP<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionmpDetallado.php">Detallado Recepción MP<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachompDetallado.php">Detallado Despacho MP<i class="ti-more"></i></a></li>              
-              <li><a href="listarExiindustrial.php">Detallado Existencia IND<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionindDetallado.php">Detallado Recepción IND<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoindDetallado.php">Detallado Despacho IND<i class="ti-more"></i></a></li>
+            <ul class="treeview-menu">                  
+              <li class="treeview">
+                <a href="#">Detallado Recepción
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="listarRecepcionmpDetallado.php">Detallado Recepción MP<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcionindDetallado.php">Detallado Recepción IND<i class="ti-more"></i></a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#">Detallado Despacho
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="listarDespachompDetallado.php">Detallado Despacho MP<i class="ti-more"></i></a></li>  
+                  <li><a href="listarDespachoindDetallado.php">Detallado Despacho IND<i class="ti-more"></i></a></li>
+                </ul>
+              </li>              
+              <li class="treeview">
+                <a href="#">Existencia
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">         
+                  <li class="treeview">
+                    <a href="#">Disponible
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="listarEximateriaprima.php">Materia Prima<i class="ti-more"></i></a></li>          
+                      <li><a href="listarExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
+                    </ul>
+                  </li>     
+                  <li class="treeview">
+                    <a href="#">Historial
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="listarHEximateriaprima.php">Materia Prima<i class="ti-more"></i></a></li>
+                      <li><a href="listarHExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
               <li><a href="listarRecepcionGranelConsolidado.php">Consolidado Recep. Granel<i class="ti-more"></i></a></li>
               <li><a href="listarDespachoGranelConsoliado.php">Consolidado Desp. Granel<i class="ti-more"></i></a></li>
-              <li><a href="listarHEximateriaprima.php">Historial Materia Prima<i class="ti-more"></i></a></li>
-              <li><a href="listarHExiindustrial.php">Historial Industrial<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -451,14 +496,41 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="listarExiexportacion.php">Detallado Existencia PT <i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionptDetallado.php">Detallado Recepción PT<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoptDetallado.php">Detallado Despacho PT<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoexDetallado.php">Detallado Despacho Expo<i class="ti-more"></i></a></li>
+            <ul class="treeview-menu">                        
+              <li class="treeview">
+                <a href="#">Detallado Recepcion
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="listarRecepcionptDetallado.php">Producto Terminado<i class="ti-more"></i></a></li>   
+                </ul>
+              </li>             
+              <li class="treeview">
+                <a href="#">Detallado Despacho
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="listarDespachoptDetallado.php">Despacho PT<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachoexDetallado.php">Despacho Expo<i class="ti-more"></i></a></li>
+                </ul>
+              </li>       
+              <li class="treeview">
+                <a href="#">Existencia
+                  <span class="pull-left-container">
+                    <i class=" fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="listarExiexportacion.php">Disponible <i class="ti-more"></i></a></li>
+                  <li><a href="listarHExiexportacion.php">Historial <i class="ti-more"></i></a></li>
+                </ul>
+              </li>                       
               <li><a href="listarDespachoptexConsolidado.php">Consolidado Desp. PT<i class="ti-more"></i></a></li>
-              <li><a href="listarExiexportacionAgrupado.php">Agrupado Existencia PT <i class="ti-more"></i></a></li>
-              <li><a href="listarHExiexportacion.php">Historial Producto Terminado <i class="ti-more"></i></a></li>
+              <li><a href="listarExiexportacionAgrupado.php">Agrupado PT <i class="ti-more"></i></a></li>  
             </ul>
           </li>
           <li class="treeview">
