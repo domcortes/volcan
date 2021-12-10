@@ -1,6 +1,16 @@
 ﻿
 
 
+
+/* Ensure that the demo table scrolls */
+th, td { white-space: nowrap; }
+div.dataTables_wrapper {
+    width: auto;
+    margin: 0 auto;
+}
+
+
+
 /**
 FORMATO DE MENSAJE DE VALIDACION DE FORMULARIO
 **/
