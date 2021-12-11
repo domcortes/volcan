@@ -3968,7 +3968,6 @@ class EXIEXPORTACION_ADO
                                                 FROM fruta_exiexportacion  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                AND ESTADO_REGISTRO !=0
                                                 ORDER BY ULTIMOFOLIO; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -3992,8 +3991,6 @@ class EXIEXPORTACION_ADO
                                                 FROM fruta_exiexportacion  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                AND ESTADO !=0
-                                                AND ESTADO_REGISTRO =1
                                                 ORDER BY ULTIMOFOLIO; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -4039,7 +4036,6 @@ class EXIEXPORTACION_ADO
                                                 FROM fruta_exiexportacion  
                                                 WHERE  ID_FOLIO= '" . $IDFOLIO . "' 
                                                 AND FOLIO_MANUAL = 0
-                                                AND ESTADO_REGISTRO !=0
                                                 ORDER BY ULTIMOFOLIO; ");
             $datos->execute();
             $resultado = $datos->fetchAll();
