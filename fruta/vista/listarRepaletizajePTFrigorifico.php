@@ -302,12 +302,12 @@ include_once "../config/datosUrLP.php";
                                                                                 <?php } ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarja">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe"  Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Tarja
                                                                                     </button>
                                                                                 </span>
@@ -390,6 +390,21 @@ include_once "../config/datosUrLP.php";
         </div>
         <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
             <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../config/urlBase.php"; ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                showConfirmButton: true
+            })
+
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Los <b>repaletizajes</b> tienen que estar <b>Cerrados</b> para que los folios nuevos estén disponible para inspeccionar.</label>"
+            })
+        </script>
 </body>
 
 </html>

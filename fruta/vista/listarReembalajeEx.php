@@ -333,7 +333,7 @@ include_once "../config/datosUrLP.php";
                                                                             <?php } ?>
                                                                             <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> Onclick="abrirPestana('../documento/informeReembalajeEx.php?parametro=<?php echo $r['ID_REEMBALAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
@@ -430,6 +430,20 @@ include_once "../config/datosUrLP.php";
         <?php include_once "../config/menuExtra.php"; ?>
     </div>
     <?php include_once "../config/urlBase.php"; ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                showConfirmButton: true
+            })
+
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Los <b>reembalajes</b> Abiertos tienen que ser <b>Cerrados</b> para no afectar las operaciones posteriores.</label>"
+            })
+        </script>
 </body>
 
 </html>
