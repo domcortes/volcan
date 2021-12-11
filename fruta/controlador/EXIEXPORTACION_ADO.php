@@ -4651,6 +4651,33 @@ class EXIEXPORTACION_ADO
         }
     }
     
+    public function buscarExistenciaDespachoInspeccion2($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL(CANTIDAD_ENVASE_EXIEXPORTACION,0),0,'de_DE') AS 'ENVASE'
+                                        FROM 
+                                            fruta_exiexportacion 
+                                        WHERE
+                                            ID_DESPACHO= '" . $IDDESPACHO . "'                                                                                       
+                                        AND ESTADO_REGISTRO = 1  
+                                        GROUP BY 
+                                        ID_PRODUCTOR
+                                        
+                                        ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarExistenciaPCdespachoex2($IDPCDESPACHO)
     {
         try {
@@ -4792,6 +4819,34 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function buscarExistenciaBolsaDespacho2DiferenciadoProductor($IDDESPACHOEX, $IDPRODUCTOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_DESPACHO= '" . $IDDESPACHOEX . "'                                                                                  
+                                                AND ESTADO_REGISTRO = 1  
+                                                AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'                                           
+                                            GROUP BY 
+                                            ID_PRODUCTOR
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarExistenciaBolsaDespachoEx2ProductorDiferenciadoProductorEstandar($IDDESPACHOEX, $IDPRODUCTOR)
     {
         try {
@@ -4908,6 +4963,34 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }
+    public function buscarExistenciaBolsaDespacho2ProductorEstandarDiferenciadoProductorVariedad($IDDESPACHOEX, $IDPRODUCTOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_DESPACHO= '" . $IDDESPACHOEX . "'                                                                           
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'                                         
+                                            GROUP BY 
+                                            ID_PRODUCTOR,  ID_VESPECIES
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorVariedad($IDDESPACHOEX, $IDPRODUCTOR)
     {
         try {
@@ -4997,6 +5080,35 @@ class EXIEXPORTACION_ADO
     }
 
     
+    public function buscarExistenciaBolsaDespachoe2ProductorVariedadDiferenciadoProductorVariedad($IDDESPACHOEX, $IDPRODUCTOR, $IDPVESPECIES)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_DESPACHO= '" . $IDDESPACHOEX . "'                                                                                    
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'  
+                                            AND ID_VESPECIES = '" . $IDPVESPECIES . "'                                          
+                                            GROUP BY 
+                                            ID_PRODUCTOR, ID_VESPECIES
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarExistenciaBolsaDespachoeEx2ProductorVariedadDiferenciadoProductorVariedad($IDDESPACHOEX, $IDPRODUCTOR, $IDPVESPECIES)
     {
         try {
@@ -5088,6 +5200,35 @@ class EXIEXPORTACION_ADO
     }
 
 
+    public function obtenerTotalesExistenciaBolsaDespachoe2($IDDESPACHO)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                            FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
+                                            FORMAT(IFNULL( SUM(KILOS_NETO_EXIEXPORTACION),0),0,'de_DE') AS 'NETO',
+                                            FORMAT(IFNULL( SUM(KILOS_BRUTO_EXIEXPORTACION),0),0,'de_DE') AS 'BRUTO'
+                                        FROM 
+                                            fruta_exiexportacion 
+                                        WHERE                        
+                                            ID_DESPACHO= '" . $IDDESPACHO . "'                                                           
+                                        AND ESTADO_REGISTRO = 1  
+                                        
+                                        
+                                        ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function obtenerTotalesExistenciaBolsaDespachoeEx2($IDDESPACHOEX)
     {
@@ -5161,6 +5302,36 @@ class EXIEXPORTACION_ADO
                                         FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
                                         AND ESTADO_REGISTRO = 1                                            
                                         AND ID_DESPACHOEX= '" . $IDDESPACHOEX . "' ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesExistenciaBolsaDespachoenDiferenciadoProductor2($IDDESPACHOEX, $IDPRODUCTOR)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL( SUM(KILOS_NETO_EXIEXPORTACION),0),0,'de_DE') AS 'NETO'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_DESPACHO= '" . $IDDESPACHOEX . "'                                                                                
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'                                      
+                                            GROUP BY 
+                                            ID_PRODUCTOR
+                                            
+                                            ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -5268,6 +5439,37 @@ class EXIEXPORTACION_ADO
             die($e->getMessage());
         }
     }  
+    public function obtenerTotalesExistenciaBolsaDespachoe2ProductorVariedadDiferenciadoProductorVariedad($IDDESPACHOEX, $IDPRODUCTOR,   $IDPVESPECIES)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    FORMAT(IFNULL( SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL( SUM(KILOS_NETO_EXIEXPORTACION),0),0,'de_DE') AS 'NETO'
+                                            FROM 
+                                                fruta_exiexportacion 
+                                            WHERE
+                                                ID_DESPACHO= '" . $IDDESPACHOEX . "'                                                                                      
+                                            AND ESTADO_REGISTRO = 1  
+                                            AND ID_PRODUCTOR = '" . $IDPRODUCTOR . "'   
+                                            AND ID_VESPECIES = '" . $IDPVESPECIES . "'                                    
+                                            GROUP BY 
+                                            ID_PRODUCTOR,  ID_VESPECIES
+                                            
+                                            ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     
     public function obtenerTotalesExistenciaBolsaDespachoeEx2ProductorVariedadDiferenciadoProductorVariedad($IDDESPACHOEX, $IDPRODUCTOR,   $IDPVESPECIES)
     {
