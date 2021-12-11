@@ -454,15 +454,15 @@ $ETIQUETA = "Despacho EX";
 
 $filename = $NOMBREARCHIVOFINAL; 
 $contenido = $html; 
-$archivo = fopen('../../assest/../../assest/assest/csv/des/'.$filename, 'w+'); 
+$archivo = fopen('../../assest/csv/des/'.$filename, 'w+'); 
 fwrite($archivo, $contenido); 
 fclose($archivo); 
 header("Cache-Control: public"); 
 header("Content-Description: File Transfer");
 header("Content-Length: ". 
-filesize("../../assest/../../assest/assest/csv/des/$filename").";"); 
+filesize("../../assest/csv/des/$filename").";"); 
 //obliga a descargar archivo
 header("Content-Disposition: attachment; filename=$filename");
 header("Content-Type: application/octet-stream; "); 
-header("Content-Transfer-Encoding: binary"); readfile('../../assest/../../assest/assest/csv/des/'.$filename);
+header("Content-Transfer-Encoding: binary"); readfile('../../assest/csv/des/'.$filename);
 
