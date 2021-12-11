@@ -44,7 +44,25 @@
 	<script src="../../api/cryptioadmin10/html/main/js/pages/advanced-form-element.js"></script>   
 	<script src="../../api/cryptioadmin10/html/main/js/pages/steps.js"></script>   
 
+	<!--Api Datatables-->
+
+	<script src="../../api/DataTables/data-table.js"></script>
+	<script type="text/javascript" src="../../api/DataTables/datatables.min.js"></script>	
+	<link rel="stylesheet" type="text/css" href="../../api/DataTables/datatables.min.css"/> 
+
+	<!--
 	<script src="../../api/cryptioadmin10/html/main/js/pages/data-table.js"></script>
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/dataTables.fixedHeader.min.js"></script>
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/dataTables.fixedColumns.min.js"></script>
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/dataTables.scroller.min.js"></script>
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/dataTables.colReorder.min.js"></script>
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/buttons.colVis.min.js"></script>
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/dataTables.colReorder.min.js"></script>-->
+	
+	<!--
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/dataTables.dateTime.min.js"></script>
+	<script src="../../api/cryptioadmin10/html/assets/vendor_components/datatable/dataTables.searchBuilder.min.js"></script>-->
+
 
 
 	<!-- JS personalizados -->

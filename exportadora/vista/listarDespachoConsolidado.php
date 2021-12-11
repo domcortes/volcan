@@ -1,43 +1,44 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
+
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
-include_once '../controlador/DFINAL_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
 
 
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/COMPRADOR_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/COMPRADOR_ADO.php';
 
 
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/TREEMBALAJE_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/REEMBALAJE_ADO.php';
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/TREEMBALAJE_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
 
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EINDUSTRIAL_ADO.php';
-include_once '../controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
 
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../controlador/RECEPCIONMP_ADO.php';
-include_once '../controlador/DESPACHOMP_ADO.php';
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-include_once '../controlador/RECEPCIONIND_ADO.php';
-include_once '../controlador/DESPACHOIND_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/RECEPCIONPT_ADO.php';
-include_once '../controlador/DESPACHOPT_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DESPACHOMP_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/DESPACHOIND_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/RECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/DESPACHOPT_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -124,7 +125,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
     $TOTALENVASEPT = $ARRAYDESPACHOPTTOTALES[0]['ENVASE'];
 
 
-    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $ARRAYDESPACHOEXTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoexEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
     $TOTALNETOEX = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
     $TOTALBRUTOEX = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
@@ -135,9 +136,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
     $TOTALENVASE  = number_format($TOTALENVASEEX + $TOTALENVASEPT + $TOTALENVASEMP, 2, ",", ".");
 }
 
-
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
 
 
 
@@ -226,7 +224,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuExpo.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -279,7 +277,7 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="consolidado" class=" table-hover   " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>N° Folio </th>
@@ -543,9 +541,9 @@ include_once "../config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                         }
                                                         $ARRAYPROCESO = $PROCESO_ADO->verProceso2($s['ID_PROCESO']);
@@ -564,7 +562,7 @@ include_once "../config/datosUrLP.php";
                                                             $PORCENTAJEEXPO = "Sin datos";
                                                             $PORCENTAJEINDUSTRIAL = "Sin datos";
                                                             $PORCENTAJETOTAL = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
@@ -577,7 +575,7 @@ include_once "../config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
 
@@ -587,7 +585,7 @@ include_once "../config/datosUrLP.php";
                                                             $NUMEROREPALETIZAJE = $ARRATREPALETIZAJE[0]["NUMERO_REPALETIZAJE"];
                                                         } else {
                                                             $NUMEROREPALETIZAJE = "Sin Datos";
-                                                            $FECHAREPALETIZAJE = "Sin Datos";
+                                                            $FECHAREPALETIZAJE = "";
                                                         }
                                                         ?>
                                                         <tr class="text-left">
@@ -644,7 +642,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $PORCENTAJETOTAL; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
-                                                <?php endforeach; ?>
+                                                <?php endforeach;?>
                                                 <?php foreach ($ARRAYDESPACHOEX as $r) : ?>
                                                     <?php
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
@@ -799,9 +797,9 @@ include_once "../config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                         }
                                                         $ARRAYPROCESO = $PROCESO_ADO->verProceso2($s['ID_PROCESO']);
@@ -817,7 +815,7 @@ include_once "../config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $PORCENTAJEEXPO = "Sin datos";
                                                             $PORCENTAJEINDUSTRIAL = "Sin datos";
                                                             $PORCENTAJETOTAL = "Sin datos";
@@ -833,7 +831,7 @@ include_once "../config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
 
@@ -843,7 +841,7 @@ include_once "../config/datosUrLP.php";
                                                             $NUMEROREPALETIZAJE = $ARRATREPALETIZAJE[0]["NUMERO_REPALETIZAJE"];
                                                         } else {
                                                             $NUMEROREPALETIZAJE = "Sin Datos";
-                                                            $FECHAREPALETIZAJE = "Sin Datos";
+                                                            $FECHAREPALETIZAJE = "";
                                                         }
                                                         ?>
                                                         <tr class="text-left">
@@ -1054,10 +1052,10 @@ include_once "../config/datosUrLP.php";
                                                                 $TIPORECEPCION = "Planta Externa";
                                                             }
                                                         } else {
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                         }
 
@@ -1084,12 +1082,12 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo ""; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo ""; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
@@ -1262,7 +1260,7 @@ include_once "../config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $PORCENTAJEEXPO = "Sin datos";
                                                             $PORCENTAJEINDUSTRIAL = "Sin datos";
                                                             $PORCENTAJETOTAL = "Sin datos";
@@ -1278,7 +1276,7 @@ include_once "../config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($s['ID_RECEPCION']);
@@ -1294,10 +1292,10 @@ include_once "../config/datosUrLP.php";
                                                                 $TIPORECEPCION = "Planta Externa";
                                                             }
                                                         } else {
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                         }
 
@@ -1324,7 +1322,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo ""; ?></td>
                                                             <td><?php echo $NUMEROPROCESO; ?></td>
                                                             <td><?php echo $FECHAPROCESO; ?></td>
                                                             <td><?php echo $TPROCESO; ?></td>
@@ -1405,10 +1403,10 @@ include_once "../config/datosUrLP.php";
             </div>
         </div>
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

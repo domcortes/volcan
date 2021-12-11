@@ -1,36 +1,34 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
-include_once '../controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
 
-include_once '../controlador/EXPORTADORA_ADO.php';
-include_once '../controlador/TINPSAG_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/INPECTOR_ADO.php';
-include_once '../controlador/CONTRAPARTE_ADO.php';
-include_once '../controlador/PAIS_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/PROVINCIA_ADO.php';
-include_once '../controlador/COMUNA_ADO.php';
-include_once '../controlador/CIUDAD_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/EXPORTADORA_ADO.php';
+include_once '../../assest/controlador/TINPSAG_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/INPECTOR_ADO.php';
+include_once '../../assest/controlador/CONTRAPARTE_ADO.php';
+include_once '../../assest/controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/PROVINCIA_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
 
 
 
-include_once '../modelo/INPSAG.php';
-include_once '../modelo/EXIEXPORTACION.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -456,15 +454,15 @@ $ETIQUETA = "Despacho EX";
 
 $filename = $NOMBREARCHIVOFINAL; 
 $contenido = $html; 
-$archivo = fopen('../../assest/csv/des/'.$filename, 'w+'); 
+$archivo = fopen('../../assest/../../assest/assest/csv/des/'.$filename, 'w+'); 
 fwrite($archivo, $contenido); 
 fclose($archivo); 
 header("Cache-Control: public"); 
 header("Content-Description: File Transfer");
 header("Content-Length: ". 
-filesize("../../assest/csv/des/$filename").";"); 
+filesize("../../assest/../../assest/assest/csv/des/$filename").";"); 
 //obliga a descargar archivo
 header("Content-Disposition: attachment; filename=$filename");
 header("Content-Type: application/octet-stream; "); 
-header("Content-Transfer-Encoding: binary"); readfile('../../assest/csv/des/'.$filename);
+header("Content-Transfer-Encoding: binary"); readfile('../../assest/../../assest/assest/csv/des/'.$filename);
 

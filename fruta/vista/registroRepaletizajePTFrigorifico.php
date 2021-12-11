@@ -66,6 +66,7 @@ $NUMEROVER = "";
 $IDQUITAR = "";
 $FOLIOEXIEXPORTACIONQUITAR = "";
 $IDDREPALETIZAJE  = "";
+$SINPSAG="";
 $IDTMANEJO  = "";
 $IDVESPECIES  = "";
 $IDPRODUCTOR  = "";
@@ -107,6 +108,7 @@ $TMANEJO = "";
 
 $FOCUS = "";
 $DISABLEDT="";
+$DISABLEDS="";
 $DISABLED0 = "disabled";
 $DISABLED = "";
 $DISABLED2 = "";
@@ -252,6 +254,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            $SINPSAG = "" . $r['SINPSAG'];
+            if($r['SINPSAG']==1){
+                $DISABLEDS = ""; 
+            }else if($r['SINPSAG']==0){  
+                $DISABLEDS = "disabled";                                            
+            }else{  }
             $MOTIVOREPALETIZAJE = "" . $r['MOTIVO_REPALETIZAJE'];
             $FECHAINGRESOPALETIZAJE = "" . $r['INGRESO'];
             $FECHAMODIFCIACIONPALETIZAJE = "" . $r['MODIFICACION'];
@@ -280,6 +288,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            $SINPSAG = "" . $r['SINPSAG'];
+            if($r['SINPSAG']==1){
+                $DISABLEDS = ""; 
+            }else if($r['SINPSAG']==0){  
+                $DISABLEDS = "disabled";                                            
+            }else{  }
             $MOTIVOREPALETIZAJE = "" . $r['MOTIVO_REPALETIZAJE'];
             $FECHAINGRESOPALETIZAJE = "" . $r['INGRESO'];
             $FECHAMODIFCIACIONPALETIZAJE = "" . $r['MODIFICACION'];
@@ -306,6 +320,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $EMPRESA = "" . $r['ID_EMPRESA'];
             $PLANTA = "" . $r['ID_PLANTA'];
             $TEMPORADA = "" . $r['ID_TEMPORADA'];
+            $SINPSAG = "" . $r['SINPSAG'];
+            if($r['SINPSAG']==1){
+                $DISABLEDS = ""; 
+            }else if($r['SINPSAG']==0){  
+                $DISABLEDS = "disabled";                                            
+            }else{  }
             $MOTIVOREPALETIZAJE = "" . $r['MOTIVO_REPALETIZAJE'];
             $FECHAINGRESOPALETIZAJE = "" . $r['INGRESO'];
             $FECHAMODIFCIACIONPALETIZAJE = "" . $r['MODIFICACION'];
@@ -324,11 +344,12 @@ if ($_POST) {
     if (isset($_REQUEST['PLANTA'])) {
         $PLANTA = "" . $_REQUEST['PLANTA'];
     }
-
     if (isset($_REQUEST['TEMPORADA'])) {
         $TEMPORADA = "" . $_REQUEST['TEMPORADA'];
     }
-
+    if (isset($_REQUEST['SINPSAG'])) {
+        $SINPSAG = "" . $_REQUEST['SINPSAG'];
+    }
     if (isset($_REQUEST['MOTIVOREPALETIZAJE'])) {
         $MOTIVOREPALETIZAJE = "" . $_REQUEST['MOTIVOREPALETIZAJE'];
     }
@@ -356,8 +377,19 @@ if ($_POST) {
             <script type="text/javascript">
                 function validacion() {
 
+                    SINPSAG = document.getElementById("SINPSAG").selectedIndex;
                     MOTIVOREPALETIZAJE = document.getElementById("MOTIVOREPALETIZAJE").value;
+                    
+                    document.getElementById('val_ins').innerHTML = "";
                     document.getElementById('val_motivo').innerHTML = "";
+                    
+                    if (SINPSAG == null || SINPSAG == 0) {
+                        document.form_reg_dato.SINPSAG.focus();
+                        document.form_reg_dato.SINPSAG.style.borderColor = "#FF0000";
+                        document.getElementById('val_ins').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.SINPSAG.style.borderColor = "#4AF575";
 
                     if (MOTIVOREPALETIZAJE == null || MOTIVOREPALETIZAJE.length == 0 || /^\s+$/.test(MOTIVOREPALETIZAJE)) {
                         document.form_reg_dato.MOTIVOREPALETIZAJE.focus();
@@ -525,7 +557,6 @@ if ($_POST) {
                                             <input type="date" class="form-control" style="background-color: #eeeeee;" placeholder="Fecha Ingreso" id="FECHAINGRESOPALETIZAJE" name="FECHAINGRESOPALETIZAJE" value="<?php echo $FECHAINGRESOPALETIZAJE; ?>" disabled />
                                             <label id="val_fechai" class="validacion"> </label>
                                         </div>
-
                                         <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Fecha Modificación</label>
@@ -535,8 +566,20 @@ if ($_POST) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                    <div class="row">                                        
+                                        <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
+                                            <div class="form-group">
+                                                <label>Inspeccion</label>
+                                                <input type="hidden" class="form-control" placeholder="SINPSAG" id="SINPSAGE" name="SINPSAGE" value="<?php echo $SINPSAG; ?>" />
+                                                <select class="form-control select2" id="SINPSAG" name="SINPSAG" style="width: 100%;" <?php echo $DISABLED3; ?>>
+                                                    <option></option>
+                                                    <option value="0" <?php if ($SINPSAG == "0") { echo "selected";  } ?>>No</option>
+                                                    <option value="1" <?php if ($SINPSAG == "1") { echo "selected"; } ?>> Si </option>
+                                                </select>
+                                                <label id="val_ins" class="validacion"> </label>
+                                            </div>
+                                        </div>  
+                                        <div class="col-xxl-11 col-xl-11 col-lg-10 col-md-10 col-sm-10 col-10 col-xs-10">
                                             <label>Motivo</label>
                                             <input type="hidden" class="form-control" placeholder="Motivo a Repaletizar" id="MOTIVOREPALETIZAJEE" name="MOTIVOREPALETIZAJEE" value="<?php echo $MOTIVOREPALETIZAJE; ?>" />
                                             <textarea class="form-control" rows="1" placeholder="Motivo a Repaletizar" id="MOTIVOREPALETIZAJE" name="MOTIVOREPALETIZAJE" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED2; ?> ><?php echo $MOTIVOREPALETIZAJE; ?></textarea>
@@ -570,13 +613,13 @@ if ($_POST) {
                                         </div>
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != "") : ?>
-                                                <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php if ($ESTADO == "1") { echo "disabled"; } ?> <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $IDOP; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Tarjas
                                                 </button>
-                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDT; ?>  Onclick="abrirPestana('../../assest/csv/CsvRepa.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDS; ?> <?php echo $DISABLEDT; ?>  Onclick="abrirPestana('../../assest/csv/CsvRepa.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                 </button>  
                                             <?php endif ?>
@@ -957,6 +1000,7 @@ if ($_POST) {
             $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
             $REPALETIZAJEEX->__SET('NUMERO_REPALETIZAJE', $NUMERO);
+            $REPALETIZAJEEX->__SET('SINPSAG', $_REQUEST['SINPSAG']);
             $REPALETIZAJEEX->__SET('MOTIVO_REPALETIZAJE', $_REQUEST['MOTIVOREPALETIZAJE']);
             $REPALETIZAJEEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
             $REPALETIZAJEEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -994,6 +1038,7 @@ if ($_POST) {
             $REPALETIZAJEEX->__SET('KILOS_NETO_REPALETIZAJE', $_REQUEST['TOTALNETOREPALETIZAJE']);
             $REPALETIZAJEEX->__SET('CANTIDAD_ENVASE_ORIGINAL', $_REQUEST['TOTALENVASEREPALETIZAJE']);
             $REPALETIZAJEEX->__SET('KILOS_NETO_ORIGINAL', $_REQUEST['TOTALNETOORIGNAL']);
+            $REPALETIZAJEEX->__SET('SINPSAG', $_REQUEST['SINPSAGE']);
             $REPALETIZAJEEX->__SET('MOTIVO_REPALETIZAJE', $_REQUEST['MOTIVOREPALETIZAJE']);
             $REPALETIZAJEEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
             $REPALETIZAJEEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1082,6 +1127,7 @@ if ($_POST) {
                 $REPALETIZAJEEX->__SET('KILOS_NETO_REPALETIZAJE', $_REQUEST['TOTALNETOREPALETIZAJE']);
                 $REPALETIZAJEEX->__SET('CANTIDAD_ENVASE_ORIGINAL', $_REQUEST['TOTALENVASEREPALETIZAJE']);
                 $REPALETIZAJEEX->__SET('KILOS_NETO_ORIGINAL', $_REQUEST['TOTALNETOORIGNAL']);
+                $REPALETIZAJEEX->__SET('SINPSAG', $_REQUEST['SINPSAGE']);
                 $REPALETIZAJEEX->__SET('MOTIVO_REPALETIZAJE', $_REQUEST['MOTIVOREPALETIZAJE']);
                 $REPALETIZAJEEX->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $REPALETIZAJEEX->__SET('ID_PLANTA', $_REQUEST['PLANTA']);

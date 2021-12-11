@@ -36,6 +36,7 @@ $FECHAHASTA = "";
 $FOLIOORIGINAL="";
 $FOLIONUEVO="";
 $DISABLEDT="";
+$DISABLEDS="";
 
 //INICIALIZAR ARREGLOS
 $ARRAYREPALETIZAJEEX = "";
@@ -200,6 +201,7 @@ include_once "../config/datosUrLP.php";
                                                         <th>Kilo Neto Entrada</th>
                                                         <th>Kilo Neto Salida</th>
                                                         <th>Motivo </th>
+                                                        <th>Inspección</th>
                                                         <th>Fecha Ingreso </th>
                                                         <th>Fecha Modificación </th>
                                                         <th>Empresa</th>
@@ -252,6 +254,15 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRETEMPORADA = "Sin Datos";
                                                         }
+                                                        if($r['SINPSAG']==1){
+                                                            $SINPSAG="Si";
+                                                            $DISABLEDS = ""; 
+                                                        }else if($r['SINPSAG']==0){     
+                                                            $SINPSAG="No";      
+                                                            $DISABLEDS = "disabled";                                            
+                                                        }else{  
+                                                            $SINPSAG="Sin Datos";       
+                                                        }
                                                         ?>
                                                         <tr class="text-left">
                                                             <td><?php echo $r['NUMERO_REPALETIZAJE']; ?> </td>
@@ -291,17 +302,17 @@ include_once "../config/datosUrLP.php";
                                                                                 <?php } ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarja">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe"  Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Tarja
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="CSV">
-                                                                                    <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Archivo Plano"  <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvRepa.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDS; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvRepa.php?parametro=<?php echo $r['ID_REPALETIZAJE']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                                                     </button>
                                                                                 </span>
@@ -316,6 +327,7 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NETOO']; ?> </td>
                                                             <td><?php echo $r['NETOR']; ?> </td>
                                                             <td><?php echo $r['MOTIVO_REPALETIZAJE']; ?> </td>
+                                                            <td><?php echo $SINPSAG; ?> </td>
                                                             <td><?php echo $r['INGRESO']; ?> </td>
                                                             <td><?php echo $r['MODIFICACION']; ?> </td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -378,6 +390,21 @@ include_once "../config/datosUrLP.php";
         </div>
         <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
             <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../config/urlBase.php"; ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                showConfirmButton: true
+            })
+
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Los <b>repaletizajes</b> tienen que estar <b>Cerrados</b> para que los folios nuevos estén disponible para inspeccionar.</label>"
+            })
+        </script>
 </body>
 
 </html>

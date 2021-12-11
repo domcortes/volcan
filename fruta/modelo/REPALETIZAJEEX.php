@@ -14,6 +14,7 @@ class REPALETIZAJEEX {
     private   $CANTIDAD_ENVASE_ORIGINAL;
     private   $KILOS_NETO_ORIGINAL;
     private   $MOTIVO_REPALETIZAJE;
+    private   $SINPSAG;
     private   $FECHA_INGRESO;
     private   $FECHA_MODIFICACION;
     private   $ESTADO;  

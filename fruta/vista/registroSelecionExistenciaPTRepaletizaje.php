@@ -98,8 +98,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $URLO = $_SESSION['urlO'];
 
     $ARRAYREPALETIZAJE=$REPALETIZAJEEX_ADO->verRepaletizaje($IDP);
-    $FECHAREPALETIZAJE=$ARRAYREPALETIZAJE[0]["INGRESO"];
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporada($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    if($ARRAYREPALETIZAJE){
+        $FECHAREPALETIZAJE=$ARRAYREPALETIZAJE[0]["INGRESO"];
+        if($ARRAYREPALETIZAJE[0]["SINPSAG"]==0){
+            $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaParaRepa($EMPRESAS, $PLANTAS, $TEMPORADAS);
+        }
+        if($ARRAYREPALETIZAJE[0]["SINPSAG"]==1){
+            $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaParaRepaInpSag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+        }
+    }    
 }
 include_once "../config/validarDatosUrlD.php";
 

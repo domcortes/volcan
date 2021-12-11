@@ -484,6 +484,33 @@ class DESPACHOMP_ADO
     }
 
     //LISTAR
+    public function listarDespachompEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION', 
+                                                IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',
+                                                IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO',
+                                                IFNULL(KILOS_BRUTO_DESPACHO,0) AS 'BRUTO'
+                                        FROM fruta_despachomp                                                                           
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarDespachompEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
@@ -686,6 +713,58 @@ class DESPACHOMP_ADO
         }
     }
 
+    public function obtenerTotalesDespachompEmpresaTemporadaCBX2($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0),0,'de_DE') AS 'ENVASE',   
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
+                                                FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'   
+                                        FROM fruta_despachomp 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    IFNULL(SUM(CANTIDAD_ENVASE_DESPACHO),0) AS 'ENVASE',   
+                                                    IFNULL(SUM(KILOS_NETO_DESPACHO),0) AS 'NETO',  
+                                                    IFNULL(SUM(KILOS_BRUTO_DESPACHO),0)  AS 'BRUTO'   
+                                        FROM fruta_despachomp 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function obtenerTotalesDespachompEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

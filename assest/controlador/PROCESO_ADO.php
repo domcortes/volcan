@@ -108,9 +108,9 @@ class PROCESO_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,  
-                                                DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y') AS 'FECHA', 
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                                FECHA_PROCESO AS 'FECHA', 
+                                                INGRESO AS 'INGRESO', 
+                                                MODIFICACION AS 'MODIFICACION'
                                              FROM fruta_proceso WHERE ID_PROCESO = '" . $IDPROCESO . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();

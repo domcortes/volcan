@@ -670,6 +670,36 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+    public function listarDespachoexEmpresaTemporadaCBX($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare(" SELECT * ,
+                                                    INGRESO AS 'INGRESO',
+                                                    MODIFICACION AS 'MODIFICACION' , 
+                                                    FECHA_DESPACHOEX AS 'FECHA' ,
+                                                    FECHA_GUIA_DESPACHOEX AS 'GUIA',
+                                                    FECHAETA_DESPACHOEX AS 'ETA' ,
+                                                    FECHAETD_DESPACHOEX AS 'ETD',
+                                                    FORMAT(CANTIDAD_ENVASE_DESPACHOEX,0,'de_DE')  AS 'ENVASE',
+                                                    FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
+                                                    FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO'
+                                                FROM fruta_despachoex                                                                           
+                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarDespachoexEmpresaTemporada2CBX($EMPRESA, $TEMPORADA)
     {
         try {
