@@ -44,7 +44,7 @@ $ARRAYCOMUNA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
-$ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
+$ARRAYCOMUNA = $COMUNA_ADO->listarComuna3CBX();
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 
@@ -232,14 +232,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     <option value="<?php echo $r['ID_COMUNA']; ?>" <?php if ($COMUNA == $r['ID_COMUNA']) {
                                                                                                                         echo "selected";
                                                                                                                     } ?>>
-                                                                        <?php echo $r['NOMBRE_COMUNA'] ?>
+                                                                        <?php echo $r['COMUNA'].', '.$r['PROVINCIA'].', '.$r['REGION']; ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
-
                                                             <?php endforeach; ?>
-
                                                         </select>
                                                         <label id="val_comuna" class="validacion"> </label>
                                                     </div>

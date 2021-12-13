@@ -79,10 +79,7 @@ $ARRAYREGION = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYTPRODUCTOR = $TPRODUCTOR_ADO->listarTproductorPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
-$ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
-$ARRAYPROVINCIA  = $PROVINCIA_ADO->listarProvinciaCBX();
-$ARRAYREGION = $REGION_ADO->listarRegionCBX();
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 
 include_once "../config/validarDatosUrl.php";
@@ -722,7 +719,7 @@ if (isset($_POST)) {
                                                                     <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
                                                                                                                         echo "selected";
                                                                                                                     } ?>>
-                                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
+                                                                        <?php echo $r['CIUDAD'].', '.$r['COMUNA'].', '.$r['PROVINCIA'].', '.$r['REGION']; ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
