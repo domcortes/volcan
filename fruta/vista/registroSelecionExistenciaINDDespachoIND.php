@@ -4,6 +4,9 @@ include_once "../config/validarUsuario.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../controlador/ERECEPCION_ADO.php';
+include_once '../controlador/EEXPORTACION_ADO.php';
+
 include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/VESPECIES_ADO.php';
 include_once '../controlador/ESPECIES_ADO.php';
@@ -18,6 +21,9 @@ include_once '../modelo/EXIINDUSTRIAL.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$ERECEPCION_ADO =  new ERECEPCION_ADO();
+$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
+
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
@@ -80,7 +86,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
 
-    $ARRAYEXIMATERIAPRIMA = $EXIINDUSTRIAL_ADO->listarExiindustrialEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYEXIINDUSTRIAL1= $EXIINDUSTRIAL_ADO->listarExiindustrialEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYEXIINDUSTRIAL2 = $EXIINDUSTRIAL_ADO->listarExiindustrialRechazoMPEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYEXIINDUSTRIAL3 = $EXIINDUSTRIAL_ADO->listarExiindustrialRechazoPTEmpresaPlantaTemporadaDisponibleCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
+
 }
 
 
@@ -240,7 +249,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php foreach ($ARRAYEXIMATERIAPRIMA as $r) : ?>
+                                                        <?php foreach ($ARRAYEXIINDUSTRIAL1 as $r) : ?>
 
                                                             <?php
                                                             $CONTADOR = $CONTADOR + 1;
@@ -259,6 +268,139 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                             if ($ARRAYEVERERECEPCIONID) {
                                                                 $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
                                                                 $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                            } else {
+                                                                $CODIGOESTANDAR = "Sin Datos";
+                                                                $NOMBREESTANDAR = "Sin Datos";
+                                                            }
+                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                            if ($ARRAYVERVESPECIESID) {
+                                                                $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                                $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
+                                                                if ($ARRAYVERVESPECIESID) {
+                                                                    $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+                                                                } else {
+                                                                    $NOMBRESPECIES = "Sin Datos";
+                                                                }
+                                                            } else {
+                                                                $NOMBREVESPECIES = "Sin Datos";
+                                                                $NOMBRESPECIES = "Sin Datos";
+                                                            }
+                                                            ?>
+                                                            <tr class="text-left">
+                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
+                                                                <td><?php echo $r['EMBALADO']; ?> </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_EXIINDUSTRIAL']; ?>" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>">
+                                                                        <label for="SELECIONAREXISTENCIA<?php echo $r['ID_EXIINDUSTRIAL']; ?>"> Seleccionar</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" class="form-control" name="IDCAJA[]" value="<?php echo  $CONTADOR; ?>">
+                                                                        <input type="hidden" class="form-control" name="FOLIO[]" value="<?php echo  $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>">
+                                                                        <input type="hidden" class="form-control" name="IDEXISTENCIA[]" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>">
+                                                                        <input type="hidden" class="form-control" name="NETOORIGINAL[]" value="<?php echo $r['KILOS_NETO_EXIINDUSTRIAL']; ?>">
+                                                                        <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" class="form-control" name="NETO[]">
+                                                                    </div>
+                                                                </td>
+                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBRESPECIES; ?></td>
+                                                                <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                                <td><?php echo $r['NETO']; ?></td>
+                                                                <td><?php echo $r['DIAS']; ?></td>
+                                                                <td><?php echo $r['INGRESO']; ?></td>
+                                                                <td><?php echo $r['MODIFICACION']; ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                        <?php foreach ($ARRAYEXIINDUSTRIAL2 as $r) : ?>
+
+                                                            <?php
+                                                            $CONTADOR = $CONTADOR + 1;
+
+                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                            if ($ARRAYVERPRODUCTORID) {
+
+                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                            } else {
+                                                                $CSGPRODUCTOR = "Sin Datos";
+                                                                $NOMBREPRODUCTOR = "Sin Datos";
+                                                            }
+                                                            $ARRAYEVERERECEPCIONID2 = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDARMP']);
+                                                            if ($ARRAYEVERERECEPCIONID2) {
+                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID2[0]['CODIGO_ESTANDAR'];
+                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID2[0]['NOMBRE_ESTANDAR'];
+                                                            } else {
+                                                                $CODIGOESTANDAR = "Sin Datos";
+                                                                $NOMBREESTANDAR = "Sin Datos";
+                                                            }
+                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                            if ($ARRAYVERVESPECIESID) {
+                                                                $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                                $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
+                                                                if ($ARRAYVERVESPECIESID) {
+                                                                    $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+                                                                } else {
+                                                                    $NOMBRESPECIES = "Sin Datos";
+                                                                }
+                                                            } else {
+                                                                $NOMBREVESPECIES = "Sin Datos";
+                                                                $NOMBRESPECIES = "Sin Datos";
+                                                            }
+                                                            ?>
+                                                            <tr class="text-left">
+                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
+                                                                <td><?php echo $r['EMBALADO']; ?> </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_EXIINDUSTRIAL']; ?>" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>">
+                                                                        <label for="SELECIONAREXISTENCIA<?php echo $r['ID_EXIINDUSTRIAL']; ?>"> Seleccionar</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" class="form-control" name="IDCAJA[]" value="<?php echo  $CONTADOR; ?>">
+                                                                        <input type="hidden" class="form-control" name="FOLIO[]" value="<?php echo  $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?>">
+                                                                        <input type="hidden" class="form-control" name="IDEXISTENCIA[]" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>">
+                                                                        <input type="hidden" class="form-control" name="NETOORIGINAL[]" value="<?php echo $r['KILOS_NETO_EXIINDUSTRIAL']; ?>">
+                                                                        <input type="text" pattern="^[0-9]+([.][0-9]{1,3})?$" class="form-control" name="NETO[]">
+                                                                    </div>
+                                                                </td>
+                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                <td><?php echo $NOMBRESPECIES; ?></td>
+                                                                <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                                <td><?php echo $r['NETO']; ?></td>
+                                                                <td><?php echo $r['DIAS']; ?></td>
+                                                                <td><?php echo $r['INGRESO']; ?></td>
+                                                                <td><?php echo $r['MODIFICACION']; ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                        <?php foreach ($ARRAYEXIINDUSTRIAL3 as $r) : ?>
+
+                                                            <?php
+                                                            $CONTADOR = $CONTADOR + 1;
+
+                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                            if ($ARRAYVERPRODUCTORID) {
+
+                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                            } else {
+                                                                $CSGPRODUCTOR = "Sin Datos";
+                                                                $NOMBREPRODUCTOR = "Sin Datos";
+                                                            }
+
+                                                            $ARRAYEVERERECEPCIONID3 = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDARPT']);
+                                                            if ($ARRAYEVERERECEPCIONID3) {
+                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID3[0]['CODIGO_ESTANDAR'];
+                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID3[0]['NOMBRE_ESTANDAR'];
                                                             } else {
                                                                 $CODIGOESTANDAR = "Sin Datos";
                                                                 $NOMBREESTANDAR = "Sin Datos";
