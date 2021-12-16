@@ -781,6 +781,9 @@ $html = $html . '
             endforeach;
 
 if($COSTOFLETEICARGA!=""){
+  if($COSTOFLETEICARGA>0){
+
+  
             $html = $html . '              
               <tr class="">
                   <td class="center"> - </td>
@@ -793,6 +796,7 @@ if($COSTOFLETEICARGA!=""){
               </tr>
             ';
             $TOTALUSV=number_format($TOTALUS+$COSTOFLETEICARGA, 2, ",", ".");
+  }
 }
 
             $html = $html . '
