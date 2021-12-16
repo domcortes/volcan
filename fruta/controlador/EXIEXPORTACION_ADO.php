@@ -2902,7 +2902,8 @@ class EXIEXPORTACION_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                                     FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO'
+                                                    FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO'
                                             FROM fruta_exiexportacion 
                                             WHERE ID_PCDESPACHO= '" . $IDPCDESPACHO . "'                                          
                                             AND ESTADO_REGISTRO = 1;");
@@ -5272,6 +5273,32 @@ class EXIEXPORTACION_ADO
                                         
                                         
                                         ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesFolio2PCdespachoExActivo2($FOLIOAUXILIAREXIEXPORTACION, $IDDESPACHOEX)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
+                                                FORMAT(IFNULL(SUM(KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
+                                                FORMAT(IFNULL(SUM(KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO'
+                                        FROM fruta_exiexportacion
+                                        WHERE 
+                                        FOLIO_AUXILIAR_EXIEXPORTACION = '" . $FOLIOAUXILIAREXIEXPORTACION . "' 
+                                        AND ESTADO_REGISTRO = 1                                            
+                                        AND ID_PCDESPACHO= '" . $IDDESPACHOEX . "' ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
