@@ -811,6 +811,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           </li>
         </ul>
       </li>   
+      <!--
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/icons.svg" class="svg-icon" alt="">
@@ -823,6 +824,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <li><a href="listarAProceso.php">Proceso<i class="ti-more"></i></a></li>
         </ul>
       </li>
+                -->
+
       <li class="header">Configuraciones</li>
       <li class="treeview">
         <a href="#">

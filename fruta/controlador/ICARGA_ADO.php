@@ -296,6 +296,7 @@ class ICARGA_ADO
                                             PUBLICA_ICARGA,  
                                             FECHA_CDOCUMENTAL_ICARGA, 
                                             OBSERVACION_ICARGA, 
+                                            OBSERVACIONI_ICARGA, 
                                             NAVE_ICARGA, 
                                             ID_EXPPORTADORA, 
                                             ID_CONSIGNATARIO, 
@@ -339,7 +340,7 @@ class ICARGA_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	    ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+	       	    (  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
                  0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
@@ -368,6 +369,7 @@ class ICARGA_ADO
                         $ICARGA->__GET('PUBLICA_ICARGA'),
                         $ICARGA->__GET('FECHA_CDOCUMENTAL_ICARGA'),
                         $ICARGA->__GET('OBSERVACION_ICARGA'),
+                        $ICARGA->__GET('OBSERVACIONI_ICARGA'),
                         $ICARGA->__GET('NAVE_ICARGA'),
                         $ICARGA->__GET('ID_EXPPORTADORA'),
                         $ICARGA->__GET('ID_CONSIGNATARIO'),
@@ -537,6 +539,7 @@ class ICARGA_ADO
             PUBLICA_ICARGA = ?,
             FECHA_CDOCUMENTAL_ICARGA = ?, 
             OBSERVACION_ICARGA = ?, 
+            OBSERVACIONI_ICARGA = ?, 
             NAVE_ICARGA = ?, 
             TOTAL_ENVASE_ICAGRA = ?, 
             TOTAL_NETO_ICARGA = ?, 
@@ -600,6 +603,7 @@ class ICARGA_ADO
                         $ICARGA->__GET('PUBLICA_ICARGA'),
                         $ICARGA->__GET('FECHA_CDOCUMENTAL_ICARGA'),
                         $ICARGA->__GET('OBSERVACION_ICARGA'),
+                        $ICARGA->__GET('OBSERVACIONI_ICARGA'),
                         $ICARGA->__GET('NAVE_ICARGA'),
                         $ICARGA->__GET('TOTAL_ENVASE_ICAGRA'),
                         $ICARGA->__GET('TOTAL_NETO_ICARGA'),

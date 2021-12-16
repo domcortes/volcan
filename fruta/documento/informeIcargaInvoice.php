@@ -204,6 +204,7 @@ $ARRAYICARGA=$ICARGA_ADO->verIcarga2($IDOP);
 if($ARRAYICARGA){
       
     $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga2($IDOP);
+    $ARRAYDCARGATOTAL = $DICARGA_ADO->totalesPorIcarga($IDOP);
     $ARRAYDCARGATOTAL2 = $DICARGA_ADO->totalesPorIcarga2($IDOP);
     $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
     $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
@@ -244,6 +245,7 @@ if($ARRAYICARGA){
       $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
       $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
       $TOTALBRUTOV = $ARRAYDCARGATOTAL2[0]['BRUTO'];
+      $TOTALUS = $ARRAYDCARGATOTAL[0]['TOTALUS'];
       $TOTALUSV = $ARRAYDCARGATOTAL2[0]['TOTALUS'];
       
       $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
@@ -262,6 +264,8 @@ if($ARRAYICARGA){
       $ALAMPAINSTRUCTIVO = $ARRAYICARGA[0]['ALAMPA_ICARGA'];
 
       $OBSERVACIONES = $ARRAYICARGA[0]['OBSERVACION_ICARGA'];
+      $OBSERVACIONESI = $ARRAYICARGA[0]['OBSERVACIONI_ICARGA'];
+      $COSTOFLETEICARGA = $ARRAYICARGA[0]['COSTO_FLETE_ICARGA'];
       if($ARRAYICARGA[0]['FUMIGADO_ICARGA']==1){
         $FUMIGADO="Si";
       }else if($ARRAYICARGA[0]['FUMIGADO_ICARGA']==2){
@@ -775,6 +779,22 @@ $html = $html . '
               </tr>
             ';
             endforeach;
+
+if($COSTOFLETEICARGA!=""){
+            $html = $html . '              
+              <tr class="">
+                  <td class="center"> - </td>
+                    <td class="center">Freight cost </td>
+                    <td class="center"> - </td>
+                    <td class="center"> - </td>
+                    <td class="center"></td>
+                    <td class="center"> - </td>
+                    <td class="center">'.$COSTOFLETEICARGA.'</td>
+              </tr>
+            ';
+            $TOTALUSV=number_format($TOTALUS+$COSTOFLETEICARGA, 2, ",", ".");
+}
+
             $html = $html . '
                     
                         <tr class="bt">
@@ -799,8 +819,8 @@ $html = $html . '
   <div id="details" class="clearfix">
 
         <div id="client">
-          <div class="address"><b>Note</b></div>
-          <div class="address">  ' . $OBSERVACIONES . ' </div>
+          <div class="address"><b>Invoice Note</b></div>
+          <div class="address">  ' . $OBSERVACIONESI . ' </div>
         </div>
         
       </div>

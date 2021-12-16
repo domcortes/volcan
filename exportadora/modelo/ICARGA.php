@@ -34,6 +34,7 @@ class ICARGA
     private      $PUBLICA_ICARGA;
     private      $FECHA_CDOCUMENTAL_ICARGA;
     private      $OBSERVACION_ICARGA;
+    private      $OBSERVACIONI_ICARGA;
     private      $NREFERENCIA_ICARGA;
     private      $TOTAL_ENVASE_ICAGRA;
     private      $TOTAL_NETO_ICARGA;
