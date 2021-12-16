@@ -186,6 +186,7 @@ $REBATEINSTRUCTIVO = 0;
 $PUBLICAINSTRUCTIVO = 0;
 $SEGURO = "";
 $OBSERVACIONINSTRUCTIVO = "";
+$OBSERVACIONIINSTRUCTIVO = "";
 $ESTADO = "";
 $PAIS = "";
 
@@ -478,6 +479,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PUBLICAINSTRUCTIVO = $r['PUBLICA_ICARGA'];
             $SEGURO = $r['ID_SEGURO'];
             $OBSERVACIONINSTRUCTIVO = $r['OBSERVACION_ICARGA'];
+            $OBSERVACIONIINSTRUCTIVO = $r['OBSERVACIONI_ICARGA'];
             $PAIS = $r['ID_PAIS'];
             $EMPRESA = $r['ID_EMPRESA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
@@ -567,6 +569,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PUBLICAINSTRUCTIVO = $r['PUBLICA_ICARGA'];
             $SEGURO = $r['ID_SEGURO'];
             $OBSERVACIONINSTRUCTIVO = $r['OBSERVACION_ICARGA'];
+            $OBSERVACIONIINSTRUCTIVO = $r['OBSERVACIONI_ICARGA'];
             $PAIS = $r['ID_PAIS'];
             $EMPRESA = $r['ID_EMPRESA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
@@ -658,6 +661,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $PUBLICAINSTRUCTIVO = $r['PUBLICA_ICARGA'];
             $SEGURO = $r['ID_SEGURO'];
             $OBSERVACIONINSTRUCTIVO = $r['OBSERVACION_ICARGA'];
+            $OBSERVACIONIINSTRUCTIVO = $r['OBSERVACIONI_ICARGA'];
             $PAIS = $r['ID_PAIS'];
             $EMPRESA = $r['ID_EMPRESA'];
             $TEMPORADA = $r['ID_TEMPORADA'];
@@ -850,6 +854,9 @@ if (isset($_POST)) {
     if (isset($_REQUEST['OBSERVACIONINSTRUCTIVO'])) {
         $OBSERVACIONINSTRUCTIVO = $_REQUEST['OBSERVACIONINSTRUCTIVO'];
     }
+    if (isset($_REQUEST['OBSERVACIONIINSTRUCTIVO'])) {
+        $OBSERVACIONIINSTRUCTIVO = $_REQUEST['OBSERVACIONIINSTRUCTIVO'];
+    }    
     if (isset($_REQUEST['EMPRESA'])) {
         $EMPRESA = "" . $_REQUEST['EMPRESA'];
     }
@@ -2842,7 +2849,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>T° </label>
                                                     <input type="hidden" class="form-control" placeholder="TINSTRUCTIVOE" id="TINSTRUCTIVOE" name="TINSTRUCTIVOE" value="<?php echo $TINSTRUCTIVO; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="Temperatura Instructivo" id="TINSTRUCTIVO" name="TINSTRUCTIVO" value="<?php echo $TINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Temperatura Instructivo" id="TINSTRUCTIVO" name="TINSTRUCTIVO" value="<?php echo $TINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_t" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2850,7 +2857,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>% O2 </label>
                                                     <input type="hidden" class="form-control" placeholder="O2INSTRUCTIVOE" id="O2INSTRUCTIVOE" name="O2INSTRUCTIVOE" value="<?php echo $O2INSTRUCTIVO; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="% O2 Instructivo" id="O2INSTRUCTIVO" name="O2INSTRUCTIVO" value="<?php echo $O2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="% O2 Instructivo" id="O2INSTRUCTIVO" name="O2INSTRUCTIVO" value="<?php echo $O2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_o2" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2858,7 +2865,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>% CO2 </label>
                                                     <input type="hidden" class="form-control" placeholder="CO2INSTRUCTIVOE" id="CO2INSTRUCTIVOE" name="CO2INSTRUCTIVOE" value="<?php echo $CO2INSTRUCTIVO; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="% CO2 Instructivo" id="CO2INSTRUCTIVO" name="CO2INSTRUCTIVO" value="<?php echo $CO2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="% CO2 Instructivo" id="CO2INSTRUCTIVO" name="CO2INSTRUCTIVO" value="<?php echo $CO2INSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_co2" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2866,7 +2873,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label> Apertura Lampa (CBM)</label>
                                                     <input type="hidden" class="form-control" placeholder="ALAMPAINSTRUCTIVOE" id="ALAMPAINSTRUCTIVOE" name="ALAMPAINSTRUCTIVOE" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="Apertura Lampa Instructivo" id="ALAMPAINSTRUCTIVO" name="ALAMPAINSTRUCTIVO" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Apertura Lampa Instructivo" id="ALAMPAINSTRUCTIVO" name="ALAMPAINSTRUCTIVO" value="<?php echo $ALAMPAINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_alampa" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -2994,7 +3001,7 @@ if (isset($_POST)) {
                                                 <div class="form-group">
                                                     <label>Costo Flete </label>
                                                     <input type="hidden" class="form-control" placeholder="COSTOFLETEE" id="COSTOFLETEE" name="COSTOFLETEE" value="<?php echo $COSTOFLETE; ?>" />
-                                                    <input type="number" step="0.01" class="form-control" placeholder="Costo Flete" id="COSTOFLETE" name="COSTOFLETE" value="<?php echo $COSTOFLETE; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="number" step="0.1" class="form-control" placeholder="Costo Flete" id="COSTOFLETE" name="COSTOFLETE" value="<?php echo $COSTOFLETE; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_costoflete" class="validacion"> </label>
                                                 </div>
                                             </div>
@@ -3066,6 +3073,14 @@ if (isset($_POST)) {
                                                 <label>Observaciones </label>
                                                 <textarea class="form-control" rows="1" placeholder="Ingrese Nota e Observacion  " id="OBSERVACIONINSTRUCTIVO" name="OBSERVACIONINSTRUCTIVO" <?php echo $DISABLED; ?>><?php echo $OBSERVACIONINSTRUCTIVO; ?></textarea>
                                                 <label id="val_observacion" class="validacion"> </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" placeholder="OBSERVACION PROCESO" id="OBSERVACIONIINSTRUCTIVOE" name="OBSERVACIONIINSTRUCTIVOE" value="<?php echo $OBSERVACIONIINSTRUCTIVO; ?>" />
+                                                <label>Observaciones Invoice </label>
+                                                <textarea class="form-control" rows="1" placeholder="Ingrese Nota e Observacion  " id="OBSERVACIONIINSTRUCTIVO" name="OBSERVACIONIINSTRUCTIVO" <?php echo $DISABLED; ?>><?php echo $OBSERVACIONIINSTRUCTIVO; ?></textarea>
+                                                <label id="val_observacioni" class="validacion"> </label>
                                             </div>
                                         </div>
                                     </div>
@@ -3271,9 +3286,9 @@ if (isset($_POST)) {
                                                             </form>
                                                         </td>
                                                         <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                        <td><?php echo $NOMBREESTANTAR; ?></td>
-                                                        <td><?php echo $NETOESTANTAR; ?></td>
-                                                        <td><?php echo $BRUTOESTANTAR; ?></td>
+                                                        <td><?php echo $NOMBREESTANTAR ?></td>
+                                                        <td><?php echo number_format($NETOESTANTAR, 2, ",", ".") ?></td>
+                                                        <td><?php echo number_format($BRUTOESTANTAR, 2, ",", ".") ?></td>
                                                         <td><?php echo $s['ENVASE']; ?></td>
                                                         <td><?php echo $s['NETO']; ?></td>
                                                         <td><?php echo $s['BRUTO']; ?></td>
@@ -3453,6 +3468,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
                 $ICARGA->__SET('ID_SEGURO', $_REQUEST['SEGURO']);
                 $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
+                $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);                
                 $ICARGA->__SET('ID_TSERVICIO', $_REQUEST['TSERVICIO']);
                 $ICARGA->__SET('ID_EXPPORTADORA', $_REQUEST['EXPORTADORA']);
                 $ICARGA->__SET('ID_CONSIGNATARIO', $_REQUEST['CONSIGNATARIO']);
@@ -3549,6 +3565,7 @@ if (isset($_POST)) {
                 $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
                 $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
                 $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
+                $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);
                 $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', $_REQUEST['TOTALENVASE']);
                 $ICARGA->__SET('TOTAL_NETO_ICARGA', $_REQUEST['TOTALKILONETO']);
                 $ICARGA->__SET('TOTAL_BRUTO_ICARGA', $_REQUEST['TOTALKILOBRUTO']);
@@ -3677,6 +3694,7 @@ if (isset($_POST)) {
                     $ICARGA->__SET('REBATE_ICARGA', $_REQUEST['REBATEINSTRUCTIVO']);
                     $ICARGA->__SET('PUBLICA_ICARGA', $_REQUEST['PUBLICAINSTRUCTIVO']);
                     $ICARGA->__SET('OBSERVACION_ICARGA', $_REQUEST['OBSERVACIONINSTRUCTIVO']);
+                    $ICARGA->__SET('OBSERVACIONI_ICARGA', $_REQUEST['OBSERVACIONIINSTRUCTIVO']);
                     $ICARGA->__SET('TOTAL_ENVASE_ICAGRA', $_REQUEST['TOTALENVASE']);
                     $ICARGA->__SET('TOTAL_NETO_ICARGA', $_REQUEST['TOTALKILONETO']);
                     $ICARGA->__SET('TOTAL_BRUTO_ICARGA', $_REQUEST['TOTALKILOBRUTO']);
