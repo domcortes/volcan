@@ -517,8 +517,8 @@ include_once "../config/datosUrLP.php";
                                                                 <td> <?php echo $r['NREFERENCIA_ICARGA']; ?>  </td>
                                                                 <td> <?php echo $CODIGOESTANDAR; ?></td>
                                                                 <td> <?php echo $NOMBREESTANTAR ?></td>
-                                                                <td> <?php echo number_format($NETOESTANTAR, 2, ",", ".") ?></td>
-                                                                <td> <?php echo number_format($BRUTOESTANTAR, 2, ",", ".") ?></td>
+                                                                <td> <?php echo number_format($NETOESTANTAR, 2, ".", "") ?></td>
+                                                                <td> <?php echo number_format($BRUTOESTANTAR, 2, ".", "") ?></td>
                                                                 <td> <?php echo $s['ENVASE']; ?></td>
                                                                 <td> <?php echo $s['NETO']; ?></td>
                                                                 <td> <?php echo $s['BRUTO']; ?></td>
