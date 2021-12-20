@@ -1,67 +1,67 @@
 <?php
 
 //BASE
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 // OPERACION
-include_once '../controlador/MERCADO_ADO.php';
-include_once '../controlador/TSERVICIO_ADO.php';
+include_once '../../assest/controlador/MERCADO_ADO.php';
+include_once '../../assest/controlador/TSERVICIO_ADO.php';
 
-include_once '../controlador/EXPORTADORA_ADO.php';
-include_once '../controlador/CONSIGNATARIO_ADO.php';
-include_once '../controlador/NOTIFICADOR_ADO.php';
-include_once '../controlador/BROKER_ADO.php';
-include_once '../controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/EXPORTADORA_ADO.php';
+include_once '../../assest/controlador/CONSIGNATARIO_ADO.php';
+include_once '../../assest/controlador/NOTIFICADOR_ADO.php';
+include_once '../../assest/controlador/BROKER_ADO.php';
+include_once '../../assest/controlador/RFINAL_ADO.php';
 
-include_once '../controlador/AGCARGA_ADO.php';
-include_once '../controlador/AADUANA_ADO.php';
-include_once '../controlador/DFINAL_ADO.php';
-
-
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/LCARGA_ADO.php';
-include_once '../controlador/LDESTINO_ADO.php';
-
-include_once '../controlador/LAEREA_ADO.php';
-include_once '../controlador/AERONAVE_ADO.php';
-include_once '../controlador/ACARGA_ADO.php';
-include_once '../controlador/ADESTINO_ADO.php';
-
-include_once '../controlador/NAVIERA_ADO.php';
-include_once '../controlador/PCARGA_ADO.php';
-include_once '../controlador/PDESTINO_ADO.php';
+include_once '../../assest/controlador/AGCARGA_ADO.php';
+include_once '../../assest/controlador/AADUANA_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
 
 
-include_once '../controlador/FPAGO_ADO.php';
-include_once '../controlador/MVENTA_ADO.php';
-include_once '../controlador/CVENTA_ADO.php';
-include_once '../controlador/TFLETE_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/LCARGA_ADO.php';
+include_once '../../assest/controlador/LDESTINO_ADO.php';
 
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/ATMOSFERA_ADO.php';
-include_once '../controlador/PAIS_ADO.php';
-include_once '../controlador/SEGURO_ADO.php';
+include_once '../../assest/controlador/LAEREA_ADO.php';
+include_once '../../assest/controlador/AERONAVE_ADO.php';
+include_once '../../assest/controlador/ACARGA_ADO.php';
+include_once '../../assest/controlador/ADESTINO_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
-include_once '../controlador/CIUDAD_ADO.php';
-include_once '../controlador/ECOMERCIAL_ADO.php';
+include_once '../../assest/controlador/NAVIERA_ADO.php';
+include_once '../../assest/controlador/PCARGA_ADO.php';
+include_once '../../assest/controlador/PDESTINO_ADO.php';
+
+
+include_once '../../assest/controlador/FPAGO_ADO.php';
+include_once '../../assest/controlador/MVENTA_ADO.php';
+include_once '../../assest/controlador/CVENTA_ADO.php';
+include_once '../../assest/controlador/TFLETE_ADO.php';
+
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/ATMOSFERA_ADO.php';
+include_once '../../assest/controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/SEGURO_ADO.php';
+
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
  
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
 
 
 
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/DICARGA_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -203,7 +203,7 @@ if (isset($_REQUEST['parametro'])) {
 $ARRAYICARGA=$ICARGA_ADO->verIcarga2($IDOP);
 if($ARRAYICARGA){
       
-    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcarga2($IDOP);
+    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcargaInvoice($IDOP);
     $ARRAYDCARGATOTAL = $DICARGA_ADO->totalesPorIcarga($IDOP);
     $ARRAYDCARGATOTAL2 = $DICARGA_ADO->totalesPorIcarga2($IDOP);
     $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
@@ -594,7 +594,7 @@ $html = '
       <tr>
         <td class="color2 left">
           <div id="logo">
-              <img src="../vista/img/logo2.png" width="150px" height="45px"/>
+              <img src="../../assest/img/logo2.png" width="150px" height="45px"/>
           </div>
         </td>
         <td class="color2 left" width="70%">
@@ -907,8 +907,8 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //INICIALIZACION DEL CSS
-$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
+$stylesheet = file_get_contents('../../assest/css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
 
 //ENLASAR CSS CON LA VISTA DEL PDF
 $PDF->WriteHTML($stylesheet, 1);

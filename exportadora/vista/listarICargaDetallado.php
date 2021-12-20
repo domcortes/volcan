@@ -1,65 +1,65 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 //BASE
-include_once '../controlador/MERCADO_ADO.php';
-include_once '../controlador/TSERVICIO_ADO.php';
+include_once '../../assest/controlador/MERCADO_ADO.php';
+include_once '../../assest/controlador/TSERVICIO_ADO.php';
 
-include_once '../controlador/EXPORTADORA_ADO.php';
-include_once '../controlador/CONSIGNATARIO_ADO.php';
-include_once '../controlador/NOTIFICADOR_ADO.php';
-include_once '../controlador/BROKER_ADO.php';
-include_once '../controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/EXPORTADORA_ADO.php';
+include_once '../../assest/controlador/CONSIGNATARIO_ADO.php';
+include_once '../../assest/controlador/NOTIFICADOR_ADO.php';
+include_once '../../assest/controlador/BROKER_ADO.php';
+include_once '../../assest/controlador/RFINAL_ADO.php';
 
-include_once '../controlador/AGCARGA_ADO.php';
-include_once '../controlador/AADUANA_ADO.php';
-include_once '../controlador/DFINAL_ADO.php';
-
-
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/LCARGA_ADO.php';
-include_once '../controlador/LDESTINO_ADO.php';
-
-include_once '../controlador/LAEREA_ADO.php';
-include_once '../controlador/AERONAVE_ADO.php';
-include_once '../controlador/ACARGA_ADO.php';
-include_once '../controlador/ADESTINO_ADO.php';
-
-include_once '../controlador/NAVIERA_ADO.php';
-include_once '../controlador/PCARGA_ADO.php';
-include_once '../controlador/PDESTINO_ADO.php';
+include_once '../../assest/controlador/AGCARGA_ADO.php';
+include_once '../../assest/controlador/AADUANA_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
 
 
-include_once '../controlador/FPAGO_ADO.php';
-include_once '../controlador/MVENTA_ADO.php';
-include_once '../controlador/CVENTA_ADO.php';
-include_once '../controlador/TFLETE_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/LCARGA_ADO.php';
+include_once '../../assest/controlador/LDESTINO_ADO.php';
 
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/ATMOSFERA_ADO.php';
-include_once '../controlador/PAIS_ADO.php';
-include_once '../controlador/SEGURO_ADO.php';
+include_once '../../assest/controlador/LAEREA_ADO.php';
+include_once '../../assest/controlador/AERONAVE_ADO.php';
+include_once '../../assest/controlador/ACARGA_ADO.php';
+include_once '../../assest/controlador/ADESTINO_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/NAVIERA_ADO.php';
+include_once '../../assest/controlador/PCARGA_ADO.php';
+include_once '../../assest/controlador/PDESTINO_ADO.php';
 
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
-include_once '../controlador/ECOMERCIAL_ADO.php';
+include_once '../../assest/controlador/FPAGO_ADO.php';
+include_once '../../assest/controlador/MVENTA_ADO.php';
+include_once '../../assest/controlador/CVENTA_ADO.php';
+include_once '../../assest/controlador/TFLETE_ADO.php';
+
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/ATMOSFERA_ADO.php';
+include_once '../../assest/controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/SEGURO_ADO.php';
+
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+
+
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
 
 
 
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/DICARGA_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -146,8 +146,8 @@ if ($EMPRESAS   && $TEMPORADAS) {
     $TOTALBRUTO = $ARRAYTOTALICARGA[0]['BRUTO'];
     $TOTALUS = $ARRAYTOTALICARGA[0]['US'];
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 
@@ -167,7 +167,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -231,7 +231,7 @@ include_once "../config/datosUrLP.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -283,7 +283,7 @@ include_once "../config/datosUrLP.php";
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="modulo" class="table table-hover " style="width: 100%;">
+                                            <table id="modulo" class=" table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Número </th>
@@ -615,11 +615,11 @@ include_once "../config/datosUrLP.php";
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 
         <?php         
         if (isset($_REQUEST['CARGADO'])) {

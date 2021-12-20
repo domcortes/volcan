@@ -1,27 +1,27 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/DPEXPORTACION_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ECOMERCIAL_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/MERCADO_ADO.php';
-include_once '../controlador/TETIQUETA_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/DPEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/MERCADO_ADO.php';
+include_once '../../assest/controlador/TETIQUETA_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/FAMILIA_ADO.php';
-include_once '../controlador/SUBFAMILIA_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/FAMILIA_ADO.php';
+include_once '../../assest/controlador/SUBFAMILIA_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 
 
 
-include_once '../controlador/FICHA_ADO.php';
-include_once '../controlador/DFICHA_ADO.php';
+include_once '../../assest/controlador/FICHA_ADO.php';
+include_once '../../assest/controlador/DFICHA_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -77,8 +77,8 @@ $ARRAYTETIQUETA = "";
 if ($EMPRESAS  && $TEMPORADAS) {
     $ARRAYFICHA = $FICHA_ADO->listarConsumoFichaPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 
@@ -95,7 +95,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -166,7 +166,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; 
+        <?php include_once "../../assest/config/menuExpo.php"; 
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -292,13 +292,13 @@ include_once "../config/datosUrLP.php";
 
 
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
 
 
 
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

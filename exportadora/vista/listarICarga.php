@@ -1,20 +1,20 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/DICARGA_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/AERONAVE_ADO.php';
-include_once '../controlador/NAVE_ADO.php';
-include_once '../controlador/DFINAL_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/AERONAVE_ADO.php';
+include_once '../../assest/controlador/NAVE_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
 
 
-include_once '../modelo/ICARGA.php';
+include_once '../../assest/modelo/ICARGA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -63,8 +63,8 @@ if ($EMPRESAS   && $TEMPORADAS) {
     $TOTALBRUTO = $ARRAYTOTALICARGA[0]['BRUTO'];
     $TOTALUS = $ARRAYTOTALICARGA[0]['US'];
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 
@@ -84,7 +84,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -148,7 +148,7 @@ include_once "../config/datosUrLP.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -332,30 +332,30 @@ include_once "../config/datosUrLP.php";
                                                                                 <hr>     
                                                                                 <span href="#" class="dropdown-item">                         
                                                                                     <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instructivo Español" Onclick="abrirPestana('../documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instructivo Español" Onclick="abrirPestana('../../assest/documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                             <i class="fa fa-file-pdf-o"></i> Instructivo Español
                                                                                         </button>    
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instruction English" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instruction English" Onclick="abrirPestana('../../assest/documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                                 <i class="fa fa-file-pdf-o"></i> Instruction English
                                                                                         </button>                                                                                 
                                                                                     </div>                                                                                   
                                                                                 </span>                                                                                   
                                                                                 <span href="#" class="dropdown-item">                         
                                                                                     <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Report Invoice" Onclick="abrirPestana('../documento/informeIcargaInvoice.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Report Invoice" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoice.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                             <i class="fa fa-file-pdf-o"></i> Invoice
                                                                                         </button>    
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Informe Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Informe Carga Real" Onclick="abrirPestana('../../assest/documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                                 <i class="fa fa-file-pdf-o"></i>  Carga Real
                                                                                         </button>                                                                                 
                                                                                     </div>                                                                                   
                                                                                 </span>                                                                               
                                                                                 <span href="#" class="dropdown-item">                         
                                                                                     <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
-                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Carga Real" Onclick="abrirPestana('../reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Carga Real" Onclick="abrirPestana('../../assest/reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                             <i class="fa fa-file-excel-o"></i> Carga Real
                                                                                         </button>    
-                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Packing Lis" Onclick="abrirPestana('../reporte/reporteICargaPackingList.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Packing Lis" Onclick="abrirPestana('../../assest/reporte/reporteICargaPackingList.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                             <i class="fa fa-file-excel-o"></i>   Packing List
                                                                                         </button>                                                                                 
                                                                                     </div>                                                                                   
@@ -446,11 +446,11 @@ include_once "../config/datosUrLP.php";
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 
         <?php         
         if (isset($_REQUEST['CARGADO'])) {

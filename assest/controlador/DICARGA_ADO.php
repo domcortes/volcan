@@ -291,6 +291,38 @@ class DICARGA_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorIcargaInvoice($IDICARGA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                    detalle.ID_ESTANDAR,detalle.ID_TCALIBRE, detalle.ID_TMANEJO ,
+                                                    FORMAT(IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0),0,'de_DE') AS 'ENVASE',
+                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DICARGA),0),2,'de_DE') AS 'NETO',
+                                                    FORMAT(IFNULL(SUM(detalle.KILOS_BRUTO_DICARGA),0),2,'de_DE') AS 'BRUTO',
+                                                    FORMAT(IFNULL(detalle.PRECIO_US_DICARGA,0),2,'de_DE') AS 'US',
+                                                    FORMAT(IFNULL(SUM(detalle.TOTAL_PRECIO_US_DICARGA),0),2,'de_DE') AS 'TOTALUS'
+                                                FROM fruta_dicarga detalle, estandar_eexportacion estandar, estandar_ecomercial comercial
+                                                WHERE 
+                                                    detalle.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                    AND estandar.ID_ECOMERCIAL = comercial.ID_ECOMERCIAL
+                                                    AND detalle.ID_ICARGA ='" . $IDICARGA . "'  
+                                                    AND detalle.ESTADO_REGISTRO = 1
+                                                GROUP BY comercial.ID_ECOMERCIAL   
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function totalesPorIcarga($IDICARGA)
     {
         try {
@@ -323,7 +355,7 @@ class DICARGA_ADO
 
             $datos = $this->conexion->prepare("SELECT 
                                             FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DICARGA),0),0,'de_DE') AS 'ENVASE',
-                                            FORMAT(IFNULL(SUM(KILOS_NETO_DICARGA),0),2,'de_DE') AS 'NETO',
+                                            FORMAT(IFNULL(SUM(KILOS_NETO_DICARGA),0 ),2,'de_DE') AS 'NETO',
                                             FORMAT(IFNULL(SUM(KILOS_BRUTO_DICARGA),0),2,'de_DE') AS 'BRUTO',
                                             FORMAT(IFNULL(SUM(TOTAL_PRECIO_US_DICARGA),0),2,'de_DE') AS 'TOTALUS'
                                          FROM fruta_dicarga 

@@ -1,48 +1,62 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
-//LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES¿
-
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
-
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
+//LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../controlador/RECEPCIONMP_ADO.php';
-include_once '../controlador/DRECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/RECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONPT_ADO.php';
+
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONMP_ADO.php';
+
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
+$TRANSPORTE_ADO =  new TRANSPORTE_ADO();
+$CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$TMANEJO_ADO = new TMANEJO_ADO();
+$TCALIBRE_ADO = new TCALIBRE_ADO();
+$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
 
+$EEXPORTACION_ADO = new EEXPORTACION_ADO();
+$EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
+$RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
+$DRECEPCIONPT_ADO =  new DRECEPCIONPT_ADO();
 
 
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
-$TMANEJO_ADO =  new TMANEJO_ADO();
-$TCALIBRE_ADO =  new TCALIBRE_ADO();
-$TEMBALAJE_ADO =  new TEMBALAJE_ADO();
-
-$TRANSPORTE_ADO =  new TRANSPORTE_ADO();
-$CONDUCTOR_ADO =  new CONDUCTOR_ADO();
-
-
-
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 $RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 $DRECEPCIONMP_ADO =  new DRECEPCIONMP_ADO();
+
+
+$EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
+$DRECEPCIONIND_ADO =  new DRECEPCIONIND_ADO();
+$EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
+
+
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 $EMPRESA = "";
@@ -50,9 +64,10 @@ $PLANTA = "";
 $TEMPORADA = "";
 
 $TOTALGUIA = "";
-$TOTALBRUTO = "";
-$TOTALNETO = "";
-$TOTALENVASE = "";
+$TOTALBRUTO = 0;
+$TOTALNETO = 0;
+$TOTALENVASE = 0;
+$ORIGEN = "";
 
 $FECHADESDE = "";
 $FECHAHASTA = "";
@@ -73,17 +88,22 @@ $ARRAYPRODUCTOR = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-if ($EMPRESAS  &&  $TEMPORADAS) {
+if ($EMPRESAS && $TEMPORADAS) {
+
 
     $ARRAYRECEPCIONMP = $RECEPCIONMP_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYRECEPCIONTOTALES = $RECEPCIONMP_ADO->obtenerTotalesRecepcionEmpresaTemporada2CBX($EMPRESAS, $TEMPORADAS);
-    $TOTALBRUTO = $ARRAYRECEPCIONTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYRECEPCIONTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYRECEPCIONTOTALES[0]['ENVASE'];
-}
+    $ARRAYRECEPCIONMPTOTALES = $RECEPCIONMP_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
+    $TOTALBRUTOMP = $ARRAYRECEPCIONMPTOTALES[0]['BRUTO'];
+    $TOTALNETOMP = $ARRAYRECEPCIONMPTOTALES[0]['NETO'];
+    $TOTALENVASEMP = $ARRAYRECEPCIONMPTOTALES[0]['ENVASE'];
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+    
+
+    
+    $TOTALNETO  = number_format( $TOTALNETOMP   , 2, ",", ".");
+    $TOTALBRUTO = number_format( $TOTALBRUTOMP  , 2, ",", ".");
+    $TOTALENVASE  = number_format( $TOTALENVASEMP  , 2, ",", ".");
+}
 
 
 
@@ -95,7 +115,7 @@ include_once "../config/datosUrLP.php";
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ES-es">
 
 <head>
     <title> Detallado Recepción MP</title>
@@ -104,7 +124,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -176,7 +196,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuExpo.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -228,28 +248,35 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="modulo" class=" table-hover  " style="width: 100%;">
                                             <thead>
-                                                <tr class="text-left">
+                                                <tr>
                                                     <th>N° Folio </th>
-                                                    <th>Fecha Embalado/Cosecha </th>
-                                                    <th>Tipo Producto</th>
+                                                    <th>Cosecha </th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
                                                     <th>CSG</th>
                                                     <th>Productor</th>
                                                     <th>Especies</th>
                                                     <th>Variedad</th>
-                                                    <th>Cantidad Envases</th>
-                                                    <th>Kilos Neto</th>
-                                                    <th>Kilos Bruto</th>
+                                                    <th>Cantidad Envase</th>
+                                                    <th>Kilo Neto </th>
+                                                    <th>% Deshidratación </th>
+                                                    <th>Kilo Con Deshidratación </th>
+                                                    <th>Kilo Bruto </th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
+                                                    <th>Origen Recepción</th>
                                                     <th>Número Guía Recepción</th>
                                                     <th>Fecha Guía Recepción </th>
-                                                    <th>Tipo Manejo</th>
+                                                    <th>Tipo Manejo </th>
+                                                    <th>Tipo Calibre </th>
+                                                    <th>Tipo Embalaje </th>
+                                                    <th>Stock </th>
+                                                    <th>Embolsado</th>
                                                     <th>Gasificacion</th>
+                                                    <th>Prefrío</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -259,7 +286,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody>                                                
                                                 <?php foreach ($ARRAYRECEPCIONMP as $r) : ?>
                                                     <?php
                                                     if ($r['TRECEPCION'] == "1") {
@@ -366,7 +393,6 @@ include_once "../config/datosUrLP.php";
                                                         <tr class="text-left">
                                                             <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
                                                             <td><?php echo $s['COSECHA']; ?></td>
-                                                            <td><?php echo "Materia Prima"; ?> </td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
@@ -375,14 +401,22 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION; ?></td>
+                                                            <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                             <td><?php echo $r['FECHA_GUIA']; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -398,37 +432,38 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
+
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
+                                                    <!-- /input -->
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
+                                                    <!-- /input -->
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Bruto</div>
+                                                    <!-- input -->
+                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
+                                                    <!-- /input -->
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
@@ -445,10 +480,10 @@ include_once "../config/datosUrLP.php";
 
 
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest//config/menuExtraExpo.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

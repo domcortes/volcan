@@ -1,20 +1,20 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
 
 
@@ -59,7 +59,7 @@ $ARRAYVERRECEPCIONPT = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  &&  $TEMPORADAS) {
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaTemporadaAgrupadoPorEstandarVariedadCalibreDisponible($EMPRESAS,  $TEMPORADAS);
+    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaTemporadaDisponibleAgrupadoTestadoEstandarProductorVariedadCalibreManejoEmbalaje($EMPRESAS,  $TEMPORADAS);
     $ARRAYTOTALEXIEXPORTACION = $EXIEXPORTACION_ADO->obtenerTotalesEmpresaTemporadaDisponible2($EMPRESAS,  $TEMPORADAS);
 
     $TOTALNETO = $ARRAYTOTALEXIEXPORTACION[0]['NETO'];
@@ -79,7 +79,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -132,7 +132,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuExpo.php";
             ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -185,11 +185,11 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existencia" class="table table-hover " style="width: 150%;">
+                                            <table id="existencia" class="table-hover " style="width: 150%;">
                                                 <thead>
                                                     <tr class="text-left">
-                                                        <th>COD. Estandar </th>
-                                                        <th>Nombre Estandar </th>
+                                                        <th>Código Estandar </th>
+                                                        <th>Envase/Estandar </th>
                                                         <th>Productor </th>
                                                         <th>Especies </th>
                                                         <th>Variedad </th>
@@ -204,24 +204,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                 <tbody>
                                                     <?php foreach ($ARRAYEXIEXPORTACION as $r) : ?>
                                                         <?php
-                                                        if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
-                                                            $ESTADOSAG = "Sin Condición";
-                                                        }
-                                                        if ($r['TESTADOSAG'] == "1") {
-                                                            $ESTADOSAG =  "En Inspección";
-                                                        }
-                                                        if ($r['TESTADOSAG'] == "2") {
-                                                            $ESTADOSAG =  "Aprobado Origen";
-                                                        }
-                                                        if ($r['TESTADOSAG'] == "3") {
-                                                            $ESTADOSAG =  "Aprobado USLA";
-                                                        }
-                                                        if ($r['TESTADOSAG'] == "4") {
-                                                            $ESTADOSAG =  "Fumigado";
-                                                        }
-                                                        if ($r['TESTADOSAG'] == "5") {
-                                                            $ESTADOSAG =  "Rechazado";
-                                                        }
                                                         $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYVERPRODUCTORID) {
 
@@ -272,17 +254,12 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         } else {
                                                             $NOMBRETEMBALAJE = "Sin Datos";
                                                         }
+
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                         if ($ARRAYEMPRESA) {
                                                             $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
                                                         } else {
                                                             $NOMBREEMPRESA = "Sin Datos";
-                                                        }
-                                                        $ARRAYPLANTA = $PLANTA_ADO->verPlanta($r['ID_PLANTA']);
-                                                        if ($ARRAYPLANTA) {
-                                                            $NOMBREPLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
-                                                        } else {
-                                                            $NOMBREPLANTA = "Sin Datos";
                                                         }
                                                         $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($r['ID_TEMPORADA']);
                                                         if ($ARRAYTEMPORADA) {
@@ -299,7 +276,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
-                                                            <td><?php echo $ESTADOSAG; ?></td>
+                                                            <td><?php echo $r['TESTADOSAG']; ?></td>
                                                             <td><?php echo $r['ENVASE']; ?></td>
                                                             <td><?php echo $PESONETOESTANDAR; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
@@ -346,11 +323,11 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
             </div>
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>
