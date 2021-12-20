@@ -443,12 +443,12 @@ $html = '
             <th class="color left">Folio</th>
             <th class="color center ">CSG </th>
             <th class="color center ">Productor </th>
-            <th class="color center ">Comuna  </th>
-            <th class="color center ">Provincia  </th>            
+            <th class="color center ">Provincia  </th>  
+            <th class="color center ">Comuna  </th>          
             <th class="color center ">CSP </th>            
             <th class="color center ">Planta </th>
-            <th class="color center ">Comuna  </th>
             <th class="color center ">Provincia  </th>   
+            <th class="color center ">Comuna  </th>
             <th class="color center">Fecha Embalado</th>
             <th class="color center">Código Estandar</th>
             <th class="color center">Envase/Estandar</th>
@@ -482,11 +482,10 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
     $ARRAYPROVINCIA = $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);
     $PROVINCIAPRODUCTOR = $ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
 
-    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($d['ID_PLANTA']);
+    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($d['ID_PLANTA2']);
     if ($ARRAYPLANTA2) {
       $CSPPLANTA2 = $ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
       $NOMBREPLANTA2 = $ARRAYPLANTA2[0]["NOMBRE_PLANTA"];
-
       $ARRAYCIUDAD = $CIUDAD_ADO->verCiudad($ARRAYPLANTA2[0]["ID_CIUDAD"]);
       $ARRAYCOMUNA = $COMUNA_ADO->verComuna($ARRAYCIUDAD[0]["ID_COMUNA"]);
       $COMUNAPLANTA2 = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
@@ -524,13 +523,13 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
                       <tr >
                           <th class=" left">' . $d['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
                           <td class="center">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
-                          <td class="center">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>       
+                          <td class="center">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>         
+                          <td class="center">' . $PROVINCIAPRODUCTOR . '</td>    
                           <td class="center">' . $COMUNAPRODUCTOR . '</td>          
-                          <td class="center">' . $PROVINCIAPRODUCTOR . '</td>      
                           <td class="center">' . $CSPPLANTA2 . '</td>     
                           <td class="center">' . $NOMBREPLANTA2 . '</td>   
-                          <td class="center">' . $COMUNAPLANTA2 . '</td>   
-                          <td class="center">' . $PROVINCIAPLANTA2 . '</td>   
+                          <td class="center">' . $PROVINCIAPLANTA2 . '</td>  
+                          <td class="center">' . $COMUNAPLANTA2 . '</td>    
                           <td class=" center">' . $d['EMBALADO'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '</td>

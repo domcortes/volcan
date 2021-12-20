@@ -333,18 +333,16 @@ $html = '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="17" class="center">DETALLE DE   PLANIFICADOR DE CARGA.</th>
+            <th colspan="15" class="center">DETALLE DE   PLANIFICADOR DE CARGA.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
             <th class="color center ">CSG </th>
             <th class="color center ">Productor </th>
-            <th class="color center ">Región  </th>     
             <th class="color center ">Provincia  </th>     
             <th class="color center ">Comuna  </th>       
             <th class="color center ">CSP </th>            
-            <th class="color center ">Planta </th>
-            <th class="color center ">Región  </th>    
+            <th class="color center ">Planta </th>  
             <th class="color center ">Provincia  </th>  
             <th class="color center ">Comuna  </th>   
             <th class="color center">Fecha Embalado</th>
@@ -383,7 +381,7 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
     $PAISPRODUCTOR=$ARRAYCIUDAD[0]["PAIS"];
 
 
-    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($d['ID_PLANTA']);
+    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($d['ID_PLANTA2']);
     if ($ARRAYPLANTA2) {
       $CSPPLANTA2 = $ARRAYPLANTA2[0]["CODIGO_SAG_PLANTA"];
       $NOMBREPLANTA2 = $ARRAYPLANTA2[0]["NOMBRE_PLANTA"];
@@ -425,13 +423,11 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
                       <tr >
                           <th class=" left">' . $d['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
                           <td class="center">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>
-                          <td class="center">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>       
-                          <td class="center">' . $REGIONPRODUCTOR . '</td>        
+                          <td class="center">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . '</td>      4
                           <td class="center">' . $PROVINCIAPRODUCTOR . '</td>      
                           <td class="center">' . $COMUNAPRODUCTOR . '</td>          
                           <td class="center">' . $CSPPLANTA2 . '</td>     
-                          <td class="center">' . $NOMBREPLANTA2 . '</td>   
-                          <td class="center">' . $REGIONPLANTA . '</td>   
+                          <td class="center">' . $NOMBREPLANTA2 . '</td>    
                           <td class="center">' . $PROVINCIAPLANTA . '</td>   
                           <td class="center">' . $COMUNAPLANTA . '</td>   
                           <td class=" center">' . $d['EMBALADO'] . '</td>
@@ -463,8 +459,6 @@ foreach ($ARRAYEXIEXPORTACION as $d) :
               <th class="color3 center">&nbsp;</th>
               <th class="color3 center">&nbsp;</th>
               <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
-              <th class="color3 center">&nbsp;</th>
               <th class="color3 right"> Total </th>
               <th class="color3 center">' . $TOTALENVASE2 . '</th>
           </tr>
@@ -476,8 +470,6 @@ $html = $html . '
               
           <tr class="bt">
               <th class="color left">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
-              <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
               <th class="color center">&nbsp;</th>
