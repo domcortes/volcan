@@ -751,7 +751,7 @@ if (isset($_POST)) {
                                                                         <input type="hidden" class="form-control" placeholder="URL DFICHA" id="URLD" name="URLD" value="registroDficha" />
                                                                         <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                             <?php if ($ESTADO  == "0") { ?>
-                                                                                <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                <button type="submit" class="btn btn-info btn-sm " data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
                                                                                     <i class="ti-eye"></i><br> Ver
                                                                                 </button>
                                                                             <?php } ?>
