@@ -296,7 +296,7 @@ class DICARGA_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT
-                                                    detalle.ID_ESTANDAR,detalle.ID_TCALIBRE, detalle.ID_TMANEJO ,
+                                                    detalle.ID_ESTANDAR,detalle.ID_TCALIBRE, detalle.ID_TMANEJO ,detalle.ID_TMONEDA ,
                                                     FORMAT(IFNULL(SUM(detalle.CANTIDAD_ENVASE_DICARGA),0),0,'de_DE') AS 'ENVASE',
                                                     FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DICARGA),0),2,'de_DE') AS 'NETO',
                                                     FORMAT(IFNULL(SUM(detalle.KILOS_BRUTO_DICARGA),0),2,'de_DE') AS 'BRUTO',

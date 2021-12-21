@@ -393,35 +393,35 @@ include_once "../../assest/config/datosUrLP.php";
                                                         
                                                         $ARRAYAGCARGA = $AGCARGA_ADO->verAgcarga(  $r['ID_AGCARGA']); 
                                                         if($ARRAYAGCARGA){
-                                                        $RUTAGCARGA=$ARRAYAGCARGA[0]["RUT_AGCARGA"]."-".$ARRAYAGCARGA[0]["DV_AGCARGA"];
-                                                        $NOMBREAGCARGA=$ARRAYAGCARGA[0]["NOMBRE_AGCARGA"];
-                                                        $DIRECCIONAGCARGA=$ARRAYAGCARGA[0]["DIRECCION_AGCARGA"];
-                                                        $CONTACTOAGCARGA=$ARRAYAGCARGA[0]["CONTACTO_AGCARGA"];
-                                                        $EMAILAGCARGA=$ARRAYAGCARGA[0]["EMAIL_AGCARGA"];
-                                                        $TELEFONOAGCARGA=$ARRAYAGCARGA[0]["TELEFONO_AGCARGA"];
+                                                            $RUTAGCARGA=$ARRAYAGCARGA[0]["RUT_AGCARGA"]."-".$ARRAYAGCARGA[0]["DV_AGCARGA"];
+                                                            $NOMBREAGCARGA=$ARRAYAGCARGA[0]["NOMBRE_AGCARGA"];
+                                                            $DIRECCIONAGCARGA=$ARRAYAGCARGA[0]["DIRECCION_AGCARGA"];
+                                                            $CONTACTOAGCARGA=$ARRAYAGCARGA[0]["CONTACTO_AGCARGA"];
+                                                            $EMAILAGCARGA=$ARRAYAGCARGA[0]["EMAIL_AGCARGA"];
+                                                            $TELEFONOAGCARGA=$ARRAYAGCARGA[0]["TELEFONO_AGCARGA"];
                                                         }else{
-                                                        $RUTAGCARGA="Sin Datos";
-                                                        $NOMBREAGCARGA="Sin Datos";
-                                                        $DIRECCIONAGCARGA="Sin Datos";
-                                                        $CONTACTOAGCARGA="Sin Datos";
-                                                        $EMAILAGCARGA="Sin Datos";
-                                                        $TELEFONOAGCARGA="Sin Datos";
+                                                            $RUTAGCARGA="Sin Datos";
+                                                            $NOMBREAGCARGA="Sin Datos";
+                                                            $DIRECCIONAGCARGA="Sin Datos";
+                                                            $CONTACTOAGCARGA="Sin Datos";
+                                                            $EMAILAGCARGA="Sin Datos";
+                                                            $TELEFONOAGCARGA="Sin Datos";
                                                         } 
                                                         $ARRAYAADUANA = $AADUANA_ADO->verAaduana( $r['ID_AADUANA']);
                                                         if($ARRAYAADUANA){
-                                                        $RUTAADUANA=$ARRAYAADUANA[0]["RUT_AADUANA"]."-".$ARRAYAADUANA[0]["DV_AADUANA"];
-                                                        $NOMBREAADUANA=$ARRAYAADUANA[0]["NOMBRE_AADUANA"];
-                                                        $DIRECCIONAADUANA=$ARRAYAADUANA[0]["DIRECCION_AADUANA"];
-                                                        $CONTACTOAADUANA=$ARRAYAADUANA[0]["CONTACTO_AADUANA"];
-                                                        $EMAILAADUANA=$ARRAYAADUANA[0]["EMAIL_AADUANA"];
-                                                        $TELEFONOAADUANA=$ARRAYAADUANA[0]["TELEFONO_AADUANA"];
+                                                            $RUTAADUANA=$ARRAYAADUANA[0]["RUT_AADUANA"]."-".$ARRAYAADUANA[0]["DV_AADUANA"];
+                                                            $NOMBREAADUANA=$ARRAYAADUANA[0]["NOMBRE_AADUANA"];
+                                                            $DIRECCIONAADUANA=$ARRAYAADUANA[0]["DIRECCION_AADUANA"];
+                                                            $CONTACTOAADUANA=$ARRAYAADUANA[0]["CONTACTO_AADUANA"];
+                                                            $EMAILAADUANA=$ARRAYAADUANA[0]["EMAIL_AADUANA"];
+                                                            $TELEFONOAADUANA=$ARRAYAADUANA[0]["TELEFONO_AADUANA"];
                                                         }else{
-                                                        $RUTAADUANA="Sin Datos";
-                                                        $NOMBREAADUANA="Sin Datos";
-                                                        $DIRECCIONAADUANA="Sin Datos";
-                                                        $CONTACTOAADUANA="Sin Datos";
-                                                        $EMAILAADUANA="Sin Datos";
-                                                        $TELEFONOAADUANA="Sin Datos";
+                                                            $RUTAADUANA="Sin Datos";
+                                                            $NOMBREAADUANA="Sin Datos";
+                                                            $DIRECCIONAADUANA="Sin Datos";
+                                                            $CONTACTOAADUANA="Sin Datos";
+                                                            $EMAILAADUANA="Sin Datos";
+                                                            $TELEFONOAADUANA="Sin Datos";
                                                         }
 
                                                         $ARRAYFPAGO = $FPAGO_ADO->verFpago(  $r['ID_FPAGO']);         

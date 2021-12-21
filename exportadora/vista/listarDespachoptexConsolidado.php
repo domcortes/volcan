@@ -10,7 +10,6 @@ include_once '../../assest/controlador/PRODUCTOR_ADO.php';
 include_once '../../assest/controlador/TMANEJO_ADO.php';
 include_once '../../assest/controlador/TCALIBRE_ADO.php';
 include_once '../../assest/controlador/TEMBALAJE_ADO.php';
-include_once '../../assest/controlador/DFINAL_ADO.php';
 
 
 include_once '../../assest/controlador/CONDUCTOR_ADO.php';
@@ -40,6 +39,17 @@ include_once '../../assest/controlador/DESPACHOPT_ADO.php';
 include_once '../../assest/controlador/DESPACHOEX_ADO.php';
 include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
 
+
+
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
+include_once '../../assest/controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/MERCADO_ADO.php';
+
+include_once '../../assest/controlador/LDESTINO_ADO.php';
+include_once '../../assest/controlador/ADESTINO_ADO.php';
+include_once '../../assest/controlador/PDESTINO_ADO.php';
+
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $ESPECIES_ADO =  new ESPECIES_ADO();
@@ -48,8 +58,6 @@ $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
-$DFINAL_ADO =  new DFINAL_ADO();
-
 
 
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
@@ -79,6 +87,14 @@ $DESPACHOPT_ADO =  new DESPACHOPT_ADO();
 $DESPACHOEX_ADO =  new DESPACHOEX_ADO();
 $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
 
+
+$ICARGA_ADO =  new ICARGA_ADO();
+$DFINAL_ADO =  new DFINAL_ADO();
+$RFINAL_ADO =  new RFINAL_ADO();
+$MERCADO_ADO =  new MERCADO_ADO();
+$LDESTINO_ADO =  new LDESTINO_ADO();
+$ADESTINO_ADO =  new ADESTINO_ADO();
+$PDESTINO_ADO =  new PDESTINO_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
@@ -117,7 +133,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
     $TOTALNETOEX = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
     $TOTALBRUTOEX = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
     $TOTALENVASEEX = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
-
+    
     $TOTALNETO  = number_format($TOTALNETOEX + $TOTALNETOPT , 2, ",", ".");
     $TOTALBRUTO = number_format($TOTALBRUTOPT + $TOTALBRUTOEX , 2, ",", ".");
     $TOTALENVASE  = number_format($TOTALENVASEEX + $TOTALENVASEPT , 2, ",", ".");
@@ -300,6 +316,18 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Número Guía Despacho </th>
                                                     <th>Tipo Despacho </th>
                                                     <th>Destino </th>
+
+                                                    <th>Número Referencia </th>
+                                                    <th>Fecha Corte Documental </th>
+                                                    <th>Fecha ETD </th>
+                                                    <th>Fecha ETA</th>
+                                                    <th>Recibidor Final</th>
+                                                    <th>Mercado</th>
+                                                    <th>Tipo Embarque</th>
+                                                    <th>Nave</th>
+                                                    <th>Número Viaje/Vuelo</th>
+                                                    <th>Puerto/Aeropuerto/Lugar Destino</th>
+
                                                     <th>Tipo Manejo</th>
                                                     <th>Tipo Calibre </th>
                                                     <th>Tipo Embalaje </th>
@@ -609,6 +637,16 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                             <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>     
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
@@ -671,6 +709,111 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     } else {
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }                                         
+                                                    $ARRAYICARGA=$ICARGA_ADO->verIcarga($r["ID_ICARGA"]);
+                                                    if($ARRAYICARGA){
+                                                        $NUMEROREFERENCIA=$ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
+                                                        $FECHAETD=$ARRAYICARGA[0]['FECHAETD_ICARGA'];
+                                                        $FECHAETA=$ARRAYICARGA[0]['FECHAETA_ICARGA'];
+                                                        $FECHACDOCUMENTAL=$ARRAYICARGA[0]['FECHA_CDOCUMENTAL_ICARGA'];
+                                                        if ($ARRAYICARGA[0]['TEMBARQUE_ICARGA'] == "1") {
+                                                            $TEMBARQUE = "Terrestre";
+                                                            $NVIAJE="No Aplica";
+                                                            $NAVE="No Aplica";  
+                                                            $ARRAYLDESTINO =$LDESTINO_ADO->verLdestino( $ARRAYICARGA[0]['ID_LDESTINO']);     
+                                                            if($ARRAYLDESTINO){
+                                                              $NOMBREDESTINO=$ARRAYLDESTINO[0]["NOMBRE_LDESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+                                                        if ($ARRAYICARGA[0]['TEMBARQUE_ICARGA'] == "2") {
+                                                            $TEMBARQUE = "Aereo";
+                                                            $NAVE=$ARRAYICARGA[0]['NAVE_ICARGA'];
+                                                            $NVIAJE = $ARRAYICARGA[0]['NVIAJE_ICARGA'];
+                                                            $ARRAYADESTINO =$ADESTINO_ADO->verAdestino( $ARRAYICARGA[0]['ID_ADESTINO']);  
+                                                            if($ARRAYADESTINO){
+                                                              $NOMBREDESTINO=$ARRAYADESTINO[0]["NOMBRE_ADESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+                                                        if ($ARRAYICARGA[0]['TEMBARQUE_ICARGA'] == "3") {
+                                                            $TEMBARQUE = "Maritimo";
+                                                            $NAVE  = $ARRAYICARGA[0]['NAVE_ICARGA'];
+                                                            $NVIAJE = $ARRAYICARGA[0]['NVIAJE_ICARGA'];
+                                                            $ARRAYPDESTINO =$PDESTINO_ADO->verPdestino( $ARRAYICARGA[0]['ID_PDESTINO']);
+                                                            if($ARRAYPDESTINO){
+                                                              $NOMBREDESTINO=$ARRAYPDESTINO[0]["NOMBRE_PDESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+                                                        $ARRAYMERCADO=$MERCADO_ADO->verMercado($ARRAYICARGA[0]["ID_MERCADO"]);
+                                                        if($ARRAYMERCADO){
+                                                            $NOMBREMERCADO=$ARRAYMERCADO[0]["NOMBRE_MERCADO"];
+                                                        }else{
+                                                            $NOMBREMERCADO="Sin Datos";
+                                                        }
+                                                        $ARRAYRFINAL=$RFINAL_ADO->verRfinal($ARRAYICARGA[0]["ID_RFINAL"]);
+                                                        if($ARRAYRFINAL){
+                                                            $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
+                                                        }else{
+                                                            $NOMBRERFINAL="Sin Datos";
+                                                        }
+                                                    }else{
+                                                        $NUMEROREFERENCIA="No Aplica";
+                                                        $FECHAETD=$r['FECHAETD_DESPACHOEX'];
+                                                        $FECHAETA=$r['FECHAETA_DESPACHOEX'];
+                                                        $FECHACDOCUMENTAL="";
+                                                        if ($r['TEMBARQUE_DESPACHOEX'] == "1") {
+                                                            $TEMBARQUE = "Terrestre";
+                                                            $NVIAJE="No Aplica";
+                                                            $NAVE="No Aplica";  
+                                                            $ARRAYLDESTINO =$LDESTINO_ADO->verLdestino( $r['ID_LDESTINO']);     
+                                                            if($ARRAYLDESTINO){
+                                                              $NOMBREDESTINO=$ARRAYLDESTINO[0]["NOMBRE_LDESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+                                                        if ($r['TEMBARQUE_DESPACHOEX'] == "2") {
+                                                            $TEMBARQUE = "Aereo";
+                                                            $NAVE=$r['NAVE_DESPACHOEX'];
+                                                            $NVIAJE = $r['NVIAJE_DESPACHOEX'];
+                                                            $ARRAYADESTINO =$ADESTINO_ADO->verAdestino( $r['ID_ADESTINO']);  
+                                                            if($ARRAYADESTINO){
+                                                              $NOMBREDESTINO=$ARRAYADESTINO[0]["NOMBRE_ADESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+                                                        if ($r['TEMBARQUE_DESPACHOEX'] == "3") {
+                                                            $TEMBARQUE = "Maritimo";
+                                                            $NAVE  = $r['NAVE_DESPACHOEX'];
+                                                            $NVIAJE = $r['NVIAJE_DESPACHOEX'];
+                                                            $ARRAYPDESTINO =$PDESTINO_ADO->verPdestino( $r['ID_PDESTINO']);
+                                                            if($ARRAYPDESTINO){
+                                                              $NOMBREDESTINO=$ARRAYPDESTINO[0]["NOMBRE_PDESTINO"];
+                                                            }else{
+                                                              $NOMBREDESTINO="Sin Datos";
+                                                            }
+                                                        }
+                                                        $ARRAYMERCADO=$MERCADO_ADO->verMercado($r["ID_MERCADO"]);
+                                                        if($ARRAYMERCADO){
+                                                            $NOMBREMERCADO=$ARRAYMERCADO[0]["NOMBRE_MERCADO"];
+                                                        }else{
+                                                            $NOMBREMERCADO="Sin Datos";
+                                                        }
+                                                        $ARRAYRFINAL=$RFINAL_ADO->verRfinal($r["ID_RFINAL"]);
+                                                        if($ARRAYRFINAL){
+                                                            $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
+                                                        }else{
+                                                            $NOMBRERFINAL="Sin Datos";
+                                                        }
+                                                    }
+
+
+
                                                     $ARRAYTOMADOEX = $EXIEXPORTACION_ADO->buscarPordespachoEx($r['ID_DESPACHOEX']);
 
                                                     ?>
@@ -865,6 +1008,18 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
                                                             <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
+
+                                                            <td><?php echo $NUMEROREFERENCIA; ?></td>
+                                                            <td><?php echo $FECHACDOCUMENTAL; ?></td>
+                                                            <td><?php echo $FECHAETD; ?></td>
+                                                            <td><?php echo $FECHAETA; ?></td>
+                                                            <td><?php echo $NOMBRERFINAL; ?></td>
+                                                            <td><?php echo $NOMBREMERCADO; ?></td>
+                                                            <td><?php echo $TEMBARQUE; ?></td>
+                                                            <td><?php echo $NAVE; ?></td>
+                                                            <td><?php echo $NVIAJE; ?></td>
+                                                            <td><?php echo $NOMBREDESTINO; ?></td>
+
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
