@@ -1,27 +1,27 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ECOMERCIAL_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/MERCADO_ADO.php';
-include_once '../controlador/TETIQUETA_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/MERCADO_ADO.php';
+include_once '../../assest/controlador/TETIQUETA_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/FAMILIA_ADO.php';
-include_once '../controlador/SUBFAMILIA_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/FAMILIA_ADO.php';
+include_once '../../assest/controlador/SUBFAMILIA_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 
 
 
-include_once '../controlador/FICHA_ADO.php';
-include_once '../controlador/DFICHA_ADO.php';
+include_once '../../assest/controlador/FICHA_ADO.php';
+include_once '../../assest/controlador/DFICHA_ADO.php';
 
-include_once '../modelo/FICHA.php';
-include_once '../modelo/DFICHA.php';
+include_once '../../assest/modelo/FICHA.php';
+include_once '../../assest/modelo/DFICHA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -129,104 +129,12 @@ $ARRAYNUMERO = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
-
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-    $ARRAYNUMERO = $FICHA_ADO->obtenerNumero($_REQUEST['EMPRESA'],  $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 
 
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $FICHA->__SET('NUMERO_FICHA', $NUMERO);
-    $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
-    $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-    $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $FICHA->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $FICHA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $FICHA_ADO->agregarFicha($FICHA);
-
-
-    //OBTENER EL ID DE LA OCOMPRA CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
-
-    $ARRYAOBTENERID = $FICHA_ADO->buscarID(
-        $_REQUEST['ESTANDAR'],
-        $_REQUEST['OBSERVACION'],
-        $_REQUEST['EMPRESA'],
-        $_REQUEST['TEMPORADA'],
-    );
-
-
-    //REDIRECCIONAR A PAGINA registroRecepcion.php 
-    $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_FICHA'];
-    $_SESSION["parametro1"] = "crear";
-    echo "<script type='text/javascript'> location.href ='registroFicha.php?op';</script>";
-}
-//OPERACION EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
-    $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDARE']);
-    $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $FICHA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
-    $FICHA_ADO->actualizarFicha($FICHA);
-}
-//OPERACION PARA CERRAR LA OCOMPRA
-if (isset($_REQUEST['CERRAR'])) {
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $ARRAYDFICHA2 = $DFICHA_ADO->listarDfichaPorFichaCBX($_REQUEST['IDP']);
-    if (empty($ARRAYDFICHA2)) {
-        $MENSAJE = "TIENE  QUE HABER AL MENOS UN REGISTRO EN EL DETALLE";
-        $SINO = "1";
-    } else {
-        $MENSAJE = "";
-        $SINO = "0";
-    }
-    if ($SINO == "0") {
-        $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
-        $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDARE']);
-        $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $FICHA->__SET('ID_USUARIOM', $IDUSUARIOS);
-        $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
-        $FICHA_ADO->actualizarFicha($FICHA);
-
-        $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
-        $FICHA_ADO->cerrado($FICHA);
-
-        $ARRAYDFICHA2 = $DFICHA_ADO->listarDfichaPorFichaCBX($_REQUEST['IDP']);
-        foreach ($ARRAYDFICHA2 as $r) :
-            $DFICHA->__SET('ID_DFICHA', $r['ID_DFICHA']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $DFICHA_ADO->cerrado($DFICHA);
-        endforeach;
-
-
-        //REDIRECCIONAR A PAGINA registroRecepcion.php 
-        //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        
-        if ($_SESSION['parametro1'] == "crear") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroFicha.php?op';</script>";
-        }
-        if ($_SESSION['parametro1'] == "editar") {
-            $_SESSION["parametro"] = $_REQUEST['IDP'];
-            $_SESSION["parametro1"] = "ver";
-            echo "<script type='text/javascript'> location.href ='registroFicha.php?op';</script>";
-        }
-    }
-}
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
@@ -473,7 +381,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -564,7 +472,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuExpo.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -609,10 +517,8 @@ if (isset($_POST)) {
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                                 <div class="box-header with-border bg-primary">     
+                                    <h4 class="box-title">Encabezado de Ficha</h4>
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
@@ -724,7 +630,7 @@ if (isset($_POST)) {
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group   col-xxl-4 col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                    <div class="btn-group   col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
                                         <?php if ($OP == "") { ?>
                                             <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroFicha.php');">
                                                 <i class="ti-trash"></i> Borrar
@@ -734,21 +640,21 @@ if (isset($_POST)) {
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarFicha.php'); ">
+                                            <button type="button" class="btn btn-success " data-toggle="tooltip" title="Volver" name="VOLVER" value="VOLVER" Onclick="irPagina('listarRecepcionm.php'); ">
                                                 <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                            <button type="submit" class="btn btn-warning " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
                                                 <i class="ti-pencil-alt"></i> Guardar
                                             </button>
-                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?> onclick="return validacion()">
+                                            <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Cerrar" name="CERRAR" value="CERRAR" <?php echo $DISABLED2; ?>  onclick="return validacion()">
                                                 <i class="ti-save-alt"></i> Cerrar
                                             </button>
                                         <?php } ?>
                                     </div>
-                                    <div class="btn-group   col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 col-xs-12 float-right" role="group" aria-label="Informes">
+                                    <div class="btn-group   col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12 float-right" role="group" aria-label="Informes">
                                         <?php if ($OP != "") { ?>
-                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Ficha" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeFicha.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                <i class="fa fa-file-pdf-o"></i> Ficha
+                                            <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas"  Onclick="abrirPestana('../../assest/documento/informeFicha.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <i class="fa fa-file-pdf-o"></i> Informe
                                             </button>
                                         <?php } ?>
                                     </div>
@@ -757,145 +663,316 @@ if (isset($_POST)) {
                             <!-- /.row -->
                             <!--.row -->
                         </form>
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
-                            </div>
-                            <div class="row">
-                                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 col-xs-1">
+                        
+                        <?php if (isset($_GET['op'])): ?>
+                            <div class="card">
+                                <div class="card-header bg-success">
+                                    <h4 class="card-title">Detalles de Ficha</h4>
                                 </div>
-                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 col-xs-5">
-                                    <div class="form-group">
-                                        <label> </label>
+                                <div class="card-header">
+                                    <div class="form-row align-items-center">
+                                        <form method="post" id="form2" name="form2">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" placeholder="ID FICHA" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLP" name="URLP" value="registroFicha" />
+                                                <input type="hidden" class="form-control" placeholder="URL DFICHA" id="URLD" name="URLD" value="registroDficha" />
+                                                <button type="submit" class=" btn btn-block btn-success " ata-toggle="tooltip" title="Agregar Detalle" id="CREARDURL" name="CREARDURL"
+                                                <?php echo $DISABLED2; ?>>
+                                                    Agregar Detalle
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 col-xs-9">
-                                    <div class=" table-responsive">
-                                        <table id="detalle" class="table table-hover " style="width: 100%;">
-                                            <thead>
-                                                <tr>
+                                <div class="card-body">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <div class=" table-responsive">
+                                            <table id="detalle" class="table-hover " style="width: 100%;">
+                                                <thead>
+                                                    <tr>
 
-                                                    <th>Número</th>
-                                                    <th class="text-center">Operaciónes</th>
-                                                    <th>Producto </th>
-                                                    <th>Familia </th>
-                                                    <th>Sub Familia </th>
-                                                    <th>Unidad Medida </th>
-                                                    <th>Factor Consumo </th>
-                                                    <th>Consumo Pallet</th>
-                                                    <th>Pallet Carga</th>
-                                                    <th>Consumo Contenedor</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php if ($ARRAYDFICHA) { ?>
-                                                    <?php foreach ($ARRAYDFICHA as $s) : ?>
-                                                        <?php $CONTADOR += 1;  ?>
-                                                        <?php
-                                                        $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
-                                                        if ($ARRAYPRODUCTO) {
-                                                            $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
-                                                            $ARRAYFAMILIA = $FAMILIA_ADO->verFamilia($ARRAYPRODUCTO[0]['ID_FAMILIA']);
-                                                            if ($ARRAYFAMILIA) {
-                                                                $FAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
-                                                            } else {
-                                                                $FAMILIA = "Sin Dato";
-                                                            }
-                                                            $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->verSubfamilia($ARRAYPRODUCTO[0]['ID_SUBFAMILIA']);
-                                                            if ($ARRAYFAMILIA) {
-                                                                $SUBFAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
-                                                            } else {
-                                                                $SUBFAMILIA = "Sin Dato";
-                                                            }
+                                                        <th>Número</th>
+                                                        <th class="text-center">Operaciónes</th>
+                                                        <th>Producto </th>
+                                                        <th>Familia </th>
+                                                        <th>Sub Familia </th>
+                                                        <th>Unidad Medida </th>
+                                                        <th>Factor Consumo </th>
+                                                        <th>Consumo Pallet</th>
+                                                        <th>Pallet Carga</th>
+                                                        <th>Consumo Contenedor</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php if ($ARRAYDFICHA) { ?>
+                                                        <?php foreach ($ARRAYDFICHA as $s) : ?>
+                                                            <?php $CONTADOR += 1;  ?>
+                                                            <?php
+                                                            $ARRAYPRODUCTO = $PRODUCTO_ADO->verProducto($s['ID_PRODUCTO']);
+                                                            if ($ARRAYPRODUCTO) {
+                                                                $NOMBREPRODUCTO= $ARRAYPRODUCTO[0]['NOMBRE_PRODUCTO'];
+                                                                $ARRAYFAMILIA = $FAMILIA_ADO->verFamilia($ARRAYPRODUCTO[0]['ID_FAMILIA']);
+                                                                if ($ARRAYFAMILIA) {
+                                                                    $FAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                                } else {
+                                                                    $FAMILIA = "Sin Dato";
+                                                                }
+                                                                $ARRAYSUBFAMILIA = $SUBFAMILIA_ADO->verSubfamilia($ARRAYPRODUCTO[0]['ID_SUBFAMILIA']);
+                                                                if ($ARRAYFAMILIA) {
+                                                                    $SUBFAMILIA = $ARRAYFAMILIA[0]["NOMBRE_FAMILIA"];
+                                                                } else {
+                                                                    $SUBFAMILIA = "Sin Dato";
+                                                                }
 
-                                                            $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($ARRAYPRODUCTO[0]['ID_TUMEDIDA']);
-                                                            if ($ARRAYTUMEDIDA) {
-                                                                $TUMEDIDA = $ARRAYTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+                                                                $ARRAYTUMEDIDA = $TUMEDIDA_ADO->verTumedida($ARRAYPRODUCTO[0]['ID_TUMEDIDA']);
+                                                                if ($ARRAYTUMEDIDA) {
+                                                                    $TUMEDIDA = $ARRAYTUMEDIDA[0]["NOMBRE_TUMEDIDA"];
+                                                                } else {
+                                                                    $TUMEDIDA = "Sin Dato";
+                                                                }
                                                             } else {
-                                                                $TUMEDIDA = "Sin Dato";
+                                                                $NOMBREPRODUCTO= "Sin Dato";
                                                             }
-                                                        } else {
-                                                            $NOMBREPRODUCTO= "Sin Dato";
-                                                        }
-                                                        ?>
-                                                        <tr>
-                                                            <td>
-                                                                <a href="#" class="text-warning hover-warning">
-                                                                    <?php echo $CONTADOR;  ?>
-                                                                </a>
-                                                            </td>
+                                                            ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="#" class="text-warning hover-warning">
+                                                                        <?php echo $CONTADOR;  ?>
+                                                                    </a>
+                                                                </td>
 
-                                                            <td class="text-center">
-                                                                <form method="post" id="form1" name="form1">
-                                                                    <input type="hidden" class="form-control" placeholder="ID DFICHA" id="IDD" name="IDD" value="<?php echo $s['ID_DFICHA']; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="ID FICHA" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                                                    <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLP" name="URLP" value="registroFicha" />
-                                                                    <input type="hidden" class="form-control" placeholder="URL DFICHA" id="URLD" name="URLD" value="registroDficha" />
-                                                                    <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                        <?php if ($ESTADO  == "0") { ?>
-                                                                            <button type="submit" class="btn btn-info" data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
-                                                                                <i class="ti-eye"></i>
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                        <?php if ($ESTADO  == "1") { ?>
-                                                                            <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-pencil-alt"></i>
-                                                                            </button>
-                                                                            <button type="submit" class="btn btn-secondary btn-sm " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?>>
-                                                                                <i class="fa fa-fw fa-copy"></i>
-                                                                            </button>
-                                                                            <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i>
-                                                                            </button>
-                                                                        <?php } ?>
-                                                                    </div>
-                                                                </form>
-                                                            </td>
-                                                            <td><?php echo $NOMBREPRODUCTO ?></td>
-                                                            <td><?php echo $FAMILIA ?></td>
-                                                            <td><?php echo $SUBFAMILIA ?></td>
-                                                            <td><?php echo $TUMEDIDA ?></td>
-                                                            <td><?php echo $s['FACTOR'] ?></td>
-                                                            <td><?php echo $s['CONSUMOPALLET'] ?></td>
-                                                            <td><?php echo $s['PALLET'] ?></td>
-                                                            <td><?php echo $s['CONSUMOCONTENEDOR'] ?></td>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 col-xs-3">
-                                    <form method="post" id="form2" name="form2">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" placeholder="ID FICHA" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
-                                            <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLP" name="URLP" value="registroFicha" />
-                                            <input type="hidden" class="form-control" placeholder="URL DFICHA" id="URLD" name="URLD" value="registroDficha" />
-                                            <button type="submit" class=" btn btn-block btn-success " ata-toggle="tooltip" title="Agregar Detalle" id="CREARDURL" name="CREARDURL" <?php echo $DISABLED2; ?>>
-                                                Agregar Detalle
-                                            </button>
+                                                                <td class="text-center">
+                                                                    <form method="post" id="form1" name="form1">
+                                                                        <input type="hidden" class="form-control" placeholder="ID DFICHA" id="IDD" name="IDD" value="<?php echo $s['ID_DFICHA']; ?>" />
+                                                                        <input type="hidden" class="form-control" placeholder="ID FICHA" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
+                                                                        <input type="hidden" class="form-control" placeholder="OP FICHA" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
+                                                                        <input type="hidden" class="form-control" placeholder="URL FICHA" id="URLP" name="URLP" value="registroFicha" />
+                                                                        <input type="hidden" class="form-control" placeholder="URL DFICHA" id="URLD" name="URLD" value="registroDficha" />
+                                                                        <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                            <?php if ($ESTADO  == "0") { ?>
+                                                                                <button type="submit" class="btn btn-info btn-sm " data-toggle="tooltip" id="VERDURL" name="VERDURL" title="Ver">
+                                                                                    <i class="ti-eye"></i><br> Ver
+                                                                                </button>
+                                                                            <?php } ?>
+                                                                            <?php if ($ESTADO  == "1") { ?>
+                                                                                <button type="submit" class="btn btn-warning btn-sm " data-toggle="tooltip" id="EDITARDURL" name="EDITARDURL" title="Editar" <?php echo $DISABLED2; ?>>
+                                                                                    <i class="ti-pencil-alt"></i><br > Editar
+                                                                                </button>
+                                                                                <button type="submit" class="btn btn-secondary btn-sm " data-toggle="tooltip" id="DUPLICARDURL" name="DUPLICARDURL" title="Duplicar" <?php echo $DISABLED2; ?>>
+                                                                                    <i class="fa fa-fw fa-copy"></i><br> Duplicar
+                                                                                </button>
+                                                                                <button type="submit" class="btn btn-danger btn-sm " data-toggle="tooltip" id="ELIMINARDURL" name="ELIMINARDURL" title="Eliminar" <?php echo $DISABLED2; ?>>
+                                                                                    <i class="ti-close"></i><br> Eliminar
+                                                                                </button>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </form>
+                                                                </td>
+                                                                <td><?php echo $NOMBREPRODUCTO ?></td>
+                                                                <td><?php echo $FAMILIA ?></td>
+                                                                <td><?php echo $SUBFAMILIA ?></td>
+                                                                <td><?php echo $TUMEDIDA ?></td>
+                                                                <td><?php echo $s['FACTOR'] ?></td>
+                                                                <td><?php echo $s['CONSUMOPALLET'] ?></td>
+                                                                <td><?php echo $s['PALLET'] ?></td>
+                                                                <td><?php echo $s['CONSUMOCONTENEDOR'] ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </div>                                
                             </div>
-                        </div>
+                        <?php endif ?>
+
                     </section>
                     <!-- /.content -->
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+                $ARRAYNUMERO = $FICHA_ADO->obtenerNumero($_REQUEST['EMPRESA'],  $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
+
+
+
+
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $FICHA->__SET('NUMERO_FICHA', $NUMERO);
+                $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
+                $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
+                $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $FICHA->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $FICHA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $FICHA_ADO->agregarFicha($FICHA);
+
+
+                //OBTENER EL ID DE LA OCOMPRA CREADA PARA LUEGO ENVIAR EL INGRESO DEL DETALLE
+
+                $ARRYAOBTENERID = $FICHA_ADO->buscarID(
+                    $_REQUEST['ESTANDAR'],
+                    $_REQUEST['OBSERVACION'],
+                    $_REQUEST['EMPRESA'],
+                    $_REQUEST['TEMPORADA'],
+                );
+
+
+                //REDIRECCIONAR A PAGINA registroRecepcion.php 
+
+                $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_FICHA'];
+                $_SESSION["parametro1"] = "crear";
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro de Ficha se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                         location.href = "registroFicha.php?op";                            
+                    })
+                </script>';
+
+            }
+            //OPERACION EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
+                $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDARE']);
+                $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $FICHA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
+                $FICHA_ADO->actualizarFicha($FICHA);
+
+
+                if ($_SESSION['parametro1'] == "crear") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "crear";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de Ficha se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroFicha.php?op";                            
+                        })
+                    </script>';
+                }
+                if ($_SESSION['parametro1'] == "editar") {
+                    $_SESSION["parametro"] = $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] = "editar";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Modificado",
+                            text:"El registro de Ficha se ha modificada correctamente",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroFicha.php?op";                            
+                        })
+                    </script>';
+                }
+
+            }
+            //OPERACION PARA CERRAR LA OCOMPRA
+            if (isset($_REQUEST['CERRAR'])) {
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $ARRAYDFICHA2 = $DFICHA_ADO->listarDfichaPorFichaCBX($_REQUEST['IDP']);
+                if (empty($ARRAYDFICHA2)) {
+                    echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"Tiene que haber al menos un registro en el detalle",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            })
+                        </script>';
+                    $SINO = "1";
+                } else {
+                    $MENSAJE = "";
+                    $SINO = "0";
+                }
+                if ($SINO == "0") {
+                    $FICHA->__SET('OBSERVACIONES_FICHA', $_REQUEST['OBSERVACION']);
+                    $FICHA->__SET('ID_ESTANDAR', $_REQUEST['ESTANDARE']);
+                    $FICHA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $FICHA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $FICHA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                    $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
+                    $FICHA_ADO->actualizarFicha($FICHA);
+
+                    $FICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
+                    $FICHA_ADO->cerrado($FICHA);
+
+                    $ARRAYDFICHA2 = $DFICHA_ADO->listarDfichaPorFichaCBX($_REQUEST['IDP']);
+                    foreach ($ARRAYDFICHA2 as $r) :
+                        $DFICHA->__SET('ID_DFICHA', $r['ID_DFICHA']);
+                        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                        $DFICHA_ADO->cerrado($DFICHA);
+                    endforeach;
+
+
+                    //REDIRECCIONAR A PAGINA registroRecepcion.php 
+                    //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL        
+                        if ($_SESSION['parametro1'] == "crear") {
+                            $_SESSION["parametro"] = $_REQUEST['IDP'];
+                            $_SESSION["parametro1"] = "ver";
+                            echo '<script>
+                                Swal.fire({
+                                    icon:"info",
+                                    title:"Registro Cerrado",
+                                    text:"Este ficha se encuentra cerrada y no puede ser modificada.",
+                                    showConfirmButton: true,
+                                    confirmButtonText:"Cerrar",
+                                    closeOnConfirm:false
+                                }).then((result)=>{
+                                    location.href = "registroFicha.php?op";                                    
+                                })
+                            </script>';
+                        }
+                        if ($_SESSION['parametro1'] == "editar") {
+                            $_SESSION["parametro"] = $_REQUEST['IDP'];
+                            $_SESSION["parametro1"] = "ver";
+                            echo '<script>
+                                Swal.fire({
+                                    icon:"info",
+                                    title:"Registro Cerrado",
+                                    text:"Este ficha se encuentra cerrada y no puede ser modificada.",
+                                    showConfirmButton: true,
+                                    confirmButtonText:"Cerrar",
+                                    closeOnConfirm:false
+                                }).then((result)=>{
+                                    location.href = "registroFicha.php?op";                                    
+                                })
+                            </script>';
+                        }  
+                }
+            }
+        ?>
 </body>
 
 </html>

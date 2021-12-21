@@ -1,47 +1,47 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES BASE OPERACION
-include_once '../controlador/CONSIGNATARIO_ADO.php';
-include_once '../controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/CONSIGNATARIO_ADO.php';
+include_once '../../assest/controlador/RFINAL_ADO.php';
 
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/LCARGA_ADO.php';
-include_once '../controlador/LDESTINO_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/LCARGA_ADO.php';
+include_once '../../assest/controlador/LDESTINO_ADO.php';
 
-include_once '../controlador/LAEREA_ADO.php';
-include_once '../controlador/ACARGA_ADO.php';
-include_once '../controlador/ADESTINO_ADO.php';
+include_once '../../assest/controlador/LAEREA_ADO.php';
+include_once '../../assest/controlador/ACARGA_ADO.php';
+include_once '../../assest/controlador/ADESTINO_ADO.php';
 
-include_once '../controlador/NAVIERA_ADO.php';
-include_once '../controlador/PCARGA_ADO.php';
-include_once '../controlador/PDESTINO_ADO.php';
-
-
-include_once '../controlador/FPAGO_ADO.php';
-include_once '../controlador/MVENTA_ADO.php';
+include_once '../../assest/controlador/NAVIERA_ADO.php';
+include_once '../../assest/controlador/PCARGA_ADO.php';
+include_once '../../assest/controlador/PDESTINO_ADO.php';
 
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/FPAGO_ADO.php';
+include_once '../../assest/controlador/MVENTA_ADO.php';
 
 
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/DICARGA_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
+
+
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
 
 
 
-include_once '../controlador/NOTADC_ADO.php';
-include_once '../controlador/DNOTADC_ADO.php';
+include_once '../../assest/controlador/NOTADC_ADO.php';
+include_once '../../assest/controlador/DNOTADC_ADO.php';
 
 
-include_once '../modelo/NOTADC.php';
-include_once '../modelo/DNOTADC.php';
+include_once '../../assest/modelo/NOTADC.php';
+include_once '../../assest/modelo/DNOTADC.php';
 
 
 
@@ -125,7 +125,7 @@ $ENVASE = "";
 $PRECIOUS = "";
 $CALIBRE = "";
 
-
+$FDA="";
 
 $EMPRESA = "";
 $PLANTA = "";
@@ -199,8 +199,8 @@ if ($ARRAYVERPLANTA) {
 $ARRAYFECHAACTUAL = $ICARGA_ADO->obtenerFecha();
 $FECHANOTA = $ARRAYFECHAACTUAL[0]['FECHA'];
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 //OPERACIONES
@@ -466,7 +466,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -594,7 +594,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuExpo.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -1042,7 +1042,7 @@ if (isset($_POST)) {
                                         </div>
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeNotadc.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeNotadc.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
                                             <?php endif ?>
@@ -1066,7 +1066,7 @@ if (isset($_POST)) {
                                     <div class="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="table-responsive">
-                                                <table id="detalle" class="table table-hover " style="width: 100%;">
+                                                <table id="detalle" class=" table-hover " style="width: 100%;">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center">Operaciónes</th>
@@ -1132,23 +1132,23 @@ if (isset($_POST)) {
                                                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONE" id="OPP" name="OPP" value="<?php echo $OP; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONE" id="URLP" name="URLP" value="registroNotadc" />
                                                                             <input type="hidden" class="form-control" placeholder="URL DRECEPCIONE" id="URLD" name="URLD" value="registroDnotadc" />
-                                                                            <div class="btn-group btn-rounded  col-6 btn-block" role="group" aria-label="Operaciones Detalle">
+                                                                            <div class="btn-group btn-rounded  btn-block" role="group" aria-label="Operaciones Detalle">
                                                                                 <?php if ($ESTADO == "0") { ?>
                                                                                     <button type="submit" class="btn btn-info btn-sm  " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Valor NC/ND  ">
-                                                                                        <i class="ti-eye"></i> Ver Valor
+                                                                                        <i class="ti-eye"></i> <br>Ver 
                                                                                     </button>
                                                                                 <?php } ?>
                                                                                 <?php if ($ESTADO == "1") { ?>                                                                                    
                                                                                      <?php if ( empty($ARRAYDNOTA)) { ?>
                                                                                         <button type="submit" class="btn   btn-success  btn-sm" id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Agregar Valor NC/ND " >
-                                                                                            <i class="ti-plus"></i> Agregar Valor
+                                                                                            <i class="ti-plus"></i> <br> Agregar 
                                                                                         </button>
                                                                                     <?php }else{ ?>
                                                                                         <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Valor NC/ND " >
-                                                                                            <i class="ti-pencil-alt"></i> Editar Valor
+                                                                                            <i class="ti-pencil-alt"></i><br> Editar 
                                                                                         </button>
                                                                                         <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Valor NC/ND  ">
-                                                                                            <i class="ti-close"></i> Eliminar Valor
+                                                                                            <i class="ti-close"></i> <br>Eliminar 
                                                                                         </button>
                                                                                     <?php } ?>
                                                                                 <?php } ?>
@@ -1182,16 +1182,16 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php
             //OPERACION DE REGISTRO DE FILA          
             if (isset($_REQUEST['CREAR'])) {
 
-                $ARRAYNUMERO = $NOTADC_ADO->obtenerNumero($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $ARRAYNUMERO = $NOTADC_ADO->obtenerNumero($_REQUEST['EMPRESA'],  $_REQUEST['TEMPORADA']);
                 $NUMERO = $ARRAYNUMERO[0]['NUMERO'] + 1;
 
                 $NOTADC->__SET('NUMERO_NOTA', $NUMERO);

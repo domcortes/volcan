@@ -1,20 +1,20 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
-include_once '../controlador/DICARGA_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
 
-include_once '../controlador/NOTADC_ADO.php';
-include_once '../controlador/DNOTADC_ADO.php';
+include_once '../../assest/controlador/NOTADC_ADO.php';
+include_once '../../assest/controlador/DNOTADC_ADO.php';
 
 
-include_once '../modelo/DNOTADC.php';
+include_once '../../assest/modelo/DNOTADC.php';
 
 
 
@@ -98,7 +98,7 @@ $ARRAYESTANDARDETALLE = "";
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 $ARRAYTMONEDA = $TMONEDA_ADO->listarTmonedaPorEmpresaCBX($EMPRESAS);
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 
@@ -305,7 +305,7 @@ if ($_POST) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -395,7 +395,7 @@ if ($_POST) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuExpo.php";
             ?>
 
             <div class="content-wrapper">
@@ -612,11 +612,11 @@ if ($_POST) {
             </div>
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         
         <?php
             echo

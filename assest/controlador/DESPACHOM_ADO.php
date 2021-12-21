@@ -559,6 +559,31 @@ class DESPACHOM_ADO
             die($e->getMessage());
         }
     }
+    public function listarDespachomEmpresaTemporadaCBX($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                IFNULL(CANTIDAD_DESPACHO,0) AS 'CANTIDAD'
+                                        FROM material_despachom                                                                           
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarDespachomEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
@@ -597,6 +622,31 @@ class DESPACHOM_ADO
                                         FROM material_despachom                                                                           
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarDespachomEmpresaTemporadaInterplantaCBX($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
+                                        FROM material_despachom                                                                           
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -751,6 +801,30 @@ class DESPACHOM_ADO
             die($e->getMessage());
         }
     }
+    public function obtenerTotalesDespachomEmpresaTemporadaCBX2($EMPRESA,  $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_DESPACHO),0),0,'de_DE') AS 'CANTIDAD'  
+                                        FROM material_despachom 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function obtenerTotalesDespachomEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
@@ -762,6 +836,30 @@ class DESPACHOM_ADO
                                                                                                              
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "'
+                                        ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function obtenerTotalesDespachomEmpresaTemporadaInterplantaCBX2($EMPRESA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT  
+                                                    FORMAT(IFNULL(SUM(CANTIDAD_DESPACHO),0),0,'de_DE') AS 'CANTIDAD'  
+                                        FROM material_despachom 
+                                                                                                             
+                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();

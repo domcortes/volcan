@@ -1,19 +1,19 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/FAMILIA_ADO.php';
-include_once '../controlador/SUBFAMILIA_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/FAMILIA_ADO.php';
+include_once '../../assest/controlador/SUBFAMILIA_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
 
 
-include_once '../controlador/FICHA_ADO.php';
-include_once '../controlador/DFICHA_ADO.php';
+include_once '../../assest/controlador/FICHA_ADO.php';
+include_once '../../assest/controlador/DFICHA_ADO.php';
 
-include_once '../modelo/DFICHA.php';
+include_once '../../assest/modelo/DFICHA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -79,71 +79,9 @@ $ARRAYVERTUMEDIDA = "";
 
 
 $ARRAYPRODUCTO = $PRODUCTO_ADO->listarProductoPorEmpresaPorTemporadaCBX($EMPRESAS, $TEMPORADAS);
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-
-    if ($_REQUEST['FACTORCONSUMO'] > 0) {
-        $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'];
-        $CONSUMOPORPALLET = $CONSUMOPORENVASE * $_REQUEST['ENVASEESTANDAR'];
-        if ($_REQUEST['PALLETCARGA'] > 0) {
-            $CONSUMOCONTENEDOR = $_REQUEST['PALLETCARGA'] * $CONSUMOPORPALLET;
-        }
-    }
-
-    $DFICHA->__SET('FACTOR_CONSUMO_DFICHA', $_REQUEST['FACTORCONSUMO']);
-    $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $CONSUMOPORPALLET);
-    $DFICHA->__SET('PALLET_CARGA_DFICHA', $_REQUEST['PALLETCARGA']);
-    $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $CONSUMOCONTENEDOR);
-    $DFICHA->__SET('OBSERVACIONES_DFICHA', $_REQUEST['PRODUCTO']);
-    $DFICHA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $DFICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DFICHA_ADO->agregarDFicha($DFICHA);
-
-    //REDIRECCIONAR A PAGINA registroRecepcion.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['EDITAR'])) {
-
-    if ($_REQUEST['FACTORCONSUMO'] > 0) {
-        $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'];
-        $CONSUMOPORPALLET = $CONSUMOPORENVASE * $_REQUEST['ENVASEESTANDAR'];
-        if ($_REQUEST['PALLETCARGA'] > 0) {
-            $CONSUMOCONTENEDOR = $_REQUEST['PALLETCARGA'] * $CONSUMOPORPALLET;
-        }
-    }
-
-    $DFICHA->__SET('FACTOR_CONSUMO_DFICHA', $_REQUEST['FACTORCONSUMO']);
-    $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $CONSUMOPORPALLET);
-    $DFICHA->__SET('PALLET_CARGA_DFICHA', $_REQUEST['PALLETCARGA']);
-    $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $CONSUMOCONTENEDOR);
-    $DFICHA->__SET('OBSERVACIONES_DFICHA', $_REQUEST['PRODUCTO']);
-    $DFICHA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $DFICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
-    $DFICHA->__SET('ID_DFICHA', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DFICHA_ADO->actualizarDFicha($DFICHA);
-
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['ELIMINAR'])) {
-
-    $DFICHA->__SET('ID_DFICHA', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DFICHA_ADO->deshabilitar($DFICHA);
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
 
 
 
@@ -348,7 +286,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -481,6 +419,45 @@ if (isset($_POST)) {
                     window.opener.refrescar()
                     window.close();
                 }
+                //FUNCION PARA OBTENER HORA Y FECHA
+                function mueveReloj() {
+
+
+                    momentoActual = new Date();
+
+                    dia = momentoActual.getDate();
+                    mes = momentoActual.getMonth() + 1;
+                    ano = momentoActual.getFullYear();
+
+                    hora = momentoActual.getHours();
+                    minuto = momentoActual.getMinutes();
+                    segundo = momentoActual.getSeconds();
+
+                    if (dia < 10) {
+                        dia = "0" + dia;
+                    }
+
+                    if (mes < 10) {
+                        mes = "0" + mes;
+                    }
+                    if (hora < 10) {
+                        hora = "0" + hora;
+                    }
+                    if (minuto < 10) {
+                        minuto = "0" + minuto;
+                    }
+                    if (segundo < 10) {
+                        segundo = "0" + segundo;
+                    }
+
+                    horaImprimible = hora + " : " + minuto;
+                    fechaImprimible = dia + "-" + mes + "-" + ano;
+
+
+                    //     document.form_reg_dato.HORAOCOMPRA.value = horaImprimible;
+                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
+                    setTimeout("mueveReloj()", 1000);
+                }
             </script>
 
 </head>
@@ -488,7 +465,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuExpo.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -651,35 +628,35 @@ if (isset($_POST)) {
                                 </div>
                                 <!-- /.row -->
                                 <!-- /.box-body -->
-                                <div class="box-footer">
-                                    <div class="btn-group  col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                            <i class="ti-back-left "></i> Volver
-                                        </button>
-                                        <?php if ($OP == "") { ?>
-                                            <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Agregar
+                                    <div class="box-footer">
+                                        <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-                                        <?php } ?>
-                                        <?php if ($OP != "") { ?>
-                                            <?php if ($OP == "crear") { ?>
-                                                <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Duplicar
+                                            <?php if ($OP == "") { ?>
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
-                                            <?php if ($OP == "editar") { ?>
-                                                <button type="submit" class="btn  btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Editar
-                                                </button>
+                                            <?php if ($OP != "") { ?>
+                                                <?php if ($OP == "crear") { ?>
+                                                    <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                                <?php if ($OP == "eliminar") { ?>
+                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                        <i class="ti-trash"></i> Eliminar
+                                                    </button>
+                                                <?php } ?>
                                             <?php } ?>
-                                            <?php if ($OP == "eliminar") { ?>
-                                                <button type="submit" class="btn  btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
-                                                    <i class="ti-trash"></i> Eliminar
-                                                </button>
-                                            <?php } ?>
-                                        <?php } ?>
+                                        </div>
                                     </div>
-                                </div>
                             </div>
                         </form>
                         <!--.row -->
@@ -688,11 +665,109 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php        
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                if ($_REQUEST['FACTORCONSUMO'] > 0) {
+                    $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'];
+                    $CONSUMOPORPALLET = $CONSUMOPORENVASE * $_REQUEST['ENVASEESTANDAR'];
+                    if ($_REQUEST['PALLETCARGA'] > 0) {
+                        $CONSUMOCONTENEDOR = $_REQUEST['PALLETCARGA'] * $CONSUMOPORPALLET;
+                    }
+                }
+
+                $DFICHA->__SET('FACTOR_CONSUMO_DFICHA', $_REQUEST['FACTORCONSUMO']);
+                $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $CONSUMOPORPALLET);
+                $DFICHA->__SET('PALLET_CARGA_DFICHA', $_REQUEST['PALLETCARGA']);
+                $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $CONSUMOCONTENEDOR);
+                $DFICHA->__SET('OBSERVACIONES_DFICHA', $_REQUEST['PRODUCTO']);
+                $DFICHA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $DFICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DFICHA_ADO->agregarDFicha($DFICHA);
+
+                //REDIRECCIONAR A PAGINA registroRecepcion.php 
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro creado",
+                            text:"El registro del detalle de Ficha se ha creado correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"Volver a Ficha"
+                        }).then((result)=>{
+                            location.href ="' . $_REQUEST['URLO'] . '.php?op";                            
+                        })
+                    </script>';
+
+            }
+            if (isset($_REQUEST['EDITAR'])) {
+
+                if ($_REQUEST['FACTORCONSUMO'] > 0) {
+                    $CONSUMOPORENVASE = $_REQUEST['FACTORCONSUMO'];
+                    $CONSUMOPORPALLET = $CONSUMOPORENVASE * $_REQUEST['ENVASEESTANDAR'];
+                    if ($_REQUEST['PALLETCARGA'] > 0) {
+                        $CONSUMOCONTENEDOR = $_REQUEST['PALLETCARGA'] * $CONSUMOPORPALLET;
+                    }
+                }
+
+                $DFICHA->__SET('FACTOR_CONSUMO_DFICHA', $_REQUEST['FACTORCONSUMO']);
+                $DFICHA->__SET('CONSUMO_PALLET_DFICHA', $CONSUMOPORPALLET);
+                $DFICHA->__SET('PALLET_CARGA_DFICHA', $_REQUEST['PALLETCARGA']);
+                $DFICHA->__SET('CONSUMO_CONTENEDOR_DFICHA', $CONSUMOCONTENEDOR);
+                $DFICHA->__SET('OBSERVACIONES_DFICHA', $_REQUEST['PRODUCTO']);
+                $DFICHA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $DFICHA->__SET('ID_FICHA', $_REQUEST['IDP']);
+                $DFICHA->__SET('ID_DFICHA', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DFICHA_ADO->actualizarDFicha($DFICHA);
+
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+
+
+                echo '<script>
+                Swal.fire({
+                    icon:"success",
+                    title:"Registro editado",
+                    text:"El registro del detalle de Fichase ha modificada correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Volver a Ficha",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                })
+            </script>';
+
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {
+
+                $DFICHA->__SET('ID_DFICHA', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DFICHA_ADO->deshabilitar($DFICHA);
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Eliminado",
+                        text:"El registro del detalle de Fichase se ha eliminado correctamente ",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a Ficha"
+                    }).then((result)=>{
+                        location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>'; 
+            }
+        ?>
 </body>
 
 </html>

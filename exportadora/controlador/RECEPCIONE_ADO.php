@@ -1000,6 +1000,29 @@ class RECEPCIONE_ADO {
         }
         
     }
+    public function obtenerTotalesRecepcionPorEmpresaTemporada2CBX($IDEMPRESA,$IDTEMPORADA){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT 
+                                                FORMAT(IFNULL(SUM( TOTAL_CANTIDAD_RECEPCION ),0),0,'de_DE') AS 'CANTIDAD'
+                                             FROM  material_recepcione 
+                                                WHERE ESTADO_REGISTRO = 1 
+                                                AND ID_EMPRESA = '".$IDEMPRESA."' 
+                                                AND ID_TEMPORADA = '".$IDTEMPORADA."'  ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     public function obtenerTotalesRecepcionPorEmpresaPlantaTemporada2CBX($IDEMPRESA,$IDPLANTA,$IDTEMPORADA){
         try{
             

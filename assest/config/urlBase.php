@@ -48,7 +48,6 @@
 
 	<script src="../../api/DataTables/data-table.js"></script>
 	<script type="text/javascript" src="../../api/DataTables/datatables.min.js"></script>	
-	<link rel="stylesheet" type="text/css" href="../../api/DataTables/datatables.min.css"/> 
 
 	<!--
 	<script src="../../api/cryptioadmin10/html/main/js/pages/data-table.js"></script>

@@ -1,31 +1,31 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/TREEMBALAJE_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/TREEMBALAJE_ADO.php';
 
 
 
-include_once '../controlador/RECEPCIONPT_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/REEMBALAJE_ADO.php';
-include_once '../controlador/DESPACHOPT_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/RECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
+include_once '../../assest/controlador/DESPACHOPT_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -100,7 +100,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -153,7 +153,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; 
+            <?php include_once "../../assest/config/menuExpo.php"; 
             ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -170,7 +170,9 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Informes</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Detalle Existencia PT</a>
+                                            <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
+                                            <li class="breadcrumb-item" aria-current="page">Existencia</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia PT</a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -205,7 +207,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existencia" class="table table-hover " style="width: 300%;">
+                                            <table id="existencia" class="table-hover " style="width: 300%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
@@ -561,11 +563,11 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
             </div>
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

@@ -1,39 +1,44 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
+
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
 
 
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/COMPRADOR_ADO.php';
 
 
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/COMPRADOR_ADO.php';
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/TREEMBALAJE_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
 
 
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/TREEMBALAJE_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
 
-include_once '../controlador/RECEPCIONIND_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/REEMBALAJE_ADO.php';
-
-include_once '../controlador/EINDUSTRIAL_ADO.php';
-include_once '../controlador/DESPACHOIND_ADO.php';
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-
-
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../controlador/DESPACHOMP_ADO.php';
-include_once '../controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DESPACHOMP_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/DESPACHOIND_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/RECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/DESPACHOPT_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -43,43 +48,47 @@ $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+$DFINAL_ADO =  new DFINAL_ADO();
 
 
 
-$TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
+$TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $COMPRADOR_ADO =  new COMPRADOR_ADO();
-
 
 
 $TPROCESO_ADO =  new TPROCESO_ADO();
 $TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
-
-$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 
-
-$ERECEPCION_ADO =  new ERECEPCION_ADO();
-$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
-$DESPACHOMP_ADO =  new DESPACHOMP_ADO();
-$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
-
-
+$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
-$DESPACHOIND_ADO =  new DESPACHOIND_ADO();
+$ERECEPCION_ADO =  new ERECEPCION_ADO();
+
+
+$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
+$DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
+$DESPACHOIND_ADO =  new DESPACHOIND_ADO();
+$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
+$RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
+$DESPACHOPT_ADO =  new DESPACHOPT_ADO();
+$DESPACHOEX_ADO =  new DESPACHOEX_ADO();
+$REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 
-$TOTALBRUTO = "";
-$TOTALNETO = "";
-$TOTALENVASE = "";
+$TOTALBRUTO = 0;
+$TOTALNETO = 0;
+$TOTALENVASE = 0;
 $FECHADESDE = "";
 $FECHAHASTA = "";
-$TOTALNETO = 0;
+
 $PRODUCTOR = "";
 $NUMEROGUIA = "";
 
@@ -90,26 +99,26 @@ $ARRAYVEREMPRESA = "";
 $ARRAYVERPRODUCTOR = "";
 $ARRAYVERTRANSPORTE = "";
 $ARRAYVERCONDUCTOR = "";
-$ARRAYMGUIAIND = "";
+$ARRAYMGUIAPT = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
 
-if ($EMPRESAS  && $TEMPORADAS) {
+if ($EMPRESAS  &&  $TEMPORADAS) {
+
 
     $ARRAYDESPACHOIND = $DESPACHOIND_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYDESPACHOINDTOTALES = $DESPACHOIND_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX2($EMPRESAS,  $TEMPORADAS);
+    $ARRAYDESPACHOINDTOTALES = $DESPACHOIND_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $TOTALNETOIND = $ARRAYDESPACHOINDTOTALES[0]['NETO'];
 
 
 
-    $TOTALNETO = $TOTALNETOIND;
+
+
+    $TOTALNETO  = number_format(    $TOTALNETOIND, 2, ",", ".");
 }
 
-
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
 
 
 
@@ -128,7 +137,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -198,8 +207,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php";
-        ?>
+        <?php include_once "../../assest/config/menuExpo.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -252,35 +260,49 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="modulo" class=" table-hover   " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>N° Folio </th>
                                                     <th>Fecha Embalado </th>
+                                                    <th>Tipo Producto</th>
+                                                    <th>Condición </th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
                                                     <th>CSG</th>
                                                     <th>Productor</th>
                                                     <th>Especies</th>
                                                     <th>Variedad</th>
+                                                    <th>Cantidad Envase</th>
                                                     <th>Kilos Neto</th>
-                                                    <th>Número Recepción</th>
+                                                    <th>% Deshidratacion</th>
+                                                    <th>Kilos Deshidratacion</th>
+                                                    <th>Kilos Bruto</th>
+                                                    <th>Número Recepción </th>
                                                     <th>Fecha Recepción </th>
-                                                    <th>Tipo Recepción</th>
-                                                    <th>Número Guía Recepción</th>
-                                                    <th>Fecha Guía Recepción </th>
-                                                    <th>Número Proceso</th>
+                                                    <th>Tipo Recepción </th>
+                                                    <th>Número Guía Recepción </th>
+                                                    <th>Fecha Guía Recepción
+                                                    <th>Número Repaletizaje </th>
+                                                    <th>Fecha Repaletizaje </th>
+                                                    <th>Número Proceso </th>
                                                     <th>Fecha Proceso </th>
-                                                    <th>Tipo Proceso</th>
-                                                    <th>Número Reembalaje</th>
+                                                    <th>Tipo Proceso </th>
+                                                    <th>Número Reembalaje </th>
                                                     <th>Fecha Reembalaje </th>
-                                                    <th>Tipo Reembalaje</th>
-                                                    <th>Número Despacho</th>
+                                                    <th>Tipo Reembalaje </th>
+                                                    <th>Número Despacho </th>
                                                     <th>Fecha Despacho </th>
-                                                    <th>Número Guía Despacho</th>
-                                                    <th>Tipo Despacho</th>
+                                                    <th>Número Guía Despacho </th>
+                                                    <th>Tipo Despacho </th>
                                                     <th>Destino </th>
                                                     <th>Tipo Manejo</th>
+                                                    <th>Tipo Calibre </th>
+                                                    <th>Tipo Embalaje </th>
+                                                    <th>Stock</th>
+                                                    <th>Embolsado</th>
+                                                    <th>Gasificacion</th>
+                                                    <th>Prefrío</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -288,6 +310,7 @@ include_once "../config/datosUrLP.php";
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
+                                                    <th>N° Folio Original</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -427,13 +450,19 @@ include_once "../config/datosUrLP.php";
                                                         if ($ARRAYPROCESO) {
                                                             $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
                                                             $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA"];
+                                                            $PORCENTAJEEXPO = number_format($ARRAYPROCESO[0]["PDEXPORTACION_PROCESO"], 2);
+                                                            $PORCENTAJEINDUSTRIAL = number_format($ARRAYPROCESO[0]["PDINDUSTRIAL_PROCESO"], 2);
+                                                            $PORCENTAJETOTAL = number_format($ARRAYPROCESO[0]["PORCENTAJE_PROCESO"], 2);
                                                             $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
                                                             if ($ARRAYTPROCESO) {
                                                                 $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
+                                                            $PORCENTAJEEXPO = "Sin datos";
+                                                            $PORCENTAJEINDUSTRIAL = "Sin datos";
+                                                            $PORCENTAJETOTAL = "Sin datos";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
@@ -446,7 +475,7 @@ include_once "../config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($s['ID_RECEPCION']);
@@ -462,30 +491,37 @@ include_once "../config/datosUrLP.php";
                                                                 $TIPORECEPCION = "Planta Externa";
                                                             }
                                                         } else {
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                         }
 
                                                         ?>
                                                         <tr class="text-left">
-
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
+                                                            <td><?php echo "Producto Industrial"; ?> </td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo ""; ?></td>
                                                             <td><?php echo $NUMEROPROCESO; ?></td>
                                                             <td><?php echo $FECHAPROCESO; ?></td>
                                                             <td><?php echo $TPROCESO; ?></td>
@@ -498,13 +534,20 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $TDESPACHO; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
+                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                             <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
-                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>                                                              
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIINDUSTRIAL']; ?> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
@@ -512,7 +555,6 @@ include_once "../config/datosUrLP.php";
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
@@ -537,10 +579,10 @@ include_once "../config/datosUrLP.php";
             </div>
         </div>
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>
