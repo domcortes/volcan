@@ -373,9 +373,7 @@ class DRECEPCIONPT_ADO
 
             $datos = $this->conexion->prepare("SELECT * , 
                                                             DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
-                                                            FORMAT(IFNULL(CANTIDAD_ENVASE_APROBADO_DRECEPCION,0),0,'de_DE') AS 'ENVASEA', 
-                                                            FORMAT(IFNULL(CANTIDAD_ENVASE_RECIBIDO_DRECEPCION,0),0,'de_DE') AS 'ENVASEI', 
-                                                            FORMAT(IFNULL(CANTIDAD_ENVASE_RECHAZADO_DRECEPCION,0),0,'de_DE') AS 'ENVASER', 
+                                                            FORMAT(IFNULL(CANTIDAD_ENVASE_APROBADO_DRECEPCION,0),0,'de_DE') AS 'ENVASE',
                                                             FORMAT(IFNULL(KILOS_NETO_REAL_DRECEPCION,0),2,'de_DE') AS 'NETOREAL',
                                                             FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO',
                                                             FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),0,'de_DE') AS 'BRUTO' ,
