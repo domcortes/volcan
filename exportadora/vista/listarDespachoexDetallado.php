@@ -44,6 +44,7 @@ include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
 include_once '../../assest/controlador/ICARGA_ADO.php';
 include_once '../../assest/controlador/DFINAL_ADO.php';
 include_once '../../assest/controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/BROKER_ADO.php';
 include_once '../../assest/controlador/MERCADO_ADO.php';
 
 include_once '../../assest/controlador/LDESTINO_ADO.php';
@@ -91,6 +92,7 @@ $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
 $ICARGA_ADO =  new ICARGA_ADO();
 $DFINAL_ADO =  new DFINAL_ADO();
 $RFINAL_ADO =  new RFINAL_ADO();
+$BROKER_ADO =  new BROKER_ADO();
 $MERCADO_ADO =  new MERCADO_ADO();
 $LDESTINO_ADO =  new LDESTINO_ADO();
 $ADESTINO_ADO =  new ADESTINO_ADO();
@@ -122,7 +124,7 @@ $ARRAYMGUIAPT = "";
 
 if ($EMPRESAS  &&  $TEMPORADAS) {
     
-    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);/*
     $ARRAYDESPACHOEXTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoexEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
     $TOTALNETOEX = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
     $TOTALBRUTOEX = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
@@ -130,7 +132,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
 
     $TOTALNETO  = number_format($TOTALNETOEX  , 2, ",", ".");
     $TOTALBRUTO = number_format( $TOTALBRUTOEX , 2, ",", ".");
-    $TOTALENVASE  = number_format($TOTALENVASEEX  , 2, ",", ".");
+    $TOTALENVASE  = number_format($TOTALENVASEEX  , 2, ",", ".");*/
 }
 
 
@@ -274,12 +276,28 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="detallado" class=" table-hover   " style="width: 100%;">
+                                        <table id="consolidadod" class=" table-hover   " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
+                                                    <th>Número Referencia </th>
+                                                    <th>Número Despacho </th>
+                                                    <th>Fecha Despacho </th>
+                                                    <th>Número Guía Despacho </th>
+                                                    <th>Tipo Despacho </th>
+                                                    <th>Destino </th>
+                                                    <th>Fecha Corte Documental </th>
+                                                    <th>Fecha ETD </th>
+                                                    <th>Fecha ETA</th>
+                                                    <th>Recibidor Final</th>
+                                                    <th>Cliente</th>
+                                                    <th>Mercado</th>
+                                                    <th>Tipo Embarque</th>
+                                                    <th>Nave</th>
+                                                    <th>Número Viaje/Vuelo</th>
+                                                    <th>Puerto/Aeropuerto/Lugar Destino</th>
+                                                    <th>N° Folio Original</th>
                                                     <th>N° Folio </th>
                                                     <th>Fecha Embalado </th>
-                                                    <th>Tipo Producto</th>
                                                     <th>Condición </th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
@@ -292,11 +310,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>% Deshidratacion</th>
                                                     <th>Kilos Deshidratacion</th>
                                                     <th>Kilos Bruto</th>
-                                                    <th>Número Recepción </th>
-                                                    <th>Fecha Recepción </th>
-                                                    <th>Tipo Recepción </th>
-                                                    <th>Número Guía Recepción </th>
-                                                    <th>Fecha Guía Recepción
                                                     <th>Número Repaletizaje </th>
                                                     <th>Fecha Repaletizaje </th>
                                                     <th>Número Proceso </th>
@@ -305,21 +318,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Número Reembalaje </th>
                                                     <th>Fecha Reembalaje </th>
                                                     <th>Tipo Reembalaje </th>
-                                                    <th>Número Despacho </th>
-                                                    <th>Fecha Despacho </th>
-                                                    <th>Número Guía Despacho </th>  
-                                                    <th>Tipo Despacho </th>
-                                                    <th>Destino </th>
-                                                    <th>Número Referencia </th>
-                                                    <th>Fecha Corte Documental </th>
-                                                    <th>Fecha ETD </th>
-                                                    <th>Fecha ETA</th>
-                                                    <th>Recibidor Final</th>
-                                                    <th>Mercado</th>
-                                                    <th>Tipo Embarque</th>
-                                                    <th>Nave</th>
-                                                    <th>Número Viaje/Vuelo</th>
-                                                    <th>Puerto/Aeropuerto/Lugar Destino</th>
                                                     <th>Tipo Manejo</th>
                                                     <th>Tipo Calibre </th>
                                                     <th>Tipo Embalaje </th>
@@ -334,10 +332,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
-                                                    <th>N° Folio Original</th>
-                                                    <th>% Exportación Proceso</th>
-                                                    <th>% Industrial Proceso</th>
-                                                    <th>Total Procesado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -433,6 +427,13 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         }else{
                                                             $NOMBRERFINAL="Sin Datos";
                                                         }
+                                                        $ARRAYBROKER=$BROKER_ADO->verBroker($ARRAYICARGA[0]["ID_BROKER"]);
+                                                        if($ARRAYBROKER){
+                                                            $NOMBREBROKER=$ARRAYBROKER[0]["NOMBRE_BROKER"];
+                                                        }else{
+                                                            $NOMBREBROKER="Sin Datos";
+                                                        }
+
                                                     }else{
                                                         $NUMEROREFERENCIA="No Aplica";
                                                         $FECHAETD=$r['FECHAETD_DESPACHOEX'];
@@ -482,6 +483,12 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
                                                         }else{
                                                             $NOMBRERFINAL="Sin Datos";
+                                                        }
+                                                        $ARRAYBROKER=$BROKER_ADO->verBroker($r["ID_BROKER"]);
+                                                        if($ARRAYBROKER){
+                                                            $NOMBREBROKER=$ARRAYBROKER[0]["NOMBRE_BROKER"];
+                                                        }else{
+                                                            $NOMBREBROKER="Sin Datos";
                                                         }
                                                     }
 
@@ -648,10 +655,26 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         }
                                                         ?>
                                                         <tr class="text-left">
+                                                            <td><?php echo $NUMEROREFERENCIA; ?></td>
+                                                            <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
+                                                            <td><?php echo $r['FECHA']; ?></td>
+                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
+                                                            <td><?php echo "Exportación"; ?></td>
+                                                            <td><?php echo $DESTINO; ?></td>
+                                                            <td><?php echo $FECHACDOCUMENTAL; ?></td>
+                                                            <td><?php echo $FECHAETD; ?></td>
+                                                            <td><?php echo $FECHAETA; ?></td>
+                                                            <td><?php echo $NOMBRERFINAL; ?></td>
+                                                            <td><?php echo $NOMBREBROKER; ?></td>
+                                                            <td><?php echo $NOMBREMERCADO; ?></td>
+                                                            <td><?php echo $TEMBARQUE; ?></td>
+                                                            <td><?php echo $NAVE; ?></td>
+                                                            <td><?php echo $NVIAJE; ?></td>
+                                                            <td><?php echo $NOMBREDESTINO; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
-                                                            <td><?php echo "Producto Terminado"; ?> </td>
-                                                            <td><?php echo $ESTADOSAG; ?></td>
+                                                            <td><?php echo $ESTADOSAG; ?></td>                                               
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
@@ -663,11 +686,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $s['PORCENTAJE']; ?></td>
                                                             <td><?php echo $s['DESHIRATACION']; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
-                                                            <td><?php echo $NUMERORECEPCION; ?></td>
-                                                            <td><?php echo $FECHARECEPCION; ?></td>
-                                                            <td><?php echo $TIPORECEPCION; ?></td>
-                                                            <td><?php echo $NUMEROGUIARECEPCION; ?></td>
-                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>
                                                             <td><?php echo $NUMEROREPALETIZAJE; ?></td>
                                                             <td><?php echo $FECHAREPALETIZAJE; ?></td>
                                                             <td><?php echo $NUMEROPROCESO; ?></td>
@@ -675,24 +693,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $TPROCESO; ?></td>
                                                             <td><?php echo $NUMEROREEMBALEJE; ?></td>
                                                             <td><?php echo $FECHAREEMBALEJE; ?></td>
-                                                            <td><?php echo $TREEMBALAJE; ?></td>                                                    
-                                                            <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
-                                                            <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
-                                                            <td><?php echo "Exportación"; ?></td>
-                                                            <td><?php echo $DESTINO; ?></td>
-
-                                                            <td><?php echo $NUMEROREFERENCIA; ?></td>
-                                                            <td><?php echo $FECHACDOCUMENTAL; ?></td>
-                                                            <td><?php echo $FECHAETD; ?></td>
-                                                            <td><?php echo $FECHAETA; ?></td>
-                                                            <td><?php echo $NOMBRERFINAL; ?></td>
-                                                            <td><?php echo $NOMBREMERCADO; ?></td>
-                                                            <td><?php echo $TEMBARQUE; ?></td>
-                                                            <td><?php echo $NAVE; ?></td>
-                                                            <td><?php echo $NVIAJE; ?></td>
-                                                            <td><?php echo $NOMBREDESTINO; ?></td>
-
+                                                            <td><?php echo $TREEMBALAJE; ?></td>  
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
@@ -707,10 +708,10 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-                                                            <td><?php echo $s['FOLIO_EXIEXPORTACION']; ?> </td>
-                                                            <td><?php echo $PORCENTAJEEXPO; ?></td>
-                                                            <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
-                                                            <td><?php echo $PORCENTAJETOTAL; ?></td>
+
+                                                                                                 
+                                               
+
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
@@ -726,9 +727,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -736,9 +736,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -746,15 +745,14 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>

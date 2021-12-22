@@ -2281,7 +2281,7 @@ if (isset($_POST)) {
                                             </div>
                                             <div class="col-xxl-3 col-xl-5 col-lg-9 col-md-9 col-sm-9 col-9 col-xs-9">
                                                 <div class="form-group">
-                                                    <label>Broker</label>
+                                                    <label>Cliente</label>
                                                     <input type="hidden" class="form-control" placeholder="BROKERE" id="BROKERE" name="BROKERE" value="<?php echo $BROKER; ?>" />
                                                     <select class="form-control select2" id="BROKER" name="BROKER" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                         <option></option>
