@@ -274,6 +274,7 @@ class ICARGA_ADO
                 "INSERT INTO fruta_icarga ( 
                                             NUMERO_ICARGA, 
                                             FECHA_ICARGA, 
+                                            FECHACDOCUMENTALICARGA,
                                             BOOKING_ICARGA, 
                                             NREFERENCIA_ICARGA, 
                                             FECHAETD_ICARGA, 
@@ -340,13 +341,14 @@ class ICARGA_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	    (  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+	       	    (  ?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
                  0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $ICARGA->__GET('NUMERO_ICARGA'),
                         $ICARGA->__GET('FECHA_ICARGA'),
+                        $ICARGA->__GET('FECHACDOCUMENTALICARGA'),
                         $ICARGA->__GET('BOOKING_ICARGA'),
                         $ICARGA->__GET('NREFERENCIA_ICARGA'),
                         $ICARGA->__GET('FECHAETD_ICARGA'),

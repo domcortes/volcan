@@ -421,6 +421,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAINSTRUCTIVO = $r['FECHA_ICARGA'];
             $TSERVICIO = $r['ID_TSERVICIO'];
             $BOOKINGINSTRUCTIVO = $r['BOOKING_ICARGA'];
+            $FECHACDOCUMENTALICARGA = $r['FECHA_CDOCUMENTAL_ICARGA'];
             $NUMEROREFERENCIAINSTRUCTIVO = $r['NREFERENCIA_ICARGA'];
             $FECHAINGRESO = $r['INGRESO'];
             $FECHAMODIFCIACION = $r['MODIFICACION'];
