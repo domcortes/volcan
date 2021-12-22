@@ -122,17 +122,8 @@ $ARRAYMGUIAPT = "";
 
 
 
-if ($EMPRESAS  &&  $TEMPORADAS) {
-    
-    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);/*
-    $ARRAYDESPACHOEXTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoexEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $TOTALNETOEX = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
-    $TOTALBRUTOEX = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
-    $TOTALENVASEEX = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
-
-    $TOTALNETO  = number_format($TOTALNETOEX  , 2, ",", ".");
-    $TOTALBRUTO = number_format( $TOTALBRUTOEX , 2, ",", ".");
-    $TOTALENVASE  = number_format($TOTALENVASEEX  , 2, ",", ".");*/
+if ($EMPRESAS  &&  $TEMPORADAS) {    
+    $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
 }
 
 
@@ -276,7 +267,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="consolidadod" class=" table-hover   " style="width: 100%;">
+                                        <table id="consolidadodex" class=" table-hover   " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Número Referencia </th>
@@ -436,6 +427,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
 
                                                     }else{
                                                         $NUMEROREFERENCIA="No Aplica";
+                                                        $NOMBREBROKER="No Aplica";
                                                         $FECHAETD=$r['FECHAETD_DESPACHOEX'];
                                                         $FECHAETA=$r['FECHAETA_DESPACHOEX'];
                                                         $FECHACDOCUMENTAL="";
@@ -484,16 +476,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         }else{
                                                             $NOMBRERFINAL="Sin Datos";
                                                         }
-                                                        $ARRAYBROKER=$BROKER_ADO->verBroker($r["ID_BROKER"]);
-                                                        if($ARRAYBROKER){
-                                                            $NOMBREBROKER=$ARRAYBROKER[0]["NOMBRE_BROKER"];
-                                                        }else{
-                                                            $NOMBREBROKER="Sin Datos";
-                                                        }
                                                     }
-
-
-
                                                     $ARRAYTOMADOEX = $EXIEXPORTACION_ADO->buscarPordespachoEx($r['ID_DESPACHOEX']);
 
                                                     ?>

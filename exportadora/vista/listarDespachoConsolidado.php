@@ -44,6 +44,7 @@ include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
 include_once '../../assest/controlador/ICARGA_ADO.php';
 include_once '../../assest/controlador/DFINAL_ADO.php';
 include_once '../../assest/controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/BROKER_ADO.php';
 include_once '../../assest/controlador/MERCADO_ADO.php';
 
 include_once '../../assest/controlador/LDESTINO_ADO.php';
@@ -91,10 +92,12 @@ $REPALETIZAJEEX_ADO =  new REPALETIZAJEEX_ADO();
 $ICARGA_ADO =  new ICARGA_ADO();
 $DFINAL_ADO =  new DFINAL_ADO();
 $RFINAL_ADO =  new RFINAL_ADO();
+$BROKER_ADO =  new BROKER_ADO();
 $MERCADO_ADO =  new MERCADO_ADO();
 $LDESTINO_ADO =  new LDESTINO_ADO();
 $ADESTINO_ADO =  new ADESTINO_ADO();
 $PDESTINO_ADO =  new PDESTINO_ADO();
+
 
 
 
@@ -124,34 +127,10 @@ $ARRAYMGUIAPT = "";
 
 
 if ($EMPRESAS  &&  $TEMPORADAS) {
-
-
     $ARRAYDESPACHOIND = $DESPACHOIND_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYDESPACHOINDTOTALES = $DESPACHOIND_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $TOTALNETOIND = $ARRAYDESPACHOINDTOTALES[0]['NETO'];
-
     $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $ARRAYDESPACHOMPTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $TOTALENVASEMP = $ARRAYDESPACHOMPTOTALES[0]['ENVASE'];
-    $TOTALNETOMP = $ARRAYDESPACHOMPTOTALES[0]['NETO'];
-    $TOTALBRUTOMP = $ARRAYDESPACHOMPTOTALES[0]['BRUTO'];
-
     $ARRAYDESPACHOPT = $DESPACHOPT_ADO->listarDespachoptEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOPT_ADO->obtenerTotalesDespachoptEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $TOTALNETOPT = $ARRAYDESPACHOPTTOTALES[0]['NETO'];
-    $TOTALBRUTOPT = $ARRAYDESPACHOPTTOTALES[0]['BRUTO'];
-    $TOTALENVASEPT = $ARRAYDESPACHOPTTOTALES[0]['ENVASE'];
-
-
     $ARRAYDESPACHOEX = $DESPACHOEX_ADO->listarDespachoexEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYDESPACHOEXTOTALES = $DESPACHOEX_ADO->obtenerTotalesDespachoexEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $TOTALNETOEX = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
-    $TOTALBRUTOEX = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
-    $TOTALENVASEEX = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
-
-    $TOTALNETO  = number_format($TOTALNETOEX + $TOTALNETOPT + $TOTALNETOMP + $TOTALNETOIND, 2, ",", ".");
-    $TOTALBRUTO = number_format($TOTALBRUTOPT + $TOTALBRUTOEX + $TOTALBRUTOMP, 2, ",", ".");
-    $TOTALENVASE  = number_format($TOTALENVASEEX + $TOTALENVASEPT + $TOTALENVASEMP, 2, ",", ".");
 }
 
 
@@ -286,18 +265,33 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                         </div>
                     </div>
                 </div>
-
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">
-
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="consolidado" class=" table-hover   " style="width: 100%;">
+                                        <table id="consolidadodf" class=" table-hover   " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
+                                                    <th>Número Referencia </th>
+                                                    <th>Número Despacho </th>
+                                                    <th>Fecha Despacho </th>
+                                                    <th>Número Guía Despacho </th>
+                                                    <th>Tipo Despacho </th>
+                                                    <th>Destino </th>
+                                                    <th>Fecha Corte Documental </th>
+                                                    <th>Fecha ETD </th>
+                                                    <th>Fecha ETA</th>
+                                                    <th>Recibidor Final</th>
+                                                    <th>Cliente</th>
+                                                    <th>Mercado</th>
+                                                    <th>Tipo Embarque</th>
+                                                    <th>Nave</th>
+                                                    <th>Número Viaje/Vuelo</th>
+                                                    <th>Puerto/Aeropuerto/Lugar Destino</th>
+                                                    <th>N° Folio Original</th>
                                                     <th>N° Folio </th>
                                                     <th>Fecha Embalado/Cosecha </th>
                                                     <th>Tipo Producto</th>
@@ -326,23 +320,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Número Reembalaje </th>
                                                     <th>Fecha Reembalaje </th>
                                                     <th>Tipo Reembalaje </th>
-                                                    <th>Número Despacho </th>
-                                                    <th>Fecha Despacho </th>
-                                                    <th>Número Guía Despacho </th>
-                                                    <th>Tipo Despacho </th>
-                                                    <th>Destino </th>
-
-                                                    <th>Número Referencia </th>
-                                                    <th>Fecha Corte Documental </th>
-                                                    <th>Fecha ETD </th>
-                                                    <th>Fecha ETA</th>
-                                                    <th>Recibidor Final</th>
-                                                    <th>Mercado</th>
-                                                    <th>Tipo Embarque</th>
-                                                    <th>Nave</th>
-                                                    <th>Número Viaje/Vuelo</th>
-                                                    <th>Puerto/Aeropuerto/Lugar Destino</th>
-
                                                     <th>Tipo Manejo</th>
                                                     <th>Tipo Calibre </th>
                                                     <th>Tipo Embalaje </th>
@@ -357,7 +334,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
-                                                    <th>N° Folio Original</th>
                                                     <th>% Exportación Proceso</th>
                                                     <th>% Industrial Proceso</th>
                                                     <th>Total Procesado</th>
@@ -619,6 +595,23 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         }
                                                         ?>
                                                         <tr class="text-left">
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
+                                                            <td><?php echo $r['FECHA']; ?></td>
+                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $DESTINO; ?></td>     
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td><?php echo "Producto Terminado"; ?> </td>
@@ -647,21 +640,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NUMEROREEMBALEJE; ?></td>
                                                             <td><?php echo $FECHAREEMBALEJE; ?></td>
                                                             <td><?php echo $TREEMBALAJE; ?></td>
-                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
-                                                            <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
-                                                            <td><?php echo $DESTINO; ?></td>     
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
@@ -676,14 +654,13 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-                                                            <td><?php echo $s['FOLIO_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $PORCENTAJEEXPO; ?></td>
                                                             <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
                                                             <td><?php echo $PORCENTAJETOTAL; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
-                                                <?php endforeach;?>
-                                                <?php foreach ($ARRAYDESPACHOEX as $r) : ?>
+                                                <?php endforeach;?>                                                
+                                                <?php  foreach ($ARRAYDESPACHOEX as $r) : ?>
                                                     <?php
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -775,8 +752,16 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         }else{
                                                             $NOMBRERFINAL="Sin Datos";
                                                         }
+                                                        $ARRAYBROKER=$BROKER_ADO->verBroker($ARRAYICARGA[0]["ID_BROKER"]);
+                                                        if($ARRAYBROKER){
+                                                            $NOMBREBROKER=$ARRAYBROKER[0]["NOMBRE_BROKER"];
+                                                        }else{
+                                                            $NOMBREBROKER="Sin Datos";
+                                                        }
+
                                                     }else{
                                                         $NUMEROREFERENCIA="No Aplica";
+                                                        $NOMBREBROKER="No Aplica";
                                                         $FECHAETD=$r['FECHAETD_DESPACHOEX'];
                                                         $FECHAETA=$r['FECHAETA_DESPACHOEX'];
                                                         $FECHACDOCUMENTAL="";
@@ -824,7 +809,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
                                                         }else{
                                                             $NOMBRERFINAL="Sin Datos";
-                                                        }
+                                                        } 
                                                     }
 
 
@@ -990,10 +975,27 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         }
                                                         ?>
                                                         <tr class="text-left">
+                                                            <td><?php echo $NUMEROREFERENCIA; ?></td>
+                                                            <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
+                                                            <td><?php echo $r['FECHA']; ?></td>
+                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
+                                                            <td><?php echo "Exportación"; ?></td>
+                                                            <td><?php echo $DESTINO; ?></td>
+                                                            <td><?php echo $FECHACDOCUMENTAL; ?></td>
+                                                            <td><?php echo $FECHAETD; ?></td>
+                                                            <td><?php echo $FECHAETA; ?></td>
+                                                            <td><?php echo $NOMBRERFINAL; ?></td>
+                                                            <td><?php echo $NOMBREBROKER; ?></td>
+                                                            <td><?php echo $NOMBREMERCADO; ?></td>
+                                                            <td><?php echo $TEMBARQUE; ?></td>
+                                                            <td><?php echo $NAVE; ?></td>
+                                                            <td><?php echo $NVIAJE; ?></td>
+                                                            <td><?php echo $NOMBREDESTINO; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td><?php echo "Producto Terminado"; ?> </td>
-                                                            <td><?php echo $ESTADOSAG; ?></td>
+                                                            <td><?php echo $ESTADOSAG; ?></td>                                               
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
@@ -1006,7 +1008,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $s['DESHIRATACION']; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
-                                                            <td><?php echo $FECHARECEPCION; ?></td>
+                                                            <td><?php echo $FECHARECEPCION; ?></td>                                                            
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
@@ -1017,24 +1019,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $TPROCESO; ?></td>
                                                             <td><?php echo $NUMEROREEMBALEJE; ?></td>
                                                             <td><?php echo $FECHAREEMBALEJE; ?></td>
-                                                            <td><?php echo $TREEMBALAJE; ?></td>                                                    
-                                                            <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
-                                                            <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
-                                                            <td><?php echo "Exportación"; ?></td>
-                                                            <td><?php echo $DESTINO; ?></td>
-
-                                                            <td><?php echo $NUMEROREFERENCIA; ?></td>
-                                                            <td><?php echo $FECHACDOCUMENTAL; ?></td>
-                                                            <td><?php echo $FECHAETD; ?></td>
-                                                            <td><?php echo $FECHAETA; ?></td>
-                                                            <td><?php echo $NOMBRERFINAL; ?></td>
-                                                            <td><?php echo $NOMBREMERCADO; ?></td>
-                                                            <td><?php echo $TEMBARQUE; ?></td>
-                                                            <td><?php echo $NAVE; ?></td>
-                                                            <td><?php echo $NVIAJE; ?></td>
-                                                            <td><?php echo $NOMBREDESTINO; ?></td>
-
+                                                            <td><?php echo $TREEMBALAJE; ?></td>  
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
@@ -1049,13 +1034,12 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-                                                            <td><?php echo $s['FOLIO_EXIEXPORTACION']; ?> </td>
                                                             <td><?php echo $PORCENTAJEEXPO; ?></td>
                                                             <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
-                                                            <td><?php echo $PORCENTAJETOTAL; ?></td>
+                                                            <td><?php echo $PORCENTAJETOTAL; ?></td> 
                                                         </tr>
                                                     <?php endforeach; ?>
-                                                <?php endforeach; ?>
+                                                <?php endforeach;  ?>
                                                 <?php foreach ($ARRAYDESPACHOMP as $r) : ?>
                                                     <?php
                                                     if ($r['ESTADO_DESPACHO'] == "1") {
@@ -1218,6 +1202,23 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
 
                                                         ?>
                                                         <tr class="text-left">
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
+                                                            <td><?php echo $r['FECHA']; ?></td>
+                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $DESTINO; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo $s['COSECHA']; ?></td>
                                                             <td><?php echo "Materia Prima"; ?> </td>
@@ -1246,21 +1247,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo ""; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
-                                                            <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
-                                                            <td><?php echo $DESTINO; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
@@ -1275,7 +1261,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-                                                            <td><?php echo $s['FOLIO_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
@@ -1468,6 +1453,23 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
 
                                                         ?>
                                                         <tr class="text-left">
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
+                                                            <td><?php echo $r['FECHA']; ?></td>
+                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
+                                                            <td><?php echo $TDESPACHO; ?></td>
+                                                            <td><?php echo $DESTINO; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo ""; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
+                                                            <td><?php echo $s['FOLIO_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td><?php echo "Producto Industrial"; ?> </td>
@@ -1496,21 +1498,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NUMEROREEMBALEJE; ?></td>
                                                             <td><?php echo $FECHAREEMBALEJE; ?></td>
                                                             <td><?php echo $TREEMBALAJE; ?></td>
-                                                            <td><?php echo $r['NUMERO_DESPACHO']; ?> </td>
-                                                            <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo $NUMEROGUIADEPACHO; ?></td>
-                                                            <td><?php echo $TDESPACHO; ?></td>
-                                                            <td><?php echo $DESTINO; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo ""; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
@@ -1525,7 +1512,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
                                                             <td><?php echo $NOMBRETEMPORADA; ?></td>
-                                                            <td><?php echo $s['FOLIO_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $PORCENTAJEEXPO; ?></td>
                                                             <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
                                                             <td><?php echo $PORCENTAJETOTAL; ?></td>
@@ -1536,7 +1522,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -1544,9 +1530,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1554,9 +1539,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1564,26 +1548,23 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>
                 <!-- /.content -->
             </div>
         </div>
-
         <?php include_once "../../assest/config/footer.php"; ?>
         <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
-
 </html>
