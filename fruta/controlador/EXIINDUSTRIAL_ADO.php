@@ -322,7 +322,10 @@ class EXIINDUSTRIAL_ADO
                                                     INGRESO,    
                                                     ID_TMANEJO, 
                                                     ID_FOLIO,
+                                                    
                                                     ID_ESTANDAR,
+                                                    ID_ESTANDARMP,
+                                                    ID_ESTANDARPT,
 
                                                     ID_PRODUCTOR,
                                                     ID_VESPECIES,
@@ -337,7 +340,7 @@ class EXIINDUSTRIAL_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -353,6 +356,8 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_FOLIO'),
                         $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARMP'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARPT'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
                         $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
                         $EXIINDUSTRIAL->__GET('ID_PLANTA2'),
@@ -1373,11 +1378,10 @@ class EXIINDUSTRIAL_ADO
                                                     DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
                                                     DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
-                                                FROM fruta_exiindustrial existencia, estandar_eindustrial estandar 
-                                                WHERE existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                FROM fruta_exiindustrial existencia
+                                                WHERE existencia.ID_ESTANDAR
                                                 AND  existencia.ESTADO = 4
-                                                AND  existencia.ESTADO_REGISTRO = 1
-                                                AND  estandar.COBRO = 1                      
+                                                AND  existencia.ESTADO_REGISTRO = 1                     
                                                 AND existencia.ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND existencia.ID_PLANTA = '" . $PLANTA . "'
                                                 AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'	");
@@ -1394,65 +1398,6 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
-    public function listarExiindustrialRechazoMpEmpresaPlantaTemporadaDespachadoCBX($EMPRESA, $PLANTA, $TEMPORADA)
-    {
-        try {
-            $datos = $this->conexion->prepare("SELECT  *,
-                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
-                                                    IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
-                                                FROM fruta_exiindustrial existencia, estandar_erecepcion estandar 
-                                                WHERE existencia.ID_ESTANDARPT=estandar.ID_ESTANDAR
-                                                AND  existencia.ESTADO = 4
-                                                AND  existencia.ESTADO_REGISTRO = 1   
-                                                AND existencia.ID_EMPRESA = '" . $EMPRESA . "' 
-                                                AND existencia.ID_PLANTA = '" . $PLANTA . "'
-                                                AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    public function listarExiindustrialRechazoPTEmpresaPlantaTemporadaDespachadoCBX($EMPRESA, $PLANTA, $TEMPORADA)
-    {
-        try {
-            $datos = $this->conexion->prepare("SELECT  *,
-                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
-                                                    IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
-                                                FROM fruta_exiindustrial existencia, estandar_eexportacion estandar 
-                                                WHERE existencia.ID_ESTANDARPT=estandar.ID_ESTANDAR
-                                                AND  existencia.ESTADO = 4
-                                                AND  existencia.ESTADO_REGISTRO = 1   
-                                                AND existencia.ID_EMPRESA = '" . $EMPRESA . "' 
-                                                AND existencia.ID_PLANTA = '" . $PLANTA . "'
-                                                AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'	");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    
     public function listarExiindustrialEmpresaPlantaTemporadaDespachadoCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
@@ -1932,11 +1877,10 @@ class EXIINDUSTRIAL_ADO
         try {
             $datos = $this->conexion->prepare("SELECT   
                                                     IFNULL(SUM(existencia.KILOS_NETO_EXIINDUSTRIAL),0) AS 'NETO' 
-                                                FROM fruta_exiindustrial existencia, estandar_eindustrial estandar 
-                                                WHERE existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
-                                                AND  existencia.ESTADO = 2
-                                                AND  existencia.ESTADO_REGISTRO = 1
-                                                AND  estandar.COBRO = 1                      
+                                                FROM fruta_exiindustrial existencia
+                                                WHERE existencia.ID_ESTANDAR
+                                                AND  existencia.ESTADO = 4
+                                                AND  existencia.ESTADO_REGISTRO = 1                   
                                                 AND existencia.ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND existencia.ID_PLANTA = '" . $PLANTA . "'
                                                 AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'               
