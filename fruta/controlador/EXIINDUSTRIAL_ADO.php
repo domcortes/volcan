@@ -384,8 +384,10 @@ class EXIINDUSTRIAL_ADO
                                                     INGRESO,    
                                                     ID_TMANEJO, 
                                                     ID_FOLIO,
-                                                    ID_ESTANDAR,
 
+                                                    ID_ESTANDAR,
+                                                    ID_ESTANDARMP,
+                                                    ID_ESTANDARPT,
                                                     ID_PRODUCTOR,
                                                     ID_VESPECIES,
 
@@ -403,7 +405,7 @@ class EXIINDUSTRIAL_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?,?, ?, ?, ?, ?,    ?, ?,   ?, ?, ?, ?,  ?, ?, ?,  SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,   ?, ?, ?, ?,  ?, ?, ?,  SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -419,8 +421,10 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('INGRESO'),
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_FOLIO'),
-                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
 
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARMP'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARPT'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
                         $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
 
@@ -1238,8 +1242,7 @@ class EXIINDUSTRIAL_ADO
     }
 
 
-    //LISTAR
-   
+    //LISTAR   
     public function listarExiindustrialEmpresaPlantaTemporadaDisponibleCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

@@ -612,6 +612,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                             $EXIINDUSTRIAL->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
                             $EXIINDUSTRIAL->__SET('ID_FOLIO',  $r['ID_FOLIO']);
                             $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
+                            $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', $r['ID_ESTANDARMP']);
+                            $EXIINDUSTRIAL->__SET('ID_ESTANDARPT', $r['ID_ESTANDARPT']);
+
                             $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
                             $EXIINDUSTRIAL->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
 
