@@ -3123,7 +3123,7 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn btn-primary  " data-toggle="tooltip" title=" Instruction English" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i>  Instruction English
                                                 </button>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Report Invoice" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeIcargaInvoice.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Report Invoice" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoice.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Invoice
                                                 </button>
                                                 <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Carga Real" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
