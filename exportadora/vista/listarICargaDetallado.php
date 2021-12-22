@@ -303,6 +303,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <th>Fecha Instructivo</th>
                                                         <th>Estado Instructivo</th>  
                                                         <th>Recibidor Final</th>
+                                                        <th>Cliente</th>
                                                         <th>Consignatario</th>
                                                         <th>Notificador</th>
                                                         <th>Agente Aduana</th>
@@ -353,7 +354,12 @@ include_once "../../assest/config/datosUrLP.php";
                                                         }
 
 
-
+                                                        $ARRAYBROKER=$BROKER_ADO->verBroker($r["ID_BROKER"]);
+                                                        if($ARRAYBROKER){
+                                                            $NOMBREBROKER=$ARRAYBROKER[0]["NOMBRE_BROKER"];
+                                                        }else{
+                                                            $NOMBREBROKER="Sin Datos";
+                                                        }
 
                                                         $ARRAYRFINAL=$RFINAL_ADO->verRfinal($r["ID_RFINAL"]);
                                                         if($ARRAYRFINAL){
@@ -530,6 +536,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 <td> <?php echo $r['FECHA']; ?> </td>
                                                                 <td> <?php echo $ESTADOICARGA; ?> </td>
                                                                 <td> <?php echo $NOMBRERFINAL; ?> </td>
+                                                                <td> <?php echo $NOMBREBROKER; ?> </td>
                                                                 <td> <?php echo $NOMBRECONSIGNATARIO; ?> </td>
                                                                 <td> <?php echo $NOMBRENOTIFICADOR; ?> </td>
                                                                 <td> <?php echo $NOMBREAADUANA; ?> </td>

@@ -91,29 +91,29 @@ $ARRAYPRODUCTOR = "";
 if ($EMPRESAS && $TEMPORADAS) {
 
 
-    $ARRAYRECEPCIONIND = $RECEPCIONIND_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYRECEPCIONIND = $RECEPCIONIND_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);/*
     $ARRAYRECEPCIONINDTOTALES = $RECEPCIONIND_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $TOTALNETOIND = $ARRAYRECEPCIONINDTOTALES[0]['NETO'];
     $TOTALBRUTOIND = $ARRAYRECEPCIONINDTOTALES[0]['BRUTO'];
-    $TOTALENVASEIND = $ARRAYRECEPCIONINDTOTALES[0]['ENVASE'];
+    $TOTALENVASEIND = $ARRAYRECEPCIONINDTOTALES[0]['ENVASE'];*/
 
-    $ARRAYRECEPCIONMP = $RECEPCIONMP_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYRECEPCIONMP = $RECEPCIONMP_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);/*
     $ARRAYRECEPCIONMPTOTALES = $RECEPCIONMP_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
     $TOTALBRUTOMP = $ARRAYRECEPCIONMPTOTALES[0]['BRUTO'];
     $TOTALNETOMP = $ARRAYRECEPCIONMPTOTALES[0]['NETO'];
-    $TOTALENVASEMP = $ARRAYRECEPCIONMPTOTALES[0]['ENVASE'];
+    $TOTALENVASEMP = $ARRAYRECEPCIONMPTOTALES[0]['ENVASE'];*/
 
     
-    $ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
+    $ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);/*
     $ARRAYRECEPCIONPTTOTALES = $RECEPCIONPT_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
     $TOTALBRUTOPT = $ARRAYRECEPCIONPTTOTALES[0]['BRUTO'];
     $TOTALNETOPT = $ARRAYRECEPCIONPTTOTALES[0]['NETO'];
-    $TOTALENVASEPT = $ARRAYRECEPCIONPTTOTALES[0]['ENVASE'];
+    $TOTALENVASEPT = $ARRAYRECEPCIONPTTOTALES[0]['ENVASE'];*/
 
-    
+    /*
     $TOTALNETO  = number_format( $TOTALNETOMP + $TOTALNETOIND + $TOTALNETOPT, 2, ",", ".");
     $TOTALBRUTO = number_format( $TOTALBRUTOMP + $TOTALBRUTOIND + $TOTALBRUTOPT, 2, ",", ".");
-    $TOTALENVASE  = number_format( $TOTALENVASEMP + $TOTALENVASEIND + $TOTALENVASEPT, 2, ",", ".");
+    $TOTALENVASE  = number_format( $TOTALENVASEMP + $TOTALENVASEIND + $TOTALENVASEPT, 2, ",", ".");*/
 }
 
 
@@ -259,7 +259,7 @@ if ($EMPRESAS && $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="consolidado" class=" table-hover  " style="width: 100%;">
+                                        <table id="consolidador" class=" table-hover  " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>N° Folio </th>
@@ -758,8 +758,7 @@ if ($EMPRESAS && $TEMPORADAS) {
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-
+                            </div>  
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -767,9 +766,8 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -777,9 +775,8 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -787,26 +784,20 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                        
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
         <?php include_once "../../assest/config/footer.php"; ?>
         <?php include_once "../../assest//config/menuExtraExpo.php"; ?>
     </div>
