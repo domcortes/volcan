@@ -103,27 +103,9 @@ $ARRAYMGUIAPT = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-
-
 if ($EMPRESAS  &&  $TEMPORADAS) {
-
-
     $ARRAYDESPACHOIND = $DESPACHOIND_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYDESPACHOINDTOTALES = $DESPACHOIND_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $TOTALNETOIND = $ARRAYDESPACHOINDTOTALES[0]['NETO'];
-
-
-
-
-
-    $TOTALNETO  = number_format(    $TOTALNETOIND, 2, ",", ".");
 }
-
-
-
-
-
-
 ?>
 
 
@@ -260,12 +242,11 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="detallado" class=" table-hover   " style="width: 100%;">
+                                        <table id="detalladodind" class=" table-hover   " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>N° Folio </th>
                                                     <th>Fecha Embalado </th>
-                                                    <th>Tipo Producto</th>
                                                     <th>Condición </th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
@@ -273,11 +254,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Productor</th>
                                                     <th>Especies</th>
                                                     <th>Variedad</th>
-                                                    <th>Cantidad Envase</th>
                                                     <th>Kilos Neto</th>
-                                                    <th>% Deshidratacion</th>
-                                                    <th>Kilos Deshidratacion</th>
-                                                    <th>Kilos Bruto</th>
                                                     <th>Número Recepción </th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción </th>
@@ -502,7 +479,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         <tr class="text-left">
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
-                                                            <td><?php echo "Producto Industrial"; ?> </td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
@@ -510,11 +486,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
@@ -558,20 +530,19 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                             </div>
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">                                        
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>

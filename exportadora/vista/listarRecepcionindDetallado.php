@@ -89,21 +89,7 @@ $ARRAYPRODUCTOR = "";
 
 
 if ($EMPRESAS && $TEMPORADAS) {
-
-
     $ARRAYRECEPCIONIND = $RECEPCIONIND_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYRECEPCIONINDTOTALES = $RECEPCIONIND_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $TOTALNETOIND = $ARRAYRECEPCIONINDTOTALES[0]['NETO'];
-    $TOTALBRUTOIND = $ARRAYRECEPCIONINDTOTALES[0]['BRUTO'];
-    $TOTALENVASEIND = $ARRAYRECEPCIONINDTOTALES[0]['ENVASE'];
-
-
-    
-
-    
-    $TOTALNETO  = number_format(   $TOTALNETOIND , 2, ",", ".");
-    $TOTALBRUTO = number_format(  $TOTALBRUTOIND , 2, ",", ".");
-    $TOTALENVASE  = number_format( $TOTALENVASEIND , 2, ",", ".");
 }
 
 
@@ -214,7 +200,8 @@ if ($EMPRESAS && $TEMPORADAS) {
                                         <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Informe</li>
                                         <li class="breadcrumb-item" aria-current="page">Granel</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Consolidado Recep. Granel</a>
+                                        <li class="breadcrumb-item" aria-current="page">Detalle Recepción</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detalle Recepción IND</a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -249,7 +236,7 @@ if ($EMPRESAS && $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="detallado" class=" table-hover  " style="width: 100%;">
+                                        <table id="detalladorind" class=" table-hover  " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>N° Folio </th>
@@ -439,9 +426,8 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -449,9 +435,8 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -459,26 +444,20 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
         <?php include_once "../../assest/config/footer.php"; ?>
         <?php include_once "../../assest//config/menuExtraExpo.php"; ?>
     </div>

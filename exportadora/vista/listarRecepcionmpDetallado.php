@@ -89,20 +89,7 @@ $ARRAYPRODUCTOR = "";
 
 
 if ($EMPRESAS && $TEMPORADAS) {
-
-
     $ARRAYRECEPCIONMP = $RECEPCIONMP_ADO->listarRecepcionEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYRECEPCIONMPTOTALES = $RECEPCIONMP_ADO->obtenerTotalesRecepcionEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $TOTALBRUTOMP = $ARRAYRECEPCIONMPTOTALES[0]['BRUTO'];
-    $TOTALNETOMP = $ARRAYRECEPCIONMPTOTALES[0]['NETO'];
-    $TOTALENVASEMP = $ARRAYRECEPCIONMPTOTALES[0]['ENVASE'];
-
-    
-
-    
-    $TOTALNETO  = number_format( $TOTALNETOMP   , 2, ",", ".");
-    $TOTALBRUTO = number_format( $TOTALBRUTOMP  , 2, ",", ".");
-    $TOTALENVASE  = number_format( $TOTALENVASEMP  , 2, ",", ".");
 }
 
 
@@ -213,6 +200,7 @@ if ($EMPRESAS && $TEMPORADAS) {
                                         <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Informe</li>
                                         <li class="breadcrumb-item" aria-current="page">Granel</li>
+                                        <li class="breadcrumb-item" aria-current="page">Detalle Recepción</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Recepción MP</a>
                                         </li>
                                     </ol>
@@ -248,7 +236,7 @@ if ($EMPRESAS && $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="detallado" class=" table-hover  " style="width: 100%;">
+                                        <table id="detalladormp" class=" table-hover  " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>N° Folio </th>
@@ -432,7 +420,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                     </div>
                                 </div>
                             </div>
-
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -440,9 +427,8 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -450,9 +436,8 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -460,26 +445,20 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
         <?php include_once "../../assest/config/footer.php"; ?>
         <?php include_once "../../assest//config/menuExtraExpo.php"; ?>
     </div>

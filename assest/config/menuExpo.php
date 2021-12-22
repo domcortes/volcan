@@ -443,6 +443,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <ul class="treeview-menu">
                   <li><a href="listarRecepcionmpDetallado.php">Detallado Recepción MP<i class="ti-more"></i></a></li>
                   <li><a href="listarRecepcionindDetallado.php">Detallado Recepción IND<i class="ti-more"></i></a></li>
+                  <li><a href="listarRecepcionGranelConsolidado.php">Consolidado Recep. Granel<i class="ti-more"></i></a></li>
                 </ul>
               </li>
               <li class="treeview">
@@ -454,6 +455,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <ul class="treeview-menu">
                   <li><a href="listarDespachompDetallado.php">Detallado Despacho MP<i class="ti-more"></i></a></li>  
                   <li><a href="listarDespachoindDetallado.php">Detallado Despacho IND<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachoGranelConsoliado.php">Consolidado Desp. Granel<i class="ti-more"></i></a></li>
                 </ul>
               </li>              
               <li class="treeview">
@@ -473,6 +475,17 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                       <li><a href="listarEximateriaprima.php">Materia Prima<i class="ti-more"></i></a></li>          
                       <li><a href="listarExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
                     </ul>
+                  </li>            
+                  <li class="treeview">
+                    <a href="#">Despachado
+                      <span class="pull-left-container">
+                        <i class=" fa fa-angle-right pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="listarEximateriaprimaDespachado.php">Materia Prima<i class="ti-more"></i></a></li>          
+                      <li><a href="listarExiindustrialDespachado.php">Producto Industrial<i class="ti-more"></i></a></li>
+                    </ul>
                   </li>     
                   <li class="treeview">
                     <a href="#">Historial
@@ -487,8 +500,6 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                   </li>
                 </ul>
               </li>
-              <li><a href="listarRecepcionGranelConsolidado.php">Consolidado Recep. Granel<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachoGranelConsoliado.php">Consolidado Desp. Granel<i class="ti-more"></i></a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -497,7 +508,8 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <i class=" fa fa-angle-right pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">                
+            <ul class="treeview-menu">    
+              <li><a href="listarRecepcionptDetallado.php">Detallado Recepción<i class="ti-more"></i></a></li>             
               <li class="treeview">
                 <a href="#">Detallado Despacho
                   <span class="pull-left-container">
@@ -507,6 +519,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 <ul class="treeview-menu">
                   <li><a href="listarDespachoptDetallado.php">Despacho PT<i class="ti-more"></i></a></li>
                   <li><a href="listarDespachoexDetallado.php">Despacho Expo<i class="ti-more"></i></a></li>
+                  <li><a href="listarDespachoptexConsolidado.php">Consolidado Desp. PT<i class="ti-more"></i></a></li>
                 </ul>
               </li>       
               <li class="treeview">
@@ -517,11 +530,10 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                 </a>
                 <ul class="treeview-menu">
                   <li><a href="listarExiexportacion.php">Disponible <i class="ti-more"></i></a></li>
+                  <li><a href="listarExiexportacionDespachado.php">Despachado <i class="ti-more"></i></a></li>
                   <li><a href="listarHExiexportacion.php">Historial <i class="ti-more"></i></a></li>
                 </ul>
-              </li>   
-                  <li><a href="listarRecepcionptDetallado.php">Detallado Recepción<i class="ti-more"></i></a></li>                       
-              <li><a href="listarDespachoptexConsolidado.php">Consolidado Desp. PT<i class="ti-more"></i></a></li>
+              </li>                         
               <li><a href="listarExiexportacionAgrupado.php">Agrupado PT <i class="ti-more"></i></a></li>  
             </ul>
           </li>

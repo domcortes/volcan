@@ -106,21 +106,7 @@ $ARRAYMGUIAPT = "";
 
 
 if ($EMPRESAS  &&  $TEMPORADAS) {
-
-
-
-
     $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $ARRAYDESPACHOMPTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $TOTALENVASEMP = $ARRAYDESPACHOMPTOTALES[0]['ENVASE'];
-    $TOTALNETOMP = $ARRAYDESPACHOMPTOTALES[0]['NETO'];
-    $TOTALBRUTOMP = $ARRAYDESPACHOMPTOTALES[0]['BRUTO'];
-
-
-
-    $TOTALNETO  = number_format(  $TOTALNETOMP , 2, ",", ".");
-    $TOTALBRUTO = number_format(  $TOTALBRUTOMP, 2, ",", ".");
-    $TOTALENVASE  = number_format( $TOTALENVASEMP, 2, ",", ".");
 }
 
 
@@ -259,17 +245,15 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">
-
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="detallado" class=" table-hover   " style="width: 100%;">
+                                        <table id="detalladodmp" class=" table-hover   " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>N° Folio </th>
                                                     <th>Fecha Embalado/Cosecha </th>
-                                                    <th>Tipo Producto</th>
                                                     <th>Condición </th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
@@ -279,8 +263,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Variedad</th>
                                                     <th>Cantidad Envase</th>
                                                     <th>Kilos Neto</th>
-                                                    <th>% Deshidratacion</th>
-                                                    <th>Kilos Deshidratacion</th>
                                                     <th>Kilos Bruto</th>
                                                     <th>Número Recepción </th>
                                                     <th>Fecha Recepción </th>
@@ -482,7 +464,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         <tr class="text-left">
                                                             <td><?php echo $s['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo $s['COSECHA']; ?></td>
-                                                            <td><?php echo "Materia Prima"; ?> </td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
@@ -492,8 +473,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
@@ -543,9 +522,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -553,9 +531,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -563,15 +540,14 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>

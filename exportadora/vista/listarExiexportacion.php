@@ -81,10 +81,6 @@ $ARRAYVERRECEPCIONPT = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  &&  $TEMPORADAS) {
     $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaTemporadaDisponible($EMPRESAS,  $TEMPORADAS);
-    $ARRAYTOTALEXIEXPORTACION = $EXIEXPORTACION_ADO->obtenerTotalesEmpresaTemporadaDisponible2($EMPRESAS,  $TEMPORADAS);
-
-    $TOTALNETO = $ARRAYTOTALEXIEXPORTACION[0]['NETO'];
-    $TOTALENVASE = $ARRAYTOTALEXIEXPORTACION[0]['ENVASE'];
 }
 
 ?>
@@ -94,7 +90,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Detalle Existencia PT</title>
+    <title>Existencia Disponible PT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -172,7 +168,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <li class="breadcrumb-item" aria-current="page">Informes</li>
                                             <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
                                             <li class="breadcrumb-item" aria-current="page">Existencia</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia PT</a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Disponible</a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -207,7 +203,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existencia" class="table-hover " style="width: 300%;">
+                                            <table id="existenciapt" class="table-hover " style="width: 300%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
@@ -527,7 +523,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>       
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -535,9 +531,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -545,23 +540,29 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <!-- /.box -->
                     </section>
                     <!-- /.content -->
-
                 </div>
             </div>
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php"; ?>
                 <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
