@@ -274,7 +274,7 @@ class ICARGA_ADO
                 "INSERT INTO fruta_icarga ( 
                                             NUMERO_ICARGA, 
                                             FECHA_ICARGA, 
-                                            FECHACDOCUMENTALICARGA,
+                                            FECHA_CDOCUMENTAL_ICARGA, 
                                             BOOKING_ICARGA, 
                                             NREFERENCIA_ICARGA, 
                                             FECHAETD_ICARGA, 
@@ -295,7 +295,6 @@ class ICARGA_ADO
                                             NETO_ICARGA, 
                                             REBATE_ICARGA,
                                             PUBLICA_ICARGA,  
-                                            FECHA_CDOCUMENTAL_ICARGA, 
                                             OBSERVACION_ICARGA, 
                                             OBSERVACIONI_ICARGA, 
                                             NAVE_ICARGA, 
@@ -341,14 +340,14 @@ class ICARGA_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	    (  ?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+	       	    (  ?,   ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
                  0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $ICARGA->__GET('NUMERO_ICARGA'),
                         $ICARGA->__GET('FECHA_ICARGA'),
-                        $ICARGA->__GET('FECHACDOCUMENTALICARGA'),
+                        $ICARGA->__GET('FECHA_CDOCUMENTAL_ICARGA'),
                         $ICARGA->__GET('BOOKING_ICARGA'),
                         $ICARGA->__GET('NREFERENCIA_ICARGA'),
                         $ICARGA->__GET('FECHAETD_ICARGA'),
@@ -369,7 +368,6 @@ class ICARGA_ADO
                         $ICARGA->__GET('NETO_ICARGA'),
                         $ICARGA->__GET('REBATE_ICARGA'),
                         $ICARGA->__GET('PUBLICA_ICARGA'),
-                        $ICARGA->__GET('FECHA_CDOCUMENTAL_ICARGA'),
                         $ICARGA->__GET('OBSERVACION_ICARGA'),
                         $ICARGA->__GET('OBSERVACIONI_ICARGA'),
                         $ICARGA->__GET('NAVE_ICARGA'),
