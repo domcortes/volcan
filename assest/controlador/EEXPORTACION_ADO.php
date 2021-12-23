@@ -163,7 +163,6 @@ class EEXPORTACION_ADO
 
                                                          TCATEGORIA ,
                                                          TCOLOR ,
-                                                         TVARIEDAD ,
 
                                                          ID_ESPECIES ,
                                                          ID_TETIQUETA ,
@@ -176,7 +175,7 @@ class EEXPORTACION_ADO
 
                                                          TFRUTA_ESTANDAR , 
                                                          ESTADO_REGISTRO ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,  ?, ?, ?, ?, ?,   ?, ?,   2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,  ?, ?, ?, ?, ?,   ?, ?,   2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -194,7 +193,6 @@ class EEXPORTACION_ADO
 
                         $EEXPORTACION->__GET('TCATEGORIA'),
                         $EEXPORTACION->__GET('TCOLOR'),
-                        $EEXPORTACION->__GET('TVARIEDAD'),
 
                         $EEXPORTACION->__GET('ID_ESPECIES'),
                         $EEXPORTACION->__GET('ID_TETIQUETA'),
@@ -242,7 +240,6 @@ class EEXPORTACION_ADO
              STOCK = ?,  
              TCATEGORIA = ?,  
              TCOLOR = ?,  
-             TVARIEDAD = ?,  
              ID_ESPECIES = ?,  
              ID_TETIQUETA = ?,   
              ID_TEMBALAJE = ?,  
@@ -264,7 +261,6 @@ class EEXPORTACION_ADO
                         $EEXPORTACION->__GET('STOCK'),
                         $EEXPORTACION->__GET('TCATEGORIA'),
                         $EEXPORTACION->__GET('TCOLOR'),
-                        $EEXPORTACION->__GET('TVARIEDAD'),
                         $EEXPORTACION->__GET('ID_ESPECIES'),
                         $EEXPORTACION->__GET('ID_TETIQUETA'),
                         $EEXPORTACION->__GET('ID_TEMBALAJE'),

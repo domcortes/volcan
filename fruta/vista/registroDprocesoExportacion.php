@@ -10,6 +10,7 @@ include_once '../controlador/PRODUCTOR_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/PROCESO_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 include_once '../controlador/DPINDUSTRIAL_ADO.php';
 include_once '../controlador/DPEXPORTACION_ADO.php';
@@ -29,6 +30,7 @@ $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 $DPINDUSTRIAL_ADO =  new DPINDUSTRIAL_ADO();
 $DPEXPORTACION_ADO =  new DPEXPORTACION_ADO();
@@ -68,14 +70,13 @@ $KILOSBRUTO = "";
 $KILOSNETO = "";
 $KILOSDESHIDRATACION = "";
 
-
 $EMBOLSADO = "";
 $PESOENVASEESTANDAR = "";
 $PESOPALLETEESTANDAR = "";
 $PESOBRUTOEESTANDAR = "";
 $PESONETOEESTANDAR = "";
-
-
+$CATEGORIAESTANDAR="";
+$TCATEGORIA="";
 $PRODUCTORDATOS = "";
 $NOMBREVESPECIES = "";
 
@@ -133,6 +134,7 @@ $ARRAYFECHAACTUAL = "";
 
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
 $ARRAYTCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
+$ARRAYTCATEGORIA=$TCATEGORIA_ADO->listarTcategoriaPorEmpresaCBX($EMPRESAS);
 $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 
 $ARRAYFECHAACTUAL = $DPEXPORTACION_ADO->obtenerFecha();
@@ -217,6 +219,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
             $TCALIBRE = "" . $r['ID_TCALIBRE'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
+            $TCATEGORIA = "" . $r['ID_TCATEGORIA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
@@ -225,6 +228,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
                 $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
             }
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
@@ -268,6 +272,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
             $TCALIBRE = "" . $r['ID_TCALIBRE'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
+            $TCATEGORIA = "" . $r['ID_TCATEGORIA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
@@ -276,6 +281,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
                 $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
             }
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
@@ -317,6 +323,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
             $TCALIBRE = "" . $r['ID_TCALIBRE'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
+            $TCATEGORIA = "" . $r['ID_TCATEGORIA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
@@ -325,6 +332,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
                 $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
             }
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
@@ -363,6 +371,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
             $TCALIBRE = "" . $r['ID_TCALIBRE'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
+            $TCATEGORIA = "" . $r['ID_TCATEGORIA'];
             $ESTANDAR = "" . $r['ID_ESTANDAR'];  
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
@@ -371,6 +380,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
                 $PESOPALLETEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_PALLET_ESTANDAR'];
                 $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
             }
             $VESPECIES = "" . $r['ID_VESPECIES'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
@@ -406,6 +416,7 @@ if ($_POST) {
         if ($ESTANDAR) {
             $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($ESTANDAR);
             if ($ARRAYVERESTANDAR) {
+                $CATEGORIAESTANDAR = $ARRAYVERESTANDAR[0]['TCATEGORIA'];
                 $PESONETOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_NETO_ESTANDAR'];
                 $PESOBRUTOEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_BRUTO_ESTANDAR'];
                 $PESOENVASEESTANDAR = $ARRAYVERESTANDAR[0]['PESO_ENVASE_ESTANDAR'];
@@ -413,6 +424,9 @@ if ($_POST) {
                 $PDESHIDRATACIONEESTANDAR = $ARRAYVERESTANDAR[0]['PDESHIDRATACION_ESTANDAR'];
                 $EMBOLSADO = $ARRAYVERESTANDAR[0]['EMBOLSADO'];
                 $TEMBALAJE = $ARRAYVERESTANDAR[0]['ID_TEMBALAJE'];
+                if (isset($_REQUEST['TCATEGORIA'])) {
+                    $TCATEGORIA = $_REQUEST['TCATEGORIA'];
+                }
                 if($_REQUEST['CANTIDADENVASE'] !=""){
                     $KILOSNETODRECEPCION = $_REQUEST['CANTIDADENVASE'] * $PESONETOEESTANDAR;
                 }
@@ -719,6 +733,7 @@ if ($_POST) {
                                                 <label>Estandar </label>
                                                 <input type="hidden" class="form-control" placeholder="EMBOLSADO" id="EMBOLSADO" name="EMBOLSADO" value="<?php echo $EMBOLSADO; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="TEMBALAJE" id="TEMBALAJE" name="TEMBALAJE" value="<?php echo $TEMBALAJE; ?>" />
+                                                <input type="hidden" class="form-control" placeholder="CATEGORIAESTANDAR" id="CATEGORIAESTANDAR" name="CATEGORIAESTANDAR" value="<?php echo $CATEGORIAESTANDAR; ?>" />
                                                 <input type="hidden" id="PESONETOEESTANDAR" name="PESONETOEESTANDAR" value="<?php echo $PESONETOEESTANDAR; ?>" />
                                                 <input type="hidden" id="PESOBRUTOEESTANDAR" name="PESOBRUTOEESTANDAR" value="<?php echo $PESOBRUTOEESTANDAR; ?>" />
                                                 <input type="hidden" id="PESOENVASEESTANDAR" name="PESOENVASEESTANDAR" value="<?php echo $PESOENVASEESTANDAR; ?>" />
@@ -787,7 +802,28 @@ if ($_POST) {
                                                 </select>
                                                 <label id="val_tmanejo" class="validacion"> </label>
                                             </div>
-                                        </div>
+                                        </div>                                        
+                                        <?php if ($CATEGORIAESTANDAR == "1") { ?>
+                                            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Tipo Categoria</label>
+                                                    <input type="hidden" id="TCATEGORIAE" name="TCATEGORIAE" value="<?php echo $TCATEGORIA; ?>" />                                                   
+                                                    <select class="form-control select2" id="TCATEGORIA" name="TCATEGORIA" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYTCATEGORIA as $r) : ?>
+                                                            <?php if ($ARRAYTCATEGORIA) {    ?>
+                                                                <option value="<?php echo $r['ID_TCATEGORIA']; ?>" <?php if ($TCATEGORIA == $r['ID_TCATEGORIA']) { echo "selected";   } ?>> 
+                                                                    <?php echo $r['NOMBRE_TCATEGORIA'];  ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados</option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_tcategoria" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php } ?>  
                                     </div>
 
                                     <label id=" val_mensaje" class="validacion"><?php echo $MENSAJEELIMINAR; ?> </label>
@@ -943,7 +979,10 @@ if ($_POST) {
                     $DPEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
                     $DPEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
                     $DPEXPORTACION->__SET('ID_FOLIO', $FOLIO);
-                    $DPEXPORTACION->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
+                    $DPEXPORTACION->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);                    
+                    if($_REQUEST['CATEGORIAESTANDAR']==1){
+                        $DPEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                    }
                     $DPEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                     $DPEXPORTACION->__SET('ID_PROCESO', $_REQUEST['IDP']);
                     //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
@@ -968,6 +1007,9 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ID_FOLIO',  $FOLIO);
                     $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
                     $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    if($_REQUEST['CATEGORIAESTANDAR']==1){
+                        $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                    }
                     $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                     $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                     $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA']);
@@ -1023,7 +1065,10 @@ if ($_POST) {
                 $DPEXPORTACION->__SET('ID_TCALIBRE', $_REQUEST['TCALIBRE']);
                 $DPEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
                 $DPEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
-                $DPEXPORTACION->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);
+                $DPEXPORTACION->__SET('ID_VESPECIES',  $_REQUEST['VESPECIES']);    
+                if($_REQUEST['CATEGORIAESTANDAR']==1){
+                    $DPEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                }
                 $DPEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                 $DPEXPORTACION->__SET('ID_PROCESO', $_REQUEST['IDP']);
                 $DPEXPORTACION->__SET('ID_DPEXPORTACION', $_REQUEST['ID']);
@@ -1046,6 +1091,9 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
                     $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
                     $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    if($_REQUEST['CATEGORIAESTANDAR']==1){
+                        $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                    }
                     $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                     $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                     $EXIEXPORTACION->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
@@ -1087,6 +1135,9 @@ if ($_POST) {
                     $EXIEXPORTACION->__SET('ID_FOLIO',  $FOLIO);
                     $EXIEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ESTANDAR']);
                     $EXIEXPORTACION->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+                    if($_REQUEST['CATEGORIAESTANDAR']==1){
+                        $EXIEXPORTACION->__SET('ID_TCATEGORIA', $_REQUEST['TCATEGORIA']);
+                    }
                     $EXIEXPORTACION->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                     $EXIEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                     $EXIEXPORTACION->__SET('ID_PLANTA2', $_REQUEST['PLANTA']);

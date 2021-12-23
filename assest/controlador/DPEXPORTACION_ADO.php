@@ -109,6 +109,9 @@ class DPEXPORTACION_ADO
     {
         try {
 
+            if ($DPEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $DPEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
 
             $query =
                 "INSERT INTO fruta_dpexportacion (
@@ -117,25 +120,30 @@ class DPEXPORTACION_ADO
                                                 FECHA_EMBALADO_DPEXPORTACION,
                                                 CANTIDAD_ENVASE_DPEXPORTACION,
                                                 KILOS_NETO_DPEXPORTACION,
+
                                                 PDESHIDRATACION_DPEXPORTACION,
                                                 KILOS_DESHIDRATACION_DPEXPORTACION, 
                                                 KILOS_BRUTO_DPEXPORTACION, 
                                                 EMBOLSADO,
                                                 ID_TEMBALAJE, 
+
                                                 ID_TCALIBRE, 
                                                 ID_TMANEJO, 
                                                 ID_ESTANDAR, 
                                                 ID_FOLIO, 
                                                 ID_VESPECIES,
+
+                                                ID_TCATEGORIA, 
                                                 ID_PRODUCTOR,
                                                 ID_PROCESO, 
+
                                                 INGRESO,
                                                 MODIFICACION,
                                                 ESTADO,
                                                 ESTADO_REGISTRO
                                           )
              VALUES
-	       	    ( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,   ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
+	       	    ( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,   ?, ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -145,16 +153,20 @@ class DPEXPORTACION_ADO
                         $DPEXPORTACION->__GET('FECHA_EMBALADO_DPEXPORTACION'),
                         $DPEXPORTACION->__GET('CANTIDAD_ENVASE_DPEXPORTACION'),
                         $DPEXPORTACION->__GET('KILOS_NETO_DPEXPORTACION'),
+
                         $DPEXPORTACION->__GET('PDESHIDRATACION_DPEXPORTACION'),
                         $DPEXPORTACION->__GET('KILOS_DESHIDRATACION_DPEXPORTACION'),
                         $DPEXPORTACION->__GET('KILOS_BRUTO_DPEXPORTACION'),
                         $DPEXPORTACION->__GET('EMBOLSADO'),
                         $DPEXPORTACION->__GET('ID_TEMBALAJE'),
+
                         $DPEXPORTACION->__GET('ID_TCALIBRE'),
                         $DPEXPORTACION->__GET('ID_TMANEJO'),
                         $DPEXPORTACION->__GET('ID_ESTANDAR'),
                         $DPEXPORTACION->__GET('ID_FOLIO'),
                         $DPEXPORTACION->__GET('ID_VESPECIES'),
+
+                        $DPEXPORTACION->__GET('ID_TCATEGORIA'),
                         $DPEXPORTACION->__GET('ID_PRODUCTOR'),
                         $DPEXPORTACION->__GET('ID_PROCESO')
 
@@ -185,24 +197,32 @@ class DPEXPORTACION_ADO
     public function actualizarDpexportacion(DPEXPORTACION $DPEXPORTACION)
     {
         try {
+            if ($DPEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $DPEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
             $query = "
-		UPDATE fruta_dpexportacion SET
-            MODIFICACION = SYSDATE(),
-            FECHA_EMBALADO_DPEXPORTACION = ? ,
-            CANTIDAD_ENVASE_DPEXPORTACION = ? ,
-            KILOS_NETO_DPEXPORTACION = ? ,
-            PDESHIDRATACION_DPEXPORTACION = ? ,
-            KILOS_DESHIDRATACION_DPEXPORTACION = ? ,
-            KILOS_BRUTO_DPEXPORTACION = ? ,
-            EMBOLSADO = ? ,
-            ID_TEMBALAJE = ? ,
-            ID_TCALIBRE = ? ,
-            ID_TMANEJO = ? ,
-            ID_ESTANDAR = ? , 
-            ID_VESPECIES = ? ,
-            ID_PRODUCTOR = ?,
-            ID_PROCESO = ?            
-		WHERE ID_DPEXPORTACION= ?;";
+                UPDATE fruta_dpexportacion SET
+                    MODIFICACION = SYSDATE(),
+
+                    FECHA_EMBALADO_DPEXPORTACION = ? ,
+                    CANTIDAD_ENVASE_DPEXPORTACION = ? ,
+                    KILOS_NETO_DPEXPORTACION = ? ,
+                    PDESHIDRATACION_DPEXPORTACION = ? ,
+                    KILOS_DESHIDRATACION_DPEXPORTACION = ? ,
+
+                    KILOS_BRUTO_DPEXPORTACION = ? ,
+                    EMBOLSADO = ? ,
+                    ID_TEMBALAJE = ? ,
+                    ID_TCALIBRE = ? ,
+                    ID_TMANEJO = ? ,
+
+                    ID_ESTANDAR = ? , 
+                    ID_VESPECIES = ? ,
+                    ID_TCATEGORIA = ?,
+                    ID_PRODUCTOR = ?,
+
+                    ID_PROCESO = ?            
+                WHERE ID_DPEXPORTACION= ?;";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -212,14 +232,18 @@ class DPEXPORTACION_ADO
                         $DPEXPORTACION->__GET('KILOS_NETO_DPEXPORTACION'),
                         $DPEXPORTACION->__GET('PDESHIDRATACION_DPEXPORTACION'),
                         $DPEXPORTACION->__GET('KILOS_DESHIDRATACION_DPEXPORTACION'),
+
                         $DPEXPORTACION->__GET('KILOS_BRUTO_DPEXPORTACION'),
                         $DPEXPORTACION->__GET('EMBOLSADO'),
                         $DPEXPORTACION->__GET('ID_TEMBALAJE'),
                         $DPEXPORTACION->__GET('ID_TCALIBRE'),
                         $DPEXPORTACION->__GET('ID_TMANEJO'),
+
                         $DPEXPORTACION->__GET('ID_ESTANDAR'),
                         $DPEXPORTACION->__GET('ID_VESPECIES'),
+                        $DPEXPORTACION->__GET('ID_TCATEGORIA'),
                         $DPEXPORTACION->__GET('ID_PRODUCTOR'),
+
                         $DPEXPORTACION->__GET('ID_PROCESO'),
                         $DPEXPORTACION->__GET('ID_DPEXPORTACION')
 

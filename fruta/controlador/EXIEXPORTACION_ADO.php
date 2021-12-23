@@ -206,6 +206,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
+            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (
                                                     FOLIO_EXIEXPORTACION,
@@ -230,6 +233,8 @@ class EXIEXPORTACION_ADO
                                                     ID_FOLIO,
                                                     ID_ESTANDAR, 
                                                     ID_PRODUCTOR,
+                                                    
+                                                    ID_TCATEGORIA,
                                                     ID_VESPECIES,
 
                                                     ID_EMPRESA, 
@@ -243,7 +248,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 2, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?,  ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -269,6 +274,8 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_FOLIO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
+                        
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
 
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
@@ -288,6 +295,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
+            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
             $query =
                 "INSERT INTO fruta_exiexportacion (
                                                     FOLIO_EXIEXPORTACION,
@@ -312,6 +322,8 @@ class EXIEXPORTACION_ADO
                                                     ID_FOLIO,
                                                     ID_ESTANDAR, 
                                                     ID_PRODUCTOR,
+
+                                                    ID_TCATEGORIA,
                                                     ID_VESPECIES,
 
                                                     ID_EMPRESA, 
@@ -325,7 +337,7 @@ class EXIEXPORTACION_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                  ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,    SYSDATE(),SYSDATE(), 1, 1);";
+	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?,  ?, ?, ?, ?, ?,    SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -351,6 +363,8 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_FOLIO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
+                        
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
 
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
@@ -691,6 +705,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
+            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
             $query = "
                 UPDATE fruta_exiexportacion SET
                     MODIFICACION = SYSDATE(),
@@ -707,6 +724,7 @@ class EXIEXPORTACION_ADO
                     ID_TMANEJO = ? , 
                     ID_ESTANDAR = ?, 
                     ID_PRODUCTOR = ?,
+                    ID_TCATEGORIA = ?,
                     ID_VESPECIES = ?,
                     ID_EMPRESA = ?,
                     ID_PLANTA = ?, 
@@ -730,6 +748,7 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_TMANEJO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
                         $EXIEXPORTACION->__GET('ID_PLANTA'),
@@ -749,6 +768,9 @@ class EXIEXPORTACION_ADO
     {
         try {
 
+            if ($EXIEXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $EXIEXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
             $query = "
                 UPDATE fruta_exiexportacion SET
                     MODIFICACION = SYSDATE(),
@@ -765,6 +787,7 @@ class EXIEXPORTACION_ADO
                     ID_TMANEJO = ? , 
                     ID_ESTANDAR = ?, 
                     ID_PRODUCTOR = ?,
+                    ID_TCATEGORIA = ?,
                     ID_VESPECIES = ?,
                     ID_EMPRESA = ?,
                     ID_PLANTA = ?, 
@@ -788,6 +811,7 @@ class EXIEXPORTACION_ADO
                         $EXIEXPORTACION->__GET('ID_TMANEJO'),
                         $EXIEXPORTACION->__GET('ID_ESTANDAR'),
                         $EXIEXPORTACION->__GET('ID_PRODUCTOR'),
+                        $EXIEXPORTACION->__GET('ID_TCATEGORIA'),
                         $EXIEXPORTACION->__GET('ID_VESPECIES'),
                         $EXIEXPORTACION->__GET('ID_EMPRESA'),
                         $EXIEXPORTACION->__GET('ID_PLANTA'),

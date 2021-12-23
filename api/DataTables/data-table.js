@@ -828,8 +828,6 @@ $(function () {
         'dom': 'Bfrtip',
                     
     });
-
-
     //existencia
     var tableExistenciapt = $('#existenciamp').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO

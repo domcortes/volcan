@@ -21,6 +21,7 @@ include_once '../controlador/PROCESO_ADO.php';
 
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 
 
@@ -60,6 +61,7 @@ $PROCESO_ADO =  new PROCESO_ADO();
 
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 //INIICIALIZAR MODELO
 
@@ -1049,6 +1051,7 @@ if (isset($_POST)) {
                                                     <th>Embolsado </th>
                                                     <th>Tipo Manejo </th>
                                                     <th>Tipo Calibre </th>
+                                                    <th>Tipo Categoria </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1089,6 +1092,12 @@ if (isset($_POST)) {
                                                         } else {
                                                             $EMBOLSADO = "Sin Datos";
                                                         }
+                                                        $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
+                                                        if($ARRAYTCATEGORIA){
+                                                           $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+                                                        }else{
+                                                            $NOMBRETCATEGORIA = "Sin Datos";
+                                                        } 
                                                         ?>
                                                         <tr class="text-left">
                                                             <td>P. Terminado</td>
@@ -1132,6 +1141,7 @@ if (isset($_POST)) {
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                            <td><?php echo $NOMBRETCATEGORIA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php } ?>
@@ -1184,6 +1194,7 @@ if (isset($_POST)) {
                                                             <td>-</td>
                                                             <td>-</td>
                                                             <td><?php echo $r['KILOS_NETO_DPINDUSTRIAL']; ?></td>
+                                                            <td>-</td>
                                                             <td>-</td>
                                                             <td>-</td>
                                                             <td>-</td>

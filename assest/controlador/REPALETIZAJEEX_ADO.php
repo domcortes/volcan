@@ -185,7 +185,8 @@ class REPALETIZAJEEX_ADO
             $query =
                 "INSERT INTO fruta_repaletizajeex ( 
                                                     NUMERO_REPALETIZAJE,                                                   
-                                                    MOTIVO_REPALETIZAJE,
+                                                    MOTIVO_REPALETIZAJE,                                             
+                                                    SINPSAG,
                                                     ID_EMPRESA, 
                                                     ID_PLANTA, 
                                                     ID_TEMPORADA,
@@ -201,13 +202,14 @@ class REPALETIZAJEEX_ADO
                                                     ESTADO_REGISTRO  
                                             ) 
             VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0, SYSDATE(), SYSDATE(),  1, 1 );";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0, SYSDATE(), SYSDATE(),  1, 1 );";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
 
                         $REPALETIZAJEEX->__GET('NUMERO_REPALETIZAJE'),
                         $REPALETIZAJEEX->__GET('MOTIVO_REPALETIZAJE'),
+                        $REPALETIZAJEEX->__GET('SINPSAG'),
                         $REPALETIZAJEEX->__GET('ID_EMPRESA'),
                         $REPALETIZAJEEX->__GET('ID_PLANTA'),
                         $REPALETIZAJEEX->__GET('ID_TEMPORADA'),
@@ -248,7 +250,8 @@ class REPALETIZAJEEX_ADO
             KILOS_NETO_REPALETIZAJE= ?,
             CANTIDAD_ENVASE_ORIGINAL= ?,
             KILOS_NETO_ORIGINAL= ?,
-            MOTIVO_REPALETIZAJE= ?,        
+            MOTIVO_REPALETIZAJE= ?,     
+            SINPSAG= ?,        
             ID_EMPRESA = ?,
             ID_PLANTA = ?, 
             ID_TEMPORADA = ?, 
@@ -262,6 +265,7 @@ class REPALETIZAJEEX_ADO
                         $REPALETIZAJEEX->__GET('CANTIDAD_ENVASE_ORIGINAL'),
                         $REPALETIZAJEEX->__GET('KILOS_NETO_ORIGINAL'),
                         $REPALETIZAJEEX->__GET('MOTIVO_REPALETIZAJE'),
+                        $REPALETIZAJEEX->__GET('SINPSAG'),
                         $REPALETIZAJEEX->__GET('ID_EMPRESA'),
                         $REPALETIZAJEEX->__GET('ID_PLANTA'),
                         $REPALETIZAJEEX->__GET('ID_TEMPORADA'),

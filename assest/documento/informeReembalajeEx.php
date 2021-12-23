@@ -20,6 +20,7 @@ include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -38,6 +39,7 @@ $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 $DREXPORTACION_ADO =  new DREXPORTACION_ADO();
 $DRINDUSTRIAL_ADO =  new DRINDUSTRIAL_ADO();
@@ -385,7 +387,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="11" class="center">INGRESO.</th>
+            <th colspan="12" class="center">INGRESO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -398,7 +400,8 @@ $html = $html . '
             <th class="color center ">Variedad </th>
             <th class="color center">Embolsado</th>
             <th class="color center">Tipo Manejo</th>     
-            <th class="color center">Calibre</th>       
+            <th class="color center">Calibre</th>      
+            <th class="color center">Categoria</th> 
           </tr>
         </thead>
          <tbody>
@@ -437,6 +440,12 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
   if ($r['EMBOLSADO'] == "0") {
     $EMBOLSADO = "NO";
   }
+  $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
+  if($ARRAYTCATEGORIA){
+     $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+  }else{
+      $NOMBRETCATEGORIA = "Sin Datos";
+  } 
   $html = $html . '    
             <tr>
                 <th class=" left">' . $r['FOLIO_AUXILIAR_EXIEXPORTACION'] . '</th>
@@ -450,6 +459,7 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
                 <td class=" center">' . $EMBOLSADO . '</td>
                 <td class=" center">' . $NOMBRETMANEJO . '</td>
                 <td class=" center">' . $NOMBRETCALIBRE . '</td>
+                <td class=" center">' . $NOMBRETCATEGORIA . '</td>
             </tr>
 ';
 
@@ -468,6 +478,7 @@ $html = $html . '
             <th class="color center "> </th>
             <th class="color center "> </th>
             <th class="color center "> </th>
+            <th class="color center "> </th>
             <th class="color left"></th>
         </tr>
 ';
@@ -483,10 +494,10 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
             <tr>
-            <th colspan="13" class="center">SALIDA.</th>
+            <th colspan="14" class="center">SALIDA.</th>
             </tr>
           <tr>
-            <th colspan="13" class="center">PRODUCTO TERMINADO.</th>
+            <th colspan="14" class="center">PRODUCTO TERMINADO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -501,7 +512,8 @@ $html = $html . '
             <th class="color center ">Variedad </th>
             <th class="color center">Embolsado</th>
             <th class="color center">Tipo Manejo</th>    
-            <th class="color center">Calibre</th>          
+            <th class="color center">Calibre</th>       
+            <th class="color center">Categoria</th>    
           </tr>
         </thead>
          <tbody>
@@ -545,6 +557,12 @@ foreach ($ARRAYDEXPORTACION as $r) :
   if ($r['EMBOLSADO'] == "0") {
     $EMBOLSADO = "NO";
   }
+  $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
+  if($ARRAYTCATEGORIA){
+     $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+  }else{
+      $NOMBRETCATEGORIA = "Sin Datos";
+  } 
   $html = $html . '    
         <tr>
             <th class=" left"> ' . $r['FOLIO_DREXPORTACION'] . '</th>
@@ -560,6 +578,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
             <td class=" center "> ' . $EMBOLSADO . ' </td>
             <td class=" center">' . $NOMBRETMANEJO . '</td>
             <td class=" center">' . $NOMBRETCALIBRE . '</td>
+            <td class=" center">' . $NOMBRETCATEGORIA . '</td>
         </tr>
         ';
 
@@ -578,6 +597,7 @@ $html = $html . '
                 <th class="color center ">  </th>
                 <th class="color left"></th>
                 <th class="color center"> </th>
+                <th class="color left"></th>
                 <th class="color left"></th>
             </tr>
             ';

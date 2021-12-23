@@ -109,6 +109,9 @@ class DREXPORTACION_ADO
     {
         try {
 
+            if ($DREXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $DREXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
 
             $query =
                 "INSERT INTO  fruta_drexportacion  ( 
@@ -128,6 +131,8 @@ class DREXPORTACION_ADO
                                                  ID_TEMBALAJE ,
                                                  ID_FOLIO , 
                                                  ID_ESTANDAR ,  
+                                                 
+                                                 ID_TCATEGORIA , 
                                                  ID_VESPECIES , 
 
                                                  ID_PRODUCTOR , 
@@ -139,7 +144,7 @@ class DREXPORTACION_ADO
                                                  ESTADO_REGISTRO 
                                                 )
              VALUES
-	       	    ( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
+	       	    ( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?,   ?, ?, SYSDATE(), SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -149,16 +154,21 @@ class DREXPORTACION_ADO
                         $DREXPORTACION->__GET('FECHA_EMBALADO_DREXPORTACION'),
                         $DREXPORTACION->__GET('CANTIDAD_ENVASE_DREXPORTACION'),
                         $DREXPORTACION->__GET('KILOS_NETO_DREXPORTACION'),
+
                         $DREXPORTACION->__GET('PDESHIDRATACION_DREXPORTACION'),
                         $DREXPORTACION->__GET('KILOS_DESHIDRATACION_DREXPORTACION'),
                         $DREXPORTACION->__GET('KILOS_BRUTO_DREXPORTACION'),
                         $DREXPORTACION->__GET('EMBOLSADO'),
                         $DREXPORTACION->__GET('ID_TMANEJO'),
+
                         $DREXPORTACION->__GET('ID_TCALIBRE'),
                         $DREXPORTACION->__GET('ID_TEMBALAJE'),
                         $DREXPORTACION->__GET('ID_FOLIO'),
                         $DREXPORTACION->__GET('ID_ESTANDAR'),
+
+                        $DREXPORTACION->__GET('ID_TCATEGORIA'),
                         $DREXPORTACION->__GET('ID_VESPECIES'),
+
                         $DREXPORTACION->__GET('ID_PRODUCTOR'),
                         $DREXPORTACION->__GET('ID_REEMBALAJE')
 
@@ -189,26 +199,33 @@ class DREXPORTACION_ADO
     public function actualizarDrexportacion(DREXPORTACION $DREXPORTACION)
     {
         try {
+            if ($DREXPORTACION->__GET('ID_TCATEGORIA') == NULL) {
+                $DREXPORTACION->__SET('ID_TCATEGORIA', NULL);
+            }
             $query = "
-		UPDATE  fruta_drexportacion  SET
+            UPDATE  fruta_drexportacion  SET
+                MODIFICACION  = SYSDATE() ,
 
-           MODIFICACION  = SYSDATE() ,
-           FECHA_EMBALADO_DREXPORTACION  = ? ,
-           CANTIDAD_ENVASE_DREXPORTACION  = ? ,
-           KILOS_NETO_DREXPORTACION  = ? ,
-           PDESHIDRATACION_DREXPORTACION  = ? ,
-           KILOS_DESHIDRATACION_DREXPORTACION  = ? ,
-           KILOS_BRUTO_DREXPORTACION  = ? ,
-           EMBOLSADO  = ? ,
-           ID_TMANEJO  = ? ,
-           ID_TCALIBRE  = ? ,
-           ID_TEMBALAJE  = ? ,
-           ID_ESTANDAR  = ? ,
-           ID_VESPECIES  = ? ,
-           ID_PRODUCTOR  = ? ,
-           ID_REEMBALAJE  = ?             
-		WHERE  ID_DREXPORTACION = ?;";
-            $this->conexion->prepare($query)
+                FECHA_EMBALADO_DREXPORTACION  = ? ,
+                CANTIDAD_ENVASE_DREXPORTACION  = ? ,
+                KILOS_NETO_DREXPORTACION  = ? ,
+                PDESHIDRATACION_DREXPORTACION  = ? ,
+                KILOS_DESHIDRATACION_DREXPORTACION  = ? ,
+
+                KILOS_BRUTO_DREXPORTACION  = ? ,
+                EMBOLSADO  = ? ,
+                ID_TMANEJO  = ? ,
+                ID_TCALIBRE  = ? ,
+                ID_TEMBALAJE  = ? ,
+
+                ID_ESTANDAR  = ? ,
+                ID_TCATEGORIA  = ? ,
+                ID_VESPECIES  = ? ,
+                ID_PRODUCTOR  = ? ,
+                ID_REEMBALAJE  = ?    
+                         
+            WHERE  ID_DREXPORTACION = ?;";
+                $this->conexion->prepare($query)
                 ->execute(
                     array(
                         $DREXPORTACION->__GET('FECHA_EMBALADO_DREXPORTACION'),
@@ -216,15 +233,19 @@ class DREXPORTACION_ADO
                         $DREXPORTACION->__GET('KILOS_NETO_DREXPORTACION'),
                         $DREXPORTACION->__GET('PDESHIDRATACION_DREXPORTACION'),
                         $DREXPORTACION->__GET('KILOS_DESHIDRATACION_DREXPORTACION'),
+
                         $DREXPORTACION->__GET('KILOS_BRUTO_DREXPORTACION'),
                         $DREXPORTACION->__GET('EMBOLSADO'),
                         $DREXPORTACION->__GET('ID_TMANEJO'),
                         $DREXPORTACION->__GET('ID_TCALIBRE'),
                         $DREXPORTACION->__GET('ID_TEMBALAJE'),
+
                         $DREXPORTACION->__GET('ID_ESTANDAR'),
+                        $DREXPORTACION->__GET('ID_TCATEGORIA'),
                         $DREXPORTACION->__GET('ID_VESPECIES'),
                         $DREXPORTACION->__GET('ID_PRODUCTOR'),
                         $DREXPORTACION->__GET('ID_REEMBALAJE'),
+
                         $DREXPORTACION->__GET('ID_DREXPORTACION')
 
                     )
