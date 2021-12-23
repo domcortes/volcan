@@ -937,7 +937,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="12" class="center ">Carga Instruidad</th>
+      <th colspan="13" class="center ">Carga Instruidad</th>
     </tr>
     <tr>                       
       <th class="color center ">Codigo Estandar </th>
@@ -950,6 +950,7 @@ $html=$html.'
       <th class="color center ">Kilo Bruto </th>
       <th class="color center ">Calibre </th>
       <th class="color center ">Tipo moneda </th>
+      <th class="color center ">Variedad </th>
       <th class="color center ">Precio</th>
       <th class="color center ">Total</th>    
     </tr> 
@@ -993,6 +994,12 @@ $html = $html . '
       } else {
           $NOMBRETMANEJO = "Sin Datos";
       }
+      $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
+      if ($ARRAYVERVESPECIESID) {
+          $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+      } else {
+          $NOMBREVARIEDAD = "Sin Datos";
+      }
 
       $html = $html . '  
       <tr>   
@@ -1006,6 +1013,7 @@ $html = $html . '
               <td class="center">'.$s['BRUTO'].'</td>
               <td class="center">'.$NOMBRECALIBRE.'</td>
               <td class="center">'.$NOMBRETMONEDA.'</td>
+              <td class="center">'.$NOMBREVARIEDAD.'</td>
               <td class="center">'.$s['US'].'</td>
               <td class="center">'.$s['TOTALUS'].'</td>
       </tr>
@@ -1024,6 +1032,7 @@ $html = $html . '
           <th class="color center">'.$TOTALENVASEV.'</th>
           <th class="color center">'.$TOTALNETOV.'</th>
           <th class="color center">'.$TOTALBRUTOV.'</th>
+          <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>

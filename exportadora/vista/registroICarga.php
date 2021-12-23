@@ -3203,7 +3203,7 @@ if (isset($_POST)) {
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <table id="ingreso" class="table table-hover " style="width: 100%;">
+                                    <table id="ingreso" class="table-hover " style="width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Operaciónes</th>
@@ -3217,6 +3217,7 @@ if (isset($_POST)) {
                                                 <th>Calibre </th>
                                                 <th>Tipo Moneda </th>
                                                 <th>Tipo Manejo </th>
+                                                <th>Variedad </th>
                                                 <th>Precio </th>
                                                 <th>Total </th>
                                             </tr>
@@ -3255,6 +3256,12 @@ if (isset($_POST)) {
                                                         $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
                                                     } else {
                                                         $NOMBRETMANEJO = "Sin Datos";
+                                                    }
+                                                    $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
+                                                    if ($ARRAYVERVESPECIESID) {
+                                                        $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                    } else {
+                                                        $NOMBREVARIEDAD = "Sin Datos";
                                                     }
                                                     ?>
 
@@ -3296,6 +3303,7 @@ if (isset($_POST)) {
                                                         <td><?php echo $NOMBRECALIBRE; ?></td>
                                                         <td><?php echo $NOMBRETMONEDA; ?></td>
                                                         <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                        <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                         <td><?php echo $s['US']; ?></td>
                                                         <td><?php echo $s['TOTALUS']; ?></td>
                                                     </tr>
@@ -3346,7 +3354,7 @@ if (isset($_POST)) {
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <table id="salida" class="table table-hover " style="width: 100%;">
+                                    <table id="salida" class="table-hover " style="width: 100%;">
                                         <thead>
                                             <tr class="text-left">
                                                 <th>Codigo Estandar </th>

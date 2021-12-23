@@ -57,11 +57,6 @@ $ARRAYDFINAL = "";
 if ($EMPRESAS   && $TEMPORADAS) {
 
     $ARRAYICARGA = $ICARGA_ADO->listarIcargaEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYTOTALICARGA = $ICARGA_ADO->obtenerTotalesEmpresaTemporada($EMPRESAS,  $TEMPORADAS);
-    $TOTALENVASE = $ARRAYTOTALICARGA[0]['ENVASE'];
-    $TOTALNETO = $ARRAYTOTALICARGA[0]['NETO'];
-    $TOTALBRUTO = $ARRAYTOTALICARGA[0]['BRUTO'];
-    $TOTALUS = $ARRAYTOTALICARGA[0]['US'];
 }
 include_once "../../assest/config/validarDatosUrl.php";
 include_once "../../assest/config/datosUrLP.php";
@@ -200,7 +195,7 @@ include_once "../../assest/config/datosUrLP.php";
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="modulo" class="table table-hover " style="width: 100%;">
+                                            <table id="icarga" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Número </th>
@@ -387,7 +382,7 @@ include_once "../../assest/config/datosUrLP.php";
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>   
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -395,29 +390,26 @@ include_once "../../assest/config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Kg. Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Kg. Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -425,15 +417,14 @@ include_once "../../assest/config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total US</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total US" id="TOTALUSV" name="TOTALUSV" value="<?php echo $TOTALUS; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALUSV" name="TOTALUSV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                     </section>

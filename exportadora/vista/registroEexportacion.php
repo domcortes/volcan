@@ -1,18 +1,18 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/TETIQUETA_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
-include_once '../controlador/ECOMERCIAL_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/TETIQUETA_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/ECOMERCIAL_ADO.php';
 
 
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../modelo/EEXPORTACION.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/modelo/EEXPORTACION.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -50,6 +50,7 @@ $EMBOLSADO = "";
 $STOCK = "";
 $CATEGORIA="";
 $COLOR="";
+$VARIEDAD="";
 $ESTADO = "";
 
 
@@ -71,74 +72,11 @@ $ARRAYESPECIES = $ESPECIES_ADO->listarEspeciesCBX();
 $ARRAYETIQUETA  = $TETIQUETA_ADO->listarEtiquetaPorEmpresaCBX($EMPRESAS);
 $ARRAYTEMBALAJE  = $TEMBALAJE_ADO->listarEmbalajePorEmpresaCBX($EMPRESAS);
 $ARRAYECOMERCIAL = $ECOMERCIAL_ADO->listarEcomercialPorEmpresaCBX($EMPRESAS);
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-
-    //CALCULO DEL PESO ENVASE, BRUTO - NETO
-    $PESOENVASESTANDAR = $_REQUEST['PESOBRUTOESTANDAR'] - $_REQUEST['PESONETOESTANDAR'];
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $EEXPORTACION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
-    $EEXPORTACION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
-    $EEXPORTACION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEPALLETESTANDAR']);
-    $EEXPORTACION->__SET('PESO_NETO_ESTANDAR', $_REQUEST['PESONETOESTANDAR']);
-    $EEXPORTACION->__SET('PESO_BRUTO_ESTANDAR', $_REQUEST['PESOBRUTOESTANDAR']);
-    $EEXPORTACION->__SET('PESO_ENVASE_ESTANDAR', $PESOENVASESTANDAR);
-    $EEXPORTACION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
-    $EEXPORTACION->__SET('PDESHIDRATACION_ESTANDAR', $_REQUEST['DESHIDRATACIONESTANDAR']);
-    $EEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
-    $EEXPORTACION->__SET('TCATEGORIA', $_REQUEST['CATEGORIA']);
-    $EEXPORTACION->__SET('TCOLOR', $_REQUEST['COLOR']);
-    $EEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
-    $EEXPORTACION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-    $EEXPORTACION->__SET('ID_TETIQUETA', $_REQUEST['ETIQUETA']);
-    $EEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
-    $EEXPORTACION->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
-    $EEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $EEXPORTACION->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $EEXPORTACION->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $EEXPORTACION_ADO->agregarEstandar($EEXPORTACION);
-    //REDIRECCIONAR A PAGINA registroEexportacion.php
-    echo "<script type='text/javascript'> location.href ='registroEexportacion.php';</script>";
-}
-
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    //CALCULO DEL PESO ENVASE, BRUTO - NETO
-    $PESOENVASESTANDAR = $_REQUEST['PESOBRUTOESTANDAR'] - $_REQUEST['PESONETOESTANDAR'];
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
-    $EEXPORTACION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
-    $EEXPORTACION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
-    $EEXPORTACION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEPALLETESTANDAR']);
-    $EEXPORTACION->__SET('PESO_NETO_ESTANDAR', $_REQUEST['PESONETOESTANDAR']);
-    $EEXPORTACION->__SET('PESO_BRUTO_ESTANDAR', $_REQUEST['PESOBRUTOESTANDAR']);
-    $EEXPORTACION->__SET('PESO_ENVASE_ESTANDAR', $PESOENVASESTANDAR);
-    $EEXPORTACION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
-    $EEXPORTACION->__SET('PDESHIDRATACION_ESTANDAR', $_REQUEST['DESHIDRATACIONESTANDAR']);
-    $EEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
-    $EEXPORTACION->__SET('TCATEGORIA', $_REQUEST['CATEGORIA']);
-    $EEXPORTACION->__SET('TCOLOR', $_REQUEST['COLOR']);
-    $EEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
-    $EEXPORTACION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
-    $EEXPORTACION->__SET('ID_TETIQUETA', $_REQUEST['ETIQUETA']);
-    $EEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
-    $EEXPORTACION->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
-    $EEXPORTACION->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $EEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
-    $EEXPORTACION_ADO->actualizarEstandar($EEXPORTACION);
-    //REDIRECCIONAR A PAGINA registroEexportacion.php
-    echo "<script type='text/javascript'> location.href ='registroEexportacion.php';</script>";
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -191,6 +129,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $STOCK = "" . $r['STOCK'];
             $CATEGORIA = "" . $r['TCATEGORIA'];
             $COLOR = "" . $r['TCOLOR'];
+            $VARIEDAD = "" . $r['TVARIEDAD'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $ETIQUETA = "" . $r['ID_TETIQUETA'];
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
@@ -225,6 +164,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $STOCK = "" . $r['STOCK'];
             $CATEGORIA = "" . $r['TCATEGORIA'];
             $COLOR = "" . $r['TCOLOR'];
+            $VARIEDAD = "" . $r['TVARIEDAD'];
             $ESPECIES = "" . $r['ID_ESPECIES'];
             $ETIQUETA = "" . $r['ID_TETIQUETA'];
             $TEMBALAJE = "" . $r['ID_TEMBALAJE'];
@@ -249,7 +189,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -308,10 +248,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     EMBOLSADO = document.getElementById("EMBOLSADO").selectedIndex;
 
 
-                    CATEGORIA = document.getElementById("STOCK").selectedIndex;
-                    COLOR = document.getElementById("STOCK").selectedIndex;
+                    CATEGORIA = document.getElementById("CATEGORIA").selectedIndex;
+                    COLOR = document.getElementById("COLOR").selectedIndex;
+                    VARIEDAD = document.getElementById("VARIEDAD").selectedIndex;
                     STOCK = document.getElementById("STOCK").selectedIndex;
-
+                    
 
                     TEMBALAJE = document.getElementById("TEMBALAJE").selectedIndex;
                     ECOMERCIAL = document.getElementById("ECOMERCIAL").selectedIndex;
@@ -332,6 +273,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     document.getElementById('val_categoria').innerHTML = "";
                     document.getElementById('val_color').innerHTML = "";
                     document.getElementById('val_stock').innerHTML = "";
+                    document.getElementById('val_variedad').innerHTML = "";
 
                     document.getElementById('val_embalaje').innerHTML = "";
                     document.getElementById('val_ec').innerHTML = "";
@@ -444,6 +386,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     }
                     document.form_reg_dato.COLOR.style.borderColor = "#4AF575";
 
+                    if (VARIEDAD == null || VARIEDAD == 0) {
+                        document.form_reg_dato.COLOR.focus();
+                        document.form_reg_dato.COLOR.style.borderColor = "#FF0000";
+                        document.getElementById('val_variedad').innerHTML = "NO HA SELECCIONADO  NINGUNA ALTERNATIVA";
+                        return false;
+                    }
+                    document.form_reg_dato.VARIEDAD.style.borderColor = "#4AF575";
+
                     if (STOCK == null || STOCK == 0) {
                         document.form_reg_dato.STOCK.focus();
                         document.form_reg_dato.STOCK.style.borderColor = "#FF0000";
@@ -513,7 +463,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 <body class="hold-transition light-skin  sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -570,13 +520,13 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                     </div>
 
                                     <!-- /.box-header -->
-                                    <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                                    <form class="form" role="form" method="post" name="form_reg_dato" >
                                         <div class="box-body">
                                             <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
                                             </h4>
                                             <hr class="my-15">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Codigo </label>
                                                         <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
@@ -585,64 +535,56 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_codigo" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Nombre </label>
                                                         <input type="text" class="form-control" placeholder="Nombre Estandar" id="NOMBREESTANDAR" name="NOMBREESTANDAR" value="<?php echo $NOMBREESTANDAR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_nombre" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Peso Neto</label>
                                                         <input type="number" step="0.00001" class="form-control" onchange="envases()" placeholder="Peso Neto" id="PESONETOESTANDAR" name="PESONETOESTANDAR" value="<?php echo $PESONETOESTANDAR; ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_netoee" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Peso Bruto </label>
                                                         <input type="number" step="0.00001" class="form-control" onchange="envases()" placeholder="Peso Bruto" id="PESOBRUTOESTANDAR" name="PESOBRUTOESTANDAR" value="<?php echo $PESOBRUTOESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_bruto" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Peso Envase</label>
                                                         <input type="number" step="0.00001" class="form-control" placeholder="Peso Envase" id="PESOENVASESTANDAR" name="PESOENVASESTANDAR" value="<?php echo $PESOENVASESTANDAR ?>" <?php echo $DISABLED; ?> disabled />
                                                         <label id="val_envase" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>% Deshidratacion </label>
                                                         <input type="number" step="0.01" class="form-control" placeholder="% Deshidratacion" id="DESHIDRATACIONESTANDAR" name="DESHIDRATACIONESTANDAR" value="<?php echo $DESHIDRATACIONESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_deshidrataciones" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Envase Pallet</label>
                                                         <input type="number" class="form-control" placeholder="Envase Pallet " id="ENVASEPALLETESTANDAR" name="ENVASEPALLETESTANDAR" value="<?php echo $ENVASEPALLETESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_cajapee" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Peso Pallet</label>
                                                         <input type="number" class="form-control" step="0.01" placeholder="Peso Pallet" id="PESOPALLETESTANDAR" name="PESOPALLETESTANDAR" value="<?php echo $PESOPALLETESTANDAR ?>" <?php echo $DISABLED; ?> />
                                                         <label id="val_pallet" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label> Especies</label>
                                                         <select class="form-control select2" id="ESPECIES" name="ESPECIES" style="width: 100%;" value="<?php echo $ESPECIES; ?>" <?php echo $DISABLED; ?>>
@@ -660,7 +602,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_especies" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Embalaje</label>
                                                         <select class="form-control select2" id="TEMBALAJE" name="TEMBALAJE" style="width: 100%;" value="<?php echo $TEMBALAJE; ?>" <?php echo $DISABLED; ?>>
@@ -678,9 +620,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_embalaje" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Etiqueta</label>
                                                         <select class="form-control select2" id="ETIQUETA" name="ETIQUETA" style="width: 100%;" value="<?php echo $ETIQUETA; ?>" <?php echo $DISABLED; ?>>
@@ -700,7 +640,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_etiqueta" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Embolsado</label>
                                                         <select class="form-control select2" id="EMBOLSADO" name="EMBOLSADO" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -710,10 +650,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         </select>
                                                         <label id="val_embolsado" class="validacion"> </label>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">                                            
-                                                <div class="col-md-6 col-12">
+                                                </div>                             
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Categoria</label>
                                                         <select class="form-control select2" id="CATEGORIA" name="CATEGORIA" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -724,7 +662,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_categoria" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Color</label>
                                                         <select class="form-control select2" id="COLOR" name="COLOR" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -734,10 +672,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         </select>
                                                         <label id="val_color" class="validacion"> </label>
                                                     </div>
-                                                </div>                                        
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
+                                                </div>
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                    <div class="form-group">
+                                                        <label>Variedad</label>
+                                                        <select class="form-control select2" id="VARIEDAD" name="VARIEDAD" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                            <option></option>
+                                                            <option value="0" <?php if ($VARIEDAD == "0") { echo "selected";  } ?>>No</option>
+                                                            <option value="1" <?php if ($VARIEDAD == "1") { echo "selected"; } ?>> Si </option>
+                                                        </select>
+                                                        <label id="val_variedad" class="validacion"> </label>
+                                                    </div>
+                                                </div>           
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Stock</label>
                                                         <select class="form-control select2" id="STOCK" name="STOCK" style="width: 100%;" <?php echo $DISABLED; ?>>
@@ -748,7 +695,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         <label id="val_stock" class="validacion"> </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                     <div class="form-group">
                                                         <label>Estandar Comercial</label>
                                                         <select class="form-control select2" id="ECOMERCIAL" name="ECOMERCIAL" style="width: 100%;" value="<?php echo $ECOMERCIAL; ?>" <?php echo $DISABLED; ?>>
@@ -773,18 +720,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         </div>
                                         <!-- /.box-body -->
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroEexportacion.php'); ">
-                                                <i class="ti-trash"></i> Cancelar
-                                            </button>
-                                            <?php if ($OP != "editar") { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                    <i class="ti-save-alt"></i> Crear
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type=" button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroProductor.php');">
+                                                <i class="ti-trash"></i>Cancelar
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                    <i class="ti-save-alt"></i> Editar
-                                                </button>
-                                            <?php } ?>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -796,9 +745,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                         <h4 class="box-title"> Registros</h4>
                                     </div>
                                     <div class="box-body">
-
                                         <div class="table-responsive">
-                                            <table id="listar" class="table table-hover " style="width: 100%;">
+                                            <table id="listar" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="center">
                                                         <th>Codigo </th>
@@ -815,36 +763,41 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                 </a>
                                                             </td>
                                                             <td><?php echo $r['NOMBRE_ESTANDAR']; ?></td>
+                                                                                                   
                                                             <td class="text-center">
                                                                 <form method="post" id="form1">
                                                                     <div class="list-icons d-inline-flex">
                                                                         <div class="list-icons-item dropdown">
-                                                                            <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                                            </a>
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
                                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                                 <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_ESTANDAR']; ?>" />
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroEexportacion" />
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>Ver
-                                                                                <br>
-                                                                                <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                                    <i class="ti-pencil-alt"></i>
-                                                                                </button>Editar
-                                                                                <br>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                        <i class="ti-na "></i>
-                                                                                    </button>Desahabilitar
-                                                                                    <br>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>
                                                                                 <?php } ?>
                                                                                 <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                                    <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                        <i class="ti-check "></i>
-                                                                                    </button>Habilitar
-                                                                                    <br>
-                                                                                <?php } ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>
+                                                                                <?php } ?>                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -870,11 +823,98 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
-</body>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php             
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
 
+                //CALCULO DEL PESO ENVASE, BRUTO - NETO
+                $PESOENVASESTANDAR = $_REQUEST['PESOBRUTOESTANDAR'] - $_REQUEST['PESONETOESTANDAR'];
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $EEXPORTACION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
+                $EEXPORTACION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
+                $EEXPORTACION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEPALLETESTANDAR']);
+                $EEXPORTACION->__SET('PESO_NETO_ESTANDAR', $_REQUEST['PESONETOESTANDAR']);
+                $EEXPORTACION->__SET('PESO_BRUTO_ESTANDAR', $_REQUEST['PESOBRUTOESTANDAR']);
+                $EEXPORTACION->__SET('PESO_ENVASE_ESTANDAR', $PESOENVASESTANDAR);
+                $EEXPORTACION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
+                $EEXPORTACION->__SET('PDESHIDRATACION_ESTANDAR', $_REQUEST['DESHIDRATACIONESTANDAR']);
+                $EEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+                $EEXPORTACION->__SET('TCATEGORIA', $_REQUEST['CATEGORIA']);
+                $EEXPORTACION->__SET('TCOLOR', $_REQUEST['COLOR']);
+                $EEXPORTACION->__SET('TVARIEDAD', $_REQUEST['VARIEDAD']);
+                $EEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                $EEXPORTACION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
+                $EEXPORTACION->__SET('ID_TETIQUETA', $_REQUEST['ETIQUETA']);
+                $EEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
+                $EEXPORTACION->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
+                $EEXPORTACION->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $EEXPORTACION->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $EEXPORTACION->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EEXPORTACION_ADO->agregarEstandar($EEXPORTACION);
+                //REDIRECCIONAR A PAGINA registroEexportacion.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro del mantenedor se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                         location.href = "registroEexportacion.php";                            
+                    })
+                </script>';
+            }
+            //OPERACION DE EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                //CALCULO DEL PESO ENVASE, BRUTO - NETO
+                $PESOENVASESTANDAR = $_REQUEST['PESOBRUTOESTANDAR'] - $_REQUEST['PESONETOESTANDAR'];
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
+                $EEXPORTACION->__SET('CODIGO_ESTANDAR', $_REQUEST['CODIGOESTANDAR']);
+                $EEXPORTACION->__SET('NOMBRE_ESTANDAR', $_REQUEST['NOMBREESTANDAR']);
+                $EEXPORTACION->__SET('CANTIDAD_ENVASE_ESTANDAR', $_REQUEST['ENVASEPALLETESTANDAR']);
+                $EEXPORTACION->__SET('PESO_NETO_ESTANDAR', $_REQUEST['PESONETOESTANDAR']);
+                $EEXPORTACION->__SET('PESO_BRUTO_ESTANDAR', $_REQUEST['PESOBRUTOESTANDAR']);
+                $EEXPORTACION->__SET('PESO_ENVASE_ESTANDAR', $PESOENVASESTANDAR);
+                $EEXPORTACION->__SET('PESO_PALLET_ESTANDAR', $_REQUEST['PESOPALLETESTANDAR']);
+                $EEXPORTACION->__SET('PDESHIDRATACION_ESTANDAR', $_REQUEST['DESHIDRATACIONESTANDAR']);
+                $EEXPORTACION->__SET('EMBOLSADO', $_REQUEST['EMBOLSADO']);
+                $EEXPORTACION->__SET('TCATEGORIA', $_REQUEST['CATEGORIA']);
+                $EEXPORTACION->__SET('TCOLOR', $_REQUEST['COLOR']);
+                $EEXPORTACION->__SET('STOCK', $_REQUEST['STOCK']);
+                $EEXPORTACION->__SET('TVARIEDAD', $_REQUEST['VARIEDAD']);
+                $EEXPORTACION->__SET('ID_ESPECIES', $_REQUEST['ESPECIES']);
+                $EEXPORTACION->__SET('ID_TETIQUETA', $_REQUEST['ETIQUETA']);
+                $EEXPORTACION->__SET('ID_TEMBALAJE', $_REQUEST['TEMBALAJE']);
+                $EEXPORTACION->__SET('ID_ECOMERCIAL', $_REQUEST['ECOMERCIAL']);
+                $EEXPORTACION->__SET('ID_USUARIOM', $IDUSUARIOS);
+                $EEXPORTACION->__SET('ID_ESTANDAR', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE EDICION DEL CONTROLADOR
+                $EEXPORTACION_ADO->actualizarEstandar($EEXPORTACION);
+                //REDIRECCIONAR A PAGINA registroEexportacion.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Modificado",
+                        text:"El registro del mantenedor se ha Modificado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                         location.href = "registroEexportacion.php";                            
+                    })
+                </script>';
+            }
+        ?>
+</body>
 </html>

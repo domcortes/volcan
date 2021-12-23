@@ -22,7 +22,8 @@
         private   $EMBOLSADO;        
         private   $STOCK;
         private   $TCATEGORIA;        
-        private   $TCOLOR;        
+        private   $TCOLOR;           
+        private   $TVARIEDAD;       
         private   $ESTADO_REGISTRO;
         private   $ID_ESPECIES;
         private   $ID_ETIQUETA;

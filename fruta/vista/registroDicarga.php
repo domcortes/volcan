@@ -1,17 +1,18 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
 
-include_once '../controlador/DICARGA_ADO.php';
-include_once '../modelo/DICARGA.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
+include_once '../../assest/modelo/DICARGA.php';
 
 
 
@@ -20,6 +21,7 @@ include_once '../modelo/DICARGA.php';
 
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
+$VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TMONEDA_ADO =  new TMONEDA_ADO();
@@ -48,9 +50,10 @@ $KILOSNETO = 0;
 $KILOSBRUTO = 0;
 $CANTIDADENVASE = 0;
 $TOTALPRECIOUS = 0;
-
+$VESPECIES="";
 $IDDICARGA = "";
 $IDICARGA = "";
+$TVARIEDAD="";
 
 
 $PESOENVASEESTANDAR = 0;
@@ -87,6 +90,7 @@ $ARRAYESTANDAR = "";
 $ARRAYCALIBRE = "";
 $ARRAYESTANDARDETALLE = "";
 $ARRAYTMANEJO = "";
+$ARRAYVESPECIES="";
 
 
 
@@ -94,10 +98,11 @@ $ARRAYTMANEJO = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 $ARRAYESTANDAR = $EEXPORTACION_ADO->listarEstandarPorEmpresaCBX($EMPRESAS);
+$ARRAYVESPECIES=$VESPECIES_ADO->listarVespeciesPorEmpresaCBX($EMPRESAS);
 $ARRAYCALIBRE = $TCALIBRE_ADO->listarCalibrePorEmpresaCBX($EMPRESAS);
 $ARRAYTMONEDA = $TMONEDA_ADO->listarTmonedaPorEmpresaCBX($EMPRESAS);
 $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 //OPERACIONES
 
@@ -142,7 +147,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $CALIBRE = "" . $r['ID_TCALIBRE'];
             $TMONEDA = "" . $r['ID_TMONEDA'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);            
+            $TVARIEDAD = $ARRAYVERESTANDAR[0]['TVARIEDAD'];
+            if($TVARIEDAD==1){
+                $VESPECIES = "" . $r['ID_VESPECIES'];
+            }
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
             $IDICARGA = "" . $r['ID_ICARGA'];
@@ -166,7 +175,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $CALIBRE = "" . $r['ID_TCALIBRE'];
             $TMONEDA = "" . $r['ID_TMONEDA'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);      
+            $TVARIEDAD = $ARRAYVERESTANDAR[0]['TVARIEDAD'];
+            if($TVARIEDAD==1){
+                $VESPECIES = "" . $r['ID_VESPECIES'];
+            }
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
             $IDICARGA = "" . $r['ID_ICARGA'];
@@ -189,7 +202,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $CALIBRE = "" . $r['ID_TCALIBRE'];
             $TMONEDA = "" . $r['ID_TMONEDA'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);      
+            $TVARIEDAD = $ARRAYVERESTANDAR[0]['TVARIEDAD'];
+            if($TVARIEDAD==1){
+                $VESPECIES = "" . $r['ID_VESPECIES'];
+            }
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
             $IDICARGA = "" . $r['ID_ICARGA'];
@@ -215,7 +232,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
             $CALIBRE = "" . $r['ID_TCALIBRE'];
             $TMONEDA = "" . $r['ID_TMONEDA'];
             $TMANEJO = "" . $r['ID_TMANEJO'];
-            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);
+            $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($EEXPORTACION);      
+            $TVARIEDAD = $ARRAYVERESTANDAR[0]['TVARIEDAD'];
+            if($TVARIEDAD==1){
+                $VESPECIES = "" . $r['ID_VESPECIES'];
+            }
             $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
             $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
             $IDICARGA = "" . $r['ID_ICARGA'];
@@ -230,6 +251,12 @@ if ($_POST) {
             if ($ARRAYVERESTANDAR) {
                 $ARRAYVERESPECIES = $ESPECIES_ADO->verEspecies($ARRAYVERESTANDAR[0]['ID_ESPECIES']);
                 $ESPECIES =  $ARRAYVERESPECIES[0]['NOMBRE_ESPECIES'];
+                $TVARIEDAD = $ARRAYVERESTANDAR[0]['TVARIEDAD']; 
+                if($TVARIEDAD==1){
+                    if (isset($_REQUEST['VESPECIES'])) {
+                        $VESPECIES = $_REQUEST['VESPECIES'];
+                    }
+                }
             }
         }
     }
@@ -242,7 +269,6 @@ if ($_POST) {
     if (isset($_REQUEST['PRECIOUS'])) {
         $PRECIOUS = $_REQUEST['PRECIOUS'];
     }
-
     if (isset($_REQUEST['EEXPORTACION']) && isset($_REQUEST['CANTIDADENVASE']) && isset($_REQUEST['PRECIOUS'])) {
         $ARRAYVERESTANDAR = $EEXPORTACION_ADO->verEstandar($_REQUEST['EEXPORTACION']);
         if ($ARRAYVERESTANDAR) {
@@ -282,12 +308,13 @@ if ($_POST) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
 
                     EEXPORTACION = document.getElementById("EEXPORTACION").selectedIndex;
+                    TVARIEDAD = document.getElementById("TVARIEDAD").value;
                     CALIBRE = document.getElementById("CALIBRE").selectedIndex;
                     TMANEJO = document.getElementById("TMANEJO").selectedIndex;
                     TMONEDA = document.getElementById("TMONEDA").selectedIndex;
@@ -308,6 +335,20 @@ if ($_POST) {
                         return false;
                     }
                     document.form_reg_dato.EEXPORTACION.style.borderColor = "#4AF575";
+
+
+                    if(TVARIEDAD==1){
+                        VESPECIES = document.getElementById("VESPECIES").selectedIndex;
+                        document.getElementById('val_vespecies').innerHTML = "";
+                        if (VESPECIES == null || VESPECIES == 0) {
+                            document.form_reg_dato.VESPECIES.focus();
+                            document.form_reg_dato.VESPECIES.style.borderColor = "#FF0000";
+                            document.getElementById('val_vespecies').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false;
+                        }
+                        document.form_reg_dato.VESPECIES.style.borderColor = "#4AF575";
+                    }
+
 
                     if (CALIBRE == null || CALIBRE == 0) {
                         document.form_reg_dato.CALIBRE.focus();
@@ -402,14 +443,53 @@ if ($_POST) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
+                //FUNCION PARA OBTENER HORA Y FECHA
+                function mueveReloj() {
+
+
+                    momentoActual = new Date();
+
+                    dia = momentoActual.getDate();
+                    mes = momentoActual.getMonth() + 1;
+                    ano = momentoActual.getFullYear();
+
+                    hora = momentoActual.getHours();
+                    minuto = momentoActual.getMinutes();
+                    segundo = momentoActual.getSeconds();
+
+                    if (dia < 10) {
+                        dia = "0" + dia;
+                    }
+
+                    if (mes < 10) {
+                        mes = "0" + mes;
+                    }
+                    if (hora < 10) {
+                        hora = "0" + hora;
+                    }
+                    if (minuto < 10) {
+                        minuto = "0" + minuto;
+                    }
+                    if (segundo < 10) {
+                        segundo = "0" + segundo;
+                    }
+
+                    horaImprimible = hora + " : " + minuto;
+                    fechaImprimible = dia + "-" + mes + "-" + ano;
+
+
+                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
+                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
+                    setTimeout("mueveReloj()", 1000);
+                }
             </script>
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
 
             <div class="content-wrapper">
@@ -462,7 +542,6 @@ if ($_POST) {
                                         <h4 class="box-title">Different Width</h4>
                                         -->
                             </div>
-
                             <form class="form" role="form" method="post" name="form_reg_dato">
                                 <div class="box-body form-element">
                                     <div class="row">
@@ -476,6 +555,7 @@ if ($_POST) {
                                                 <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
                                                 <label>Estandar</label>
+                                                <input type="hidden" class="form-control" placeholder="TVARIEDAD" id="TVARIEDAD" name="TVARIEDAD" value="<?php echo $TVARIEDAD; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="EEXPORTACIONE" id="EEXPORTACIONE" name="EEXPORTACIONE" value="<?php echo $EEXPORTACION; ?>" />
                                                 <select class="form-control select2" id="EEXPORTACION" name="EEXPORTACION" onchange="this.form.submit();" style="width: 100%;" <?php echo $DISABLED; ?>>
                                                     <option></option>
@@ -501,7 +581,27 @@ if ($_POST) {
                                                 <input type="text" class="form-control" placeholder="ESPECIES" id="ESPECIES" name="ESPECIES" value="<?php echo $ESPECIES; ?>" disabled style="background-color: #eeeeee;" />
                                                 <label id="val_especies" class="validacion"> </label>
                                             </div>
+                                        </div>        
+                                    <?php if($TVARIEDAD==1){ ?>
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>Variedad</label><br>
+                                                <select class="form-control select2" id="VESPECIES" name="VESPECIES" style="width: 100%;" <?php echo $DISABLED; ?>>
+                                                    <option></option>
+                                                    <?php foreach ($ARRAYVESPECIES as $r) : ?>
+                                                        <?php if ($ARRAYVESPECIES) {    ?>
+                                                            <option value="<?php echo $r['ID_VESPECIES']; ?>" <?php if ($VESPECIES == $r['ID_VESPECIES']) { echo "selected";  } ?>> 
+                                                                <?php echo $r['NOMBRE_VESPECIES']; ?>
+                                                            </option>
+                                                        <?php } else { ?>
+                                                            <option>No Hay Datos Registrados</option>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label id="val_vespecies" class="validacion"> </label>
+                                            </div>
                                         </div>
+                                    <?php } ?>
                                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Calibre</label>
@@ -633,11 +733,11 @@ if ($_POST) {
             </div>
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 
 
 <?php
@@ -666,6 +766,9 @@ if (isset($_REQUEST['CREAR'])) {
     $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
     $DICARGA->__SET('ID_TMONEDA', $_REQUEST['TMONEDA']);
     $DICARGA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+    if($_REQUEST['TVARIEDAD']==1){        
+        $DICARGA->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+    }
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
     $DICARGA_ADO->agregarDicarga($DICARGA);
 
@@ -713,6 +816,9 @@ if (isset($_REQUEST['EDITAR'])) {
     $DICARGA->__SET('ID_TCALIBRE', $_REQUEST['CALIBRE']);
     $DICARGA->__SET('ID_TMONEDA', $_REQUEST['TMONEDA']);
     $DICARGA->__SET('ID_TMANEJO', $_REQUEST['TMANEJO']);
+    if($_REQUEST['TVARIEDAD']==1){        
+        $DICARGA->__SET('ID_VESPECIES', $_REQUEST['VESPECIES']);
+    }
     $DICARGA->__SET('ID_ICARGA', $_REQUEST['IDP']);
     $DICARGA->__SET('ID_DICARGA', $_REQUEST['ID']);
     $DICARGA_ADO->actualizarDicarga($DICARGA);
