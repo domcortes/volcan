@@ -138,7 +138,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Detallado Despacho EXPO</title>
+    <title>Detallado Despacho Expo</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -267,21 +267,22 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="consolidadodex" class=" table-hover   " style="width: 100%;">
+                                        <table id="detalladodex" class=" table-hover   " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Número Referencia </th>
+                                                    <th>Cliente</th>
+                                                    <th>Mercado </th>
+                                                    <th>Contenedor </th>
+                                                    <th>Tipo Despacho </th>
                                                     <th>Número Despacho </th>
                                                     <th>Fecha Despacho </th>
                                                     <th>Número Guía Despacho </th>
-                                                    <th>Tipo Despacho </th>
                                                     <th>Destino </th>
                                                     <th>Fecha Corte Documental </th>
                                                     <th>Fecha ETD </th>
                                                     <th>Fecha ETA</th>
                                                     <th>Recibidor Final</th>
-                                                    <th>Cliente</th>
-                                                    <th>Mercado</th>
                                                     <th>Tipo Embarque</th>
                                                     <th>Nave</th>
                                                     <th>Número Viaje/Vuelo</th>
@@ -637,19 +638,20 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             $FECHAREPALETIZAJE = "";
                                                         }
                                                         ?>
-                                                        <tr class="text-left">
+                                                        <tr class="text-left">     
                                                             <td><?php echo $NUMEROREFERENCIA; ?></td>
+                                                            <td><?php echo $NOMBREBROKER; ?></td>
+                                                            <td><?php echo $NOMBREMERCADO; ?></td>
+                                                            <td><?php echo "Exportación"; ?></td>
+                                                            <td><?php echo $r['NUMERO_CONTENEDOR_DESPACHOEX']; ?></td>    
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
-                                                            <td><?php echo "Exportación"; ?></td>
-                                                            <td><?php echo $DESTINO; ?></td>
+                                                            <td><?php echo $DESTINO; ?></td>                                                        
                                                             <td><?php echo $FECHACDOCUMENTAL; ?></td>
                                                             <td><?php echo $FECHAETD; ?></td>
                                                             <td><?php echo $FECHAETA; ?></td>
                                                             <td><?php echo $NOMBRERFINAL; ?></td>
-                                                            <td><?php echo $NOMBREBROKER; ?></td>
-                                                            <td><?php echo $NOMBREMERCADO; ?></td>
                                                             <td><?php echo $TEMBARQUE; ?></td>
                                                             <td><?php echo $NAVE; ?></td>
                                                             <td><?php echo $NVIAJE; ?></td>
@@ -690,11 +692,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
-                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>
-
-                                                                                                 
-                                               
-
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>    
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>

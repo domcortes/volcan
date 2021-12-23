@@ -1,28 +1,27 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-include_once '../controlador/EINDUSTRIAL_ADO.php';
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/COMPRADOR_ADO.php';
 
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/TREEMBALAJE_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
 
-include_once '../controlador/RECEPCIONIND_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/DESPACHOIND_ADO.php';
-include_once '../controlador/REEMBALAJE_ADO.php';
-include_once '../controlador/RECHAZOMP_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/TREEMBALAJE_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -30,25 +29,23 @@ include_once '../controlador/RECHAZOMP_ADO.php';
 $EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
 
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
+
 
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
-$COMPRADOR_ADO =  new COMPRADOR_ADO();
-
-
 $TPROCESO_ADO =  new TPROCESO_ADO();
 $TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 
+
 $RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
-$DESPACHOIND_ADO =  new DESPACHOIND_ADO();
 $PROCESO_ADO =  new PROCESO_ADO();
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
-$RECHAZOMP_ADO =  new RECHAZOMP_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -68,12 +65,8 @@ $ARRAYVERFOLIOID = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ($EMPRESAS   && $TEMPORADAS) {
     $ARRAYEXIINDUSTRIAL= $EXIINDUSTRIAL_ADO->listarExiindustrialEmpresaTemporadaDespachadoCBX($EMPRESAS,  $TEMPORADAS);
-
-    $ARRAYTOTALEXIINDUSTRIAL1 = $EXIINDUSTRIAL_ADO->obtenerTotalesEmpresaPlantaTemporadaDisponible($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALNETO1 =  $ARRAYTOTALEXIINDUSTRIAL1[0]['NETO'];  
-    $TOTALNETO  = number_format($TOTALNETO1, 2, ",", ".");
 }
 ?>
 
@@ -82,13 +75,13 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Existencia Producto Industrial</title>
+    <title>Existencia Despachada IND </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -141,7 +134,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -150,15 +143,16 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Existencia Producto Industrial</h3>
+                                <h3 class="page-title">Granel</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Existencia</li>
-                                            <li class="breadcrumb-item" aria-current="page">Despachado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Producto Industrial </a>
+                                            <li class="breadcrumb-item" aria-current="page">Informe</li>
+                                            <li class="breadcrumb-item" aria-current="page">Granel</li>
+                                            <li class="breadcrumb-item" aria-current="page">Existencia </li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia  Despachada IND </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -189,12 +183,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
-
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existencia" class="table table-hover " style="width: 100%;">
+                                            <table id="existenciaind" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
@@ -431,16 +424,14 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
+                            </div>    
                         </div>
                         <!-- /.box -->
 
@@ -455,11 +446,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

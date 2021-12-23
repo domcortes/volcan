@@ -49,12 +49,7 @@ $ARRAYVERESPECIESID = "";
 
 
 if ($EMPRESAS   && $TEMPORADAS) {
-
     $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->listarEximateriaprimaEmpresaTemporadaDisponible($EMPRESAS,  $TEMPORADAS);
-    $ARRAYEXIMATERIAPRIMATOTALES = $EXIMATERIAPRIMA_ADO->obtenerTotalesEmpresaTemporadaDisponible2($EMPRESAS,  $TEMPORADAS);
-
-    $TOTALNETO = $ARRAYEXIMATERIAPRIMATOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYEXIMATERIAPRIMATOTALES[0]['ENVASE'];
 }
 
 
@@ -65,7 +60,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Detalaldo Existencia MP</title>
+    <title>Existencia Disponible MP</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -141,7 +136,8 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Informe</li>
                                             <li class="breadcrumb-item" aria-current="page">Granel</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detalaldo Existencia MP </a>
+                                            <li class="breadcrumb-item" aria-current="page">Existencia</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Existencia Disponible MP </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -175,12 +171,13 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existencia" class="table-hover " style="width: 150%;">
+                                            <table id="existenciamp" class="table-hover " style="width: 150%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Cosecha </th>
+                                                        <th>Estado </th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
                                                         <th>CSG</th>
@@ -344,6 +341,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             <td><?php echo $r['FOLIO_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
                                                             <td><?php echo $r['COSECHA']; ?></td>
+                                                            <td><?php echo $ESTADO; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
@@ -376,7 +374,6 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                     </div>
                                 </div>
                             </div>
-
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -384,9 +381,8 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -394,15 +390,23 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <!-- /.box -->
                     </section>

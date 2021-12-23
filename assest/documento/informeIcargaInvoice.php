@@ -156,6 +156,13 @@ $PLANTA = "";
 $TEMPORADA = "";
 $TOTALPRECIOUSNUEVO=0;
 
+
+$TOTALENVASEV = 0;
+$TOTALNETOV = 0;
+$TOTALBRUTOV = 0;
+$TOTALUS = 0;
+$TOTALUSV = 0;
+
 //INICIALIZAR ARREGLOS
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
@@ -203,12 +210,20 @@ if (isset($_REQUEST['parametro'])) {
 $ARRAYICARGA=$ICARGA_ADO->verIcarga2($IDOP);
 if($ARRAYICARGA){
       
-    $ARRAYDCARGA = $DICARGA_ADO->buscarPorIcargaInvoice($IDOP);
-    $ARRAYDCARGATOTAL = $DICARGA_ADO->totalesPorIcarga($IDOP);
-    $ARRAYDCARGATOTAL2 = $DICARGA_ADO->totalesPorIcarga2($IDOP);
+    $ARRAYDCARGA = $DICARGA_ADO->buscarInvoicPorIcarga($IDOP);
+
+    
+    $ARRAYDCARGATOTAL = $DICARGA_ADO->obtenerTotalInvoicPorIcarga($IDOP);
+    $ARRAYDCARGATOTAL2 = $DICARGA_ADO->obtenerTotalInvoicPorIcarga2($IDOP);
+    $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
+    $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
+    $TOTALBRUTOV = $ARRAYDCARGATOTAL2[0]['BRUTO'];
+    $TOTALUS = $ARRAYDCARGATOTAL[0]['TOTALUS'];
+    $TOTALUSV = $ARRAYDCARGATOTAL2[0]['TOTALUS'];
+
+
     $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
     $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
-
     $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
     $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
     $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
@@ -242,11 +257,6 @@ if($ARRAYICARGA){
       $LUGARDECARGA="Sin Datos";
     }
     
-      $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
-      $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
-      $TOTALBRUTOV = $ARRAYDCARGATOTAL2[0]['BRUTO'];
-      $TOTALUS = $ARRAYDCARGATOTAL[0]['TOTALUS'];
-      $TOTALUSV = $ARRAYDCARGATOTAL2[0]['TOTALUS'];
       
       $NUMEROICARGA=$ARRAYICARGA[0]["NUMERO_ICARGA"];
       $NUMEROIREFERENCIA=$ARRAYICARGA[0]["NREFERENCIA_ICARGA"];
@@ -730,50 +740,15 @@ $html = $html . '
            <tbody>
           ';
           foreach ($ARRAYDCARGA as $s) :
-
-            $ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($s['ID_ESTANDAR']);
-            if ($ARRAYEEXPORTACION) {
-                $CODIGOESTANDAR = $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'];
-                $NOMBREESTANTAR = $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'];
-                $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
-                $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
-                $ARRAYECOMERCIAL=$ECOMERCIAL_ADO->verEcomercial($ARRAYEEXPORTACION[0]["ID_ECOMERCIAL"]);
-                if($ARRAYECOMERCIAL){
-                    $CODIGOECOMERCIAL = $ARRAYECOMERCIAL[0]['CODIGO_ECOMERCIAL'];
-                    $NOMBREECOMERCIAL = $ARRAYECOMERCIAL[0]['NOMBRE_ECOMERCIAL'];
-                }else{
-                    $CODIGOECOMERCIAL = "Sin Datos";
-                    $NOMBREECOMERCIAL = "Sin Datos";
-                }
-            } else {
-                $CODIGOECOMERCIAL = "Sin Datos";
-                $NOMBREECOMERCIAL = "Sin Datos";
-                $NOMBREESTANTAR = "Sin Datos";
-                $CODIGOESTANDAR = "Sin Datos";
-                $NETOESTANTAR = "Sin Datos";
-                $BRUTOESTANTAR = "Sin Datos";
-            }
-            
-            $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
-            if ($ARRAYCALIBRE) {
-            $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
-            } else {
-            $NOMBRECALIBRE = "Sin Datos";
-            }
-            $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
-            if ($ARRAYTMONEDA) {
-            $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
-            } else {
-            $NOMBRETMONEDA = "Sin Datos";
-            }
+         
             
             $html = $html . '              
               <tr class="">
-                  <td class="center">'.$s['ENVASE'].'</td>
-                    <td class="center">'.$NOMBREECOMERCIAL.'</td>
+                    <td class="center">'.$s['ENVASE'].'</td>
+                    <td class="center">'.$s['NOMBRE'].'</td>
                     <td class="center">'.$s['NETO'].'</td>
                     <td class="center">'.$s['BRUTO'].'</td>
-                    <td class="center">'.$NOMBRETMONEDA.'</td>
+                    <td class="center">'.$s['TMONEDA'].'</td>
                     <td class="center">'.$s['US'].'</td>
                     <td class="center">'.$s['TOTALUS'].'</td>
               </tr>

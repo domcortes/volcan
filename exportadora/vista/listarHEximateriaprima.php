@@ -66,7 +66,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Historial Existencia MP</title>
+    <title> Historial Existencia MP</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -142,6 +142,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Informes</li>
                                             <li class="breadcrumb-item" aria-current="page">Granel</li>
+                                            <li class="breadcrumb-item" aria-current="page">Existencia </li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Historial Existencia MP</a>
                                             </li>
                                         </ol>

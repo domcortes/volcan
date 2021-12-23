@@ -1,80 +1,58 @@
 <?php
 
-include_once "../config/validarUsuario.php";
-
+include_once "../../assest/config/validarUsuarioExpo.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-include_once '../controlador/EINDUSTRIAL_ADO.php';
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/COMPRADOR_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DESPACHOMP_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
 
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/TREEMBALAJE_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
 
-include_once '../controlador/RECEPCIONIND_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/DESPACHOIND_ADO.php';
-include_once '../controlador/REEMBALAJE_ADO.php';
-include_once '../controlador/RECHAZOMP_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 
-$EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
-
-$EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
-$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
-
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
-$FOLIO_ADO =  new FOLIO_ADO();
-$COMPRADOR_ADO =  new COMPRADOR_ADO();
-
-
-$TPROCESO_ADO =  new TPROCESO_ADO();
-$TREEMBALAJE_ADO =  new TREEMBALAJE_ADO();
+$TMANEJO_ADO =  new TMANEJO_ADO();
+$DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 
-$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
-$DESPACHOIND_ADO =  new DESPACHOIND_ADO();
-$PROCESO_ADO =  new PROCESO_ADO();
-$REEMBALAJE_ADO =  new REEMBALAJE_ADO();
-$RECHAZOMP_ADO =  new RECHAZOMP_ADO();
 
+$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
 
 $TOTALNETO = "";
+$TOTALENVASE = "";
 
 
 //INICIALIZAR ARREGLOS
-$ARRAYEXIINDUSTRIAL = "";
-$ARRAYTOTALEXIINDUSTRIAL = "";
-$ARRAYEVERINDUSTRIALID = "";
+$ARRAYEXIMATERIAPRIMA = "";
+$ARRAYEXIMATERIAPRIMATOTALES = "";
+
+$ARRAYEVERERECEPCIONID = "";
 $ARRAYVERPRODUCTORID = "";
-$ARRAYVERPVESPECIESID = "";
 $ARRAYVERVESPECIESID = "";
 $ARRAYVERESPECIESID = "";
-$ARRAYVERFOLIOID = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-    $ARRAYEXIINDUSTRIAL= $EXIINDUSTRIAL_ADO->listarExiindustrialEmpresaTemporadaDespachadoCBX($EMPRESAS,  $TEMPORADAS);
 
-    $ARRAYTOTALEXIINDUSTRIAL1 = $EXIINDUSTRIAL_ADO->obtenerTotalesEmpresaPlantaTemporadaDisponible($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALNETO1 =  $ARRAYTOTALEXIINDUSTRIAL1[0]['NETO'];  
-    $TOTALNETO  = number_format($TOTALNETO1, 2, ",", ".");
+if ($EMPRESAS   && $TEMPORADAS) {
+    $ARRAYEXIMATERIAPRIMA = $EXIMATERIAPRIMA_ADO->listarEximateriaprimaEmpresaTemporadaDespachado($EMPRESAS,  $TEMPORADAS);
 }
+
+
 ?>
 
 
@@ -82,13 +60,13 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <html lang="es">
 
 <head>
-    <title>Existencia Producto Industrial</title>
+    <title>Existencia Despachado MP</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -141,7 +119,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuExpo.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -150,15 +128,16 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Existencia Producto Industrial</h3>
+                                <h3 class="page-title">Granel</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Informe</li>
+                                            <li class="breadcrumb-item" aria-current="page">Granel</li>
                                             <li class="breadcrumb-item" aria-current="page">Existencia</li>
-                                            <li class="breadcrumb-item" aria-current="page">Despachado</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Producto Industrial </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Existencia Despachado MP </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -185,21 +164,19 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                             </div>
                         </div>
                     </div>
-
                     <!-- Main content -->
                     <section class="content">
                         <div class="box">
-
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existencia" class="table table-hover " style="width: 100%;">
+                                            <table id="existenciamp" class="table-hover " style="width: 150%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
                                                         <th>Folio Nuevo</th>
-                                                        <th>Fecha Embalado </th>
+                                                        <th>Fecha Cosecha </th>
                                                         <th>Estado </th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
@@ -207,21 +184,18 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Productor</th>
                                                         <th>Especies</th>
                                                         <th>Variedad</th>
+                                                        <th>Cantidad Envase</th>
                                                         <th>Kilos Neto</th>
+                                                        <th>Kilos Promedio</th>
+                                                        <th>Kilos Bruto</th>
                                                         <th>Número Recepción </th>
                                                         <th>Fecha Recepción </th>
                                                         <th>Tipo Recepción </th>
-                                                        <th>CSG/CSP Recepción</th>
                                                         <th>Origen Recepción </th>
                                                         <th>Número Guía Recepción </th>
                                                         <th>Fecha Guía Recepción
-                                                        <th>Número Proceso </th>
-                                                        <th>Fecha Proceso </th>
-                                                        <th>Tipo Proceso </th>
-                                                        <th>Número Reembalaje </th>
-                                                        <th>Fecha Reembalaje </th>
-                                                        <th>Tipo Reembalaje </th>
                                                         <th>Tipo Manejo</th>
+                                                        <th>Gasificacion</th>
                                                         <th>Días</th>
                                                         <th>Ingreso</th>
                                                         <th>Modificación</th>
@@ -231,9 +205,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($ARRAYEXIINDUSTRIAL as $r) : ?>
+                                                    <?php foreach ($ARRAYEXIMATERIAPRIMA as $r) : ?>
                                                         <?php
-
                                                         if ($r['ESTADO'] == "0") {
                                                             $ESTADO = "Eliminado";
                                                         }
@@ -244,15 +217,61 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $ESTADO = "Disponible";
                                                         }
                                                         if ($r['ESTADO'] == "3") {
-                                                            $ESTADO = "En Despacho";
+                                                            $ESTADO = "En Proceso";
                                                         }
                                                         if ($r['ESTADO'] == "4") {
-                                                            $ESTADO = "Despachado";
+                                                            $ESTADO = "Procesado";
                                                         }
                                                         if ($r['ESTADO'] == "5") {
+                                                            $ESTADO = "En Repaletizaje";
+                                                        }
+                                                        if ($r['ESTADO'] == "6") {
+                                                            $ESTADO = "Repaletizado";
+                                                        }
+                                                        if ($r['ESTADO'] == "7") {
+                                                            $ESTADO = "En Despacho";
+                                                        }
+                                                        if ($r['ESTADO'] == "8") {
+                                                            $ESTADO = "Despachado";
+                                                        }
+                                                        if ($r['ESTADO'] == "9") {
                                                             $ESTADO = "En Transito";
                                                         }
-
+                                                        if ($r['ESTADO'] == "10") {
+                                                            $ESTADO = "Rechazado";
+                                                        }
+                                                        $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($r['ID_RECEPCION']);
+                                                        if ($ARRAYRECEPCION) {
+                                                            $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
+                                                            $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
+                                                            $NUMEROGUIARECEPCION = $ARRAYRECEPCION[0]["NUMERO_GUIA_RECEPCION"];
+                                                            $FECHAGUIARECEPCION = $ARRAYRECEPCION[0]["GUIA"];
+                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == 1) {
+                                                                $TIPORECEPCION = "Desde Productor";
+                                                                $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+                                                                if ($ARRAYPRODUCTOR2) {
+                                                                    $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                }
+                                                            }
+                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == 2) {
+                                                                $TIPORECEPCION = "Planta Externa";
+                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
+                                                                if ($ARRAYPLANTA2) {
+                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                }
+                                                            }
+                                                        } else {
+                                                            $NUMERORECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $NUMEROGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $TIPORECEPCION = "Sin Datos";
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
                                                         $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYVERPRODUCTORID) {
 
@@ -262,18 +281,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $CSGPRODUCTOR = "Sin Datos";
                                                             $NOMBREPRODUCTOR = "Sin Datos";
                                                         }
-                                                        $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                        $ARRAYEVERERECEPCIONID2 = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDARMP']);
-                                                        $ARRAYEVERERECEPCIONID3 = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDARPT']);
+                                                        $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);
                                                         if ($ARRAYEVERERECEPCIONID) {
                                                             $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
                                                             $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                        }else  if ($ARRAYEVERERECEPCIONID2) {
-                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID2[0]['CODIGO_ESTANDAR'];
-                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID2[0]['NOMBRE_ESTANDAR'];
-                                                        }else  if ($ARRAYEVERERECEPCIONID3) {
-                                                            $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID3[0]['CODIGO_ESTANDAR'];
-                                                            $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID3[0]['NOMBRE_ESTANDAR'];
                                                         } else {
                                                             $CODIGOESTANDAR = "Sin Datos";
                                                             $NOMBREESTANDAR = "Sin Datos";
@@ -292,69 +303,20 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             $NOMBRESPECIES = "Sin Datos";
                                                         }
 
-
-                                                        $ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($r['ID_RECEPCION']);
-                                                        if ($ARRAYRECEPCION) {
-                                                            $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
-                                                            $FECHARECEPCION = $ARRAYRECEPCION[0]["FECHA"];
-                                                            $NUMEROGUIARECEPCION = $ARRAYRECEPCION[0]["NUMERO_GUIA_RECEPCION"];
-                                                            $FECHAGUIARECEPCION = $ARRAYRECEPCION[0]["GUIA"];
-                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == 1) {
-                                                                $TIPORECEPCION = "Desde Productor";
-                                                                $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
-                                                                if ($ARRAYPRODUCTOR2) {
-                                                                    $CSGCSPORIGEN=$ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'];
-                                                                    $ORIGEN =  $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
-                                                                } else {
-                                                                    $ORIGEN = "Sin Datos";
-                                                                    $CSGCSPORIGEN="Sin Datos";
-                                                                }
-                                                            }
-                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == 2) {
-                                                                $TIPORECEPCION = "Planta Externa";
-                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
-                                                                if ($ARRAYPLANTA2) {
-                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-                                                                    $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
-                                                                } else {
-                                                                    $ORIGEN = "Sin Datos";
-                                                                    $CSGCSPORIGEN="Sin Datos";
-                                                                }
-                                                            }
+                                                        
+                                                        $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                        if ($ARRAYTMANEJO) {
+                                                            $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
                                                         } else {
-                                                            $NUMERORECEPCION = "Sin Datos";
-                                                            $FECHARECEPCION = "Sin Datos";
-                                                            $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
-                                                            $TIPORECEPCION = "Sin Datos";
-                                                            $ORIGEN = "Sin Datos";
-                                                            $CSGCSPORIGEN = "Sin Datos";
+                                                            $NOMBRETMANEJO = "Sin Datos";
                                                         }
-                                                        $ARRAYPROCESO = $PROCESO_ADO->verProceso2($r['ID_PROCESO']);
-                                                        if ($ARRAYPROCESO) {
-                                                            $NUMEROPROCESO = $ARRAYPROCESO[0]["NUMERO_PROCESO"];
-                                                            $FECHAPROCESO = $ARRAYPROCESO[0]["FECHA"];
-                                                            $ARRAYTPROCESO = $TPROCESO_ADO->verTproceso($ARRAYPROCESO[0]["ID_TPROCESO"]);
-                                                            if ($ARRAYTPROCESO) {
-                                                                $TPROCESO = $ARRAYTPROCESO[0]["NOMBRE_TPROCESO"];
-                                                            }
+                                                        
+                                                        if ($r['GASIFICADO'] == "1") {
+                                                            $GASIFICADO = "SI";
+                                                        } else if ($r['GASIFICADO'] == "0") {
+                                                            $GASIFICADO = "NO";
                                                         } else {
-                                                            $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
-                                                            $TPROCESO = "Sin datos";
-                                                        }
-                                                        $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($r['ID_REEMBALAJE']);
-                                                        if ($ARRAYREEMBALAJE) {
-                                                            $NUMEROREEMBALEJE = $ARRAYREEMBALAJE[0]["ID_TREEMBALAJE"];
-                                                            $FECHAREEMBALEJE = $ARRAYREEMBALAJE[0]["FECHA"];
-                                                            $ARRAYTREEMBALAJE = $TREEMBALAJE_ADO->verTreembalaje($ARRAYREEMBALAJE[0]["ID_TREEMBALAJE"]);
-                                                            if ($ARRAYTREEMBALAJE) {
-                                                                $TREEMBALAJE = $ARRAYTREEMBALAJE[0]["NOMBRE_TREEMBALAJE"];
-                                                            }
-                                                        } else {
-                                                            $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
-                                                            $TREEMBALAJE = "Sin datos";
+                                                            $GASIFICADO = "Sin Datos";
                                                         }
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                         if ($ARRAYEMPRESA) {
@@ -374,41 +336,30 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         } else {
                                                             $NOMBRETEMPORADA = "Sin Datos";
                                                         }
-                                                        
-                                                        $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                        if ($ARRAYTMANEJO) {
-                                                            $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                        } else {
-                                                            $NOMBRETMANEJO = "Sin Datos";
-                                                        }
                                                         ?>
-
                                                         <tr class="text-left">
-                                                            <td><?php echo $r['FOLIO_EXIINDUSTRIAL']; ?> </td>
-                                                            <td><?php echo $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']; ?> </td>
-                                                            <td><?php echo $r['EMBALADO']; ?> </td>
-                                                            <td><?php echo $ESTADO; ?> </td>
+                                                            <td><?php echo $r['FOLIO_EXIMATERIAPRIMA']; ?> </td>
+                                                            <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
+                                                            <td><?php echo $r['COSECHA']; ?></td>
+                                                            <td><?php echo $ESTADO; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBRESPECIES; ?></td>
                                                             <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                            <td><?php echo $r['ENVASE']; ?></td>
                                                             <td><?php echo $r['NETO']; ?></td>
+                                                            <td><?php echo $r['PROMEDIO']; ?></td>
+                                                            <td><?php echo $r['BRUTO']; ?></td>
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
-                                                            <td><?php echo $CSGCSPORIGEN; ?></td>
                                                             <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
-                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>
-                                                            <td><?php echo $NUMEROPROCESO; ?></td>
-                                                            <td><?php echo $FECHAPROCESO; ?></td>
-                                                            <td><?php echo $TPROCESO; ?></td>
-                                                            <td><?php echo $NUMEROREEMBALEJE; ?></td>
-                                                            <td><?php echo $FECHAREEMBALEJE; ?></td>
-                                                            <td><?php echo $TREEMBALAJE; ?></td>
+                                                            <td><?php echo $FECHAGUIARECEPCION; ?></td>      
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['MODIFICACION']; ?></td>
@@ -418,7 +369,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
-
                                             </table>
                                         </div>
                                     </div>
@@ -430,36 +380,45 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
+                            </div>    
                         </div>
                         <!-- /.box -->
-
                     </section>
                     <!-- /.content -->
-
                 </div>
             </div>
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

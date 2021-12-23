@@ -60,10 +60,6 @@ $ARRAYVERRECEPCIONPT = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  &&  $TEMPORADAS) {
     $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaTemporadaDisponibleAgrupadoTestadoEstandarProductorVariedadCalibreManejoEmbalaje($EMPRESAS,  $TEMPORADAS);
-    $ARRAYTOTALEXIEXPORTACION = $EXIEXPORTACION_ADO->obtenerTotalesEmpresaTemporadaDisponible2($EMPRESAS,  $TEMPORADAS);
-
-    $TOTALNETO = $ARRAYTOTALEXIEXPORTACION[0]['NETO'];
-    $TOTALENVASE = $ARRAYTOTALEXIEXPORTACION[0]['ENVASE'];
 }
 
 ?>
@@ -185,7 +181,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existencia" class="table-hover " style="width: 150%;">
+                                            <table id="agrupadopt" class="table-hover " style="width: 150%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Código Estandar </th>
@@ -295,9 +291,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -305,15 +300,14 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                     </section>
