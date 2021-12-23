@@ -158,7 +158,7 @@ include_once "../../assest/config/datosUrLP.php";
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Logistica</li>
+                                            <li class="breadcrumb-item" aria-current="page">Exportación</li>
                                             <li class="breadcrumb-item" aria-current="page">Instructivo Carga</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Instructivo Carga </a>
                                             </li>

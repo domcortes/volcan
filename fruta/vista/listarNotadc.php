@@ -1,47 +1,45 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
-//LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/CONSIGNATARIO_ADO.php';
+//LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES/
 
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/LCARGA_ADO.php';
-include_once '../controlador/LDESTINO_ADO.php';
+include_once '../../assest/controlador/CONSIGNATARIO_ADO.php';
 
-include_once '../controlador/LAEREA_ADO.php';
-include_once '../controlador/ACARGA_ADO.php';
-include_once '../controlador/ADESTINO_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/LCARGA_ADO.php';
+include_once '../../assest/controlador/LDESTINO_ADO.php';
 
-include_once '../controlador/NAVIERA_ADO.php';
-include_once '../controlador/PCARGA_ADO.php';
-include_once '../controlador/PDESTINO_ADO.php';
+include_once '../../assest/controlador/LAEREA_ADO.php';
+include_once '../../assest/controlador/ACARGA_ADO.php';
+include_once '../../assest/controlador/ADESTINO_ADO.php';
 
-
-include_once '../controlador/FPAGO_ADO.php';
-include_once '../controlador/MVENTA_ADO.php';
+include_once '../../assest/controlador/NAVIERA_ADO.php';
+include_once '../../assest/controlador/PCARGA_ADO.php';
+include_once '../../assest/controlador/PDESTINO_ADO.php';
 
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/FPAGO_ADO.php';
+include_once '../../assest/controlador/MVENTA_ADO.php';
 
 
-
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/DICARGA_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/RFINAL_ADO.php';
 
 
 
-include_once '../controlador/NOTADC_ADO.php';
-include_once '../controlador/DNOTADC_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
 
 
-include_once '../modelo/NOTADC.php';
-include_once '../modelo/DNOTADC.php';
+
+include_once '../../assest/controlador/NOTADC_ADO.php';
+include_once '../../assest/controlador/DNOTADC_ADO.php';
+
 
 
 
@@ -95,8 +93,8 @@ if ($EMPRESAS   && $TEMPORADAS) {
  
 }
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 
@@ -114,7 +112,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -184,7 +182,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuFruta.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -199,7 +197,7 @@ include_once "../config/datosUrLP.php";
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Logistica</li>
+                                            <li class="breadcrumb-item" aria-current="page">Exportación</li>
                                             <li class="breadcrumb-item" aria-current="page">Nota D/C</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Nota </a>
                                         </li>
@@ -335,7 +333,7 @@ include_once "../config/datosUrLP.php";
                                                                             <?php } ?>
                                                                             <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeNotadc.php?parametro=<?php echo $r['ID_NOTA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeNotadc.php?parametro=<?php echo $r['ID_NOTA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
@@ -374,10 +372,10 @@ include_once "../config/datosUrLP.php";
 
 
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

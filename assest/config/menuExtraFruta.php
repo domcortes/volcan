@@ -3,12 +3,12 @@
 	  
       <div class="rpanel-title">
           <span class="pull-right btn btn-circle p-10">
-              <img src="../api/cryptioadmin10/html/images/svg-icon/close.svg" data-toggle="control-sidebar" class="img-fluid svg-icon" alt="">
+              <img src="../../api/cryptioadmin10/html/images/svg-icon/close.svg" data-toggle="control-sidebar" class="img-fluid svg-icon" alt="">
           </span> 
       </div>  <!-- Create the tabs -->
       <ul class="nav nav-tabs control-sidebar-tabs">		
-        <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab"><img src="../api/cryptioadmin10/html/images/svg-icon/apps.svg" class="img-fluid svg-icon" alt=""></a></li>
-        <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><img src="../api/cryptioadmin10/html/images/svg-icon/advanced.svg" class="img-fluid svg-icon" alt=""></a></li>
+        <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab"><img src="../../api/cryptioadmin10/html/images/svg-icon/apps.svg" class="img-fluid svg-icon" alt=""></a></li>
+        <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab"><img src="../../api/cryptioadmin10/html/images/svg-icon/advanced.svg" class="img-fluid svg-icon" alt=""></a></li>
       </ul>
       <!-- Tab panes -->
       <div class="tab-content" >
@@ -28,7 +28,7 @@
             <div class="media-list media-list-hover mt-20">
               <div class="media py-10 px-0">
                 <a class="avatar avatar-lg status-success" href="#">
-                  <img src="../api/cryptioadmin10/html/images/avatar/1.jpg" alt="...">
+                  <img src="../../api/cryptioadmin10/html/images/avatar/1.jpg" alt="...">
                 </a>
                 <div class="media-body">
                   <p class="font-size-16">
@@ -41,7 +41,7 @@
   
               <div class="media py-10 px-0">
                 <a class="avatar avatar-lg status-danger" href="#">
-                  <img src="../api/cryptioadmin10/html/images/avatar/2.jpg" alt="...">
+                  <img src="../../api/cryptioadmin10/html/images/avatar/2.jpg" alt="...">
                 </a>
                 <div class="media-body">
                   <p class="font-size-16">
@@ -54,7 +54,7 @@
   
               <div class="media py-10 px-0">
                 <a class="avatar avatar-lg status-warning" href="#">
-                  <img src="../api/cryptioadmin10/html/images/avatar/3.jpg" alt="...">
+                  <img src="../../api/cryptioadmin10/html/images/avatar/3.jpg" alt="...">
                 </a>
                 <div class="media-body">
                   <p class="font-size-16">
@@ -67,7 +67,7 @@
   
               <div class="media py-10 px-0">
                 <a class="avatar avatar-lg status-primary" href="#">
-                  <img src="../api/cryptioadmin10/html/images/avatar/4.jpg" alt="...">
+                  <img src="../../api/cryptioadmin10/html/images/avatar/4.jpg" alt="...">
                 </a>
                 <div class="media-body">
                   <p class="font-size-16">
@@ -80,7 +80,7 @@
               
               <div class="media py-10 px-0">
                 <a class="avatar avatar-lg status-success" href="#">
-                  <img src="../api/cryptioadmin10/html/images/avatar/1.jpg" alt="...">
+                  <img src="../../api/cryptioadmin10/html/images/avatar/1.jpg" alt="...">
                 </a>
                 <div class="media-body">
                   <p class="font-size-16">
@@ -93,7 +93,7 @@
   
               <div class="media py-10 px-0">
                 <a class="avatar avatar-lg status-danger" href="#">
-                  <img src="../api/cryptioadmin10/html/images/avatar/2.jpg" alt="...">
+                  <img src="../../api/cryptioadmin10/html/images/avatar/2.jpg" alt="...">
                 </a>
                 <div class="media-body">
                   <p class="font-size-16">
@@ -106,7 +106,7 @@
   
               <div class="media py-10 px-0">
                 <a class="avatar avatar-lg status-warning" href="#">
-                  <img src="../api/cryptioadmin10/html/images/avatar/3.jpg" alt="...">
+                  <img src="../../api/cryptioadmin10/html/images/avatar/3.jpg" alt="...">
                 </a>
                 <div class="media-body">
                   <p class="font-size-16">
@@ -119,7 +119,7 @@
   
               <div class="media py-10 px-0">
                 <a class="avatar avatar-lg status-primary" href="#">
-                  <img src="../api/cryptioadmin10/html/images/avatar/4.jpg" alt="...">
+                  <img src="../../api/cryptioadmin10/html/images/avatar/4.jpg" alt="...">
                 </a>
                 <div class="media-body">
                   <p class="font-size-16">
