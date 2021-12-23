@@ -157,6 +157,14 @@ if ($ARRAYRECEPCION) {
       $PLANTAORIGEN = "";
     }
   }
+  if ($ARRAYRECEPCION[0]['TRECEPCION'] == "3") {
+    $NOMBRETIPO = "Desde Productor BDH";
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+    if ($ARRAYPRODUCTOR) {
+      $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+      $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+    }
+  }
 
  
   $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYRECEPCION[0]['ID_TRANSPORTE']);
@@ -299,6 +307,12 @@ if ($TIPORECEPCION == "2") {
                       ';
 } 
 if($TIPORECEPCION == "1") {
+  $html .= '
+            <div class="address"><b> CSG:  </b>' . $CSGPRODUCTOR . '</div>
+            <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>
+            ';
+}
+if($TIPORECEPCION == "3") {
   $html .= '
             <div class="address"><b> CSG:  </b>' . $CSGPRODUCTOR . '</div>
             <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>

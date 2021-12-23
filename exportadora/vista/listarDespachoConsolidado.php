@@ -1196,6 +1196,9 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             if ($ARRAYRECEPCION[0]["TRECEPCION"] == 2) {
                                                                 $TIPORECEPCION = "Planta Externa";
                                                             }
+                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == 3) {
+                                                                $TIPORECEPCION = "Desde Productor BDH";
+                                                            }
                                                         } else {
                                                             $FECHARECEPCION = "";
                                                             $NUMERORECEPCION = "Sin Datos";

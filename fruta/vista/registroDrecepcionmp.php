@@ -153,6 +153,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         if ($TRECEPCION == "2") {
             $PLANTA2 = "" . $r['ID_PLANTA2'];
         }
+        if ($TRECEPCION == "3") {
+            $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
+            $FECHARECEPCION = "" . $r['FECHA_RECEPCION'];
+            $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+            if ($ARRAYVERPRODUCTOR) {
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+            }
+        }
     endforeach;
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -823,6 +831,10 @@ if ($_POST) {
                                                     <?php endforeach; ?>
                                                     </select>
                                                 <?php } ?>
+                                                <?php if ($TRECEPCION == 3) { ?>
+                                                    <input type="hidden" class="form-control" placeholder="PRODUCTOR" id="PRODUCTOR" name="PRODUCTOR" value="<?php echo $PRODUCTOR; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Productor" id="PRODUCTORV" name="PRODUCTORV" value="<?php echo $PRODUCTORDATOS; ?>" disabled style='background-color: #eeeeee;'"/>
+                                                 <?php } ?>
                                                 <label id="val_productor" class="validacion"> </label>
                                             </div>
                                         </div>

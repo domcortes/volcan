@@ -157,6 +157,14 @@ if ($ARRAYRECEPCION) {
       $PLANTAORIGEN = "";
     }
   }
+  if ($ARRAYRECEPCION[0]['TRECEPCION'] == "3") {
+    $NOMBRETIPO = "Desde Productor BDH";
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+    if ($ARRAYPRODUCTOR) {
+      $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+      $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+    }
+  }
 
  
   $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYRECEPCION[0]['ID_TRANSPORTE']);
@@ -262,7 +270,7 @@ $html = '
   <body>
     <header class="clearfix">
       <div id="logo">
-          <img src="../../assest/img/logo.png" width="90px" height="25px"/>
+           <img src="../vista/img/logo.png" width="150px" height="45px"/>
       </div>
       <div id="company">
         <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
@@ -304,6 +312,12 @@ if($TIPORECEPCION == "1") {
             <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>
             ';
 }
+if($TIPORECEPCION == "3") {
+  $html .= '
+            <div class="address"><b> CSG:  </b>' . $CSGPRODUCTOR . '</div>
+            <div class="address"><b> Productor Origen:  </b>' . $NOMBREPRODUCTOR . '</div>
+            ';
+}
 
 $html = $html . '
         </div>
@@ -333,6 +347,9 @@ foreach ($ARRAYDRECEPCION as $d) :
 
   $ARRAYDRECEPCION2 = $DRECEPCIONMP_ADO->buscarPorIdRecepcionPorVespecies2($IDOP, $d['ID_VESPECIES']);
   $ARRAYDRECEPCION2TOTALES = $DRECEPCIONMP_ADO->obtenerTotalPorRecepcionVariedad2($IDOP, $d['ID_VESPECIES']);
+  $TOTALENVASESDRECEPCION = $ARRAYDRECEPCION2TOTALES[0]['ENVASE'] ;
+  $TOTALNETOSDRECEPCION = $ARRAYDRECEPCION2TOTALES[0]['NETO'] ;
+  $TOTALBRUTOSDRECEPCION = $ARRAYDRECEPCION2TOTALES[0]['BRUTO'] ;
 
   foreach ($ARRAYDRECEPCION2 as $s) :
 
@@ -401,9 +418,9 @@ foreach ($ARRAYDRECEPCION as $d) :
       <th class="color3 left">&nbsp;</th>
       <th class="color3 left">&nbsp;</th>
       <th class="color3 left">SUB TOTAL</th>
-      <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['ENVASE'] . '</th>
-      <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['NETO'] . '</th>
-      <th class="color3 center">' . $ARRAYDRECEPCION2TOTALES[0]['BRUTO'] . '</th>
+      <th class="color3 center">' . $TOTALENVASESDRECEPCION . '</th>
+      <th class="color3 center">' . $TOTALNETOSDRECEPCION . '</th>
+      <th class="color3 center">' . $TOTALBRUTOSDRECEPCION . '</th>
       <th class="color3  center">&nbsp;</th>
       <th class="color3 center">&nbsp;</th>
       <th class="color3 center">&nbsp;</th>
@@ -532,8 +549,8 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //INICIALIZACION DEL CSS
-$stylesheet = file_get_contents('../../assest/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
+$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
 
 //ENLASAR CSS CON LA VISTA DEL PDF
 $PDF->WriteHTML($stylesheet, 1);

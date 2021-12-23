@@ -293,7 +293,15 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                         } else {
                                                             $ORIGEN = "Sin Datos";
                                                         }
-                                                    } else {
+                                                    }else   if ($r['TRECEPCION'] == "3") {
+                                                        $TRECEPCION = "Desde Productor BDH";
+                                                        $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR2) {
+                                                            $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
+                                                    }  else {
                                                         $TRECEPCION = "Sin Datos";
                                                         $ORIGEN = "Sin Datos";
                                                     }

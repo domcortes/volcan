@@ -262,7 +262,17 @@ include_once "../config/datosUrLP.php";
                                                                     $ORIGEN = "Sin Datos";
                                                                     $CSGCSPORIGEN="Sin Datos";
                                                                 }
-                                                            } else {
+                                                            } else if ($r['TRECEPCION'] == "3") {
+                                                                $TRECEPCION = "Desde Productor BDH";
+                                                                $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                if ($ARRAYPRODUCTOR2) {
+                                                                    $CSGCSPORIGEN=$ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'];
+                                                                    $ORIGEN =  $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                    $CSGCSPORIGEN="Sin Datos";
+                                                                }
+                                                            }  else {
                                                                 $TRECEPCION = "Sin Datos";
                                                                 $CSGCSPORIGEN="Sin Datos";
                                                                 $ORIGEN = "Sin Datos";

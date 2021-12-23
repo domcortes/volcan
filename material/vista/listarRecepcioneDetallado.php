@@ -91,7 +91,7 @@ include_once "../config/datosUrLP.php";
 <html lang="es">
 
 <head>
-    <title>Detallado Recepción Envases</title>
+    <title>Detallado Recepción</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -175,14 +175,14 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Detallado Recepción</h3>
+                            <h3 class="page-title">Recepción Envases </h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
                                         <li class="breadcrumb-item" aria-current="page">Envases</li>
+                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Recepción </a>
                                         </li>
                                     </ol>
@@ -212,7 +212,6 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Recepción </th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
-                                                    <th>CSG/CSP Recepción</th>
                                                     <th>Origen Recepción</th>
                                                     <th>Número Documento </th>
                                                     <th>Tipo Documento </th>
@@ -234,38 +233,39 @@ include_once "../config/datosUrLP.php";
                                                         $TRECEPCION = "Desde Proveedor";
                                                         $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
                                                         if ($ARRAYPROVEEDOR) {
-                                                            $CSGCSPORIGEN="No Aplica";
                                                             $NOMBREORIGEN = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
                                                         } else {
                                                             $NOMBREORIGEN = "Sin Datos";
-                                                            $CSGCSPORIGEN = "Sin Datos";
                                                         }
                                                     } else if ($r['TRECEPCION'] == "2") {
                                                         $TRECEPCION = "Desde Productor";
                                                         $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
                                                         if ($ARRAYPRODUCTOR) {
-                                                            $CSGCSPORIGEN=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'] ;
                                                             $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
                                                         } else {
                                                             $NOMBREORIGEN = "Sin Datos";
-                                                            $CSGCSPORIGEN = "Sin Datos";
                                                         }
                                                     } else if ($r['TRECEPCION'] == "3") {
                                                         $TRECEPCION = "Planta Externa";
                                                         $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA2"]);
                                                         if ($ARRAYPLANTAEXTERNA) {
-                                                            $CSGCSPORIGEN=$ARRAYPLANTAEXTERNA[0]['CODIGO_SAG_PLANTA'];
                                                             $NOMBREORIGEN = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
                                                         } else {
                                                             $NOMBREORIGEN = "Sin Datos";
-                                                            $CSGCSPORIGEN = "Sin Datos";
                                                         }
                                                     } else if ($r['TRECEPCION'] == "4") {
-                                                        $CSGCSPORIGEN="No Aplica";
-                                                        $TRECEPCION = "Inventario Inicial";                                                   
-                                                        $NOMBREORIGEN = "No Aplica";                                                        
+                                                        $TRECEPCION = "Inventario Inicial";                                                  
+                                                        $NOMBREORIGEN = "Sin Datos";
+                                                        
+                                                    } else if ($r['TRECEPCION'] == "5") {
+                                                        $TRECEPCION = "Desde Productor BDH";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                        } else {
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                        }
                                                     } else {
-                                                        $CSGCSPORIGEN = "Sin Datos";
                                                         $TRECEPCION = "Sin Datos";
                                                         $NOMBREORIGEN = "Sin Datos";
                                                     }
@@ -351,7 +351,6 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION; ?></td>
-                                                            <td><?php echo $CSGCSPORIGEN; ?></td>
                                                             <td><?php echo $NOMBREORIGEN; ?></td>
                                                             <td><?php echo $r['NUMERO_DOCUMENTO_RECEPCION']; ?></td>
                                                             <td><?php echo $TDOCUMENTO; ?></td>

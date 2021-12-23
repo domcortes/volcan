@@ -155,6 +155,21 @@ if ($ARRAYRECEPCION) {
   if ($TIPORECEPCION == "4") {
     $NOMBRETRECEPCION = "Inventario Inicial";
   }
+  if ($TIPORECEPCION == "5") {
+    $NOMBRETRECEPCION = "Desde Productor BDH";
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
+    $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+    
+    $IDRECEPCIONMP= $ARRAYRECEPCION[0]['ID_RECEPCIONMP'];
+    $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+    if($ARRAYRECEPCIONMP){
+        $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+    }    
+    $ARRAYRECEPCIONIND=$RECEPCIONIND_ADO->verRecepcion($ARRAYRECEPCION[0]['ID_RECEPCIONIND']);
+    if($ARRAYRECEPCIONIND){
+        $NUMERORECEPCIONIND=$ARRAYRECEPCIONIND[0]["NUMERO_RECEPCION"];
+    }
+  }
   $ARRAYBODEGA = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]["ID_BODEGA"]);
   if ($ARRAYBODEGA) {
     $NOMBREBODEGA = $ARRAYBODEGA[0]["NOMBRE_BODEGA"];
@@ -266,7 +281,7 @@ $html = '
   <body>
     <header class="clearfix">
       <div id="logo">
-           <img src="../../assest//img/logo.png" width="150px" height="45px"/>
+           <img src="../vista/img/logo.png" width="150px" height="45px"/>
       </div>
       <div id="company">
         <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
@@ -314,6 +329,12 @@ if ($TIPORECEPCION == "2") {
 if ($TIPORECEPCION == "3") {
   $html = $html . ' 
 <div class="address"><b>Nombre Planta Externa: </b>' . $NOMBREORIGEN . '</div>
+';
+
+}
+if ($TIPORECEPCION == "5") {
+  $html = $html . ' 
+<div class="address"><b>Nombre Productor:: </b>' . $NOMBREORIGEN . '</div>
 ';
 
 }
@@ -493,8 +514,8 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //INICIALIZACION DEL CSS
-$stylesheet = file_get_contents('../../assest//css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../../assest//css/reset.css'); // carga archivo css
+$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
 
 //ENLASAR CSS CON LA VISTA DEL PDF
 $PDF->WriteHTML($stylesheet, 1);
