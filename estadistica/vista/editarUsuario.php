@@ -454,7 +454,7 @@ if (isset($NOMBREUSUARIOS)) {
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
             <?php include_once "../../assest/config/footer.php"; ?>
-            <?php include_once "../../assest/config/menuOperaExtra.php"; ?>
+            <?php include_once "../../assest/config/menuExtraOpera.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
