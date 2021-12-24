@@ -1030,8 +1030,7 @@ $(function () {
         ],
         'dom': 'Bfrtip',
                     
-    });
-    
+    });    
     //recepcion 
     var tableRecepcionmp = $('#recepcionmp').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
@@ -2125,278 +2124,278 @@ $(function () {
 
        
 
-        var tableDetalladorpt = $('#detalladorpt').DataTable({
-            //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
-            "createdRow":function(row, data,index){
-                //pintar una celda
-                if(data[8]<=0){
-                    $('td',row).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-                if(data[9]<=0){
-                    $('td',row).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-                if(data[12]<=0){
-                    $('td',row).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-            },    
-            //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
-            'drawCallback':function(){
-                var api =this.api();  
-                var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
-                var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
-                var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
-                //console.log("envase: "+  totalenvaseconsolidado);
-                //console.log("neto: "+  totalnetoconsolidado);
-                //console.log("bruto: "+  totalbrutoconsolidado);
-                $("#TOTALENVASEV").text(totalenvaseconsolidado);
-                $("#TOTALNETOV").text(totalnetoconsolidado);
-                $("#TOTALBRUTOV").text(totalbrutoconsolidado);
+    var tableDetalladorpt = $('#detalladorpt').DataTable({
+        //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        "createdRow":function(row, data,index){
+            //pintar una celda
+            if(data[8]<=0){
+                $('td',row).css({
+                    'background-color': '#ff5252',
+                    'color': 'white',
+                });
+            }
+            if(data[9]<=0){
+                $('td',row).css({
+                    'background-color': '#ff5252',
+                    'color': 'white',
+                });
+            }
+            if(data[12]<=0){
+                $('td',row).css({
+                    'background-color': '#ff5252',
+                    'color': 'white',
+                });
+            }
+        },    
+        //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
+        'drawCallback':function(){
+            var api =this.api();  
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
+            //console.log("envase: "+  totalenvaseconsolidado);
+            //console.log("neto: "+  totalnetoconsolidado);
+            //console.log("bruto: "+  totalbrutoconsolidado);
+            $("#TOTALENVASEV").text(totalenvaseconsolidado);
+            $("#TOTALNETOV").text(totalnetoconsolidado);
+            $("#TOTALBRUTOV").text(totalbrutoconsolidado);
+        },
+        "scrollY": 450,
+        "scrollX": true,
+        'scrollCollapse': false,
+        'deferRender':    false,
+        'scroller': false,
+        'paging': false,
+        'fixedHeader': true,
+        'fixedColumns':   false,
+        'colReorder': false,
+        'lengthChange': false, //ordernar por 10 25 100 500
+        'searching': true, //buscador
+        'ordering': true,
+        'info': true,
+        'autoWidth': false,
+        'responsive': false,
+        'order': [
+            [0, 'asc'], //desc ->descente asc -> ascedente
+        ],
+        "pagingType": "full_numbers",
+        "language": {
+            "processing": "Procesando...",
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "emptyTable": "Ningún dato disponible en esta tabla",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "infoThousands": ",",
+            "loadingRecords": "Cargando...",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
             },
-            "scrollY": 450,
-            "scrollX": true,
-            'scrollCollapse': false,
-            'deferRender':    false,
-            'scroller': false,
-            'paging': false,
-            'fixedHeader': true,
-            'fixedColumns':   false,
-            'colReorder': false,
-            'lengthChange': false, //ordernar por 10 25 100 500
-            'searching': true, //buscador
-            'ordering': true,
-            'info': true,
-            'autoWidth': false,
-            'responsive': false,
-            'order': [
-                [0, 'asc'], //desc ->descente asc -> ascedente
-            ],
-            "pagingType": "full_numbers",
-            "language": {
-                "processing": "Procesando...",
-                "lengthMenu": "Mostrar _MENU_ registros",
-                "zeroRecords": "No se encontraron resultados",
-                "emptyTable": "Ningún dato disponible en esta tabla",
-                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "search": "Buscar:",
-                "infoThousands": ",",
-                "loadingRecords": "Cargando...",
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Último",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
+            "aria": {
+                "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad",
+                "collection": "Colección",
+                "colvisRestore": "Restaurar visibilidad",
+                "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                "copySuccess": {
+                    "1": "Copiada 1 fila al portapapeles",
+                    "_": "Copiadas %d fila al portapapeles"
                 },
-                "aria": {
-                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                "copyTitle": "Copiar al portapapeles",
+                "csv": "CSV",
+                "excel": "Excel",
+                "pageLength": {
+                    "-1": "Mostrar todas las filas",
+                    "_": "Mostrar %d filas"
                 },
-                "buttons": {
-                    "copy": "Copiar",
-                    "colvis": "Visibilidad",
-                    "collection": "Colección",
-                    "colvisRestore": "Restaurar visibilidad",
-                    "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-                    "copySuccess": {
-                        "1": "Copiada 1 fila al portapapeles",
-                        "_": "Copiadas %d fila al portapapeles"
-                    },
-                    "copyTitle": "Copiar al portapapeles",
-                    "csv": "CSV",
-                    "excel": "Excel",
-                    "pageLength": {
-                        "-1": "Mostrar todas las filas",
-                        "_": "Mostrar %d filas"
-                    },
-                    "pdf": "PDF",
-                    "print": "Imprimir"
+                "pdf": "PDF",
+                "print": "Imprimir"
+            },
+            "autoFill": {
+                "cancel": "Cancelar",
+                "fill": "Rellene todas las celdas con <i>%d<\/i>",
+                "fillHorizontal": "Rellenar celdas horizontalmente",
+                "fillVertical": "Rellenar celdas verticalmentemente"
+            },
+            "decimal": ",",
+            "searchBuilder": {
+                "add": "Añadir Filtro",
+                "button": {
+                    "0": "Filtros",
+                    "_": "Filtros(%d)"
                 },
-                "autoFill": {
-                    "cancel": "Cancelar",
-                    "fill": "Rellene todas las celdas con <i>%d<\/i>",
-                    "fillHorizontal": "Rellenar celdas horizontalmente",
-                    "fillVertical": "Rellenar celdas verticalmentemente"
-                },
-                "decimal": ",",
-                "searchBuilder": {
-                    "add": "Añadir Filtro",
-                    "button": {
-                        "0": "Filtros",
-                        "_": "Filtros(%d)"
+                "clearAll": "Borrar todo",
+                "condition": "Condición",
+                'delete': 'Quitar',
+                'deleteTitle': 'Titulo Quitar',
+                "conditions": {
+                    "date": {
+                        "after": "Despues",
+                        "before": "Antes",
+                        "between": "Entre",
+                        "empty": "Vacío",
+                        "equals": "Igual a",
+                        "notBetween": "No entre",
+                        "notEmpty": "No Vacio",
+                        "not": "Diferente de"
                     },
-                    "clearAll": "Borrar todo",
-                    "condition": "Condición",
-                    'delete': 'Quitar',
-                    'deleteTitle': 'Titulo Quitar',
-                    "conditions": {
-                        "date": {
-                            "after": "Despues",
-                            "before": "Antes",
-                            "between": "Entre",
-                            "empty": "Vacío",
-                            "equals": "Igual a",
-                            "notBetween": "No entre",
-                            "notEmpty": "No Vacio",
-                            "not": "Diferente de"
-                        },
-                        "number": {
-                            "between": "Entre",
-                            "empty": "Vacio",
-                            "equals": "Igual a",
-                            "gt": "Mayor a",
-                            "gte": "Mayor o igual a",
-                            "lt": "Menor que",
-                            "lte": "Menor o igual que",
-                            "notBetween": "No entre",
-                            "notEmpty": "No vacío",
-                            "not": "Diferente de"
-                        },
-                        "string": {
-                            "contains": "Contiene",
-                            "empty": "Vacío",
-                            "endsWith": "Termina en",
-                            "equals": "Igual a",
-                            "notEmpty": "No Vacio",
-                            "startsWith": "Empieza con",
-                            "not": "Diferente de",
-                            "notContains": "No Contiene",
-                            "notStarts": "No empieza con",
-                            "notEnds": "No termina con"
-                        },
-                        "array": {
-                            "not": "Diferente de",
-                            "equals": "Igual",
-                            "empty": "Vacío",
-                            "contains": "Contiene",
-                            "notEmpty": "No Vacío",
-                            "without": "Sin"
-                        }
+                    "number": {
+                        "between": "Entre",
+                        "empty": "Vacio",
+                        "equals": "Igual a",
+                        "gt": "Mayor a",
+                        "gte": "Mayor o igual a",
+                        "lt": "Menor que",
+                        "lte": "Menor o igual que",
+                        "notBetween": "No entre",
+                        "notEmpty": "No vacío",
+                        "not": "Diferente de"
                     },
-                    "data": "Filtrar Por",
-                    "deleteTitle": "Eliminar regla de filtrado",
-                    "leftTitle": "Criterios anulados",
-                    "logicAnd": "Y",
-                    "logicOr": "O",
-                    "rightTitle": "Criterios de sangría",
-                    "title": {
-                        "0": "Filtros",
-                        "_": "Filtros (%d)"
+                    "string": {
+                        "contains": "Contiene",
+                        "empty": "Vacío",
+                        "endsWith": "Termina en",
+                        "equals": "Igual a",
+                        "notEmpty": "No Vacio",
+                        "startsWith": "Empieza con",
+                        "not": "Diferente de",
+                        "notContains": "No Contiene",
+                        "notStarts": "No empieza con",
+                        "notEnds": "No termina con"
                     },
-                    "value": "Valor"
-                },
-                "searchPanes": {
-                    "clearMessage": "Borrar todo",
-                    "collapse": {
-                        "0": "Paneles de búsqueda",
-                        "_": "Paneles de búsqueda (%d)"
-                    },
-                    "count": "{total}",
-                    "countFiltered": "{shown} ({total})",
-                    "emptyPanes": "Sin paneles de búsqueda",
-                    "loadMessage": "Cargando paneles de búsqueda",
-                    "title": "Filtros Activos - %d",
-                    "showMessage": "Mostrar Todo",
-                    "collapseMessage": "Colapsar Todo"
-                },
-                "select": {
-                    "cells": {
-                        "1": "1 celda seleccionada",
-                        "_": "%d celdas seleccionadas"
-                    },
-                    "columns": {
-                        "1": "1 columna seleccionada",
-                        "_": "%d columnas seleccionadas"
-                    },
-                    "rows": {
-                        "1": "1 fila seleccionada",
-                        "_": "%d filas seleccionadas"
+                    "array": {
+                        "not": "Diferente de",
+                        "equals": "Igual",
+                        "empty": "Vacío",
+                        "contains": "Contiene",
+                        "notEmpty": "No Vacío",
+                        "without": "Sin"
                     }
                 },
-                "thousands": ".",
-                "datetime": {
-                    "previous": "Anterior",
-                    "next": "Proximo",
-                    "hours": "Horas",
-                    "minutes": "Minutos",
-                    "seconds": "Segundos",
-                    "unknown": "-",
-                    "amPm": [
-                        "AM",
-                        "PM"
-                    ],
-                    "months": {
-                        "0": "Enero",
-                        "1": "Febrero",
-                        "10": "Noviembre",
-                        "11": "Diciembre",
-                        "2": "Marzo",
-                        "3": "Abril",
-                        "4": "Mayo",
-                        "5": "Junio",
-                        "6": "Julio",
-                        "7": "Agosto",
-                        "8": "Septiembre",
-                        "9": "Octubre"
-                    },
-                    "weekdays": [
-                        "Dom",
-                        "Lun",
-                        "Mar",
-                        "Mie",
-                        "Jue",
-                        "Vie",
-                        "Sab"
-                    ]
+                "data": "Filtrar Por",
+                "deleteTitle": "Eliminar regla de filtrado",
+                "leftTitle": "Criterios anulados",
+                "logicAnd": "Y",
+                "logicOr": "O",
+                "rightTitle": "Criterios de sangría",
+                "title": {
+                    "0": "Filtros",
+                    "_": "Filtros (%d)"
                 },
-                "editor": {
-                    "close": "Cerrar",
-                    "create": {
-                        "button": "Nuevo",
-                        "title": "Crear Nuevo Registro",
-                        "submit": "Crear"
-                    },
-                    "edit": {
-                        "button": "Editar",
-                        "title": "Editar Registro",
-                        "submit": "Actualizar"
-                    },
-                    "remove": {
-                        "button": "Eliminar",
-                        "title": "Eliminar Registro",
-                        "submit": "Eliminar",
-                        "confirm": {
-                            "_": "¿Está seguro que desea eliminar %d filas?",
-                            "1": "¿Está seguro que desea eliminar 1 fila?"
-                        }
-                    },
-                    "error": {
-                        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-                    },
-                    "multi": {
-                        "title": "Múltiples Valores",
-                        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-                        "restore": "Deshacer Cambios",
-                        "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+                "value": "Valor"
+            },
+            "searchPanes": {
+                "clearMessage": "Borrar todo",
+                "collapse": {
+                    "0": "Paneles de búsqueda",
+                    "_": "Paneles de búsqueda (%d)"
+                },
+                "count": "{total}",
+                "countFiltered": "{shown} ({total})",
+                "emptyPanes": "Sin paneles de búsqueda",
+                "loadMessage": "Cargando paneles de búsqueda",
+                "title": "Filtros Activos - %d",
+                "showMessage": "Mostrar Todo",
+                "collapseMessage": "Colapsar Todo"
+            },
+            "select": {
+                "cells": {
+                    "1": "1 celda seleccionada",
+                    "_": "%d celdas seleccionadas"
+                },
+                "columns": {
+                    "1": "1 columna seleccionada",
+                    "_": "%d columnas seleccionadas"
+                },
+                "rows": {
+                    "1": "1 fila seleccionada",
+                    "_": "%d filas seleccionadas"
+                }
+            },
+            "thousands": ".",
+            "datetime": {
+                "previous": "Anterior",
+                "next": "Proximo",
+                "hours": "Horas",
+                "minutes": "Minutos",
+                "seconds": "Segundos",
+                "unknown": "-",
+                "amPm": [
+                    "AM",
+                    "PM"
+                ],
+                "months": {
+                    "0": "Enero",
+                    "1": "Febrero",
+                    "10": "Noviembre",
+                    "11": "Diciembre",
+                    "2": "Marzo",
+                    "3": "Abril",
+                    "4": "Mayo",
+                    "5": "Junio",
+                    "6": "Julio",
+                    "7": "Agosto",
+                    "8": "Septiembre",
+                    "9": "Octubre"
+                },
+                "weekdays": [
+                    "Dom",
+                    "Lun",
+                    "Mar",
+                    "Mie",
+                    "Jue",
+                    "Vie",
+                    "Sab"
+                ]
+            },
+            "editor": {
+                "close": "Cerrar",
+                "create": {
+                    "button": "Nuevo",
+                    "title": "Crear Nuevo Registro",
+                    "submit": "Crear"
+                },
+                "edit": {
+                    "button": "Editar",
+                    "title": "Editar Registro",
+                    "submit": "Actualizar"
+                },
+                "remove": {
+                    "button": "Eliminar",
+                    "title": "Eliminar Registro",
+                    "submit": "Eliminar",
+                    "confirm": {
+                        "_": "¿Está seguro que desea eliminar %d filas?",
+                        "1": "¿Está seguro que desea eliminar 1 fila?"
                     }
                 },
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
-            },          
-            'buttons': [
-                'excel',
-                'searchBuilder'
-            ],
-            'dom': 'Bfrtip',
-                        
-        });
+                "error": {
+                    "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                },
+                "multi": {
+                    "title": "Múltiples Valores",
+                    "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+                    "restore": "Deshacer Cambios",
+                    "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+                }
+            },
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
+        },          
+        'buttons': [
+            'excel',
+            'searchBuilder'
+        ],
+        'dom': 'Bfrtip',
+                    
+    });
 
     //Despacho
     var tableDespachomp = $('#despachomp').DataTable({
