@@ -1,27 +1,27 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
-include_once '../controlador/DREPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/DREPALETIZAJEEX_ADO.php';
 
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/DPEXPORTACION_ADO.php';
-include_once '../controlador/DPINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/DPEXPORTACION_ADO.php';
+include_once '../../assest/controlador/DPINDUSTRIAL_ADO.php';
 
-include_once '../controlador/REEMBALAJE_ADO.php';
-include_once '../controlador/DREXPORTACION_ADO.php';
-include_once '../controlador/DRINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
+include_once '../../assest/controlador/DREXPORTACION_ADO.php';
+include_once '../../assest/controlador/DRINDUSTRIAL_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
 
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -91,17 +91,32 @@ $ARRAYPRODUCTOR2 = "";
 $ARRAYCALIBRE = "";
 if (isset($_REQUEST['parametro'])) {
 	$IDOP = $_REQUEST['parametro'];
-	$NUMEROREPALETIZAJE = $IDOP;
 }
 
 
 if (isset($_REQUEST['parametro1'])) {
 	$ARRAYEMPRESA=$EMPRESA_ADO->verEmpresa($_REQUEST['parametro1']);
-	$EMPRESA=$ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-}else{
-	$EMPRESA="";
+	$NOMBREEMPRESA=$ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+	$EMPRESA=$_REQUEST['parametro1'];
 }
-$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupado($IDOP);
+if (isset($_REQUEST['parametro2'])) {
+	$PLANTA=$_REQUEST['parametro2'];
+}
+if (isset($_REQUEST['tipo'])) {
+	$TIPO=$_REQUEST['parametro1'];
+}else{
+	$TIPO=0;
+}
+
+if($TIPO==1){
+	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoDisponible($IDOP,$EMPRESA,$PLANTA);
+}else if($TIPO==2){
+	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoDespachado($IDOP,$EMPRESA,$PLANTA);
+}else if ($TIPO==3){
+	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoHistorial($IDOP,$EMPRESA,$PLANTA);
+}else{
+	$ARRAYEXISTENCIAPT = $EXIEXPORTACION_ADO->buscarPorFolioAgrupadoTodos($IDOP,$EMPRESA,$PLANTA);
+}
 
 
 
@@ -189,9 +204,15 @@ $html = '
 //PRODUCTO TERMINADO
 
 foreach ($ARRAYEXISTENCIAPT as $r) :
-
-
-	$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarja($r['FOLIO_AUXILIAR_EXIEXPORTACION']);
+	if($TIPO==1){
+		$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarjaDisponible($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$r['ID_EMPRESA'],$r['ID_PLANTA']);
+	}else if($TIPO==2){
+		$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarjaDespachado($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$r['ID_EMPRESA'],$r['ID_PLANTA']);
+	}else if ($TIPO==3){
+		$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarjaHistorial($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$r['ID_EMPRESA'],$r['ID_PLANTA']);
+	}else{
+		$ARRAYEXISTENCIAPORFOLIO=$EXIEXPORTACION_ADO->buscarPorFoliotTarjaTodos($r['FOLIO_AUXILIAR_EXIEXPORTACION'],$r['ID_EMPRESA'],$r['ID_PLANTA']);
+	}
 	$ARRAYEEXPORTACION = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
 	if($ARRAYEEXPORTACION){
 		$CODIGOESTANDAR = $ARRAYEEXPORTACION[0]["CODIGO_ESTANDAR"];
@@ -200,12 +221,11 @@ foreach ($ARRAYEXISTENCIAPT as $r) :
 		$CODIGOESTANDAR="Sin Datos";
 		$NOMBREESTANDAR="Sin Datos";
 	}
-
 	$html = $html . '
     <div class=" " >
 		<div class="titulotarja" style="text-align: center; >
              <b  "> 
-				 <img src="../vista/img/logo.png" width="90px" height="25px"/>
+				 <img src="../../assest/img/logo.png" width="90px" height="25px"/>
              </b><br>
             <b > 
 				PRODUCTO TERMINADO :   ' . $r['FOLIO_AUXILIAR_EXIEXPORTACION'] . ' 
@@ -214,7 +234,7 @@ foreach ($ARRAYEXISTENCIAPT as $r) :
 		<div class="subtitulotarja " > 
 			&nbsp;<b> Estandar : </b> '.$NOMBREESTANDAR.' <br>
 			&nbsp;<b> Total Envase : </b> ' . $r['ENVASE'] . '<br>
-			&nbsp;<b> Total Neto : </b>   ' . $r['NETO'] . '<br>       
+			&nbsp;<b> Total Neto : </b>   ' . $r['NETO'] . ' <br>       
 		</div>	
 ';
 
@@ -340,7 +360,7 @@ $PDF->SetHTMLFooter('
     
 <footer>
 <div class="" style="text-align: center;  ">
-	<b>' . $EMPRESA . '.</b> 
+	<b>' . $NOMBREEMPRESA . '.</b> 
   </div>
 </footer>
     
