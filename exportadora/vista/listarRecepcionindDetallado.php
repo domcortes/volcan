@@ -272,9 +272,7 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                
-
+                                            <tbody>      
                                                 <?php foreach ($ARRAYRECEPCIONIND as $r) : ?>
 
                                                     <?php
@@ -414,7 +412,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                     </div>
                                 </div>
                             </div>
-
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">

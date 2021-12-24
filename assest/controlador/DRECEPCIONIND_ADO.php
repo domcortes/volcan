@@ -101,7 +101,13 @@ class DRECEPCIONIND_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * FROM fruta_drecepcionind WHERE ID_DRECEPCION = " . $IDDRECEPCION . "  ;");
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                    FECHA_EMBALADO_DRECEPCION AS 'EMBALADO',
+                                                    IFNULL(CANTIDAD_ENVASE_DRECEPCION,0) AS 'ENVASE', 
+                                                    IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO', 
+                                                    IFNULL(KILOS_PROMEDIO_DRECEPCION,0) AS 'PROMEDIO' , 
+                                                    IFNULL(KILOS_BRUTO_DRECEPCION,0)  AS 'BRUTO'
+                                                FROM fruta_drecepcionind WHERE ID_DRECEPCION = " . $IDDRECEPCION . "  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -116,6 +122,30 @@ class DRECEPCIONIND_ADO
         }
     }
 
+    public function verDrecepcion2($IDDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                FECHA_EMBALADO_DRECEPCION AS 'EMBALADO',
+                                                IFNULL(CANTIDAD_ENVASE_DRECEPCION,0) AS 'ENVASE', 
+                                                IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO', 
+                                                IFNULL(KILOS_PROMEDIO_DRECEPCION,0) AS 'PROMEDIO' , 
+                                                IFNULL(KILOS_BRUTO_DRECEPCION,0)  AS 'BRUTO'  
+                                            FROM fruta_drecepcionind WHERE ID_DRECEPCION = " . $IDDRECEPCION . "  ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
 
@@ -506,6 +536,31 @@ class DRECEPCIONIND_ADO
         }
     }
 
+    public function obtenerTotalesPorId2($IDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_DRECEPCION),0),2,'de_DE') AS 'ENVASE' , 
+                                                  FORMAT(IFNULL(SUM(KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' , 
+                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_DRECEPCION),0),2,'de_DE') AS 'BRUTO', 
+                                                  FORMAT(IFNULL(SUM(KILOS_PROMEDIO_DRECEPCION),0),2,'de_DE') AS 'PROMEDIO'    
+                                           FROM fruta_drecepcionind
+                                            WHERE ID_DRECEPCION = '" . $IDRECEPCION . "' 
+                                            AND ESTADO_REGISTRO = 1;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     //CAMBIO DE ESTADO DE REGISTRO DEL REGISTRO
     //CAMBIO A DESACTIVADO
     public function deshabilitar(DRECEPCIONIND $DRECEPCIONIND)
