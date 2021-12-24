@@ -1,17 +1,17 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioOpera.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
 
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -35,7 +35,7 @@ $TOTALINDUSTRIAL = "";
 $TOTALEXPORTACION = "";
 $TURNO = "";
 $NETOENTRADA="";
-
+$ENTRADA="";
 
 //INICIALIZAR ARREGLOS
 $ARRAYEMPRESA = "";
@@ -54,10 +54,10 @@ $ARRAYEXISMATERIPRIMAPROCESO = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
+if ( $TEMPORADAS) {
 
-    $ARRAYPROCESO = $PROCESO_ADO->listarProcesoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYTOTALPROCESO = $PROCESO_ADO->obtenerTotalesEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYPROCESO = $PROCESO_ADO->listarProcesoTemporadaCBX( $TEMPORADAS);
+    $ARRAYTOTALPROCESO = $PROCESO_ADO->obtenerTotalesTemporadaCBX2( $TEMPORADAS);
 
     
     $TOTALNETOENTRADA = $ARRAYTOTALPROCESO[0]['ENTRADA'];
@@ -68,8 +68,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
 
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+//include_once "../../assest/config/validarDatosUrl.php";
+//include_once "../../assest/config/datosUrLP.php";
 
 
 ?>
@@ -85,7 +85,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -150,7 +150,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuOpera.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -165,8 +165,7 @@ include_once "../config/datosUrLP.php";
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Modulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Packing</li>
-                                        <li class="breadcrumb-item" aria-current="page">Proceso</li>
+                                        <li class="breadcrumb-item" aria-current="page">Informes</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado Proceso </a>
                                         </li>
                                     </ol>
@@ -326,14 +325,30 @@ include_once "../config/datosUrLP.php";
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROCESO']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProceso" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarProceso" />                                                                      
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarProceso" />
+                                                                            <?php if ($r['ESTADO'] == "0") { ?>
+
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
-                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../../assest/documento/informeTarjasProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Tarjas
                                                                                 </button>
                                                                             </span>
@@ -422,24 +437,9 @@ include_once "../config/datosUrLP.php";
             </div>
         </div>
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraOpera.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                showConfirmButton: false,
-                showConfirmButton: true
-            })
-
-            Toast.fire({
-                icon: "info",
-                title: "Informacion importante",
-                html: "<label>Los <b>procesos</b> Abiertos tienen que ser <b>Cerrados</b> para no afectar las operaciones posteriores.</label>"
-            })
-        </script>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
-
 </html>

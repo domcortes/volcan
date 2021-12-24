@@ -1,5 +1,5 @@
 <?php
-include_once "../../assest/config/validarUsuarioOpe.php";
+include_once "../../assest/config/validarUsuarioOpera.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once "../../assest/controlador/CONSULTA_ADO.php";
