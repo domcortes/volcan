@@ -155,6 +155,21 @@ if ($ARRAYRECEPCION) {
   if ($TIPORECEPCION == "4") {
     $NOMBRETRECEPCION = "Inventario Inicial";
   }
+  if ($TIPORECEPCION == "5") {
+    $NOMBRETRECEPCION = "Desde Productor BDH";
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
+    $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+    
+    $IDRECEPCIONMP= $ARRAYRECEPCION[0]['ID_RECEPCIONMP'];
+    $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($IDRECEPCIONMP);
+    if($ARRAYRECEPCIONMP){
+        $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+    }    
+    $ARRAYRECEPCIONIND=$RECEPCIONIND_ADO->verRecepcion($ARRAYRECEPCION[0]['ID_RECEPCIONIND']);
+    if($ARRAYRECEPCIONIND){
+        $NUMERORECEPCIONIND=$ARRAYRECEPCIONIND[0]["NUMERO_RECEPCION"];
+    }
+  }
   $ARRAYBODEGA = $BODEGA_ADO->verBodega($ARRAYRECEPCION[0]["ID_BODEGA"]);
   if ($ARRAYBODEGA) {
     $NOMBREBODEGA = $ARRAYBODEGA[0]["NOMBRE_BODEGA"];
@@ -314,6 +329,12 @@ if ($TIPORECEPCION == "2") {
 if ($TIPORECEPCION == "3") {
   $html = $html . ' 
 <div class="address"><b>Nombre Planta Externa: </b>' . $NOMBREORIGEN . '</div>
+';
+
+}
+if ($TIPORECEPCION == "5") {
+  $html = $html . ' 
+<div class="address"><b>Nombre Productor:: </b>' . $NOMBREORIGEN . '</div>
 ';
 
 }

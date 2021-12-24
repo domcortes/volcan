@@ -1,18 +1,18 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
 
 
-include_once '../controlador/DRECEPCIONIND_ADO.php';
-include_once '../controlador/RECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -315,7 +315,7 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
     <div class="contenido" style="height:250px!important;">
 		<div class="titulo" style="text-align: center; font-size: 14px; ">
              <b > 
-                <img src="../vista/img/logo.png" width="100px" height="30px"/>
+                <img src="../../assest/img/logo.png" width="100px" height="30px"/>
              </b>
              <br>
             <b> PRODUCTO INDUSTRIAL : </b> <b class="center f30">  '.$r['FOLIO_DRECEPCION'].' </b>	
@@ -475,8 +475,8 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //CONTENIDO PDF
-$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
+$stylesheet = file_get_contents('../../assest/css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
 $PDF->WriteHTML($stylesheet, 1); 
 $PDF->WriteHTML($stylesheet2, 1); 
 $PDF->WriteHTML($html);

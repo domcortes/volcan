@@ -236,11 +236,11 @@ if($ARRAYICARGA){
       endforeach;     
 
     }else{
-      $FDADESPACHOEX="Sin Datos";
-      $NUMEROCONTENEDOR="Sin Datos";
-      $NUMEROSELLO="Sin Datos";
-      $FECHADESPACHOEX="Sin Datos";
-      $LUGARDECARGA="Sin Datos";
+      $FDADESPACHOEX="No Data";
+      $NUMEROCONTENEDOR="No Data";
+      $NUMEROSELLO="No Data";
+      $FECHADESPACHOEX="No Data";
+      $LUGARDECARGA="No Data";
     }
     $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
     $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
@@ -269,7 +269,7 @@ if($ARRAYICARGA){
       }else if($ARRAYICARGA[0]['FUMIGADO_ICARGA']==2){
         $FUMIGADO="No";
       }else{
-        $FUMIGADO="Sin Datos";
+        $FUMIGADO="No Data";
       }
 
       $ESTADO = $ARRAYICARGA[0]['ESTADO'];
@@ -278,13 +278,13 @@ if($ARRAYICARGA){
       }else if ($ARRAYICARGA[0]['ESTADO'] == 0) {
         $ESTADO = "Closer";
       }else{
-        $ESTADO="Sin Datos";
+        $ESTADO="No Data";
       }  
       $ARRAYRFINAL=$RFINAL_ADO->verRfinal($ARRAYICARGA[0]["ID_RFINAL"]);
       if($ARRAYRFINAL){
           $NOMBRERFINAL=$ARRAYRFINAL[0]["NOMBRE_RFINAL"];
       }else{
-          $NOMBRERFINAL="Sin Datos";
+          $NOMBRERFINAL="No Data";
       }
       if($ARRYANOTIFICADOR){
         $NOMBRENOTIFICADOR=$ARRYANOTIFICADOR[0]["NOMBRE_NOTIFICADOR"];
@@ -293,11 +293,11 @@ if($ARRAYICARGA){
         $TELEFONONOTIFICADOR=$ARRYANOTIFICADOR[0]["TELEFONO_NOTIFICADOR"];
         $EMAIL1NOTIFICADOR=$ARRYANOTIFICADOR[0]["EMAIL1_NOTIFICADOR"];
       }else{
-        $NOMBRENOTIFICADOR="Sin Datos";
-        $EORINOTIFICADOR="Sin Datos";
-        $TELEFONONOTIFICADOR="Sin Datos";
-        $DIRECCIONNOTIFICADOR="Sin Datos";
-        $EMAIL1NOTIFICADOR="Sin Datos";
+        $NOMBRENOTIFICADOR="No Data";
+        $EORINOTIFICADOR="No Data";
+        $TELEFONONOTIFICADOR="No Data";
+        $DIRECCIONNOTIFICADOR="No Data";
+        $EMAIL1NOTIFICADOR="No Data";
       }
       $ARRAYCONSIGNATARIO = $CONSIGNATARIO_ADO->verConsignatorio($ARRAYICARGA[0]['ID_CONSIGNATARIO']);            
       if($ARRAYCONSIGNATARIO){
@@ -307,67 +307,67 @@ if($ARRAYICARGA){
         $TELEFONOCONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["TELEFONO_CONSIGNATARIO"];
         $EMAIL1CONSIGNATARIO=$ARRAYCONSIGNATARIO[0]["EMAIL1_CONSIGNATARIO"];
       }else{
-        $NOMBRECONSIGNATARIO="Sin Datos";
-        $EORICONSIGNATARIO="Sin Datos";
-        $TELEFONOCONSIGNATARIO="Sin Datos";
-        $DIRECCIONCONSIGNATARIO="Sin Datos";
-        $EMAIL1CONSIGNATARIO="Sin Datos";
+        $NOMBRECONSIGNATARIO="No Data";
+        $EORICONSIGNATARIO="No Data";
+        $TELEFONOCONSIGNATARIO="No Data";
+        $DIRECCIONCONSIGNATARIO="No Data";
+        $EMAIL1CONSIGNATARIO="No Data";
       }
       $ARRAYFPAGO = $FPAGO_ADO->verFpago(  $ARRAYICARGA[0]['ID_FPAGO']);         
       if($ARRAYFPAGO){
         $NOMBREFPAGO=$ARRAYFPAGO[0]["NOMBRE_FPAGO"];
       }else{
-        $NOMBREFPAGO="Sin Datos";
+        $NOMBREFPAGO="No Data";
       }
       $ARRAYMVENTA = $MVENTA_ADO->verMventa( $ARRAYICARGA[0]['ID_MVENTA']);        
       if($ARRAYMVENTA){
         $NOMBREMVENTA=$ARRAYMVENTA[0]["NOMBRE_MVENTA"];
       }else{
-        $NOMBREMVENTA="Sin Datos";
+        $NOMBREMVENTA="No Data";
       }
       $ARRAYCVENTA = $CVENTA_ADO->verCventa( $ARRAYICARGA[0]['ID_CVENTA']);        
       if($ARRAYMVENTA){
         $NOMBRECVENTA=$ARRAYCVENTA[0]["NOMBRE_CVENTA"];
       }else{
-        $NOMBRECVENTA="Sin Datos";
+        $NOMBRECVENTA="No Data";
       }
       $ARRAYTFLETE= $TFLETE_ADO->verTflete( $ARRAYICARGA[0]['ID_TFLETE']);        
       if($ARRAYTFLETE){
         $NOMBRETFLETE=$ARRAYTFLETE[0]["NOMBRE_TFLETE"];
       }else{
-        $NOMBRETFLETE="Sin Datos";
+        $NOMBRETFLETE="No Data";
       }      
       $ARRAYATMOSFERA =$ATMOSFERA_ADO->verAtmosfera( $ARRAYICARGA[0]['ID_ATMOSFERA']);
       if($ARRAYATMOSFERA){
         $NOMBREATMOSFERA=$ARRAYATMOSFERA[0]["NOMBRE_ATMOSFERA"];
       }else{
-        $NOMBREATMOSFERA="Sin Datos";
+        $NOMBREATMOSFERA="No Data";
       }
       $ARRAYTCONTENEDOR =$TCONTENEDOR_ADO->verTcontenedor( $ARRAYICARGA[0]['ID_TCONTENEDOR']);
       if($ARRAYTCONTENEDOR){
         $NOMBRETCONTENEDOR=$ARRAYTCONTENEDOR[0]["NOMBRE_TCONTENEDOR"];
       }else{
-        $NOMBRETCONTENEDOR="Sin Datos";
+        $NOMBRETCONTENEDOR="No Data";
       }      
       $ARRAYPAIS =$PAIS_ADO->verPais( $ARRAYICARGA[0]['ID_PAIS']);
       if($ARRAYPAIS){
         $NOMBREPAIS=$ARRAYPAIS[0]["NOMBRE_PAIS"];
       }else{
-        $NOMBREPAIS="Sin Datos";
+        $NOMBREPAIS="No Data";
       }
       $ARRAYEXPORTADORA = $EXPORTADORA_ADO->verExportadora( $ARRAYICARGA[0]['ID_EXPPORTADORA']);
       if($ARRAYEXPORTADORA){
         $RUTEXPPORTADORA=$ARRAYEXPORTADORA[0]["RUT_EXPORTADORA"]."-".$ARRAYEXPORTADORA[0]["DV_EXPORTADORA"];
         $NOMBREEXPPORTADORA=$ARRAYEXPORTADORA[0]["NOMBRE_EXPORTADORA"];
       }else{
-        $RUTEXPPORTADORA="Sin Datos";
-        $NOMBREEXPPORTADORA="Sin Datos";
+        $RUTEXPPORTADORA="No Data";
+        $NOMBREEXPPORTADORA="No Data";
       }
       $ARRAYDFINAL =$DFINAL_ADO->verDfinal( $ARRAYICARGA[0]['ID_DFINAL']);
       if($ARRAYDFINAL){
         $NOMBREDFINAL=$ARRAYDFINAL[0]["NOMBRE_DFINAL"];
       }else{
-        $NOMBREDFINAL="Sin Datos";
+        $NOMBREDFINAL="No Data";
       }
 
     if($TEMBARQUE){
@@ -378,19 +378,19 @@ if($ARRAYICARGA){
               if($ARRAYTRANSPORTE){
                 $NOMBRETRANSPORTE=$ARRAYTRANSPORTE[0]["NOMBRE_TRANSPORTE"];
               }else{
-                $NOMBRETRANSPORTE="Sin Datos";
+                $NOMBRETRANSPORTE="No Data";
               }            
               $ARRAYLCARGA =$LCARGA_ADO->verLcarga(  $ARRAYICARGA[0]['ID_LCARGA']);       
               if($ARRAYLCARGA){
                 $NOMBREORIGEN=$ARRAYLCARGA[0]["NOMBRE_LCARGA"];
               }else{
-                $NOMBREORIGEN="Sin Datos";
+                $NOMBREORIGEN="No Data";
               }
               $ARRAYLDESTINO =$LDESTINO_ADO->verLdestino( $ARRAYICARGA[0]['ID_LDESTINO']);     
               if($ARRAYLDESTINO){
                 $NOMBREDESTINO=$ARRAYLDESTINO[0]["NOMBRE_LDESTINO"];
               }else{
-                $NOMBREDESTINO="Sin Datos";
+                $NOMBREDESTINO="No Data";
               }
           }
           if ($TEMBARQUE == "2") {
@@ -402,19 +402,19 @@ if($ARRAYICARGA){
               if($ARRAYLAEREA){
                 $NOMBRETRANSPORTE=$ARRAYLAEREA[0]["NOMBRE_LAEREA"];
               }else{
-                $NOMBRETRANSPORTE="Sin Datos";
+                $NOMBRETRANSPORTE="No Data";
               }            
               $ARRAYACARGA =$ACARGA_ADO->verAcarga(  $ARRAYICARGA[0]['ID_ACARGA']);  
               if($ARRAYACARGA){
                 $NOMBREORIGEN=$ARRAYACARGA[0]["NOMBRE_ACARGA"];
               }else{
-                $NOMBREORIGEN="Sin Datos";
+                $NOMBREORIGEN="No Data";
               }
               $ARRAYADESTINO =$ADESTINO_ADO->verAdestino( $ARRAYICARGA[0]['ID_ADESTINO']);  
               if($ARRAYADESTINO){
                 $NOMBREDESTINO=$ARRAYADESTINO[0]["NOMBRE_ADESTINO"];
               }else{
-                $NOMBREDESTINO="Sin Datos";
+                $NOMBREDESTINO="No Data";
               }
           }
           if ($TEMBARQUE == "3") {
@@ -426,19 +426,19 @@ if($ARRAYICARGA){
               if($ARRAYNAVIERA){
                 $NOMBRETRANSPORTE=$ARRAYNAVIERA[0]["NOMBRE_NAVIERA"];
               }else{
-                $NOMBRETRANSPORTE="Sin Datos";
+                $NOMBRETRANSPORTE="No Data";
               }            
               $ARRAYPCARGA =$PCARGA_ADO->verPcarga(  $ARRAYICARGA[0]['ID_PCARGA']);
               if($ARRAYPCARGA){
                 $NOMBREORIGEN=$ARRAYPCARGA[0]["NOMBRE_PCARGA"];
               }else{
-                $NOMBREORIGEN="Sin Datos";
+                $NOMBREORIGEN="No Data";
               }
               $ARRAYPDESTINO =$PDESTINO_ADO->verPdestino( $ARRAYICARGA[0]['ID_PDESTINO']);
               if($ARRAYPDESTINO){
                 $NOMBREDESTINO=$ARRAYPDESTINO[0]["NOMBRE_PDESTINO"];
               }else{
-                $NOMBREDESTINO="Sin Datos";
+                $NOMBREDESTINO="No Data";
               }
           }
     }      
@@ -452,12 +452,12 @@ if($ARRAYICARGA){
       $EMAILAGCARGA=$ARRAYAGCARGA[0]["EMAIL_AGCARGA"];
       $TELEFONOAGCARGA=$ARRAYAGCARGA[0]["TELEFONO_AGCARGA"];
     }else{
-      $RUTAGCARGA="Sin Datos";
-      $NOMBREAGCARGA="Sin Datos";
-      $DIRECCIONAGCARGA="Sin Datos";
-      $CONTACTOAGCARGA="Sin Datos";
-      $EMAILAGCARGA="Sin Datos";
-      $TELEFONOAGCARGA="Sin Datos";
+      $RUTAGCARGA="No Data";
+      $NOMBREAGCARGA="No Data";
+      $DIRECCIONAGCARGA="No Data";
+      $CONTACTOAGCARGA="No Data";
+      $EMAILAGCARGA="No Data";
+      $TELEFONOAGCARGA="No Data";
     } 
     $ARRAYAADUANA = $AADUANA_ADO->verAaduana( $ARRAYICARGA[0]['ID_AADUANA']);
     if($ARRAYAADUANA){
@@ -468,12 +468,12 @@ if($ARRAYICARGA){
       $EMAILAADUANA=$ARRAYAADUANA[0]["EMAIL_AADUANA"];
       $TELEFONOAADUANA=$ARRAYAADUANA[0]["TELEFONO_AADUANA"];
     }else{
-      $RUTAADUANA="Sin Datos";
-      $NOMBREAADUANA="Sin Datos";
-      $DIRECCIONAADUANA="Sin Datos";
-      $CONTACTOAADUANA="Sin Datos";
-      $EMAILAADUANA="Sin Datos";
-      $TELEFONOAADUANA="Sin Datos";
+      $RUTAADUANA="No Data";
+      $NOMBREAADUANA="No Data";
+      $DIRECCIONAADUANA="No Data";
+      $CONTACTOAADUANA="No Data";
+      $EMAILAADUANA="No Data";
+      $TELEFONOAADUANA="No Data";
     }
 
 
@@ -492,16 +492,16 @@ if($ARRAYICARGA){
       $DIRECCIONEMPRESA=$DIRECCIONEMPRESA;
     }
   }else{    
-    $NOMBREEMPRESA="Sin Datos";
-    $RAZONSOCIALEMPRESA="Sin Datos";
-    $RUTEMPRESA="Sin Datos";
-    $DIRECCIONEMPRESA="Sin Datos";
+    $NOMBREEMPRESA="No Data";
+    $RAZONSOCIALEMPRESA="No Data";
+    $RUTEMPRESA="No Data";
+    $DIRECCIONEMPRESA="No Data";
   }
   $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYICARGA[0]['ID_TEMPORADA']);  
   if($ARRAYTEMPORADA){
     $NOMBRETEMPORADA=$ARRAYTEMPORADA[0]["NOMBRE_TEMPORADA"];
   }else{
-    $NOMBRETEMPORADA="Sin Datos";
+    $NOMBRETEMPORADA="No Data";
   }
 
 } 
@@ -938,7 +938,7 @@ $html=$html.'
 <table  border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th colspan="12" class="center">Instruity Charge</th>
+      <th colspan="13" class="center">Instruity Charge</th>
     </tr>
     <tr>                       
       <th class="color center ">Code </th>
@@ -951,6 +951,7 @@ $html=$html.'
       <th class="color center ">Gross Kilo </th>
       <th class="color center ">Caliber </th>
       <th class="color center ">Type of currency </th>
+      <th class="color center ">variety </th>
       <th class="color center ">Price</th>
       <th class="color center ">Total</th>    
     </tr> 
@@ -970,29 +971,35 @@ $html = $html . '
           $NETOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_NETO_ESTANDAR'];
           $BRUTOESTANTAR = $ARRAYEEXPORTACION[0]['PESO_BRUTO_ESTANDAR'];
       } else {
-          $CODIGOESTANDAR = "Sin Datos";
-          $NOMBREESTANTAR = "Sin Datos";
-          $NETOESTANTAR = "Sin Datos";
-          $BRUTOESTANTAR = "Sin Datos";
+          $CODIGOESTANDAR = "No Data";
+          $NOMBREESTANTAR = "No Data";
+          $NETOESTANTAR = "No Data";
+          $BRUTOESTANTAR = "No Data";
       }
    
       $ARRAYCALIBRE = $TCALIBRE_ADO->verCalibre($s['ID_TCALIBRE']);
       if ($ARRAYCALIBRE) {
           $NOMBRECALIBRE = $ARRAYCALIBRE[0]['NOMBRE_TCALIBRE'];
       } else {
-          $NOMBRECALIBRE = "Sin Datos";
+          $NOMBRECALIBRE = "No Data";
       }
       $ARRAYTMONEDA = $TMONEDA_ADO->verTmoneda($s['ID_TMONEDA']);
       if ($ARRAYTMONEDA) {
           $NOMBRETMONEDA = $ARRAYTMONEDA[0]['NOMBRE_TMONEDA'];
       } else {
-          $NOMBRETMONEDA = "Sin Datos";
+          $NOMBRETMONEDA = "No Data";
       }
       $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($s['ID_TMANEJO']);
       if ($ARRAYTMANEJO) {
           $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
       } else {
-          $NOMBRETMANEJO = "Sin Datos";
+          $NOMBRETMANEJO = "No Data";
+      }
+      $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
+      if ($ARRAYVERVESPECIESID) {
+          $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+      } else {
+          $NOMBREVARIEDAD = "No Data";
       }
 
       $html = $html . '  
@@ -1007,6 +1014,7 @@ $html = $html . '
               <td class="center">'.$s['BRUTO'].'</td>
               <td class="center">'.$NOMBRECALIBRE.'</td>
               <td class="center">'.$NOMBRETMONEDA.'</td>
+              <td class="center">'.$NOMBREVARIEDAD.'</td>
               <td class="center">'.$s['US'].'</td>
               <td class="center">'.$s['TOTALUS'].'</td>
       </tr>
@@ -1025,6 +1033,7 @@ $html = $html . '
           <th class="color center">'.$TOTALENVASEV.'</th>
           <th class="color center">'.$TOTALNETOV.'</th>
           <th class="color center">'.$TOTALBRUTOV.'</th>
+          <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>
           <td class="color center">&nbsp;</td>

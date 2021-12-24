@@ -251,8 +251,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                     <th>Variedad</th>
                                                     <th>Cantidad Envase</th>
                                                     <th>Kilo Neto </th>
-                                                    <th>% Deshidratación </th>
-                                                    <th>Kilo Con Deshidratación </th>
                                                     <th>Kilo Bruto </th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
@@ -390,8 +388,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
@@ -434,7 +430,15 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                         } else {
                                                             $ORIGEN = "Sin Datos";
                                                         }
-                                                    } else {
+                                                    }else if ($r['TRECEPCION'] == "3") {
+                                                        $TRECEPCION = "Desde Productor BDH";
+                                                        $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR2) {
+                                                            $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
+                                                    }  else {
                                                         $TRECEPCION = "Sin Datos";
                                                         $ORIGEN = "Sin Datos";
                                                     }
@@ -531,8 +535,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>

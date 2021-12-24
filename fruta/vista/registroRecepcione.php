@@ -198,6 +198,9 @@ if (isset($_REQUEST['CREAR'])) {
     if ($_REQUEST['TRECEPCION'] == "3") {
         $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
     }
+    if ($_REQUEST['TRECEPCION'] == "5") {
+        $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+    }
     $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
     $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
     $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
@@ -247,6 +250,9 @@ if (isset($_REQUEST['EDITAR'])) {
         if ($_REQUEST['TRECEPCIONE'] == "3") {
             $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
         }
+        if ($_REQUEST['TRECEPCIONE'] == "5") {
+            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+        }
         $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
         $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
         $RECEPCIONE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADAE']);
@@ -291,6 +297,9 @@ if (isset($_REQUEST['CERRAR'])) {
         }
         if ($_REQUEST['TRECEPCIONE'] == "3") {
             $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+        }
+        if ($_REQUEST['TRECEPCIONE'] == "5") {
+            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
         }
         $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
         $RECEPCIONE->__SET('ID_PLANTA', $_REQUEST['PLANTAE']);
@@ -388,6 +397,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if ($TRECEPCION == "3") {
                 $PLANTA2 = "" . $r['ID_PLANTA2'];
             }
+            if ($TRECEPCION == "5") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
+            }
             $BODEGA = "" . $r['ID_BODEGA'];
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
@@ -445,6 +457,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if ($TRECEPCION == "3") {
                 $PLANTA2 = "" . $r['ID_PLANTA2'];
             }
+            if ($TRECEPCION == "5") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
+            }
             $BODEGA = "" . $r['ID_BODEGA'];
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
@@ -500,6 +515,9 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             }
             if ($TRECEPCION == "3") {
                 $PLANTA2 = "" . $r['ID_PLANTA2'];
+            }
+            if ($TRECEPCION == "5") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
             }
             $BODEGA = "" . $r['ID_BODEGA'];
             $TDOCUMENTO = "" . $r['ID_TDOCUMENTO'];
@@ -705,6 +723,17 @@ if (isset($_POST)) {
                                 return false
                             }
                             document.form_reg_dato.PLANTA2.style.borderColor = "#4AF575";
+                        }
+                        if (TRECEPCION == 5) {
+                            PRODUCTOR = document.getElementById("PRODUCTOR").selectedIndex;
+                            document.getElementById('val_productor').innerHTML = "";
+                            if (PRODUCTOR == null || PRODUCTOR == 0) {
+                                document.form_reg_dato.PRODUCTOR.focus();
+                                document.form_reg_dato.PRODUCTOR.style.borderColor = "#FF0000";
+                                document.getElementById('val_productor').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                                return false
+                            }
+                            document.form_reg_dato.PRODUCTOR.style.borderColor = "#4AF575";
                         }
                     }
 
@@ -928,6 +957,9 @@ if (isset($_POST)) {
                                                     <option value="4" <?php if ($TRECEPCION == "4") {
                                                                             echo "selected";
                                                                         } ?>> Inventario Inicial</option>
+                                                    <option value="5" <?php if ($TRECEPCION == "5") {
+                                                                            echo "selected";
+                                                                        } ?>> Desde Productor BDH</option>
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -989,6 +1021,15 @@ if (isset($_POST)) {
                                         <?php if ($TRECEPCION == "4") { ?>
                                             <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
                                             </div>
+                                        <?php } ?>                                      
+                                        <?php if ($TRECEPCION == "5") { ?>                                                
+                                            <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
+                                                <div class="form-group">        
+                                                    <?php  if($ARRAYRECEPCIONMP){?>
+                                                        <p class="text-muted"><i class="fas fa-info-circle"></i>Esta Registro viene desde una Recepción de Materia prima.<br> <b> Numero Recepcion: <?php echo $NUMERORECEPCIONMP;?> </b> </p>   
+                                                    <?php }?>  
+                                                </div>
+                                            </div>
                                         <?php } ?>                                           
                                         <?php if ($TRECEPCION == "") { ?>
                                             <div class="col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">   
@@ -1048,7 +1089,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "2") { ?>
-                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Productor</label>
                                                     <input type="hidden" class="form-control" placeholder="Productor" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
@@ -1071,7 +1112,7 @@ if (isset($_POST)) {
                                             </div>
                                         <?php } ?>
                                         <?php if ($TRECEPCION == "3") { ?>
-                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label>Planta Origen</label>
                                                     <input type="hidden" class="form-control" placeholder="PLANTA2E" id="PLANTA2E" name="PLANTA2E" value="<?php echo $PLANTA2; ?>" />
@@ -1092,6 +1133,29 @@ if (isset($_POST)) {
                                                     <label id="val_planta2" class="validacion"> </label>
                                                 </div>
                                             </div>                                            
+                                        <?php } ?>                                        
+                                        <?php if ($TRECEPCION == "5") { ?>
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>Productor</label>
+                                                    <input type="hidden" class="form-control" placeholder="Productor" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
+                                                    <select class="form-control select2" id="PRODUCTOR" name="PRODUCTOR" style="width: 100%;" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
+                                                            <?php if ($ARRAYPRODUCTOR) {    ?>
+                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>>
+                                                                    <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados </option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_productor" class="validacion"> </label>
+                                                </div>
+                                            </div>
                                         <?php } ?>
                                         <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">

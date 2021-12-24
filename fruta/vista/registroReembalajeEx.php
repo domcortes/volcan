@@ -28,6 +28,7 @@ include_once '../controlador/REEMBALAJE_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../controlador/TCATEGORIA_ADO.php';
 
 
 
@@ -66,6 +67,7 @@ $TMANEJO_ADO =  new TMANEJO_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
+$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
 $REEMBALAJE_ADO =  new REEMBALAJE_ADO();
 //INIICIALIZAR MODELO
@@ -861,6 +863,7 @@ if (isset($_POST)) {
                                                     <th>Tipo Embalaje</th>
                                                     <th>Tipo Manejo </th>
                                                     <th>Tipo Calibre </th>
+                                                    <th>Tipo Categoria </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -899,6 +902,12 @@ if (isset($_POST)) {
                                                         } else {
                                                             $NOMBRETEMBALAJE = "Sin Datos";
                                                         }
+                                                        $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
+                                                        if($ARRAYTCATEGORIA){
+                                                           $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+                                                        }else{
+                                                            $NOMBRETCATEGORIA = "Sin Datos";
+                                                        } 
                                                         ?>
                                                         <tr class="text-left">
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
@@ -924,6 +933,7 @@ if (isset($_POST)) {
                                                             <td><?php echo $NOMBRETEMBALAJE; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                            <td><?php echo $NOMBRETCATEGORIA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php } ?>
@@ -1042,6 +1052,7 @@ if (isset($_POST)) {
                                                     <th>Embolsado </th>
                                                     <th>Tipo Manejo </th>
                                                     <th>Tipo Calibre </th>
+                                                    <th>Tipo Categoria </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1082,6 +1093,12 @@ if (isset($_POST)) {
                                                         } else {
                                                             $EMBOLSADO = "Sin Datos";
                                                         }
+                                                        $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($r['ID_TCATEGORIA']);
+                                                        if($ARRAYTCATEGORIA){
+                                                           $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
+                                                        }else{
+                                                            $NOMBRETCATEGORIA = "Sin Datos";
+                                                        } 
                                                         ?>
                                                         <tr class="text-left">
                                                             <td>P. Terminado</td>
@@ -1125,6 +1142,7 @@ if (isset($_POST)) {
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                            <td><?php echo $NOMBRETCATEGORIA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php } ?>

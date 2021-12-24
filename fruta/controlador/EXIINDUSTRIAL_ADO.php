@@ -1877,10 +1877,11 @@ class EXIINDUSTRIAL_ADO
         try {
             $datos = $this->conexion->prepare("SELECT   
                                                     IFNULL(SUM(existencia.KILOS_NETO_EXIINDUSTRIAL),0) AS 'NETO' 
-                                                FROM fruta_exiindustrial existencia
-                                                WHERE existencia.ID_ESTANDAR
-                                                AND  existencia.ESTADO = 4
-                                                AND  existencia.ESTADO_REGISTRO = 1                   
+                                                FROM fruta_exiindustrial existencia, estandar_eindustrial estandar 
+                                                WHERE existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                AND  existencia.ESTADO = 2
+                                                AND  existencia.ESTADO_REGISTRO = 1
+                                                AND  estandar.COBRO = 1                          
                                                 AND existencia.ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND existencia.ID_PLANTA = '" . $PLANTA . "'
                                                 AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'               

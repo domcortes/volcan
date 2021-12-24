@@ -128,6 +128,9 @@ class DICARGA_ADO
             if ($DICARGA->__GET('ID_TMANEJO') == NULL) {
                 $DICARGA->__SET('ID_TMANEJO', NULL);
             }
+            if ($DICARGA->__GET('ID_VESPECIES') == NULL) {
+                $DICARGA->__SET('ID_VESPECIES', NULL);
+            }
 
             $query =
                 "INSERT INTO fruta_dicarga 
@@ -137,10 +140,13 @@ class DICARGA_ADO
                                             KILOS_BRUTO_DICARGA, 
                                             PRECIO_US_DICARGA, 
                                             TOTAL_PRECIO_US_DICARGA, 
+
                                             ID_ESTANDAR,  
                                             ID_TCALIBRE, 
                                             ID_TMONEDA, 
                                             ID_TMANEJO, 
+                                            ID_VESPECIES, 
+
                                             ID_ICARGA, 
                                             INGRESO, 
                                             MODIFICACION, 
@@ -148,7 +154,7 @@ class DICARGA_ADO
                                             ESTADO_REGISTRO
                                         ) 
             VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  SYSDATE(),SYSDATE(), 1, 1);";
+	       	(?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,  ?,  SYSDATE(),SYSDATE(), 1, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -158,10 +164,13 @@ class DICARGA_ADO
                         $DICARGA->__GET('KILOS_BRUTO_DICARGA'),
                         $DICARGA->__GET('PRECIO_US_DICARGA'),
                         $DICARGA->__GET('TOTAL_PRECIO_US_DICARGA'),
+
                         $DICARGA->__GET('ID_ESTANDAR'),
                         $DICARGA->__GET('ID_TCALIBRE'),
                         $DICARGA->__GET('ID_TMONEDA'),
                         $DICARGA->__GET('ID_TMANEJO'),
+                        $DICARGA->__GET('ID_VESPECIES'),
+
                         $DICARGA->__GET('ID_ICARGA')
 
                     )
@@ -196,6 +205,9 @@ class DICARGA_ADO
         if ($DICARGA->__GET('ID_TMANEJO') == NULL) {
             $DICARGA->__SET('ID_TMANEJO', NULL);
         }
+        if ($DICARGA->__GET('ID_VESPECIES') == NULL) {
+            $DICARGA->__SET('ID_VESPECIES', NULL);
+        }
         try {
             $query = "
                     UPDATE fruta_dicarga SET
@@ -204,10 +216,13 @@ class DICARGA_ADO
                         KILOS_BRUTO_DICARGA = ?,
                         PRECIO_US_DICARGA = ?,
                         TOTAL_PRECIO_US_DICARGA = ?,
+
                         ID_ESTANDAR = ?,
                         ID_TCALIBRE= ?,
                         ID_TMONEDA= ?,
                         ID_TMANEJO= ?,
+                        ID_VESPECIES= ?,
+
                         ID_ICARGA= ?
                     WHERE ID_DICARGA = ?  ;";
             $this->conexion->prepare($query)
@@ -220,9 +235,12 @@ class DICARGA_ADO
                         $DICARGA->__GET('PRECIO_US_DICARGA'),
                         $DICARGA->__GET('TOTAL_PRECIO_US_DICARGA'),
                         $DICARGA->__GET('ID_ESTANDAR'),
+
                         $DICARGA->__GET('ID_TCALIBRE'),
                         $DICARGA->__GET('ID_TMONEDA'),
                         $DICARGA->__GET('ID_TMANEJO'),
+                        $DICARGA->__GET('ID_VESPECIES'),
+                        
                         $DICARGA->__GET('ID_ICARGA'),
                         $DICARGA->__GET('ID_DICARGA')
 

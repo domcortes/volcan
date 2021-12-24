@@ -322,7 +322,10 @@ class EXIINDUSTRIAL_ADO
                                                     INGRESO,    
                                                     ID_TMANEJO, 
                                                     ID_FOLIO,
+                                                    
                                                     ID_ESTANDAR,
+                                                    ID_ESTANDARMP,
+                                                    ID_ESTANDARPT,
 
                                                     ID_PRODUCTOR,
                                                     ID_VESPECIES,
@@ -337,7 +340,7 @@ class EXIINDUSTRIAL_ADO
                                                     ESTADO,  
                                                     ESTADO_REGISTRO
                                                 ) VALUES
-	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  SYSDATE(),  2, 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?, ?,   ?, ?, ?, ?, ?,  ?, ?,  SYSDATE(),  2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -353,6 +356,8 @@ class EXIINDUSTRIAL_ADO
                         $EXIINDUSTRIAL->__GET('ID_TMANEJO'),
                         $EXIINDUSTRIAL->__GET('ID_FOLIO'),
                         $EXIINDUSTRIAL->__GET('ID_ESTANDAR'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARMP'),
+                        $EXIINDUSTRIAL->__GET('ID_ESTANDARPT'),
                         $EXIINDUSTRIAL->__GET('ID_PRODUCTOR'),
                         $EXIINDUSTRIAL->__GET('ID_VESPECIES'),
                         $EXIINDUSTRIAL->__GET('ID_PLANTA2'),
@@ -2160,36 +2165,11 @@ class EXIINDUSTRIAL_ADO
                                                 WHERE existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
                                                 AND  existencia.ESTADO = 2
                                                 AND  existencia.ESTADO_REGISTRO = 1
-                                                AND  estandar.COBRO = 1                      
+                                                AND  estandar.COBRO = 1                          
                                                 AND existencia.ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND existencia.ID_PLANTA = '" . $PLANTA . "'
                                                 AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'               
             
-                                            ;");
-            $datos->execute();
-            $resultado = $datos->fetchAll();
-            $datos=null;
-
-            //	print_r($resultado);
-            //	VAR_DUMP($resultado);
-
-
-            return $resultado;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-    public function obtenerTotalesEmpresaPlantaTemporadaDisponible2($EMPRESA, $PLANTA, $TEMPORADA)
-    {
-        try {
-            $datos = $this->conexion->prepare("SELECT             
-                                                FORMAT(IFNULL(SUM(KILOS_NETO_EXIINDUSTRIAL),0),2,'de_DE') AS 'NETO' 
-                                             FROM fruta_exiindustrial 
-                                             WHERE ESTADO_REGISTRO = 1
-                                                AND ESTADO = 2                                                                             
-                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
-                                                AND ID_PLANTA = '" . $PLANTA . "'
-                                                AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                             ;");
             $datos->execute();
             $resultado = $datos->fetchAll();

@@ -245,6 +245,14 @@ include_once "../config/reporteUrl.php";
                                                         } else if ($TOPERACION == "4") {
                                                             $NOMBREOPERACION = "Recepción Inventario Inicial ".$TIPO;
                                                             $NOMBREORIGEN = "No Aplica";
+                                                        } else if ($TOPERACION == "5") {
+                                                            $NOMBREOPERACION = "Recepción Desde Productor BDH ".$TIPO;
+                                                            $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]["ID_PRODUCTOR"]);
+                                                            if($ARRAYPRODUCTOR){
+                                                                $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                            } else {
+                                                                $NOMBREORIGEN = "Sin Datos";
+                                                            }
                                                         } else {
                                                             $NOMBREOPERACION = "Sin Datos";
                                                             $NOMBREORIGEN = "Sin Datos";
@@ -295,7 +303,7 @@ include_once "../config/reporteUrl.php";
                                                                 $NOMBREDESTINO = "Sin Datos";
                                                             }
                                                         }else if ($TOPERACION == "5") {
-                                                            $NOMBREOPERACION = " Venta Industrial".$TIPO;
+                                                            $NOMBREOPERACION = " Venta Industrial ".$TIPO;
                                                             $ARRAYVERCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]["ID_COMPRADOR"]);
                                                             if ($ARRAYVERCOMPRADOR) {
                                                                 $NOMBREDESTINO = $ARRAYVERCOMPRADOR[0]["NOMBRE_COMPRADOR"];
@@ -306,7 +314,7 @@ include_once "../config/reporteUrl.php";
                                                             $NOMBREOPERACION = "Regalo ".$TIPO;
                                                             $REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
                                                         }else if ($TOPERACION == "7") {
-                                                            $NOMBREOPERACION = "Despacho a Planta Externa".$TIPO;
+                                                            $NOMBREOPERACION = "Despacho a Planta Externa ".$TIPO;
                                                             $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]["ID_PLANTA3"]);
                                                             if ($ARRAYPLANTAEXTERNA) {
                                                                 $NOMBREDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];

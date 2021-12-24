@@ -1,24 +1,24 @@
 <?php
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
 
 
-include_once '../controlador/TTRATAMIENTO1_ADO.php';
-include_once '../controlador/TTRATAMIENTO2_ADO.php';
+include_once '../../assest/controlador/TTRATAMIENTO1_ADO.php';
+include_once '../../assest/controlador/TTRATAMIENTO2_ADO.php';
 
-include_once '../controlador/RECEPCIONMP_ADO.php';
-include_once '../controlador/DRECEPCIONMP_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
 
-include_once '../modelo/DRECEPCIONMP.php';
-include_once '../modelo/EXIMATERIAPRIMA.php';
+include_once '../../assest/modelo/DRECEPCIONMP.php';
+include_once '../../assest/modelo/EXIMATERIAPRIMA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -125,7 +125,7 @@ $ARRAYTTRATAMIENTO2=$TTRATAMIENTO2_ADO->listarTtratamientoPorEmpresaCBX($EMPRESA
 //$ARRAYPRODUCTOR = 
 $ARRAYFECHAACTUAL = $DRECEPCIONMP_ADO->obtenerFecha();
 $FECHACOSECHADRECEPCION = $ARRAYFECHAACTUAL[0]['FECHA'];
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 //OPERACIONES
@@ -152,6 +152,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         }
         if ($TRECEPCION == "2") {
             $PLANTA2 = "" . $r['ID_PLANTA2'];
+        }
+        if ($TRECEPCION == "3") {
+            $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
+            $FECHARECEPCION = "" . $r['FECHA_RECEPCION'];
+            $ARRAYVERPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+            if ($ARRAYVERPRODUCTOR) {
+                $PRODUCTORDATOS = $ARRAYVERPRODUCTOR[0]["CSG_PRODUCTOR"] . ": " . $ARRAYVERPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+            }
         }
     endforeach;
 }
@@ -424,7 +432,7 @@ if ($_POST) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -713,7 +721,7 @@ if ($_POST) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -823,6 +831,10 @@ if ($_POST) {
                                                     <?php endforeach; ?>
                                                     </select>
                                                 <?php } ?>
+                                                <?php if ($TRECEPCION == 3) { ?>
+                                                    <input type="hidden" class="form-control" placeholder="PRODUCTOR" id="PRODUCTOR" name="PRODUCTOR" value="<?php echo $PRODUCTOR; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Productor" id="PRODUCTORV" name="PRODUCTORV" value="<?php echo $PRODUCTORDATOS; ?>" disabled style='background-color: #eeeeee;'"/>
+                                                 <?php } ?>
                                                 <label id="val_productor" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1019,11 +1031,11 @@ if ($_POST) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";  ?>
-                <?php include_once "../config/menuExtra.php";   ?>
+                <?php include_once "../../assest/config/footer.php";  ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php";   ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         
         <?php
         //OPERACION DE REGISTRO DE FILA

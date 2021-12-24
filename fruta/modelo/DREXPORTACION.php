@@ -29,6 +29,7 @@
         private   $ID_PROCESO;
         private   $ID_PRODUCTOR;
         private   $ID_TMANEJO;
+        private   $ID_TCATEGORIA;
         
         
         //FUNCIONES GET Y SET

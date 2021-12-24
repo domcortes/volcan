@@ -218,57 +218,20 @@
           <span>Inicio</span>
         </a>
       </li>
-      <li class="header">Modulo</li>
-      <!--
+      <li class="header">Modulo</li>      
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/layout.svg" class="svg-icon" alt="">
-          <span>Materiales</span>
+          <span>Informe</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class="treeview">
-            <a href="#">Recepcion
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroRecepcionm.php">Registro Recepción<i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionm.php"> Agrupado Recepción <i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionmDetallado.php"> Detallado Recepción <i class="ti-more"></i></a></li>
-              <li><a href="listarRecepcionmInterplanta.php"> Agrupado Interplanta <i class="ti-more"></i></a></li>
-            </ul>
-          </li>          
-          <li class="treeview">
-            <a href="#">Despacho
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroDespachom.php">Registro Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachom.php">Agrupado Despacho<i class="ti-more"></i></a></li>
-              <li><a href="listarDespachomDetallado.php">Detallado Despacho<i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">Guía Por Recibir
-              <span class="pull-left-container">
-                <i class=" fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="registroGuiaPorRecibirM.php">Materiales <i class="ti-more"></i></a></li>
-            </ul>
-          </li>
-          <li><a href="listarInventariom.php">Existencia Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventariomResumen.php">Resumen Materiales<i class="ti-more"></i></a></li>
-          <li><a href="listarInventariomHistorial.php">Historial Materiales<i class="ti-more"></i></a></li>
+          <li><a href="listarRecepcionmp.php">Recepción Materia Prima<i class="ti-more"></i></a></li>
+          <li><a href="listarProceso.php">Proceso<i class="ti-more"></i></a></li>
         </ul>
-      </li>-->  
+      </li> 
       <li class="header">Configuraciones</li>
   
     </ul>

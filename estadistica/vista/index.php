@@ -1,5 +1,5 @@
 <?php
-include_once "../../assest/config/validarUsuarioOpe.php";
+include_once "../../assest/config/validarUsuarioOpera.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 include_once "../../assest/controlador/CONSULTA_ADO.php";
@@ -173,7 +173,7 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
             <?php include_once "../../assest/config/footer.php"; ?>
-            <?php include_once "../../assest/config/menuOperaExtra.php"; ?>
+            <?php include_once "../../assest/config/menuExtraOpera.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>

@@ -246,7 +246,7 @@ include_once "../../assest/config/datosUrLP.php";
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Logistica</li>
+                                            <li class="breadcrumb-item" aria-current="page">Exportación</li>
                                             <li class="breadcrumb-item" aria-current="page">Instructivo Carga</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Detallado Instructivo Carga </a>
                                             </li>
@@ -283,7 +283,7 @@ include_once "../../assest/config/datosUrLP.php";
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="modulo" class=" table-hover " style="width: 100%;">
+                                            <table id="detalladoicarga" class=" table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Número </th>
@@ -564,6 +564,7 @@ include_once "../../assest/config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">
@@ -571,29 +572,26 @@ include_once "../../assest/config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Kg. Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Kg. Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -601,58 +599,25 @@ include_once "../../assest/config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total US</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total US" id="TOTALUSV" name="TOTALUSV" value="<?php echo $TOTALUS; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALUSV" name="TOTALUSV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                     </section>
                     <!-- /.content -->
                 </div>
             </div>
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php"; ?>
                 <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
-
-        <?php         
-        if (isset($_REQUEST['CARGADO'])) {
-
-
-            $ICARGA->__SET('ID_USUARIOM', $IDUSUARIOS);
-            $ICARGA->__SET('ID_ICARGA', $_REQUEST['ID']);
-            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $ICARGA_ADO->CargadoCerrado($ICARGA);            
-            echo '<script>
-                Swal.fire({
-                    icon:"info",
-                    title:"Registro Modificado",
-                    text:"El registro de Instructivo se ha modificada correctamente",
-                    showConfirmButton: true,
-                    confirmButtonText:"Cerrar",
-                    closeOnConfirm:false
-                }).then((result)=>{
-                    location.href = "listarICarga.php";                        
-                })
-            </script>';
-
-
-
-        }   
-        ?>
 </body>
-
 </html>

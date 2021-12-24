@@ -30,6 +30,7 @@
         private   $ID_VESPECIES;
         private   $ID_PRODUCTOR;
         private   $ID_PROCESO;
+        private   $ID_TCATEGORIA;
         
         
         //FUNCIONES GET Y SET

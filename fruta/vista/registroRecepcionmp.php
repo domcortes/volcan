@@ -2,36 +2,36 @@
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round;
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/TDOCUMENTO_ADO.php';
-include_once '../controlador/BODEGA_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TDOCUMENTO_ADO.php';
+include_once '../../assest/controlador/BODEGA_ADO.php';
 
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TTRATAMIENTO1_ADO.php';
-include_once '../controlador/TTRATAMIENTO2_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TTRATAMIENTO1_ADO.php';
+include_once '../../assest/controlador/TTRATAMIENTO2_ADO.php';
 
-include_once '../controlador/RECEPCIONMP_ADO.php';
-include_once '../controlador/DRECEPCIONMP_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
 
-include_once '../controlador/RECEPCIONE_ADO.php';
-include_once '../controlador/INVENTARIOE_ADO.php';
+include_once '../../assest/controlador/RECEPCIONE_ADO.php';
+include_once '../../assest/controlador/INVENTARIOE_ADO.php';
 
-include_once '../modelo/RECEPCIONMP.php';
-include_once '../modelo/DRECEPCIONMP.php';
-include_once '../modelo/EXIMATERIAPRIMA.php';
+include_once '../../assest/modelo/RECEPCIONMP.php';
+include_once '../../assest/modelo/DRECEPCIONMP.php';
+include_once '../../assest/modelo/EXIMATERIAPRIMA.php';
 
-include_once '../modelo/RECEPCIONE.php';
-include_once '../modelo/INVENTARIOE.php';
+include_once '../../assest/modelo/RECEPCIONE.php';
+include_once '../../assest/modelo/INVENTARIOE.php';
 
 
 
@@ -195,8 +195,8 @@ $ARRAYFECHAACTUAL = $RECEPCIONMP_ADO->obtenerFecha();
 $FECHARECEPCION = $ARRAYFECHAACTUAL[0]['FECHA'];
 $FECHAGUIA = $ARRAYFECHAACTUAL[0]['FECHA'];
 $HORARECEPCION = $ARRAYFECHAACTUAL[0]['HORA'];
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 
@@ -285,6 +285,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $CSG = $ARRAYVERIDPLANTA[0]['CODIGO_SAG_PLANTA'];
                 }
             }
+            if ($TRECEPCION == "3") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
+                $ARRAYVERIDPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+                if ($ARRAYVERIDPRODUCTOR) {
+                    $CSG = $ARRAYVERIDPRODUCTOR[0]['CSG_PRODUCTOR'];
+                    $PLANTA2 = "" . $r['ID_PLANTA2'];
+                }
+            }
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
             $CONDUCTOR = "" . $r['ID_CONDUCTOR'];
             $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
@@ -338,6 +346,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ARRAYVERIDPLANTA = $PLANTA_ADO->verPlanta($PLANTA2);
                 if ($ARRAYVERIDPLANTA) {
                     $CSG = $ARRAYVERIDPLANTA[0]['CODIGO_SAG_PLANTA'];
+                }
+            }
+            if ($TRECEPCION == "3") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
+                $ARRAYVERIDPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+                if ($ARRAYVERIDPRODUCTOR) {
+                    $CSG = $ARRAYVERIDPRODUCTOR[0]['CSG_PRODUCTOR'];
+                    $PLANTA2 = "" . $r['ID_PLANTA2'];
                 }
             }
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
@@ -396,6 +412,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 $ARRAYVERIDPLANTA = $PLANTA_ADO->verPlanta($PLANTA2);
                 if ($ARRAYVERIDPLANTA) {
                     $CSG = $ARRAYVERIDPLANTA[0]['CODIGO_SAG_PLANTA'];
+                }
+            }
+            if ($TRECEPCION == "3") {
+                $PRODUCTOR = "" . $r['ID_PRODUCTOR'];
+                $ARRAYVERIDPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+                if ($ARRAYVERIDPRODUCTOR) {
+                    $CSG = $ARRAYVERIDPRODUCTOR[0]['CSG_PRODUCTOR'];
+                    $PLANTA2 = "" . $r['ID_PLANTA2'];
                 }
             }
             $TRANSPORTE = "" . $r['ID_TRANSPORTE'];
@@ -461,6 +485,16 @@ if (isset($_POST)) {
                 }
             }
         }
+        if ($TRECEPCION == "3") {
+            if (isset($_REQUEST['PRODUCTOR'])) {
+                $PRODUCTOR = "" . $_REQUEST['PRODUCTOR'];
+                $PLANTA2 = "" . $_REQUEST['PLANTA2'];
+                $ARRAYVERIDPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+                if ($ARRAYVERIDPRODUCTOR) {
+                    $CSG = $ARRAYVERIDPRODUCTOR[0]['CSG_PRODUCTOR'];
+                }
+            }
+        }
     }
     if (isset($_REQUEST['TRANSPORTE'])) {
         $TRANSPORTE = "" . $_REQUEST['TRANSPORTE'];
@@ -509,7 +543,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -->
-    <?php include_once "../config/urlHead.php"; ?>
+    <?php include_once "../../assest/config/urlHead.php"; ?>
     <!- FUNCIONES BASES -!>
         <script type="text/javascript">
             //VALIDACION DE FORMULARIO            
@@ -755,7 +789,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -878,6 +912,7 @@ if (isset($_POST)) {
                                                     <option> </option>
                                                     <option value="1" <?php if ($TRECEPCION == "1") { echo "selected";  } ?>> Desde Productor </option>
                                                     <option value="2" <?php if ($TRECEPCION == "2") { echo "selected";   } ?>> Planta Externa </option>
+                                                    <option value="3" <?php if ($TRECEPCION == "3") { echo "selected";  } ?>> Desde Productor BDH </option>
                                                 </select>
                                                 <label id="val_trecepcion" class="validacion"> </label>
                                             </div>
@@ -1048,7 +1083,36 @@ if (isset($_POST)) {
                                                 </div>
                                             </div>
                                         <?php } ?>
-
+                                        <?php if ($TRECEPCION == "3") { ?>
+                                            <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label>CSG</label>
+                                                    <input type="hidden" class="form-control" placeholder="CSG" id="CSG" name="CSG" value="<?php echo $CSG; ?>" />
+                                                    <input type="text" class="form-control" placeholder="CSG" id="CSGV" name="CSGV" value="<?php echo $CSG; ?>" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <label>Productor</label>
+                                                    <input type="hidden" class="form-control" placeholder="PLANTA2" id="PLANTA2E" name="PLANTA2E" value="<?php echo $PLANTA2; ?>" />
+                                                    <input type="hidden" class="form-control" placeholder="PLANTA2" id="PLANTA2" name="PLANTA2" value="<?php echo $PLANTA; ?>" <?php echo $DISABLEDFOLIO; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                    <input type="hidden" class="form-control" placeholder="Productor" id="PRODUCTORE" name="PRODUCTORE" value="<?php echo $PRODUCTOR; ?>" />
+                                                    <select class="form-control select2" id="PRODUCTOR" name="PRODUCTOR" style="width: 100%;" <?php echo $DISABLEDFOLIO; ?> <?php if ($TRECEPCION == "3") { ?> onchange="this.form.submit()" <?php } ?> <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?>>
+                                                        <option></option>
+                                                        <?php foreach ($ARRAYPRODUCTOR as $r) : ?>
+                                                            <?php if ($ARRAYPRODUCTOR) {    ?>
+                                                                <option value="<?php echo $r['ID_PRODUCTOR']; ?>" <?php if ($PRODUCTOR == $r['ID_PRODUCTOR']) {  echo "selected";   } ?>>
+                                                                    <?php echo $r['CSG_PRODUCTOR'] ?> : <?php echo $r['NOMBRE_PRODUCTOR'] ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option>No Hay Datos Registrados </option>
+                                                            <?php } ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label id="val_productor" class="validacion"> </label>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Diferencia Kilos</label>
@@ -1129,10 +1193,10 @@ if (isset($_POST)) {
                                         </div>
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != "") : ?>
-                                                <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRecepcionmp.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../../assest/documento/informeRecepcionmp.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRecepcionmp.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../../assest/documento/informeTarjasRecepcionmp.php?parametro=<?php echo $IDOP; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Tarjas
                                                 </button>
                                             <?php endif ?>
@@ -1195,7 +1259,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="card-body">
                                     <div class=" table-responsive">
-                                        <table id="detalle" class="table table-hover " style="width: 100%;">
+                                        <table id="detalle" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Numero Linea</th>
@@ -1273,20 +1337,24 @@ if (isset($_POST)) {
                                                                     <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <?php if ($ESTADO == "0") { ?>
                                                                             <button type="submit" class="btn btn-info  btn-sm   " id="VERDURL" name="VERDURL" data-toggle="tooltip" title="Ver Detalle Recepción">
-                                                                                <i class="ti-eye"></i> Ver
+                                                                                <i class="ti-eye"></i><br> Ver
                                                                             </button>
                                                                         <?php } ?>
                                                                         <?php if ($ESTADO == "1") { ?>
                                                                             <button type="submit" class="btn btn-warning btn-sm " id="EDITARDURL" name="EDITARDURL" data-toggle="tooltip" title="Editar Detalle Recepción" <?php echo $DISABLEENVASE; ?>  <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-pencil-alt"></i> Editar
+                                                                                <i class="ti-pencil-alt"></i><br> Editar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-secondary btn-sm " id="DUPLICARDURL" name="DUPLICARDURL" data-toggle="tooltip" title="Duplicar Detalle Recepción" <?php echo $DISABLEENVASE; ?>  <?php echo $DISABLED2; ?>>
-                                                                                <i class="fa fa-fw fa-copy"></i> Duplicar
+                                                                                <i class="fa fa-fw fa-copy"></i><br> Duplicar
                                                                             </button>
                                                                             <button type="submit" class="btn btn-danger btn-sm" id="ELIMINARDURL" name="ELIMINARDURL" data-toggle="tooltip" title="Eliminar Detalle Recepción" <?php echo $DISABLEENVASE; ?>  <?php echo $DISABLED2; ?>>
-                                                                                <i class="ti-close"></i> Eliminar
+                                                                                <i class="ti-close"></i><br> Eliminar
                                                                             </button>
                                                                         <?php } ?>
+                                                                            <button type="button" class="btn btn-primary btn-sm" id="TARJA" name="TARJA" data-toggle="tooltip" title="Tarja Detalle Recepción"   
+                                                                            Onclick="abrirPestana('../../assest/documento/informeTarjasDrecepcionmp.php?parametro=<?php echo $s['ID_DRECEPCION']; ?>'); ">
+                                                                                <i class="fa fa-file-pdf-o"></i><br> Tarja
+                                                                            </button>
                                                                     </div>
                                                                 </form>
                                                             </td>
@@ -1325,11 +1393,11 @@ if (isset($_POST)) {
     </div>
 
     <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
         </div>
         <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-            <?php include_once "../config/urlBase.php"; ?>
+            <?php include_once "../../assest/config/urlBase.php"; ?>
 
             <?php
             //OPERACION DE REGISTRO DE FILA
@@ -1400,6 +1468,9 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCION'] == "2") {
                         $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                     }
+                    if ($_REQUEST['TRECEPCION'] == "3") {
+                        $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                    }
                     $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTE']);
                     $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTOR']);
                     $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
@@ -1431,12 +1502,16 @@ if (isset($_POST)) {
                         $RECEPCIONE->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
                         $RECEPCIONE->__SET('OBSERVACIONES_RECEPCION', $_REQUEST['OBSERVACION']);
                         if ($_REQUEST['TRECEPCIONE'] == "1") {
-                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
                             $TRECEPCIONE=2;
                         }
                         if ($_REQUEST['TRECEPCIONE'] == "2") {
-                            $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
+                            $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2']);
                             $TRECEPCIONE=3;
+                        }
+                        if ($_REQUEST['TRECEPCIONE'] == "3") {
+                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTOR']);
+                            $TRECEPCIONE=5;
                         }
                         $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                         $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
@@ -1506,6 +1581,9 @@ if (isset($_POST)) {
                 if ($_REQUEST['TRECEPCIONE'] == "2") {
                     $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                 }
+                if ($_REQUEST['TRECEPCIONE'] == "3") {
+                    $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                }
                 $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                 $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
                 $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
@@ -1535,6 +1613,10 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "2") {
                         $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                         $TRECEPCIONE=3;
+                    }
+                    if ($_REQUEST['TRECEPCIONE'] == "3") {
+                        $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $TRECEPCIONE=5;
                     }
                     $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                     $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
@@ -1575,6 +1657,10 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "2") {
                         $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                         $TRECEPCIONE=3;
+                    }
+                    if ($_REQUEST['TRECEPCIONE'] == "3") {
+                        $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                        $TRECEPCIONE=5;
                     }
                     $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                     $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
@@ -1664,6 +1750,9 @@ if (isset($_POST)) {
                     if ($_REQUEST['TRECEPCIONE'] == "2") {
                         $RECEPCIONMP->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                     }
+                    if ($_REQUEST['TRECEPCIONE'] == "3") {
+                        $RECEPCIONMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                    }
                     $RECEPCIONMP->__SET('ID_TRANSPORTE', $_REQUEST['TRANSPORTEE']);
                     $RECEPCIONMP->__SET('ID_CONDUCTOR', $_REQUEST['CONDUCTORE']);
                     $RECEPCIONMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
@@ -1705,6 +1794,10 @@ if (isset($_POST)) {
                         if ($_REQUEST['TRECEPCIONE'] == "2") {
                             $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                             $TRECEPCIONE=3;
+                        }
+                        if ($_REQUEST['TRECEPCIONE'] == "3") {
+                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $TRECEPCIONE=5;
                         }
                         $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                         $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);
@@ -1762,6 +1855,10 @@ if (isset($_POST)) {
                         if ($_REQUEST['TRECEPCIONE'] == "2") {
                             $RECEPCIONE->__SET('ID_PLANTA2', $_REQUEST['PLANTA2E']);
                             $TRECEPCIONE=3;
+                        }
+                        if ($_REQUEST['TRECEPCIONE'] == "3") {
+                            $RECEPCIONE->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
+                            $TRECEPCIONE=5;
                         }
                         $RECEPCIONE->__SET('TRECEPCION', $TRECEPCIONE);
                         $RECEPCIONE->__SET('ID_EMPRESA', $_REQUEST['EMPRESAE']);

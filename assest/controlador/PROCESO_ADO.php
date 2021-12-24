@@ -389,6 +389,35 @@ class PROCESO_ADO
     }
 
 
+    public function listarProcesoTemporadaCBX( $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,  
+                                                    IFNULL(KILOS_EXPORTACION_PROCESO,0) AS 'EXPORTACION'   ,                                                 
+                                                    IFNULL(KILOS_INDUSTRIAL_PROCESO,0) AS 'INDUSTRIAL'    ,                                                
+                                                    IFNULL(KILOS_INDUSTRIALSC_PROCESO,0) AS 'INDUSTRIALSC'    ,                                               
+                                                    IFNULL(KILOS_INDUSTRIALNC_PROCESO,0) AS 'INDUSTRIALNC'    ,                                                
+                                                    IFNULL(KILOS_NETO_PROCESO,0) AS 'NETO',                                        
+                                                    IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',
+                                                    DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y') AS 'FECHA', 
+                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
+                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                                FROM fruta_proceso                                                        
+                                                WHERE ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function listarProcesoEmpresaPlantaTemporadaCBX($EMPRESA, $PLANTA, $TEMPORADA)
     {
@@ -539,6 +568,33 @@ class PROCESO_ADO
         }
     }
 
+    public function obtenerTotalesTemporadaCBX2( $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT
+                                                 FORMAT(IFNULL(SUM(KILOS_EXPORTACION_PROCESO),0),2,'de_DE') AS 'EXPORTACION'   ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_INDUSTRIAL_PROCESO),0),2,'de_DE') AS 'INDUSTRIAL'   ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_NETO_PROCESO),0),2,'de_DE') AS 'NETO'                ,                                                 
+                                                 FORMAT(IFNULL(SUM(KILOS_NETO_ENTRADA),0),2,'de_DE') AS 'ENTRADA'                                                 
+                                             FROM fruta_proceso                                                                                         
+                                            WHERE 
+                                             ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                            
+                                             ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function obtenerTotalesEmpresaPlantaTemporadaCBX2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

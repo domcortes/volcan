@@ -1,20 +1,20 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/DICARGA_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/AERONAVE_ADO.php';
-include_once '../controlador/NAVE_ADO.php';
-include_once '../controlador/DFINAL_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/DICARGA_ADO.php';
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/AERONAVE_ADO.php';
+include_once '../../assest/controlador/NAVE_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
 
 
-include_once '../modelo/ICARGA.php';
+include_once '../../assest/modelo/ICARGA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -57,14 +57,9 @@ $ARRAYDFINAL = "";
 if ($EMPRESAS   && $TEMPORADAS) {
 
     $ARRAYICARGA = $ICARGA_ADO->listarIcargaEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYTOTALICARGA = $ICARGA_ADO->obtenerTotalesEmpresaTemporada($EMPRESAS,  $TEMPORADAS);
-    $TOTALENVASE = $ARRAYTOTALICARGA[0]['ENVASE'];
-    $TOTALNETO = $ARRAYTOTALICARGA[0]['NETO'];
-    $TOTALBRUTO = $ARRAYTOTALICARGA[0]['BRUTO'];
-    $TOTALUS = $ARRAYTOTALICARGA[0]['US'];
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 
@@ -84,7 +79,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -148,7 +143,7 @@ include_once "../config/datosUrLP.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuFruta.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -163,7 +158,7 @@ include_once "../config/datosUrLP.php";
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Logistica</li>
+                                            <li class="breadcrumb-item" aria-current="page">Exportación</li>
                                             <li class="breadcrumb-item" aria-current="page">Instructivo Carga</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Instructivo Carga </a>
                                             </li>
@@ -200,7 +195,7 @@ include_once "../config/datosUrLP.php";
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="modulo" class="table table-hover " style="width: 100%;">
+                                            <table id="icarga" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Número </th>
@@ -332,10 +327,10 @@ include_once "../config/datosUrLP.php";
                                                                                 <hr>     
                                                                                 <span href="#" class="dropdown-item">                         
                                                                                     <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instructivo Español" Onclick="abrirPestana('../documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instructivo Español" Onclick="abrirPestana('../../assest/documento/informeIcargaEspanol.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                             <i class="fa fa-file-pdf-o"></i> Instructivo Español
                                                                                         </button>    
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instruction English" Onclick="abrirPestana('../documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Instruction English" Onclick="abrirPestana('../../assest/documento/informeIcargaEnglish.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                                 <i class="fa fa-file-pdf-o"></i> Instruction English
                                                                                         </button>                                                                                 
                                                                                     </div>                                                                                   
@@ -345,17 +340,17 @@ include_once "../config/datosUrLP.php";
                                                                                         <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Report Invoice" Onclick="abrirPestana('../../assest/documento/informeIcargaInvoice.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                             <i class="fa fa-file-pdf-o"></i> Invoice
                                                                                         </button>    
-                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Informe Carga Real" Onclick="abrirPestana('../documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-danger  " id="defecto" name="informe" data-toggle="tooltip"  title="Informe Carga Real" Onclick="abrirPestana('../../assest/documento/informeICargaReal.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                                 <i class="fa fa-file-pdf-o"></i>  Carga Real
                                                                                         </button>                                                                                 
                                                                                     </div>                                                                                   
                                                                                 </span>                                                                               
                                                                                 <span href="#" class="dropdown-item">                         
                                                                                     <div class="btn-group btn-block col-12" role="group" aria-label="Acciones generales"> 
-                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Carga Real" Onclick="abrirPestana('../reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Carga Real" Onclick="abrirPestana('../../assest/reporte/reporteCargaRealcarga.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                             <i class="fa fa-file-excel-o"></i> Carga Real
                                                                                         </button>    
-                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Packing Lis" Onclick="abrirPestana('../reporte/reporteICargaPackingList.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                        <button type="button" class="btn  btn-success  " id="defecto" name="informe" data-toggle="tooltip"  title="Reporte Packing Lis" Onclick="abrirPestana('../../assest/reporte/reporteICargaPackingList.php?parametro=<?php echo $r['ID_ICARGA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                             <i class="fa fa-file-excel-o"></i>   Packing List
                                                                                         </button>                                                                                 
                                                                                     </div>                                                                                   
@@ -395,29 +390,26 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Kg. Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <div class="input-group-text">Total Neto</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Kg. Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -425,15 +417,14 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total US</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total US" id="TOTALUSV" name="TOTALUSV" value="<?php echo $TOTALUS; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALUSV" name="TOTALUSV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                     </section>
@@ -446,11 +437,11 @@ include_once "../config/datosUrLP.php";
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 
         <?php         
         if (isset($_REQUEST['CARGADO'])) {

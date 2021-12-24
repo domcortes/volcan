@@ -11,6 +11,9 @@ include_once '../../assest/controlador/TMANEJO_ADO.php';
 include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
 include_once '../../assest/controlador/DESPACHOMP_ADO.php';
 include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TTRATAMIENTO1_ADO.php';
+include_once '../../assest/controlador/TTRATAMIENTO2_ADO.php';
+
 
 
 include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
@@ -26,6 +29,8 @@ $ESPECIES_ADO =  new ESPECIES_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
 $DESPACHOMP_ADO =  new DESPACHOMP_ADO();
 $TMANEJO_ADO =  new TMANEJO_ADO();
+$TTRATAMIENTO1_ADO =  new TTRATAMIENTO1_ADO();
+$TTRATAMIENTO2_ADO =  new TTRATAMIENTO2_ADO();
 
 
 $EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
@@ -178,6 +183,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Cosecha </th>
                                                         <th>Estado </th>
+                                                        <th>Estado Calidad</th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
                                                         <th>CSG</th>
@@ -191,10 +197,13 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         <th>Número Recepción </th>
                                                         <th>Fecha Recepción </th>
                                                         <th>Tipo Recepción </th>
+                                                        <th>CSG/CSP Recepción</th>
                                                         <th>Origen Recepción </th>
                                                         <th>Número Guía Recepción </th>
                                                         <th>Fecha Guía Recepción
                                                         <th>Tipo Manejo</th>
+                                                        <th>Tipo Tratamiento 1 </th>
+                                                        <th>Tipo Tratamiento 2 </th>
                                                         <th>Gasificacion</th>
                                                         <th>Días</th>
                                                         <th>Ingreso</th>
@@ -239,6 +248,19 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         }
                                                         if ($r['ESTADO'] == "10") {
                                                             $ESTADO = "Rechazado";
+                                                        }                                                        
+                                                        if($r['COLOR']==1){
+                                                            $TRECHAZOCOLOR="badge badge-danger ";
+                                                            $COLOR="Rechazado";
+                                                        }else if($r['COLOR']==2){
+                                                            $TRECHAZOCOLOR="badge badge-warning ";
+                                                            $COLOR="Objetado";
+                                                        }else if($r['COLOR']==3){
+                                                            $TRECHAZOCOLOR="badge badge-Success ";
+                                                            $COLOR="Aprobado";
+                                                        }else{
+                                                            $TRECHAZOCOLOR="";
+                                                            $COLOR="Sin Datos";
                                                         }
                                                         $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                         if ($ARRAYRECEPCION) {
@@ -250,9 +272,11 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                                 $TIPORECEPCION = "Desde Productor";
                                                                 $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
                                                                 if ($ARRAYPRODUCTOR2) {
-                                                                    $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                                    $CSGCSPORIGEN=$ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'];
+                                                                    $ORIGEN =  $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
                                                                 } else {
                                                                     $ORIGEN = "Sin Datos";
+                                                                    $CSGCSPORIGEN="Sin Datos";
                                                                 }
                                                             }
                                                             if ($ARRAYRECEPCION[0]["TRECEPCION"] == 2) {
@@ -260,7 +284,20 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                                 $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYRECEPCION[0]['ID_PLANTA2']);
                                                                 if ($ARRAYPLANTA2) {
                                                                     $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                                    $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
                                                                 } else {
+                                                                    $ORIGEN = "Sin Datos";
+                                                                    $CSGCSPORIGEN="Sin Datos";
+                                                                }
+                                                            }
+                                                            if ($ARRAYRECEPCION[0]["TRECEPCION"] == "3") {
+                                                                $TIPORECEPCION = "Desde Productor BDH";
+                                                                $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+                                                                if ($ARRAYPRODUCTOR2) {
+                                                                    $CSGCSPORIGEN=$ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] ;
+                                                                    $ORIGEN =  $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $CSGCSPORIGEN = "Sin Datos";
                                                                     $ORIGEN = "Sin Datos";
                                                                 }
                                                             }
@@ -271,6 +308,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             $FECHAGUIARECEPCION = "Sin Datos";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
+                                                            $CSGCSPORIGEN = "Sin Datos";
                                                         }
                                                         $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                         if ($ARRAYVERPRODUCTORID) {
@@ -318,6 +356,19 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                         } else {
                                                             $GASIFICADO = "Sin Datos";
                                                         }
+                                                        
+                                                        $ARRAYTRATAMIENTO1=$TTRATAMIENTO1_ADO->verTtratamiento($r['ID_TTRATAMIENTO1']);
+                                                        if($ARRAYTRATAMIENTO1){
+                                                            $NOMBRETTRATAMIENTO1 = $ARRAYTRATAMIENTO1[0]["NOMBRE_TTRATAMIENTO"];
+                                                        }else{
+                                                            $NOMBRETTRATAMIENTO1="Sin Datos";
+                                                        }
+                                                        $ARRAYTRATAMIENTO2=$TTRATAMIENTO2_ADO->verTtratamiento($r['ID_TTRATAMIENTO2']);
+                                                        if($ARRAYTRATAMIENTO2){
+                                                            $NOMBRETTRATAMIENTO2 = $ARRAYTRATAMIENTO2[0]["NOMBRE_TTRATAMIENTO"];
+                                                        }else{
+                                                            $NOMBRETTRATAMIENTO2="Sin Datos";
+                                                        }
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                         if ($ARRAYEMPRESA) {
                                                             $NOMBREEMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
@@ -337,11 +388,20 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             $NOMBRETEMPORADA = "Sin Datos";
                                                         }
                                                         ?>
-                                                        <tr class="text-left">
-                                                            <td><?php echo $r['FOLIO_EXIMATERIAPRIMA']; ?> </td>
-                                                            <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
+                                                        <tr class="text-left">                                                    
+                                                             <td>
+                                                                <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                   <?php echo $r['FOLIO_EXIMATERIAPRIMA']; ?>
+                                                                </span>
+                                                            </td>                                                            
+                                                            <td>
+                                                                <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                   <?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?>
+                                                                </span>
+                                                            </td>
                                                             <td><?php echo $r['COSECHA']; ?></td>
                                                             <td><?php echo $ESTADO; ?></td>
+                                                            <td><?php echo $COLOR; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
@@ -355,10 +415,13 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             <td><?php echo $NUMERORECEPCION; ?></td>
                                                             <td><?php echo $FECHARECEPCION; ?></td>
                                                             <td><?php echo $TIPORECEPCION; ?></td>
+                                                            <td><?php echo $CSGCSPORIGEN; ?></td>
                                                             <td><?php echo $ORIGEN; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>      
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                            <td><?php echo $NOMBRETTRATAMIENTO1; ?></td>
+                                                            <td><?php echo $NOMBRETTRATAMIENTO2; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>

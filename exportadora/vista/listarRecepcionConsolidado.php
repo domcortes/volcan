@@ -298,8 +298,7 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                
+                                            <tbody>                                                
                                                 <?php foreach ($ARRAYRECEPCIONPT as $r) : ?>
                                                     <?php
                                                     if ($r['TRECEPCION'] == "1") {
@@ -475,7 +474,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>
-
                                                 <?php foreach ($ARRAYRECEPCIONIND as $r) : ?>
 
                                                     <?php
@@ -631,7 +629,15 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                         } else {
                                                             $ORIGEN = "Sin Datos";
                                                         }
-                                                    } else {
+                                                    }else if ($r['TRECEPCION'] == "3") {
+                                                        $TRECEPCION = "Desde Productor BDH";
+                                                        $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR2) {
+                                                            $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
+                                                    }  else {
                                                         $TRECEPCION = "Sin Datos";
                                                         $ORIGEN = "Sin Datos";
                                                     }

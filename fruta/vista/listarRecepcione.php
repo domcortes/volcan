@@ -241,6 +241,14 @@ include_once "../config/datosUrLP.php";
                                                         $TRECEPCION = "Inventario Inicial";                                                  
                                                         $NOMBREORIGEN = "Sin Datos";
                                                         
+                                                    } else if ($r['TRECEPCION'] == "5") {
+                                                        $TRECEPCION = "Desde Productor BDH";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $NOMBREORIGEN = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                        } else {
+                                                            $NOMBREORIGEN = "Sin Datos";
+                                                        }
                                                     } else {
                                                         $TRECEPCION = "Sin Datos";
                                                         $NOMBREORIGEN = "Sin Datos";

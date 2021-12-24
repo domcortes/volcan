@@ -1,35 +1,35 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/TREEMBALAJE_ADO.php';
-include_once '../controlador/COMPRADOR_ADO.php';
-include_once '../controlador/DFINAL_ADO.php';
-include_once '../controlador/TCOLOR_ADO.php';
-include_once '../controlador/TCATEGORIA_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/TREEMBALAJE_ADO.php';
+include_once '../../assest/controlador/COMPRADOR_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
+include_once '../../assest/controlador/TCOLOR_ADO.php';
+include_once '../../assest/controlador/TCATEGORIA_ADO.php';
 
  
 
 
-include_once '../controlador/RECEPCIONPT_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/REEMBALAJE_ADO.php';
-include_once '../controlador/DESPACHOPT_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/RECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
+include_once '../../assest/controlador/DESPACHOPT_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -106,7 +106,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -170,7 +170,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuFruta.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -222,7 +222,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="hexistencia" class="table table-hover table-bordered" style="width: 300%;">
+                                            <table id="hexistencia" class="table-hover table-bordered" style="width: 300%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
@@ -610,10 +610,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_EXIEXPORTACION']; ?> </td>
                                                                 <td>
-                                                                    <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
-                                                                    <!--
-                                                                    <a Onclick="abrirPestana('../documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $EMPRESAS; ?>');">                                                                        
-                                                                    </a>-->
+                                                                    <a Onclick="abrirPestana('../../assest/documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $r['ID_EMPRESA']; ?>&&parametro2=<?php echo $r['ID_PLANTA']; ?>&&tipo=3');">                                                                        
+                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>                                                                                                                                        
+                                                                    </a>
                                                                 </td>
                                                                 <td><?php echo $r['EMBALADO']; ?></td>
                                                                 <td><?php echo $ESTADO; ?></td>
@@ -732,8 +731,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-footer">
-                            </div>
                         </div>
                         <!-- /.box -->
                     </section>
@@ -743,11 +740,11 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
             </div>
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

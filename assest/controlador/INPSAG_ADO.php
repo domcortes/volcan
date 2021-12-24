@@ -178,6 +178,8 @@ class INPSAG_ADO
         }
     }
 
+
+
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
     public function buscarNombreInpsag($NOMBRE)
     {
@@ -462,20 +464,20 @@ class INPSAG_ADO
                                                         FROM fruta_exiexportacion existencia, estandar_eexportacion estandar
                                                         WHERE existencia.ID_INPSAG = inpsag.ID_INPSAG
                                                         AND existencia.ID_ESTANDAR = estandar.ID_ESTANDAR
-                                                        AND estandar.PESO_ENVASE_ESTANDAR BETWEEN  0 AND 5
+                                                        AND estandar.PESO_NETO_ESTANDAR BETWEEN  0 AND 5
                                                     ) AS 'A',
                                                     (
                                                         SELECT FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') 
                                                         FROM fruta_exiexportacion existencia, estandar_eexportacion estandar
                                                         WHERE existencia.ID_INPSAG = inpsag.ID_INPSAG
                                                         AND existencia.ID_ESTANDAR = estandar.ID_ESTANDAR
-                                                        AND estandar.PESO_ENVASE_ESTANDAR BETWEEN  5 AND 10
+                                                        AND estandar.PESO_NETO_ESTANDAR BETWEEN  5 AND 10
                                                     ) AS 'B',	(
                                                         SELECT FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE')  
                                                         FROM fruta_exiexportacion existencia, estandar_eexportacion estandar
                                                         WHERE existencia.ID_INPSAG = inpsag.ID_INPSAG
                                                         AND existencia.ID_ESTANDAR = estandar.ID_ESTANDAR
-                                                        AND estandar.PESO_ENVASE_ESTANDAR >  10 
+                                                        AND estandar.PESO_NETO_ESTANDAR >  10 
                                                     ) AS 'C'
                                                 FROM fruta_inpsag inpsag
 
@@ -512,10 +514,6 @@ class INPSAG_ADO
                                                             FROM fruta_especies especies
                                                             WHERE especies.ID_ESPECIES = variedad.ID_ESPECIES      
                                                             ) AS 'ESPECIES',  
-                                                            (SELECT especies.CODIGO_SAG_ESPECIES
-                                                            FROM fruta_especies especies
-                                                            WHERE especies.ID_ESPECIES = variedad.ID_ESPECIES      
-                                                            ) AS 'CODIGO',  
                                                             FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'CANTIDAD'
                                                     FROM fruta_inpsag inpsag, fruta_exiexportacion existencia, fruta_vespecies variedad
                                                     WHERE 

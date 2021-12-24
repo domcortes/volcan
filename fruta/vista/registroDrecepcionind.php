@@ -1,24 +1,24 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 
-include_once '../controlador/EINDUSTRIAL_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/RECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
 
-include_once '../controlador/DRECEPCIONIND_ADO.php';
-include_once '../controlador/DPEXPORTACION_ADO.php';
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/DPEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
 
-include_once '../modelo/EXIINDUSTRIAL.php';
-include_once '../modelo/DRECEPCIONIND.php';
+include_once '../../assest/modelo/EXIINDUSTRIAL.php';
+include_once '../../assest/modelo/DRECEPCIONIND.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -108,7 +108,7 @@ $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 $ARRAYFECHAACTUAL = $DRECEPCIONIND_ADO->obtenerFecha();
 $FECHAEMBALADODINDUSTRIAL = $ARRAYFECHAACTUAL[0]['FECHA'];
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 
@@ -352,7 +352,7 @@ if ($_POST) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
         <script type="text/javascript">
 
@@ -586,7 +586,7 @@ if ($_POST) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -828,11 +828,11 @@ if ($_POST) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php 
             if (isset($_REQUEST['CREAR'])){
                 //OPERACION DE REGISTRO DE FILA
