@@ -59,44 +59,46 @@ if (isset($_REQUEST['parametro']) ) {
     $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($IDOP);
-if($ARRAYRECEPCION){
-
-	$ARRAYDRECEPCION = $DRECEPCIONMP_ADO->buscarPorRecepcion2($IDOP); 
-
-	$NUMERORECEPCION=$ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
-	$FECHARECEPCION=$ARRAYRECEPCION[0]['FECHA'];
-	$HORARECEPCION=$ARRAYRECEPCION[0]['HORA_RECEPCION'];
-	$NUMEROGUIA=$ARRAYRECEPCION[0]['NUMERO_GUIA_RECEPCION'];
-	$FECHAGUIA=$ARRAYRECEPCION[0]['GUIA'];
-	$TOTALGUIA=$ARRAYRECEPCION[0]['TOTAL_KILOS_GUIA_RECEPCION'];
-	
-	$NOMBRETIPO = $ARRAYRECEPCION[0]['TRECEPCION'];
-	if ($NOMBRETIPO == "1") {
-	  $NOMBRETIPO = "Desde Productor";
-	}
-	if ($NOMBRETIPO == "2") {
-	  $NOMBRETIPO = "Planta Externa";
-	}
-	
-	$PRODUCTOR=$ARRAYRECEPCION[0]['ID_PRODUCTOR'];
-	$PRODUCTOR = $ARRAYRECEPCION[0]['ID_PRODUCTOR'];
-	$ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
-	if ($ARRAYPRODUCTOR) {
-	  $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-	  $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-	}
+$ARRAYDRECEPCION = $DRECEPCIONMP_ADO->verDrecepcion($IDOP); 
+if($ARRAYDRECEPCION){
+	$ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($ARRAYDRECEPCION[0]["ID_RECEPCION"]);
+	if($ARRAYRECEPCION){
 	
 	
-	$ARRAYFOLIO=$FOLIO_ADO->verFolio($FOLIO);
-	//$ALIASFOLIO=$ARRAYDRECEPCION[0]['ALIAS_FOLIO_DRECEPCION'];
-	$ARRAYEMPRESA=$EMPRESA_ADO->verEmpresa($ARRAYRECEPCION[0]['ID_EMPRESA']);
-	$EMPRESA=$ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
-	$EMPRESAURL=$ARRAYEMPRESA[0]['LOGO_EMPRESA'];
-	
-	if($EMPRESAURL==""){
-		$EMPRESAURL="img/empresa/no_disponible.png";
-	}
+		$NUMERORECEPCION=$ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
+		$FECHARECEPCION=$ARRAYRECEPCION[0]['FECHA'];
+		$HORARECEPCION=$ARRAYRECEPCION[0]['HORA_RECEPCION'];
+		$NUMEROGUIA=$ARRAYRECEPCION[0]['NUMERO_GUIA_RECEPCION'];
+		$FECHAGUIA=$ARRAYRECEPCION[0]['GUIA'];
+		$TOTALGUIA=$ARRAYRECEPCION[0]['TOTAL_KILOS_GUIA_RECEPCION'];
+		
+		$NOMBRETIPO = $ARRAYRECEPCION[0]['TRECEPCION'];
+		if ($NOMBRETIPO == "1") {
+		  $NOMBRETIPO = "Desde Productor";
+		}
+		if ($NOMBRETIPO == "2") {
+		  $NOMBRETIPO = "Planta Externa";
+		}
+		
+		$PRODUCTOR=$ARRAYRECEPCION[0]['ID_PRODUCTOR'];
+		$PRODUCTOR = $ARRAYRECEPCION[0]['ID_PRODUCTOR'];
+		$ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($PRODUCTOR);
+		if ($ARRAYPRODUCTOR) {
+		  $NOMBREPRODUCTOR = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+		  $CSGPRODUCTOR = $ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+		}
+		
+		
+		$ARRAYFOLIO=$FOLIO_ADO->verFolio($FOLIO);
+		//$ALIASFOLIO=$ARRAYDRECEPCION[0]['ALIAS_FOLIO_DRECEPCION'];
+		$ARRAYEMPRESA=$EMPRESA_ADO->verEmpresa($ARRAYRECEPCION[0]['ID_EMPRESA']);
+		$EMPRESA=$ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
+		$EMPRESAURL=$ARRAYEMPRESA[0]['LOGO_EMPRESA'];
+		
+		if($EMPRESAURL==""){
+			$EMPRESAURL="img/empresa/no_disponible.png";
+		}
+	}	
 }
 
 
@@ -304,7 +306,7 @@ foreach ($ARRAYDRECEPCION as $s) :
     <div class="contenido" style="height:250px!important;">
 		<div class="titulo" style="text-align: center; font-size: 14; ">
              <b > 
-				 <img src="../../assest/img/logo.png" width="100px" height="30px"/>
+				 <img src="../../assest//img/logo.png" width="100px" height="30px"/>
 			</b>
              <br>
              <b> '.$NOMBRETIPO.'</b>	
@@ -496,8 +498,8 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 
-$stylesheet = file_get_contents('../../assest/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
+$stylesheet = file_get_contents('../../assest//css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest//css/reset.css'); // carga archivo css
 $PDF->WriteHTML($stylesheet, 1); 
 $PDF->WriteHTML($stylesheet2, 1); 
 $PDF->WriteHTML($html);

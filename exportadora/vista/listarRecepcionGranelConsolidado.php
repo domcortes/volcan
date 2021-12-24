@@ -251,8 +251,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                     <th>Variedad</th>
                                                     <th>Cantidad Envase</th>
                                                     <th>Kilo Neto </th>
-                                                    <th>% Deshidratación </th>
-                                                    <th>Kilo Con Deshidratación </th>
                                                     <th>Kilo Bruto </th>
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
@@ -390,8 +388,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
@@ -539,8 +535,6 @@ if ($EMPRESAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBREVARIEDAD; ?></td>
                                                             <td><?php echo $s['ENVASE']; ?></td>
                                                             <td><?php echo $s['NETO']; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
                                                             <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
