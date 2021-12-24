@@ -501,10 +501,10 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(14,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(15,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(16,{page:'current'}).data().sum()).toFixed(2));
-            var totalusconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(17,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(14,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(15,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(16,{page:'current'}).data().sum()).toFixed(2));
+            var totalusconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(17,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -782,10 +782,10 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(6,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(7,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(2));
-            var totalusconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(6,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(7,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(2));
+            var totalusconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -1032,23 +1032,23 @@ $(function () {
                     
     });
     //existencia
-    var tableExistenciapt = $('#existenciamp').DataTable({
+    var tableExistenciamp = $('#existenciamp').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
         "createdRow":function(row, data,index){
             //pintar una celda
-            if(data[10]<=0){
-                $('td',row).css({
-                    'background-color': '#ff5252',
-                    'color': 'white',
-                });
-            }
             if(data[11]<=0){
                 $('td',row).css({
                     'background-color': '#ff5252',
                     'color': 'white',
                 });
             }
-            if(data[13]<=0){
+            if(data[12]<=0){
+                $('td',row).css({
+                    'background-color': '#ff5252',
+                    'color': 'white',
+                });
+            }
+            if(data[14]<=0){
                 $('td',row).css({
                     'background-color': '#ff5252',
                     'color': 'white',
@@ -1058,9 +1058,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(14,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -1318,7 +1318,7 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));            
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));            
             //console.log("neto: "+  totalnetoconsolidado);
             $("#TOTALNETOV").text(totalnetoconsolidado);
         },
@@ -1562,19 +1562,19 @@ $(function () {
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
         "createdRow":function(row, data,index){
             //pintar una celda
-            if(data[11]<=0){
-                $('td',row).css({
-                    'background-color': '#ff5252',
-                    'color': 'white',
-                });
-            }
             if(data[12]<=0){
                 $('td',row).css({
                     'background-color': '#ff5252',
                     'color': 'white',
                 });
             }
-            if(data[15]<=0){
+            if(data[14]<=0){
+                $('td',row).css({
+                    'background-color': '#ff5252',
+                    'color': 'white',
+                });
+            }
+            if(data[17]<=0){
                 $('td',row).css({
                     'background-color': '#ff5252',
                     'color': 'white',
@@ -1584,9 +1584,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(15,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(14,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(17,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -1850,8 +1850,8 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));
             console.log("envase: "+  totalenvaseconsolidado);
             console.log("neto: "+  totalnetoconsolidado);
             $("#TOTALENVASEV").text(totalenvaseconsolidado);
@@ -2610,9 +2610,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -2882,9 +2882,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -3155,9 +3155,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -3427,9 +3427,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -3699,9 +3699,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(12,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -3973,9 +3973,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(28,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(29,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(32,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(28,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(29,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(32,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -4245,9 +4245,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(14,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(14,{page:'current'}).data().sum()).toFixed(2));
             console.log("envase: "+  totalenvaseconsolidado);
             console.log("neto: "+  totalnetoconsolidado);
             console.log("bruto: "+  totalbrutoconsolidado);
@@ -4517,9 +4517,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(27,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(28,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(31,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(27,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(28,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(31,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -4790,9 +4790,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -5050,7 +5050,7 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));            
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));            
             //console.log("neto: "+  totalnetoconsolidado);
             $("#TOTALNETOV").text(totalnetoconsolidado);
         },
@@ -5316,9 +5316,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
@@ -5588,9 +5588,9 @@ $(function () {
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
-            var totalenvaseconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(27,{page:'current'}).data().sum()).toFixed(0));
-            var totalnetoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(28,{page:'current'}).data().sum()).toFixed(2));
-            var totalbrutoconsolidado = new Intl.NumberFormat().format(parseFloat(api.column(31,{page:'current'}).data().sum()).toFixed(2));
+            var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(27,{page:'current'}).data().sum()).toFixed(0));
+            var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(28,{page:'current'}).data().sum()).toFixed(2));
+            var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(31,{page:'current'}).data().sum()).toFixed(2));
             //console.log("envase: "+  totalenvaseconsolidado);
             //console.log("neto: "+  totalnetoconsolidado);
             //console.log("bruto: "+  totalbrutoconsolidado);
