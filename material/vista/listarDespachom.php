@@ -69,10 +69,7 @@ $ARRAYMGUIAMP = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
-    $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
+    $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);   
 }
 
 
@@ -458,8 +455,7 @@ include_once "../../assest/config/datosUrLP.php";
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            </div>                            
                             <div class="box-footer">
                                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
                                     <div class="form-row align-items-center" role="group" aria-label="Datos">

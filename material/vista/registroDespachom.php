@@ -1360,9 +1360,7 @@ if (isset($_POST)) {
                 $DESPACHOM->__SET('ID_USUARIOM', $IDUSUARIOS);
                 $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $DESPACHOM_ADO->actualizarDespachom($DESPACHOM);
-
-                
+                $DESPACHOM_ADO->actualizarDespachom($DESPACHOM);                
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "crear";
