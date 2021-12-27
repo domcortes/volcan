@@ -83,7 +83,7 @@ if (isset($_REQUEST['parametro']) ) {
     $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYDINDUSTRIAL=$DRECEPCIONIND_ADO->verDrecepcion($IDOP);
+$ARRAYDINDUSTRIAL=$DRECEPCIONIND_ADO->verDrecepcion2($IDOP);
 $ARRAYDINDUSTRIALTOTALES = $DRECEPCIONIND_ADO->obtenerTotalesPorId2($IDOP);
 
 if($ARRAYDINDUSTRIAL){
