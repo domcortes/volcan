@@ -1,30 +1,30 @@
 <?php
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/FOLIOM_ADO.php';
 
 
 
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/DOCOMPRA_ADO.php';
-include_once '../controlador/RECEPCIONM_ADO.php';
-include_once '../controlador/DRECEPCIONM_ADO.php';
-include_once '../controlador/INVENTARIOM_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/DOCOMPRA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONM_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONM_ADO.php';
+include_once '../../assest/controlador/INVENTARIOM_ADO.php';
 
 
-include_once '../modelo/DOCOMPRA.php';
-include_once '../modelo/INVENTARIOM.php';
-include_once '../modelo/DRECEPCIONM.php';
+include_once '../../assest/modelo/DOCOMPRA.php';
+include_once '../../assest/modelo/INVENTARIOM.php';
+include_once '../../assest/modelo/DRECEPCIONM.php';
 
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
-$FOLIO_ADO =  new FOLIO_ADO();
+$FOLIO_ADO =  new FOLIOM_ADO();
 
 $OCOMPRA_ADO =  new OCOMPRA_ADO();
 $DOCOMPRA_ADO =  new DOCOMPRA_ADO();
@@ -66,60 +66,8 @@ $MENSAJE = "";
 
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
-//include_once "../config/validarDatosUrlD.php";
+//include_once "../../assest/config/validarDatosUrlD.php";
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-
-if (isset($_REQUEST['AGREGAR'])) {
-
-    $EMPRESA = $_REQUEST['EMPRESA'];
-    $PLANTA = $_REQUEST['PLANTA'];
-    $TEMPORADA = $_REQUEST['TEMPORADA'];
-    $IDP = $_REQUEST['IDP'];
-
-    if (isset($_REQUEST['SELECIONARDOCOMPRA'])) {
-        $SINO = "0";
-        $SELECIONARDOCOMPRA = $_REQUEST['SELECIONARDOCOMPRA'];
-        $SELECIONARDOCOMPRAID = $_REQUEST['SELECIONARDOCOMPRAID'];
-    } else {
-        $SINO = "1";
-        $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
-    }
-    if ($SINO == "0") {
-
-        foreach ($SELECIONARDOCOMPRA as $r) :
-            $IDDOCOMPRA = $SELECIONARDOCOMPRAID[$r];
-            $ARRAYDOCOMPRA = $DOCOMPRA_ADO->verDocompra($IDDOCOMPRA);
-
-            foreach ($ARRAYDOCOMPRA as $s) :
-
-                $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTMateriales($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-                $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-
-
-                $DRECEPCIONM->__SET('CANTIDAD_DRECEPCION', 0);
-                $DRECEPCIONM->__SET('VALOR_UNITARIO_DRECEPCION', $s['VALOR_UNITARIO_DOCOMPRA']);
-                $DRECEPCIONM->__SET('DESCRIPCION_DRECEPCION', $s['DESCRIPCION_DOCOMPRA']);
-                $DRECEPCIONM->__SET('ID_PRODUCTO', $s['ID_PRODUCTO']);
-                $DRECEPCIONM->__SET('ID_TUMEDIDA', $s['ID_TUMEDIDA']);
-                $DRECEPCIONM->__SET('ID_FOLIO', $FOLIO);
-                $DRECEPCIONM->__SET('ID_RECEPCION', $IDP);
-                $DRECEPCIONM->__SET('ID_DOCOMPRA', $s['ID_DOCOMPRA']);
-                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-                $DRECEPCIONM_ADO->agregarDrecepcionDocompra($DRECEPCIONM);
-
-
-            endforeach;
-
-
-        endforeach;
-
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-    }
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
@@ -145,7 +93,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -164,7 +112,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuMaterial.php";
             ?>
 
             <div class="content-wrapper">
@@ -179,8 +127,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Materiales</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepción Materiales</li>
                                             <li class="breadcrumb-item active" aria-current="page"> Selección Detalle OC </li>
                                         </ol>
                                     </nav>
@@ -209,31 +157,22 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box-header with-border bg-success">                                   
+                                <h4 class="box-title">Seleccion Detalle OC</h4>                                        
                             </div>
-
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                                <div class="box-body ">
-
+                                <div class="box-body ">                                 
+                                    <label id="val_validato" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONM" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONM" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONM" id="URLP" name="URLP" value="<?php echo $URLP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                             <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                             <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
-                                        </div>
-                                    </div>
-
-                                    <label id="val_validato" class="validacion"> <?php echo $MENSAJE; ?> </label>
-                                    <div class="row">
-                                        <div class="col-sm-12">
                                             <div class="table-responsive">
-                                                <table id="selecionExistencia" class="table table-hover " style="width: 100%;">
+                                                <table id="selecionExistencia" class="table-hover " style="width: 100%;">
                                                     <thead>
                                                         <tr>
                                                             <th>Número</th>
@@ -312,38 +251,103 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                         </div>
                                     </div>
                                     <!-- /.row -->
-
-
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        <button type="button" class="btn btn-rounded btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                            <i class="ti-back-left "></i> Volver
-                                        </button>
-                                        <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                            <i class="ti-save-alt"></i> AGREGAR
-                                        </button>
-
+                                        <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                            <button type="button"  class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
+                                            </button>
+                                            <button type="submit"  class="btn btn-primary " data-toggle="tooltip" title="Agregar"  name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> AGREGAR
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-
-
                         <!--.row -->
                     </section>
-
                 </div>
             </div>
 
 
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";
-                ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+
+        <?php         
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['AGREGAR'])) {
+
+                $EMPRESA = $_REQUEST['EMPRESA'];
+                $PLANTA = $_REQUEST['PLANTA'];
+                $TEMPORADA = $_REQUEST['TEMPORADA'];
+                $IDP = $_REQUEST['IDP'];
+
+                if (isset($_REQUEST['SELECIONARDOCOMPRA'])) {
+                    $SINO = "0";
+                    $SELECIONARDOCOMPRA = $_REQUEST['SELECIONARDOCOMPRA'];
+                    $SELECIONARDOCOMPRAID = $_REQUEST['SELECIONARDOCOMPRAID'];
+                } else {
+                    $SINO = "1";
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"Se debe selecionar al menos una registro.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroSelecionarDocompraM.php?op";                            
+                        })
+                    </script>';
+                }
+                if ($SINO == "0") {
+
+                    foreach ($SELECIONARDOCOMPRA as $r) :
+                        $IDDOCOMPRA = $SELECIONARDOCOMPRAID[$r];
+                        $ARRAYDOCOMPRA = $DOCOMPRA_ADO->verDocompra($IDDOCOMPRA);
+
+                        foreach ($ARRAYDOCOMPRA as $s) :
+                            $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTMateriales($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                            $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+                            $DRECEPCIONM->__SET('CANTIDAD_DRECEPCION', 0);
+                            $DRECEPCIONM->__SET('VALOR_UNITARIO_DRECEPCION', $s['VALOR_UNITARIO_DOCOMPRA']);
+                            $DRECEPCIONM->__SET('DESCRIPCION_DRECEPCION', $s['DESCRIPCION_DOCOMPRA']);
+                            $DRECEPCIONM->__SET('ID_PRODUCTO', $s['ID_PRODUCTO']);
+                            $DRECEPCIONM->__SET('ID_TUMEDIDA', $s['ID_TUMEDIDA']);
+                            $DRECEPCIONM->__SET('ID_FOLIO', $FOLIO);
+                            $DRECEPCIONM->__SET('ID_RECEPCION', $IDP);
+                            $DRECEPCIONM->__SET('ID_DOCOMPRA', $s['ID_DOCOMPRA']);
+                            //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                            $DRECEPCIONM_ADO->agregarDrecepcionDocompra($DRECEPCIONM);
+                        endforeach;
+                    endforeach;
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Accion realizada",
+                            text:"Se agregado los registro a la recepción.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Volver a recepción",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href="' . $_REQUEST['URLP'] . '.php?op";                        
+                        })
+                    </script>';
+                }
+            }
+        
+        ?>
 </body>
 
 </html>

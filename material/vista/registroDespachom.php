@@ -1,26 +1,26 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TDOCUMENTO_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/RESPONSABLE_ADO.php';
-include_once '../controlador/BODEGA_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
+include_once '../../assest/controlador/TDOCUMENTO_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/RESPONSABLE_ADO.php';
+include_once '../../assest/controlador/BODEGA_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/PROVEEDOR_ADO.php';
+include_once '../../assest/controlador/CLIENTE_ADO.php';
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 
-include_once '../controlador/INVENTARIOM_ADO.php';
-include_once '../controlador/DESPACHOM_ADO.php';
+include_once '../../assest/controlador/INVENTARIOM_ADO.php';
+include_once '../../assest/controlador/DESPACHOM_ADO.php';
 
-include_once "../modelo/INVENTARIOM.php";
-include_once "../modelo/DESPACHOM.php";
+include_once "../../assest/modelo/INVENTARIOM.php";
+include_once "../../assest/modelo/DESPACHOM.php";
 
 
 //INCIALIZAR LAS VARIBLES
@@ -124,8 +124,8 @@ $ARRAYCLIENTE = $CLIENTE_ADO->listarClientePorEmpresaCBX($EMPRESAS);
 $ARRAYFECHAACTUAL = $DESPACHOM_ADO->obtenerFecha();
 $FECHADESPACHO = $ARRAYFECHAACTUAL[0]['FECHA'];
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -425,7 +425,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -696,7 +696,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php  include_once "../config/menu.php";
+            <?php  include_once "../../assest/config/menuMaterial.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -820,7 +820,7 @@ if (isset($_POST)) {
                                             <div class="form-group">
                                                 <label>Número Documento </label>
                                                 <input type="hidden" class="form-control" placeholder="Numero Documento" id="NUMERODOCUMENTOE" name="NUMERODOCUMENTOE" value="<?php echo $NUMERODOCUMENTO; ?>" />
-                                                <input type="text" class="form-control" placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> />
+                                                <input type="text" class="form-control" placeholder="Número Documento" id="NUMERODOCUMENTO" name="NUMERODOCUMENTO" value="<?php echo $NUMERODOCUMENTO; ?>" <?php echo $DISABLED2; ?>  />
                                                 <label id="val_numerodocumento" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -1107,7 +1107,7 @@ if (isset($_POST)) {
                                         </div>
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoM.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeDespachoM.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
                                             <?php endif ?>
@@ -1152,7 +1152,7 @@ if (isset($_POST)) {
                                     <div class="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="table-responsive">
-                                                <table id="detalle" class="table table-hover " style="width: 100%;">
+                                                <table id="detalle" class="table-hover " style="width: 100%;">
                                                     <thead>
                                                         <tr class="text-left">
                                                             <th> N° Folio </th>
@@ -1209,7 +1209,7 @@ if (isset($_POST)) {
                                                                             <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
                                                                                     <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia" 
                                                                                           <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
-                                                                                        <i class="ti-close"></i> Quitar
+                                                                                        <i class="ti-close"></i><br> Quitar
                                                                                     </button>
                                                                                 </div>
                                                                         </form>
@@ -1239,11 +1239,11 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 
         <?php         
             //OPERACIONES
@@ -1324,7 +1324,7 @@ if (isset($_POST)) {
             if (isset($_REQUEST['GUARDAR'])) {
                 $DESPACHOM->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
                 $DESPACHOM->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                $DESPACHOM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTOE']);
+                $DESPACHOM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTO']);
                 $DESPACHOM->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                 $DESPACHOM->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                 $DESPACHOM->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);
@@ -1421,7 +1421,7 @@ if (isset($_POST)) {
                 if ($SINO == "0") {
                     $DESPACHOM->__SET('CANTIDAD_DESPACHO', $_REQUEST['TOTALCANTIDAD']);
                     $DESPACHOM->__SET('FECHA_DESPACHO', $_REQUEST['FECHADESPACHO']);
-                    $DESPACHOM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTOE']);
+                    $DESPACHOM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMERODOCUMENTO']);
                     $DESPACHOM->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                     $DESPACHOM->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                     $DESPACHOM->__SET('TDESPACHO', $_REQUEST['TDESPACHOE']);

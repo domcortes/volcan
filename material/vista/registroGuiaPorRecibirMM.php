@@ -1,16 +1,16 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/INVENTARIOM_ADO.php';
-include_once '../controlador/DESPACHOM_ADO.php';
-include_once '../controlador/MGUIAM_ADO.php';
+include_once '../../assest/controlador/INVENTARIOM_ADO.php';
+include_once '../../assest/controlador/DESPACHOM_ADO.php';
+include_once '../../assest/controlador/MGUIAM_ADO.php';
 
 
-include_once '../modelo/INVENTARIOM.php';
-include_once '../modelo/MGUIAM.php';
-include_once '../modelo/DESPACHOM.php';
+include_once '../../assest/modelo/INVENTARIOM.php';
+include_once '../../assest/modelo/MGUIAM.php';
+include_once '../../assest/modelo/DESPACHOM.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -47,51 +47,6 @@ $ARRAYOBTENERNUMERO = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-
-    $ARRAYOBTENERNUMERO = $MGUIAM_ADO->obtenerNumero($_REQUEST['IDP'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTAORIGEN'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYOBTENERNUMERO[0]["NUMERO"] + 1;
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-    $MGUIAM->__SET('NUMERO_MGUIA', $NUMERO);
-    $MGUIAM->__SET('NUMERO_DESPACHO', $_REQUEST['NUMERODESPACHO']);
-    $MGUIAM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIA']);
-    $MGUIAM->__SET('MOTIVO_MGUIA', $_REQUEST['MOTIVO']);
-    $MGUIAM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-    $MGUIAM->__SET('ID_PLANTA2', $_REQUEST['PLANTAORIGEN']);
-    $MGUIAM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $MGUIAM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $MGUIAM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $MGUIAM->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $MGUIAM->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $MGUIAM_ADO->agregarMguia($MGUIAM);
-
-    $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DESPACHOM_ADO->abierto($DESPACHOM);
-
-    $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DESPACHOM_ADO->Rechazado($DESPACHOM);
-
-
-    $ARRAYEXISENCIADESPACHOMP = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
-    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
-
-        $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $INVENTARIOM_ADO->endespacho($INVENTARIOM);
-
-    endforeach;
-
-    //REDIRECCIONAR A PAGINA registroAerolinia.php
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-
 
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
 
@@ -110,7 +65,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
         $PLANTAORIGEN = "" . $r['ID_PLANTA'];
     endforeach;
 }
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 ?>
@@ -126,7 +81,7 @@ include_once "../config/validarDatosUrlD.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -202,7 +157,7 @@ include_once "../config/validarDatosUrlD.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; 
+            <?php include_once "../../assest/config/menuMaterial.php"; 
             ?>
 
             <div class="content-wrapper">
@@ -217,7 +172,7 @@ include_once "../config/validarDatosUrlD.php";
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                            <li class="breadcrumb-item" aria-current="page">Materiales</li>
                                             <li class="breadcrumb-item" aria-current="page">Guía Por Recibir</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Registro Motivo Guía</a>
                                             </li>
@@ -332,12 +287,12 @@ include_once "../config/validarDatosUrlD.php";
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                            <i class="ti-back-left "></i>
+                                    <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                        <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                            <i class="ti-back-left "></i> Volver
                                         </button>
-                                        <button type="submit" class="btn btn-rounded btn-danger" data-toggle="tooltip" title="Rechazar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                            <i class="ti-save-alt"></i>
+                                        <button type="submit" class="btn  btn-danger" data-toggle="tooltip" title="Rechazar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                            <i class="ti-save-alt"></i> Gurdar
                                         </button>
                                     </div>
                                 </div>
@@ -348,11 +303,72 @@ include_once "../config/validarDatosUrlD.php";
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+        
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+
+                $ARRAYOBTENERNUMERO = $MGUIAM_ADO->obtenerNumero($_REQUEST['IDP'], $_REQUEST['EMPRESA'], $_REQUEST['PLANTAORIGEN'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYOBTENERNUMERO[0]["NUMERO"] + 1;
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+                $MGUIAM->__SET('NUMERO_MGUIA', $NUMERO);
+                $MGUIAM->__SET('NUMERO_DESPACHO', $_REQUEST['NUMERODESPACHO']);
+                $MGUIAM->__SET('NUMERO_DOCUMENTO', $_REQUEST['NUMEROGUIA']);
+                $MGUIAM->__SET('MOTIVO_MGUIA', $_REQUEST['MOTIVO']);
+                $MGUIAM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                $MGUIAM->__SET('ID_PLANTA2', $_REQUEST['PLANTAORIGEN']);
+                $MGUIAM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $MGUIAM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $MGUIAM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $MGUIAM->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $MGUIAM->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $MGUIAM_ADO->agregarMguia($MGUIAM);
+
+                $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $DESPACHOM_ADO->abierto($DESPACHOM);
+
+                $DESPACHOM->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $DESPACHOM_ADO->Rechazado($DESPACHOM);
+
+
+                $ARRAYEXISENCIADESPACHOMP = $INVENTARIOM_ADO->buscarPorDespacho($_REQUEST['IDP']);
+                foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+
+                    $INVENTARIOM->__SET('ID_INVENTARIO', $r['ID_INVENTARIO']);
+                    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                    $INVENTARIOM_ADO->endespacho($INVENTARIOM);
+
+                endforeach;
+
+                //REDIRECCIONAR A PAGINA registroAerolinia.php
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Guia Rechazada",
+                        text:"el motivo de rechazo se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "'.$_REQUEST['URLO'].'.php";                            
+                    })
+                </script>';
+
+            }
+
+
+        ?>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 
 
@@ -15,7 +15,7 @@ include_once "../config/validarUsuario.php";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-include_once "../config/ValidardatosUrl.php";
+include_once "../../assest/config/ValidardatosUrl.php";
 
 ?>
 
@@ -30,7 +30,7 @@ include_once "../config/ValidardatosUrl.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -82,7 +82,7 @@ include_once "../config/ValidardatosUrl.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php";
+        <?php include_once "../../assest/config/menuMaterial.php";
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -127,9 +127,9 @@ include_once "../config/ValidardatosUrl.php";
             </div>
         </div>
         <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-            <?php include_once "../config/footer.php"; ?>
-            <?php include_once "../config/menuExtra.php"; ?>
+            <?php include_once "../../assest/config/footer.php"; ?>
+            <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 </html>

@@ -478,7 +478,9 @@ class DRECEPCIONM_ADO {
     public function listarDrecepcionPorRecepcionCBX($IDRECEPCION){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * 
+            $datos=$this->conexion->prepare("SELECT *, 
+                                                IFNULL(`CANTIDAD_DRECEPCION`,0) AS 'CANTIDAD', 
+                                                IFNULL(`VALOR_UNITARIO_DRECEPCION`,0) AS 'VALOR_UNITARIO' 
                                             FROM `material_drecepcionm`
                                                 WHERE ESTADO_REGISTRO = 1 
                                                 AND ID_RECEPCION = '".$IDRECEPCION."'  ;

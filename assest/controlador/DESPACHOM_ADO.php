@@ -543,7 +543,8 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -569,7 +570,8 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0) AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -594,7 +596,8 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 FORMAT(IFNULL(CANTIDAD_DESPACHO,0),0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -620,7 +623,9 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1 
+                                        AND ESTADO_DESPACHO = 4
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -646,7 +651,9 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ESTADO_DESPACHO = 4
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -671,7 +678,9 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 FORMAT(IFNULL(CANTIDAD_DESPACHO,0),0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ESTADO_DESPACHO = 4
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -697,7 +706,8 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE   TDESPACHO = 2
+                                        WHERE   ESTADO_REGISTRO = 1 
+                                                AND TDESPACHO = 2
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'
@@ -727,7 +737,8 @@ class DESPACHOM_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 FORMAT(IFNULL(CANTIDAD_DESPACHO,0),0,'de_DE')  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
-                                        WHERE   TDESPACHO = 2
+                                        WHERE   ESTADO_REGISTRO = 1 
+                                                AND TDESPACHO = 2
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'

@@ -1,23 +1,23 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/BODEGA_ADO.php';
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/TDOCUMENTO_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/CLIENTE_ADO.php';
+include_once '../../assest/controlador/BODEGA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/TDOCUMENTO_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/PROVEEDOR_ADO.php';
+include_once '../../assest/controlador/CLIENTE_ADO.php';
 
 
 
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/RECEPCIONM_ADO.php';
-include_once '../controlador/INVENTARIOM_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONM_ADO.php';
+include_once '../../assest/controlador/INVENTARIOM_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -66,9 +66,8 @@ $ARRAYDRECEPCION = "";
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $ARRAYINVENTARIO = $INVENTARIOM_ADO->listarInventarioPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
-include_once "../config/reporteUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
 ?>
@@ -84,7 +83,7 @@ include_once "../config/reporteUrl.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -150,7 +149,7 @@ include_once "../config/reporteUrl.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuMaterial.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -165,14 +164,14 @@ include_once "../config/reporteUrl.php";
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                        <li class="breadcrumb-item" aria-current="page">Materiales</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="listarRecepcionpt.php"> Historial Materiales </a>
                                         </li>
                                     </ol>
                                 </nav>
                             </div>
                         </div>
-                        <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                        <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
 
@@ -183,7 +182,7 @@ include_once "../config/reporteUrl.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="hexistencia" class="table table-hover " style="width: 100%;">
+                                        <table id="hexistencia" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>N° Folio </th>
@@ -412,10 +411,10 @@ include_once "../config/reporteUrl.php";
 
 
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>
