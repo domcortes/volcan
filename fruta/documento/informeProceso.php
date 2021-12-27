@@ -21,6 +21,7 @@ include_once '../controlador/ERECEPCION_ADO.php';
 include_once '../controlador/EINDUSTRIAL_ADO.php';
 include_once '../controlador/TCALIBRE_ADO.php';
 include_once '../controlador/TCATEGORIA_ADO.php';
+include_once '../controlador/RECEPCIONMP_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -40,6 +41,7 @@ $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
 $TCALIBRE_ADO =  new TCALIBRE_ADO();
 $TCATEGORIA_ADO =  new TCATEGORIA_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 
 $DPEXPORTACION_ADO =  new DPEXPORTACION_ADO();
 $DPINDUSTRIAL_ADO =  new DPINDUSTRIAL_ADO();
@@ -373,7 +375,7 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="7" class="center">INGRESO.</th>
+            <th colspan="9" class="center">INGRESO.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
@@ -383,6 +385,8 @@ $html = $html . '
             <th class="color center">Cant. Envase</th>
             <th class="color center">Kilos Neto</th>
             <th class="color center ">Variedad </th>
+            <th class="color center ">Número Recepción </th>
+            <th class="color center ">Número Guía </th>
           </tr>
         </thead>
          <tbody>
@@ -402,6 +406,15 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
     $CODIGOESTANDAR = "Sin Datos";
     $NOMBREESTANDAR = "Sin Datos";
   }
+  
+  $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($r['ID_RECEPCION']);
+  if ($ARRAYRECEPCION) {
+      $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
+      $NUMEROGUIARECEPCION = $ARRAYRECEPCION[0]["NUMERO_GUIA_RECEPCION"];                                                         
+  } else {
+      $NUMERORECEPCION = "Sin Datos";
+      $NUMEROGUIARECEPCION = "Sin Datos";
+  }
 
   $html = $html . '    
             <tr>
@@ -412,6 +425,8 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
                 <td class=" center">' . $r['ENVASE'] . '</td>
                 <td class=" center">' . $r['NETO'] . '</td>
                 <td class=" center ">' . $NOMBREVARIEDAD . ' </td>
+                <td class=" center ">' . $NUMERORECEPCION . ' </td>
+                <td class=" center ">' . $NUMEROGUIARECEPCION . ' </td>
             </tr>
 ';
 
@@ -426,6 +441,8 @@ $html = $html . '
             <th class="color right">Sub Total</th>
             <th class="color center"> ' . $TOTALENVASEEV . '</th>
             <th class="color center"> ' . $TOTALNETOEV . '</th>
+            <th class="color center "> </th>
+            <th class="color center "> </th>
             <th class="color center "> </th>
         </tr>
 ';
