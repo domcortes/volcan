@@ -62,7 +62,7 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
         $DOLAR = $_SESSION["DOLAR"];
         $EURO = $_SESSION["EURO"];
     } else {        
-        include_once "../config/indicadorEconomico.php";
+        include_once "../../assest/config/indicadorEconomico.php";
         $DOLAR = $_SESSION["DOLAR"];
         $EURO = $_SESSION["EURO"];
     }
