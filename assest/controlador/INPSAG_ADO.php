@@ -471,7 +471,7 @@ class INPSAG_ADO
                                                         FROM fruta_exiexportacion existencia, estandar_eexportacion estandar
                                                         WHERE existencia.ID_INPSAG = inpsag.ID_INPSAG
                                                         AND existencia.ID_ESTANDAR = estandar.ID_ESTANDAR
-                                                        AND estandar.PESO_NETO_ESTANDAR BETWEEN  5 AND 10
+                                                        AND estandar.PESO_NETO_ESTANDAR BETWEEN  6 AND 10
                                                     ) AS 'B',	(
                                                         SELECT FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE')  
                                                         FROM fruta_exiexportacion existencia, estandar_eexportacion estandar

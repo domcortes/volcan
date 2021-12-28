@@ -135,6 +135,9 @@ $NUMEROCONTENDORDESPACHOEX = "";
 $NUMEROPLANILLADESPACHOEX = "";
 $SNICARGA = "";
 $SNICARGAR = "";
+$TINPUSDA="";
+
+
 
 $IDEXIEXPORTACIONQUITAR = "";
 $FOLIOEXIEXPORTACIONQUITAR = "";
@@ -410,6 +413,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $PDESTINO = $r['ID_PDESTINO'];
                 }
             }
+            $TINPUSDA= "" . $r['TINPUSDA'];       
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -494,6 +498,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $PDESTINO = $r['ID_PDESTINO'];
                 }
             }
+            $TINPUSDA= "" . $r['TINPUSDA']; 
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -579,6 +584,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                     $PDESTINO = $r['ID_PDESTINO'];
                 }
             }
+            $TINPUSDA= "" . $r['TINPUSDA']; 
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -857,6 +863,11 @@ if (isset($_POST)) {
     if (isset($_REQUEST['TEMPORADA'])) {
         $TEMPORADA = "" . $_REQUEST['TEMPORADA'];
     }
+
+    if (isset($_REQUEST['TINPUSDA'])) {
+        $TINPUSDA = "" . $_REQUEST['TEMPORADA'];
+    }
+    
 }
 ?>
 <!DOCTYPE html>
@@ -878,9 +889,12 @@ if (isset($_POST)) {
                     SNICARGA = document.getElementById('SNICARGA').checked;
                     FECHADESPACHOEX = document.getElementById("FECHADESPACHOEX").value;
                     ICARGAD = document.getElementById("ICARGAD").value;
+                    TINPUSDA = document.getElementById("TINPUSDA").selectedIndex;
                     NUMEROCONTENDORDESPACHOEX = document.getElementById("NUMEROCONTENDORDESPACHOEX").value;
                     TERMOGRAFODESPACHOEX = document.getElementById("TERMOGRAFODESPACHOEX").value;
                     NUMEROPLANILLADESPACHOEX = document.getElementById("NUMEROPLANILLADESPACHOEX").value;
+
+
 
                     NUMEROSELLO = document.getElementById("NUMEROSELLO").value;
                     FECHAGUIA = document.getElementById("FECHAGUIA").value;
@@ -895,6 +909,7 @@ if (isset($_POST)) {
                     document.getElementById('val_fechar').innerHTML = "";
                     document.getElementById('val_numerocontenedor').innerHTML = "";
                     document.getElementById('val_icarga').innerHTML = "";
+                    document.getElementById('val_tinpusda').innerHTML = "";
                     document.getElementById('val_temorgrafo').innerHTML = "";
                     document.getElementById('val_numeroplanilla').innerHTML = "";
                     document.getElementById('val_numeros').innerHTML = "";
@@ -905,6 +920,8 @@ if (isset($_POST)) {
                     document.getElementById('val_conductor').innerHTML = "";
                     document.getElementById('val_patente').innerHTML = "";
                     document.getElementById('val_patentec').innerHTML = "";
+                    
+                     
                     //  document.getElementById('val_observacion').innerHTML = "";
 
                     if (FECHADESPACHOEX == null || FECHADESPACHOEX.length == 0 || /^\s+$/.test(FECHADESPACHOEX)) {
@@ -923,7 +940,6 @@ if (isset($_POST)) {
                         }
                         document.form_reg_dato.ICARGAD.style.borderColor = "#4AF575";
                     }
-
 
                     if (ICARGAD == null || ICARGAD == 0) {
                         TEMBARQUE = document.getElementById("TEMBARQUE").selectedIndex;
@@ -1186,6 +1202,14 @@ if (isset($_POST)) {
 
                         }
                     }
+                    
+                    if (TINPUSDA == null || TINPUSDA == 0) {
+                            document.form_reg_dato.TINPUSDA.focus();
+                            document.form_reg_dato.TINPUSDA.style.borderColor = "#FF0000";
+                            document.getElementById('val_tinpusda').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false
+                        }
+                        document.form_reg_dato.TINPUSDA.style.borderColor = "#4AF575";
 
                     if (NUMEROCONTENDORDESPACHOEX == null || NUMEROCONTENDORDESPACHOEX.length == 0 || /^\s+$/.test(NUMEROCONTENDORDESPACHOEX)) {
                         document.form_reg_dato.NUMEROCONTENDORDESPACHOEX.focus();
@@ -1508,6 +1532,18 @@ if (isset($_POST)) {
                                                     </select>
                                                     <label id="val_tembarque" class="validacion"> </label>
                                                 </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <label>Inspección USDA</label>
+                                                    <input type="hidden" class="form-control" placeholder="TINPUSDA" id="TINPUSDAE" name="TINPUSDAE" value="<?php echo $TINPUSDA; ?>" />
+                                                    <select class="form-control select2" id="TINPUSDA" name="TINPUSDA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED2; ?> >
+                                                        <option></option>
+                                                        <option value="1" <?php if ($TINPUSDA == "1") { echo "selected"; } ?>> Si </option>
+                                                        <option value="0" <?php if ($TINPUSDA == "0") { echo "selected"; } ?>> No</option>
+                                                    </select>
+                                                    <label id="val_tinpusda" class="validacion"> </label> 
+                                                </div> 
                                             </div>
                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
@@ -2208,7 +2244,7 @@ if (isset($_POST)) {
                                                 <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Packing List" Onclick="abrirPestana('../reporte/reporteDespachoExPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-excel-o"></i> Packing List
                                                 </button>  
-                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDP; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvDespachoEx.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano"  <?php if($TINPUSDA==1){echo "disabled";}?>  <?php echo $DISABLEDP; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvDespachoEx.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                 </button>  
                                             <?php endif ?>
@@ -2447,6 +2483,7 @@ if (isset($_POST)) {
             $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMION']);
             $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARRO']);
             $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
+            $DESPACHOEX->__SET('TINPUSDA', $_REQUEST['TINPUSDA']);
             if (isset($_REQUEST['SNICARGA']) == "on") {
                 $SNICARGAR = "1";
                 $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
@@ -2566,7 +2603,6 @@ if (isset($_POST)) {
         }
         //OPERACION EDICION DE FILA
         if (isset($_REQUEST['GUARDAR'])) {
-
             $DESPACHOEX->__SET('FECHA_DESPACHOEX', $_REQUEST['FECHADESPACHOEX']);
             $DESPACHOEX->__SET('NUMERO_SELLO_DESPACHOEX', $_REQUEST['NUMEROSELLO']);
             $DESPACHOEX->__SET('FECHA_GUIA_DESPACHOEX', $_REQUEST['FECHAGUIAE']);
@@ -2580,6 +2616,7 @@ if (isset($_POST)) {
             $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
             $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
             $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
+            $DESPACHOEX->__SET('TINPUSDA', $_REQUEST['TINPUSDAE']);
             $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
             $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
             $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);
@@ -2694,6 +2731,7 @@ if (isset($_POST)) {
                 $DESPACHOEX->__SET('PATENTE_CAMION', $_REQUEST['PATENTECAMIONE']);
                 $DESPACHOEX->__SET('PATENTE_CARRO', $_REQUEST['PATENTECARROE']);
                 $DESPACHOEX->__SET('OBSERVACION_DESPACHOEX', $_REQUEST['OBSERVACIONDESPACHOEX']);
+                $DESPACHOEX->__SET('TINPUSDA', $_REQUEST['TINPUSDAE']);
                 $DESPACHOEX->__SET('TEMBARQUE_DESPACHOEX', $_REQUEST['TEMBARQUEE']);
                 $DESPACHOEX->__SET('FECHAETD_DESPACHOEX', $_REQUEST['FECHAETDE']);
                 $DESPACHOEX->__SET('FECHAETA_DESPACHOEX', $_REQUEST['FECHAETAE']);

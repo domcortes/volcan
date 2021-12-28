@@ -100,7 +100,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaPcDespachoNullNotNullInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYPCDESPACHO=$PCDESPACHO_ADO->verPcdespacho($IDP);
+    if($ARRAYPCDESPACHO){
+        if($ARRAYPCDESPACHO[0]["TINPUSDA"]=="1"){
+            $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaPcDespachoNullNoInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+        }
+        if($ARRAYPCDESPACHO[0]["TINPUSDA"]=="0"){
+            $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaPcDespachoNullNotNullInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+        }
+    }
 }
 include_once "../config/validarDatosUrlD.php";
 

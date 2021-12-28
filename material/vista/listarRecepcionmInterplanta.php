@@ -1,25 +1,44 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
+include_once '../../assest/controlador/TDOCUMENTO_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/RESPONSABLE_ADO.php';
+include_once '../../assest/controlador/BODEGA_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/PROVEEDOR_ADO.php';
+include_once '../../assest/controlador/CLIENTE_ADO.php';
 
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 
 
-include_once '../controlador/DESPACHOM_ADO.php';
+include_once '../../assest/controlador/MGUIAM_ADO.php';
+include_once '../../assest/controlador/DESPACHOM_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
-
-$TRANSPORTE_ADO =  new TRANSPORTE_ADO();
-$CONDUCTOR_ADO =  new CONDUCTOR_ADO();
+$TDOCUMENTO_ADO = new TDOCUMENTO_ADO();
+$TRANSPORTE_ADO = new TRANSPORTE_ADO();
+$CONDUCTOR_ADO = new CONDUCTOR_ADO();
+$RESPONSABLE_ADO = new RESPONSABLE_ADO();
+$BODEGA_ADO = new BODEGA_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
+$PROVEEDOR_ADO = new PROVEEDOR_ADO();
+$CLIENTE_ADO = new CLIENTE_ADO();
+
+$PRODUCTO_ADO = new PRODUCTO_ADO();
+$TCONTENEDOR_ADO = new TCONTENEDOR_ADO();
+$TUMEDIDA_ADO = new TUMEDIDA_ADO();
 
 
+
+$MGUIAM_ADO =  new MGUIAM_ADO();
 $DESPACHOM_ADO =  new DESPACHOM_ADO();
 
 
@@ -49,19 +68,10 @@ $ARRAYMGUIAMP = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
     $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaInterplantaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaPlantaTemporadaInterplantaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
 }
-
-
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
-
-
-
-
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 ?>
 
@@ -76,7 +86,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -146,7 +156,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php";
+        <?php include_once "../../assest/config/menuMaterial.php";
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -162,8 +172,8 @@ include_once "../config/datosUrLP.php";
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
                                         <li class="breadcrumb-item" aria-current="page">Materiales</li>
+                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Agrupado InterPlanta </a>
                                         </li>
                                     </ol>
@@ -200,15 +210,18 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="despachomm" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Número </th>
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
-                                                    <th>Tipo Despacho</th>
                                                     <th>Fecha Despacho </th>
+                                                    <th>Tipo Despacho</th>
+                                                    <th>CSG/CSP Despacho</th>
+                                                    <th>Destino Despacho </th>
+                                                    <th>Tipo Documento </th>
                                                     <th>Número Documento </th>
                                                     <th>Cantidad </th>
                                                     <th>Transporte </th>
@@ -240,28 +253,87 @@ include_once "../config/datosUrLP.php";
                                                     }
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
+                                                        $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA"]);
+                                                        if ($ARRAYVERBODEGA) {
+                                                            $NOMBRDESTINO = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                            $CSGCSPDESTINO="No Aplica";
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Interplanta";
+                                                        $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA2"]);
+                                                        $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA2"]);
+                                                        if ($ARRAYVERBODEGA && $ARRAYPLANTAINTERNA) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTAINTERNA[0]['CODIGO_SAG_PLANTA'];
+                                                            $NOMBRDESTINO = "" . $ARRAYPLANTAINTERNA[0]["NOMBRE_PLANTA"] . " - " . $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "3") {
-                                                        $TDESPACHO = "Devolución a Productor";
+                                                        $TDESPACHO = "Despacho a Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"];
+                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Devolución a Proveedor";
+                                                        $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
+                                                        if ($ARRAYPROVEEDOR) {
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"];
+                                                            $NOMBRDESTINO = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                        $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA3"]);
+                                                        if ($ARRAYPLANTAEXTERNA) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTAEXTERNA[0]['CODIGO_SAG_PLANTA'];
+                                                            $NOMBRDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "6") {
                                                         $TDESPACHO = "Venta";
+                                                        $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($r["ID_CLIENTE"]);
+                                                        if ($ARRAYVERCLIENTE) {
+                                                            $CSGCSPDESTINO="No Aplica";
+                                                            $NOMBRDESTINO = $ARRAYVERCLIENTE[0]["NOMBRE_CLIENTE"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
                                                     } else
                                                     if ($r['TDESPACHO'] == "7") {
                                                         $TDESPACHO = "Regalo";
+                                                        $CSGCSPDESTINO="No Aplica";
+                                                        $REGALO = $r['REGALO_DESPACHO'];
                                                     } else {
+                                                        $CSGCSPDESTINO="Sin Datos";
                                                         $TDESPACHO = "Sin Datos";
+                                                        $NOMBRDESTINO = "Sin Datos";
                                                     }
 
+                                                    $ARRAYVERTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($r['ID_TDOCUMENTO']);
+                                                    if ($ARRAYVERTDOCUMENTO) {
+                                                        $TDOCUMENTO = $ARRAYVERTDOCUMENTO[0]['NOMBRE_TDOCUMENTO'];
+                                                    } else {
+                                                        $TDOCUMENTO = "Sin Datos";
+                                                    }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
@@ -294,6 +366,7 @@ include_once "../config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
+                                                    $ARRAYMGUIAM = $MGUIAM_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
                                                     ?>
                                                     <tr class="text-left">
                                                         <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
@@ -315,11 +388,12 @@ include_once "../config/datosUrLP.php";
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_DESPACHO']; ?>" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoe" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachoe" />                                                                     
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachom" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarDespachom" />
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLMR" name="URLMR" value="listarDespachoMguiaM" />                                                                   
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoM.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeDespachoM.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                         </div>
@@ -328,8 +402,11 @@ include_once "../config/datosUrLP.php";
                                                             </form>
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
-                                                        <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $TDESPACHO; ?></td>
+                                                        <td><?php echo $CSGCSPDESTINO; ?></td>
+                                                        <td><?php echo $NOMBRDESTINO; ?></td>
+                                                        <td><?php echo $TDOCUMENTO; ?></td>
                                                         <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
@@ -350,21 +427,20 @@ include_once "../config/datosUrLP.php";
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Cantidad </div>
+                                                    <div class="input-group-text">Total Cantidad</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>   
                         </div>
                         <!-- /.box -->
                 </section>
@@ -372,10 +448,10 @@ include_once "../config/datosUrLP.php";
             </div>
         </div>
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

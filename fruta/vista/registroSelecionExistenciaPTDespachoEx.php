@@ -101,7 +101,15 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaEstadoSagNotNullInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+    $ARRAYDESPACHOEX=$DESPACHOEX_ADO->verDespachoex($IDP);    
+    if($ARRAYDESPACHOEX){
+        if($ARRAYDESPACHOEX[0]["TINPUSDA"]=="0"){
+            $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaEstadoSagNotNullInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+        }
+        if($ARRAYDESPACHOEX[0]["TINPUSDA"]=="1"){ 
+            $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorEmpresaPlantaTemporadaEstadoSagNoInpsag($EMPRESAS, $PLANTAS, $TEMPORADAS);
+        }
+    }
 }
 include_once "../config/validarDatosUrlD.php";
 
@@ -178,9 +186,7 @@ include_once "../config/validarDatosUrlD.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
-            ?>
-
+            <?php include_once "../config/menu.php"; ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
@@ -262,92 +268,94 @@ include_once "../config/validarDatosUrlD.php";
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php foreach ($ARRAYEXIEXPORTACION as $r) : ?>
-                                                            <?php
-                                                            if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
-                                                                $ESTADOSAG = "Sin Condición";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "1") {
-                                                                $ESTADOSAG =  "En Inspección";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "2") {
-                                                                $ESTADOSAG =  "Aprobado Origen";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "3") {
-                                                                $ESTADOSAG =  "Aprobado USLA";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "4") {
-                                                                $ESTADOSAG =  "Fumigado";
-                                                            }
-                                                            if ($r['TESTADOSAG'] == "5") {
-                                                                $ESTADOSAG =  "Rechazado";
-                                                            }
-                                                            $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                            if ($ARRAYVERPRODUCTORID) {
+                                                        <?php if($ARRAYEXIEXPORTACION){ ?>
+                                                            <?php foreach ($ARRAYEXIEXPORTACION as $r) : ?>
+                                                                <?php
+                                                                if ($r['TESTADOSAG'] == null || $r['TESTADOSAG'] == "0") {
+                                                                    $ESTADOSAG = "Sin Condición";
+                                                                }
+                                                                if ($r['TESTADOSAG'] == "1") {
+                                                                    $ESTADOSAG =  "En Inspección";
+                                                                }
+                                                                if ($r['TESTADOSAG'] == "2") {
+                                                                    $ESTADOSAG =  "Aprobado Origen";
+                                                                }
+                                                                if ($r['TESTADOSAG'] == "3") {
+                                                                    $ESTADOSAG =  "Aprobado USLA";
+                                                                }
+                                                                if ($r['TESTADOSAG'] == "4") {
+                                                                    $ESTADOSAG =  "Fumigado";
+                                                                }
+                                                                if ($r['TESTADOSAG'] == "5") {
+                                                                    $ESTADOSAG =  "Rechazado";
+                                                                }
+                                                                $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                                if ($ARRAYVERPRODUCTORID) {
 
-                                                                $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
-                                                                $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
-                                                            } else {
-                                                                $CSGPRODUCTOR = "Sin Datos";
-                                                                $NOMBREPRODUCTOR = "Sin Datos";
-                                                            }
-                                                            $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
-                                                            if ($ARRAYEVERERECEPCIONID) {
-                                                                $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-                                                                $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
-                                                            } else {
-                                                                $CODIGOESTANDAR = "Sin Datos";
-                                                                $NOMBREESTANDAR = "Sin Datos";
-                                                            }
-                                                            $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
-                                                            if ($ARRAYVERVESPECIESID) {
-                                                                $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
-                                                            } else {
-                                                                $NOMBREVESPECIES = "Sin Datos";
-                                                            }
-                                                            $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
-                                                            if ($ARRAYTMANEJO) {
-                                                                $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
-                                                            } else {
-                                                                $NOMBRETMANEJO = "Sin Datos";
-                                                            }
-                                                            $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
-                                                            if ($ARRAYTCALIBRE) {
-                                                                $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
-                                                            } else {
-                                                                $NOMBRETCALIBRE = "Sin Datos";
-                                                            }
-                                                            $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
-                                                            if ($ARRAYTEMBALAJE) {
-                                                                $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
-                                                            } else {
-                                                                $NOMBRETEMBALAJE = "Sin Datos";
-                                                            }
-                                                            ?>
+                                                                    $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+                                                                    $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+                                                                } else {
+                                                                    $CSGPRODUCTOR = "Sin Datos";
+                                                                    $NOMBREPRODUCTOR = "Sin Datos";
+                                                                }
+                                                                $ARRAYEVERERECEPCIONID = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDAR']);
+                                                                if ($ARRAYEVERERECEPCIONID) {
+                                                                    $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+                                                                    $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+                                                                } else {
+                                                                    $CODIGOESTANDAR = "Sin Datos";
+                                                                    $NOMBREESTANDAR = "Sin Datos";
+                                                                }
+                                                                $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+                                                                if ($ARRAYVERVESPECIESID) {
+                                                                    $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+                                                                } else {
+                                                                    $NOMBREVESPECIES = "Sin Datos";
+                                                                }
+                                                                $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+                                                                if ($ARRAYTMANEJO) {
+                                                                    $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+                                                                } else {
+                                                                    $NOMBRETMANEJO = "Sin Datos";
+                                                                }
+                                                                $ARRAYTCALIBRE = $TCALIBRE_ADO->verCalibre($r['ID_TCALIBRE']);
+                                                                if ($ARRAYTCALIBRE) {
+                                                                    $NOMBRETCALIBRE = $ARRAYTCALIBRE[0]['NOMBRE_TCALIBRE'];
+                                                                } else {
+                                                                    $NOMBRETCALIBRE = "Sin Datos";
+                                                                }
+                                                                $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($r['ID_TEMBALAJE']);
+                                                                if ($ARRAYTEMBALAJE) {
+                                                                    $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
+                                                                } else {
+                                                                    $NOMBRETEMBALAJE = "Sin Datos";
+                                                                }
+                                                                ?>
 
-                                                            <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
-                                                                <td><?php echo $ESTADOSAG; ?></td>
-                                                                <td>
-                                                                    <div class="form-group">
-                                                                        <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_EXIEXPORTACION']; ?>" value="<?php echo $r['ID_EXIEXPORTACION']; ?>">
-                                                                        <label for="SELECIONAREXISTENCIA<?php echo $r['ID_EXIEXPORTACION']; ?>"> Seleccionar</label>
-                                                                    </div>
-                                                                </td>
-                                                                <td><?php echo $r['EMBALADO']; ?></td>
-                                                                <td><?php echo $CODIGOESTANDAR; ?></td>
-                                                                <td><?php echo $NOMBREESTANDAR; ?></td>
-                                                                <td><?php echo $CSGPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBREPRODUCTOR; ?></td>
-                                                                <td><?php echo $NOMBREVESPECIES; ?></td>
-                                                                <td><?php echo $r['ENVASE']; ?></td>
-                                                                <td><?php echo $r['NETO']; ?></td>
-                                                                <td><?php echo $NOMBRETMANEJO; ?></td>
-                                                                <td><?php echo $NOMBRETCALIBRE; ?></td>
-                                                                <td><?php echo $NOMBRETEMBALAJE; ?></td>
-                                                                <td><?php echo $r['STOCKR']; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
+                                                                <tr class="text-left">
+                                                                    <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                    <td><?php echo $ESTADOSAG; ?></td>
+                                                                    <td>
+                                                                        <div class="form-group">
+                                                                            <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_EXIEXPORTACION']; ?>" value="<?php echo $r['ID_EXIEXPORTACION']; ?>">
+                                                                            <label for="SELECIONAREXISTENCIA<?php echo $r['ID_EXIEXPORTACION']; ?>"> Seleccionar</label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td><?php echo $r['EMBALADO']; ?></td>
+                                                                    <td><?php echo $CODIGOESTANDAR; ?></td>
+                                                                    <td><?php echo $NOMBREESTANDAR; ?></td>
+                                                                    <td><?php echo $CSGPRODUCTOR; ?></td>
+                                                                    <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                                    <td><?php echo $NOMBREVESPECIES; ?></td>
+                                                                    <td><?php echo $r['ENVASE']; ?></td>
+                                                                    <td><?php echo $r['NETO']; ?></td>
+                                                                    <td><?php echo $NOMBRETMANEJO; ?></td>
+                                                                    <td><?php echo $NOMBRETCALIBRE; ?></td>
+                                                                    <td><?php echo $NOMBRETEMBALAJE; ?></td>
+                                                                    <td><?php echo $r['STOCKR']; ?></td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        <?php } ?>
                                                     </tbody>
 
                                                 </table>

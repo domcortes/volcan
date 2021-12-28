@@ -1,21 +1,21 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/FOLIOM_ADO.php';
 
 
-include_once '../controlador/INVENTARIOM_ADO.php';
-include_once '../controlador/RECEPCIONM_ADO.php';
-include_once '../controlador/DRECEPCIONM_ADO.php';
-include_once '../controlador/TARJAM_ADO.php';
+include_once '../../assest/controlador/INVENTARIOM_ADO.php';
+include_once '../../assest/controlador/RECEPCIONM_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONM_ADO.php';
+include_once '../../assest/controlador/TARJAM_ADO.php';
 
-include_once '../modelo/INVENTARIOM.php';
-include_once '../modelo/TARJAM.php';
+include_once '../../assest/modelo/INVENTARIOM.php';
+include_once '../../assest/modelo/TARJAM.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -24,7 +24,7 @@ include_once '../modelo/TARJAM.php';
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
 $TCONTENEDOR_ADO =  new TCONTENEDOR_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
-$FOLIO_ADO =  new FOLIO_ADO();
+$FOLIO_ADO =  new FOLIOM_ADO();
 
 $INVENTARIOM_ADO =  new INVENTARIOM_ADO();
 $RECEPCIONM_ADO =  new RECEPCIONM_ADO();
@@ -106,206 +106,8 @@ $ARRAYVERFOLIO = "";
 $ARRAYPRODUCTO = $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
 $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->listarTcontenedorPorEmpresaCBX($EMPRESAS);
 $ARRAYTUMEDIDA = $TUMEDIDA_ADO->listarTumedidaPorEmpresaCBX($EMPRESAS);
-include_once "../config/validarDatosUrlD.php";
-include_once "../config/datosUrlDT.php";
-
-
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-
-    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTMateriales($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-
-
-    $NUMERO = $_REQUEST["NUMERO"];
-    for ($INDEX = 1; $INDEX <= $NUMERO; $INDEX++) {
-        $ARRAYULTIMOFOLIO = $INVENTARIOM_ADO->obtenerFolio($FOLIO);
-        if ($ARRAYULTIMOFOLIO) {
-            if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'] == 0) {
-                $FOLIOINVENTARIO = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-            } else {
-                $FOLIOINVENTARIO =   $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'];
-            }
-        } else {
-            $FOLIOINVENTARIO = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
-        }
-        $NUMEROFOLIO = $FOLIOINVENTARIO + 1;
-
-
-        $ALIASDINAMICO =  $ARRAYVERFOLIO[0]['ALIAS_DINAMICO_FOLIO'] . $NUMEROFOLIO;
-        $ALIASESTACTICO = $NUMEROFOLIO;
-
-        $VALORTOTAL = $_REQUEST['CANTIDAD'] *  $_REQUEST['VALORUNITARIO'];
-
-        $TARJAM->__SET('FOLIO_TARJA', $NUMEROFOLIO);
-        $TARJAM->__SET('ALIAS_DINAMICO_TARJA', $ALIASDINAMICO);
-        $TARJAM->__SET('ALIAS_ESTATICO_TARJA', $ALIASESTACTICO);
-        $TARJAM->__SET('CANITDAD_CONTENEDOR', $_REQUEST['CANTIDADC']);
-        $TARJAM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-        $TARJAM->__SET('CANTIDAD_TARJA', $_REQUEST['CANTIDAD']);
-        $TARJAM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-        $TARJAM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
-        $TARJAM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-        $TARJAM->__SET('ID_FOLIO', $FOLIO);
-        $TARJAM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        $TARJAM->__SET('ID_DRECEPCION', $_REQUEST['IDD']);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $TARJAM_ADO->agregarTarjaDrecepcion($TARJAM);
-
-        $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion($_REQUEST['IDP']);
-        $ARRAYDRECEPCION = $DRECEPCIONM_ADO->verDrecepcion($_REQUEST['IDD']);
-        $ARRAYVERFOLIOVALIDAR = $INVENTARIOM_ADO->buscarPorRecepcionFolio($_REQUEST['IDP'],  $NUMEROFOLIO);
-
-
-        if (empty($ARRAYVERFOLIOVALIDAR)) {
-            $INVENTARIOM->__SET('FOLIO_INVENTARIO', $NUMEROFOLIO);
-            $INVENTARIOM->__SET('FOLIO_AUXILIAR_INVENTARIO', $NUMEROFOLIO);
-            $INVENTARIOM->__SET('ALIAS_DINAMICO_FOLIO', $ALIASDINAMICO);
-            $INVENTARIOM->__SET('ALIAS_ESTATICO_FOLIO', $ALIASESTACTICO);
-            $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
-            $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
-            $INVENTARIOM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-            $INVENTARIOM->__SET('VALOR_TOTAL', $VALORTOTAL);
-            $INVENTARIOM->__SET('ID_BODEGA', $ARRAYRECEPCION[0]['ID_BODEGA']);
-            $INVENTARIOM->__SET('ID_FOLIO', $FOLIO);
-            $INVENTARIOM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-            $INVENTARIOM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
-            $INVENTARIOM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-            $INVENTARIOM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-            $INVENTARIOM->__SET('ID_PLANTA2', $ARRAYRECEPCION[0]['ID_PLANTA2']);
-            $INVENTARIOM->__SET('ID_PROVEEDOR', $ARRAYRECEPCION[0]['ID_PROVEEDOR']);
-            $INVENTARIOM->__SET('ID_PRODUCTOR', $ARRAYRECEPCION[0]['ID_PRODUCTOR']);
-            $INVENTARIOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-            $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-            $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-            $INVENTARIOM_ADO->agregarInventarioRecepcion($INVENTARIOM);
-        } else {
-            $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
-            $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
-            $INVENTARIOM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-            $INVENTARIOM->__SET('VALOR_TOTAL', $VALORTOTAL);
-            $INVENTARIOM->__SET('ID_BODEGA', $ARRAYRECEPCION[0]['ID_BODEGA']);
-            $INVENTARIOM->__SET('ID_FOLIO', $FOLIO);
-            $INVENTARIOM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-            $INVENTARIOM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
-            $INVENTARIOM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-            $INVENTARIOM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-            $INVENTARIOM->__SET('ID_PLANTA2', $ARRAYRECEPCION[0]['ID_PLANTA2']);
-            $INVENTARIOM->__SET('ID_PROVEEDOR', $ARRAYRECEPCION[0]['ID_PROVEEDOR']);
-            $INVENTARIOM->__SET('ID_PRODUCTOR', $ARRAYRECEPCION[0]['ID_PRODUCTOR']);
-            $INVENTARIOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-            $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-            $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-            $INVENTARIOM->__SET('ID_INVENTARIO', $ARRAYVERFOLIOVALIDAR[0]['ID_INVENTARIO']);
-            $INVENTARIOM_ADO->actualizarInventarioRecepcion($INVENTARIOM);
-        }
-    }
-
-    //REDIRECCIONAR A PAGINA registroRecepcion.php 
-    $_SESSION["dparametro"] =  $_REQUEST['IDD'];
-    $_SESSION["dparametro1"] =  $_REQUEST['OPD'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLD'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['EDITAR'])) {
-
-
-    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTMateriales($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-
-    $NUMEROFOLIO = $_REQUEST['NUMEROFOLIO'];
-    $ALIASDINAMICO =  $ARRAYVERFOLIO[0]['ALIAS_DINAMICO_FOLIO'] . $NUMEROFOLIO;
-    $ALIASESTACTICO = $NUMEROFOLIO;
-
-    $VALORTOTAL = $_REQUEST['CANTIDAD'] *  $_REQUEST['VALORUNITARIO'];
-
-
-    $TARJAM->__SET('CANITDAD_CONTENEDOR', $_REQUEST['CANTIDADC']);
-    $TARJAM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-    $TARJAM->__SET('CANTIDAD_TARJA', $_REQUEST['CANTIDAD']);
-    $TARJAM->__SET('VALOR_TOTAL', $VALORTOTAL);
-    $TARJAM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $TARJAM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDORE']);
-    $TARJAM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $TARJAM->__SET('ID_FOLIO', $FOLIO);
-    $TARJAM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $TARJAM->__SET('ID_DRECEPCION', $_REQUEST['IDD']);
-    $TARJAM->__SET('ID_TARJA', $_REQUEST['IDT']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $TARJAM_ADO->actualizarTarjaDrecepcion($TARJAM);
-
-
-    $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion($_REQUEST['IDP']);
-    $ARRAYDRECEPCION = $DRECEPCIONM_ADO->verDrecepcion($_REQUEST['IDD']);
-    $ARRAYVERFOLIOVALIDAR = $INVENTARIOM_ADO->buscarPorRecepcionFolio($_REQUEST['IDP'],  $NUMEROFOLIO);
-
-    if (empty($ARRAYVERFOLIOVALIDAR)) {
-        $INVENTARIOM->__SET('FOLIO_INVENTARIO', $NUMEROFOLIO);
-        $INVENTARIOM->__SET('FOLIO_AUXILIAR_INVENTARIO', $NUMEROFOLIO);
-        $INVENTARIOM->__SET('ALIAS_DINAMICO_FOLIO', $ALIASDINAMICO);
-        $INVENTARIOM->__SET('ALIAS_ESTATICO_FOLIO', $ALIASESTACTICO);
-        $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
-        $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
-        $INVENTARIOM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-        $INVENTARIOM->__SET('VALOR_TOTAL', $VALORTOTAL);
-        $INVENTARIOM->__SET('ID_BODEGA', $ARRAYRECEPCION[0]['ID_BODEGA']);
-        $INVENTARIOM->__SET('ID_FOLIO', $FOLIO);
-        $INVENTARIOM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-        $INVENTARIOM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDORE']);
-        $INVENTARIOM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-        $INVENTARIOM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        $INVENTARIOM->__SET('ID_PLANTA2', $ARRAYRECEPCION[0]['ID_PLANTA2']);
-        $INVENTARIOM->__SET('ID_PROVEEDOR', $ARRAYRECEPCION[0]['ID_PROVEEDOR']);
-        $INVENTARIOM->__SET('ID_PRODUCTOR', $ARRAYRECEPCION[0]['ID_PRODUCTOR']);
-        $INVENTARIOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $INVENTARIOM_ADO->agregarInventarioRecepcion($INVENTARIOM);
-    } else {
-        $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
-        $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
-        $INVENTARIOM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-        $INVENTARIOM->__SET('VALOR_TOTAL', $VALORTOTAL);
-        $INVENTARIOM->__SET('ID_BODEGA', $ARRAYRECEPCION[0]['ID_BODEGA']);
-        $INVENTARIOM->__SET('ID_FOLIO', $FOLIO);
-        $INVENTARIOM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-        $INVENTARIOM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDORE']);
-        $INVENTARIOM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-        $INVENTARIOM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-        $INVENTARIOM->__SET('ID_PLANTA2', $ARRAYRECEPCION[0]['ID_PLANTA2']);
-        $INVENTARIOM->__SET('ID_PROVEEDOR', $ARRAYRECEPCION[0]['ID_PROVEEDOR']);
-        $INVENTARIOM->__SET('ID_PRODUCTOR', $ARRAYRECEPCION[0]['ID_PRODUCTOR']);
-        $INVENTARIOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-        $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-        $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-        $INVENTARIOM->__SET('ID_INVENTARIO', $ARRAYVERFOLIOVALIDAR[0]['ID_INVENTARIO']);
-        $INVENTARIOM_ADO->actualizarInventarioRecepcion($INVENTARIOM);
-    }
-    //REDIRECCIONAR A PAGINA registroRecepcion.php 
-    $_SESSION["dparametro"] =  $_REQUEST['IDD'];
-    $_SESSION["dparametro1"] =  $_REQUEST['OPD'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLD'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['ELIMINAR'])) {
-
-    $TARJAM->__SET('ID_TARJA', $_REQUEST['IDT']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $TARJAM_ADO->deshabilitar($TARJAM);
-
-    $INVENTARIOM->__SET('FOLIO_INVENTARIO', $_REQUEST['NUMEROFOLIO']);
-    $INVENTARIOM_ADO->eliminado2($INVENTARIOM);
-
-    $INVENTARIOM->__SET('FOLIO_INVENTARIO', $_REQUEST['NUMEROFOLIO']);
-    $INVENTARIOM_ADO->deshabilitar2($INVENTARIOM);
-
-
-    //REDIRECCIONAR A PAGINA registroRecepcion.php 
-    $_SESSION["dparametro"] =  $_REQUEST['IDD'];
-    $_SESSION["dparametro1"] =  $_REQUEST['OPD'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLD'] . ".php?op';</script>";
-}
-
+include_once "../../assest/config/validarDatosUrlD.php";
+include_once "../../assest/config/datosUrlDT.php";
 
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -486,7 +288,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -555,7 +357,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuMaterial.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -569,8 +371,8 @@ if (isset($_POST)) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Materiales</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepción Materiales</li>
                                             <li class="breadcrumb-item" aria-current="page">Registro Recepción </li>
                                             <li class="breadcrumb-item" aria-current="page">Registro Detalle </li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Tarja </a>
@@ -579,7 +381,7 @@ if (isset($_POST)) {
                                     </nav>
                                 </div>
                             </div>
-                            <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <!-- Main content -->
@@ -587,11 +389,9 @@ if (isset($_POST)) {
 
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
-                                </div>
+                                <div class="card-header bg-info">
+                                    <h4 class="card-title">Tarja del Detalle</h4>
+                                </div>  
                                 <div class="box-body ">
                                     <div class="row">
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
@@ -613,13 +413,13 @@ if (isset($_POST)) {
                                             <input type="text" class="form-control" style="background-color: #eeeeee;" placeholder="Número Folio" id="NUMEROFOLIOV" name="NUMEROFOLIOV" value="<?php echo $NUMEROFOLIO; ?>" disabled />
                                             <label id="val_folio" class="validacion"> </label>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Producto</label>
                                             <input type="hidden" class="form-control" placeholder="PRODUCTO" id="PRODUCTO" name="PRODUCTO" value="<?php echo $PRODUCTO; ?>" />
                                             <input type="text" class="form-control" placeholder="Producto" id="PRODUCTOV" name="PRODUCTOV" value="<?php echo $PRODUCTOV; ?>" disabled />
                                             <label id="val_producto" class="validacion"> </label>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Tipo Contenedor</label>
                                             <input type="hidden" class="form-control" placeholder="TCONTENEDORE" id="TCONTENEDORE" name="TCONTENEDORE" value="<?php echo $TCONTENEDOR; ?>" />
                                             <select class="form-control select2" id="TCONTENEDOR" name="TCONTENEDOR" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED2; ?>>
@@ -642,7 +442,7 @@ if (isset($_POST)) {
                                             <input type="text" class="form-control" placeholder="Unidad Medida" id="TUMEDIDAV" name="TUMEDIDAV" value="<?php echo $TUMEDIDAV; ?>" disabled />
                                             <label id="val_tumedida" class="validacion"> </label>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Valor Unitario </label>
                                                 <input type="hidden" class="form-control" placeholder="VALORUNITARIO" id="VALORUNITARIO" name="VALORUNITARIO" value="<?php echo $VALORUNITARIO; ?>" />
@@ -650,7 +450,7 @@ if (isset($_POST)) {
                                                 <label id="val_vu" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Recepcionada</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADC" id="CANTIDADC" name="CANTIDADC" value="<?php echo $CANTIDADC; ?>" />
@@ -658,8 +458,7 @@ if (isset($_POST)) {
                                                 <label id="val_cantidadc" class="validacion"> </label>
                                             </div>
                                         </div>
-
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Tarjada</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADT" id="CANTIDADT" name="CANTIDADT" value="<?php echo $CANTIDADT; ?>" />
@@ -667,7 +466,7 @@ if (isset($_POST)) {
                                                 <label id="val_cantidadt" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Por Tarjar</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADPT" id="CANTIDADPT" name="CANTIDADPT" value="<?php echo $CANTIDADPT; ?>" />
@@ -675,7 +474,7 @@ if (isset($_POST)) {
                                                 <label id="val_cantidadc" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Contenedores</label>
                                                 <input type="hidden" class="form-control" placeholder="NUMEROE" id="NUMEROE" name="NUMEROE" value="<?php echo $NUMERO; ?>" />
@@ -683,7 +482,7 @@ if (isset($_POST)) {
                                                 <label id="val_numero" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Por Contenedor</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
@@ -697,33 +496,33 @@ if (isset($_POST)) {
                                 <!-- /.row -->
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <div class="btn-group  col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                        <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLD; ?>.php?op');">
-                                            <i class="ti-back-left "></i> Volver
-                                        </button>
-                                        <?php if ($OP == "") { ?>
-                                            <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Agregar
+                                        <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                            <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLD; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-                                        <?php } ?>
-                                        <?php if ($OP != "") { ?>
-                                            <?php if ($OP == "crear") { ?>
-                                                <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Duplicar
+                                            <?php if ($OP == "") { ?>
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
-                                            <?php if ($OP == "editar") { ?>
-                                                <button type="submit" class="btn  btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Editar
-                                                </button>
+                                            <?php if ($OP != "") { ?>
+                                                <?php if ($OP == "crear") { ?>
+                                                    <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                                <?php if ($OP == "editar") { ?>
+                                                    <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                                <?php if ($OP == "eliminar") { ?>
+                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                        <i class="ti-trash"></i> Eliminar
+                                                    </button>
+                                                <?php } ?>
                                             <?php } ?>
-                                            <?php if ($OP == "eliminar") { ?>
-                                                <button type="submit" class="btn  btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
-                                                    <i class="ti-trash"></i> Eliminar
-                                                </button>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    </div>
+                                        </div>
                                 </div>
                             </div>
                         </form>
@@ -732,11 +531,236 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTMateriales($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+
+
+                $NUMERO = $_REQUEST["NUMERO"];
+                for ($INDEX = 1; $INDEX <= $NUMERO; $INDEX++) {
+                    $ARRAYULTIMOFOLIO = $INVENTARIOM_ADO->obtenerFolio($FOLIO);
+                    if ($ARRAYULTIMOFOLIO) {
+                        if ($ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'] == 0) {
+                            $FOLIOINVENTARIO = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                        } else {
+                            $FOLIOINVENTARIO =   $ARRAYULTIMOFOLIO[0]['ULTIMOFOLIO2'];
+                        }
+                    } else {
+                        $FOLIOINVENTARIO = $ARRAYVERFOLIO[0]['NUMERO_FOLIO'];
+                    }
+                    $NUMEROFOLIO = $FOLIOINVENTARIO + 1;
+
+
+                    $ALIASDINAMICO =  $ARRAYVERFOLIO[0]['ALIAS_DINAMICO_FOLIO'] . $NUMEROFOLIO;
+                    $ALIASESTACTICO = $NUMEROFOLIO;
+
+                    $VALORTOTAL = $_REQUEST['CANTIDAD'] *  $_REQUEST['VALORUNITARIO'];
+
+                    $TARJAM->__SET('FOLIO_TARJA', $NUMEROFOLIO);
+                    $TARJAM->__SET('ALIAS_DINAMICO_TARJA', $ALIASDINAMICO);
+                    $TARJAM->__SET('ALIAS_ESTATICO_TARJA', $ALIASESTACTICO);
+                    $TARJAM->__SET('CANITDAD_CONTENEDOR', $_REQUEST['CANTIDADC']);
+                    $TARJAM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                    $TARJAM->__SET('CANTIDAD_TARJA', $_REQUEST['CANTIDAD']);
+                    $TARJAM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                    $TARJAM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
+                    $TARJAM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                    $TARJAM->__SET('ID_FOLIO', $FOLIO);
+                    $TARJAM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    $TARJAM->__SET('ID_DRECEPCION', $_REQUEST['IDD']);
+                    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                    $TARJAM_ADO->agregarTarjaDrecepcion($TARJAM);
+
+                    $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion($_REQUEST['IDP']);
+                    $ARRAYDRECEPCION = $DRECEPCIONM_ADO->verDrecepcion($_REQUEST['IDD']);
+                    $ARRAYVERFOLIOVALIDAR = $INVENTARIOM_ADO->buscarPorRecepcionFolio($_REQUEST['IDP'],  $NUMEROFOLIO);
+
+
+                    if (empty($ARRAYVERFOLIOVALIDAR)) {
+                        $INVENTARIOM->__SET('FOLIO_INVENTARIO', $NUMEROFOLIO);
+                        $INVENTARIOM->__SET('FOLIO_AUXILIAR_INVENTARIO', $NUMEROFOLIO);
+                        $INVENTARIOM->__SET('ALIAS_DINAMICO_FOLIO', $ALIASDINAMICO);
+                        $INVENTARIOM->__SET('ALIAS_ESTATICO_FOLIO', $ALIASESTACTICO);
+                        $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
+                        $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
+                        $INVENTARIOM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                        $INVENTARIOM->__SET('VALOR_TOTAL', $VALORTOTAL);
+                        $INVENTARIOM->__SET('ID_BODEGA', $ARRAYRECEPCION[0]['ID_BODEGA']);
+                        $INVENTARIOM->__SET('ID_FOLIO', $FOLIO);
+                        $INVENTARIOM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                        $INVENTARIOM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
+                        $INVENTARIOM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                        $INVENTARIOM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        $INVENTARIOM->__SET('ID_PLANTA2', $ARRAYRECEPCION[0]['ID_PLANTA2']);
+                        $INVENTARIOM->__SET('ID_PROVEEDOR', $ARRAYRECEPCION[0]['ID_PROVEEDOR']);
+                        $INVENTARIOM->__SET('ID_PRODUCTOR', $ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+                        $INVENTARIOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                        $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                        $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                        $INVENTARIOM_ADO->agregarInventarioRecepcion($INVENTARIOM);
+                    } else {
+                        $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
+                        $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
+                        $INVENTARIOM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                        $INVENTARIOM->__SET('VALOR_TOTAL', $VALORTOTAL);
+                        $INVENTARIOM->__SET('ID_BODEGA', $ARRAYRECEPCION[0]['ID_BODEGA']);
+                        $INVENTARIOM->__SET('ID_FOLIO', $FOLIO);
+                        $INVENTARIOM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                        $INVENTARIOM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDOR']);
+                        $INVENTARIOM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                        $INVENTARIOM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                        $INVENTARIOM->__SET('ID_PLANTA2', $ARRAYRECEPCION[0]['ID_PLANTA2']);
+                        $INVENTARIOM->__SET('ID_PROVEEDOR', $ARRAYRECEPCION[0]['ID_PROVEEDOR']);
+                        $INVENTARIOM->__SET('ID_PRODUCTOR', $ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+                        $INVENTARIOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                        $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                        $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                        $INVENTARIOM->__SET('ID_INVENTARIO', $ARRAYVERFOLIOVALIDAR[0]['ID_INVENTARIO']);
+                        $INVENTARIOM_ADO->actualizarInventarioRecepcion($INVENTARIOM);
+                    }
+                }
+
+                //REDIRECCIONAR A PAGINA registroRecepcion.php 
+                $_SESSION["dparametro"] =  $_REQUEST['IDD'];
+                $_SESSION["dparametro1"] =  $_REQUEST['OPD'];                
+                echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro creado",
+                            text:"El registro de la tarja se ha creado correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"Volver al Detalle"
+                        }).then((result)=>{
+                            location.href ="'. $_REQUEST['URLD'] .'.php?op";                            
+                        })
+                    </script>';
+                //echo "<script type='text/javascript'> location.href ='" ".php?op';</script>";
+            }
+            if (isset($_REQUEST['EDITAR'])) {
+
+
+                $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTMateriales($_REQUEST['EMPRESA'], $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+
+                $NUMEROFOLIO = $_REQUEST['NUMEROFOLIO'];
+                $ALIASDINAMICO =  $ARRAYVERFOLIO[0]['ALIAS_DINAMICO_FOLIO'] . $NUMEROFOLIO;
+                $ALIASESTACTICO = $NUMEROFOLIO;
+
+                $VALORTOTAL = $_REQUEST['CANTIDAD'] *  $_REQUEST['VALORUNITARIO'];
+
+
+                $TARJAM->__SET('CANITDAD_CONTENEDOR', $_REQUEST['CANTIDADC']);
+                $TARJAM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                $TARJAM->__SET('CANTIDAD_TARJA', $_REQUEST['CANTIDAD']);
+                $TARJAM->__SET('VALOR_TOTAL', $VALORTOTAL);
+                $TARJAM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $TARJAM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDORE']);
+                $TARJAM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $TARJAM->__SET('ID_FOLIO', $FOLIO);
+                $TARJAM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $TARJAM->__SET('ID_DRECEPCION', $_REQUEST['IDD']);
+                $TARJAM->__SET('ID_TARJA', $_REQUEST['IDT']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $TARJAM_ADO->actualizarTarjaDrecepcion($TARJAM);
+
+
+                $ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion($_REQUEST['IDP']);
+                $ARRAYDRECEPCION = $DRECEPCIONM_ADO->verDrecepcion($_REQUEST['IDD']);
+                $ARRAYVERFOLIOVALIDAR = $INVENTARIOM_ADO->buscarPorRecepcionFolio($_REQUEST['IDP'],  $NUMEROFOLIO);
+
+                if (empty($ARRAYVERFOLIOVALIDAR)) {
+                    $INVENTARIOM->__SET('FOLIO_INVENTARIO', $NUMEROFOLIO);
+                    $INVENTARIOM->__SET('FOLIO_AUXILIAR_INVENTARIO', $NUMEROFOLIO);
+                    $INVENTARIOM->__SET('ALIAS_DINAMICO_FOLIO', $ALIASDINAMICO);
+                    $INVENTARIOM->__SET('ALIAS_ESTATICO_FOLIO', $ALIASESTACTICO);
+                    $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
+                    $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
+                    $INVENTARIOM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                    $INVENTARIOM->__SET('VALOR_TOTAL', $VALORTOTAL);
+                    $INVENTARIOM->__SET('ID_BODEGA', $ARRAYRECEPCION[0]['ID_BODEGA']);
+                    $INVENTARIOM->__SET('ID_FOLIO', $FOLIO);
+                    $INVENTARIOM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                    $INVENTARIOM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDORE']);
+                    $INVENTARIOM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                    $INVENTARIOM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    $INVENTARIOM->__SET('ID_PLANTA2', $ARRAYRECEPCION[0]['ID_PLANTA2']);
+                    $INVENTARIOM->__SET('ID_PROVEEDOR', $ARRAYRECEPCION[0]['ID_PROVEEDOR']);
+                    $INVENTARIOM->__SET('ID_PRODUCTOR', $ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+                    $INVENTARIOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $INVENTARIOM_ADO->agregarInventarioRecepcion($INVENTARIOM);
+                } else {
+                    $INVENTARIOM->__SET('TRECEPCION', $ARRAYRECEPCION[0]['TRECEPCION']);
+                    $INVENTARIOM->__SET('CANTIDAD_INVENTARIO', $_REQUEST['CANTIDAD']);
+                    $INVENTARIOM->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                    $INVENTARIOM->__SET('VALOR_TOTAL', $VALORTOTAL);
+                    $INVENTARIOM->__SET('ID_BODEGA', $ARRAYRECEPCION[0]['ID_BODEGA']);
+                    $INVENTARIOM->__SET('ID_FOLIO', $FOLIO);
+                    $INVENTARIOM->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                    $INVENTARIOM->__SET('ID_TCONTENEDOR', $_REQUEST['TCONTENEDORE']);
+                    $INVENTARIOM->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                    $INVENTARIOM->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                    $INVENTARIOM->__SET('ID_PLANTA2', $ARRAYRECEPCION[0]['ID_PLANTA2']);
+                    $INVENTARIOM->__SET('ID_PROVEEDOR', $ARRAYRECEPCION[0]['ID_PROVEEDOR']);
+                    $INVENTARIOM->__SET('ID_PRODUCTOR', $ARRAYRECEPCION[0]['ID_PRODUCTOR']);
+                    $INVENTARIOM->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                    $INVENTARIOM->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                    $INVENTARIOM->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                    $INVENTARIOM->__SET('ID_INVENTARIO', $ARRAYVERFOLIOVALIDAR[0]['ID_INVENTARIO']);
+                    $INVENTARIOM_ADO->actualizarInventarioRecepcion($INVENTARIOM);
+                }
+                //REDIRECCIONAR A PAGINA registroRecepcion.php 
+                $_SESSION["dparametro"] =  $_REQUEST['IDD'];
+                $_SESSION["dparametro1"] =  $_REQUEST['OPD'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de la tarja se ha modificada correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver al Detalle"
+                    }).then((result)=>{
+                        location.href ="'. $_REQUEST['URLD'] .'.php?op";                        
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {
+
+                $TARJAM->__SET('ID_TARJA', $_REQUEST['IDT']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $TARJAM_ADO->deshabilitar($TARJAM);
+                $INVENTARIOM->__SET('FOLIO_INVENTARIO', $_REQUEST['NUMEROFOLIO']);
+                $INVENTARIOM_ADO->eliminado2($INVENTARIOM);
+                $INVENTARIOM->__SET('FOLIO_INVENTARIO', $_REQUEST['NUMEROFOLIO']);
+                $INVENTARIOM_ADO->deshabilitar2($INVENTARIOM);
+                //REDIRECCIONAR A PAGINA registroRecepcion.php 
+                $_SESSION["dparametro"] =  $_REQUEST['IDD'];
+                $_SESSION["dparametro1"] =  $_REQUEST['OPD'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Eliminado",
+                        text:"El registro de la tarja se ha eliminado correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver al Detalle"
+                    }).then((result)=>{
+                        location.href ="'. $_REQUEST['URLD'] .'.php?op";                             
+                    })
+                </script>';
+
+            }
+
+        ?>
 </body>
 
 </html>

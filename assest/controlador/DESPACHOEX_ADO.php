@@ -170,6 +170,7 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
     public function buscarNombreDespachoex($NOMBRE)
     {
@@ -271,6 +272,7 @@ class DESPACHOEX_ADO
                                                     PATENTE_CAMION, 
                                                     PATENTE_CARRO, 
                                                     OBSERVACION_DESPACHOEX, 
+                                                    TINPUSDA, 
                                                     ID_ICARGA, 
                                                     ID_EXPPORTADORA, 
                                                     ID_DFINAL, 
@@ -305,7 +307,7 @@ class DESPACHOEX_ADO
                                                     ESTADO_REGISTRO
                                                 )
              VALUES
-               ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  0, 0, 0, SYSDATE(),  SYSDATE(),  1, 1);";
+               ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  0, 0, 0, SYSDATE(),  SYSDATE(),  1, 1);";
 
             $this->conexion->prepare($query)
                 ->execute(
@@ -331,6 +333,7 @@ class DESPACHOEX_ADO
                         $DESPACHOEX->__GET('PATENTE_CAMION'),
                         $DESPACHOEX->__GET('PATENTE_CARRO'),
                         $DESPACHOEX->__GET('OBSERVACION_DESPACHOEX'),
+                        $DESPACHOEX->__GET('TINPUSDA'),
                         $DESPACHOEX->__GET('ID_ICARGA'),
                         $DESPACHOEX->__GET('ID_EXPPORTADORA'),
                         $DESPACHOEX->__GET('ID_DFINAL'),
@@ -461,6 +464,7 @@ class DESPACHOEX_ADO
                         PATENTE_CAMION = ?,
                         PATENTE_CARRO = ?,
                         OBSERVACION_DESPACHOEX = ?,
+                        TINPUSDA = ?,
                         CANTIDAD_ENVASE_DESPACHOEX = ?,
                         KILOS_NETO_DESPACHOEX = ?,
                         KILOS_BRUTO_DESPACHOEX = ?,          
@@ -511,6 +515,7 @@ class DESPACHOEX_ADO
                         $DESPACHOEX->__GET('PATENTE_CAMION'),
                         $DESPACHOEX->__GET('PATENTE_CARRO'),
                         $DESPACHOEX->__GET('OBSERVACION_DESPACHOEX'),
+                        $DESPACHOEX->__GET('TINPUSDA'),
                         $DESPACHOEX->__GET('CANTIDAD_ENVASE_DESPACHOEX'),
                         $DESPACHOEX->__GET('KILOS_NETO_DESPACHOEX'),
                         $DESPACHOEX->__GET('KILOS_BRUTO_DESPACHOEX'),     
@@ -764,6 +769,7 @@ class DESPACHOEX_ADO
             die($e->getMessage());
         }
     }
+
 
     public function buscarDespachoexPorProductorGuiaEmpresaPlantaTemporada($NUMEROGUIA, $PRODUCTOR, $EMPRESA, $PLANTA, $TEMPORADA)
     {

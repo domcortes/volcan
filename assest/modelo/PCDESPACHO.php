@@ -13,6 +13,7 @@ class  PCDESPACHO {
     private	  $MOTIVO_PCDESPACHO;
     private	  $CANTIDAD_ENVASE_PCDESPACHO;
     private	  $KILOS_NETO_PCDESPACHO;
+    private	  $TINPUSDA;
     private	  $INGRESO;
     private	  $MODIFCIACION;
     private	  $ESTADO;

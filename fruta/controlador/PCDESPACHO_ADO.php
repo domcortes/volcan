@@ -159,6 +159,7 @@ class PCDESPACHO_ADO
                                                 NUMERO_PCDESPACHO,
                                                 FECHA_PCDESPACHO,
                                                 MOTIVO_PCDESPACHO,
+                                                TINPUSDA,
                                                 ID_EMPRESA, 
                                                 ID_PLANTA, 
                                                 ID_TEMPORADA, 
@@ -173,7 +174,7 @@ class PCDESPACHO_ADO
                                                 ESTADO_PCDESPACHO
                                             ) 
             VALUES
-	       	( ?, ?, ?, ?, ?, ?, ?, ?,  0, 0, SYSDATE(), SYSDATE(),  1, 1, 1 );";
+	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?,  0, 0, SYSDATE(), SYSDATE(),  1, 1, 1 );";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -181,6 +182,7 @@ class PCDESPACHO_ADO
                         $PCDESPACHO->__GET('NUMERO_PCDESPACHO'),
                         $PCDESPACHO->__GET('FECHA_PCDESPACHO'),
                         $PCDESPACHO->__GET('MOTIVO_PCDESPACHO'),
+                        $PCDESPACHO->__GET('TINPUSDA'),
                         $PCDESPACHO->__GET('ID_EMPRESA'),
                         $PCDESPACHO->__GET('ID_PLANTA'),
                         $PCDESPACHO->__GET('ID_TEMPORADA'),
@@ -221,6 +223,7 @@ class PCDESPACHO_ADO
                     KILOS_NETO_PCDESPACHO= ?, 
                     FECHA_PCDESPACHO = ?,
                     MOTIVO_PCDESPACHO= ?,
+                    TINPUSDA= ?,
                     ID_EMPRESA = ?,
                     ID_PLANTA = ?, 
                     ID_TEMPORADA = ?, 
@@ -233,6 +236,7 @@ class PCDESPACHO_ADO
                         $PCDESPACHO->__GET('KILOS_NETO_PCDESPACHO'),
                         $PCDESPACHO->__GET('FECHA_PCDESPACHO'),
                         $PCDESPACHO->__GET('MOTIVO_PCDESPACHO'),
+                        $PCDESPACHO->__GET('TINPUSDA'),
                         $PCDESPACHO->__GET('ID_EMPRESA'),
                         $PCDESPACHO->__GET('ID_PLANTA'),
                         $PCDESPACHO->__GET('ID_TEMPORADA'),
@@ -334,7 +338,55 @@ class PCDESPACHO_ADO
             die($e->getMessage());
         }
     }
+    public function buscarPorEmpresaPlantaTemporadaSiInp($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
 
+            $datos = $this->conexion->prepare("SELECT * 
+                                            FROM fruta_pcdespacho 
+                                            WHERE  ESTADO_PCDESPACHO BETWEEN 2   AND 3
+                                            AND TINPUSDA =1
+                                            AND ID_EMPRESA = '" . $EMPRESA . "'
+                                            AND ID_PLANTA = '" . $PLANTA . "'
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function buscarPorEmpresaPlantaTemporadaNoInp($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * 
+                                            FROM fruta_pcdespacho 
+                                            WHERE  ESTADO_PCDESPACHO BETWEEN 2   AND 3
+                                            AND TINPUSDA = 0
+                                            AND ID_EMPRESA = '" . $EMPRESA . "'
+                                            AND ID_PLANTA = '" . $PLANTA . "'
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function buscarPorEmpresaPlantaTemporada2($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {

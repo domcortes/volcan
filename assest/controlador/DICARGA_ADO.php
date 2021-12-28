@@ -343,6 +343,7 @@ class DICARGA_ADO
                                                             AND detalle.ID_ICARGA = icarga.ID_ICARGA  
                                                             AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
                                                             AND detalle.ESTADO_REGISTRO = 1
+                                                     		LIMIT 1
                                                         ) AS 'TMONEDA',
                                                     FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
                                                     FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
@@ -355,6 +356,7 @@ class DICARGA_ADO
                                                             AND detalle.ID_ICARGA = icarga.ID_ICARGA  
                                                             AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
                                                             AND detalle.ESTADO_REGISTRO = 1
+                                                     		LIMIT 1
                                                         ) AS 'US',            
                                                     (  SELECT
                                                         FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) * IFNULL(detalle.PRECIO_US_DICARGA,0),2,'de_DE')
@@ -364,6 +366,7 @@ class DICARGA_ADO
                                                             AND detalle.ID_ICARGA = icarga.ID_ICARGA  
                                                             AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
                                                             AND detalle.ESTADO_REGISTRO = 1
+                                                     		LIMIT 1
                                                         ) AS 'TOTALUS'
                                             FROM  fruta_icarga icarga,   fruta_despachoex despacho, fruta_exiexportacion existencia, estandar_eexportacion estandar, estandar_ecomercial comercial
                                             WHERE icarga.ID_ICARGA = despacho.ID_ICARGA 
@@ -402,6 +405,7 @@ class DICARGA_ADO
                                                                 AND detalle.ID_ICARGA = icarga.ID_ICARGA  
                                                                 AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
                                                                 AND detalle.ESTADO_REGISTRO = 1
+                                                     		    LIMIT 1
                                                             ),0)  AS 'TOTALUS'
                                                 FROM  fruta_icarga icarga,   fruta_despachoex despacho, fruta_exiexportacion existencia, estandar_eexportacion estandar, estandar_ecomercial comercial
                                                 WHERE icarga.ID_ICARGA = despacho.ID_ICARGA 
@@ -439,6 +443,7 @@ class DICARGA_ADO
                                                                 AND detalle.ID_ICARGA = icarga.ID_ICARGA  
                                                                 AND comercial2.ID_ECOMERCIAL =comercial.ID_ECOMERCIAL
                                                                 AND detalle.ESTADO_REGISTRO = 1
+                                                     		    LIMIT 1
                                                             ),0),2,'de_DE') AS 'TOTALUS'
                                                 FROM  fruta_icarga icarga,   fruta_despachoex despacho, fruta_exiexportacion existencia, estandar_eexportacion estandar, estandar_ecomercial comercial
                                                 WHERE icarga.ID_ICARGA = despacho.ID_ICARGA 

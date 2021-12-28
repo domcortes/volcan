@@ -28,6 +28,7 @@ include_once '../controlador/TCATEGORIA_ADO.php';
 include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
 include_once '../controlador/EXIINDUSTRIAL_ADO.php';
 include_once '../controlador/EXIEXPORTACION_ADO.php';
+include_once '../controlador/RECEPCIONMP_ADO.php';
 
 include_once '../modelo/EXIMATERIAPRIMA.php';
 include_once '../modelo/EXIEXPORTACION.php';
@@ -52,6 +53,7 @@ $DPEXPORTACION_ADO =  new DPEXPORTACION_ADO();
 $ERECEPCION_ADO =  new ERECEPCION_ADO();
 $EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
 
 $TPROCESO_ADO =  new TPROCESO_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
@@ -860,6 +862,8 @@ if (isset($_POST)) {
                                                     <th>Tipo Manejo</th>
                                                     <th>CSG Productor </th>
                                                     <th>Nombre Productor </th>
+                                                    <th>Número Recepción </th>
+                                                    <th>Número Guía </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -910,6 +914,15 @@ if (isset($_POST)) {
                                                         } else {
                                                             $NOMBRETMANEJO = "Sin Datos";
                                                         }
+                                                        $ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($r['ID_RECEPCION']);
+                                                        if ($ARRAYRECEPCION) {
+                                                            $NUMERORECEPCION = $ARRAYRECEPCION[0]["NUMERO_RECEPCION"];
+                                                            $NUMEROGUIARECEPCION = $ARRAYRECEPCION[0]["NUMERO_GUIA_RECEPCION"];                                                         
+                                                        } else {
+                                                            $NUMERORECEPCION = "Sin Datos";
+                                                            $NUMEROGUIARECEPCION = "Sin Datos";
+                                                        }
+
                                                         ?>
                                                         <tr class="text-left">
                                                             <td><?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?> </td>
@@ -933,6 +946,8 @@ if (isset($_POST)) {
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
                                                             <td><?php echo $NOMBREPRODUCTOR; ?></td>
+                                                            <td><?php echo $NUMERORECEPCION; ?></td>
+                                                            <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php } ?>

@@ -49,6 +49,7 @@ $FECHAMODIFCIACIONPCDESPACHO = "";
 
 $IDPCDESPACHO = "";
 $MOTIVOPCDESPACHO = "";
+$TINPUSDA="";
 $FECHAPCDESPACHO = "";
 $ESTADO = "";
 
@@ -64,7 +65,7 @@ $TEMPORADA = "";
 
 $DISABLED0 = "disabled";
 $DISABLED = "";
-$DISABLED2 = "disabled";
+$DISABLED2 = "";
 $DISABLED3 = "";
 $DISABLEDSTYLE0 = "style='background-color: #eeeeee;'";
 $DISABLEDSTYLE = "";
@@ -153,6 +154,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAPCDESPACHO = "" . $r['FECHA_PCDESPACHO'];
             $FECHAINGRESOPCDESPACHO = "" . $r['INGRESO'];
             $FECHAMODIFCIACIONPCDESPACHO = "" . $r['MODIFICACION'];
+            $TINPUSDA= "" . $r['TINPUSDA']; 
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -182,6 +184,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAPCDESPACHO = "" . $r['FECHA_PCDESPACHO'];
             $FECHAINGRESOPCDESPACHO = "" . $r['INGRESO'];
             $FECHAMODIFCIACIONPCDESPACHO = "" . $r['MODIFICACION'];
+            $TINPUSDA= "" . $r['TINPUSDA']; 
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -209,6 +212,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             $FECHAPCDESPACHO = "" . $r['FECHA_PCDESPACHO'];
             $FECHAINGRESOPCDESPACHO = "" . $r['INGRESO'];
             $FECHAMODIFCIACIONPCDESPACHO = "" . $r['MODIFICACION'];
+            $TINPUSDA= "" . $r['TINPUSDA']; 
             $ESTADO = "" . $r['ESTADO'];
         endforeach;
     }
@@ -229,6 +233,9 @@ if ($_POST) {
 
     if (isset($_REQUEST['MOTIVOPCDESPACHO'])) {
         $MOTIVOPCDESPACHO = "" . $_REQUEST['MOTIVOPCDESPACHO'];
+    }
+    if (isset($_REQUEST['TINPUSDA'])) {
+        $TINPUSDA = "" . $_REQUEST['TINPUSDA'];
     }
 }
 
@@ -252,9 +259,11 @@ if ($_POST) {
 
 
                     FECHAPCDESPACHO = document.getElementById("FECHAPCDESPACHO").value;
+                    TINPUSDA = document.getElementById("TINPUSDA").selectedIndex;
                     MOTIVOPCDESPACHO = document.getElementById("MOTIVOPCDESPACHO").value;
 
                     document.getElementById('val_fecha').innerHTML = "";
+                    document.getElementById('val_tinpusda').innerHTML = "";
                     document.getElementById('val_motivo').innerHTML = "";
 
 
@@ -265,6 +274,15 @@ if ($_POST) {
                         return false;
                     }
                     document.form_reg_dato.FECHAPCDESPACHO.style.borderColor = "#4AF575";
+
+                    if (TINPUSDA == null || TINPUSDA == 0) {
+                            document.form_reg_dato.TINPUSDA.focus();
+                            document.form_reg_dato.TINPUSDA.style.borderColor = "#FF0000";
+                            document.getElementById('val_tinpusda').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
+                            return false
+                        }
+                        document.form_reg_dato.TINPUSDA.style.borderColor = "#4AF575";
+                    
 
                     if (MOTIVOPCDESPACHO == null || MOTIVOPCDESPACHO.length == 0 || /^\s+$/.test(MOTIVOPCDESPACHO)) {
                         document.form_reg_dato.MOTIVOPCDESPACHO.focus();
@@ -438,13 +456,25 @@ if ($_POST) {
                                         <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Fecha PC</label>
                                             <input type="hidden" class="form-control" placeholder="Fecha PC Despacho" id="FECHAPCDESPACHOE" name="FECHAPCDESPACHOE" value="<?php echo $FECHAPCDESPACHO; ?>" />
-                                            <input type="date" class="form-control" placeholder="Fecha PC Despacho" id="FECHAPCDESPACHO" name="FECHAPCDESPACHO" value="<?php echo $FECHAPCDESPACHO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDSTYLE; ?> />
+                                            <input type="date" class="form-control" placeholder="Fecha PC Despacho" id="FECHAPCDESPACHO" name="FECHAPCDESPACHO" value="<?php echo $FECHAPCDESPACHO; ?>" <?php echo $DISABLED2; ?>   />
                                             <label id="val_fecha" class="validacion"> </label>
+                                        </div>                                        
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>Inspección USDA</label>
+                                                <input type="hidden" class="form-control" placeholder="TINPUSDA" id="TINPUSDAE" name="TINPUSDAE" value="<?php echo $TINPUSDA; ?>" />
+                                                <select class="form-control select2" id="TINPUSDA" name="TINPUSDA" style="width: 100%;" <?php echo $DISABLED3; ?> >
+                                                    <option></option>
+                                                    <option value="1" <?php if ($TINPUSDA == "1") { echo "selected"; } ?>> Si </option>
+                                                    <option value="0" <?php if ($TINPUSDA == "0") { echo "selected"; } ?>> No</option>
+                                                </select>
+                                                <label id="val_tinpusda" class="validacion"> </label> 
+                                            </div> 
                                         </div>
-                                        <div class="col-xxl-10 col-xl-8 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <label>Motivo</label>
                                             <input type="hidden" class="form-control" placeholder="Fecha PC Despacho" id="MOTIVOPCDESPACHOE" name="MOTIVOPCDESPACHOE" value="<?php echo $MOTIVOPCDESPACHO; ?>" />
-                                            <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciónes u Otro" id="MOTIVOPCDESPACHO" name="MOTIVOPCDESPACHO" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDSTYLE; ?>><?php echo $MOTIVOPCDESPACHO; ?></textarea>
+                                            <textarea class="form-control" rows="1" placeholder="Ingrese Nota, Observaciónes u Otro" id="MOTIVOPCDESPACHO" name="MOTIVOPCDESPACHO" <?php echo $DISABLED2; ?>   ><?php echo $MOTIVOPCDESPACHO; ?></textarea>
                                             <label id="val_motivo" class="validacion"> </label>
                                         </div>
                                     </div>
@@ -696,6 +726,7 @@ if ($_POST) {
                 $PCDESPACHO->__SET('NUMERO_PCDESPACHO', $NUMERO);
                 $PCDESPACHO->__SET('FECHA_PCDESPACHO', $_REQUEST['FECHAPCDESPACHO']);
                 $PCDESPACHO->__SET('MOTIVO_PCDESPACHO', $_REQUEST['MOTIVOPCDESPACHO']);
+                $PCDESPACHO->__SET('TINPUSDA', $_REQUEST['TINPUSDA']);
                 $PCDESPACHO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $PCDESPACHO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                 $PCDESPACHO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
@@ -734,8 +765,9 @@ if ($_POST) {
             if (isset($_REQUEST['GUARDAR'])) {
                 $PCDESPACHO->__SET('CANTIDAD_ENVASE_PCDESPACHO', $_REQUEST['TOTALENVASE']);
                 $PCDESPACHO->__SET('KILOS_NETO_PCDESPACHO', $_REQUEST['TOTALNETO']);
-                $PCDESPACHO->__SET('FECHA_PCDESPACHO', $_REQUEST['FECHAPCDESPACHOE']);
-                $PCDESPACHO->__SET('MOTIVO_PCDESPACHO', $_REQUEST['MOTIVOPCDESPACHOE']);
+                $PCDESPACHO->__SET('FECHA_PCDESPACHO', $_REQUEST['FECHAPCDESPACHO']);
+                $PCDESPACHO->__SET('MOTIVO_PCDESPACHO', $_REQUEST['MOTIVOPCDESPACHO']);
+                $PCDESPACHO->__SET('TINPUSDA', $_REQUEST['TINPUSDAE']);
                 $PCDESPACHO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                 $PCDESPACHO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                 $PCDESPACHO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
@@ -802,8 +834,9 @@ if ($_POST) {
                 if ($SINO == "0") {
                     $PCDESPACHO->__SET('CANTIDAD_ENVASE_PCDESPACHO', $_REQUEST['TOTALENVASE']);
                     $PCDESPACHO->__SET('KILOS_NETO_PCDESPACHO', $_REQUEST['TOTALNETO']);
-                    $PCDESPACHO->__SET('FECHA_PCDESPACHO', $_REQUEST['FECHAPCDESPACHOE']);
-                    $PCDESPACHO->__SET('MOTIVO_PCDESPACHO', $_REQUEST['MOTIVOPCDESPACHOE']);
+                    $PCDESPACHO->__SET('FECHA_PCDESPACHO', $_REQUEST['FECHAPCDESPACHO']);
+                    $PCDESPACHO->__SET('MOTIVO_PCDESPACHO', $_REQUEST['MOTIVOPCDESPACHO']);
+                    $PCDESPACHO->__SET('TINPUSDA', $_REQUEST['TINPUSDAE']);
                     $PCDESPACHO->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
                     $PCDESPACHO->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
                     $PCDESPACHO->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);

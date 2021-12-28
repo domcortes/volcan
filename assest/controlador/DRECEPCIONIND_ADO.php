@@ -127,11 +127,11 @@ class DRECEPCIONIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                FECHA_EMBALADO_DRECEPCION AS 'EMBALADO',
-                                                IFNULL(CANTIDAD_ENVASE_DRECEPCION,0) AS 'ENVASE', 
-                                                IFNULL(KILOS_NETO_DRECEPCION,0) AS 'NETO', 
-                                                IFNULL(KILOS_PROMEDIO_DRECEPCION,0) AS 'PROMEDIO' , 
-                                                IFNULL(KILOS_BRUTO_DRECEPCION,0)  AS 'BRUTO'  
+                                                    DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
+                                                    FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),0,'de_DE') AS 'ENVASE', 
+                                                    FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO', 
+                                                    FORMAT(IFNULL(KILOS_PROMEDIO_DRECEPCION,0),3,'de_DE') AS 'PROMEDIO' , 
+                                                    FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),2,'de_DE')  AS 'BRUTO'  
                                             FROM fruta_drecepcionind WHERE ID_DRECEPCION = " . $IDDRECEPCION . "  ;");
             $datos->execute();
             $resultado = $datos->fetchAll();
