@@ -8,7 +8,7 @@ include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 
 include_once '../../assest/controlador/PRODUCTO_ADO.php';
-include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/TCONTENEDORM_ADO.php';
 include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 include_once '../../assest/controlador/FOLIO_ADO.php';
 include_once '../../assest/controlador/PROVEEDOR_ADO.php';
@@ -32,7 +32,7 @@ $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
-$TCONTENEDOR_ADO =  new TCONTENEDOR_ADO();
+$TCONTENEDOR_ADO =  new TCONTENEDORM_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 $PROVEEDOR_ADO =  new PROVEEDOR_ADO();
