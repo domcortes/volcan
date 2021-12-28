@@ -4,7 +4,7 @@ include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 include_once '../../assest/controlador/PRODUCTO_ADO.php';
-include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/TCONTENEDORM_ADO.php';
 include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 include_once '../../assest/controlador/FOLIO_ADO.php';
 
@@ -24,7 +24,7 @@ include_once '../../assest/modelo/TARJAM.php';
 //INICIALIZAR CONTROLADOR
 
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
-$TCONTENEDOR_ADO =  new TCONTENEDOR_ADO();
+$TCONTENEDOR_ADO =  new TCONTENEDORM_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
 $FOLIO_ADO =  new FOLIO_ADO();
 

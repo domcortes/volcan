@@ -78,10 +78,7 @@ $ARRAYREGION = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPRODUCTOR = $PRODUCTOR_ADO->listarProductorPorEmpresaCBX($EMPRESAS);
 $ARRAYTPRODUCTOR = $TPRODUCTOR_ADO->listarTproductorPorEmpresaCBX($EMPRESAS);
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
-$ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
-$ARRAYPROVINCIA  = $PROVINCIA_ADO->listarProvinciaCBX();
-$ARRAYREGION = $REGION_ADO->listarRegionCBX();
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 
 
 include_once "../config/validarDatosUrl.php";
@@ -683,26 +680,24 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                         </button>
                                                     </div>
                                                 </div>
-
                                                 <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9 col-xs-9">
                                                     <div class="form-group">
-                                                        <label>Tipo Productor</label>
-                                                        <select class="form-control select2" id="TPRODUCTOR" name="TPRODUCTOR" style="width: 100%;" value="<?php echo $TPRODUCTOR; ?>" <?php echo $DISABLED; ?>>
+                                                        <label>Ciudad </label>
+                                                        <select class="form-control select2" id="CIUDAD" name="CIUDAD" style="width: 100%;" value="<?php echo $CIUDAD; ?>" <?php echo $DISABLED; ?>>
                                                             <option></option>
-                                                            <?php foreach ($ARRAYTPRODUCTOR as $r) : ?>
-                                                                <?php if ($ARRAYTPRODUCTOR) {    ?>
-                                                                    <option value="<?php echo $r['ID_TPRODUCTOR']; ?>" <?php if ($TPRODUCTOR == $r['ID_TPRODUCTOR']) {
-                                                                                                                            echo "selected";
-                                                                                                                        } ?>>
-                                                                        <?php echo $r['NOMBRE_TPRODUCTOR'] ?>
+                                                            <?php foreach ($ARRAYCIUDAD as $r) : ?>
+                                                                <?php if ($ARRAYCIUDAD) {    ?>
+                                                                    <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>>
+                                                                        <?php echo $r['CIUDAD'].', '.$r['COMUNA'].', '.$r['PROVINCIA'].', '.$r['REGION']; ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
                                                                 <?php } ?>
-
                                                             <?php endforeach; ?>
                                                         </select>
-                                                        <label id="val_tproductor" class="validacion"> </label>
+                                                        <label id="val_ciudad" class="validacion"> </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 col-xs-3">

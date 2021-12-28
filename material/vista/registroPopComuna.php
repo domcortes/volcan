@@ -45,7 +45,7 @@ $ARRAYPROVINCIA = "";
 
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYCOMUNA = $COMUNA_ADO->listarComunaCBX();
-$ARRAYPROVINCIA = $PROVINCIA_ADO->listarProvinciaCBX();
+$ARRAYPROVINCIA = $PROVINCIA_ADO->listarProvincia3CBX();
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 
@@ -225,7 +225,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     <option value="<?php echo $r['ID_PROVINCIA']; ?>" <?php if ($PROVINCIA == $r['ID_PROVINCIA']) {
                                                                                                                             echo "selected";
                                                                                                                         } ?>>
-                                                                        <?php echo $r['NOMBRE_PROVINCIA'] ?>
+                                                                        <?php echo $r['PROVINCIA'].', '.$r['REGION']; ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
