@@ -93,7 +93,17 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $IDP = $_SESSION['parametro'];
     $OPP = $_SESSION['parametro1'];
     $URLO = $_SESSION['urlO'];
-    $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorEmpresaPlantaTemporada($EMPRESAS, $PLANTAS, $TEMPORADAS);
+
+    $ARRAYDESPACHOEX=$DESPACHOEX_ADO->verDespachoex($IDP);    
+    if($ARRAYDESPACHOEX){
+        if($ARRAYDESPACHOEX[0]["TINPUSDA"]=="1"){
+            $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorEmpresaPlantaTemporadaSiInp($EMPRESAS, $PLANTAS, $TEMPORADAS);
+        }
+        if($ARRAYDESPACHOEX[0]["TINPUSDA"]=="0"){ 
+            $ARRAYPCDESPACHO = $PCDESPACHO_ADO->buscarPorEmpresaPlantaTemporadaNoInp($EMPRESAS, $PLANTAS, $TEMPORADAS);
+        }
+    }
+
 }
 include_once "../config/validarDatosUrlD.php";
 
@@ -203,37 +213,39 @@ include_once "../config/validarDatosUrlD.php";
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php foreach ($ARRAYPCDESPACHO as $r) : ?>
-                                                            <tr class="text-left">
-                                                                <td> <?php echo $r['NUMERO_PCDESPACHO']; ?> </td>
-                                                                <td>
-                                                                    <div class="form-group">
-                                                                        <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_PCDESPACHO']; ?>" value="<?php echo $r['ID_PCDESPACHO']; ?>">
-                                                                        <label for="SELECIONAREXISTENCIA<?php echo $r['ID_PCDESPACHO']; ?>"> Seleccionar</label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <?php
-                                                                    if ($r['ESTADO_PCDESPACHO'] == "1") {
-                                                                        echo "Creado";
-                                                                    }
-                                                                    if ($r['ESTADO_PCDESPACHO'] == "2") {
-                                                                        echo "Confirmado";
-                                                                    }
-                                                                    if ($r['ESTADO_PCDESPACHO'] == "3") {
-                                                                        echo "En Despacho";
-                                                                    }
-                                                                    if ($r['ESTADO_PCDESPACHO'] == "4") {
-                                                                        echo "Despachado";
-                                                                    }
-                                                                    ?>
-                                                                </td>
-                                                                <td><?php echo $r['CANTIDAD_ENVASE_PCDESPACHO']; ?></td>
-                                                                <td><?php echo $r['KILOS_NETO_PCDESPACHO']; ?></td>
-                                                                <td><?php echo $r['MOTIVO_PCDESPACHO']; ?> </td>
-                                                                <td><?php echo $r['FECHA_PCDESPACHO']; ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
+                                                        <?php if($ARRAYPCDESPACHO){ ?>
+                                                            <?php foreach ($ARRAYPCDESPACHO as $r) : ?>
+                                                                <tr class="text-left">
+                                                                    <td> <?php echo $r['NUMERO_PCDESPACHO']; ?> </td>
+                                                                    <td>
+                                                                        <div class="form-group">
+                                                                            <input type="checkbox" name="SELECIONAREXISTENCIA[]" id="SELECIONAREXISTENCIA<?php echo $r['ID_PCDESPACHO']; ?>" value="<?php echo $r['ID_PCDESPACHO']; ?>">
+                                                                            <label for="SELECIONAREXISTENCIA<?php echo $r['ID_PCDESPACHO']; ?>"> Seleccionar</label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php
+                                                                        if ($r['ESTADO_PCDESPACHO'] == "1") {
+                                                                            echo "Creado";
+                                                                        }
+                                                                        if ($r['ESTADO_PCDESPACHO'] == "2") {
+                                                                            echo "Confirmado";
+                                                                        }
+                                                                        if ($r['ESTADO_PCDESPACHO'] == "3") {
+                                                                            echo "En Despacho";
+                                                                        }
+                                                                        if ($r['ESTADO_PCDESPACHO'] == "4") {
+                                                                            echo "Despachado";
+                                                                        }
+                                                                        ?>
+                                                                    </td>
+                                                                    <td><?php echo $r['CANTIDAD_ENVASE_PCDESPACHO']; ?></td>
+                                                                    <td><?php echo $r['KILOS_NETO_PCDESPACHO']; ?></td>
+                                                                    <td><?php echo $r['MOTIVO_PCDESPACHO']; ?> </td>
+                                                                    <td><?php echo $r['FECHA_PCDESPACHO']; ?></td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        <?php }; ?>
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -33,6 +33,7 @@
         private   $KILOS_NETO_DESPACHOEX;
         private   $KILOS_BRUTO_DESPACHOEX;
         private	  $OBSERVACION_DESPACHOEX;
+        private	  $TINPUSDA;
         private   $ESTADO;
         private   $ESTADO_REGISTRO;
         private   $INGRESO;
