@@ -53,7 +53,7 @@ $ARRAYNUMERO = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYPROVEEDORS = $PROVEEDOR_ADO->listarProveedorPorEmpresaCBX($EMPRESAS);
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
-$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudadCBX();
+$ARRAYCIUDAD = $CIUDAD_ADO->listarCiudad3CBX();
 include_once "../config/validarDatosUrl.php";
 include_once "../config/datosUrl.php";
 include_once "../config/reporteUrl.php";
@@ -512,7 +512,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                                                                     <option value="<?php echo $r['ID_CIUDAD']; ?>" <?php if ($CIUDAD == $r['ID_CIUDAD']) {
                                                                                                                         echo "selected";
                                                                                                                     } ?>>
-                                                                        <?php echo $r['NOMBRE_CIUDAD'] ?>
+                                                                        <?php echo $r['CIUDAD'].', '.$r['COMUNA'].', '.$r['PROVINCIA'].', '.$r['REGION']; ?>
                                                                     </option>
                                                                 <?php } else { ?>
                                                                     <option>No Hay Datos Registrados </option>
