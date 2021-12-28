@@ -1,17 +1,17 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/FOLIOM_ADO.php';
 
 
-include_once '../controlador/INVENTARIOE_ADO.php';
-include_once '../controlador/RECEPCIONE_ADO.php';
+include_once '../../assest/controlador/INVENTARIOE_ADO.php';
+include_once '../../assest/controlador/RECEPCIONE_ADO.php';
 
-include_once '../modelo/INVENTARIOE.php';
+include_once '../../assest/modelo/INVENTARIOE.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -19,7 +19,7 @@ include_once '../modelo/INVENTARIOE.php';
 
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
-$FOLIO_ADO =  new FOLIO_ADO();
+$FOLIO_ADO =  new FOLIOM_ADO();
 
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
@@ -93,65 +93,10 @@ $ARRAYVERFOLIO;
 
 $ARRAYPRODUCTO = $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
 $ARRAYTUMEDIDA = $TUMEDIDA_ADO->listarTumedidaPorEmpresaCBX($EMPRESAS);
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-
-    $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
-    $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
-    $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
-    $INVENTARIOE->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-    $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-    $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $INVENTARIOE_ADO->agregarInventarioRecepcion($INVENTARIOE);
-
-    //REDIRECCIONAR A PAGINA registroRecepcion.php 
-    
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-
-}
-if (isset($_REQUEST['EDITAR'])) {
-
-    $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
-    $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
-    $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
-    $INVENTARIOE->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-    $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-    $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTOE']);
-    $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
-
-    
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['ELIMINAR'])) {
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->eliminado($INVENTARIOE);
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-}
 //OBTENCION DE DATOS ENVIADOR A LA URL
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -290,7 +235,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -349,7 +294,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php  include_once "../config/menu.php";
+            <?php  include_once "../../assest/config/menuMaterial.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -363,8 +308,8 @@ if (isset($_POST)) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepción Envases</li>
                                             <li class="breadcrumb-item" aria-current="page">Registro Recepción </li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Detalle </a>
                                             </li>
@@ -372,7 +317,7 @@ if (isset($_POST)) {
                                     </nav>
                                 </div>
                             </div>
-                            <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <!-- Main content -->
@@ -387,7 +332,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID BODEGA" id="BODEGA" name="BODEGA" value="<?php echo $BODEGA; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID TRECEPCION" id="TRECEPCION" name="TRECEPCION" value="<?php echo $TRECEPCION; ?>" />
@@ -426,7 +371,7 @@ if (isset($_POST)) {
                                                 <label id="val_tumedida" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Valor Unitario </label>
                                                 <input type="hidden" class="form-control" placeholder="VALORUNITARIO" id="VALORUNITARIO" name="VALORUNITARIO" value="<?php echo $VALORUNITARIO; ?>" />
@@ -434,7 +379,7 @@ if (isset($_POST)) {
                                                 <label id="val_vu" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Producto</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
@@ -454,18 +399,18 @@ if (isset($_POST)) {
                                         </button>
                                         <?php if ($OP == "") { ?>
                                             <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Agregar
+                                                <i class="ti-save-alt"></i> Guardar
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
                                             <?php if ($OP == "crear") { ?>
                                                 <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Duplicar
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "editar") { ?>
                                                 <button type="submit" class="btn  btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Editar
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "eliminar") { ?>
@@ -484,11 +429,99 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+        
+
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
+                $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
+                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
+                $INVENTARIOE->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $INVENTARIOE_ADO->agregarInventarioRecepcion($INVENTARIOE);
+
+                //REDIRECCIONAR A PAGINA registroRecepcion.php 
+                
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro creado",
+                            text:"El registro de detalle de recepción se ha creado correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"cerrar"
+                        }).then((result)=>{
+                            location.href ="'. $_REQUEST['URLP'].'.php?op";                            
+                        })
+                    </script>';
+            }
+            if (isset($_REQUEST['EDITAR'])) {
+
+                $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
+                $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
+                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
+                $INVENTARIOE->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTOE']);
+                $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
+
+                
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro del detalle de recepcion se ha modificada correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"cerrar"
+                    }).then((result)=>{
+                        location.href ="'. $_REQUEST['URLP'].'.php?op";                            
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->eliminado($INVENTARIOE);
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Eliminado",
+                        text:"El registro del detalle recepcion se ha eliminado correctamente ",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a recepcion"
+                    }).then((result)=>{
+                        location.href ="' . $_REQUEST['URLP'] . '.php?op";                        
+                    })
+                </script>';
+            }
+        
+        ?>
 </body>
 
 </html>

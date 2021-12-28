@@ -292,7 +292,7 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                             <i class="ti-back-left "></i> Volver
                                         </button>
                                         <button type="submit" class="btn  btn-danger" data-toggle="tooltip" title="Rechazar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                            <i class="ti-save-alt"></i> Gurdar
+                                            <i class="ti-save-alt"></i> Guardar
                                         </button>
                                     </div>
                                 </div>

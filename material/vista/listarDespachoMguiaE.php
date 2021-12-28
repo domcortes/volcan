@@ -1,14 +1,14 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 
 
-include_once '../controlador/MGUIAE_ADO.php';
-include_once '../controlador/DESPACHOE_ADO.php';
+include_once '../../assest/controlador/MGUIAE_ADO.php';
+include_once '../../assest/controlador/DESPACHOE_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -31,7 +31,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $URLO = $_SESSION['urlO'];
     $ARRAYMGUIAM = $MGUIAE_ADO->listarMguiaEmpresaPlantaTemporadaDespachoOrigenCBX2($IDP, $EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 
@@ -50,7 +50,7 @@ include_once "../config/validarDatosUrlD.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -113,7 +113,7 @@ include_once "../config/validarDatosUrlD.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuMaterial.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -128,9 +128,9 @@ include_once "../config/validarDatosUrlD.php";
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
+                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
                                             <li class="breadcrumb-item" aria-current="page">Guía Por Recibir</li>
-                                            <li class="breadcrumb-item" aria-current="page">Producto Terminado</li>
+                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Motivo Rechazo </a>
                                             </li>
                                         </ol>
@@ -168,7 +168,7 @@ include_once "../config/validarDatosUrlD.php";
                                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <div class="form-group">
                                             <button type="button" class="btn btn-block  btn-success" data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('listarDespachoe.php'); ">
-                                                <i class="ti-back-left "></i>
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
                                         </div>
                                     </div>
@@ -176,7 +176,7 @@ include_once "../config/validarDatosUrlD.php";
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="modulo" class="table table-hover " style="width: 100%;">
+                                            <table id="modulo" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Número </th>
@@ -220,9 +220,6 @@ include_once "../config/validarDatosUrlD.php";
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-footer">
-                            </div>
-
                         </div>
                         <!-- /.box -->
 
@@ -233,11 +230,11 @@ include_once "../config/validarDatosUrlD.php";
             </div>
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

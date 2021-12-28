@@ -1,21 +1,21 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
 
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
 
 
-include_once '../controlador/INVENTARIOE_ADO.php';
-include_once '../controlador/DESPACHOE_ADO.php';
+include_once '../../assest/controlador/INVENTARIOE_ADO.php';
+include_once '../../assest/controlador/DESPACHOE_ADO.php';
 
 
-include_once '../modelo/INVENTARIOE.php';
-include_once '../modelo/DESPACHOE.php';
+include_once '../../assest/modelo/INVENTARIOE.php';
+include_once '../../assest/modelo/DESPACHOE.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -65,46 +65,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 }
 
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
-if (isset($_REQUEST['APROBARURL'])) {
-
-    $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DESPACHOE_ADO->cerrado($DESPACHOE);
-
-    $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DESPACHOE_ADO->Aprobado($DESPACHOE);
-
-    $ARRAYVERDESPACHOE=$DESPACHOE_ADO->verDespachoe($_REQUEST['ID']);
-
-    $ARRAYEXISENCIADESPACHOEP = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['ID']);
-    foreach ($ARRAYEXISENCIADESPACHOEP as $r) :
-        $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r['CANTIDAD']);
-        $INVENTARIOE->__SET('CANTIDAD_SALIDA', 0);
-        $INVENTARIOE->__SET('VALOR_UNITARIO', $r['VALOR_UNITARIO']);
-        $INVENTARIOE->__SET('ID_BODEGA',  $ARRAYVERDESPACHOE[0]['ID_BODEGA2']);
-        $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
-        $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
-        $INVENTARIOE->__SET('ID_PLANTA2', $r['ID_PLANTA']);
-        $INVENTARIOE->__SET('ID_DESPACHO2',$ARRAYVERDESPACHOE[0]['ID_DESPACHO']);
-        $INVENTARIOE->__SET('ID_EMPRESA', $EMPRESAS);
-        $INVENTARIOE->__SET('ID_PLANTA', $PLANTAS);
-        $INVENTARIOE->__SET('ID_TEMPORADA', $TEMPORADAS);
-        $INVENTARIOE_ADO->agregarInventarioGuia($INVENTARIOE);
-    endforeach;
-
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-
-if (isset($_REQUEST['RECHAZARURL'])) {
-
-    $_SESSION["parametro"] = $_REQUEST['ID'];
-    $_SESSION["parametro1"] = "";
-    $_SESSION["urlO"] = $_REQUEST['URLO'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLM'] . ".php?op';</script>";
-}
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 ?>
@@ -120,7 +82,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -190,7 +152,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php";
+        <?php include_once "../../assest/config/menuMaterial.php";
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -206,7 +168,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                        <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                        <li class="breadcrumb-item" aria-current="page">Envases</li>
                                         <li class="breadcrumb-item" aria-current="page">Guía Por Recibir</li>
                                         <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Envases </a>
                                         </li>
@@ -363,18 +325,18 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="registroGuiaPorRecibirE" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLM" name="URLM" value="registroGuiaPorRecibirME" />
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoE.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeDespachoE.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                             <?php if ($r['ESTADO_DESPACHO'] == "2") { ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" title="Operaciones">
                                                                                     <button type="submit" class="btn btn-success " data-toggle="tooltip" id="APROBARURL" name="APROBARURL" title="Aprobar">
-                                                                                        <i class="fa fa-check"></i>
+                                                                                        <i class="fa fa-check"></i> Aprobar
                                                                                     </button>
                                                                                     <button type="submit" class="btn btn-danger " data-toggle="tooltip" id="RECHAZARURL" name="RECHAZARURL" title="Rechazar">
-                                                                                        <i class="fa fa-close"></i>
+                                                                                        <i class="fa fa-close"></i> Rechazar
                                                                                     </button>
                                                                                 </span>
                                                                             <?php } ?>
@@ -428,10 +390,62 @@ if (isset($_REQUEST['RECHAZARURL'])) {
             </div>
         </div>
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
+    <?php 
+    
+
+        if (isset($_REQUEST['APROBARURL'])) {
+
+            $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['ID']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $DESPACHOE_ADO->cerrado($DESPACHOE);
+
+            $DESPACHOE->__SET('ID_DESPACHO', $_REQUEST['ID']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $DESPACHOE_ADO->Aprobado($DESPACHOE);
+
+            $ARRAYVERDESPACHOE=$DESPACHOE_ADO->verDespachoe($_REQUEST['ID']);
+
+            $ARRAYEXISENCIADESPACHOEP = $INVENTARIOE_ADO->buscarPorDespacho($_REQUEST['ID']);
+            foreach ($ARRAYEXISENCIADESPACHOEP as $r) :
+                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $r['CANTIDAD']);
+                $INVENTARIOE->__SET('CANTIDAD_SALIDA', 0);
+                $INVENTARIOE->__SET('VALOR_UNITARIO', $r['VALOR_UNITARIO']);
+                $INVENTARIOE->__SET('ID_BODEGA',  $ARRAYVERDESPACHOE[0]['ID_BODEGA2']);
+                $INVENTARIOE->__SET('ID_PRODUCTO', $r['ID_PRODUCTO']);
+                $INVENTARIOE->__SET('ID_TUMEDIDA', $r['ID_TUMEDIDA']);
+                $INVENTARIOE->__SET('ID_PLANTA2', $r['ID_PLANTA']);
+                $INVENTARIOE->__SET('ID_DESPACHO2',$ARRAYVERDESPACHOE[0]['ID_DESPACHO']);
+                $INVENTARIOE->__SET('ID_EMPRESA', $EMPRESAS);
+                $INVENTARIOE->__SET('ID_PLANTA', $PLANTAS);
+                $INVENTARIOE->__SET('ID_TEMPORADA', $TEMPORADAS);
+                $INVENTARIOE_ADO->agregarInventarioGuia($INVENTARIOE);
+            endforeach;
+            echo '<script>
+                Swal.fire({
+                    icon:"success",
+                    title:"Guia Aprobada",
+                    text:"los registro asociados a la guia se ha creado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "registroGuiaPorRecibirE.php";                            
+                })
+            </script>';
+        }
+        if (isset($_REQUEST['RECHAZARURL'])) {
+            $_SESSION["parametro"] = $_REQUEST['ID'];
+            $_SESSION["parametro1"] = "";
+            $_SESSION["urlO"] = $_REQUEST['URLO'];
+            echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLM'] . ".php?op';</script>";
+        }
+
+    
+    ?>
 </body>
 
 </html>

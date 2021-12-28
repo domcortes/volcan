@@ -97,38 +97,6 @@ include_once "../config/validarDatosUrlD.php";
 
 
 
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-
-if (isset($_REQUEST['EDITAR'])) {
-    $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
-    $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
-    $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
-    $INVENTARIOE->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-    $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-    $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTOE']);
-    $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
-    
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['ELIMINAR'])) {
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->eliminado($INVENTARIOE);
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-}
 //OBTENCION DE DATOS ENVIADOR A LA URL
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
     $IDP = $_SESSION['parametro'];
@@ -430,18 +398,18 @@ if (isset($_POST)) {
                                         </button>
                                         <?php if ($OP == "") { ?>
                                             <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Agregar
+                                                <i class="ti-save-alt"></i> Guardar
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
                                             <?php if ($OP == "crear") { ?>
                                                 <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Duplicar
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "editar") { ?>
                                                 <button type="submit" class="btn  btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Editar
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "eliminar") { ?>
@@ -465,6 +433,61 @@ if (isset($_POST)) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php 
+        
+        
+
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
+                $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
+                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
+                $INVENTARIOE->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
+                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTOE']);
+                $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
+                
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro del detalle de recepcion se ha modificada correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"cerrar"
+                    }).then((result)=>{
+                        location.href ="'. $_REQUEST['URLP'].'.php?op";                            
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->eliminado($INVENTARIOE);
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Eliminado",
+                        text:"El registro del detalle recepcion se ha eliminado correctamente ",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a recepcion"
+                    }).then((result)=>{
+                        location.href ="' . $_REQUEST['URLP'] . '.php?op";                        
+                    })
+                </script>';
+            }
+        ?>
 </body>
 
 </html>

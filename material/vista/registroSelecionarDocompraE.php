@@ -68,53 +68,7 @@ $ARRAYDOCOMPRA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 //include_once "../config/validarDatosUrlD.php";
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
 
-if (isset($_REQUEST['AGREGAR'])) {
-
-    $EMPRESA = $_REQUEST['EMPRESA'];
-    $PLANTA = $_REQUEST['PLANTA'];
-    $TEMPORADA = $_REQUEST['TEMPORADA'];
-    $IDP = $_REQUEST['IDP'];
-
-    if (isset($_REQUEST['SELECIONARDOCOMPRA'])) {
-        $SINO = "0";
-        $SELECIONARDOCOMPRA = $_REQUEST['SELECIONARDOCOMPRA'];
-        $SELECIONARDOCOMPRAID = $_REQUEST['SELECIONARDOCOMPRAID'];
-    } else {
-        $SINO = "1";
-        $MENSAJE = "DEBE  SELECIONAR UN REGISTRO";
-    }
-    if ($SINO == "0") {
-
-        foreach ($SELECIONARDOCOMPRA as $r) :
-            $IDDOCOMPRA = $SELECIONARDOCOMPRAID[$r];
-            $ARRAYDOCOMPRA = $DOCOMPRA_ADO->verDocompra($IDDOCOMPRA);
-
-
-            foreach ($ARRAYDOCOMPRA as $s) :
-
-
-                $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
-                $INVENTARIOE->__SET('VALOR_UNITARIO',  $s['VALOR_UNITARIO_DOCOMPRA']);
-                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-                $INVENTARIOE->__SET('ID_PRODUCTO', $s['ID_PRODUCTO']);
-                $INVENTARIOE->__SET('ID_TUMEDIDA', $s['ID_TUMEDIDA']);
-                $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                $INVENTARIOE->__SET('ID_DOCOMPRA',  $s['ID_DOCOMPRA']);
-                $INVENTARIOE_ADO->agregarInventarioRecepcionDocompra($INVENTARIOE);
-            endforeach;
-        endforeach;
-        
-        $_SESSION["parametro"] =  $_REQUEST['IDP'];
-        $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-    }
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
@@ -180,8 +134,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
+                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción</li>
-                                            <li class="breadcrumb-item" aria-current="page">Recepción Envases</li>
                                             <li class="breadcrumb-item active" aria-current="page"> Selección Detalle OC </li>
                                         </ol>
                                     </nav>
@@ -210,17 +164,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
                     <section class="content">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <!--
-                                        <h4 class="box-title">Different Width</h4>
-                                        -->
+                            <div class="box-header with-border bg-success">                                   
+                                <h4 class="box-title">Seleccion Detalle OC</h4>                                        
                             </div>
-
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                                <div class="box-body ">
-
+                                <div class="box-body ">         
+                                    <label id="val_validato" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">  
                                             <input type="hidden" class="form-control" placeholder="ID RECEPCIONM" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="OP RECEPCIONM" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="URL RECEPCIONM" id="URLP" name="URLP" value="<?php echo $URLP; ?>" />
@@ -234,12 +185,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                             <input type="hidden" class="form-control" placeholder="ID PROVEEDOR" id="PROVEEDOR" name="PROVEEDOR" value="<?php echo $PROVEEDOR; ?>" />
                                             <input type="hidden" class="form-control" placeholder="ID TRECEPCION" id="TRECEPCION" name="TRECEPCION" value="<?php echo $TRECEPCION; ?>" />
 
-                                        </div>
-                                    </div>
-
-                                    <label id="val_validato" class="validacion"> <?php echo $MENSAJE; ?> </label>
-                                    <div class="row">
-                                        <div class="col-sm-12">
                                             <div class="table-responsive">
                                                 <table id="selecionExistencia" class="table table-hover " style="width: 100%;">
                                                     <thead>
@@ -309,15 +254,14 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <!-- /.row -->
 
 
-                                    <!-- /.box-body -->
+                                    <!-- /.box-body -->                                    
                                     <div class="box-footer">
-                                        <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
-                                                <i class="ti-back-left "></i>
+                                        <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                            <button type="button"  class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Seleccionar" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit"  class="btn btn-primary " data-toggle="tooltip" title="Agregar"  name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> AGREGAR
                                             </button>
                                         </div>
                                     </div>
@@ -339,6 +283,79 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../config/urlBase.php"; ?>
+        <?php 
+             //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+
+            if (isset($_REQUEST['AGREGAR'])) {
+
+                $EMPRESA = $_REQUEST['EMPRESA'];
+                $PLANTA = $_REQUEST['PLANTA'];
+                $TEMPORADA = $_REQUEST['TEMPORADA'];
+                $IDP = $_REQUEST['IDP'];
+
+                if (isset($_REQUEST['SELECIONARDOCOMPRA'])) {
+                    $SINO = "0";
+                    $SELECIONARDOCOMPRA = $_REQUEST['SELECIONARDOCOMPRA'];
+                    $SELECIONARDOCOMPRAID = $_REQUEST['SELECIONARDOCOMPRAID'];
+                } else {
+                    $SINO = "1";
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"Se debe selecionar al menos una registro.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroSelecionarDocompraE.php?op";                            
+                        })
+                    </script>';
+                }
+                if ($SINO == "0") {
+
+                    foreach ($SELECIONARDOCOMPRA as $r) :
+                        $IDDOCOMPRA = $SELECIONARDOCOMPRAID[$r];
+                        $ARRAYDOCOMPRA = $DOCOMPRA_ADO->verDocompra($IDDOCOMPRA);
+
+
+                        foreach ($ARRAYDOCOMPRA as $s) :
+
+
+                            $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
+                            $INVENTARIOE->__SET('VALOR_UNITARIO',  $s['VALOR_UNITARIO_DOCOMPRA']);
+                            $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                            $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                            $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                            $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                            $INVENTARIOE->__SET('ID_PRODUCTO', $s['ID_PRODUCTO']);
+                            $INVENTARIOE->__SET('ID_TUMEDIDA', $s['ID_TUMEDIDA']);
+                            $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
+                            $INVENTARIOE->__SET('ID_DOCOMPRA',  $s['ID_DOCOMPRA']);
+                            $INVENTARIOE_ADO->agregarInventarioRecepcionDocompra($INVENTARIOE);
+                        endforeach;
+                    endforeach;
+                    
+                    $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                    echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Accion realizada",
+                            text:"Se agregado los registro a la recepción.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Volver a recepción",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href="' . $_REQUEST['URLP'] . '.php?op";                        
+                        })
+                    </script>';
+                }
+            }
+        ?>
 </body>
 
 </html>

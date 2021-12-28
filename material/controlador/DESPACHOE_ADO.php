@@ -292,6 +292,8 @@ class DESPACHOE_ADO
             if ($DESPACHOE->__GET('ID_COMPRADOR') == NULL) {
                 $DESPACHOE->__SET('ID_COMPRADOR', NULL);
             }
+            
+            
             $query = "
                 UPDATE material_despachoe SET
                         MODIFICACION = SYSDATE(),
