@@ -281,7 +281,7 @@ $html = '
   <body>
     <header class="clearfix">
       <div id="logo">
-           <img src="../vista/img/logo.png" width="150px" height="45px"/>
+           <img src="../../assest//img/logo.png" width="150px" height="45px"/>
       </div>
       <div id="company">
         <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
@@ -514,8 +514,8 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //INICIALIZACION DEL CSS
-$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
+$stylesheet = file_get_contents('../../assest//css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest//css/reset.css'); // carga archivo css
 
 //ENLASAR CSS CON LA VISTA DEL PDF
 $PDF->WriteHTML($stylesheet, 1);

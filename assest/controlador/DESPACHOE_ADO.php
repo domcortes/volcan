@@ -406,6 +406,7 @@ class DESPACHOE_ADO
                 UPDATE material_despachoe SET
                         MODIFICACION = SYSDATE(),
 
+                        CANTIDAD_DESPACHO = ?,
                         FECHA_DESPACHO = ?,
                         NUMERO_DOCUMENTO = ?,        
                         PATENTE_CAMION = ?,
@@ -437,6 +438,7 @@ class DESPACHOE_ADO
             $this->conexion->prepare($query)
                 ->execute(
                     array(
+                        $DESPACHOE->__GET('CANTIDAD_DESPACHO'),
                         $DESPACHOE->__GET('FECHA_DESPACHO'),
                         $DESPACHOE->__GET('NUMERO_DOCUMENTO'),
                         $DESPACHOE->__GET('PATENTE_CAMION'),

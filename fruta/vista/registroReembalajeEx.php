@@ -1422,13 +1422,7 @@ if (isset($_POST)) {
                     $SINO = "0";
                     $MENSAJE = $MENSAJE;
                 }
-                if (empty($ARRAYDEXPORTACIONPORREEMBALAJE)) {
-                    $SINO = "1";
-                    $MENSAJE = $MENSAJE. " Tiene que haber al menos un registro de producto terminado.";     
-                }  else {
-                    $SINO = "0";
-                    $MENSAJE = $MENSAJE;
-                }
+            
                 if($SINO == 1){
                         echo '<script>
                             Swal.fire({

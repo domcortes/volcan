@@ -451,7 +451,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               <li><a href="registroGuiaPorRecibirE.php">Envases<i class="ti-more"></i></a></li>
             </ul>
           </li>
-          <li><a href="listarInventarioeRecepcion.php">Existencia Envases<i class="ti-more"></i></a></li>
+          <li><a href="listarInventarioe.php">Existencia Envases<i class="ti-more"></i></a></li>
         </ul>
       </li>            
       <li class="treeview">

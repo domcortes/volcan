@@ -10,7 +10,7 @@ include_once '../../assest/controlador/TRANSPORTE_ADO.php';
 include_once '../../assest/controlador/CONDUCTOR_ADO.php';
 include_once '../../assest/controlador/PROVEEDOR_ADO.php';
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
-include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/FOLIOM_ADO.php';
 include_once '../../assest/controlador/RECEPCIONM_ADO.php';
 
 
@@ -22,7 +22,7 @@ $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PROVEEDOR_ADO =  new PROVEEDOR_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$FOLIO_ADO =  new FOLIO_ADO();
+$FOLIO_ADO =  new FOLIOM_ADO();
 
 
 $RECEPCIONM_ADO =  new RECEPCIONM_ADO();
