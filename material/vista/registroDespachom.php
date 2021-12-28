@@ -1207,7 +1207,7 @@ if (isset($_POST)) {
                                                                             <input type="hidden" class="form-control" placeholder="ID DESPACHO" id="IDP" name="IDP" value="<?php echo $IDOP; ?>" />
                                                                             <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_INVENTARIO']; ?>" />
                                                                             <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
-                                                                                    <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia" 
+                                                                                    <button type="submit" class="btn btn-sm btn-danger  btn-sm " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia" 
                                                                                           <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
                                                                                         <i class="ti-close"></i><br> Quitar
                                                                                     </button>
