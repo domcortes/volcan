@@ -228,7 +228,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="listarRecepcionmp.php">Recepción Materia Prima<i class="ti-more"></i></a></li>
+          <li><a href="listarRecepcionmpDetallado.php">Detallado Recepcion MP<i class="ti-more"></i></a></li>
           <li><a href="listarProceso.php">Proceso<i class="ti-more"></i></a></li>
         </ul>
       </li> 
