@@ -300,7 +300,30 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
           <span>Inicio</span>
         </a>
       </li>
-      <li class="header">Modulo</li>
+      <li class="header">Modulo</li>      
+      <li class="treeview">
+        <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/reports.svg" class="svg-icon" alt="">
+          <span>Materiales</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">     
+          <li class="treeview">
+            <a href="#">Ficha Consumo
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="registroFicha.php">Registro Ficha <i class="ti-more"></i></a></li>
+              <li><a href="listarFicha.php"> Agrupado Ficha<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
+          <li><a href="listarConsumoFicha.php">Consumo Materiales<i class="ti-more"></i></a></li>
+        </ul>
+      </li>      
       <li class="treeview">
         <a href="#">
           <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/exchange.svg" class="svg-icon" alt="">
