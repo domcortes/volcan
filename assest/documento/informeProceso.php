@@ -1,27 +1,27 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once 'controlador/TUSUARIO_ADO.php';
-include_once 'controlador/USUARIO_ADO.php';
-include_once 'controlador/EMPRESA_ADO.php';
-include_once 'controlador/PLANTA_ADO.php';
-include_once 'controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 
-include_once 'controlador/TPROCESO_ADO.php';
-include_once 'controlador/DPEXPORTACION_ADO.php';
-include_once 'controlador/DPINDUSTRIAL_ADO.php';
-include_once 'controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/DPEXPORTACION_ADO.php';
+include_once '../../assest/controlador/DPINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
 
-include_once 'controlador/VESPECIES_ADO.php';
-include_once 'controlador/PRODUCTOR_ADO.php';
-include_once 'controlador/EXIMATERIAPRIMA_ADO.php';
-include_once 'controlador/EEXPORTACION_ADO.php';
-include_once 'controlador/ERECEPCION_ADO.php';
-include_once 'controlador/EINDUSTRIAL_ADO.php';
-include_once 'controlador/TCALIBRE_ADO.php';
-include_once 'controlador/TCATEGORIA_ADO.php';
-include_once 'controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TCATEGORIA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
