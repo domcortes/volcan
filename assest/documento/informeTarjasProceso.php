@@ -1,20 +1,20 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
 
 
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/DPEXPORTACION_ADO.php';
-include_once '../controlador/DPINDUSTRIAL_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/DPEXPORTACION_ADO.php';
+include_once '../../assest/controlador/DPINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -335,7 +335,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
     <div class="contenido" style="height:150!important;">
 		<div class="titulo" style="text-align: center; font-size: 14px; ">
              <b > 
-                <img src="../vista/img/logo.png" width="100px" height="30px"/>
+                <img src="../../assest/img/logo.png" width="100px" height="30px"/>
              </b>
              <br>
             <b> PRODUCTO TERMINADO : </b> <b class="center f30">  '.$r['FOLIO_DPEXPORTACION'].' </b>	
@@ -357,7 +357,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
 		<div class="subtitulo2"></div>        
   ';
 
-  $html=$html.'   
+  $html=$html.'   <br>
   <table border="0" cellspacing="0" cellpadding="0" >
     <thead>   
 	  <tr>
@@ -393,7 +393,7 @@ foreach ($ARRAYDEXPORTACION as $r) :
  
     $html=$html.'
     </tbody>
-  </table>
+  </table><br>
   
   ';
 
@@ -401,8 +401,10 @@ foreach ($ARRAYDEXPORTACION as $r) :
 		<div class="subtitulo2"></div>       
         <div class=" center">
            <b style="font-size: 10px;">  '.$EMPRESA.' </b>
-        </div>
+        </div><br>
       </div>  
+      
+	  <div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
     ';
 endforeach; 
 
@@ -419,7 +421,7 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
     <div class="contenido" style="height:250px!important;">
 		<div class="titulo" style="text-align: center; font-size: 14px; ">
              <b > 
-                <img src="../vista/img/logo.png" width="100px" height="30px"/>
+                <img src="../../assest/img/logo.png" width="100px" height="30px"/>
              </b>
              <br>
             <b> PRODUCTO INDUSTRIAL : </b> <b class="center f30">  '.$r['FOLIO_DPINDUSTRIAL'].' </b>	
@@ -579,8 +581,8 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //CONTENIDO PDF
-$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
+$stylesheet = file_get_contents('../../assest/css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
 $PDF->WriteHTML($stylesheet, 1); 
 $PDF->WriteHTML($stylesheet2, 1); 
 $PDF->WriteHTML($html);
