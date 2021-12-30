@@ -219,7 +219,7 @@ include_once "../../assest/config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="consumom" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>Número Ficha </th>
@@ -276,29 +276,41 @@ include_once "../../assest/config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                        
                         <div class="box-footer">
-
-                        </div>
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Envase</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Consumo</div>
+                                                    <button class="btn   btn-default" id="TOTALCONSUMOV" name="TOTALCONSUMOV" >                                                           
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
                     </div>
                     <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
         <?php include_once "../../assest/config/footer.php"; ?>
         <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
-
-
-
     <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
-
 </html>
