@@ -313,16 +313,16 @@ class DICARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT 	
+            $datos = $this->conexion->prepare(" SELECT 	
                                                     estandar.ID_ESTANDAR, 
                                                     (select PESO_NETO_ESTANDAR
                                                     FROM estandar_eexportacion
                                                     WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
-                                                    ) AS 'PESONETO',
+                                                    ) AS 'PESONETOE',
                                                     (select PESO_BRUTO_ESTANDAR
                                                     FROM estandar_eexportacion
                                                     WHERE ID_ESTANDAR=estandar.ID_ESTANDAR
-                                                    ) AS 'PESOBRUTO',
+                                                    ) AS 'PESOBRUTOE',
                                                     estandar.ID_ECOMERCIAL,
                                                     (select CODIGO_ECOMERCIAL
                                                     FROM estandar_ecomercial
@@ -331,7 +331,23 @@ class DICARGA_ADO
                                                     (select NOMBRE_ECOMERCIAL
                                                     FROM estandar_ecomercial
                                                     WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
-                                                    ) AS 'NOMBRE',
+                                                    ) AS 'NOMBRE',                                                    
+                                                    (select PESO_NETO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'PESONETOC',
+                                                    (select PESO_BRUTO_ECOMERCIAL
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'PESOBRUTOC',                                                                                                   
+                                                    (select FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_NETO_ECOMERCIAL,2,'de_DE')
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'NETO',                                                    
+                                                    (select FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_BRUTO_ECOMERCIAL,2,'de_DE')
+                                                    FROM estandar_ecomercial
+                                                    WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                    ) AS 'BRUTO',   
                                                     (  SELECT               
                                                                 (	SELECT NOMBRE_TMONEDA
                                                                     FROM fruta_tmoneda
@@ -346,8 +362,8 @@ class DICARGA_ADO
                                                      		LIMIT 1
                                                         ) AS 'TMONEDA',
                                                     FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
-                                                    FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
-                                                    FORMAT(IFNULL(SUM(existencia.KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO',
+                                                    FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETOF',
+                                                    FORMAT(IFNULL(SUM(existencia.KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTOF',
                                                     (  SELECT
                                                             FORMAT(IFNULL(detalle.PRECIO_US_DICARGA,0),2,'de_DE')
                                                             FROM fruta_dicarga detalle, estandar_eexportacion estandar2, estandar_ecomercial comercial2
@@ -374,7 +390,7 @@ class DICARGA_ADO
                                                 AND existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
                                                 AND estandar.ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
                                                 AND icarga.ID_ICARGA = '".$IDICARGA."'
-                                            GROUP by comercial.ID_ECOMERCIAL  
+                                            GROUP by comercial.ID_ECOMERCIAL
                                                 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -393,10 +409,18 @@ class DICARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT 	
+            $datos = $this->conexion->prepare("SELECT 	                                                                                   
+                                                        (select IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_NETO_ECOMERCIAL
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'NETO',                                                    
+                                                        (select IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_BRUTO_ECOMERCIAL
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'BRUTO',  
                                                         IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) AS 'ENVASE',
-                                                        IFNULL(SUM(existencia.KILOS_NETO_EXIEXPORTACION),0) AS 'NETO',
-                                                        IFNULL(SUM(existencia.KILOS_BRUTO_EXIEXPORTACION),0),2 AS 'BRUTO',         
+                                                        IFNULL(SUM(existencia.KILOS_NETO_EXIEXPORTACION),0) AS 'NETOF',
+                                                        IFNULL(SUM(existencia.KILOS_BRUTO_EXIEXPORTACION),0),2 AS 'BRUTOF',         
                                                         IFNULL((  SELECT
                                                             IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) * IFNULL(detalle.PRECIO_US_DICARGA,0)
                                                                 FROM fruta_dicarga detalle, estandar_eexportacion estandar2, estandar_ecomercial comercial2
@@ -431,10 +455,18 @@ class DICARGA_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT 	
+            $datos = $this->conexion->prepare("SELECT 	                                                                           
+                                                        (select FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_NETO_ECOMERCIAL,2,'de_DE')
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'NETO',                                                    
+                                                        (select FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) *PESO_BRUTO_ECOMERCIAL,2,'de_DE')
+                                                        FROM estandar_ecomercial
+                                                        WHERE ID_ECOMERCIAL=comercial.ID_ECOMERCIAL
+                                                        ) AS 'BRUTO',  
                                                         FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'ENVASE',
-                                                        FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETO',
-                                                        FORMAT(IFNULL(SUM(existencia.KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTO',         
+                                                        FORMAT(IFNULL(SUM(existencia.KILOS_NETO_EXIEXPORTACION),0),2,'de_DE') AS 'NETOF',
+                                                        FORMAT(IFNULL(SUM(existencia.KILOS_BRUTO_EXIEXPORTACION),0),2,'de_DE') AS 'BRUTOF',         
                                                         FORMAT(IFNULL((  SELECT
                                                             IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0) * IFNULL(detalle.PRECIO_US_DICARGA,0)
                                                                 FROM fruta_dicarga detalle, estandar_eexportacion estandar2, estandar_ecomercial comercial2

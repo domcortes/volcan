@@ -1,27 +1,29 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/TDOCUMENTO_ADO.php';
-include_once '../controlador/BODEGA_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TDOCUMENTO_ADO.php';
+include_once '../../assest/controlador/BODEGA_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/PROVEEDOR_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/FOLIOM_ADO.php';
 
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/DOCOMPRA_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/DOCOMPRA_ADO.php';
 
-include_once '../controlador/INVENTARIOE_ADO.php';
-include_once '../controlador/RECEPCIONE_ADO.php';
-include_once '../controlador/DRECEPCIONE_ADO.php';
+include_once '../../assest/controlador/INVENTARIOE_ADO.php';
+include_once '../../assest/controlador/RECEPCIONE_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONE_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -32,7 +34,7 @@ $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $PROVEEDOR_ADO =  new PROVEEDOR_ADO();
 $PRODUCTOR_ADO =  new PRODUCTOR_ADO();
-$FOLIO_ADO =  new FOLIO_ADO();
+$FOLIO_ADO =  new FOLIOM_ADO();
 
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
@@ -43,6 +45,8 @@ $DOCOMPRA_ADO =  new DOCOMPRA_ADO();
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
 $DRECEPCIONE_ADO =  new DRECEPCIONE_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
 
 
 
@@ -80,8 +84,8 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $ARRAYRECEPCIONTOTALES = $RECEPCIONE_ADO->obtenerTotalesRecepcionPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
     $TOTALCANTIDAD = $ARRAYRECEPCIONTOTALES[0]['CANTIDAD'];
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 ?>
@@ -97,7 +101,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -166,7 +170,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuFruta.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -189,7 +193,7 @@ include_once "../config/datosUrLP.php";
                                 </nav>
                             </div>
                         </div>
-                        <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                        <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
 
@@ -200,7 +204,7 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="detallerecepcionme" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>Codigo Producto </th>
@@ -220,6 +224,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
+                                                    <th>Recepción Materia Prima</th>
+                                                    <th>Recepción Producto Industrial</th>
                                                     <th>Numero Oc</th>
                                                     <th>Numero Oc Interno</th>
                                                     <th>Empresa</th>
@@ -301,6 +307,18 @@ include_once "../config/datosUrLP.php";
                                                         $NUMEROOCOMPRA = "Sin Datos";
                                                         $NUMEROIOCOMPRA = "Sin Datos";
                                                     }
+                                                    $ARRAYRECEPCIONMP=$RECEPCIONMP_ADO->verRecepcion($r['ID_RECEPCIONMP']);
+                                                    if($ARRAYRECEPCIONMP){
+                                                        $NUMERORECEPCIONMP=$ARRAYRECEPCIONMP[0]["NUMERO_RECEPCION"];
+                                                    }else{
+                                                        $NUMERORECEPCIONMP="No Aplica";
+                                                    }
+                                                    $ARRAYRECEPCIONIND=$RECEPCIONIND_ADO->verRecepcion($r['ID_RECEPCIONIND']);
+                                                    if($ARRAYRECEPCIONIND){
+                                                        $NUMERORECEPCIONIND=$ARRAYRECEPCIONIND[0]["NUMERO_RECEPCION"];
+                                                    }else{
+                                                        $NUMERORECEPCIONIND="No Aplica";
+                                                    }
                                                     $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYVEREMPRESA) {
                                                         $NOMBREEMPRESA = $ARRAYVEREMPRESA[0]['NOMBRE_EMPRESA'];
@@ -359,6 +377,8 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                             <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                            <td><?php echo $NUMERORECEPCIONMP; ?></td>
+                                                            <td><?php echo $NUMERORECEPCIONIND; ?></td>
                                                             <td><?php echo $NUMEROOCOMPRA; ?></td>
                                                             <td><?php echo $NUMEROIOCOMPRA; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -371,37 +391,32 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
+                                                  
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Cantidad </div>
+                                                    <div class="input-group-text">Total Cantidad</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

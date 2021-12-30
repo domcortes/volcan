@@ -129,8 +129,7 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                             <li class="breadcrumb-item"> <a href="index.php"> <i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Envases</li>
-                                            <li class="breadcrumb-item" aria-current="page">Guía Por Recibir</li>
-                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
+                                            <li class="breadcrumb-item" aria-current="page">Despacho</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Agrupado Motivo Rechazo </a>
                                             </li>
                                         </ol>

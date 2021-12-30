@@ -430,7 +430,7 @@ include_once "../../assest/config/reporteUrl.php";
         </div>
 
         <?php include_once "../../assest/config/footer.php"; ?>
-        <?php include_once "../../assest/config/menuExtraMaaterial.php"; ?>
+        <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>

@@ -496,7 +496,8 @@ class DESPACHOMP_ADO
                                                 IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO',
                                                 IFNULL(KILOS_BRUTO_DESPACHO,0) AS 'BRUTO'
                                         FROM fruta_despachomp                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -523,7 +524,8 @@ class DESPACHOMP_ADO
                                                 IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO',
                                                 IFNULL(KILOS_BRUTO_DESPACHO,0) AS 'BRUTO'
                                         FROM fruta_despachomp                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -552,7 +554,8 @@ class DESPACHOMP_ADO
                                                 FORMAT(IFNULL(KILOS_NETO_DESPACHO,0),2,'de_DE')  AS 'NETO',
                                                 FORMAT(IFNULL(KILOS_BRUTO_DESPACHO,0),2,'de_DE')  AS 'BRUTO'
                                         FROM fruta_despachomp                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -580,7 +583,8 @@ class DESPACHOMP_ADO
                                                 IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO',
                                                 IFNULL(KILOS_BRUTO_DESPACHO,0) AS 'BRUTO'
                                         FROM fruta_despachomp                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -608,7 +612,8 @@ class DESPACHOMP_ADO
                                                 FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO',
                                                 FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO'
                                         FROM fruta_despachomp                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -637,7 +642,8 @@ class DESPACHOMP_ADO
                                                 FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO',
                                                 FORMAT(KILOS_BRUTO_DESPACHO,2,'de_DE')  AS 'BRUTO'
                                         FROM fruta_despachomp                                                                           
-                                        WHERE   TDESPACHO = 1
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                                AND TDESPACHO = 1
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'
@@ -664,8 +670,8 @@ class DESPACHOMP_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT *
                                                 FROM fruta_despachomp
-                                                WHERE 
-                                                    NUMERO_SELLO_DESPACHO = " . $NUMEROGUIA . "
+                                                WHERE  ESTADO_REGISTRO = 1 
+                                                    AND NUMERO_SELLO_DESPACHO = " . $NUMEROGUIA . "
                                                     AND ID_PRODUCTOR = " . $PRODUCTOR . "                                                 
                                                     AND ID_EMPRESA = " . $EMPRESA . " 
                                                     AND ID_PLANTA = " . $PLANTA . " 
@@ -723,7 +729,8 @@ class DESPACHOMP_ADO
                                                     IFNULL(SUM(KILOS_BRUTO_DESPACHO),0)  AS 'BRUTO'   
                                         FROM fruta_despachomp 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -751,7 +758,8 @@ class DESPACHOMP_ADO
                                                 FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'   
                                         FROM fruta_despachomp 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();
@@ -777,7 +785,8 @@ class DESPACHOMP_ADO
                                                     IFNULL(SUM(KILOS_BRUTO_DESPACHO),0)  AS 'BRUTO'   
                                         FROM fruta_despachomp 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();
@@ -803,7 +812,8 @@ class DESPACHOMP_ADO
                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'   
                                         FROM fruta_despachomp 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -831,7 +841,8 @@ class DESPACHOMP_ADO
                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'   
                                         FROM fruta_despachomp 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -857,7 +868,8 @@ class DESPACHOMP_ADO
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO',  
                                                     FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHO),0),2,'de_DE')  AS 'BRUTO'  
                                         FROM fruta_despachomp                                                                                                              
-                                        WHERE   TDESPACHO = 1
+                                        WHERE    ESTADO_REGISTRO = 1 
+                                                AND TDESPACHO = 1
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'

@@ -1,17 +1,17 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
 
 
-include_once '../controlador/INVENTARIOE_ADO.php';
-include_once '../controlador/RECEPCIONE_ADO.php';
+include_once '../../assest/controlador/INVENTARIOE_ADO.php';
+include_once '../../assest/controlador/RECEPCIONE_ADO.php';
 
-include_once '../modelo/INVENTARIOE.php';
+include_once '../../assest/modelo/INVENTARIOE.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -93,7 +93,7 @@ $ARRAYVERFOLIO;
 
 $ARRAYPRODUCTO = $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
 $ARRAYTUMEDIDA = $TUMEDIDA_ADO->listarTumedidaPorEmpresaCBX($EMPRESAS);
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 
@@ -235,7 +235,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -286,6 +286,45 @@ if (isset($_POST)) {
                     window.opener.refrescar()
                     window.close();
                 }
+                //FUNCION PARA OBTENER HORA Y FECHA
+                function mueveReloj() {
+
+
+                    momentoActual = new Date();
+
+                    dia = momentoActual.getDate();
+                    mes = momentoActual.getMonth() + 1;
+                    ano = momentoActual.getFullYear();
+
+                    hora = momentoActual.getHours();
+                    minuto = momentoActual.getMinutes();
+                    segundo = momentoActual.getSeconds();
+
+                    if (dia < 10) {
+                        dia = "0" + dia;
+                    }
+
+                    if (mes < 10) {
+                        mes = "0" + mes;
+                    }
+                    if (hora < 10) {
+                        hora = "0" + hora;
+                    }
+                    if (minuto < 10) {
+                        minuto = "0" + minuto;
+                    }
+                    if (segundo < 10) {
+                        segundo = "0" + segundo;
+                    }
+
+                    horaImprimible = hora + " : " + minuto;
+                    fechaImprimible = dia + "-" + mes + "-" + ano;
+
+
+                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
+                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
+                    setTimeout("mueveReloj()", 1000);
+                }
             </script>
 
 </head>
@@ -293,7 +332,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuMaterial.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -316,7 +355,7 @@ if (isset($_POST)) {
                                     </nav>
                                 </div>
                             </div>
-                            <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <!-- Main content -->
@@ -428,11 +467,11 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php 
         
         
@@ -462,7 +501,7 @@ if (isset($_POST)) {
                         title:"Registro Modificado",
                         text:"El registro del detalle de recepcion se ha modificada correctamente",
                         showConfirmButton:true,
-                        confirmButtonText:"cerrar"
+                        confirmButtonText:"Volver a Recepción"
                     }).then((result)=>{
                         location.href ="'. $_REQUEST['URLP'].'.php?op";                            
                     })
