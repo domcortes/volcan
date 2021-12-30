@@ -1,24 +1,24 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
 
 
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-include_once '../controlador/DESPACHOIND_ADO.php';
-include_once '../controlador/MGUIAIND_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/DESPACHOIND_ADO.php';
+include_once '../../assest/controlador/MGUIAIND_ADO.php';
 
-include_once '../modelo/EXIINDUSTRIAL.php';
-include_once '../modelo/MGUIAIND.php';
-include_once '../modelo/DESPACHOIND.php';
+include_once '../../assest/modelo/EXIINDUSTRIAL.php';
+include_once '../../assest/modelo/MGUIAIND.php';
+include_once '../../assest/modelo/DESPACHOIND.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -68,79 +68,16 @@ $ARRAYMGUIAIND = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
-    $ARRAYDESPACHOPT = $DESPACHOIND_ADO->listarDespachompEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOIND_ADO->obtenerTotalesDespachompEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-
-    $TOTALNETO = $ARRAYDESPACHOPTTOTALES[0]['NETO'];
+    $ARRAYDESPACHOPT = $DESPACHOIND_ADO->listarDespachompEmpresaPlantaTemporadaGuiaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 $ARRAYFOLIO2 = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($EMPRESAS, $PLANTAS, $TEMPORADAS);
 if (empty($ARRAYFOLIO2)) {
     $DISABLEDFOLIO = "disabled";
     $MENSAJEFOLIO = $MENSAJEFOLIO . "<br> NECESITA <b> CREAR LOS FOLIOS INDUSTRIAL </b> , PARA OCUPAR LA <b>  FUNCIONALIDAD </b>.  FAVOR DE <b> CONTACTARSE CON EL ADMINISTRADOR </b>";
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
-
-//OPERACIONES
-if (isset($_REQUEST['APROBARURL'])) {
-
-    $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DESPACHOIND_ADO->cerrado($DESPACHOIND);
-
-    $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $DESPACHOIND_ADO->Aprobado($DESPACHOIND);
-
-    $ARRAYEXISENCIADESPACHOMP = $EXIINDUSTRIAL_ADO->verExistenciaPorDespachoEnTransito($_REQUEST['ID']);
-    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
-        $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);
-        //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-        $EXIINDUSTRIAL_ADO->despachadoInterplanta($EXIINDUSTRIAL);
-    endforeach;
-
-    $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
-
-    foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
-        $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL',  $r['FOLIO_EXIINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL', $r['FECHA_EMBALADO_EXIINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $r['KILOS_NETO_EXIINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $r['ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $r['ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL']);
-        $EXIINDUSTRIAL->__SET('TCOBRO', $r['TCOBRO']);
-        $EXIINDUSTRIAL->__SET('INGRESO', $r['INGRESO']);
-        $EXIINDUSTRIAL->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
-        $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
-        $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
-        $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', $r['ID_ESTANDARMP']);
-        $EXIINDUSTRIAL->__SET('ID_ESTANDARPT', $r['ID_ESTANDARPT']);
-        $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
-        $EXIINDUSTRIAL->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
-        $EXIINDUSTRIAL->__SET('ID_PLANTA2', $r['ID_PLANTA']);
-        $EXIINDUSTRIAL->__SET('ID_DESPACHO2', $_REQUEST['ID']);
-        $EXIINDUSTRIAL->__SET('ID_EMPRESA', $EMPRESAS);
-        $EXIINDUSTRIAL->__SET('ID_PLANTA', $PLANTAS);
-        $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $TEMPORADAS);
-        //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-        $EXIINDUSTRIAL_ADO->agregarExiindustrialGuia($EXIINDUSTRIAL);
-    endforeach;
-
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-
-
-
-
-if (isset($_REQUEST['RECHAZARURL'])) {
-    $_SESSION["parametro"] = $_REQUEST['ID'];
-    $_SESSION["parametro1"] = "rechazar";
-    $_SESSION["urlO"] = $_REQUEST['URLO'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLM'] . ".php?op';</script>";
-}
 
 
 
@@ -158,7 +95,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -228,7 +165,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php";
+        <?php include_once "../../assest/config/menuFruta.php";
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -281,7 +218,7 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="despachoind" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Número </th>
@@ -290,6 +227,8 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                                     <th>Estado Despacho</th>
                                                     <th>Tipo Despacho</th>
                                                     <th>Fecha Despacho </th>
+                                                    <th>CSG/CSP Despacho</th>
+                                                    <th>Destino Despacho</th>
                                                     <th>Número Guía </th>
                                                     <th>Kilos Neto</th>
                                                     <th>Transporte </th>
@@ -304,7 +243,8 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
+                                                
+                                            <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
                                                     <?php
                                                     if ($r['ESTADO_DESPACHO'] == "1") {
                                                         $ESTADODESPACHO = "Por Confirmar";
@@ -320,18 +260,57 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                                     }
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = "Interplanta";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Devolución Productor";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+                                                            $DESTINO =  $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Venta";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($r['ID_COMPRADOR']);
+                                                        if ($ARRAYCOMPRADOR) {
+                                                            $CSGCSPDESTINO="No Aplica";
+                                                            $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "4") {
-                                                        $TDESPACHO = "Regalo";
+                                                        $TDESPACHO = "Despacho de Descarte(R)";
+                                                        $NUMEROGUIADEPACHO="No Aplica";
+                                                        $CSGCSPDESTINO="No Aplica";
+                                                        $DESTINO = $r['REGALO_DESPACHO'];
                                                     }
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA3']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -391,20 +370,20 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroDespachoind" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="registroGuiaPorRecibirIND" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URLM" name="URLM" value="registroGuiaPorRecibirMIND" />
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Aprobar">
-                                                                                <button type="submit" class="btn btn-success btn-block " id="APROBARURL" name="APROBARURL" <?php echo $DISABLEDFOLIO; ?>>
-                                                                                    <i class="fa fa-check"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                            <span href="#" class="dropdown-item" data-toggle="tooltip" title="Rechazar">
-                                                                                <button type="submit" class="btn btn-danger btn-block " id="RECHAZARURL" name="RECHAZARURL" <?php echo $DISABLEDFOLIO; ?>>
-                                                                                    <i class="fa fa-close"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                            <hr>
+                                                                      
+                                                                            <?php if ($r['ESTADO_DESPACHO'] == "2") { ?>
+                                                                                <span href="#" class="dropdown-item" title="Operaciones">
+                                                                                    <button type="submit" class="btn btn-success " data-toggle="tooltip" id="APROBARURL" name="APROBARURL" title="Aprobar"  <?php echo $DISABLEDFOLIO; ?>>
+                                                                                        <i class="fa fa-check"></i> Aprobar
+                                                                                    </button>
+                                                                                    <button type="submit" class="btn btn-danger " data-toggle="tooltip" id="RECHAZARURL" name="RECHAZARURL" title="Rechazar"  <?php echo $DISABLEDFOLIO; ?>>
+                                                                                        <i class="fa fa-close"></i> Rechazar
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeDespachoIND.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
-                                                                                    <i class="fa fa-file-pdf-o"></i>
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeDespachoIND.php?parametro=<?php echo $r['ID_DESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                         </div>
@@ -415,7 +394,9 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
+                                                        <td><?php echo $CSGCSPDESTINO; ?></td>
+                                                        <td><?php echo $DESTINO; ?></td>
+                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
@@ -442,15 +423,14 @@ if (isset($_REQUEST['RECHAZARURL'])) {
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>
@@ -458,10 +438,77 @@ if (isset($_REQUEST['RECHAZARURL'])) {
             </div>
         </div>
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
+    <?php 
+        //OPERACIONES
+        if (isset($_REQUEST['APROBARURL'])) {
+
+            $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['ID']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $DESPACHOIND_ADO->cerrado($DESPACHOIND);
+
+            $DESPACHOIND->__SET('ID_DESPACHO', $_REQUEST['ID']);
+            //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+            $DESPACHOIND_ADO->Aprobado($DESPACHOIND);
+
+            $ARRAYEXISENCIADESPACHOMP = $EXIINDUSTRIAL_ADO->verExistenciaPorDespachoEnTransito($_REQUEST['ID']);
+            foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+                $EXIINDUSTRIAL->__SET('ID_EXIINDUSTRIAL', $r['ID_EXIINDUSTRIAL']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $EXIINDUSTRIAL_ADO->despachadoInterplanta($EXIINDUSTRIAL);
+            endforeach;
+
+            $ARRAYVERFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($EMPRESAS, $PLANTAS, $TEMPORADAS);
+            $FOLIO = $ARRAYVERFOLIO[0]['ID_FOLIO'];
+
+            foreach ($ARRAYEXISENCIADESPACHOMP as $r) :
+                $EXIINDUSTRIAL->__SET('FOLIO_EXIINDUSTRIAL',  $r['FOLIO_EXIINDUSTRIAL']);
+                $EXIINDUSTRIAL->__SET('FOLIO_AUXILIAR_EXIINDUSTRIAL', $r['FOLIO_AUXILIAR_EXIINDUSTRIAL']);
+                $EXIINDUSTRIAL->__SET('FECHA_EMBALADO_EXIINDUSTRIAL', $r['FECHA_EMBALADO_EXIINDUSTRIAL']);
+                $EXIINDUSTRIAL->__SET('KILOS_NETO_EXIINDUSTRIAL', $r['KILOS_NETO_EXIINDUSTRIAL']);
+                $EXIINDUSTRIAL->__SET('ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL', $r['ALIAS_DINAMICO_FOLIO_EXIINDUSTRIAL']);
+                $EXIINDUSTRIAL->__SET('ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL', $r['ALIAS_ESTATICO_FOLIO_EXIINDUSTRIAL']);
+                $EXIINDUSTRIAL->__SET('TCOBRO', $r['TCOBRO']);
+                $EXIINDUSTRIAL->__SET('INGRESO', $r['INGRESO']);
+                $EXIINDUSTRIAL->__SET('ID_TMANEJO', $r['ID_TMANEJO']);
+                $EXIINDUSTRIAL->__SET('ID_FOLIO', $FOLIO);
+                $EXIINDUSTRIAL->__SET('ID_ESTANDAR', $r['ID_ESTANDAR']);
+                $EXIINDUSTRIAL->__SET('ID_ESTANDARMP', $r['ID_ESTANDARMP']);
+                $EXIINDUSTRIAL->__SET('ID_ESTANDARPT', $r['ID_ESTANDARPT']);
+                $EXIINDUSTRIAL->__SET('ID_PRODUCTOR', $r['ID_PRODUCTOR']);
+                $EXIINDUSTRIAL->__SET('ID_VESPECIES', $r['ID_VESPECIES']);
+                $EXIINDUSTRIAL->__SET('ID_PLANTA2', $r['ID_PLANTA']);
+                $EXIINDUSTRIAL->__SET('ID_DESPACHO2', $_REQUEST['ID']);
+                $EXIINDUSTRIAL->__SET('ID_EMPRESA', $EMPRESAS);
+                $EXIINDUSTRIAL->__SET('ID_PLANTA', $PLANTAS);
+                $EXIINDUSTRIAL->__SET('ID_TEMPORADA', $TEMPORADAS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $EXIINDUSTRIAL_ADO->agregarExiindustrialGuia($EXIINDUSTRIAL);
+            endforeach;
+
+            echo '<script>
+                Swal.fire({
+                    icon:"success",
+                    title:"Guia Aprobada",
+                    text:"los registro asociados a la guia se ha creado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "registroGuiaPorRecibirIND.php";                            
+                })
+            </script>';
+        }
+        if (isset($_REQUEST['RECHAZARURL'])) {
+            $_SESSION["parametro"] = $_REQUEST['ID'];
+            $_SESSION["parametro1"] = "rechazar";
+            $_SESSION["urlO"] = $_REQUEST['URLO'];
+            echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLM'] . ".php?op';</script>";
+        }
+    ?>
 </body>
 
 </html>

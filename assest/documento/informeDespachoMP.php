@@ -376,7 +376,7 @@ $html .= '
                 </tr>
                 <tr>
                     <th class="color left">Folio</th>
-                    <th class="color left">Fecha Embalado</th>
+                    <th class="color left">Fecha Cosecha</th>
                     <th class="color left">Codigo Estandar</th>
                     <th class="color left">Envase/Estandar</th>
                     <th class="color center">Cant. Envase</th>

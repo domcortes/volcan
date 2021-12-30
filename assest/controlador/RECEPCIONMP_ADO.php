@@ -395,8 +395,8 @@ class RECEPCIONMP_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT *
                                                 FROM fruta_recepcionmp
-                                                WHERE 
-                                                    NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
+                                                WHERE   ESTADO_REGISTRO = 1 
+                                                    AND NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
                                                     AND ID_PRODUCTOR = " . $PRODUCTOR . "                                                 
                                                     AND ID_EMPRESA = " . $EMPRESA . " 
                                                     AND ID_PLANTA = " . $PLANTA . " 
