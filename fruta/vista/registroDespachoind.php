@@ -1,32 +1,32 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/EINDUSTRIAL_ADO.php';
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
 
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/COMPRADOR_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/COMPRADOR_ADO.php';
 
-include_once '../controlador/DESPACHOIND_ADO.php';
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/DESPACHOIND_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
 
 
 
-include_once '../modelo/DESPACHOIND.php';
-include_once '../modelo/EXIINDUSTRIAL.php';
+include_once '../../assest/modelo/DESPACHOIND.php';
+include_once '../../assest/modelo/EXIINDUSTRIAL.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -177,8 +177,8 @@ $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 $ARRAYFECHAACTUAL = $DESPACHOIND_ADO->obtenerFecha();
 $FECHADESPACHO = $ARRAYFECHAACTUAL[0]['FECHA'];
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
@@ -484,7 +484,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -775,7 +775,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -1113,7 +1113,7 @@ if (isset($_POST)) {
                                         </div>
                                         <?php if ($OP != ""): ?>
                                             <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoIND.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeDespachoIND.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i>Informe
                                                 </button>
                                             </div>
@@ -1161,7 +1161,19 @@ if (isset($_POST)) {
                                                 <input type="hidden" class="form-control" id="TOTALNETO" name="TOTALNETO" value="<?php echo $TOTALNETO; ?>" />
                                                 <input type="text" class="form-control" placeholder="Total Neto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOV; ?>" disabled />
                                             </div>
-                                        </div>
+                                        </div>  
+                                        <?php if ($TDESPACHO == "3"): ?>                                        
+                                            <div class="col-auto">
+                                                <label class="sr-only" for=""></label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Total Precio</div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control" id="TOTALPRECIOV" name="TOTALPRECIOV" value="<?php echo $TOTALPRECIOV; ?>" />
+                                                    <input type="text" class="form-control" placeholder="Total Precio" id="TOTALPRECIOV" name="TOTALPRECIOV" value="<?php echo $TOTALPRECIOV; ?>" disabled />
+                                                </div>
+                                            </div>
+                                        <?php endif ?>    
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -1169,7 +1181,7 @@ if (isset($_POST)) {
                                         <div class="col-12">
                                             <div class="table-responsive">                                                
                                                 <form method="post" id="form2">
-                                                    <table id="detalle" class="table table-hover " style="width: 150%;">
+                                                    <table id="detalle" class="table-hover " style="width: 150%;">
                                                             <thead>
                                                                 <tr class="text-left">
                                                                         <th> N° Folio </th>
@@ -1240,7 +1252,7 @@ if (isset($_POST)) {
                                                                                         <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIINDUSTRIAL']; ?>" />
                                                                                         <div class="btn-group col-6 btn-block" role="group" aria-label="Operaciones Detalle">
                                                                                             <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
-                                                                                                <i class="ti-close"></i> Quitar
+                                                                                                <i class="ti-close"></i><br>  Quitar
                                                                                             </button>
                                                                                         </div>
                                                                                     </td>
@@ -1286,11 +1298,11 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php
         //OPERACION DE REGISTRO DE FILA
             if (isset($_REQUEST['CREAR'])) {

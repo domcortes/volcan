@@ -10,8 +10,9 @@ include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 include_once '../../assest/controlador/VESPECIES_ADO.php';
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
-include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
 include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
 
 include_once '../../assest/controlador/CONDUCTOR_ADO.php';
 include_once '../../assest/controlador/TRANSPORTE_ADO.php';
@@ -35,8 +36,9 @@ $TEMPORADA_ADO =  new TEMPORADA_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
 
-$ERECEPCION_ADO =  new ERECEPCION_ADO();
+$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
 $EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$ERECEPCION_ADO =  new ERECEPCION_ADO();
 
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
@@ -388,7 +390,7 @@ $html .= '
               </tr>
               <tr>
                   <th class="color left">Folio</th>
-                  <th class="color center">Fecha Ingreso</th>
+                  <th class="color center">Fecha Embalado</th>
                   <th class="color center">Código Estandar</th>
                   <th class="color center">Envase/Estandar</th>
 ';
@@ -423,12 +425,21 @@ foreach ($ARRAYEXISTENCIATOMADA as $r) :
     $CSGPRODUCTOR = "Sin Datos";
     $NOMBREPRODUCTOR = "Sin Datos";
   }
+  $ARRAYEVERERECEPCIONID = $EINDUSTRIAL_ADO->verEstandar($r['ID_ESTANDAR']);
+  $ARRAYEVERERECEPCIONID2 = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDARMP']);
+  $ARRAYEVERERECEPCIONID3 = $EEXPORTACION_ADO->verEstandar($r['ID_ESTANDARPT']);
   if ($ARRAYEVERERECEPCIONID) {
-    $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
-    $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+      $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+      $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+  }else  if ($ARRAYEVERERECEPCIONID2) {
+      $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID2[0]['CODIGO_ESTANDAR'];
+      $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID2[0]['NOMBRE_ESTANDAR'];
+  }else  if ($ARRAYEVERERECEPCIONID3) {
+      $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID3[0]['CODIGO_ESTANDAR'];
+      $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID3[0]['NOMBRE_ESTANDAR'];
   } else {
-    $CODIGOESTANDAR = "Sin Datos";
-    $NOMBREESTANDAR = "Sin Datos";
+      $CODIGOESTANDAR = "Sin Datos";
+      $NOMBREESTANDAR = "Sin Datos";
   }
   $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   if ($ARRAYVERVESPECIESID) {

@@ -211,6 +211,8 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Estado Despacho</th>
                                                     <th>Tipo Despacho</th>
                                                     <th>Fecha Despacho </th>
+                                                    <th>CSG/CSP Despacho</th>
+                                                    <th>Destino Despacho</th>
                                                     <th>Número Guía </th>
                                                     <th>Kilos Neto</th>
                                                     <th>Transporte </th>
@@ -225,7 +227,8 @@ include_once "../../assest/config/datosUrLP.php";
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
+                                                
+                                            <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
                                                     <?php
                                                     if ($r['ESTADO_DESPACHO'] == "1") {
                                                         $ESTADODESPACHO = "Por Confirmar";
@@ -241,18 +244,57 @@ include_once "../../assest/config/datosUrLP.php";
                                                     }
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = "Interplanta";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Devolución Productor";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
+                                                            $DESTINO =  $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Venta";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($r['ID_COMPRADOR']);
+                                                        if ($ARRAYCOMPRADOR) {
+                                                            $CSGCSPDESTINO="No Aplica";
+                                                            $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     if ($r['TDESPACHO'] == "4") {
-                                                        $TDESPACHO = "Regalo";
+                                                        $TDESPACHO = "Despacho de Descarte(R)";
+                                                        $NUMEROGUIADEPACHO="No Aplica";
+                                                        $CSGCSPDESTINO="No Aplica";
+                                                        $DESTINO = $r['REGALO_DESPACHO'];
                                                     }
                                                     if ($r['TDESPACHO'] == "5") {
                                                         $TDESPACHO = "Planta Externa";
+                                                        $NUMEROGUIADEPACHO=$r["NUMERO_GUIA_DESPACHO"];
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA3']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
+                                                            $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $DESTINO = "Sin Datos";
+                                                        }
                                                     }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
@@ -325,7 +367,9 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
                                                         <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
-                                                        <td><?php echo $r['NUMERO_GUIA_DESPACHO']; ?></td>
+                                                        <td><?php echo $CSGCSPDESTINO; ?></td>
+                                                        <td><?php echo $DESTINO; ?></td>
+                                                        <td><?php echo $NUMEROGUIADEPACHO; ?></td>
                                                         <td><?php echo $r['NETO']; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
@@ -336,7 +380,6 @@ include_once "../../assest/config/datosUrLP.php";
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
-
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
