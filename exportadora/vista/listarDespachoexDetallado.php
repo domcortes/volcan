@@ -642,8 +642,8 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $NUMEROREFERENCIA; ?></td>
                                                             <td><?php echo $NOMBREBROKER; ?></td>
                                                             <td><?php echo $NOMBREMERCADO; ?></td>
-                                                            <td><?php echo "Exportación"; ?></td>
-                                                            <td><?php echo $r['NUMERO_CONTENEDOR_DESPACHOEX']; ?></td>    
+                                                            <td><?php echo $r['NUMERO_CONTENEDOR_DESPACHOEX']; ?></td>  
+                                                            <td><?php echo "Exportación"; ?></td>  
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
