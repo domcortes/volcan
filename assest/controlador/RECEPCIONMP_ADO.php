@@ -420,8 +420,8 @@ class RECEPCIONMP_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT *
                                                 FROM fruta_recepcionmp
-                                                WHERE 
-                                                    NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
+                                                WHERE  ESTADO_REGISTRO = 1 
+                                                    AND NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
                                                     AND ID_PLANTA2 = " . $PLANTA2 . "                                                 
                                                     AND ID_EMPRESA = " . $EMPRESA . " 
                                                     AND ID_PLANTA = " . $PLANTA . " 
@@ -457,7 +457,8 @@ class RECEPCIONMP_ADO
                                                     IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
                                                     IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
                                             FROM fruta_recepcionmp 
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
             $datos->execute();
@@ -488,8 +489,8 @@ class RECEPCIONMP_ADO
                                                     IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
                                                     IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
                                             FROM fruta_recepcionmp 
-                                            WHERE
-                                             ID_TEMPORADA = '" . $TEMPORADA . "'   
+                                            WHERE  ESTADO_REGISTRO = 1 
+                                            AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -519,7 +520,8 @@ class RECEPCIONMP_ADO
                                                     IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
                                                     IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
                                             FROM fruta_recepcionmp 
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE  ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
@@ -551,7 +553,8 @@ class RECEPCIONMP_ADO
                                                     FORMAT(IFNULL(KILOS_BRUTO_RECEPCION,0),2,'de_DE')  AS 'BRUTO',
                                                     FORMAT(IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0),2,'de_DE')  AS 'GUIA'
                                             FROM fruta_recepcionmp 
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE  ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
@@ -578,7 +581,9 @@ class RECEPCIONMP_ADO
                                                      IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0) AS 'ENVASE',   
                                                      IFNULL(SUM(KILOS_NETO_RECEPCION),0) AS 'NETO',  
                                                      IFNULL(SUM(KILOS_BRUTO_RECEPCION),0)  AS 'BRUTO'  
-                                            FROM fruta_recepcionmp ;	");
+                                            FROM fruta_recepcionmp 
+                                            WHERE ESTADO_REGISTRO = 1 
+                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -602,7 +607,8 @@ class RECEPCIONMP_ADO
                                                      FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_RECEPCION),0),0,'de_DE') AS 'ENVASE',   
                                                      FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE') AS 'NETO',  
                                                      FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')  AS 'BRUTO'  
-                                            FROM fruta_recepcionmp ;	");
+                                            FROM fruta_recepcionmp 
+                                            WHERE ESTADO_REGISTRO = 1 ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -626,8 +632,8 @@ class RECEPCIONMP_ADO
                                                         IFNULL(SUM(KILOS_NETO_RECEPCION),0)  AS 'NETO',  
                                                         IFNULL(SUM(KILOS_BRUTO_RECEPCION),0)   AS 'BRUTO'  
                                             FROM fruta_recepcionmp 
-                                            WHERE  
-                                                ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE  ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                             ;	");
             $datos->execute();
@@ -654,9 +660,8 @@ class RECEPCIONMP_ADO
                                                         FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE')  AS 'NETO',  
                                                         FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')   AS 'BRUTO'  
                                             FROM fruta_recepcionmp 
-                                            WHERE  
-                                          
-                                             ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                            WHERE   ESTADO_REGISTRO = 1 
+                                                AND  ID_TEMPORADA = '" . $TEMPORADA . "' 
                                             ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -682,8 +687,8 @@ class RECEPCIONMP_ADO
                                                         FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE')  AS 'NETO',  
                                                         FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')   AS 'BRUTO'  
                                             FROM fruta_recepcionmp 
-                                            WHERE  
-                                                ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE ESTADO_REGISTRO = 1 
+                                            AND  ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                             ;	");
