@@ -404,7 +404,8 @@ class PROCESO_ADO
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                                 FROM fruta_proceso                                                        
-                                                WHERE ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
+                                                WHERE   ESTADO_REGISTRO = 1 
+                                                AND  ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -434,7 +435,8 @@ class PROCESO_ADO
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                                 FROM fruta_proceso                                                        
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE   ESTADO_REGISTRO = 1 
+                                                AND  ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
@@ -464,7 +466,8 @@ class PROCESO_ADO
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                                 FROM fruta_proceso                                                        
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE   ESTADO_REGISTRO = 1 
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
@@ -493,7 +496,8 @@ class PROCESO_ADO
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                                 FROM fruta_proceso                                                        
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE   ESTADO_REGISTRO = 1 
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                                 AND ESTADO = 0;	");
@@ -549,7 +553,8 @@ class PROCESO_ADO
                                                  IFNULL(SUM(KILOS_NETO_PROCESO),0) AS 'NETO'                ,                                                 
                                                  IFNULL(SUM(KILOS_NETO_ENTRADA),0) AS 'ENTRADA'                                                 
                                              FROM fruta_proceso                                                                                         
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE   ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                             
@@ -578,8 +583,8 @@ class PROCESO_ADO
                                                  FORMAT(IFNULL(SUM(KILOS_NETO_PROCESO),0),2,'de_DE') AS 'NETO'                ,                                                 
                                                  FORMAT(IFNULL(SUM(KILOS_NETO_ENTRADA),0),2,'de_DE') AS 'ENTRADA'                                                 
                                              FROM fruta_proceso                                                                                         
-                                            WHERE 
-                                             ID_TEMPORADA = '" . $TEMPORADA . "' 
+                                            WHERE    ESTADO_REGISTRO = 1 
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                             
                                              ;");
             $datos->execute();
@@ -605,7 +610,8 @@ class PROCESO_ADO
                                                  FORMAT(IFNULL(SUM(KILOS_NETO_PROCESO),0),2,'de_DE') AS 'NETO'                ,                                                 
                                                  FORMAT(IFNULL(SUM(KILOS_NETO_ENTRADA),0),2,'de_DE') AS 'ENTRADA'                                                 
                                              FROM fruta_proceso                                                                                         
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE   ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                             
