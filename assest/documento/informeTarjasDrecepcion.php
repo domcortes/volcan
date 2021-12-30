@@ -176,124 +176,7 @@ $html = '
 <title>Tarja Recepcion Granel</title>
 
 <style type="text/css">	
-	div
-	{
-		padding:0px;
-		border: 0px;
-		margin: 0px;
-	}
-	div.contenido
-	{
-		width: 100%;
-		height: auto;
-		border-top: solid 1px rgba(0,0,0,0.5);
-		border-bottom: solid 1px rgba(0,0,0,0.5);
-		border-left: solid 1px rgba(0,0,0,0.5);
-		border-right: solid 1px rgba(0,0,0,0.5);
-		
-		padding-top: 0px;
-		padding-bottom: 0px;
-		padding-left: 0px;
-		padding-right: 0px;
-
-		overflow: hidden;
-	}
-	div.contenido div.titulo
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 15px;
-		padding: 5px 0px 0px 0px;
-	}
-	div.contenido div.subtitulo
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		font-weight: lighter;
-
-	}
-	div.contenido div.subtitulo2
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 12px;
-		margin-bottom: 5px;
-		text-decoration: underline;
-		text-transform: uppercase;
-		text-align: center;
-		margin-top: 5px;
-		border-top: dotted 1px black;
-		padding-top: 5px;
-	}
-	div.contenido div.info
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 11px;
-		padding: 0px 0px;
-		text-align: justify;
-		padding-left: 10px;
-	}
-	div.contenido div.valor
-	{
-		width: calc(100% - 2px);
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 30px;
-		padding: 5px 0px;
-		text-align: right;
-		border:solid 1px rgba(0,0,0,0.5);
-		overflow: hidden;
-		margin-top: 5px;
-	}
-
-	div.contenido div.valor span
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 16px;
-		padding: 5px 0px;
-		text-align: right;
-	}
-	b{
-		/*text-transform: uppercase;*/
-	}
-	div.contenido div.desc
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		padding: 5px 0px;
-		text-align: justify;
-	}
-	div.contenido div.chip
-	{
-		width: calc(50% - 2px);
-		height: 2cm;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		padding: 5px 0px;
-		text-align: center;
-		line-height: 2cm;
-		float: left;
-		border:solid 1px rgba(0,0,0,0.3);
-	}
-
+	
 </style>
 
 </head>
@@ -335,14 +218,15 @@ foreach ($ARRAYTARJAM as $s) :
 			<b style="font-size:14;"></b>
 		</div>
 		<br>
-		<div class="info">
-			<b> Numero Recepcion : </b> ' . $NUMERORECEPCION . '
+
+		<div class="info2">
+			<b class="f11"> Numero Recepcion : </b>  <span class="f13">'.$NUMERORECEPCION.'</span>
 		</div>
-		<div class="info">
-			<b> Numero Documento : </b>  ' . $NUMERODOCUMENTO . '
+		<div class="info2">
+			<b class="f11"> Numero Documento : </b>   <span class="f13">'.$NUMERODOCUMENTO.'</span>
 		</div>
-		<div class="info">
-			<b> Fecha Recepcion : </b>  ' . $FECHARECEPCION . '
+		<div class="info2">
+			<b class="f11"> Fecha Recepcion : </b>   <span class="f13">'.$FECHARECEPCION.'</span>
 		</div>
 		<br>
 		<div class="subtitulo2"></div>        
@@ -552,9 +436,9 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 
-$stylesheet = file_get_contents('../../assest/css/stylePdf.css'); // carga archivo css
+$stylesheet1 = file_get_contents('../../assest/css/styleTarja.css'); // carga archivo css
 $stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
-$PDF->WriteHTML($stylesheet, 1);
+$PDF->WriteHTML($stylesheet1, 1);
 $PDF->WriteHTML($stylesheet2, 1);
 $PDF->WriteHTML($html);
 //$PDF->Output();
