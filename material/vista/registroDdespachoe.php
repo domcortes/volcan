@@ -456,7 +456,7 @@ if (isset($_POST)) {
                         Swal.fire({
                             icon:"success",
                             title:"Registro creado",
-                            text:"El registro de detalle de recepción se ha creado correctamente",
+                            text:"El registro de detalle de Despacho se ha creado correctamente",
                             showConfirmButton:true,
                             confirmButtonText:"cerrar"
                         }).then((result)=>{
@@ -484,7 +484,7 @@ if (isset($_POST)) {
                     Swal.fire({
                         icon:"info",
                         title:"Registro Modificado",
-                        text:"El registro del detalle de recepcion se ha modificada correctamente",
+                        text:"El registro del detalle de Despacho se ha modificada correctamente",
                         showConfirmButton:true,
                         confirmButtonText:"cerrar"
                     }).then((result)=>{
@@ -516,9 +516,9 @@ if (isset($_POST)) {
                     Swal.fire({
                         icon:"error",
                         title:"Registro Eliminado",
-                        text:"El registro del detalle recepcion se ha eliminado correctamente ",
+                        text:"El registro del detalle Despacho se ha eliminado correctamente ",
                         showConfirmButton:true,
-                        confirmButtonText:"Volver a recepcion"
+                        confirmButtonText:"Volver a Despacho"
                     }).then((result)=>{
                         location.href ="'.$_REQUEST['URLP'].'.php?op";                        
                     })

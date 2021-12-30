@@ -1,18 +1,18 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/BODEGA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/BODEGA_ADO.php';
 
 
-include_once '../controlador/INVENTARIOE_ADO.php';
-include_once '../controlador/DESPACHOE_ADO.php';
+include_once '../../assest/controlador/INVENTARIOE_ADO.php';
+include_once '../../assest/controlador/DESPACHOE_ADO.php';
 
-include_once '../modelo/INVENTARIOE.php';
+include_once '../../assest/modelo/INVENTARIOE.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -96,68 +96,11 @@ $ARRAYVERFOLIO;
 $ARRAYPRODUCTO = $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
 $ARRAYTUMEDIDA = $TUMEDIDA_ADO->listarTumedidaPorEmpresaCBX($EMPRESAS);
 $ARRAYBODEGA = $BODEGA_ADO->listarBodegaPorEmpresaPlantaCBX($EMPRESAS, $PLANTAS);
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
-
-
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-
-    $INVENTARIOE->__SET('CANTIDAD_SALIDA', $_REQUEST['CANTIDAD']);
-    $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-    $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-    $INVENTARIOE_ADO->agregarInventarioDespacho($INVENTARIOE);
-
-    //REDIRECCIONAR A PAGINA registroRecepcion.php     
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['EDITAR'])) {
-
-    $INVENTARIOE->__SET('CANTIDAD_SALIDA', $_REQUEST['CANTIDAD']);
-    $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-    $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTOE']);
-    $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->actualizarInventarioDespacho($INVENTARIOE);
-
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['ELIMINAR'])) {
-
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->eliminado($INVENTARIOE);
-    $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
-    $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
-
-    if ($_REQUEST["TDESPACHO"] == "1") {
-        $ARRAYVALIDARINGRESO = $INVENTARIOE_ADO->verInventario($_REQUEST['IDD']);
-        $ARRAYVALIDARINGRESO2 = $INVENTARIOE_ADO->buscarPorDespachoIngresoBodega($_REQUEST['IDP'], $ARRAYVALIDARINGRESO[0]['INGRESO'], $ARRAYVALIDARINGRESO[0]['ID_BODEGA']);
-        if ($ARRAYVALIDARINGRESO2) {
-            $INVENTARIOE->__SET('ID_INVENTARIO', $ARRAYVALIDARINGRESO2[0]['ID_INVENTARIO']);
-            $INVENTARIOE_ADO->eliminado($INVENTARIOE);
-            $INVENTARIOE->__SET('ID_INVENTARIO', $ARRAYVALIDARINGRESO2[0]['ID_INVENTARIO']);
-            $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
-        }
-    }
-
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
+$ARRAYBODEGAENVASES=$BODEGA_ADO->listarBodegaPorEmpresaPlantaEnvasesCBX($EMPRESAS, $PLANTAS);
+if ($ARRAYBODEGAENVASES) {
+    $BODEGA=$ARRAYBODEGAENVASES[0]["ID_BODEGA"];    
 }
 //OBTENCION DE DATOS ENVIADOR A LA URL
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
@@ -294,13 +237,13 @@ if (isset($_POST)) {
 <html lang="es">
 
 <head>
-    <title>Registro Detalle </title>
+    <title>Registro Detalle Despacho </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -308,23 +251,14 @@ if (isset($_POST)) {
 
                     CANTIDAD = document.getElementById("CANTIDAD").value;
                     PRODUCTO = document.getElementById("PRODUCTO").selectedIndex;
-                    BODEGA = document.getElementById("BODEGA").selectedIndex;
                     //TUMEDIDA = document.getElementById("TUMEDIDA").selectedIndex;
 
 
                     document.getElementById('val_cantidad').innerHTML = "";
                     document.getElementById('val_producto').innerHTML = "";
-                    document.getElementById('val_bodega').innerHTML = "";
                     //document.getElementById('val_tumedida').innerHTML = "";         
 
-                    if (BODEGA == null || BODEGA == 0) {
-                        document.form_reg_dato.BODEGA.focus();
-                        document.form_reg_dato.BODEGA.style.borderColor = "#FF0000";
-                        document.getElementById('val_bodega').innerHTML = "NO HA SELECIONADO ALTERNATIVA";
-                        return false
-                    }
-                    document.form_reg_dato.BODEGA.style.borderColor = "#4AF575";
-
+                  
                     if (PRODUCTO == null || PRODUCTO == 0) {
                         document.form_reg_dato.PRODUCTO.focus();
                         document.form_reg_dato.PRODUCTO.style.borderColor = "#FF0000";
@@ -369,15 +303,14 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php  include_once "../config/menu.php";
-            ?>
+            <?php  include_once "../../assest/config/menuFruta.php"; ?>
             <div class="content-wrapper">
                 <div class="container-full">
                     <!-- Content Header (Page header) -->
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Despacho Envases </h3>
+                                <h3 class="page-title">Registro Detalle </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -385,14 +318,14 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Envases </li>
                                             <li class="breadcrumb-item" aria-current="page">Despacho</li>
-                                            <li class="breadcrumb-item" aria-current="page">Registro Despacho</li>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Despacho </li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Detalle </a>
                                             </li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
-                            <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <!-- Main content -->
@@ -407,30 +340,11 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label>Bodega Origen</label>
-                                                <input type="hidden" class="form-control" placeholder="BODEGAE" id="BODEGAE" name="BODEGAE" value="<?php echo $BODEGA; ?>" />
-                                                <select class="form-control select2" id="BODEGA" name="BODEGA" style="width: 100%;" <?php echo $DISABLED; ?> <?php echo $DISABLED3; ?> <?php echo $DISABLEDFOLIO; ?>>
-                                                    <option></option>
-                                                    <?php foreach ($ARRAYBODEGA as $r) : ?>
-                                                        <?php if ($ARRAYBODEGA) {    ?>
-                                                            <option value="<?php echo $r['ID_BODEGA']; ?>" <?php if ($BODEGA == $r['ID_BODEGA']) {
-                                                                                                                echo "selected";
-                                                                                                            } ?>> <?php echo $r['NOMBRE_BODEGA'] ?> </option>
-                                                        <?php } else { ?>
-                                                            <option>No Hay Datos Registrados </option>
-                                                        <?php } ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                                <label id="val_bodega" class="validacion"> </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID TDESPACHO" id="TDESPACHO" name="TDESPACHO" value="<?php echo $TDESPACHO; ?>" />
 
+                                                <input type="hidden" class="form-control" placeholder="BODEGA" id="BODEGA" name="BODEGA" value="<?php echo $BODEGA; ?>" />  
                                                 <input type="hidden" class="form-control" placeholder="ID DDESPACHOE" id="IDD" name="IDD" value="<?php echo $IDOP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID DESPACHOE" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="OP DESPACHOE" id="OPP" name="OPP" value="<?php echo $OPP; ?>" />
@@ -464,11 +378,11 @@ if (isset($_POST)) {
                                                 <label id="val_tumedida" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Producto</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
-                                                <input type="text" class="form-control" placeholder="Canitdad Producto" id="CANTIDAD" name="CANTIDAD" value="<?php echo $CANTIDAD; ?>" <?php echo $DISABLED; ?> />
+                                                <input type="number" class="form-control" placeholder="Canitdad Producto" id="CANTIDAD" name="CANTIDAD" value="<?php echo $CANTIDAD; ?>" <?php echo $DISABLED; ?> />
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
@@ -477,29 +391,29 @@ if (isset($_POST)) {
                                 </div>
                                 <!-- /.row -->
                                 <!-- /.box-body -->
-                                <div class="box-footer">
-                                    <div class="btn-group  col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                <div class="box-footer">                                    
+                                    <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
                                         <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php?op');">
                                             <i class="ti-back-left "></i> Volver
                                         </button>
                                         <?php if ($OP == "") { ?>
-                                            <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Agregar
+                                            <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                <i class="ti-save-alt"></i> Guardar
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
                                             <?php if ($OP == "crear") { ?>
-                                                <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Duplicar
+                                                <button type="submit" class="btn btn-primary " data-toggle="tooltip" title="Guardar" name="CREAR" value="CREAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "editar") { ?>
-                                                <button type="submit" class="btn  btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Editar
+                                                <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Guardar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?>  onclick="return validacion()">
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "eliminar") { ?>
-                                                <button type="submit" class="btn  btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
+                                                <button type="submit" class="btn btn-danger " data-toggle="tooltip" title="Eliminar" name="ELIMINAR" value="ELIMINAR">
                                                     <i class="ti-trash"></i> Eliminar
                                                 </button>
                                             <?php } ?>
@@ -514,11 +428,103 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+        
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+                $INVENTARIOE->__SET('CANTIDAD_SALIDA', $_REQUEST['CANTIDAD']);
+                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                $INVENTARIOE_ADO->agregarInventarioDespacho($INVENTARIOE);
+
+                //REDIRECCIONAR A PAGINA registroRecepcion.php     
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro creado",
+                            text:"El registro de detalle de Despacho se ha creado correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"cerrar"
+                        }).then((result)=>{
+                            location.href ="'.$_REQUEST['URLP'].'.php?op";                            
+                        })
+                    </script>';
+
+            }
+            if (isset($_REQUEST['EDITAR'])) {
+
+                $INVENTARIOE->__SET('CANTIDAD_SALIDA', $_REQUEST['CANTIDAD']);
+                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
+                $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTOE']);
+                $INVENTARIOE->__SET('ID_DESPACHO', $_REQUEST['IDP']);
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->actualizarInventarioDespacho($INVENTARIOE);
+
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro del detalle de Despacho se ha modificada correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"cerrar"
+                    }).then((result)=>{
+                        location.href ="'.$_REQUEST['URLP'].'.php?op";                       
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {
+
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->eliminado($INVENTARIOE);
+                $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
+                $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
+
+                if ($_REQUEST["TDESPACHO"] == "1") {
+                    $ARRAYVALIDARINGRESO = $INVENTARIOE_ADO->verInventario($_REQUEST['IDD']);
+                    $ARRAYVALIDARINGRESO2 = $INVENTARIOE_ADO->buscarPorDespachoIngresoBodega($_REQUEST['IDP'], $ARRAYVALIDARINGRESO[0]['INGRESO'], $ARRAYVALIDARINGRESO[0]['ID_BODEGA']);
+                    if ($ARRAYVALIDARINGRESO2) {
+                        $INVENTARIOE->__SET('ID_INVENTARIO', $ARRAYVALIDARINGRESO2[0]['ID_INVENTARIO']);
+                        $INVENTARIOE_ADO->eliminado($INVENTARIOE);
+                        $INVENTARIOE->__SET('ID_INVENTARIO', $ARRAYVALIDARINGRESO2[0]['ID_INVENTARIO']);
+                        $INVENTARIOE_ADO->deshabilitar($INVENTARIOE);
+                    }
+                }
+
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Eliminado",
+                        text:"El registro del detalle Despacho se ha eliminado correctamente ",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a Despacho"
+                    }).then((result)=>{
+                        location.href ="'.$_REQUEST['URLP'].'.php?op";                        
+                    })
+                </script>';
+            }
+        ?>
 </body>
 
 </html>

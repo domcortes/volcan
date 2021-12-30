@@ -5,7 +5,7 @@ include_once "../../assest/config/validarUsuarioFruta.php";
 
 include_once '../../assest/controlador/PRODUCTO_ADO.php';
 include_once '../../assest/controlador/TUMEDIDA_ADO.php';
-include_once '../../assest/controlador/FOLIOM_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
 
 
 include_once '../../assest/controlador/INVENTARIOE_ADO.php';
@@ -19,7 +19,7 @@ include_once '../../assest/modelo/INVENTARIOE.php';
 
 $PRODUCTO_ADO =  new PRODUCTO_ADO();
 $TUMEDIDA_ADO =  new TUMEDIDA_ADO();
-$FOLIO_ADO =  new FOLIOM_ADO();
+$FOLIO_ADO =  new FOLIO_ADO();
 
 $INVENTARIOE_ADO =  new INVENTARIOE_ADO();
 $RECEPCIONE_ADO =  new RECEPCIONE_ADO();
@@ -275,7 +275,6 @@ if (isset($_POST)) {
                         return false;
                     }
                     document.form_reg_dato.CANTIDAD.style.borderColor = "#4AF575";
-
                 }
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
                 function irPagina(url) {
@@ -333,7 +332,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php  include_once "../../assest/config/menuFruta.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -347,8 +346,8 @@ if (isset($_POST)) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
-                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
                                             <li class="breadcrumb-item" aria-current="page">Recepción</li>
+                                            <li class="breadcrumb-item" aria-current="page">Recepción Envases</li>
                                             <li class="breadcrumb-item" aria-current="page">Registro Recepción </li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Detalle </a>
                                             </li>
@@ -371,7 +370,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" placeholder="ID BODEGA" id="BODEGA" name="BODEGA" value="<?php echo $BODEGA; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID TRECEPCION" id="TRECEPCION" name="TRECEPCION" value="<?php echo $TRECEPCION; ?>" />
@@ -410,7 +409,7 @@ if (isset($_POST)) {
                                                 <label id="val_tumedida" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Valor Unitario </label>
                                                 <input type="hidden" class="form-control" placeholder="VALORUNITARIO" id="VALORUNITARIO" name="VALORUNITARIO" value="<?php echo $VALORUNITARIO; ?>" />
@@ -418,7 +417,7 @@ if (isset($_POST)) {
                                                 <label id="val_vu" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Producto</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
@@ -475,42 +474,11 @@ if (isset($_POST)) {
         <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php 
         
+        
 
             //OPERACIONES
             //OPERACION DE REGISTRO DE FILA
-            if (isset($_REQUEST['CREAR'])) {
-
-                $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
-                $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
-                $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
-                $INVENTARIOE->__SET('VALOR_UNITARIO', $_REQUEST['VALORUNITARIO']);
-                $INVENTARIOE->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-                $INVENTARIOE->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-                $INVENTARIOE->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-                $INVENTARIOE->__SET('ID_BODEGA',  $_REQUEST['BODEGA']);
-                $INVENTARIOE->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-                $INVENTARIOE->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-                $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
-                $INVENTARIOE_ADO->agregarInventarioRecepcion($INVENTARIOE);
-
-                //REDIRECCIONAR A PAGINA registroRecepcion.php 
-                
-                $_SESSION["parametro"] =  $_REQUEST['IDP'];
-                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-                echo '<script>
-                        Swal.fire({
-                            icon:"success",
-                            title:"Registro creado",
-                            text:"El registro de detalle de recepción se ha creado correctamente",
-                            showConfirmButton:true,
-                            confirmButtonText:"cerrar"
-                        }).then((result)=>{
-                            location.href ="'. $_REQUEST['URLP'].'.php?op";                            
-                        })
-                    </script>';
-            }
             if (isset($_REQUEST['EDITAR'])) {
-
                 $VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
                 $INVENTARIOE->__SET('TRECEPCION',  $_REQUEST['TRECEPCION']);
                 $INVENTARIOE->__SET('CANTIDAD_ENTRADA', $_REQUEST['CANTIDAD']);
@@ -524,7 +492,6 @@ if (isset($_POST)) {
                 $INVENTARIOE->__SET('ID_RECEPCION', $_REQUEST['IDP']);
                 $INVENTARIOE->__SET('ID_INVENTARIO', $_REQUEST['IDD']);
                 $INVENTARIOE_ADO->actualizarInventarioRecepcion($INVENTARIOE);
-
                 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
@@ -534,7 +501,7 @@ if (isset($_POST)) {
                         title:"Registro Modificado",
                         text:"El registro del detalle de recepcion se ha modificada correctamente",
                         showConfirmButton:true,
-                        confirmButtonText:"cerrar"
+                        confirmButtonText:"Volver a Recepción"
                     }).then((result)=>{
                         location.href ="'. $_REQUEST['URLP'].'.php?op";                            
                     })
@@ -559,7 +526,6 @@ if (isset($_POST)) {
                     })
                 </script>';
             }
-        
         ?>
 </body>
 
