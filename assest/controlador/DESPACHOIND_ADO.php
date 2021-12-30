@@ -491,7 +491,8 @@ class DESPACHOIND_ADO
                                                 MODIFICACION AS 'MODIFICACION', 
                                                 IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -516,7 +517,8 @@ class DESPACHOIND_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -542,8 +544,36 @@ class DESPACHOIND_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 FORMAT(IFNULL(KILOS_NETO_DESPACHO,0),2,'de_DE')  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
+                                        AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarDespachompEmpresaPlantaTemporadaInterplantaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                IFNULL(KILOS_NETO_DESPACHO,0) AS 'NETO'
+                                        FROM fruta_despachoind                                                                           
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                        AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -568,9 +598,40 @@ class DESPACHOIND_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function listarDespachompEmpresaPlantaTemporadaGuiaCBX($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
+                                        FROM fruta_despachoind                                                                           
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                                AND   TDESPACHO = 1
+                                                AND ESTADO_DESPACHO = 2
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND ID_PLANTA2 = '" . $PLANTA . "'
+                                                AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -595,7 +656,8 @@ class DESPACHOIND_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
                                                 FORMAT(KILOS_NETO_DESPACHO,2,'de_DE')  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
-                                        WHERE   TDESPACHO = 1
+                                        WHERE   ESTADO_REGISTRO = 1 
+                                                AND  TDESPACHO = 1
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'
@@ -622,8 +684,8 @@ class DESPACHOIND_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT *
                                                 FROM fruta_despachoind
-                                                WHERE 
-                                                    NUMERO_SELLO_DESPACHO = " . $NUMEROGUIA . "
+                                                WHERE  ESTADO_REGISTRO = 1 
+                                                    AND   NUMERO_SELLO_DESPACHO = " . $NUMEROGUIA . "
                                                     AND ID_PRODUCTOR = " . $PRODUCTOR . "                                                 
                                                     AND ID_EMPRESA = " . $EMPRESA . " 
                                                     AND ID_PLANTA = " . $PLANTA . " 
@@ -679,7 +741,8 @@ class DESPACHOIND_ADO
                                                     FORMAT(IFNULL(SUM(TOTAL_PRECIO),0),2,'de_DE') AS 'PRECIO'  
                                         FROM fruta_despachoind 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE   ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();
@@ -704,7 +767,8 @@ class DESPACHOIND_ADO
                                                     IFNULL(SUM(TOTAL_PRECIO),0) AS 'PRECIO'   
                                         FROM fruta_despachoind 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();
@@ -729,7 +793,8 @@ class DESPACHOIND_ADO
                                                     IFNULL(SUM(TOTAL_PRECIO),0) AS 'PRECIO'   
                                         FROM fruta_despachoind 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -755,7 +820,8 @@ class DESPACHOIND_ADO
                                                     FORMAT(IFNULL(SUM(TOTAL_PRECIO),0),2,'de_DE') AS 'PRECIO'   
                                         FROM fruta_despachoind 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -782,7 +848,8 @@ class DESPACHOIND_ADO
                                                     FORMAT(IFNULL(SUM(TOTAL_PRECIO),0),2,'de_DE') AS 'PRECIO'  
                                         FROM fruta_despachoind 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA2 = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -807,7 +874,8 @@ class DESPACHOIND_ADO
                                                     FORMAT(IFNULL(SUM(KILOS_NETO_DESPACHO),0),2,'de_DE') AS 'NETO' , 
                                                     FORMAT(IFNULL(SUM(TOTAL_PRECIO),0),2,'de_DE') AS 'PRECIO'  
                                         FROM fruta_despachoind                                                                                                              
-                                        WHERE   TDESPACHO = 1
+                                        WHERE  ESTADO_REGISTRO = 1 
+                                                AND   TDESPACHO = 1
                                                 AND ESTADO_DESPACHO = 2
                                                 AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA2 = '" . $PLANTA . "'
