@@ -208,6 +208,9 @@ table {
 .f12, #f12{	
 	font-size: 12px;	
 }
+.f13, #f13{	
+	font-size: 13px;	
+}
 .f15, #f15{	
 	font-size: 15px;	
 }
@@ -306,6 +309,17 @@ div.contenido div.info
 	background-color: transparent;
 	font-family: Helvetica;
 	font-size: 11px;
+	padding: 0px 0px;
+	text-align: justify;
+	padding-left: 10px;
+}
+div.contenido div.info2
+{
+	width: 100%;
+	height: auto;
+	background-color: transparent;
+	font-family: Helvetica;
+	
 	padding: 0px 0px;
 	text-align: justify;
 	padding-left: 10px;

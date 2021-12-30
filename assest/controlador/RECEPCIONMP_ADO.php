@@ -134,6 +134,30 @@ class RECEPCIONMP_ADO
         }
     }
 
+    public function verRecepcion3($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                        DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'GUIA',
+                                                        DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                        INGRESO AS 'INGRESO',
+                                                        MODIFICACION AS 'MODIFICACION'  
+                                            FROM fruta_recepcionmp
+                                            WHERE ID_RECEPCION= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
     public function buscarNombreRecepcion($NOMBRE)
