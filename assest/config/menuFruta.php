@@ -530,7 +530,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="registroReembalajeEx.php"> Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="registroReembalajeEx.php"> Registro Reembalaje<i class="ti-more"></i></a></li>
               <li><a href="listarReembalajeEx.php">Agrupado Reembalaje<i class="ti-more"></i></a></li>
             </ul>
           </li>
