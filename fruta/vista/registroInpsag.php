@@ -1,26 +1,26 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/INPSAG_ADO.php';
-include_once '../controlador/TINPSAG_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/INPSAG_ADO.php';
+include_once '../../assest/controlador/TINPSAG_ADO.php';
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/INPECTOR_ADO.php';
-include_once '../controlador/CONTRAPARTE_ADO.php';
-include_once '../controlador/PAIS_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/INPECTOR_ADO.php';
+include_once '../../assest/controlador/CONTRAPARTE_ADO.php';
+include_once '../../assest/controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
 
-include_once '../modelo/INPSAG.php';
-include_once '../modelo/EXIEXPORTACION.php';
+include_once '../../assest/modelo/INPSAG.php';
+include_once '../../assest/modelo/EXIEXPORTACION.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -141,8 +141,8 @@ $ARRAYINPECTOR = $INPECTOR_ADO->listarInpectorPorEmpresaCBX($EMPRESAS);
 $ARRAYPAIS = $PAIS_ADO->listarPaisCBX();
 $ARRAYFECHAACTUAL = $INPSAG_ADO->obtenerFecha();
 $FECHAINPSAG = $ARRAYFECHAACTUAL[0]['FECHA'];
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION , VISUALIZACION Y CREACION
@@ -372,7 +372,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -590,7 +590,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -912,16 +912,16 @@ if (isset($_POST)) {
                                         </div>
                                         <div class="btn-group  col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsag.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeInpsag.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title=" S.I.F"   id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsagSif.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title=" S.I.F"   id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeInpsagSif.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i>  S.I.F
                                                 </button>
-                                                <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Packing list" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeInpsagPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn  btn-info  " data-toggle="tooltip" title="Packing list" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeInpsagPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Packing List
                                                 </button>
-                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDC; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvInpsag.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDC; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/assest/csv/CsvInpsag.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                 </button>                                                
                                             <?php endif ?>
@@ -988,7 +988,7 @@ if (isset($_POST)) {
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <div class="table-responsive">
-                                                    <table id="detalle" class="table table-hover " style="width: 100%;">
+                                                    <table id="detalle" class="table-hover " style="width: 100%;">
                                                         <thead>
                                                             <tr>
                                                                 <th>
@@ -1078,7 +1078,7 @@ if (isset($_POST)) {
                                                                                 <input type="hidden" class="form-control" placeholder="ID QUITAR" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                                 <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
                                                                                     <button type="submit" class="btn btn-sm btn-danger  " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia" <?php echo $DISABLED2; ?>  <?php if ($ESTADO == 0) { echo "disabled";} ?>>
-                                                                                        <i class="ti-close"></i> Quitar
+                                                                                        <i class="ti-close"></i><br> Quitar
                                                                                     </button>
                                                                                 </div>
                                                                             </form>
@@ -1117,11 +1117,11 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php
             //OPERACIONES
             //OPERACION DE REGISTRO DE FILA

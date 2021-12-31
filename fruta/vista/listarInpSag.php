@@ -1,15 +1,15 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
 
-include_once '../controlador/TINPSAG_ADO.php';
-include_once '../controlador/INPSAG_ADO.php';
+include_once '../../assest/controlador/TINPSAG_ADO.php';
+include_once '../../assest/controlador/INPSAG_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -55,18 +55,11 @@ $ARRAYTESTADOSAG = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
-
+if ( $PLANTAS && $TEMPORADAS) {
     $ARRAYDESPACHOEX = $INPSAG_ADO->listarInpsagPlantaTemporadaCBX( $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOEXTOTALES = $INPSAG_ADO->obtenerTotalesInpsaPlantaTemporadagCBX2($PLANTAS, $TEMPORADAS);
-
-    $TOTALBRUTO = $ARRAYDESPACHOEXTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYDESPACHOEXTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYDESPACHOEXTOTALES[0]['ENVASE'];
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 
@@ -87,7 +80,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -158,7 +151,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuFruta.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -210,7 +203,7 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="sag" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Numero </th>
@@ -322,22 +315,22 @@ include_once "../config/datosUrLP.php";
                                                                             <?php } ?>
                                                                             <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe"  title=" S.I.F" Onclick="abrirPestana('../documento/informeInpsagSif.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe"  title=" S.I.F" Onclick="abrirPestana('../../assest/documento/informeInpsagSif.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> S.I.F
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Packing List">
-                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Packing List" Onclick="abrirPestana('../documento/informeInpsagPackingList.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Packing List" Onclick="abrirPestana('../../assest/documento/informeInpsagPackingList.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i>Packing List
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="CSV">
-                                                                                <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDC; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-success btn-block" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDC; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/../../assest/assest/csv/CsvInpsag.php?parametro=<?php echo $r['ID_INPSAG']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-excel-o"></i> Archivo Plano
                                                                                 </button>
                                                                             </span>
@@ -372,9 +365,8 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -382,25 +374,23 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
-                                                <div class="input-group-prepend">Bruto
-                                                    <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Bruto</div>
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>   
                         </div>
                         <!-- /.box -->
                 </section>
@@ -408,10 +398,10 @@ include_once "../config/datosUrLP.php";
             </div>
         </div>
         <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-            <?php include_once "../config/footer.php"; ?>
-            <?php include_once "../config/menuExtra.php"; ?>
+            <?php include_once "../../assest/config/footer.php"; ?>
+            <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

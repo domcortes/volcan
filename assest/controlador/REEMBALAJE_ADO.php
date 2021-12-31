@@ -416,7 +416,8 @@ class REEMBALAJE_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',      
                                                 DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y') AS 'FECHA'
                                         FROM fruta_reembalaje                                                                               
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE   ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -448,7 +449,8 @@ class REEMBALAJE_ADO
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',      
                                                 DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y') AS 'FECHA' 
                                         FROM fruta_reembalaje                                                                               
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE   ESTADO_REGISTRO = 1 
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -500,7 +502,8 @@ class REEMBALAJE_ADO
                                                 IFNULL(SUM(KILOS_NETO_REEMBALAJE),0) AS 'NETO'                ,                                                 
                                                 IFNULL(SUM(KILOS_NETO_ENTRADA),0) AS 'ENTRADA'       
                                          FROM fruta_reembalaje                                                                                              
-                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                         WHERE   ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                          ");
@@ -527,7 +530,8 @@ class REEMBALAJE_ADO
                                                  FORMAT(IFNULL(SUM(KILOS_NETO_REEMBALAJE),0),2,'de_DE') AS 'NETO'                ,                                                 
                                                  FORMAT(IFNULL(SUM(KILOS_NETO_ENTRADA),0),2,'de_DE') AS 'ENTRADA'        
                                          FROM fruta_reembalaje                                                                                              
-                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                         WHERE   ESTADO_REGISTRO = 1 
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                          ");

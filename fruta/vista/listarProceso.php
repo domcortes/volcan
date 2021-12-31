@@ -1,17 +1,17 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/TPROCESO_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/TPROCESO_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
 
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -55,21 +55,10 @@ $ARRAYEXISMATERIPRIMAPROCESO = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
     $ARRAYPROCESO = $PROCESO_ADO->listarProcesoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYTOTALPROCESO = $PROCESO_ADO->obtenerTotalesEmpresaPlantaTemporadaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-
-    
-    $TOTALNETOENTRADA = $ARRAYTOTALPROCESO[0]['ENTRADA'];
-    $TOTALNETO = $ARRAYTOTALPROCESO[0]['NETO'];
-    $TOTALEXPORTACION = $ARRAYTOTALPROCESO[0]['EXPORTACION'];
-    $TOTALINDUSTRIAL = $ARRAYTOTALPROCESO[0]['INDUSTRIAL'];
-
-
-
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 ?>
@@ -85,7 +74,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -150,7 +139,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuFruta.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -202,7 +191,7 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="proceso" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Numero</th>
@@ -344,12 +333,12 @@ include_once "../config/datosUrLP.php";
                                                                             <hr>
 
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../documento/informeProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Tarjas">
-                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../documento/informeTarjasProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger btn-block" id="defecto" name="tarjas" title="Tarjas" Onclick="abrirPestana('../../assest/documento/informeTarjasProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Tarjas
                                                                                 </button>
                                                                             </span>
@@ -392,44 +381,48 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>                                               
                         <div class="box-footer">
-                            <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
-                                <div class="form-row align-items-center" role="group" aria-label="Datos">
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Neto Entrada</div>
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Neto Entrada</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOEV" name="TOTALNETOEV" >                                                           
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Kg. Neto Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOENTRADA; ?>" disabled />
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Neto Expo</div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Neto Expo</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOEXPOV" name="TOTALNETOEXPOV" >                                                           
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Kg. Neto Expo" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Con Deshi.</div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Con Deshi.</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOEXPODV" name="TOTALNETOEXPODV" >                                                           
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Kg. Con Deshi." id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Industrial</div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Industrial</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOINDV" name="TOTALNETOINDV" >                                                           
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Kg. Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                     <!-- /.box -->
@@ -438,10 +431,10 @@ include_once "../config/datosUrLP.php";
             </div>
         </div>
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
         <script>
             const Toast = Swal.mixin({
                 toast: true,

@@ -345,7 +345,8 @@ class NOTADC_ADO
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                         FROM fruta_notadc                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1
+                                        AND  ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -370,7 +371,8 @@ class NOTADC_ADO
                                                 DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                         FROM fruta_notadc                                                                           
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();

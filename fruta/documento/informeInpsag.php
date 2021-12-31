@@ -1,23 +1,23 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/INPSAG_ADO.php';
-include_once '../controlador/TINPSAG_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/INPSAG_ADO.php';
+include_once '../../assest/controlador/TINPSAG_ADO.php';
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/INPECTOR_ADO.php';
-include_once '../controlador/CONTRAPARTE_ADO.php';
-include_once '../controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/INPECTOR_ADO.php';
+include_once '../../assest/controlador/CONTRAPARTE_ADO.php';
+include_once '../../assest/controlador/PAIS_ADO.php';
 include_once '../controlador/TMANEJO_ADO.php';
 
 

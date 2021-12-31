@@ -210,23 +210,17 @@ if (isset($_REQUEST['parametro'])) {
 $ARRAYICARGA=$ICARGA_ADO->verIcarga2($IDOP);
 if($ARRAYICARGA){
       
-    $ARRAYDCARGA = $DICARGA_ADO->buscarInvoicPorIcarga($IDOP);
-
+    $ARRAYDCARGA1 = $DICARGA_ADO->buscarInvoicePorIcarga($IDOP);
+    $ARRAYDCARGA2 = $DICARGA_ADO->buscarInvoiceIntPorIcarga($IDOP);
+    if($ARRAYDCARGA1){
+      $ARRAYDCARGA = $DICARGA_ADO->buscarInvoicePorIcarga($IDOP);
+    }else if($ARRAYDCARGA2){
+      $ARRAYDCARGA = $DICARGA_ADO->buscarInvoiceIntPorIcarga($IDOP);
+    }
     
-    $ARRAYDCARGATOTAL = $DICARGA_ADO->obtenerTotalInvoicPorIcarga($IDOP);
-    $ARRAYDCARGATOTAL2 = $DICARGA_ADO->obtenerTotalInvoicPorIcarga2($IDOP);
-    $TOTALENVASEV = $ARRAYDCARGATOTAL2[0]['ENVASE'];
-    $TOTALNETOV = $ARRAYDCARGATOTAL2[0]['NETO'];
-    $TOTALBRUTOV = $ARRAYDCARGATOTAL2[0]['BRUTO'];
-    $TOTALUS = $ARRAYDCARGATOTAL[0]['TOTALUS'];
-    $TOTALUSV = $ARRAYDCARGATOTAL2[0]['TOTALUS'];
 
 
-    $ARRAYCONSOLIDADODESPACHO =  $DESPACHOEX_ADO->consolidadoDespachoExistencia2($IDOP);
-    $ARRAYCONSOLIDADODESPACHOTOTAL =  $DESPACHOEX_ADO->obtenerTotalconsolidadoDespachoExistencia2($IDOP);
-    $TOTALENVASECONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['ENVASE'];
-    $TOTALNETOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['NETO'];
-    $TOTALBRUTOCONSOLIADO=$ARRAYCONSOLIDADODESPACHOTOTAL[0]['BRUTO'];
+
 
     $IDUSUARIOI = $ARRAYICARGA[0]['ID_USUARIOI'];  
     $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
@@ -753,12 +747,15 @@ $html = $html . '
                     <td class="center">'.$s['TOTALUS'].'</td>
               </tr>
             ';
+            $TOTALENVASEV+=$s['ENVASESF'];
+            $TOTALNETOV+=$s['NETOSF'];
+            $TOTALBRUTOV+=$s['BRUTOSF'];
+            $TOTALUSV+=$s['TOTALUSSF'];
             endforeach;
 
 if($COSTOFLETEICARGA!=""){
   if($COSTOFLETEICARGA>0){
-
-  
+    $TOTALUSV+=$COSTOFLETEICARGA;  
             $html = $html . '              
               <tr class="">
                   <td class="center"> - </td>
@@ -767,23 +764,27 @@ if($COSTOFLETEICARGA!=""){
                     <td class="center"> - </td>
                     <td class="center"></td>
                     <td class="center"> - </td>
-                    <td class="center">'.$COSTOFLETEICARGA.'</td>
+                    <td class="center">'.number_format($COSTOFLETEICARGA, 2, ",", ".").'</td>
               </tr>
             ';
-            $TOTALUSV=number_format($TOTALUS+$COSTOFLETEICARGA, 2, ",", ".");
+
+  }else{
+    $COSTOFLETEICARGA=0;
   }
+}else{
+  $COSTOFLETEICARGA=0;
 }
 
             $html = $html . '
                     
                         <tr class="bt">
-                          <th class="color center">'.$TOTALENVASEV.'</th>
+                          <th class="color center">'.number_format($TOTALENVASEV, 2, ",", ".").'</th>
                           <th class="color right">Overall Kilogram </td>
-                          <th class="color center">'.$TOTALNETOV.'</th>
-                          <th class="color center">'.$TOTALBRUTOV.'</th>
+                          <th class="color center">'.number_format($TOTALNETOV, 2, ",", ".").'</th>
+                          <th class="color center">'.number_format($TOTALBRUTOV, 2, ",", ".").'</th>
                           <td class="color center">&nbsp;</td>
                           <td class="color center">&nbsp;</td>
-                          <th class="color center">'.$TOTALUSV.'</th>
+                          <th class="color center">'.number_format($TOTALUSV, 2, ",", ".").'</th>
                         </tr>
                     ';
             

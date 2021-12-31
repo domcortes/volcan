@@ -1,20 +1,20 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
 
 
-include_once '../controlador/TREEMBALAJE_ADO.php';
-include_once '../controlador/DREXPORTACION_ADO.php';
-include_once '../controlador/DRINDUSTRIAL_ADO.php';
-include_once '../controlador/REEMBALAJE_ADO.php';
+include_once '../../assest/controlador/TREEMBALAJE_ADO.php';
+include_once '../../assest/controlador/DREXPORTACION_ADO.php';
+include_once '../../assest/controlador/DRINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/REEMBALAJE_ADO.php';
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -196,115 +196,6 @@ $html='
 <title>Tarja Reembalaje </title>
 
 <style type="text/css">	
-	{
-		padding: 0px;
-		border: 0px;
-		margin: 0px;
-	}
-	div.contenido
-	{
-		width: calc(8cm - 22px);
-		height: auto;
-		border: solid 1px rgba(0,0,0,0.5);
-		margin: 0 auto;
-		padding: 2px 0px;
-		overflow: hidden;
-	}
-	div.contenido div.titulo
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 15px;
-		padding: 5px 0px 0px 0px;
-	}
-	div.contenido div.subtitulo
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		font-weight: lighter;
-
-	}
-	div.contenido div.subtitulo2
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 12px;
-		margin-bottom: 5px;
-		text-decoration: underline;
-		text-transform: uppercase;
-		text-align: center;
-		margin-top: 5px;
-		border-top: dotted 1px black;
-		padding-top: 5px;
-	}
-	div.contenido div.info
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 11px;
-		padding: 0px 0px;
-		text-align: justify;
-		padding-left: 10px;
-	}
-	div.contenido div.valor
-	{
-		width: calc(100% - 2px);
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 30px;
-		padding: 5px 0px;
-		text-align: right;
-		border:solid 1px rgba(0,0,0,0.5);
-		overflow: hidden;
-		margin-top: 5px;
-	}
-
-	div.contenido div.valor span
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 16px;
-		padding: 5px 0px;
-		text-align: right;
-	}
-	b{
-		/*text-transform: uppercase;*/
-	}
-	div.contenido div.desc
-	{
-		width: 100%;
-		height: auto;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		padding: 5px 0px;
-		text-align: justify;
-	}
-	div.contenido div.chip
-	{
-		width: calc(50% - 2px);
-		height: 2cm;
-		background-color: transparent;
-		font-family: Helvetica;
-		font-size: 14px;
-		padding: 5px 0px;
-		text-align: center;
-		line-height: 2cm;
-		float: left;
-		border:solid 1px rgba(0,0,0,0.3);
-	}
 
 </style>
 
@@ -330,34 +221,26 @@ foreach ($ARRAYDEXPORTACION as $r) :
     }
 
 
-    $html=$html.'
-    <div class="contenido" style="height:250px!important;">
-		<div class="titulo" style="text-align: center; font-size: 15px; ">
-             <b > 
-                <img src="../vista/img/logo.png" width="100px" height="30px"/>
-             </b>
-             <br>
-            <b> PRODUCTO TERMINADO : </b> <b class="center f30">  '.$r['FOLIO_DREXPORTACION'].' </b>	
-		</div>		
-		
-		<div class="subtitulo2"></div>   
-        <br>
-		<div class="info ">
-			<b> Estandar : </b>  '.$ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'].'
-		</div>
-        	<div class="info ">
-			<b> Total Envase : </b> '.$r['ENVASE'].'
-		</div>		
-		<div class="info ">
-			<b>  Total Neto : </b>  '.$r['NETO'].'
-		</div> 
-        <div class="info ">
-			<b>  </b>  
-		</div>
-        <br>
-		<div class="subtitulo2"></div>
-        
-  ';
+
+	$html = $html . '
+    <div class=" " >
+		<div class="titulotarja" style="text-align: center; >
+             <b  "> 
+				 <img src="../../assest/img/logo.png" width="90px" height="25px"/>
+             </b><br>
+            <b > 
+				PRODUCTO TERMINADO :   ' . $r['FOLIO_DREXPORTACION'] . ' 
+			</b>	
+		</div>							
+		<div class="subtitulotarja " > 
+			&nbsp;<b> Estandar : </b> ' . $ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'] . '<br>
+			&nbsp;<b> Total Envase : </b> ' . $r['ENVASE'] . '<br>
+			&nbsp;<b> Total Neto : </b>   ' . $r['NETO'] . '<br>       
+		</div>	
+';
+
+
+ 
 
   $html=$html.'   
   <table border="0" cellspacing="0" cellpadding="0" >
@@ -399,11 +282,10 @@ foreach ($ARRAYDEXPORTACION as $r) :
   ';
 
   $html=$html.'
-		<div class="subtitulo2"></div>       
-        <div class=" center">
-           <b style="font-size: 10px;">  '.$EMPRESA.' </b>
-        </div>
+		<div class="subtitulo2"></div>   
       </div>  
+      
+	  <div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
     ';
 endforeach; 
 
@@ -415,29 +297,25 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
 
 
 
+	$html = $html . '
+    <div class=" " >
+		<div class="titulotarja" style="text-align: center; >
+             <b  "> 
+				 <img src="../../assest/img/logo.png" width="90px" height="25px"/>
+             </b><br>
+            <b > 
+				PRODUCTO INDUSTRIAL :   ' . $r['FOLIO_DRINDUSTRIAL'] . ' 
+			</b>	
+		</div>							
+		<div class="subtitulotarja " > 
+            &nbsp;<b> Numero Reembalaje : </b> '.$NUMEROREEMBALAJE.'<br>
+			&nbsp;<b> Estandar : </b> ' . $ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'] . '<br>
+			&nbsp;<b> Total Neto : </b>   ' . $r['NETO'] . '<br>       
+		</div>	
+';
 
-    $html=$html.'
-    <div class="contenido" style="height:250px!important;">
-		<div class="titulo" style="text-align: center; font-size: 14px; ">
-             <b > 
-                <img src="../vista/img/logo.png" width="100px" height="30px"/>
-             </b>
-             <br>
-            <b> PRODUCTO INDUSTRIAL : </b> <b class="center f30">  '.$r['FOLIO_DRINDUSTRIAL'].' </b>	
-		</div>				
-		<div class="subtitulo2"></div>   
-		<div class="info ">
-			<b> Numero Reembalaje : </b> '.$NUMEROREEMBALAJE.'
-		</div>		
-		<div class="info ">
-			<b> Estandar : </b>  '.$ARRAYEVEEXPORTACIONID[0]['NOMBRE_ESTANDAR'].'
-		</div>
-        <div class="info ">
-			<b> Neto : </b>  '.$r['NETO'].'
-		</div>
-		<div class="subtitulo2"></div>
-        
-  ';
+
+  
 
   $html=$html.'   
   <table border="0" cellspacing="0" cellpadding="0" >
@@ -471,10 +349,7 @@ foreach ($ARRAYDINDUSTRIAL as $r) :
 
   $html=$html.'
   <br>
-		<div class="subtitulo2"></div>       
-        <div class=" center">
-           <b style="font-size: 10px;">  '.$EMPRESA.' </b>
-        </div>
+		<div class="subtitulo2"></div>  
       </div>  
 	  <div class="salto" style=" page-break-after: always; border: none;   margin: 0;   padding: 0;"></div>  
     ';
@@ -537,25 +412,18 @@ $ASUNTO = "Tarja Reembalaje";
 
 
 $PDF->SetHTMLHeader('
-    <table width="100%" >
-        <tbody>
-            <tr>
-            </tr>
-        </tbody>
-    </table>
-    <br>
     
 ');
 
 $PDF->SetHTMLFooter('
 
 
-    <table width="100%" >
-        <tbody>
-            <tr>
-            </tr>
-        </tbody>
-    </table>
+    
+<footer>
+<div class="" style="text-align: center;  ">
+	<b>' . $EMPRESA . '.</b> 
+  </div>
+</footer>
     
 ');
 
@@ -570,9 +438,9 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //CONTENIDO PDF
-$stylesheet = file_get_contents('../vista/css/stylePDF.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
-$PDF->WriteHTML($stylesheet, 1); 
+$stylesheet1 = file_get_contents('../../assest/css/styleTarja.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
+$PDF->WriteHTML($stylesheet1, 1); 
 $PDF->WriteHTML($stylesheet2, 1); 
 $PDF->WriteHTML($html);
 

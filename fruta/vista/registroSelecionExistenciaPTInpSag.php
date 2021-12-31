@@ -1,23 +1,23 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
 
 
-include_once '../controlador/INPSAG_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/INPSAG_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
 
-include_once '../modelo/INPSAG.php';
-include_once '../modelo/EXIEXPORTACION.php';
+include_once '../../assest/modelo/INPSAG.php';
+include_once '../../assest/modelo/EXIEXPORTACION.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -104,7 +104,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $URLO = $_SESSION['urlO'];
     $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorPlantaTemporadaEstadoSagNullInpsag($PLANTAS, $TEMPORADAS);
 }
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 
@@ -121,7 +121,7 @@ include_once "../config/validarDatosUrlD.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function mueveReloj() {
@@ -175,7 +175,7 @@ include_once "../config/validarDatosUrlD.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -236,7 +236,7 @@ include_once "../config/validarDatosUrlD.php";
                                     <div clas="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="table-responsive">
-                                                <table id="selecionExistencia" class="table table-hover " style="width: 100%;">
+                                                <table id="selecionExistencia" class="table-hover " style="width: 100%;">
                                                     <thead>
                                                         <tr class="text-left">
                                                             <th>Folio </th>
@@ -376,11 +376,11 @@ include_once "../config/validarDatosUrlD.php";
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php
             if (isset($_REQUEST['AGREGAR'])) {
                 $IDINPSAG = $_REQUEST['IDP'];

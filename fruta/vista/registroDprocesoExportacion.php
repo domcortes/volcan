@@ -1,24 +1,24 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/TCATEGORIA_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/TCATEGORIA_ADO.php';
 
-include_once '../controlador/DPINDUSTRIAL_ADO.php';
-include_once '../controlador/DPEXPORTACION_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/DPINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/DPEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
 
-include_once '../modelo/EXIEXPORTACION.php';
-include_once '../modelo/DPEXPORTACION.php';
+include_once '../../assest/modelo/EXIEXPORTACION.php';
+include_once '../../assest/modelo/DPEXPORTACION.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -139,7 +139,7 @@ $ARRAYTMANEJO = $TMANEJO_ADO->listarTmanejoCBX();
 
 $ARRAYFECHAACTUAL = $DPEXPORTACION_ADO->obtenerFecha();
 $FECHAEMBALADO = $ARRAYFECHAACTUAL[0]['FECHA'];
-include_once "../config/validarDatosUrlD.php";
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
@@ -459,7 +459,7 @@ if ($_POST) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function neto() {
@@ -618,6 +618,45 @@ if ($_POST) {
                 function irPagina(url) {
                     location.href = "" + url;
                 }
+                //FUNCION PARA OBTENER HORA Y FECHA
+                function mueveReloj() {
+
+
+                    momentoActual = new Date();
+
+                    dia = momentoActual.getDate();
+                    mes = momentoActual.getMonth() + 1;
+                    ano = momentoActual.getFullYear();
+
+                    hora = momentoActual.getHours();
+                    minuto = momentoActual.getMinutes();
+                    segundo = momentoActual.getSeconds();
+
+                    if (dia < 10) {
+                        dia = "0" + dia;
+                    }
+
+                    if (mes < 10) {
+                        mes = "0" + mes;
+                    }
+                    if (hora < 10) {
+                        hora = "0" + hora;
+                    }
+                    if (minuto < 10) {
+                        minuto = "0" + minuto;
+                    }
+                    if (segundo < 10) {
+                        segundo = "0" + segundo;
+                    }
+
+                    horaImprimible = hora + " : " + minuto;
+                    fechaImprimible = dia + "-" + mes + "-" + ano;
+
+
+                    //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
+                    document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
+                    setTimeout("mueveReloj()", 1000);
+                }
             </script>
 
 </head>
@@ -625,7 +664,7 @@ if ($_POST) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -866,11 +905,11 @@ if ($_POST) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php
             echo
             '<script>

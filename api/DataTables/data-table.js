@@ -472,33 +472,35 @@ $(function () {
         //MODULOS
         var tableIcarga = $('#icarga').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
-            "createdRow":function(row, data,index){
-                //pintar una celda
-                if(data[14]<=0){
-                    $('td',row).eq(14).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-                if(data[15]<=0){
-                    $('td',row).eq(15).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-                if(data[16]<=0){
-                    $('td',row).eq(16).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-                if(data[17]<=0){
-                    $('td',row).eq(17).css({
-                        'background-color': '#ff5252',
-                        'color': 'white',
-                    });
-                }
-            },    
+            /* 
+                "createdRow":function(row, data,index){
+                    //pintar una celda
+                    if(data[14]<=0){
+                        $('td',row).eq(14).css({
+                            'background-color': '#ff5252',
+                            'color': 'white',
+                        });
+                    }
+                    if(data[15]<=0){
+                        $('td',row).eq(15).css({
+                            'background-color': '#ff5252',
+                            'color': 'white',
+                        });
+                    }
+                    if(data[16]<=0){
+                        $('td',row).eq(16).css({
+                            'background-color': '#ff5252',
+                            'color': 'white',
+                        });
+                    }
+                    if(data[17]<=0){
+                        $('td',row).eq(17).css({
+                            'background-color': '#ff5252',
+                            'color': 'white',
+                        });
+                    }
+                },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -753,7 +755,7 @@ $(function () {
         });
         var tableDetalladocarga = $('#detalladoicarga').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
-            "createdRow":function(row, data,index){
+         /*   "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[6]<=0){
                     $('td',row).eq(6).css({
@@ -780,6 +782,7 @@ $(function () {
                     });
                 }
             },    
+        */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -1035,6 +1038,7 @@ $(function () {
         //recepcion 
         var tableRecepcionmp = $('#recepcionmp').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[11]<=0){
@@ -1056,6 +1060,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -1307,6 +1312,7 @@ $(function () {
         });
         var tableDetalladormp = $('#detalladormp').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[8]<=0){
@@ -1328,6 +1334,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -1579,6 +1586,7 @@ $(function () {
         });
         var tableRecepcionind = $('#recepcionind').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[11]<=0){
@@ -1600,6 +1608,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -1851,6 +1860,7 @@ $(function () {
         });
         var tableDetalladorind = $('#detalladorind').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[8]<=0){
@@ -1872,6 +1882,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -2120,10 +2131,10 @@ $(function () {
             ],
             'dom': 'Bfrtip',
                         
-        });        
-
+        });     
         var tableDetalladorpt = $('#detalladorpt').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[8]<=0){
@@ -2144,7 +2155,8 @@ $(function () {
                         'color': 'white',
                     });
                 }
-            },    
+            },   
+            */ 
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -2398,6 +2410,7 @@ $(function () {
         //Despacho
         var tableDespachomp = $('#despachomp').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[9]<=0){
@@ -2418,7 +2431,8 @@ $(function () {
                         'color': 'white',
                     });
                 }
-            },    
+            },  
+            */  
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -2670,6 +2684,7 @@ $(function () {
         });        
         var tableDetalladodmp = $('#detalladodmp').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[9]<=0){
@@ -2691,6 +2706,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -2942,6 +2958,7 @@ $(function () {
         });        
         var tableDespachoind = $('#despachoind').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[9]<=0){
@@ -2951,6 +2968,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -3197,6 +3215,7 @@ $(function () {
         });        
         var tableDetalladodind = $('#detalladodind').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[9]<=0){
@@ -3206,6 +3225,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -3449,10 +3469,843 @@ $(function () {
             'dom': 'Bfrtip',
                         
         });
+        //packing             
+        var tableProceso = $('#proceso').DataTable({
+            //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
+            "createdRow":function(row, data,index){
+                //pintar una celda
+                if(data[10]<=0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+                if(data[11]<=0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+                if(data[13]<=0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+            },  
+            */  
+            //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
+            'drawCallback':function(){
+                var api =this.api();  
+                var totalnetoeconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));            
+                var totalnetoexpoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));            
+                var totalnetoexpodconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));            
+                var totalnetoindconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(16,{page:'current'}).data().sum()).toFixed(2));            
+                //console.log("neto entrada: "+  totalnetoeconsolidado);            
+                //console.log("neto expo: "+  totalnetoexpoconsolidado);           
+                //console.log("neto expo: "+  totalnetoexpodconsolidado);           
+                //console.log("neto expo: "+  totalnetoindconsolidado);  
+                $("#TOTALNETOEV").text(totalnetoeconsolidado);
+                $("#TOTALNETOEXPOV").text(totalnetoexpoconsolidado);
+                $("#TOTALNETOEXPODV").text(totalnetoexpodconsolidado);
+                $("#TOTALNETOINDV").text(totalnetoindconsolidado);
+                
+            },
+            "scrollY": 450,
+            "scrollX": true,
+            'scrollCollapse': false,
+            'deferRender':    false,
+            'scroller': false,
+            'paging': false,
+            'fixedHeader': true,
+            'fixedColumns':   false,
+            'colReorder': false,
+            'lengthChange': false, //ordernar por 10 25 100 500
+            'searching': true, //buscador
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            'responsive': false,
+            'order': [
+                [0, 'desc'], //desc ->descente asc -> ascedente
+            ],
+            "pagingType": "full_numbers",
+            "language": {
+                "processing": "Procesando...",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "emptyTable": "Ningún dato disponible en esta tabla",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "search": "Buscar:",
+                "infoThousands": ",",
+                "loadingRecords": "Cargando...",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copy": "Copiar",
+                    "colvis": "Visibilidad",
+                    "collection": "Colección",
+                    "colvisRestore": "Restaurar visibilidad",
+                    "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                    "copySuccess": {
+                        "1": "Copiada 1 fila al portapapeles",
+                        "_": "Copiadas %d fila al portapapeles"
+                    },
+                    "copyTitle": "Copiar al portapapeles",
+                    "csv": "CSV",
+                    "excel": "Excel",
+                    "pageLength": {
+                        "-1": "Mostrar todas las filas",
+                        "_": "Mostrar %d filas"
+                    },
+                    "pdf": "PDF",
+                    "print": "Imprimir"
+                },
+                "autoFill": {
+                    "cancel": "Cancelar",
+                    "fill": "Rellene todas las celdas con <i>%d<\/i>",
+                    "fillHorizontal": "Rellenar celdas horizontalmente",
+                    "fillVertical": "Rellenar celdas verticalmentemente"
+                },
+                "decimal": ",",
+                "searchBuilder": {
+                    "add": "Añadir Filtro",
+                    "button": {
+                        "0": "Filtros",
+                        "_": "Filtros(%d)"
+                    },
+                    "clearAll": "Borrar todo",
+                    "condition": "Condición",
+                    'delete': 'Quitar',
+                    'deleteTitle': 'Titulo Quitar',
+                    "conditions": {
+                        "date": {
+                            "after": "Despues",
+                            "before": "Antes",
+                            "between": "Entre",
+                            "empty": "Vacío",
+                            "equals": "Igual a",
+                            "notBetween": "No entre",
+                            "notEmpty": "No Vacio",
+                            "not": "Diferente de"
+                        },
+                        "number": {
+                            "between": "Entre",
+                            "empty": "Vacio",
+                            "equals": "Igual a",
+                            "gt": "Mayor a",
+                            "gte": "Mayor o igual a",
+                            "lt": "Menor que",
+                            "lte": "Menor o igual que",
+                            "notBetween": "No entre",
+                            "notEmpty": "No vacío",
+                            "not": "Diferente de"
+                        },
+                        "string": {
+                            "contains": "Contiene",
+                            "empty": "Vacío",
+                            "endsWith": "Termina en",
+                            "equals": "Igual a",
+                            "notEmpty": "No Vacio",
+                            "startsWith": "Empieza con",
+                            "not": "Diferente de",
+                            "notContains": "No Contiene",
+                            "notStarts": "No empieza con",
+                            "notEnds": "No termina con"
+                        },
+                        "array": {
+                            "not": "Diferente de",
+                            "equals": "Igual",
+                            "empty": "Vacío",
+                            "contains": "Contiene",
+                            "notEmpty": "No Vacío",
+                            "without": "Sin"
+                        }
+                    },
+                    "data": "Filtrar Por",
+                    "deleteTitle": "Eliminar regla de filtrado",
+                    "leftTitle": "Criterios anulados",
+                    "logicAnd": "Y",
+                    "logicOr": "O",
+                    "rightTitle": "Criterios de sangría",
+                    "title": {
+                        "0": "Filtros",
+                        "_": "Filtros (%d)"
+                    },
+                    "value": "Valor"
+                },
+                "searchPanes": {
+                    "clearMessage": "Borrar todo",
+                    "collapse": {
+                        "0": "Paneles de búsqueda",
+                        "_": "Paneles de búsqueda (%d)"
+                    },
+                    "count": "{total}",
+                    "countFiltered": "{shown} ({total})",
+                    "emptyPanes": "Sin paneles de búsqueda",
+                    "loadMessage": "Cargando paneles de búsqueda",
+                    "title": "Filtros Activos - %d",
+                    "showMessage": "Mostrar Todo",
+                    "collapseMessage": "Colapsar Todo"
+                },
+                "select": {
+                    "cells": {
+                        "1": "1 celda seleccionada",
+                        "_": "%d celdas seleccionadas"
+                    },
+                    "columns": {
+                        "1": "1 columna seleccionada",
+                        "_": "%d columnas seleccionadas"
+                    },
+                    "rows": {
+                        "1": "1 fila seleccionada",
+                        "_": "%d filas seleccionadas"
+                    }
+                },
+                "thousands": ".",
+                "datetime": {
+                    "previous": "Anterior",
+                    "next": "Proximo",
+                    "hours": "Horas",
+                    "minutes": "Minutos",
+                    "seconds": "Segundos",
+                    "unknown": "-",
+                    "amPm": [
+                        "AM",
+                        "PM"
+                    ],
+                    "months": {
+                        "0": "Enero",
+                        "1": "Febrero",
+                        "10": "Noviembre",
+                        "11": "Diciembre",
+                        "2": "Marzo",
+                        "3": "Abril",
+                        "4": "Mayo",
+                        "5": "Junio",
+                        "6": "Julio",
+                        "7": "Agosto",
+                        "8": "Septiembre",
+                        "9": "Octubre"
+                    },
+                    "weekdays": [
+                        "Dom",
+                        "Lun",
+                        "Mar",
+                        "Mie",
+                        "Jue",
+                        "Vie",
+                        "Sab"
+                    ]
+                },
+                "editor": {
+                    "close": "Cerrar",
+                    "create": {
+                        "button": "Nuevo",
+                        "title": "Crear Nuevo Registro",
+                        "submit": "Crear"
+                    },
+                    "edit": {
+                        "button": "Editar",
+                        "title": "Editar Registro",
+                        "submit": "Actualizar"
+                    },
+                    "remove": {
+                        "button": "Eliminar",
+                        "title": "Eliminar Registro",
+                        "submit": "Eliminar",
+                        "confirm": {
+                            "_": "¿Está seguro que desea eliminar %d filas?",
+                            "1": "¿Está seguro que desea eliminar 1 fila?"
+                        }
+                    },
+                    "error": {
+                        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                    },
+                    "multi": {
+                        "title": "Múltiples Valores",
+                        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+                        "restore": "Deshacer Cambios",
+                        "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+                    }
+                },
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
+            },          
+            'buttons': [
+                'excel',
+                'searchBuilder'
+            ],
+            'dom': 'Bfrtip',
+                        
+        }); 
+        var tableReembalaje = $('#reembalaje').DataTable({
+            //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
+            "createdRow":function(row, data,index){
+                //pintar una celda
+                if(data[10]<=0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+                if(data[11]<0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+                if(data[13]<0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+            },  
+            */  
+            //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
+            'drawCallback':function(){
+                var api =this.api();  
+                var totalnetoeconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(10,{page:'current'}).data().sum()).toFixed(2));            
+                var totalnetoexpoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(11,{page:'current'}).data().sum()).toFixed(2));            
+                var totalnetoexpodconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(13,{page:'current'}).data().sum()).toFixed(2));            
+                var totalnetoindconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(16,{page:'current'}).data().sum()).toFixed(2));            
+                //console.log("neto entrada: "+  totalnetoeconsolidado);            
+                //console.log("neto expo: "+  totalnetoexpoconsolidado);           
+                //console.log("neto expo: "+  totalnetoexpodconsolidado);           
+                //console.log("neto expo: "+  totalnetoindconsolidado);  
+                $("#TOTALNETOEV").text(totalnetoeconsolidado);
+                $("#TOTALNETOEXPOV").text(totalnetoexpoconsolidado);
+                $("#TOTALNETOEXPODV").text(totalnetoexpodconsolidado);
+                $("#TOTALNETOINDV").text(totalnetoindconsolidado);
+                
+            },
+            "scrollY": 450,
+            "scrollX": true,
+            'scrollCollapse': false,
+            'deferRender':    false,
+            'scroller': false,
+            'paging': false,
+            'fixedHeader': true,
+            'fixedColumns':   false,
+            'colReorder': false,
+            'lengthChange': false, //ordernar por 10 25 100 500
+            'searching': true, //buscador
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            'responsive': false,
+            'order': [
+                [0, 'desc'], //desc ->descente asc -> ascedente
+            ],
+            "pagingType": "full_numbers",
+            "language": {
+                "processing": "Procesando...",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "emptyTable": "Ningún dato disponible en esta tabla",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "search": "Buscar:",
+                "infoThousands": ",",
+                "loadingRecords": "Cargando...",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copy": "Copiar",
+                    "colvis": "Visibilidad",
+                    "collection": "Colección",
+                    "colvisRestore": "Restaurar visibilidad",
+                    "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                    "copySuccess": {
+                        "1": "Copiada 1 fila al portapapeles",
+                        "_": "Copiadas %d fila al portapapeles"
+                    },
+                    "copyTitle": "Copiar al portapapeles",
+                    "csv": "CSV",
+                    "excel": "Excel",
+                    "pageLength": {
+                        "-1": "Mostrar todas las filas",
+                        "_": "Mostrar %d filas"
+                    },
+                    "pdf": "PDF",
+                    "print": "Imprimir"
+                },
+                "autoFill": {
+                    "cancel": "Cancelar",
+                    "fill": "Rellene todas las celdas con <i>%d<\/i>",
+                    "fillHorizontal": "Rellenar celdas horizontalmente",
+                    "fillVertical": "Rellenar celdas verticalmentemente"
+                },
+                "decimal": ",",
+                "searchBuilder": {
+                    "add": "Añadir Filtro",
+                    "button": {
+                        "0": "Filtros",
+                        "_": "Filtros(%d)"
+                    },
+                    "clearAll": "Borrar todo",
+                    "condition": "Condición",
+                    'delete': 'Quitar',
+                    'deleteTitle': 'Titulo Quitar',
+                    "conditions": {
+                        "date": {
+                            "after": "Despues",
+                            "before": "Antes",
+                            "between": "Entre",
+                            "empty": "Vacío",
+                            "equals": "Igual a",
+                            "notBetween": "No entre",
+                            "notEmpty": "No Vacio",
+                            "not": "Diferente de"
+                        },
+                        "number": {
+                            "between": "Entre",
+                            "empty": "Vacio",
+                            "equals": "Igual a",
+                            "gt": "Mayor a",
+                            "gte": "Mayor o igual a",
+                            "lt": "Menor que",
+                            "lte": "Menor o igual que",
+                            "notBetween": "No entre",
+                            "notEmpty": "No vacío",
+                            "not": "Diferente de"
+                        },
+                        "string": {
+                            "contains": "Contiene",
+                            "empty": "Vacío",
+                            "endsWith": "Termina en",
+                            "equals": "Igual a",
+                            "notEmpty": "No Vacio",
+                            "startsWith": "Empieza con",
+                            "not": "Diferente de",
+                            "notContains": "No Contiene",
+                            "notStarts": "No empieza con",
+                            "notEnds": "No termina con"
+                        },
+                        "array": {
+                            "not": "Diferente de",
+                            "equals": "Igual",
+                            "empty": "Vacío",
+                            "contains": "Contiene",
+                            "notEmpty": "No Vacío",
+                            "without": "Sin"
+                        }
+                    },
+                    "data": "Filtrar Por",
+                    "deleteTitle": "Eliminar regla de filtrado",
+                    "leftTitle": "Criterios anulados",
+                    "logicAnd": "Y",
+                    "logicOr": "O",
+                    "rightTitle": "Criterios de sangría",
+                    "title": {
+                        "0": "Filtros",
+                        "_": "Filtros (%d)"
+                    },
+                    "value": "Valor"
+                },
+                "searchPanes": {
+                    "clearMessage": "Borrar todo",
+                    "collapse": {
+                        "0": "Paneles de búsqueda",
+                        "_": "Paneles de búsqueda (%d)"
+                    },
+                    "count": "{total}",
+                    "countFiltered": "{shown} ({total})",
+                    "emptyPanes": "Sin paneles de búsqueda",
+                    "loadMessage": "Cargando paneles de búsqueda",
+                    "title": "Filtros Activos - %d",
+                    "showMessage": "Mostrar Todo",
+                    "collapseMessage": "Colapsar Todo"
+                },
+                "select": {
+                    "cells": {
+                        "1": "1 celda seleccionada",
+                        "_": "%d celdas seleccionadas"
+                    },
+                    "columns": {
+                        "1": "1 columna seleccionada",
+                        "_": "%d columnas seleccionadas"
+                    },
+                    "rows": {
+                        "1": "1 fila seleccionada",
+                        "_": "%d filas seleccionadas"
+                    }
+                },
+                "thousands": ".",
+                "datetime": {
+                    "previous": "Anterior",
+                    "next": "Proximo",
+                    "hours": "Horas",
+                    "minutes": "Minutos",
+                    "seconds": "Segundos",
+                    "unknown": "-",
+                    "amPm": [
+                        "AM",
+                        "PM"
+                    ],
+                    "months": {
+                        "0": "Enero",
+                        "1": "Febrero",
+                        "10": "Noviembre",
+                        "11": "Diciembre",
+                        "2": "Marzo",
+                        "3": "Abril",
+                        "4": "Mayo",
+                        "5": "Junio",
+                        "6": "Julio",
+                        "7": "Agosto",
+                        "8": "Septiembre",
+                        "9": "Octubre"
+                    },
+                    "weekdays": [
+                        "Dom",
+                        "Lun",
+                        "Mar",
+                        "Mie",
+                        "Jue",
+                        "Vie",
+                        "Sab"
+                    ]
+                },
+                "editor": {
+                    "close": "Cerrar",
+                    "create": {
+                        "button": "Nuevo",
+                        "title": "Crear Nuevo Registro",
+                        "submit": "Crear"
+                    },
+                    "edit": {
+                        "button": "Editar",
+                        "title": "Editar Registro",
+                        "submit": "Actualizar"
+                    },
+                    "remove": {
+                        "button": "Eliminar",
+                        "title": "Eliminar Registro",
+                        "submit": "Eliminar",
+                        "confirm": {
+                            "_": "¿Está seguro que desea eliminar %d filas?",
+                            "1": "¿Está seguro que desea eliminar 1 fila?"
+                        }
+                    },
+                    "error": {
+                        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                    },
+                    "multi": {
+                        "title": "Múltiples Valores",
+                        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+                        "restore": "Deshacer Cambios",
+                        "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+                    }
+                },
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
+            },          
+            'buttons': [
+                'excel',
+                'searchBuilder'
+            ],
+            'dom': 'Bfrtip',
+                        
+        });  
 
+        //inspeccion sag
+        var tableSag = $('#sag').DataTable({
+            //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
+            "createdRow":function(row, data,index){
+                //pintar una celda
+                if(data[7]<=0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+                if(data[8]<=0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+                if(data[9]<=0){
+                    $('td',row).css({
+                        'background-color': '#ff5252',
+                        'color': 'white',
+                    });
+                }
+            },    
+            */
+            //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
+            'drawCallback':function(){
+                var api =this.api();  
+                var totalenvaseconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(7,{page:'current'}).data().sum()).toFixed(0));
+                var totalnetoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(8,{page:'current'}).data().sum()).toFixed(2));
+                var totalbrutoconsolidado = new Intl.NumberFormat('de-DE').format(parseFloat(api.column(9,{page:'current'}).data().sum()).toFixed(2));
+                //console.log("envase: "+  totalenvaseconsolidado);
+                //console.log("neto: "+  totalnetoconsolidado);
+                //console.log("bruto: "+  totalbrutoconsolidado);
+                $("#TOTALENVASEV").text(totalenvaseconsolidado);
+                $("#TOTALNETOV").text(totalnetoconsolidado);
+                $("#TOTALBRUTOV").text(totalbrutoconsolidado);
+            },
+            "scrollY": 450,
+            "scrollX": true,
+            'scrollCollapse': false,
+            'deferRender':    false,
+            'scroller': false,
+            'paging': false,
+            'fixedHeader': true,
+            'fixedColumns':   false,
+            'colReorder': false,
+            'lengthChange': false, //ordernar por 10 25 100 500
+            'searching': true, //buscador
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            'responsive': false,
+            'order': [
+                [0, 'desc'], //desc ->descente asc -> ascedente
+            ],
+            "pagingType": "full_numbers",
+            "language": {
+                "processing": "Procesando...",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "emptyTable": "Ningún dato disponible en esta tabla",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "search": "Buscar:",
+                "infoThousands": ",",
+                "loadingRecords": "Cargando...",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copy": "Copiar",
+                    "colvis": "Visibilidad",
+                    "collection": "Colección",
+                    "colvisRestore": "Restaurar visibilidad",
+                    "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                    "copySuccess": {
+                        "1": "Copiada 1 fila al portapapeles",
+                        "_": "Copiadas %d fila al portapapeles"
+                    },
+                    "copyTitle": "Copiar al portapapeles",
+                    "csv": "CSV",
+                    "excel": "Excel",
+                    "pageLength": {
+                        "-1": "Mostrar todas las filas",
+                        "_": "Mostrar %d filas"
+                    },
+                    "pdf": "PDF",
+                    "print": "Imprimir"
+                },
+                "autoFill": {
+                    "cancel": "Cancelar",
+                    "fill": "Rellene todas las celdas con <i>%d<\/i>",
+                    "fillHorizontal": "Rellenar celdas horizontalmente",
+                    "fillVertical": "Rellenar celdas verticalmentemente"
+                },
+                "decimal": ",",
+                "searchBuilder": {
+                    "add": "Añadir Filtro",
+                    "button": {
+                        "0": "Filtros",
+                        "_": "Filtros(%d)"
+                    },
+                    "clearAll": "Borrar todo",
+                    "condition": "Condición",
+                    'delete': 'Quitar',
+                    'deleteTitle': 'Titulo Quitar',
+                    "conditions": {
+                        "date": {
+                            "after": "Despues",
+                            "before": "Antes",
+                            "between": "Entre",
+                            "empty": "Vacío",
+                            "equals": "Igual a",
+                            "notBetween": "No entre",
+                            "notEmpty": "No Vacio",
+                            "not": "Diferente de"
+                        },
+                        "number": {
+                            "between": "Entre",
+                            "empty": "Vacio",
+                            "equals": "Igual a",
+                            "gt": "Mayor a",
+                            "gte": "Mayor o igual a",
+                            "lt": "Menor que",
+                            "lte": "Menor o igual que",
+                            "notBetween": "No entre",
+                            "notEmpty": "No vacío",
+                            "not": "Diferente de"
+                        },
+                        "string": {
+                            "contains": "Contiene",
+                            "empty": "Vacío",
+                            "endsWith": "Termina en",
+                            "equals": "Igual a",
+                            "notEmpty": "No Vacio",
+                            "startsWith": "Empieza con",
+                            "not": "Diferente de",
+                            "notContains": "No Contiene",
+                            "notStarts": "No empieza con",
+                            "notEnds": "No termina con"
+                        },
+                        "array": {
+                            "not": "Diferente de",
+                            "equals": "Igual",
+                            "empty": "Vacío",
+                            "contains": "Contiene",
+                            "notEmpty": "No Vacío",
+                            "without": "Sin"
+                        }
+                    },
+                    "data": "Filtrar Por",
+                    "deleteTitle": "Eliminar regla de filtrado",
+                    "leftTitle": "Criterios anulados",
+                    "logicAnd": "Y",
+                    "logicOr": "O",
+                    "rightTitle": "Criterios de sangría",
+                    "title": {
+                        "0": "Filtros",
+                        "_": "Filtros (%d)"
+                    },
+                    "value": "Valor"
+                },
+                "searchPanes": {
+                    "clearMessage": "Borrar todo",
+                    "collapse": {
+                        "0": "Paneles de búsqueda",
+                        "_": "Paneles de búsqueda (%d)"
+                    },
+                    "count": "{total}",
+                    "countFiltered": "{shown} ({total})",
+                    "emptyPanes": "Sin paneles de búsqueda",
+                    "loadMessage": "Cargando paneles de búsqueda",
+                    "title": "Filtros Activos - %d",
+                    "showMessage": "Mostrar Todo",
+                    "collapseMessage": "Colapsar Todo"
+                },
+                "select": {
+                    "cells": {
+                        "1": "1 celda seleccionada",
+                        "_": "%d celdas seleccionadas"
+                    },
+                    "columns": {
+                        "1": "1 columna seleccionada",
+                        "_": "%d columnas seleccionadas"
+                    },
+                    "rows": {
+                        "1": "1 fila seleccionada",
+                        "_": "%d filas seleccionadas"
+                    }
+                },
+                "thousands": ".",
+                "datetime": {
+                    "previous": "Anterior",
+                    "next": "Proximo",
+                    "hours": "Horas",
+                    "minutes": "Minutos",
+                    "seconds": "Segundos",
+                    "unknown": "-",
+                    "amPm": [
+                        "AM",
+                        "PM"
+                    ],
+                    "months": {
+                        "0": "Enero",
+                        "1": "Febrero",
+                        "10": "Noviembre",
+                        "11": "Diciembre",
+                        "2": "Marzo",
+                        "3": "Abril",
+                        "4": "Mayo",
+                        "5": "Junio",
+                        "6": "Julio",
+                        "7": "Agosto",
+                        "8": "Septiembre",
+                        "9": "Octubre"
+                    },
+                    "weekdays": [
+                        "Dom",
+                        "Lun",
+                        "Mar",
+                        "Mie",
+                        "Jue",
+                        "Vie",
+                        "Sab"
+                    ]
+                },
+                "editor": {
+                    "close": "Cerrar",
+                    "create": {
+                        "button": "Nuevo",
+                        "title": "Crear Nuevo Registro",
+                        "submit": "Crear"
+                    },
+                    "edit": {
+                        "button": "Editar",
+                        "title": "Editar Registro",
+                        "submit": "Actualizar"
+                    },
+                    "remove": {
+                        "button": "Eliminar",
+                        "title": "Eliminar Registro",
+                        "submit": "Eliminar",
+                        "confirm": {
+                            "_": "¿Está seguro que desea eliminar %d filas?",
+                            "1": "¿Está seguro que desea eliminar 1 fila?"
+                        }
+                    },
+                    "error": {
+                        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                    },
+                    "multi": {
+                        "title": "Múltiples Valores",
+                        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+                        "restore": "Deshacer Cambios",
+                        "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+                    }
+                },
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
+            },          
+            'buttons': [
+                'excel',
+                'searchBuilder'
+            ],
+            'dom': 'Bfrtip',
+                        
+        });    
         //existencia
         var tableExistenciamp = $('#existenciamp').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[11]<=0){
@@ -3474,6 +4327,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -3725,6 +4579,7 @@ $(function () {
         });
         var tableExistenciaind = $('#existenciaind').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda       
                 if(data[10]<=0){
@@ -3734,6 +4589,7 @@ $(function () {
                     });
                 }      
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -3979,6 +4835,7 @@ $(function () {
         });
         var tableExistenciapt = $('#existenciapt').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[12]<=0){
@@ -4000,6 +4857,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -4256,6 +5114,7 @@ $(function () {
     //RECEPCION     
     var tableRecepcionmm = $('#recepcionmm').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[9]<=0){
@@ -4265,6 +5124,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -4510,6 +5370,7 @@ $(function () {
     });
     var tableDetallerecepcionmm = $('#detallerecepcionmm').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[2]<=0){
@@ -4525,6 +5386,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -4773,6 +5635,7 @@ $(function () {
     });
     var tableRecepcionme = $('#recepcionme').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[8]<=0){
@@ -4782,6 +5645,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -5027,6 +5891,7 @@ $(function () {
     });
     var tableDetallerecepcionme = $('#detallerecepcionme').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[2]<=0){
@@ -5036,6 +5901,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -5281,6 +6147,7 @@ $(function () {
     });
     var tableExistenciam = $('#existenciam').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[3]<=0){
@@ -5290,6 +6157,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -5535,6 +6403,7 @@ $(function () {
     });
     var tableResumenm = $('#resumenm').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[4]<=0){
@@ -5544,6 +6413,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -5789,6 +6659,7 @@ $(function () {
     }); 
     var tableKardexm = $('#kardexm').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             
@@ -5816,7 +6687,8 @@ $(function () {
                     'color': 'white',
                 });
             }
-        },    
+        },   
+        */ 
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -6072,6 +6944,7 @@ $(function () {
     });    
     var tableConsumom = $('#consumom').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[14]<=0){
@@ -6087,6 +6960,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -6338,6 +7212,7 @@ $(function () {
     
     var tableExistenciae = $('#existenciae').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[3]<=0){
@@ -6359,6 +7234,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -6610,6 +7486,7 @@ $(function () {
     });    
     var tableKardexe = $('#kardexe').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[11]<=0){
@@ -6631,6 +7508,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -6884,6 +7762,7 @@ $(function () {
     //DESPACHO
     var tableDespachomm = $('#despachomm').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[10]<=0){
@@ -6893,6 +7772,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -7138,6 +8018,7 @@ $(function () {
     });
     var tableDetalledespachomm = $('#detalledespachomm').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[3]<=0){
@@ -7147,6 +8028,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -7392,6 +8274,7 @@ $(function () {
     });
     var tableDespachome = $('#despachome').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[10]<=0){
@@ -7400,7 +8283,8 @@ $(function () {
                     'color': 'white',
                 });
             }
-        },    
+        },   
+        */ 
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -7646,6 +8530,7 @@ $(function () {
     });
     var tableDetalledespachome = $('#detalledespachome').DataTable({
         //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+        /*
         "createdRow":function(row, data,index){
             //pintar una celda
             if(data[2]<=0){
@@ -7655,6 +8540,7 @@ $(function () {
                 });
             }
         },    
+        */
         //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
         'drawCallback':function(){
             var api =this.api();  
@@ -8155,6 +9041,7 @@ $(function () {
         //existencia
         var tableAgrupadopt = $('#agrupadopt').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[8]<=0){
@@ -8170,6 +9057,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -8659,6 +9547,7 @@ $(function () {
         //consolidados recepcion de fruta
         var tableConsolidadorf = $('#consolidadorf').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[9]<=0){
@@ -8679,7 +9568,8 @@ $(function () {
                         'color': 'white',
                     });
                 }
-            },    
+            },  
+            */  
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -8931,6 +9821,7 @@ $(function () {
         });
         var tableConsolidadorgranel = $('#consolidadorgranel').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[9]<=0){
@@ -8952,6 +9843,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -9205,6 +10097,7 @@ $(function () {
         //consolidados despacho de fruta
         var tableConsolidadodf = $('#consolidadodf').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[28]<=0){
@@ -9226,6 +10119,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -9477,6 +10371,7 @@ $(function () {
         });    
         var tableConsolidadodf = $('#consolidadodgranel').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[10]<=0){
@@ -9497,7 +10392,8 @@ $(function () {
                         'color': 'white',
                     });
                 }
-            },    
+            },  
+            */  
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -9749,6 +10645,7 @@ $(function () {
         });
         var tableConsolidadodptex = $('#consolidadodptex').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[27]<=0){
@@ -9769,7 +10666,8 @@ $(function () {
                         'color': 'white',
                     });
                 }
-            },    
+            }, 
+            */   
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -10021,6 +10919,7 @@ $(function () {
         });
         var tableDetalladodpt = $('#detalladodpt').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[10]<=0){
@@ -10042,6 +10941,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  
@@ -10293,6 +11193,7 @@ $(function () {
         });
         var tableDetalladodex = $('#detalladodex').DataTable({
             //MARCO EN ROJO LOS DATOS QUE SEA IGUAL A ZERO PARA ENVASE, NETO BRUTO
+            /*
             "createdRow":function(row, data,index){
                 //pintar una celda
                 if(data[27]<=0){
@@ -10314,6 +11215,7 @@ $(function () {
                     });
                 }
             },    
+            */
             //PRIMERA FORMA DE OBTENER TOTTALES,SI DESCUENTA LO FILTRADO
             'drawCallback':function(){
                 var api =this.api();  

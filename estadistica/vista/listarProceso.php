@@ -35,7 +35,7 @@ $TOTALINDUSTRIAL = "";
 $TOTALEXPORTACION = "";
 $TURNO = "";
 $NETOENTRADA="";
-$ENTRADA="";
+
 
 //INICIALIZAR ARREGLOS
 $ARRAYEMPRESA = "";
@@ -55,18 +55,7 @@ $ARRAYEXISMATERIPRIMAPROCESO = "";
 
 
 if ( $TEMPORADAS) {
-
     $ARRAYPROCESO = $PROCESO_ADO->listarProcesoTemporadaCBX( $TEMPORADAS);
-    $ARRAYTOTALPROCESO = $PROCESO_ADO->obtenerTotalesTemporadaCBX2( $TEMPORADAS);
-
-    
-    $TOTALNETOENTRADA = $ARRAYTOTALPROCESO[0]['ENTRADA'];
-    $TOTALNETO = $ARRAYTOTALPROCESO[0]['NETO'];
-    $TOTALEXPORTACION = $ARRAYTOTALPROCESO[0]['EXPORTACION'];
-    $TOTALINDUSTRIAL = $ARRAYTOTALPROCESO[0]['INDUSTRIAL'];
-
-
-
 }
 //include_once "../../assest/config/validarDatosUrl.php";
 //include_once "../../assest/config/datosUrLP.php";
@@ -201,7 +190,7 @@ if ( $TEMPORADAS) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="proceso" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Numero</th>
@@ -325,8 +314,23 @@ if ( $TEMPORADAS) {
                                                                             <button class="dropdown-menu" aria-labelledby="dropdownMenuButton"></button>
                                                                             <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_PROCESO']; ?>" />
                                                                             <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroProceso" />
-                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarProceso" />                                                                
+                                                                            <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="listarProceso" />                                                                      
+                                                                            <?php if ($r['ESTADO'] == "0") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block " id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
+                                                                            <?php if ($r['ESTADO'] == "1") { ?>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
+                                                                            <?php } ?>
                                                                             <hr>
+
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
                                                                                 <button type="button" class="btn  btn-danger  btn-block" id="defecto" <?php if ($r['ESTADO'] == "1") { echo "disabled"; } ?> name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeProceso.php?parametro=<?php echo $r['ID_PROCESO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe
@@ -376,44 +380,48 @@ if ( $TEMPORADAS) {
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>                                               
                         <div class="box-footer">
-                            <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
-                                <div class="form-row align-items-center" role="group" aria-label="Datos">
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Neto Entrada</div>
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Neto Entrada</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOEV" name="TOTALNETOEV" >                                                           
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Kg. Neto Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETOENTRADA; ?>" disabled />
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Neto Expo</div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Neto Expo</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOEXPOV" name="TOTALNETOEXPOV" >                                                           
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Kg. Neto Expo" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Con Deshi.</div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Con Deshi.</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOEXPODV" name="TOTALNETOEXPODV" >                                                           
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Kg. Con Deshi." id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALEXPORTACION; ?>" disabled />
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Total Kg. Industrial</div>
+                                        <div class="col-auto">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Total Kg. Industrial</div>
+                                                    <button class="btn   btn-default" id="TOTALNETOINDV" name="TOTALNETOINDV" >                                                           
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Total Kg. Industrial" id="TOTALBRUTOV" name="TOTALBRUTOV" value="<?php echo $TOTALINDUSTRIAL; ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                     <!-- /.box -->
