@@ -349,7 +349,7 @@ foreach ($ARRAYINPSAGPTPRODUCTORESPECIES as $d) :
                         <td class="color2 bor2 center">'.$d["PRODUCTOR"].'</td>
                         <td class="color2 bor2 center">'.$d["CSG"].'</td>
                         <td class="color2 bor2 center">'.$d["CANTIDAD"].'</td>
-                        <td class="color2 bor2 center">&nbsp;</td>              
+                        <td class="color2 bor2 center">&nbsp;<br><br><br><br><br></td>              
                       </tr>
               ';
 endforeach;
