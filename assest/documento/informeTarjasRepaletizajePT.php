@@ -1,16 +1,16 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/DREPALETIZAJEEX_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/DREPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
 
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES

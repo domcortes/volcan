@@ -1,23 +1,23 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/PCDESPACHO_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PCDESPACHO_ADO.php';
 
-include_once '../modelo/PCDESPACHO.php';
-include_once '../modelo/EXIEXPORTACION.php';
+include_once '../../assest/modelo/PCDESPACHO.php';
+include_once '../../assest/modelo/EXIEXPORTACION.php';
 
 //INICIALIZAR CONTROLADOR
 
@@ -104,8 +104,8 @@ $ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
 $ARRAYFECHAACTUAL = $PCDESPACHO_ADO->obtenerFecha();
 $FECHAPCDESPACHO = $ARRAYFECHAACTUAL[0]['FECHA'];
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 
@@ -252,7 +252,7 @@ if ($_POST) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -361,7 +361,7 @@ if ($_POST) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";  ?>
+            <?php include_once "../../assest/config/menuFruta.php";  ?>
             <div class="content-wrapper">
                 <div class="container-full">
 
@@ -505,13 +505,13 @@ if ($_POST) {
                                         </div>
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informePcdespacho.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informePcdespacho.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informePCdespachoPtPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informePCdespachoPtPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Packing List
                                                 </button>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informePCdespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informePCdespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Comercial
                                                 </button>
                                             <?php endif ?>
@@ -568,7 +568,7 @@ if ($_POST) {
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="table-responsive">
-                                                <table id="detalle" class="table table-hover " style="width: 100%;">
+                                                <table id="detalle" class="table-hover " style="width: 100%;">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -673,8 +673,8 @@ if ($_POST) {
                                                                             <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />
                                                                             <div class="btn-group btn-rounded btn-block col-10" role="group" aria-label="Operaciones Detalle">
                                                                                 <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia"
-                                                                                    <?php echo $DISABLED2; ?>   <?php if ($ESTADO == 0) {  echo "disabled"; } ?>> Quitar
-                                                                                    <i class="ti-close"></i>
+                                                                                    <?php echo $DISABLED2; ?>   <?php if ($ESTADO == 0) {  echo "disabled"; } ?>> 
+                                                                                    <i class="ti-close"></i><br> Quitar
                                                                                 </button>
                                                                             </div>
                                                                         </form>
@@ -711,11 +711,11 @@ if ($_POST) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 
         <?php             
             //OPERACIONES

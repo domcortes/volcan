@@ -1,56 +1,56 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES¿
 
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
-include_once '../controlador/PCDESPACHO_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/PCDESPACHO_ADO.php';
 
 
 
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
 
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/ICARGA_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/INPECTOR_ADO.php';
-include_once '../controlador/CONTRAPARTE_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/ICARGA_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/INPECTOR_ADO.php';
+include_once '../../assest/controlador/CONTRAPARTE_ADO.php';
 
 
-include_once '../controlador/RFINAL_ADO.php';
-include_once '../controlador/EXPORTADORA_ADO.php';
-include_once '../controlador/AGCARGA_ADO.php';
-include_once '../controlador/DFINAL_ADO.php';
-include_once '../controlador/PAIS_ADO.php';
-include_once '../controlador/MERCADO_ADO.php';
+include_once '../../assest/controlador/RFINAL_ADO.php';
+include_once '../../assest/controlador/EXPORTADORA_ADO.php';
+include_once '../../assest/controlador/AGCARGA_ADO.php';
+include_once '../../assest/controlador/DFINAL_ADO.php';
+include_once '../../assest/controlador/PAIS_ADO.php';
+include_once '../../assest/controlador/MERCADO_ADO.php';
 
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/LCARGA_ADO.php';
-include_once '../controlador/LDESTINO_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/LCARGA_ADO.php';
+include_once '../../assest/controlador/LDESTINO_ADO.php';
 
-include_once '../controlador/LAEREA_ADO.php';
-include_once '../controlador/ACARGA_ADO.php';
-include_once '../controlador/ADESTINO_ADO.php';
+include_once '../../assest/controlador/LAEREA_ADO.php';
+include_once '../../assest/controlador/ACARGA_ADO.php';
+include_once '../../assest/controlador/ADESTINO_ADO.php';
 
-include_once '../controlador/NAVIERA_ADO.php';
-include_once '../controlador/PCARGA_ADO.php';
-include_once '../controlador/PDESTINO_ADO.php';
+include_once '../../assest/controlador/NAVIERA_ADO.php';
+include_once '../../assest/controlador/PCARGA_ADO.php';
+include_once '../../assest/controlador/PDESTINO_ADO.php';
 
 
-include_once '../modelo/DESPACHOEX.php';
-include_once '../modelo/EXIEXPORTACION.php';
-include_once '../modelo/PCDESPACHO.php';
-include_once '../modelo/ICARGA.php';
+include_once '../../assest/modelo/DESPACHOEX.php';
+include_once '../../assest/modelo/EXIEXPORTACION.php';
+include_once '../../assest/modelo/PCDESPACHO.php';
+include_once '../../assest/modelo/ICARGA.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -292,8 +292,8 @@ $FECHAETA = $ARRAYFECHAACTUAL[0]['FECHA'];
 $FECHAETD = $ARRAYFECHAACTUAL[0]['FECHA'];
 $FECHASTACKING = $ARRAYFECHAACTUAL[0]['FECHA'];
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 //OPERACIONES
@@ -865,7 +865,7 @@ if (isset($_POST)) {
     }
 
     if (isset($_REQUEST['TINPUSDA'])) {
-        $TINPUSDA = "" . $_REQUEST['TEMPORADA'];
+        $TINPUSDA = "" . $_REQUEST['TINPUSDA'];
     }
     
 }
@@ -880,7 +880,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -1387,7 +1387,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -2212,7 +2212,7 @@ if (isset($_POST)) {
                                                   
                                 <div class="card-footer">
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="toolbar">
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
+                                        <div class="btn-group  col-xxl-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
                                             <?php if ($OP == "") { ?>
                                                 <button type=" button" class="btn btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroDespachoEX.php');">
                                                     <i class="ti-trash"></i> Cancelar
@@ -2233,15 +2233,15 @@ if (isset($_POST)) {
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
+                                        <div class="btn-group  col-xxl-6 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != ""): ?>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Packing List" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeDespachoPtPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Packing List
                                                 </button>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../documento/informeDespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Informe Comercial" id="defecto" name="tarjas" Onclick="abrirPestana('../../assest/documento/informeDespachoPtComercial.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>');">
                                                     <i class="fa fa-file-pdf-o"></i> Informe Comercial
                                                 </button>
-                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Packing List" Onclick="abrirPestana('../reporte/reporteDespachoExPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Packing List" Onclick="abrirPestana('../../assest/reporte/reporteDespachoExPackingList.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-excel-o"></i> Packing List
                                                 </button>  
                                                 <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano"  <?php if($TINPUSDA==1){echo "disabled";}?>  <?php echo $DISABLEDP; ?> <?php echo $DISABLEDT; ?> Onclick="abrirPestana('../../assest/csv/CsvDespachoEx.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
@@ -2318,7 +2318,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="detalle" class="table table-hover " style="width: 100%;">
+                                        <table id="detalle" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th> N° Folio </th>
@@ -2419,7 +2419,7 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" id="IDQUITAR" name="IDQUITAR" value="<?php echo $r['ID_EXIEXPORTACION']; ?>" />                                                                   
                                                                     <div class="btn-group btn-block col-6" role="group" aria-label="Operaciones Detalle">
                                                                         <button type="submit" class="btn btn-sm btn-danger   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia PT" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) { echo "disabled"; } ?>>
-                                                                            <i class="ti-close"></i> Quitar
+                                                                            <i class="ti-close"></i><br> Quitar
                                                                         </button>
                                                                     </div>
                                                                 </form>
@@ -2458,13 +2458,13 @@ if (isset($_POST)) {
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
 
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
-        <script src="../../js/multistepsregistrodespachoex.js"></script>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <script src="../../assest/js/multistepsregistrodespachoex.js"></script>
         <?php
         //OPERACION DE REGISTRO DE FILA
         if (isset($_REQUEST['CREAR'])) {

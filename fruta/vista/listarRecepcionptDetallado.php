@@ -1,25 +1,33 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
-include_once '../controlador/TCOLOR_ADO.php';
-include_once '../controlador/TCATEGORIA_ADO.php';
-
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/RECEPCIONPT_ADO.php';
-include_once '../controlador/DRECEPCIONPT_ADO.php';
 
 
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/RECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONPT_ADO.php';
+
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONMP_ADO.php';
+
+include_once '../../assest/controlador/EINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/RECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/DRECEPCIONIND_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
@@ -27,16 +35,26 @@ $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
 $ESPECIES_ADO =  new ESPECIES_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
-$EEXPORTACION_ADO = new EEXPORTACION_ADO();
 $TMANEJO_ADO = new TMANEJO_ADO();
 $TCALIBRE_ADO = new TCALIBRE_ADO();
 $TEMBALAJE_ADO =  new TEMBALAJE_ADO();
-$TCOLOR_ADO =  new TCOLOR_ADO();
-$TCATEGORIA_ADO =  new TCATEGORIA_ADO();
 
+$EEXPORTACION_ADO = new EEXPORTACION_ADO();
 $EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
 $RECEPCIONPT_ADO =  new RECEPCIONPT_ADO();
 $DRECEPCIONPT_ADO =  new DRECEPCIONPT_ADO();
+
+
+$ERECEPCION_ADO =  new ERECEPCION_ADO();
+$EXIMATERIAPRIMA_ADO =  new EXIMATERIAPRIMA_ADO();
+$RECEPCIONMP_ADO =  new RECEPCIONMP_ADO();
+$DRECEPCIONMP_ADO =  new DRECEPCIONMP_ADO();
+
+
+$EINDUSTRIAL_ADO =  new EINDUSTRIAL_ADO();
+$RECEPCIONIND_ADO =  new RECEPCIONIND_ADO();
+$DRECEPCIONIND_ADO =  new DRECEPCIONIND_ADO();
+$EXIINDUSTRIAL_ADO =  new EXIINDUSTRIAL_ADO();
 
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
@@ -46,9 +64,10 @@ $PLANTA = "";
 $TEMPORADA = "";
 
 $TOTALGUIA = "";
-$TOTALBRUTO = "";
-$TOTALNETO = "";
-$TOTALENVASE = "";
+$TOTALBRUTO = 0;
+$TOTALNETO = 0;
+$TOTALENVASE = 0;
+$ORIGEN = "";
 
 $FECHADESDE = "";
 $FECHAHASTA = "";
@@ -69,17 +88,9 @@ $ARRAYPRODUCTOR = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
-    $ARRAYRECEPCION = $RECEPCIONPT_ADO->listarRecepcionEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYRECEPCIONTOTALES = $RECEPCIONPT_ADO->obtenerTotalesRecepcionEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALBRUTO = $ARRAYRECEPCIONTOTALES[0]['BRUTO'];
-    $TOTALNETO = $ARRAYRECEPCIONTOTALES[0]['NETO'];
-    $TOTALENVASE = $ARRAYRECEPCIONTOTALES[0]['ENVASE'];
+if ($EMPRESAS && $PLANTAS && $TEMPORADAS) {    
+    $ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->listarRecepcionEmpresaPlantaTemporadaCBX($EMPRESAS,$PLANTAS,  $TEMPORADAS);
 }
-
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
 
 
 
@@ -91,16 +102,16 @@ include_once "../config/datosUrLP.php";
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ES-es">
 
 <head>
-    <title>Detallado Recepcion</title>
+    <title>Detallado Recepción PT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -172,7 +183,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuFruta.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -181,7 +192,7 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                                <h3 class="page-title">Recepcion P. Terminado</h3>
+                            <h3 class="page-title">Recepcion P. Terminado</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -189,7 +200,8 @@ include_once "../config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Frigorifico</li>
                                         <li class="breadcrumb-item" aria-current="page">Recepción P. Terminado</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Recepción </a> </li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Recepción </a>
+                                        </li>
                                     </ol>
                                 </nav>
                             </div>
@@ -223,7 +235,7 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="detalladorpt" class=" table-hover  " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>N° Folio </th>
@@ -242,7 +254,6 @@ include_once "../config/datosUrLP.php";
                                                     <th>Número Recepción</th>
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción</th>
-                                                    <th>CSG/CSP Recepción</th>
                                                     <th>Origen Recepción</th>
                                                     <th>Número Guía Recepción</th>
                                                     <th>Fecha Guía Recepción </th>
@@ -251,10 +262,8 @@ include_once "../config/datosUrLP.php";
                                                     <th>Tipo Embalaje </th>
                                                     <th>Stock </th>
                                                     <th>Embolsado</th>
-                                                    <th>Gasificacion</th>   
-                                                    <th>Prefrío</th>      
-                                                    <th>Tipo Categoria </th>
-                                                    <th>Tipo Color </th>                                              
+                                                    <th>Gasificacion</th>
+                                                    <th>Prefrío</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -265,34 +274,29 @@ include_once "../config/datosUrLP.php";
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($ARRAYRECEPCION as $r) : ?>
-
+                                                
+                                                <?php foreach ($ARRAYRECEPCIONPT as $r) : ?>
                                                     <?php
-                                                            if ($r['TRECEPCION'] == "1") {
-                                                                $TRECEPCION = "Desde Productor ";
-                                                                $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-                                                                if ($ARRAYPRODUCTOR2) {
-                                                                    $CSGCSPORIGEN=$ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] ;
-                                                                    $ORIGEN =  $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
-                                                                } else {
-                                                                    $ORIGEN = "Sin Datos";
-                                                                    $CSGCSPORIGEN="Sin Datos";
-                                                                }
-                                                            } else if ($r['TRECEPCION'] == "2") {
-                                                                $TRECEPCION = "Planta Externa";
-                                                                $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
-                                                                if ($ARRAYPLANTA2) {
-                                                                    $CSGCSPORIGEN=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
-                                                                    $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-                                                                } else {
-                                                                    $ORIGEN = "Sin Datos";
-                                                                    $CSGCSPORIGEN="Sin Datos";
-                                                                }
-                                                            } else {
-                                                                $TRECEPCION = "Sin Datos";
-                                                                $CSGCSPORIGEN="Sin Datos";
-                                                                $ORIGEN = "Sin Datos";
-                                                            }
+                                                    if ($r['TRECEPCION'] == "1") {
+                                                        $TRECEPCION = "Desde Productor ";
+                                                        $ARRAYPRODUCTOR2 = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+                                                        if ($ARRAYPRODUCTOR2) {
+                                                            $ORIGEN = $ARRAYPRODUCTOR2[0]['CSG_PRODUCTOR'] . ":" . $ARRAYPRODUCTOR2[0]['NOMBRE_PRODUCTOR'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
+                                                    } else if ($r['TRECEPCION'] == "2") {
+                                                        $TRECEPCION = "Planta Externa";
+                                                        $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($r['ID_PLANTA2']);
+                                                        if ($ARRAYPLANTA2) {
+                                                            $ORIGEN = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+                                                        } else {
+                                                            $ORIGEN = "Sin Datos";
+                                                        }
+                                                    } else {
+                                                        $TRECEPCION = "Sin Datos";
+                                                        $ORIGEN = "Sin Datos";
+                                                    }
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
@@ -326,12 +330,11 @@ include_once "../config/datosUrLP.php";
                                                     }
 
                                                     $ARRAYTOMADO = $DRECEPCIONPT_ADO->buscarPorIdRecepcion($r['ID_RECEPCION']);
-
                                                     ?>
 
                                                     <?php foreach ($ARRAYTOMADO as $s) : ?>
                                                         <?php
-                                                     
+
                                                         $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($s['ID_VESPECIES']);
                                                         if ($ARRAYVERVESPECIESID) {
                                                             $NOMBREVARIEDAD = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
@@ -357,7 +360,7 @@ include_once "../config/datosUrLP.php";
                                                         } else {
                                                             $NOMBRETMANEJO = "Sin Datos";
                                                         }
-                                                        
+
                                                         $ARRAYTEMBALAJE = $TEMBALAJE_ADO->verEmbalaje($s['ID_TEMBALAJE']);
                                                         if ($ARRAYTEMBALAJE) {
                                                             $NOMBRETEMBALAJE = $ARRAYTEMBALAJE[0]['NOMBRE_TEMBALAJE'];
@@ -386,42 +389,30 @@ include_once "../config/datosUrLP.php";
                                                             $EMBOLSADO =  "SI";
                                                         } else {
                                                             $EMBOLSADO = "Sin Datos";
-                                                        }                                                                                                                 
+                                                        }
                                                         if ($s['STOCK_DRECEPCION'] != "") {
-                                                            $STOCK = $s['STOCK_DRECEPCION'] ;
+                                                            $STOCK = $s['STOCK_DRECEPCION'];
                                                         } else if ($s['STOCK_DRECEPCION'] == "") {
                                                             $STOCK = "Sin Datos";
                                                         } else {
                                                             $STOCK = "Sin Datos";
-                                                        }                                                                                                                 
+                                                        }
                                                         if ($s['GASIFICADO_DRECEPCION'] == "1") {
                                                             $GASIFICADO = "SI";
                                                         } else if ($s['GASIFICADO_DRECEPCION'] == "0") {
                                                             $GASIFICADO = "NO";
                                                         } else {
                                                             $GASIFICADO = "Sin Datos";
-                                                        }                                                   
+                                                        }
                                                         if ($s['PREFRIO_DRECEPCION'] == "0") {
                                                             $PREFRIO = "NO";
                                                         } else if ($s['PREFRIO_DRECEPCION'] == "1") {
                                                             $PREFRIO =  "SI";
                                                         } else {
                                                             $PREFRIO = "Sin Datos";
-                                                        }  
-                                                        $ARRAYTCATEGORIA=$TCATEGORIA_ADO->verTcategoria($s['ID_TCATEGORIA']);
-                                                        if($ARRAYTCATEGORIA){
-                                                           $NOMBRETCATEGORIA= $ARRAYTCATEGORIA[0]["NOMBRE_TCATEGORIA"];
-                                                        }else{
-                                                            $NOMBRETCATEGORIA = "Sin Datos";
-                                                        }   
-                                                        $ARRAYTCOLOR=$TCOLOR_ADO->verTcolor($s['ID_TCOLOR']);
-                                                        if($ARRAYTCOLOR){
-                                                            $NOMBRETCOLOR= $ARRAYTCOLOR[0]["NOMBRE_TCOLOR"];
-                                                        }else{
-                                                            $NOMBRETCOLOR = "Sin Datos";
-                                                        } 
+                                                        }
                                                         ?>
-                                                        <tr class="center">                                                        
+                                                        <tr class="text-left">
                                                             <td><?php echo $s['FOLIO_DRECEPCION']; ?></td>
                                                             <td><?php echo $s['EMBALADO']; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
@@ -435,10 +426,9 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $s['PORCENTAJE'] ?></td>
                                                             <td><?php echo $s['DESHIDRATACION']; ?></td>
                                                             <td><?php echo $s['BRUTO']; ?></td>
-                                                            <td> <?php echo $r['NUMERO_RECEPCION']; ?> </td>
+                                                            <td><?php echo $r['NUMERO_RECEPCION']; ?> </td>
                                                             <td><?php echo $r['FECHA']; ?></td>
                                                             <td><?php echo $TRECEPCION;  ?></td>
-                                                            <td><?php echo $CSGCSPORIGEN;  ?></td>
                                                             <td><?php echo $ORIGEN;  ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_RECEPCION']; ?></td>
                                                             <td><?php echo $r['FECHA_GUIA']; ?></td>
@@ -449,8 +439,6 @@ include_once "../config/datosUrLP.php";
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
-                                                            <td><?php echo $NOMBRETCATEGORIA; ?></td>
-                                                            <td><?php echo $NOMBRETCOLOR; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -473,9 +461,8 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -483,9 +470,8 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -493,15 +479,14 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Bruto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Bruto" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALBRUTO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALBRUTOV" name="TOTALBRUTOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
 
@@ -513,10 +498,10 @@ include_once "../config/datosUrLP.php";
 
 
 
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest//config/menuExtraFruta.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

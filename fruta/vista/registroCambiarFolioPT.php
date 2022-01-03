@@ -1,24 +1,24 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
 
 
-include_once '../controlador/RECEPCIONPT_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
-include_once '../controlador/DESPACHOPT_ADO.php';
-include_once '../controlador/DESPACHOEX_ADO.php';
+include_once '../../assest/controlador/RECEPCIONPT_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/DESPACHOPT_ADO.php';
+include_once '../../assest/controlador/DESPACHOEX_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -69,7 +69,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->listarExiexportacionEmpresaPlantaTemporadaDisponibleFoliomanual($EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
 
-include_once "../config/datosUrLE.php";
+include_once "../../assest/config/datosUrLE.php";
 
 ?>
 
@@ -84,7 +84,7 @@ include_once "../config/datosUrLE.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -150,7 +150,7 @@ include_once "../config/datosUrLE.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuFruta.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -201,7 +201,7 @@ include_once "../config/datosUrLE.php";
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="table-responsive">
-                                            <table id="hexistencia" class="table table-hover " style="width: 300%;">
+                                            <table id="hexistencia" class="table-hover " style="width: 300%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
@@ -439,7 +439,7 @@ include_once "../config/datosUrLE.php";
                                                                                 <input type="hidden" class="form-control" placeholder="URL" id="URLO" name="URLO" value="registroCambiarFolioPT" />
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Cambiar Folio">
                                                                                     <button type="submit" class="btn btn-warning btn-block " id="CAMBIARFOLIO" name="CAMBIARFOLIO">
-                                                                                        <i class="fa fa-exchange"></i>
+                                                                                        <i class="ti-exchange-vertical"></i>  Cambiar Folio                                                                                      
                                                                                     </button>
                                                                                 </span>
                                                                             </div>
@@ -498,17 +498,12 @@ include_once "../config/datosUrLE.php";
 
                 </div>
             </div>
-
-
-
-
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

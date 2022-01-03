@@ -1,18 +1,18 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/PCDESPACHO_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PCDESPACHO_ADO.php';
 
 //INICIALIZAR CONTROLADOR
 
@@ -44,16 +44,11 @@ $ARRAYPCDESPACHOTOTAL = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
     $ARRAYPCDESPACHO = $PCDESPACHO_ADO->listarPcdespachoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYPCDESPACHOTOTAL = $PCDESPACHO_ADO->obtenerTotalesPcdespachoEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALENVASE = $ARRAYPCDESPACHOTOTAL[0]['ENVASE'];
-    $TOTALNETO = $ARRAYPCDESPACHOTOTAL[0]['NETO'];
 }
 
-
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 ?>
 
@@ -68,7 +63,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -132,7 +127,7 @@ include_once "../config/datosUrLP.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuFruta.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -183,7 +178,7 @@ include_once "../config/datosUrLP.php";
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="modulo" class="table table-hover " style="width: 100%;">
+                                            <table id="pcdespacho" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>
@@ -283,17 +278,17 @@ include_once "../config/datosUrLP.php";
                                                                                 <?php } ?>
                                                                                 <hr>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informePcdespacho.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informePcdespacho.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Informe
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="Packing List" title="Informe" Onclick="abrirPestana('../documento/informePCdespachoPtPackingList.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="Packing List" title="Informe" Onclick="abrirPestana('../../assest/documento/informePCdespachoPtPackingList.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Packing List
                                                                                     </button>
                                                                                 </span>
                                                                                 <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="Comercial" title="Informe" Onclick="abrirPestana('../documento/informePCdespachoPtComercial.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                    <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="Comercial" title="Informe" Onclick="abrirPestana('../../assest/documento/informePCdespachoPtComercial.php?parametro=<?php echo $r['ID_PCDESPACHO']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                         <i class="fa fa-file-pdf-o"></i> Comercial
                                                                                     </button>
                                                                                 </span>
@@ -326,9 +321,8 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Envase</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENVASE; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -336,26 +330,25 @@ include_once "../config/datosUrLP.php";
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Total Neto</div>
-                                                    <!-- input -->
-                                                    <input type="text" class="form-control" placeholder="Total Envase" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALNETO; ?>" disabled />
-                                                    <!-- /input -->
+                                                    <button class="btn   btn-default" id="TOTALNETOV" name="TOTALNETOV" >                                                           
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                             <!-- /.box -->
                     </section>
                     <!-- /.content -->
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

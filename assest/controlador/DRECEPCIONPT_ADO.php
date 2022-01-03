@@ -152,6 +152,36 @@ class DRECEPCIONPT_ADO
     }
 
 
+    public function verDrecepcion2($IDDRECEPCION)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * , 
+                                                DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO', 
+                                                FORMAT(IFNULL(CANTIDAD_ENVASE_RECIBIDO_DRECEPCION,0),0,'de_DE') AS 'ENVASEI', 
+                                                FORMAT(IFNULL(CANTIDAD_ENVASE_RECHAZADO_DRECEPCION,0),0,'de_DE') AS 'ENVASER', 
+                                                FORMAT(IFNULL(CANTIDAD_ENVASE_APROBADO_DRECEPCION,0),0,'de_DE') AS 'ENVASE', 
+                                                FORMAT(IFNULL(KILOS_NETO_REAL_DRECEPCION,0),2,'de_DE') AS 'NETOREAL', 
+                                                FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO',
+                                                FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),0,'de_DE') AS 'BRUTO' ,
+                                                FORMAT(IFNULL(PDESHIDRATACION_DRECEPCION,0),2,'de_DE') AS 'PORCENTAJE' ,
+                                                FORMAT(IFNULL(KILOS_DESHIDRATACION_DRECEPCION,0),2,'de_DE') AS 'DESHIDRATACION'  
+                                            FROM fruta_drecepcionpt
+                                             WHERE ID_DRECEPCION = " . $IDDRECEPCION . "  ;");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
 
 

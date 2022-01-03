@@ -1,25 +1,25 @@
 <?php
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
 
-include_once '../controlador/ERECEPCION_ADO.php';
-
-
-include_once '../controlador/RECHAZOMP_ADO.php';
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../controlador/EXIINDUSTRIAL_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
 
 
-include_once '../modelo/RECHAZOMP.php';
-include_once '../modelo/EXIMATERIAPRIMA.php';
-include_once '../modelo/EXIINDUSTRIAL.php';
+include_once '../../assest/controlador/RECHAZOMP_ADO.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/controlador/EXIINDUSTRIAL_ADO.php';
+
+
+include_once '../../assest/modelo/RECHAZOMP.php';
+include_once '../../assest/modelo/EXIMATERIAPRIMA.php';
+include_once '../../assest/modelo/EXIINDUSTRIAL.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -118,8 +118,8 @@ $FECHARECHAZO = $ARRAYFECHAACTUAL[0]['FECHA'];
 $ARRAYFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTmateriaprima($EMPRESAS, $PLANTAS, $TEMPORADAS);
 $ARRAYFOLIO2 = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTindustrial($EMPRESAS, $PLANTAS, $TEMPORADAS);
 
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 if (empty($ARRAYFOLIO)) {
@@ -324,7 +324,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -460,7 +460,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";  ?>
+            <?php include_once "../../assest/config/menuFruta.php";  ?>
 
             <div class="content-wrapper">
                 <div class="container-full">
@@ -662,7 +662,7 @@ if (isset($_POST)) {
                                         </div>
                                         <div class="btn-group col-sm-4">
                                             <?php if ($OP != "") : ?>
-                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRechazomp.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../../assest/documento/informeRechazomp.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
                                             <?php endif ?>
@@ -725,7 +725,7 @@ if (isset($_POST)) {
                                     </div>                
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="detalle" class="table table-hover " style="width: 100%;">
+                                        <table id="detalle" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Folio </th>
@@ -807,7 +807,8 @@ if (isset($_POST)) {
                                                                     <input type="hidden" class="form-control" id="FOLIOAUXILIAR" name="FOLIOAUXILIAR" value="<?php echo $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA']; ?>" />
                                                                     <div class="btn-group btn-block" role="group" aria-label="Operaciones Detalle">
                                                                         <button type="submit" class="btn btn-sm btn-danger " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar Existencia MP" <?php echo $DISABLED2; ?> <?php if ($ESTADO == 0) {  echo "disabled"; } ?>>
-                                                                            <i class="ti-close"></i></button>
+                                                                            <i class="ti-close"></i><br> Quitar
+                                                                        </button>
                                                                     </div>
                                                                 </form>
                                                             </td>
@@ -837,11 +838,11 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php
         //OPERACION DE REGISTRO DE FILA
         if (isset($_REQUEST['CREAR'])) {
@@ -876,15 +877,19 @@ if (isset($_POST)) {
             
             $_SESSION["parametro"] = $ARRYAOBTENERID[0]['ID_RECHAZO'];
             $_SESSION["parametro1"] = "crear";
+            
             echo '<script>
-                    Swal.fire({
-                        icon:"success",
-                        title:"Rechazo Registrado",
-                        showConfirmButton:true
-                    }).then((result)=>{
-                        location.href ="registroRechazomp.php?op";
-                    })
-                </script>';
+                Swal.fire({
+                    icon:"success",
+                    title:"Registro Creado",
+                    text:"El registro de rechazo MP se ha creado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "registroRechazomp.php?op";                            
+                })
+            </script>';
         }
         //OPERACION EDICION DE FILA
         if (isset($_REQUEST['GUARDAR'])) {            
@@ -893,8 +898,8 @@ if (isset($_POST)) {
             $RECHAZOMP->__SET('RESPONSBALE_RECHAZO', $_REQUEST['RESPONSBALE']);
             $RECHAZOMP->__SET('MOTIVO_RECHAZO', $_REQUEST['MOTIVO']);
             $RECHAZOMP->__SET('CANTIDAD_ENVASE_RECHAZO', $_REQUEST['TOTALENVASE']);
-            $RECHAZOMP->__SET('KILOS_BRUTO_RECHAZO', $_REQUEST['TOTALNETO']);
-            $RECHAZOMP->__SET('KILOS_NETO_RECHAZO', $_REQUEST['TOTALBRUTO']);
+            $RECHAZOMP->__SET('KILOS_BRUTO_RECHAZO', $_REQUEST['TOTALBRUTO']);
+            $RECHAZOMP->__SET('KILOS_NETO_RECHAZO', $_REQUEST['TOTALNETO']);
             $RECHAZOMP->__SET('ID_VESPECIES', $_REQUEST['VESPECIESE']);
             $RECHAZOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
             $RECHAZOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
@@ -903,21 +908,41 @@ if (isset($_POST)) {
             $RECHAZOMP->__SET('ID_USUARIOM', $IDUSUARIOS);
             $RECHAZOMP->__SET('ID_RECHAZO', $_REQUEST['IDP']);
             //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-            $RECHAZOMP_ADO->actualizarRechazo($RECHAZOMP);     
-                  
-            echo
-                '<script>
+            $RECHAZOMP_ADO->actualizarRechazo($RECHAZOMP);                      
+
+            
+            if ($_SESSION['parametro1'] == "crear") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "crear";
+                echo '<script>
                     Swal.fire({
-                        icon:"success",
-                        title:"Rechazo Actualizado",
-                        showConfirmButton:true,
-                        confirmButtonText:"OK"
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de rechazo se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
                     }).then((result)=>{
-                        if(result.value){
-                            location.href = "registroRechazomp.php?op";
-                        }
-                    });
+                        location.href = "registroRechazomp.php?op";                            
+                    })
                 </script>';
+            }
+            if ($_SESSION['parametro1'] == "editar") {
+                $_SESSION["parametro"] = $_REQUEST['IDP'];
+                $_SESSION["parametro1"] = "editar";
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro de rechazo se ha modificada correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroRechazomp.php?op";                            
+                    })
+                </script>';
+            }
         }
         //OPERACION CERRAR DE FILA
         if (isset($_REQUEST['CERRAR'])) {
@@ -926,19 +951,15 @@ if (isset($_POST)) {
             $ARRAYEXIMATERIAPRIMATOMADO = $EXIMATERIAPRIMA_ADO->buscarPorRechazo($_REQUEST['IDP']);
             if ( empty($ARRAYEXIMATERIAPRIMATOMADO) ) {
                 $SINO = "1";
-                echo
-                    '<script>
+                echo '<script>
                         Swal.fire({
-                            icon:"info",
-                            title:"Advertencia de cierre de rechazo",
-                            text:"Tiene que haber al menos un registro de existencia seleccionado",
-                            showConfirmButton:true,
-                            confirmButtonText:"OK"
-                        }).then((result)=>{
-                            if(result.value){
-                                location.href = "registroRechazomp.php?op";
-                            }
-                        });
+                            icon:"warning",
+                            title:"Accion restringida",
+                            text:"Tiene que haber al menos un registro en el detalle",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        })
                     </script>';
             } else {
                 $SINO = "0";
@@ -953,8 +974,8 @@ if (isset($_POST)) {
                 $RECHAZOMP->__SET('RESPONSBALE_RECHAZO', $_REQUEST['RESPONSBALE']);
                 $RECHAZOMP->__SET('MOTIVO_RECHAZO', $_REQUEST['MOTIVO']);
                 $RECHAZOMP->__SET('CANTIDAD_ENVASE_RECHAZO', $_REQUEST['TOTALENVASE']);
-                $RECHAZOMP->__SET('KILOS_BRUTO_RECHAZO', $_REQUEST['TOTALNETO']);
-                $RECHAZOMP->__SET('KILOS_NETO_RECHAZO', $_REQUEST['TOTALBRUTO']);
+                $RECHAZOMP->__SET('KILOS_BRUTO_RECHAZO', $_REQUEST['TOTALBRUTO']);
+                $RECHAZOMP->__SET('KILOS_NETO_RECHAZO', $_REQUEST['TOTALNETO']);
                 $RECHAZOMP->__SET('ID_VESPECIES', $_REQUEST['VESPECIESE']);
                 $RECHAZOMP->__SET('ID_PRODUCTOR', $_REQUEST['PRODUCTORE']);
                 $RECHAZOMP->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
@@ -1035,46 +1056,39 @@ if (isset($_POST)) {
                     }
                 endforeach;
                     
-            
-                //SEGUNE EL TIPO DE OPERACIONS QUE SE INDENTIFIQUE EN LA URL
                 if ($_SESSION['parametro1'] == "crear") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "ver";
-                    echo
-                        '<script>
-                            Swal.fire({
-                                icon:"info",
-                                title:"rechazo cerrado",
-                                text:"Este rechazo se encuentra cerrado.",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href = "registroRechazomp.php?op";
-                                }
-                            });
-                        </script>';
-                    // echo "<script type='text/javascript'> location.href ='registroRechazomp.php?op';</script>";
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Cerrado",
+                            text:"Este rechazo se encuentra cerrada y no puede ser modificada.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroRechazomp.php?op";                                    
+                        })
+                    </script>';
                 }
                 if ($_SESSION['parametro1'] == "editar") {
                     $_SESSION["parametro"] = $_REQUEST['IDP'];
                     $_SESSION["parametro1"] = "ver";
-                    echo
-                        '<script>
-                            Swal.fire({
-                                icon:"info",
-                                title:"rechazo cerrado",
-                                text:"Este rechazo se encuentra cerrado.",
-                                showConfirmButton:true,
-                                confirmButtonText:"OK"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href = "registroRechazomp.php?op";
-                                }
-                            });
-                        </script>';
-                    // echo "<script type='text/javascript'> location.href ='registroRechazomp.php?op';</script>";
-                }
+                    echo '<script>
+                        Swal.fire({
+                            icon:"info",
+                            title:"Registro Cerrado",
+                            text:"Este rechazo se encuentra cerrada y no puede ser modificada.",
+                            showConfirmButton: true,
+                            confirmButtonText:"Cerrar",
+                            closeOnConfirm:false
+                        }).then((result)=>{
+                            location.href = "registroRechazomp.php?op";                                    
+                        })
+                    </script>';
+                }  
+              
             }
         }        
         if (isset($_REQUEST['QUITAR'])) {
@@ -1099,18 +1113,18 @@ if (isset($_POST)) {
                 }
             }
 
-            echo
-            '<script>
+            echo '<script>
                 Swal.fire({
-                    icon:"info",
+                    icon:"error",
                     title:"Accion realizada",
-                    text:"Se ha quitado la existencia."
+                    text:"Se ha quitado la existencia del despacho.",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
                 }).then((result)=>{
-                    if(result.value){
-                        location.href = "registroRechazomp.php?op";
-                    }
-                });
-            </script>';                    
+                    location.href = "registroRechazomp.php?op";                            
+                })
+            </script>';                  
         }
 
         ?>
