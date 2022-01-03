@@ -1,18 +1,18 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/RESPONSABLE_ADO.php';
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/FPAGO_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/RESPONSABLE_ADO.php';
+include_once '../../assest/controlador/PROVEEDOR_ADO.php';
+include_once '../../assest/controlador/FPAGO_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
 
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/MOCOMPRA_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/MOCOMPRA_ADO.php';
 
-include_once '../modelo/OCOMPRA.php';
+include_once '../../assest/modelo/OCOMPRA.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -53,13 +53,9 @@ $ARRAYVERTMONEDA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $ARRAYOCOMPRA = $OCOMPRA_ADO->listarOcompraPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYOCOMPRATOTALES = $OCOMPRA_ADO->obtenerTotalesOcompraPorEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
-
-    $TOTALCANTIDAD = $ARRAYOCOMPRATOTALES[0]['CANTIDAD'];
-    $TOTCALVALOR = $ARRAYOCOMPRATOTALES[0]['VALOR_TOTAL'];
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 
@@ -76,7 +72,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -145,7 +141,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuMaterial.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -154,7 +150,7 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Agrupado Orden</h3>
+                            <h3 class="page-title">Orden Compra</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -198,7 +194,7 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="ordencompra" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>Número Orden </th>
@@ -320,14 +316,15 @@ include_once "../config/datosUrLP.php";
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($ARRAYMOCOMPRA) { ?>
-                                                                                <hr>
-                                                                                <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="Ver Motivos">
-                                                                                    <i class="ti-eye"></i>
-                                                                                </button>
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver Motivos">
+                                                                                    <button type="submit" class="btn btn-info btn-block"  id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="Ver Motivos">
+                                                                                        <i class="ti-eye"></i> Ver Motivos
+                                                                                    </button>
+                                                                                </span>
                                                                             <?php } ?>
                                                                             <hr>
                                                                             <span href="#" class="dropdown-item" data-toggle="tooltip" title="Informe">
-                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeOcompra.php?parametro=<?php echo $r['ID_OCOMPRA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                                                <button type="button" class="btn  btn-danger  btn-block" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeOcompra.php?parametro=<?php echo $r['ID_OCOMPRA']; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                                                 </button>
                                                                             </span>
@@ -356,50 +353,40 @@ include_once "../config/datosUrLP.php";
                                     </div>
                                 </div>
                             </div>
+                                                    
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Cantidad </div>
+                                                    <div class="input-group-text">Total Cantidad</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Valor </div>
+                                                    <div class="input-group-text">Total Valor</div>
+                                                    <button class="btn   btn-default" id="TOTALVALORV" name="TOTALVALORV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Valor" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTCALVALOR; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>   
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
-
-
-
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
-
 </html>

@@ -1,18 +1,18 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/RESPONSABLE_ADO.php';
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/FPAGO_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/RESPONSABLE_ADO.php';
+include_once '../../assest/controlador/PROVEEDOR_ADO.php';
+include_once '../../assest/controlador/FPAGO_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/DOCOMPRA_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/DOCOMPRA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -54,13 +54,9 @@ $ARRAYVERTMONEDA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $ARRAYOCOMPRA = $OCOMPRA_ADO->listarOcompraPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYOCOMPRATOTALES = $OCOMPRA_ADO->obtenerTotalesOcompraPorEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
-
-    $TOTALCANTIDAD = $ARRAYOCOMPRATOTALES[0]['CANTIDAD'];
-    $TOTCALVALOR = $ARRAYOCOMPRATOTALES[0]['VALOR_TOTAL'];
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
 
@@ -77,7 +73,7 @@ include_once "../config/datosUrLP.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -146,7 +142,7 @@ include_once "../config/datosUrLP.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuMaterial.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -155,7 +151,7 @@ include_once "../config/datosUrLP.php";
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Detallado Orden</h3>
+                            <h3 class="page-title">Orden Compra</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -163,7 +159,7 @@ include_once "../config/datosUrLP.php";
                                         <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                         <li class="breadcrumb-item" aria-current="page">Administración</li>
                                         <li class="breadcrumb-item" aria-current="page">Orden Compra</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Orden </a>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Detallado Orden Compra </a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -199,7 +195,7 @@ include_once "../config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="detalleordencompra" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>Fecha Orden </th>
@@ -318,51 +314,44 @@ include_once "../config/datosUrLP.php";
                                         </table>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>      
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Cantidad </div>
+                                                    <div class="input-group-text">Total Cantidad</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Valor </div>
+                                                    <div class="input-group-text">Total Valor</div>
+                                                    <button class="btn   btn-default" id="TOTALVALORV" name="TOTALVALORV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Valor" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTCALVALOR; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>      
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
 
 
 
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

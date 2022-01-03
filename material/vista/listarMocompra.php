@@ -1,11 +1,11 @@
 <?php
 
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/MOCOMPRA_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/MOCOMPRA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -24,7 +24,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     $URLP = $_SESSION['urlO'];
     $ARRAYMOCOMPRA = $MOCOMPRA_ADO->listarMcompraEmpresaPlantaTemporadaOcompraCBX($IDP, $EMPRESAS, $PLANTAS, $TEMPORADAS);
 }
-include_once "../config/validarDatosUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
 
 
 
@@ -41,7 +41,7 @@ include_once "../config/validarDatosUrl.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -105,7 +105,7 @@ include_once "../config/validarDatosUrl.php";
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; ?>
+            <?php include_once "../../assest/config/menuMaterial.php"; ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <div class="container-full">
@@ -128,7 +128,7 @@ include_once "../config/validarDatosUrl.php";
                                     </nav>
                                 </div>
                             </div>
-                            <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <!-- Main content -->
@@ -136,6 +136,8 @@ include_once "../config/validarDatosUrl.php";
                         <div class="box">
                             <div class="box-body">
                                 <div class="row">
+                                    <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 col-xs-10">
+                                    </div>
                                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 col-xs-2">
                                         <form method="post" id="form2">
                                             <div class="form-group">
@@ -145,7 +147,7 @@ include_once "../config/validarDatosUrl.php";
                                                 <input type="hidden" class="form-control" placeholder="ID EMPRESA" id="EMPRESA" name="EMPRESA" value="<?php echo $EMPRESAS; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID PLANTA" id="PLANTA" name="PLANTA" value="<?php echo $PLANTAS; ?>" />
                                                 <input type="hidden" class="form-control" placeholder="ID TEMPORADA" id="TEMPORADA" name="TEMPORADA" value="<?php echo $TEMPORADAS; ?>" />
-                                                <button type="button" class="btn btn-rounded  btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php'); ">
+                                                <button type="button" class="btn btn-block  btn-success" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php'); ">
                                                     <i class="ti-back-left "></i> VOLVER
                                                 </button>
                                             </div>
@@ -155,7 +157,7 @@ include_once "../config/validarDatosUrl.php";
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="modulo" class="table table-hover " style="width: 100%;">
+                                            <table id="modulo" class="table-hover " style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th>Numero </th>
@@ -196,8 +198,6 @@ include_once "../config/validarDatosUrl.php";
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-footer">
-                            </div>
                         </div>
                         <!-- /.box -->
                     </section>
@@ -205,11 +205,11 @@ include_once "../config/validarDatosUrl.php";
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>

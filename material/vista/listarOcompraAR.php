@@ -1,18 +1,18 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/RESPONSABLE_ADO.php';
-include_once '../controlador/PROVEEDOR_ADO.php';
-include_once '../controlador/FPAGO_ADO.php';
-include_once '../controlador/TMONEDA_ADO.php';
+include_once '../../assest/controlador/RESPONSABLE_ADO.php';
+include_once '../../assest/controlador/PROVEEDOR_ADO.php';
+include_once '../../assest/controlador/FPAGO_ADO.php';
+include_once '../../assest/controlador/TMONEDA_ADO.php';
 
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/MOCOMPRA_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/MOCOMPRA_ADO.php';
 
-include_once '../modelo/OCOMPRA.php';
+include_once '../../assest/modelo/OCOMPRA.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -53,35 +53,11 @@ $ARRAYVERTMONEDA = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $ARRAYOCOMPRA = $OCOMPRA_ADO->listarOcompraPorEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYOCOMPRATOTALES = $OCOMPRA_ADO->obtenerTotalesOcompraPorEmpresaTemporada2CBX($EMPRESAS,  $TEMPORADAS);
+}
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrLP.php";
 
 
-    $TOTALCANTIDAD = $ARRAYOCOMPRATOTALES[0]['CANTIDAD'];
-    $TOTCALVALOR = $ARRAYOCOMPRATOTALES[0]['VALOR_TOTAL'];
-}
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrLP.php";
-
-if (isset($_REQUEST['APROBARURL'])) { 
-    $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['ID']);
-    $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $OCOMPRA_ADO->aprobado($OCOMPRA);
-    $_SESSION["urlO"] = $_REQUEST['URLO'];
-    echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLA'].".php?op';</script>";
-}
-if (isset($_REQUEST['RECHAZARURL'])) {
-    $_SESSION["parametro"] = $_REQUEST['ID'];
-    $_SESSION["parametro1"] = "";    
-    $_SESSION["urlO"] = $_REQUEST['URLO'];
-    echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLM'].".php?op';</script>";
-}
-if (isset($_REQUEST['COMPLETAURL'])) { 
-    $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['ID']);
-    $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    $OCOMPRA_ADO->completatado($OCOMPRA);
-    $_SESSION["urlO"] = $_REQUEST['URLO'];
-    echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLA'].".php?op';</script>";
-}
 
 ?>
 
@@ -96,7 +72,7 @@ if (isset($_REQUEST['COMPLETAURL'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -165,7 +141,7 @@ if (isset($_REQUEST['COMPLETAURL'])) {
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuMaterial.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -174,7 +150,7 @@ if (isset($_REQUEST['COMPLETAURL'])) {
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="page-title">Aprobar/Rechazar</h3>
+                            <h3 class="page-title">Orden Compra</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
@@ -188,7 +164,7 @@ if (isset($_REQUEST['COMPLETAURL'])) {
                                 </nav>
                             </div>
                         </div>
-                        <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                        <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
                 <!-- Main content -->
@@ -198,7 +174,7 @@ if (isset($_REQUEST['COMPLETAURL'])) {
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 150%;">
+                                        <table id="ordencompra" class="table-hover " style="width: 150%;">
                                             <thead>
                                                 <tr class="text-center">
                                                     <th>Número Orden </th>
@@ -304,26 +280,26 @@ if (isset($_REQUEST['COMPLETAURL'])) {
                                                                 <input type="hidden" class="form-control" placeholder="URLM" id="URLM" name="URLM" value="registroMocompra" />
                                                                 <input type="hidden" class="form-control" placeholder="URLMR" id="URLMR" name="URLMR" value="listarMocompra" />
                                                                 <div class="btn-group btn-rounded btn-block" role="group" aria-label="Operaciones Detalle">
-                                                                    <button type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../documento/informeOcompra.php?parametro=<?php echo $r['ID_OCOMPRA']; ?>'); ">
-                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                    <button type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" id="defecto" name="informe" title="Informe" Onclick="abrirPestana('../../assest/documento/informeOcompra.php?parametro=<?php echo $r['ID_OCOMPRA']; ?>'); ">
+                                                                        <i class="fa fa-file-pdf-o"></i><br> Informe
                                                                     </button>
                                                                     <?php if ($r['ESTADO_OCOMPRA'] == "2") { ?>
                                                                         <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" id="APROBARURL" name="APROBARURL" title="Aprobar">
-                                                                            <i class="fa fa-check"></i>
+                                                                            <i class="fa fa-check"></i><br> Aprobar
                                                                         </button>
 
                                                                         <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" id="RECHAZARURL" name="RECHAZARURL" title="Rechazar">
-                                                                            <i class="fa fa-close"></i>
+                                                                            <i class="fa fa-close"></i><br> Rechazar
                                                                         </button>
                                                                     <?php } ?>                                                                    
                                                                     <?php if ($r['ESTADO_OCOMPRA'] == "4") { ?>
                                                                         <button type="submit" class="btn btn-warning btn-sm" data-toggle="tooltip" id="COMPLETAURL" name="COMPLETAURL" title="Orden Completada">
-                                                                             <i class="mdi mdi-folder-remove"></i>                                                                  
+                                                                             <i class="mdi mdi-folder-remove"></i><br> Completada                                                                  
                                                                         </button>
                                                                     <?php } ?>
                                                                     <?php if ($ARRAYMOCOMPRA) { ?>
                                                                         <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" id="VERMOTIVOSRURL" name="VERMOTIVOSRURL" title="Ver Motivos">
-                                                                            <i class="ti-eye"></i>
+                                                                            <i class="ti-eye"></i><br> Ver Motivos
                                                                         </button>
                                                                     <?php } ?>
                                                                 </div>
@@ -349,47 +325,87 @@ if (isset($_REQUEST['COMPLETAURL'])) {
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Cantidad </div>
+                                                    <div class="input-group-text">Total Cantidad</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Valor </div>
+                                                    <div class="input-group-text">Total Valor</div>
+                                                    <button class="btn   btn-default" id="TOTALVALORV" name="TOTALVALORV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Valor" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTCALVALOR; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>   
                         </div>
                         <!-- /.box -->
-
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
 
-
-
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
+    <?php 
+        if (isset($_REQUEST['APROBARURL'])) { 
+            $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['ID']);
+            $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
+            $OCOMPRA_ADO->aprobado($OCOMPRA);
+
+            echo '<script>
+                Swal.fire({
+                    icon:"success",
+                    title:"OC Aprobada",
+                    text:"El registro de la oc se ha modificado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "listarOcompraAR.php";                            
+                })
+            </script>';
+
+        }
+        if (isset($_REQUEST['RECHAZARURL'])) {
+            $_SESSION["parametro"] = $_REQUEST['ID'];
+            $_SESSION["parametro1"] = "";    
+            $_SESSION["urlO"] = $_REQUEST['URLO'];
+            echo "<script type='text/javascript'> location.href ='". $_REQUEST['URLM'].".php?op';</script>";
+        }
+        if (isset($_REQUEST['COMPLETAURL'])) { 
+            $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['ID']);
+            $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
+            $OCOMPRA_ADO->completatado($OCOMPRA);            
+            echo '<script>
+                Swal.fire({
+                    icon:"success",
+                    title:"OC Completada",
+                    text:"El registro de la oc se ha modificado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "listarOcompraAR.php";                            
+                })
+            </script>';
+        }
+    
+    ?>
 </body>
 
 </html>

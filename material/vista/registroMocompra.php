@@ -1,14 +1,14 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/MOCOMPRA_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/MOCOMPRA_ADO.php';
 
 
-include_once '../modelo/OCOMPRA.php';
-include_once '../modelo/MOCOMPRA.php';
+include_once '../../assest/modelo/OCOMPRA.php';
+include_once '../../assest/modelo/MOCOMPRA.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -42,41 +42,6 @@ $ARRAYOCOMPRA = "";
 
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-
-    $ARRAYOBTENERNUMERO = $MOCOMPRA_ADO->obtenerNumero($_REQUEST['IDP'], $_REQUEST['EMPRESA'],  $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
-    $NUMERO = $ARRAYOBTENERNUMERO[0]["NUMERO"] + 1;
-
-    //UTILIZACION METODOS SET DEL MODELO
-    //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
-    $MOCOMPRA->__SET('NUMERO_MOCOMPRA', $NUMERO);
-    $MOCOMPRA->__SET('NUMERO_OCOMPRA', $_REQUEST['NUMEROOC']);
-    $MOCOMPRA->__SET('NUMEROI_OCOMPRA', $_REQUEST['NUMEROOCI']);
-    $MOCOMPRA->__SET('MOTIVO_MOCOMPRA', $_REQUEST['MOTIVO']);
-    $MOCOMPRA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
-    $MOCOMPRA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
-    $MOCOMPRA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
-    $MOCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
-    $MOCOMPRA->__SET('ID_USUARIOI', $IDUSUARIOS);
-    $MOCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $MOCOMPRA_ADO->agregarMcompra($MOCOMPRA);
-
-    $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $OCOMPRA_ADO->abierto($OCOMPRA);
-
-    $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
-    $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
-    //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
-    $OCOMPRA_ADO->rechazado($OCOMPRA);
-
-    //REDIRECCIONAR A PAGINA registroAerolinia.php
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLP'] . ".php?op';</script>";
-}
-
 
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
 if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_SESSION['urlO'])) {
@@ -109,7 +74,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //VALIDACION DE FORMULARIO
@@ -144,7 +109,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";?>
+            <?php include_once "../../assest/config/menuMaterial.php";?>
 
 
             <div class="content-wrapper">
@@ -167,7 +132,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     </nav>
                                 </div>
                             </div>
-                            <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                            <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                         </div>
                     </div>
                     <!-- Main content -->
@@ -179,7 +144,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                 -->
                             </div>
                             <!-- /.box-header -->
-                            <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
+                            <form class="form" role="form" method="post" name="form_reg_dato" >
                                 <div class="box-body">
 
                                     <div class="row">
@@ -227,13 +192,16 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
+                                
                                 <div class="box-footer">
-                                    <button type="button" class="btn btn-rounded  btn-success btn-outline " name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLP; ?>.php'); ">
-                                        <i class="ti-back-left "></i> VOLVER
-                                    </button>
-                                    <button type="submit" class="btn btn-rounded btn-danger btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                        <i class="ti-save-alt"></i> Rechazar
-                                    </button>
+                                    <div class="btn-group btn-block  col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">
+                                        <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                            <i class="ti-back-left "></i> Volver
+                                        </button>
+                                        <button type="submit" class="btn  btn-danger" data-toggle="tooltip" title="Rechazar" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?> onclick="return validacion()">
+                                            <i class="ti-save-alt"></i> Guardar
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -245,11 +213,59 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+
+                $ARRAYOBTENERNUMERO = $MOCOMPRA_ADO->obtenerNumero($_REQUEST['IDP'], $_REQUEST['EMPRESA'],  $_REQUEST['PLANTA'], $_REQUEST['TEMPORADA']);
+                $NUMERO = $ARRAYOBTENERNUMERO[0]["NUMERO"] + 1;
+
+                //UTILIZACION METODOS SET DEL MODELO
+                //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO  
+                $MOCOMPRA->__SET('NUMERO_MOCOMPRA', $NUMERO);
+                $MOCOMPRA->__SET('NUMERO_OCOMPRA', $_REQUEST['NUMEROOC']);
+                $MOCOMPRA->__SET('NUMEROI_OCOMPRA', $_REQUEST['NUMEROOCI']);
+                $MOCOMPRA->__SET('MOTIVO_MOCOMPRA', $_REQUEST['MOTIVO']);
+                $MOCOMPRA->__SET('ID_EMPRESA', $_REQUEST['EMPRESA']);
+                $MOCOMPRA->__SET('ID_PLANTA', $_REQUEST['PLANTA']);
+                $MOCOMPRA->__SET('ID_TEMPORADA', $_REQUEST['TEMPORADA']);
+                $MOCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
+                $MOCOMPRA->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $MOCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $MOCOMPRA_ADO->agregarMcompra($MOCOMPRA);
+
+                $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $OCOMPRA_ADO->abierto($OCOMPRA);
+
+                $OCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
+                $OCOMPRA->__SET('ID_USUARIOM', $IDUSUARIOS);
+                //LLAMADA AL METODO DE EDITAR DEL CONTROLADOR
+                $OCOMPRA_ADO->rechazado($OCOMPRA);
+
+                //REDIRECCIONAR A PAGINA registroAerolinia.php
+                
+                echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"OC Rechazada",
+                        text:"el motivo de rechazo se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "'.$_REQUEST['URLP'].'.php";                            
+                    })
+                </script>';
+            }
+        ?>
 </body>
 
 </html>
