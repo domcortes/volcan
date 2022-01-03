@@ -503,7 +503,7 @@ if (isset($_POST)) {
                             title:"Registro creado",
                             text:"El registro de detalle de recepción se ha creado correctamente",
                             showConfirmButton:true,
-                            confirmButtonText:"cerrar"
+                            confirmButtonText:"Volver a recepcion"
                         }).then((result)=>{
                             location.href ="'. $_REQUEST['URLP'].'.php?op";                            
                         })
@@ -534,7 +534,7 @@ if (isset($_POST)) {
                         title:"Registro Modificado",
                         text:"El registro del detalle de recepcion se ha modificada correctamente",
                         showConfirmButton:true,
-                        confirmButtonText:"cerrar"
+                        confirmButtonText:"Volver a recepcion"
                     }).then((result)=>{
                         location.href ="'. $_REQUEST['URLP'].'.php?op";                            
                     })
