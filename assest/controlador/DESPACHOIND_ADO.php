@@ -512,9 +512,9 @@ class DESPACHOIND_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION', 
                                                 IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO'
                                         FROM fruta_despachoind                                                                           
                                         WHERE  ESTADO_REGISTRO = 1 

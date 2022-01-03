@@ -1772,7 +1772,7 @@ class EXIINDUSTRIAL_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                    DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',
+                                                    FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',
                                                     IFNULL(DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y'),'Sin Datos') AS 'RECEPCION',
                                                     IFNULL(DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y'),'Sin Datos') AS 'PROCESO',
                                                     IFNULL(DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y'),'Sin Datos') AS 'REEMBALAJE',

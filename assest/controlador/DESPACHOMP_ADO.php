@@ -517,9 +517,9 @@ class DESPACHOMP_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_ENVASE_DESPACHO,0) AS 'ENVASE',
                                                 IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO',
                                                 IFNULL(KILOS_BRUTO_DESPACHO,0) AS 'BRUTO'
@@ -576,9 +576,9 @@ class DESPACHOMP_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_ENVASE_DESPACHO,0)  AS 'ENVASE',
                                                 IFNULL(KILOS_NETO_DESPACHO,0)  AS 'NETO',
                                                 IFNULL(KILOS_BRUTO_DESPACHO,0) AS 'BRUTO'

@@ -261,8 +261,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                     <th>Tipo Recepción </th>
                                                     <th>Número Guía Recepción </th>
                                                     <th>Fecha Guía Recepción
-                                                    <th>Número Repaletizaje </th>
-                                                    <th>Fecha Repaletizaje </th>
                                                     <th>Número Proceso </th>
                                                     <th>Fecha Proceso </th>
                                                     <th>Tipo Proceso </th>
@@ -501,8 +499,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo ""; ?></td>
                                                             <td><?php echo $NUMEROPROCESO; ?></td>
                                                             <td><?php echo $FECHAPROCESO; ?></td>
                                                             <td><?php echo $TPROCESO; ?></td>

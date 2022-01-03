@@ -534,11 +534,11 @@ class RECEPCIONMP_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *  ,
-                                                    DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
-                                                    DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
-                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+            $datos = $this->conexion->prepare("SELECT *  ,                                                    
+                                                    FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
+                                                    FECHA_RECEPCION AS 'FECHA',
+                                                    INGRESO AS 'INGRESO',
+                                                    MODIFICACION AS 'MODIFICACION',
                                                     IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
                                                     IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
                                                     IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
