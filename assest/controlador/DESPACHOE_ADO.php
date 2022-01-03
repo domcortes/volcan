@@ -130,6 +130,29 @@ class DESPACHOE_ADO
     }
 
 
+    public function verDespachoe3($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *, FECHA_DESPACHO AS 'FECHA'  
+                                                    , INGRESO AS 'INGRESO'
+                                                    , MODIFICACION AS 'MODIFICACION'
+                                            FROM material_despachoe
+                                            WHERE ID_DESPACHO= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
     public function buscarNombreDespachoe($NOMBRE)
     {
@@ -686,9 +709,9 @@ class DESPACHOE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE  ESTADO_REGISTRO = 1 
@@ -766,9 +789,9 @@ class DESPACHOE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE  ESTADO_REGISTRO = 1 

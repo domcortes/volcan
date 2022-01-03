@@ -151,6 +151,30 @@ class RECEPCIONE_ADO {
         
     }
   
+    public function verRecepcion3($ID){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * , 
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION' ,
+                                                FECHA_RECEPCION AS 'FECHA' 
+                                            FROM  material_recepcione  
+                                                WHERE  ID_RECEPCION = '".$ID."';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
+  
     
     //REGISTRO DE UNA NUEVA FILA    
     public function agregarRecepcion(RECEPCIONE $RECEPCIONE){
@@ -873,9 +897,9 @@ class RECEPCIONE_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y %H:%i') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y %H:%i') AS 'MODIFICACION',
-                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION',
+                                                FECHA_RECEPCION AS 'FECHA',
                                             IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD' 
                                              FROM  material_recepcione 
                                              WHERE ESTADO_REGISTRO = 1 
