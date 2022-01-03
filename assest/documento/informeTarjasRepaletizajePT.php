@@ -186,7 +186,7 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
     <div class=" " >
 		<div class="titulotarja" style="text-align: center; >
              <b  "> 
-				 <img src="../vista/img/logo.png" width="90px" height="25px"/>
+				 <img src="../../assest/img/logo.png" width="90px" height="25px"/>
              </b><br>
             <b > 
 				PRODUCTO TERMINADO :   ' . $r['FOLIO_NUEVO_DREPALETIZAJE'] . ' 
