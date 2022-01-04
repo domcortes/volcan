@@ -450,6 +450,7 @@ $html = '
               <th class="color center ">Provincia </th>
               <th class="color center ">Variedad </th>
               <th class="color center ">Cantidad Envases </th>
+              <th class="color center ">Kilos Netos </th>
             </tr>
           </thead>
            <tbody>
@@ -494,6 +495,7 @@ $html = '
                   <td class="center">' . $NOMBREPROVINICA . '</td>
                   <td class="center">' . $NOMBREVARIEDAD . '</td>
                   <th class="center">' . $TOTALENVASEVARIEDAD . '</th>
+                  <th class="center">' . $TOTALNETOVARIEDAD . '</th>
               </tr>
               ';
   
@@ -512,6 +514,7 @@ $html = '
         <th class="color2 center">&nbsp;</th>
         <th class="color2 right"> Total Productor </th>
         <th class="color2 center">' . $TOTALENVASEPRODUCTOR . '</th>
+        <th class="color2 center">' . $TOTALNETOPRODUCTOR . '</th>
     </tr>
   ';
   
@@ -525,6 +528,7 @@ $html = '
       <th class="color center">&nbsp;</th>
       <th class="color right"> Total  </th>
       <th class="color center">' . $TOTALENVASEBOLSA . '</th>
+      <th class="color center">' . $TOTALNETOBOLSA . '</th>
   </tr>
   ';
   
