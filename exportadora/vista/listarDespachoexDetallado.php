@@ -317,7 +317,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Embolsado</th>
                                                     <th>Gasificacion</th>
                                                     <th>Prefrío</th>
-                                                    <th>Bl/AWB</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -325,6 +324,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Empresa</th>
                                                     <th>Planta</th>
                                                     <th>Temporada</th>
+                                                    <th>Bl/AWB</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -689,14 +689,14 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
-                                                            <td><?php echo $BOLAWBCRTICARGA; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>  
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                             <td><?php echo $r['PATENTE_CARRO']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
                                                             <td><?php echo $NOMBREPLANTA; ?></td>
-                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>    
+                                                            <td><?php echo $NOMBRETEMPORADA; ?></td>   
+                                                            <td><?php echo $BOLAWBCRTICARGA; ?></td> 
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach; ?>

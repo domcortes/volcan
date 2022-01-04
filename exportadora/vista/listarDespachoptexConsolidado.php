@@ -324,7 +324,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Embolsado</th>
                                                     <th>Gasificacion</th>
                                                     <th>Prefrío</th>
-                                                    <th>Bl/AWB</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -335,6 +334,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>% Exportación Proceso</th>
                                                     <th>% Industrial Proceso</th>
                                                     <th>Total Procesado</th>
+                                                    <th>Bl/AWB</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -646,7 +646,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
-                                                            <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -657,6 +656,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $PORCENTAJEEXPO; ?></td>
                                                             <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
                                                             <td><?php echo $PORCENTAJETOTAL; ?></td>        
+                                                            <td><?php echo "No Aplica"; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach;?>                                                
@@ -1029,7 +1029,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
-                                                            <td><?php echo $BOLAWBCRTICARGA; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>  
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -1040,6 +1039,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $PORCENTAJEEXPO; ?></td>
                                                             <td><?php echo $PORCENTAJEINDUSTRIAL; ?></td>
                                                             <td><?php echo $PORCENTAJETOTAL; ?></td> 
+                                                            <td><?php echo $BOLAWBCRTICARGA; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endforeach;  ?>
