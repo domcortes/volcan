@@ -324,6 +324,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Embolsado</th>
                                                     <th>Gasificacion</th>
                                                     <th>Prefrío</th>
+                                                    <th>Bl/AWB</th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
@@ -645,6 +646,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
+                                                            <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
@@ -701,6 +703,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     }                                         
                                                     $ARRAYICARGA=$ICARGA_ADO->verIcarga($r["ID_ICARGA"]);
                                                     if($ARRAYICARGA){
+                                                        $BOLAWBCRTICARGA=$ARRAYICARGA[0]['BOLAWBCRT_ICARGA'];
                                                         $NUMEROREFERENCIA=$ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
                                                         $FECHAETD=$ARRAYICARGA[0]['FECHAETD_ICARGA'];
                                                         $FECHAETA=$ARRAYICARGA[0]['FECHAETA_ICARGA'];
@@ -760,6 +763,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     }else{
                                                         $NUMEROREFERENCIA="No Aplica";
                                                         $NOMBREBROKER="No Aplica";
+                                                        $BOLAWBCRTICARGA="No Aplica";
                                                         $FECHAETD=$r['FECHAETD_DESPACHOEX'];
                                                         $FECHAETA=$r['FECHAETA_DESPACHOEX'];
                                                         $FECHACDOCUMENTAL="";
@@ -1025,6 +1029,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $EMBOLSADO; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
                                                             <td><?php echo $PREFRIO; ?></td>
+                                                            <td><?php echo $BOLAWBCRTICARGA; ?></td>
                                                             <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                             <td><?php echo $NOMBRECONDUCTOR; ?></td>  
                                                             <td><?php echo $r['PATENTE_CAMION']; ?></td>
