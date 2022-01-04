@@ -422,9 +422,9 @@ class PROCESO_ADO
                                                     IFNULL(KILOS_INDUSTRIALNC_PROCESO,0) AS 'INDUSTRIALNC'    ,                                                
                                                     IFNULL(KILOS_NETO_PROCESO,0) AS 'NETO',                                        
                                                     IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',
-                                                    DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y') AS 'FECHA', 
-                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
-                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                                    FECHA_PROCESO AS 'FECHA', 
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
                                                 FROM fruta_proceso                                                        
                                                 WHERE   ESTADO_REGISTRO = 1 
                                                 AND  ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
