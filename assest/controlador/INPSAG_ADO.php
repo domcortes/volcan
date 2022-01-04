@@ -378,7 +378,8 @@ class INPSAG_ADO
                                                    IFNULL(KILOS_NETO_INPSAG,0) AS 'NETO',
                                                    IFNULL(KILOS_BRUTO_INPSAG,0)  AS 'BRUTO'
                                         FROM fruta_inpsag                                                                                                     
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -400,15 +401,16 @@ class INPSAG_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT * ,
-                                                    INGRESO AS 'INGRESO',
-                                                    MODIFICACION AS 'MODIFICACION',
+            $datos = $this->conexion->prepare("SELECT *,
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                    IFNULL(CANTIDAD_ENVASE_INPSAG,0)  AS 'ENVASE',
                                                    IFNULL(KILOS_NETO_INPSAG,0)  AS 'NETO',
                                                    IFNULL(KILOS_BRUTO_INPSAG,0)  AS 'BRUTO',
                                                    IFNULL(CIF_INPSAG,0)  AS 'CIF'
                                         FROM fruta_inpsag                                                                                                     
-                                        WHERE  ID_PLANTA = '" . $PLANTA . "'
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();
@@ -437,7 +439,8 @@ class INPSAG_ADO
                                                    FORMAT(IFNULL(KILOS_BRUTO_INPSAG,0),2,'de_DE')  AS 'BRUTO',
                                                    FORMAT(IFNULL(CIF_INPSAG,0),2,'de_DE')  AS 'CIF'
                                         FROM fruta_inpsag                                                                                                     
-                                        WHERE  ID_PLANTA = '" . $PLANTA . "'
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND  ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();
@@ -594,7 +597,8 @@ class INPSAG_ADO
                                                  IFNULL(SUM(KILOS_BRUTO_INPSAG),0)  AS 'BRUTO'  
                                         FROM fruta_inpsag 
                                                                                                                     
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -620,7 +624,8 @@ class INPSAG_ADO
                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_INPSAG),0),2,'de_DE')  AS 'BRUTO'  
                                         FROM fruta_inpsag 
                                                                                                                     
-                                        WHERE ID_PLANTA = '" . $PLANTA . "'
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();

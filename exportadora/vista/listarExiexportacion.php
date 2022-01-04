@@ -354,9 +354,9 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 }
                                                             } else {
                                                                 $NUMERORECEPCION = "Sin Datos";
-                                                                $FECHARECEPCION = "Sin Datos";
+                                                                $FECHARECEPCION = "";
                                                                 $NUMEROGUIARECEPCION = "Sin Datos";
-                                                                $FECHAGUIARECEPCION = "Sin Datos";
+                                                                $FECHAGUIARECEPCION = "";
                                                                 $TIPORECEPCION = "Sin Datos";
                                                                 $ORIGEN = "Sin Datos";
                                                                 $CSGCSPORIGEN = "Sin Datos";
@@ -371,7 +371,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 }
                                                             } else {
                                                                 $NUMEROPROCESO = "Sin datos";
-                                                                $FECHAPROCESO = "Sin datos";
+                                                                $FECHAPROCESO = "";
                                                                 $TPROCESO = "Sin datos";
                                                             }
                                                             $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($r['ID_REEMBALAJE']);
@@ -384,7 +384,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 }
                                                             } else {
                                                                 $NUMEROREEMBALEJE = "Sin datos";
-                                                                $FECHAREEMBALEJE = "Sin datos";
+                                                                $FECHAREEMBALEJE = "";
                                                                 $TREEMBALAJE = "Sin datos";
                                                             }
 
@@ -394,7 +394,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $NUMEROREPALETIZAJE = $ARRATREPALETIZAJE[0]["NUMERO_REPALETIZAJE"];
                                                             } else {
                                                                 $NUMEROREPALETIZAJE = "Sin Datos";
-                                                                $FECHAREPALETIZAJE = "Sin Datos";
+                                                                $FECHAREPALETIZAJE = "";
                                                             }
 
                                                             $ARRAYVERDESPACHOPT = $DESPACHOPT_ADO->verDespachopt2($r['ID_DESPACHO']);
@@ -472,7 +472,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             } else {
                                                                 $DESTINO = "Sin datos";
                                                                 $TDESPACHO = "Sin datos";
-                                                                $FECHADESPACHO = "Sin Datos";
+                                                                $FECHADESPACHO = "";
                                                                 $NUMERODESPACHO = "Sin Datos";
                                                                 $NUMEROGUIADESPACHO = "Sin Datos";
                                                                 $CSGCSPDESTINO="Sin Datos";
@@ -592,12 +592,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             ?>
                                                             <tr class="text-left">
                                                                 <td><?php echo $r['FOLIO_EXIEXPORTACION']; ?> </td>
-                                                                <td>
-                                                                    <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
-                                                                    <!--
-                                                                    <a Onclick="abrirPestana('../../assest/documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $EMPRESAS; ?>');">                                                                        
-                                                                    </a>-->
-                                                                </td>
+                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?></td>
                                                                 <td><?php echo $r['EMBALADO']; ?></td>
                                                                 <td><?php echo $ESTADO; ?></td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>

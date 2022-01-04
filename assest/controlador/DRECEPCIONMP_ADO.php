@@ -443,7 +443,7 @@ class DRECEPCIONMP_ADO
     public function buscarPorIdRecepcionPorVespecies2($IDRECEPCION, $IDVESPECIES){
         try{
             
-            $datos=$this->conexion->prepare("SELECT *,
+            $datos=$this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_COSECHA_DRECEPCION, '%d-%m-%Y') AS 'COSECHA',
                                                 FORMAT(CANTIDAD_ENVASE_DRECEPCION,0,'de_DE') AS 'ENVASE',
                                                 FORMAT(KILOS_BRUTO_DRECEPCION, 2,'de_DE') AS 'BRUTO',
                                                 FORMAT(KILOS_NETO_DRECEPCION, 2,'de_DE') AS 'NETO'

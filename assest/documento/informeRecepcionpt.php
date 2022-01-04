@@ -114,7 +114,7 @@ if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->verRecepcion2($IDOP);
+$ARRAYRECEPCIONPT = $RECEPCIONPT_ADO->verRecepcion3($IDOP);
 if($ARRAYRECEPCIONPT){
   $ARRAYDRECEPCIONPT = $DRECEPCIONPT_ADO->listarDrecepcionPorRecepcion2($IDOP);
   $ARRAYDRECEPCIONPTTOTAL = $DRECEPCIONPT_ADO->obtenerTotales2($IDOP);
@@ -128,10 +128,10 @@ if($ARRAYRECEPCIONPT){
   
   
   $NUMERORECEPCIONPT = $ARRAYRECEPCIONPT[0]['NUMERO_RECEPCION'];
-  $FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA_RECEPCION'];
+  $FECHARECEPCIONPT = $ARRAYRECEPCIONPT[0]['FECHA'];
   $HORARECEPCIONPT = $ARRAYRECEPCIONPT[0]['HORA_RECEPCION'];
   $NUMEROGUIA = $ARRAYRECEPCIONPT[0]['NUMERO_GUIA_RECEPCION'];
-  $FECHAGUIA = $ARRAYRECEPCIONPT[0]['FECHA_GUIA_RECEPCION'];
+  $FECHAGUIA = $ARRAYRECEPCIONPT[0]['FECHA_GUIA'];
   $PRODUCTOR = $ARRAYRECEPCIONPT[0]['ID_PRODUCTOR'];
   $PATENTECAMION = $ARRAYRECEPCIONPT[0]['PATENTE_CAMION'];
   $PATENTECARRO = $ARRAYRECEPCIONPT[0]['PATENTE_CARRO'];
@@ -417,7 +417,7 @@ foreach ($ARRAYDRECEPCIONPT as $d) :
           
                       <tr >
                           <th class=" left">' . $d['FOLIO_DRECEPCION'] . '</th>
-                          <th class=" center">' . $d['EMBALADO'] . '</th>
+                          <td class=" center">' . $d['EMBALADO'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['CODIGO_ESTANDAR'] . '</td>
                           <td class="center">' . $ARRAYEEXPORTACION[0]['NOMBRE_ESTANDAR'] . '</td>
                           <td class="center">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . '</td>

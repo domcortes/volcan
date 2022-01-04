@@ -386,8 +386,8 @@ class FICHA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *,           
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'  
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'  
                                             FROM `material_ficha` 
                                             WHERE `ESTADO_REGISTRO` = 1
                                             AND ID_EMPRESA = '" . $IDEMPRESA . "'     
@@ -412,12 +412,12 @@ class FICHA_ADO {
             
             $datos=$this->conexion->prepare("SELECT 
                                                 ficha.ID_FICHA,
-                                                DATE_FORMAT(ficha.INGRESO, '%d/%m/%Y') AS 'INGRESO',
-                                                DATE_FORMAT(ficha.MODIFICACION, '%d/%m/%Y') AS 'MODIFICACION',
+                                                DATE_FORMAT(ficha.INGRESO, '%Y-%m/%d') AS 'INGRESO',
+                                                DATE_FORMAT(ficha.MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                 ficha.NUMERO_FICHA,
                                                 proceso.ID_PROCESO,
                                                 proceso.NUMERO_PROCESO ,
-                                                DATE_FORMAT(proceso.FECHA_PROCESO, '%d/%m/%Y') AS 'FECHAPROCESO',
+                                                DATE_FORMAT(proceso.FECHA_PROCESO, '%Y-%m-%d') AS 'FECHAPROCESO',
                                                 detalle.ID_ESTANDAR,
                                                 (   SELECT  estandar.CODIGO_ESTANDAR
                                                     FROM estandar_eexportacion estandar
@@ -621,7 +621,7 @@ class FICHA_ADO {
                                                 
                                                 proceso.ID_PROCESO,
                                                 proceso.NUMERO_PROCESO ,
-                                                DATE_FORMAT(proceso.FECHA_PROCESO, '%d/%m/%Y') AS 'FECHAPROCESO',
+                                                DATE_FORMAT(proceso.FECHA_PROCESO, '%Y-%m/%d') AS 'FECHAPROCESO',
                                                 dficha.ID_DFICHA,
                                                 dficha.ID_PRODUCTO,  
                                                 producto.CODIGO_PRODUCTO AS 'CODIGO',   

@@ -303,9 +303,9 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
                                                             $CSGCSPORIGEN = "Sin Datos";

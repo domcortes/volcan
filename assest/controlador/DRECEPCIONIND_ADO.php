@@ -386,6 +386,7 @@ class DRECEPCIONIND_ADO
         try{
             
             $datos=$this->conexion->prepare("SELECT *,
+                                                        DATE_FORMAT(FECHA_EMBALADO_DRECEPCION, '%d-%m-%Y') AS 'EMBALADO',
                                                         FORMAT(IFNULL(CANTIDAD_ENVASE_DRECEPCION,0),2,'de_DE') AS 'ENVASE',
                                                         FORMAT(IFNULL(KILOS_NETO_DRECEPCION,0),2,'de_DE') AS 'NETO',
                                                         FORMAT(IFNULL(KILOS_BRUTO_DRECEPCION,0),2,'de_DE') AS 'BRUTO'

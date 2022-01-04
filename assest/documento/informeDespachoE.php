@@ -97,7 +97,7 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 
-$ARRAYRECEPCION = $DESPACHOE_ADO->verDespachoe2($IDOP);
+$ARRAYRECEPCION = $DESPACHOE_ADO->verDespachoe3($IDOP);
 if ($ARRAYRECEPCION) {
   $ARRAYDRECEPCION = $INVENTARIOE_ADO->buscarPorDespacho2($IDOP);
   $ARRAYDRECEPCIONTOTAL = $INVENTARIOE_ADO->obtenerTotalesInventarioPorDespacho2CBX($IDOP);

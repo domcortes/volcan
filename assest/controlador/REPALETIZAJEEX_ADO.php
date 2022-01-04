@@ -137,8 +137,33 @@ class REPALETIZAJEEX_ADO
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *, INGRESO AS 'INGRESO' ,
-                                                       MODIFICACION  AS 'MODIFICACION'  ,
+            $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO' ,
+                                                         DATE_FORMAT(MODIFICACION, '%Y-%m-%d')  AS 'MODIFICACION',
+                                                       FORMAT(CANTIDAD_ENVASE_REPALETIZAJE,0,'de_DE') AS 'ENVASE',
+                                                       FORMAT(KILOS_NETO_REPALETIZAJE,2,'de_DE') AS 'NETO'
+                                                FROM fruta_repaletizajeex 
+                                                WHERE ID_REPALETIZAJE= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function verRepaletizaje3($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,        
+                                                        DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',  
+                                                        DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
                                                        FORMAT(CANTIDAD_ENVASE_REPALETIZAJE,0,'de_DE') AS 'ENVASE',
                                                        FORMAT(KILOS_NETO_REPALETIZAJE,2,'de_DE') AS 'NETO'
                                                 FROM fruta_repaletizajeex 
@@ -292,8 +317,8 @@ class REPALETIZAJEEX_ADO
 
             $datos = $this->conexion->prepare("SELECT * ,
         
-                                            DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',  
-                                            DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',  
+                                            DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',  
+                                            DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',  
                                             IFNULL(CANTIDAD_ENVASE_ORIGINAL,0) AS 'ENVASER',
                                             IFNULL(KILOS_NETO_ORIGINAL,0)AS 'NETOO',   
                                             IFNULL(CANTIDAD_ENVASE_REPALETIZAJE,0) AS 'ENVASEO',   
@@ -386,7 +411,8 @@ class REPALETIZAJEEX_ADO
             $datos = $this->conexion->prepare("SELECT  FORMAT(IFNULL(SUM(CANTIDAD_ENVASE_REPALETIZAJE),0),0,'de_DE') AS 'ENVASE',   
                                                  FORMAT(IFNULL(SUM(KILOS_NETO_REPALETIZAJE),0),2,'de_DE') AS 'NETO' 
                                         FROM fruta_repaletizajeex                                                                                                                                    
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                      
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'  ;	");
             $datos->execute();

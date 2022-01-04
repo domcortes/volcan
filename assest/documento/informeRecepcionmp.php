@@ -108,10 +108,10 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 
-$ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion2($IDOP);
-$ARRAYDRECEPCION = $DRECEPCIONMP_ADO->buscarPorRecepcionaAgrupadoVariedad2($IDOP);
+$ARRAYRECEPCION = $RECEPCIONMP_ADO->verRecepcion3($IDOP);
 if ($ARRAYRECEPCION) {
 
+  $ARRAYDRECEPCION = $DRECEPCIONMP_ADO->buscarPorRecepcionaAgrupadoVariedad2($IDOP);
   $ARRAYDRECEPCIONTOTAL = $DRECEPCIONMP_ADO->obtenerTotales2($IDOP);
   $TOTALENVASEGENERAL = $ARRAYDRECEPCIONTOTAL[0]['ENVASE'];
   $TOTALNETOGENERAL = $ARRAYDRECEPCIONTOTAL[0]['NETO'];
@@ -326,10 +326,11 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="10" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="11" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>
             <th class="color left">Folio</th>
+            <th class="color left">Fecha Cosecha</th>
             <th class="color left">Codigo Estandar</th>
             <th class="color left">Envase/Estandar</th>
             <th class="color center">Cant. Envase</th>
@@ -397,6 +398,7 @@ foreach ($ARRAYDRECEPCION as $d) :
           
                       <tr >
                           <th class=" left">' . $s['FOLIO_DRECEPCION'] . '</th>
+                          <td class=" left">' . $s['COSECHA'] . '</td>
                           <td class="left">' .  $CODIGOESTANDAR . '</td>
                           <td class="left">' .  $NOMBREESTANDAR . '</td>
                           <td class="center">' . $s['ENVASE'] . '</td>
@@ -417,6 +419,7 @@ foreach ($ARRAYDRECEPCION as $d) :
   <tr class="bt">
       <th class="color3 left">&nbsp;</th>
       <th class="color3 left">&nbsp;</th>
+      <th class="color3 center">&nbsp;</th>
       <th class="color3 left">SUB TOTAL</th>
       <th class="color3 center">' . $TOTALENVASESDRECEPCION . '</th>
       <th class="color3 center">' . $TOTALNETOSDRECEPCION . '</th>
@@ -433,6 +436,7 @@ endforeach;
 $html = $html . '
               
           <tr class="bt">
+              <th class="color left">&nbsp;</th>
               <th class="color left">&nbsp;</th>
               <th class="color left">&nbsp;</th>
               <th class="color left"> TOTAL RECEPCION</th>

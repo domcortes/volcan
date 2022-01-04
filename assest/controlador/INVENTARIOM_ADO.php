@@ -994,8 +994,8 @@ class INVENTARIOM_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                 IFNULL(CANTIDAD_INVENTARIO,0) AS 'CANTIDAD', 
                                                 IFNULL(VALOR_UNITARIO,0) AS 'VALOR'   
                                              FROM material_inventariom
@@ -1051,8 +1051,8 @@ class INVENTARIOM_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                 IFNULL(CANTIDAD_INVENTARIO,0) AS 'CANTIDAD', 
                                                 IFNULL(VALOR_UNITARIO,0) AS 'VALOR'   
                                              FROM material_inventariom
@@ -1270,7 +1270,7 @@ class INVENTARIOM_ADO {
                                                                     FROM material_recepcionm recepcion
                                                                     WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
                                                                 )AS 'NUMERODOCUMENTORECEPCION',
-                                                                (	select DATE_FORMAT(recepcion.FECHA_RECEPCION, '%d/%m/%Y')
+                                                                (	select DATE_FORMAT(recepcion.FECHA_RECEPCION, '%Y-%m-%d')
                                                                     FROM material_recepcionm recepcion
                                                                     WHERE recepcion.ID_RECEPCION=inventario.ID_RECEPCION
                                                                 )AS 'FECHARECEPCION',                                                    
@@ -1383,7 +1383,7 @@ class INVENTARIOM_ADO {
                                                         FROM material_despachom despacho
                                                         WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
                                                     )AS 'NUMERODOCUMENTODESPACHO2',
-                                                    (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%d/%m/%Y')
+                                                    (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%Y-%m-%d')
                                                         FROM material_despachom despacho
                                                         WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO2
                                                     )AS 'FECHADESPACHO2',                                                     
@@ -1477,7 +1477,7 @@ class INVENTARIOM_ADO {
                                                     FROM material_despachom despacho
                                                     WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
                                                 )AS 'NUMERODOCUMENTODESPACHO',
-                                                (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%d/%m/%Y')
+                                                (	select DATE_FORMAT(despacho.FECHA_DESPACHO, '%Y-%m-%d')
                                                     FROM material_despachom despacho
                                                     WHERE despacho.ID_DESPACHO=inventario.ID_DESPACHO
                                                 )AS 'FECHADESPACHO',                                                                                              

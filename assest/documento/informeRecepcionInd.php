@@ -104,10 +104,10 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 
-$ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion2($IDOP);
-$ARRAYDRECEPCION = $DRECEPCIONIND_ADO->buscarPorRecepcionaAgrupadoVariedad2($IDOP);
+$ARRAYRECEPCION = $RECEPCIONIND_ADO->verRecepcion3($IDOP);
 if ($ARRAYRECEPCION) {
 
+  $ARRAYDRECEPCION = $DRECEPCIONIND_ADO->buscarPorRecepcionaAgrupadoVariedad2($IDOP);
   $ARRAYDRECEPCIONTOTAL = $DRECEPCIONIND_ADO->obtenerTotales2($IDOP);
   $TOTALENVASEGENERAL = $ARRAYDRECEPCIONTOTAL[0]['ENVASE'];
   $TOTALNETOGENERAL = $ARRAYDRECEPCIONTOTAL[0]['NETO'];
@@ -307,11 +307,12 @@ $html = $html . '
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th colspan="8" class="center">DETALLE DE RECEPCIÓN.</th>
+            <th colspan="9" class="center">DETALLE DE RECEPCIÓN.</th>
           </tr>
           <tr>          
 
             <th class="color left">Folio</th>
+            <th class="color left">Fecha Embalado</th>
             <th class="color left">Codigo Estandar</th>
             <th class="color left">Envase/Estandar</th>
             <th class="color center">Cant. Envase</th>
@@ -367,6 +368,7 @@ foreach ($ARRAYDRECEPCION as $d) :
           
                       <tr >
                           <th class=" left">' . $s['FOLIO_DRECEPCION'] . '</th>
+                          <td class=" left">' . $s['EMBALADO'] . '</td>
                           <td class="left">' .  $CODIGOESTANDAR . '</td>
                           <td class="left">' .  $NOMBREESTANDAR . '</td>
                           <td class="center">' . $s['ENVASE'] . '</td>
@@ -385,6 +387,7 @@ foreach ($ARRAYDRECEPCION as $d) :
   <tr class="bt">
       <th class="color3 left">&nbsp;</th>
       <th class="color3 left">&nbsp;</th>
+      <th class="color3 left">&nbsp;</th>
       <th class="color3 left">SUB TOTAL</th>
       <th class="color3 center">' . $TOTALENVASESDRECEPCION . '</th>
       <th class="color3 center">' . $TOTALNETOSDRECEPCION . '</th>
@@ -399,6 +402,7 @@ endforeach;
 $html = $html . '
               
           <tr class="bt">
+              <th class="color left">&nbsp;</th>
               <th class="color left">&nbsp;</th>
               <th class="color left">&nbsp;</th>
               <th class="color left"> TOTAL RECEPCION</th>

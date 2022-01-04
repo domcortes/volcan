@@ -109,9 +109,9 @@ class REEMBALAJE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *, 
-                                                FECHA_REEMBALAJE AS 'FECHA',
-                                                INGRESO AS 'INGRESO',
-                                                MODIFICACION AS 'MODIFICACION' 
+                                                FECHA_REEMBALAJE AS 'FECHA', 
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
                                             FROM fruta_reembalaje WHERE ID_REEMBALAJE = '" . $IDREEMBALAJE . "';");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -127,6 +127,29 @@ class REEMBALAJE_ADO
         }
     }
 
+
+    public function verReembalaje3($IDREEMBALAJE)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',      
+                                                DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y') AS 'FECHA' 
+                                            FROM fruta_reembalaje WHERE ID_REEMBALAJE = '" . $IDREEMBALAJE . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
     //REGISTRO DE UNA NUEVA FILA   
@@ -411,9 +434,9 @@ class REEMBALAJE_ADO
                                                 IFNULL(KILOS_INDUSTRIALSC_REEMBALAJE,0) AS 'INDUSTRIALSC'    ,                                               
                                                 IFNULL(KILOS_INDUSTRIALNC_REEMBALAJE,0) AS 'INDUSTRIALNC'    ,                                                
                                                 IFNULL(KILOS_NETO_REEMBALAJE,0) AS 'NETO',                                        
-                                                IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',  
-                                                INGRESO AS 'INGRESO',
-                                                MODIFICACION AS 'MODIFICACION',      
+                                                IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,    
                                                 FECHA_REEMBALAJE AS 'FECHA'
                                         FROM fruta_reembalaje                                                                               
                                         WHERE   ESTADO_REGISTRO = 1 

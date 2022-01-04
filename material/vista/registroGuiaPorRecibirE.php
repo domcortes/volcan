@@ -60,8 +60,6 @@ $ARRAYMGUIAMP = "";
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
 
     $ARRAYDESPACHOPT = $DESPACHOE_ADO->listarDespachoeEmpresaPlantaTemporadaGuiaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOE_ADO->obtenerTotalesDespachoeEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
 }
 
 
@@ -206,21 +204,25 @@ include_once "../../assest/config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table table-hover " style="width: 100%;">
+                                        <table id="despachome" class="table table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Número </th>
                                                     <th>Estado</th>
                                                     <th class="text-center">Operaciónes</th>
                                                     <th>Estado Despacho</th>
-                                                    <th>Tipo Despacho</th>
                                                     <th>Fecha Despacho </th>
+                                                    <th>Tipo Despacho</th>
+                                                    <th>CSG/CSP Despacho</th>
+                                                    <th>Destino Despacho</th>
+                                                    <th>Tipo Documento </th>
                                                     <th>Número Documento </th>
                                                     <th>Cantidad </th>
                                                     <th>Transporte </th>
                                                     <th>Nombre Conductor </th>
                                                     <th>Patente Camión </th>
                                                     <th>Patente Carro </th>
+                                                    <th>Despacho Materia Prima </th>
                                                     <th>Fecha Ingreso</th>
                                                     <th>Fecha Modificación</th>
                                                     <th>Empresa</th>
@@ -228,7 +230,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                     <th>Temporada</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody>                                                
                                                 <?php foreach ($ARRAYDESPACHOPT as $r) : ?>
                                                     <?php
                                                     if ($r['ESTADO_DESPACHO'] == "1") {
@@ -243,31 +245,95 @@ include_once "../../assest/config/datosUrLP.php";
                                                         $ESTADODESPACHO = "Aprobado";
                                                     } else {
                                                         $ESTADODESPACHO = "Sin Datos";
-                                                    }
+                                                    }                                                    
                                                     if ($r['TDESPACHO'] == "1") {
                                                         $TDESPACHO = " A Sub Bodega";
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "2") {
+                                                        $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA"]);
+                                                        if ($ARRAYVERBODEGA) {
+                                                            $NOMBRDESTINO = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                            $CSGCSPDESTINO="No Aplica";
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
+                                                    }else if ($r['TDESPACHO'] == "2") {
                                                         $TDESPACHO = "Interplanta";
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "3") {
+                                                        $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA2"]);
+                                                        $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($r["ID_BODEGA2"]);
+                                                        if ($ARRAYVERBODEGA && $ARRAYPLANTAINTERNA) {
+                                                            $CSGCSPDESTINO=$ARRAYPLANTAINTERNA[0]['CODIGO_SAG_PLANTA'];
+                                                            $NOMBRDESTINO = "" . $ARRAYPLANTAINTERNA[0]["NOMBRE_PLANTA"] . " - " . $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
+                                                    }else if ($r['TDESPACHO'] == "3") {
                                                         $TDESPACHO = "Devolución a Productor";
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "4") {
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"];
+                                                            $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
+                                                    }else if ($r['TDESPACHO'] == "4") {
                                                         $TDESPACHO = "Devolución a Proveedor";
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "5") {
-                                                        $TDESPACHO = "Planta Externa";
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "6") {
-                                                        $TDESPACHO = "Venta";
-                                                    } else
-                                                    if ($r['TDESPACHO'] == "7") {
+                                                        $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($r["ID_PROVEEDOR"]);
+                                                        if ($ARRAYPROVEEDOR) {
+                                                            $NOMBRDESTINO = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                            $CSGCSPDESTINO="No Aplica";
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
+                                                    }else if ($r['TDESPACHO'] == "5") {
+                                                        $TDESPACHO = "Venta Industrial";
+                                                        $ARRAYVERCOMPRADOR = $COMPRADOR_ADO->verComprador($r["ID_COMPRADOR"]);
+                                                        if ($ARRAYVERCOMPRADOR) {
+                                                            $NOMBRDESTINO = $ARRAYVERCOMPRADOR[0]["NOMBRE_COMPRADOR"];
+                                                            $CSGCSPDESTINO="No Aplica";
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
+                                                    }else if ($r['TDESPACHO'] == "6") {
                                                         $TDESPACHO = "Regalo";
-                                                    } else {
+                                                        $CSGCSPDESTINO="No Aplica";
+                                                        $NOMBRDESTINO="No Aplica";
+                                                        $REGALO = $r['REGALO_DESPACHO'];
+                                                    }else if ($r['TDESPACHO'] == "7") {
+                                                        $TDESPACHO = "Planta Externa";
+                                                        $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($r["ID_PLANTA3"]);
+                                                        if ($ARRAYPLANTAEXTERNA) {
+                                                            $NOMBRDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                            $CSGCSPDESTINO=$ARRAYPLANTAEXTERNA[0]['CODIGO_SAG_PLANTA'];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
+                                                    }else if ($r['TDESPACHO'] == "8") {
+                                                        $TDESPACHO = "Despacho a Productor";
+                                                        $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($r["ID_PRODUCTOR"]);
+                                                        if ($ARRAYPRODUCTOR) {
+                                                            $NOMBRDESTINO =  $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"]; 
+                                                            $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"];
+                                                        } else {
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                        }
+                                                    }else {
                                                         $TDESPACHO = "Sin Datos";
+                                                        $NOMBRDESTINO = "Sin Datos";
+                                                        $CSGCSPDESTINO="Sin Datos";
+                                                    }    
+                                                    
+                                                    $ARRAYVERTDOCUMENTO = $TDOCUMENTO_ADO->verTdocumento($r['ID_TDOCUMENTO']);
+                                                    if ($ARRAYVERTDOCUMENTO) {
+                                                        $TDOCUMENTO = $ARRAYVERTDOCUMENTO[0]['NOMBRE_TDOCUMENTO'];
+                                                    } else {
+                                                        $TDOCUMENTO = "Sin Datos";
                                                     }
-
                                                     $ARRAYVERTRANSPORTE = $TRANSPORTE_ADO->verTransporte($r['ID_TRANSPORTE']);
                                                     if ($ARRAYVERTRANSPORTE) {
                                                         $NOMBRETRANSPORTE = $ARRAYVERTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
@@ -300,6 +366,13 @@ include_once "../../assest/config/datosUrLP.php";
                                                         $NOMBRETEMPORADA = "Sin Datos";
                                                     }
 
+                                                    $ARRAYDESPACHOMP=$DESPACHOMP_ADO->verDespachomp($r['ID_DESPACHOMP']);
+                                                    if($ARRAYDESPACHOMP){
+                                                        $NUMERODESPACHOMP=$ARRAYDESPACHOMP[0]["NUMERO_DESPACHO"];
+                                                    }else{
+                                                        $NUMERODESPACHOMP="No Aplica";
+                                                    }
+                                                    $ARRAYMGUIAM = $MGUIAE_ADO->listarMguiaDespachoCBX($r['ID_DESPACHO']);
                                                     ?>
                                                     <tr class="text-left">
                                                         <td> <?php echo $r['NUMERO_DESPACHO']; ?> </td>
@@ -346,43 +419,45 @@ include_once "../../assest/config/datosUrLP.php";
                                                             </form>
                                                         </td>
                                                         <td><?php echo $ESTADODESPACHO; ?></td>
-                                                        <td><?php echo $TDESPACHO; ?></td>
                                                         <td><?php echo $r['FECHA']; ?></td>
+                                                        <td><?php echo $TDESPACHO; ?></td>
+                                                        <td><?php echo $CSGCSPDESTINO; ?></td>
+                                                        <td><?php echo $NOMBRDESTINO; ?></td>
+                                                        <td><?php echo $TDOCUMENTO; ?></td>
                                                         <td><?php echo $r['NUMERO_DOCUMENTO']; ?></td>
                                                         <td><?php echo $r['CANTIDAD']; ?></td>
                                                         <td><?php echo $NOMBRETRANSPORTE; ?></td>
                                                         <td><?php echo $NOMBRECONDUCTOR; ?></td>
                                                         <td><?php echo $r['PATENTE_CAMION']; ?></td>
                                                         <td><?php echo $r['PATENTE_CARRO']; ?></td>
+                                                        <td><?php echo $NUMERODESPACHOMP; ?></td>
                                                         <td><?php echo $r['INGRESO']; ?></td>
                                                         <td><?php echo $r['MODIFICACION']; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
                                                         <td><?php echo $NOMBREPLANTA; ?></td>
                                                         <td><?php echo $NOMBRETEMPORADA; ?></td>
-
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                   
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Cantidad </div>
+                                                    <div class="input-group-text">Total Cantidad</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>

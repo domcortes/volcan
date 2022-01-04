@@ -359,7 +359,7 @@ include_once "../../assest/config/reporteUrl.php";
                                                     }else {
                                                         $NUMERODOCUMENTO = "Sin Datos";
                                                         $NUMEROPERACION = "Sin Datos";
-                                                        $FECHAOPERACION = "Sin Datos";
+                                                        $FECHAOPERACION = "";
                                                         $NOMBREOPERACION = "Sin Datos";
                                                         $NOMBREORIGEN = "Sin Datos";
                                                         $NOMBREDESTINO = "Sin Datos";

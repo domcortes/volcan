@@ -240,7 +240,7 @@ if ($EMPRESAS && $TEMPORADAS) {
                                             <thead>
                                                 <tr>
                                                     <th>N° Folio </th>
-                                                    <th>Cosecha </th>
+                                                    <th>Fecha Cosecha </th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>
                                                     <th>CSG</th>

@@ -106,7 +106,7 @@ class DESPACHOE_ADO
     }
 
     //VER LA INFORMACION RELACIONADA EN BASE AL ID INGRESADO A LA FUNCION
-    public function verDespachoe2($ID)
+    public function verDespachoe3($ID)
     {
         try {
 
@@ -130,13 +130,13 @@ class DESPACHOE_ADO
     }
 
 
-    public function verDespachoe3($ID)
+    public function verDespachoe2($ID)
     {
         try {
 
-            $datos = $this->conexion->prepare("SELECT *, FECHA_DESPACHO AS 'FECHA'  
-                                                    , INGRESO AS 'INGRESO'
-                                                    , MODIFICACION AS 'MODIFICACION'
+            $datos = $this->conexion->prepare("SELECT *, FECHA_DESPACHO AS 'FECHA'   
+                                                    , DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO'
+                                                    , DATE_FORMAT(MODIFICACION, '%y-%m-%d') AS 'MODIFICACION'
                                             FROM material_despachoe
                                             WHERE ID_DESPACHO= '" . $ID . "';");
             $datos->execute();
@@ -709,9 +709,9 @@ class DESPACHOE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                FECHA_DESPACHO AS 'FECHA',  
-                                                INGRESO AS 'INGRESO',
-                                                MODIFICACION AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',   
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE  ESTADO_REGISTRO = 1 
@@ -790,8 +790,8 @@ class DESPACHOE_ADO
 
             $datos = $this->conexion->prepare("SELECT *,
                                                 FECHA_DESPACHO AS 'FECHA',  
-                                                INGRESO AS 'INGRESO',
-                                                MODIFICACION AS 'MODIFICACION', 
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE  ESTADO_REGISTRO = 1 
@@ -871,9 +871,9 @@ class DESPACHOE_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachoe                                                                           
                                         WHERE    ESTADO_REGISTRO = 1 

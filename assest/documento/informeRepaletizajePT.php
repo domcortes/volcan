@@ -90,7 +90,7 @@ if (isset($_REQUEST['usuario'])) {
 if (isset($_REQUEST['parametro'])) {
     $IDOP = $_REQUEST['parametro'];
 }
-$ARRAYREPALETIZAJE = $REPALETIZAJEEX_ADO->verRepaletizaje2($IDOP);
+$ARRAYREPALETIZAJE = $REPALETIZAJEEX_ADO->verRepaletizaje3($IDOP);
 if($ARRAYREPALETIZAJE){
 
     $ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorRepaletizaje2($IDOP);

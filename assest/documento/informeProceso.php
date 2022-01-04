@@ -133,7 +133,7 @@ if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];  
 }
 
-$ARRAYPROCESO = $PROCESO_ADO->verProceso2($IDOP);
+$ARRAYPROCESO = $PROCESO_ADO->verProceso3($IDOP);
 if($ARRAYPROCESO){
 
 

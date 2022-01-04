@@ -78,10 +78,7 @@ $ARRAYMGUIAM = "";
 
 
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
-
     $ARRAYDESPACHOPT = $DESPACHOM_ADO->listarDespachomEmpresaPlantaTemporadaGuiaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYDESPACHOPTTOTALES = $DESPACHOM_ADO->obtenerTotalesDespachomEmpresaPlantaTemporadaGuiaCBX2($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALCANTIDAD = $ARRAYDESPACHOPTTOTALES[0]['CANTIDAD'];
 }
 
 
@@ -226,7 +223,7 @@ include_once "../../assest/config/datosUrLP.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="modulo" class="table-hover " style="width: 100%;">
+                                        <table id="despachomm" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>Número </th>
@@ -452,23 +449,22 @@ include_once "../../assest/config/datosUrLP.php";
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                       
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total Cantidad </div>
+                                                    <div class="input-group-text">Total Cantidad</div>
+                                                    <button class="btn   btn-default" id="TOTALENVASEV" name="TOTALENVASEV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total Cantidad" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>

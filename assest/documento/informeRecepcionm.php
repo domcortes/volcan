@@ -94,7 +94,7 @@ if (isset($_REQUEST['parametro'])) {
 }
 
 
-$ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion2($IDOP);
+$ARRAYRECEPCION = $RECEPCIONM_ADO->verRecepcion3($IDOP);
 if ($ARRAYRECEPCION) {
   $ARRAYDRECEPCION = $DRECEPCIONM_ADO->listarDrecepcionPorRecepcion2CBX($IDOP);
   $ARRAYDRECEPCIONTOTAL = $DRECEPCIONM_ADO->obtenerTotalesDrecepcionPorRecepcion2CBX($IDOP);

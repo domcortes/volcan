@@ -318,7 +318,7 @@ include_once "../../assest/config/datosUrl.php";
                                                         $NOMBREORIGEN = "Sin Datos";
                                                         $NOMBRETDOCUMENTO = "Sin Datos";
                                                         $NUMERORECEPCION = "Sin Datos";
-                                                        $FECHARECEPCION = "Sin Datos";
+                                                        $FECHARECEPCION = "";
                                                         $NUMERODOCUMENTORECEPCION = "Sin Datos";
                                                         $NUMEROOCOMPRA = "Sin Datos";
                                                         $NUMEROIOCOMPRA = "Sin Datos";

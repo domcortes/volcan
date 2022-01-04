@@ -98,7 +98,7 @@ if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
   $NUMERODESPACHO = $IDOP;
 }
-$ARRAYDESPACHO = $DESPACHOMP_ADO->verDespachomp2($IDOP);
+$ARRAYDESPACHO = $DESPACHOMP_ADO->verDespachomp3($IDOP);
 
 if($ARRAYDESPACHO){
 

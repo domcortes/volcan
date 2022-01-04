@@ -106,23 +106,8 @@ $ARRAYMGUIAPT = "";
 
 
 if ($EMPRESAS  &&  $TEMPORADAS) {
-
-
     $ARRAYDESPACHOIND = $DESPACHOIND_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $ARRAYDESPACHOINDTOTALES = $DESPACHOIND_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS,  $TEMPORADAS);
-    $TOTALNETOIND = $ARRAYDESPACHOINDTOTALES[0]['NETO'];
-
     $ARRAYDESPACHOMP = $DESPACHOMP_ADO->listarDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $ARRAYDESPACHOMPTOTALES = $DESPACHOMP_ADO->obtenerTotalesDespachompEmpresaTemporadaCBX($EMPRESAS, $TEMPORADAS);
-    $TOTALENVASEMP = $ARRAYDESPACHOMPTOTALES[0]['ENVASE'];
-    $TOTALNETOMP = $ARRAYDESPACHOMPTOTALES[0]['NETO'];
-    $TOTALBRUTOMP = $ARRAYDESPACHOMPTOTALES[0]['BRUTO'];
-
-
-
-    $TOTALNETO  = number_format(  $TOTALNETOMP + $TOTALNETOIND, 2, ",", ".");
-    $TOTALBRUTO = number_format(  $TOTALBRUTOMP, 2, ",", ".");
-    $TOTALENVASE  = number_format( $TOTALENVASEMP, 2, ",", ".");
 }
 
 
@@ -288,9 +273,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción </th>
                                                     <th>Número Guía Recepción </th>
-                                                    <th>Fecha Guía Recepción
-                                                    <th>Número Repaletizaje </th>
-                                                    <th>Fecha Repaletizaje </th>
+                                                    <th>Fecha Guía Recepción</th>
                                                     <th>Número Proceso </th>
                                                     <th>Fecha Proceso </th>
                                                     <th>Tipo Proceso </th>
@@ -505,8 +488,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo ""; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
                                                             <td><?php echo ""; ?></td>
                                                             <td><?php echo "Sin Datos"; ?></td>
@@ -750,8 +731,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             <td><?php echo $TIPORECEPCION; ?></td>
                                                             <td><?php echo $NUMEROGUIARECEPCION; ?></td>
                                                             <td><?php echo $FECHAGUIARECEPCION; ?></td>
-                                                            <td><?php echo "Sin Datos"; ?></td>
-                                                            <td><?php echo ""; ?></td>
                                                             <td><?php echo $NUMEROPROCESO; ?></td>
                                                             <td><?php echo $FECHAPROCESO; ?></td>
                                                             <td><?php echo $TPROCESO; ?></td>

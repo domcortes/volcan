@@ -17,6 +17,7 @@ include_once '../../assest/controlador/CLIENTE_ADO.php';
 
 include_once '../../assest/controlador/OCOMPRA_ADO.php';
 include_once '../../assest/controlador/RECEPCIONM_ADO.php';
+include_once '../../assest/controlador/DESPACHOM_ADO.php';
 include_once '../../assest/controlador/INVENTARIOM_ADO.php';
 
 
@@ -33,6 +34,7 @@ $CLIENTE_ADO = new CLIENTE_ADO();
 
 $OCOMPRA_ADO =  new OCOMPRA_ADO();
 $RECEPCIONM_ADO =  new RECEPCIONM_ADO();
+$DESPACHOM_ADO =  new DESPACHOM_ADO();
 $INVENTARIOM_ADO =  new INVENTARIOM_ADO();
 
 
@@ -200,7 +202,14 @@ include_once "../../assest/config/datosUrl.php";
                                                     <th>Origen Recepción</th>
                                                     <th>Número Documento </th>
                                                     <th>Tipo Documento </th>
-                                                    <th>Valor Unitario</th>
+                                                    <th>Valor Unitario</th>                                                    
+                                                    <th>Número Despaho </th>
+                                                    <th>Fecha Despaho </th>
+                                                    <th>Tipo Despaho</th>
+                                                    <th>CSG/CSP Despaho</th>
+                                                    <th>Origen Despaho</th>
+                                                    <th>Número Documento </th>
+                                                    <th>Tipo Documento </th>
                                                     <th>Numero Oc</th>
                                                     <th>Numero Oc Interno</th>
                                                     <th>Empresa</th>
@@ -321,11 +330,112 @@ include_once "../../assest/config/datosUrl.php";
                                                         $NOMBREORIGEN = "Sin Datos";
                                                         $NOMBRETDOCUMENTO = "Sin Datos";
                                                         $NUMERORECEPCION = "Sin Datos";
-                                                        $FECHARECEPCION = "Sin Datos";
+                                                        $FECHARECEPCION = "";
                                                         $NUMERODOCUMENTORECEPCION = "Sin Datos";
                                                         $NUMEROOCOMPRA = "Sin Datos";
                                                         $NUMEROIOCOMPRA = "Sin Datos";
                                                         $CSGCSPORIGEN = "Sin Datos";
+                                                    }
+                                                    $ARRAYDESPACHO=$DESPACHOM_ADO->verDespachom2($r['ID_DESPACHO']);
+                                                    if($ARRAYDESPACHO){
+
+                                                        $NUMERODESPACHO = $ARRAYDESPACHO[0]["NUMERO_DESPACHO"];
+                                                        $FECHADESPACHO = $ARRAYDESPACHO[0]["FECHA"];
+                                                        $NUMERODOCUMENTODESPACHO = $ARRAYDESPACHO[0]["NUMERO_DOCUMENTO"];
+
+                                                        $ARRAYVERTDOCUMENTO2 = $TDOCUMENTO_ADO->verTdocumento($ARRAYDESPACHO[0]["ID_TDOCUMENTO"]);
+                                                        if ($ARRAYVERTDOCUMENTO2) {
+                                                            $NOMBRETDOCUMENTO2 = $ARRAYVERTDOCUMENTO2[0]['NOMBRE_TDOCUMENTO'];
+                                                        } else {
+                                                            $NOMBRETDOCUMENTO2 = "Sin Datos";
+                                                        }
+
+                                                        if ($ARRAYDESPACHO[0]['TDESPACHO'] == "1") {
+                                                            $TDESPACHO = " A Sub Bodega";
+                                                            $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($ARRAYDESPACHO[0]["ID_BODEGA"]);
+                                                            if ($ARRAYVERBODEGA) {
+                                                                $NOMBRDESTINO = $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                                $CSGCSPDESTINO="No Aplica";
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                                $CSGCSPDESTINO="Sin Datos";
+                                                            }
+                                                        } else
+                                                        if ($ARRAYDESPACHO[0]['TDESPACHO'] == "2") {
+                                                            $TDESPACHO = "Interplanta";
+                                                            $ARRAYPLANTAINTERNA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]["ID_PLANTA2"]);
+                                                            $ARRAYVERBODEGA = $BODEGA_ADO->verBodega($ARRAYDESPACHO[0]["ID_BODEGA2"]);
+                                                            if ($ARRAYVERBODEGA && $ARRAYPLANTAINTERNA) {
+                                                                $CSGCSPDESTINO=$ARRAYPLANTAINTERNA[0]['CODIGO_SAG_PLANTA'];
+                                                                $NOMBRDESTINO = "" . $ARRAYPLANTAINTERNA[0]["NOMBRE_PLANTA"] . " - " . $ARRAYVERBODEGA[0]["NOMBRE_BODEGA"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                                $CSGCSPDESTINO="Sin Datos";
+                                                            }
+                                                        } else
+                                                        if ($ARRAYDESPACHO[0]['TDESPACHO'] == "3") {
+                                                            $TDESPACHO = "Despacho a Productor";
+                                                            $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]["ID_PRODUCTOR"]);
+                                                            if ($ARRAYPRODUCTOR) {
+                                                                $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"];
+                                                                $NOMBRDESTINO = $ARRAYPRODUCTOR[0]["NOMBRE_PRODUCTOR"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                                $CSGCSPDESTINO="Sin Datos";
+                                                            }
+                                                        } else
+                                                        if ($ARRAYDESPACHO[0]['TDESPACHO'] == "4") {
+                                                            $TDESPACHO = "Devolución a Proveedor";
+                                                            $ARRAYPROVEEDOR = $PROVEEDOR_ADO->verProveedor($ARRAYDESPACHO[0]["ID_PROVEEDOR"]);
+                                                            if ($ARRAYPROVEEDOR) {
+                                                                $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]["CSG_PRODUCTOR"];
+                                                                $NOMBRDESTINO = $ARRAYPROVEEDOR[0]["NOMBRE_PROVEEDOR"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                                $CSGCSPDESTINO="Sin Datos";
+                                                            }
+                                                        } else
+                                                        if ($ARRAYDESPACHO[0]['TDESPACHO'] == "5") {
+                                                            $TDESPACHO = "Planta Externa";
+                                                            $ARRAYPLANTAEXTERNA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]["ID_PLANTA3"]);
+                                                            if ($ARRAYPLANTAEXTERNA) {
+                                                                $CSGCSPDESTINO=$ARRAYPLANTAEXTERNA[0]['CODIGO_SAG_PLANTA'];
+                                                                $NOMBRDESTINO = $ARRAYPLANTAEXTERNA[0]["NOMBRE_PLANTA"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                                $CSGCSPDESTINO="Sin Datos";
+                                                            }
+                                                        } else
+                                                        if ($ARRAYDESPACHO[0]['TDESPACHO'] == "6") {
+                                                            $TDESPACHO = "Venta";
+                                                            $ARRAYVERCLIENTE = $CLIENTE_ADO->verCliente($ARRAYDESPACHO[0]["ID_CLIENTE"]);
+                                                            if ($ARRAYVERCLIENTE) {
+                                                                $CSGCSPDESTINO="No Aplica";
+                                                                $NOMBRDESTINO = $ARRAYVERCLIENTE[0]["NOMBRE_CLIENTE"];
+                                                            } else {
+                                                                $NOMBRDESTINO = "Sin Datos";
+                                                                $CSGCSPDESTINO="Sin Datos";
+                                                            }
+                                                        } else
+                                                        if ($ARRAYDESPACHO[0]['TDESPACHO'] == "7") {
+                                                            $TDESPACHO = "Regalo";
+                                                            $CSGCSPDESTINO="No Aplica";
+                                                            $REGALO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
+                                                        } else {
+                                                            $CSGCSPDESTINO="Sin Datos";
+                                                            $TDESPACHO = "Sin Datos";
+                                                            $NOMBRDESTINO = "Sin Datos";
+                                                        }
+
+                                                    }else{
+                                                        $NUMERODESPACHO="Sin Datos";
+                                                        $NOMBRETDOCUMENTO2="Sin Datos";
+                                                        $NUMERODOCUMENTODESPACHO="Sin Datos";
+                                                        $FECHADESPACHO="";
+                                                        $CSGCSPDESTINO="Sin Datos";
+                                                        $CSGCSPDESTINO="Sin Datos";
+                                                        $TDESPACHO = "Sin Datos";
+                                                        $NOMBRDESTINO = "Sin Datos";
                                                     }
                                                     $ARRAYVEREMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
                                                     if ($ARRAYVEREMPRESA) {
@@ -363,6 +473,13 @@ include_once "../../assest/config/datosUrl.php";
                                                         <td><?php echo $NUMERODOCUMENTORECEPCION; ?></td>
                                                         <td><?php echo $NOMBRETDOCUMENTO; ?></td>
                                                         <td><?php echo $r['VALOR']; ?></td>
+                                                        <td><?php echo $NUMERODESPACHO; ?></td>
+                                                        <td><?php echo $FECHADESPACHO; ?></td>
+                                                        <td><?php echo $TDESPACHO; ?></td>
+                                                        <td><?php echo $CSGCSPDESTINO; ?></td>
+                                                        <td><?php echo $NOMBRDESTINO; ?></td>
+                                                        <td><?php echo $NUMERODOCUMENTODESPACHO; ?></td>
+                                                        <td><?php echo $NOMBRETDOCUMENTO2; ?></td>
                                                         <td><?php echo $NUMEROOCOMPRA; ?></td>
                                                         <td><?php echo $NUMEROIOCOMPRA; ?></td>
                                                         <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -388,7 +505,14 @@ include_once "../../assest/config/datosUrl.php";
                                                     <th>Origen Recepción</th>
                                                     <th>Número Documento </th>
                                                     <th>Tipo Documento </th>
-                                                    <th>Valor Unitario</th>
+                                                    <th>Valor Unitario</th>                                                    
+                                                    <th>Número Despaho </th>
+                                                    <th>Fecha Despaho </th>
+                                                    <th>Tipo Despaho</th>
+                                                    <th>CSG/CSP Despaho</th>
+                                                    <th>Origen Despaho</th>
+                                                    <th>Número Documento </th>
+                                                    <th>Tipo Documento </th>
                                                     <th>Numero Oc</th>
                                                     <th>Numero Oc Interno</th>
                                                     <th>Empresa</th>

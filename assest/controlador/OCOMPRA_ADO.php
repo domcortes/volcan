@@ -596,9 +596,9 @@ class OCOMPRA_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
-                                                DATE_FORMAT(FECHA_OCOMPRA, '%d-%m-%Y') AS 'FECHA',
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',
+                                                FECHA_OCOMPRA AS 'FECHA',
                                                 IFNULL(TOTAL_CANTIDAD_OCOMPRA,0) AS 'CANTIDAD',
                                                 IFNULL(TOTAL_VALOR_OCOMPRA,0) AS 'TOTAL_VALOR'
                                              FROM material_ocompra

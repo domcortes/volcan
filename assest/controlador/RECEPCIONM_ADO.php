@@ -129,7 +129,7 @@ class RECEPCIONM_ADO {
             $datos=$this->conexion->prepare("SELECT * , 
                                                 DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
                                                 DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
-                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA' 
+                                                FECHA_RECEPCION AS 'FECHA' 
                                             FROM `material_recepcionm` 
                                                 WHERE `ID_RECEPCION`= '".$ID."';");
             $datos->execute();
@@ -147,6 +147,29 @@ class RECEPCIONM_ADO {
         
     }
   
+    public function verRecepcion3($ID){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * , 
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
+                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA' 
+                                            FROM `material_recepcionm` 
+                                                WHERE `ID_RECEPCION`= '".$ID."';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
     
     //REGISTRO DE UNA NUEVA FILA    
 
@@ -489,9 +512,9 @@ class RECEPCIONM_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT *  ,
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',
-                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',
+                                                FECHA_RECEPCION AS 'FECHA',
                                                 IFNULL(`TOTAL_CANTIDAD_RECEPCION`,0) AS 'CANTIDAD'
                                              FROM `material_recepcionm`
                                              WHERE ESTADO_REGISTRO = 1 
