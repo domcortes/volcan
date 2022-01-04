@@ -62,7 +62,7 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                 <div class="container-full">                   
                     <section class="content">
                         <div class="row">                      
-                            <div class="col-xxl-7 col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 col-xs-12">				
+                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">				
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 class="box-title">Recepcion VS Proceso</h4>
@@ -116,7 +116,7 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                     </div>
                                 </div>
                             </div>                                                            
-                            <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 col-xs-12">				
+                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">				
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 class="box-title">Existencia MP</h4>
