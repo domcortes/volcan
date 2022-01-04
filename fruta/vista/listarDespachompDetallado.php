@@ -253,7 +253,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <thead>
                                                 <tr class="text-left">
                                                     <th>N° Folio </th>
-                                                    <th>Fecha Embalado/Cosecha </th>
+                                                    <th>Fecha Cosecha </th>
                                                     <th>Condición </th>
                                                     <th>Código Estandar</th>
                                                     <th>Envase/Estandar</th>

@@ -1,25 +1,25 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
 
-include_once '../controlador/CONDUCTOR_ADO.php';
-include_once '../controlador/TRANSPORTE_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/COMPRADOR_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/CONDUCTOR_ADO.php';
+include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/COMPRADOR_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
-include_once '../controlador/DESPACHOPT_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/DESPACHOPT_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -300,7 +300,7 @@ $html = '
   <body>
     <header class="clearfix">
       <div id="logo">
-           <img src="../vista/img/logo.png" width="150px" height="45px"/>
+           <img src="../../assest/img/logo.png" width="150px" height="45px"/>
       </div>
       <div id="company">
         <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
@@ -562,8 +562,8 @@ $PDF->SetSubject($ASUNTO); //ASUNTO PDF
 //$PDF->packTableData = true;
 
 //INICIALIZACION DEL CSS
-$stylesheet = file_get_contents('../vista/css/stylePdf.css'); // carga archivo css
-$stylesheet2 = file_get_contents('../vista/css/reset.css'); // carga archivo css
+$stylesheet = file_get_contents('../../assest/css/stylePdf.css'); // carga archivo css
+$stylesheet2 = file_get_contents('../../assest/css/reset.css'); // carga archivo css
 
 //ENLASAR CSS CON LA VISTA DEL PDF
 $PDF->WriteHTML($stylesheet, 1);

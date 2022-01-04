@@ -200,9 +200,9 @@ include_once "../../assest/config/reporteUrl.php";
                                                 <?php foreach ($ARRAYINVENTARIO as $r) : ?>
 
                                                     <?php                                            
-                                                    $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion2($r['RECEPCION']);
-                                                    $ARRAYDESPACHO = $DESPACHOE_ADO->verDespachoe2($r['DESPACHO']);
-                                                    $ARRAYDESPACHO2=$DESPACHOE_ADO->verDespachoe2($r['DESPACHO2']);
+                                                    $ARRAYRECEPCION = $RECEPCIONE_ADO->verRecepcion3($r['RECEPCION']);
+                                                    $ARRAYDESPACHO = $DESPACHOE_ADO->verDespachoe3($r['DESPACHO']);
+                                                    $ARRAYDESPACHO2=$DESPACHOE_ADO->verDespachoe3($r['DESPACHO2']);
                                                     if ($ARRAYRECEPCION) {
                                                         $NUMEROPERACION = $ARRAYRECEPCION[0]['NUMERO_RECEPCION'];
                                                         $NUMERODOCUMENTO = $ARRAYRECEPCION[0]['NUMERO_DOCUMENTO_RECEPCION'];

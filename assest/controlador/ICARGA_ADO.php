@@ -341,7 +341,7 @@ class ICARGA_ADO
                                         ) 
             VALUES
 	       	    (  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
-                 0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 1, 1);";
+                 0, 0, 0, 0, SYSDATE(), SYSDATE(), 1, 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -658,9 +658,9 @@ class ICARGA_ADO
 
             $datos = $this->conexion->prepare("SELECT *,DATEDIFF( FECHAETA_ICARGA, FECHAETD_ICARGA) AS 'ESTIMADO',
                                                         DATEDIFF(CURDATE(), FECHAETD_ICARGA ) AS 'REAL',
-                                                        DATE_FORMAT(FECHA_ICARGA, '%d-%m-%Y') AS 'FECHA', 
-                                                        DATE_FORMAT(FECHAETD_ICARGA, '%d-%m-%Y') AS 'FECHAETD', 
-                                                        DATE_FORMAT(FECHAETA_ICARGA, '%d-%m-%Y') AS 'FECHAETA', 
+                                                        FECHA_ICARGA AS 'FECHA', 
+                                                        FECHAETD_ICARGA AS 'FECHAETD', 
+                                                        FECHAETA_ICARGA AS 'FECHAETA', 
                                                         IFNULL(BOLAWBCRT_ICARGA, 'Sin Datos' ) AS 'CONTENEDOR',
                                                         IFNULL(TOTAL_ENVASE_ICAGRA,0) AS 'ENVASE',
                                                         IFNULL(TOTAL_NETO_ICARGA,0) AS 'NETO',

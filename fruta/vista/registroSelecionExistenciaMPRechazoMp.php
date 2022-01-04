@@ -1,22 +1,22 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/ERECEPCION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/ESPECIES_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/ERECEPCION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/ESPECIES_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
 
-include_once '../controlador/RECEPCIONMP_ADO.php';
-include_once '../controlador/DESPACHOMP_ADO.php';
+include_once '../../assest/controlador/RECEPCIONMP_ADO.php';
+include_once '../../assest/controlador/DESPACHOMP_ADO.php';
 
-include_once '../controlador/RECHAZOMP_ADO.php';
+include_once '../../assest/controlador/RECHAZOMP_ADO.php';
 
 
-include_once '../controlador/EXIMATERIAPRIMA_ADO.php';
-include_once '../modelo/EXIMATERIAPRIMA.php';
+include_once '../../assest/controlador/EXIMATERIAPRIMA_ADO.php';
+include_once '../../assest/modelo/EXIMATERIAPRIMA.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -105,7 +105,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function mueveReloj() {
@@ -163,7 +163,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php"; 
+            <?php include_once "../../assest/config/menuFruta.php"; 
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -225,7 +225,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <div clas="row">
                                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                             <div class="table-responsive">
-                                                <table id="selecionExistencia" class="table table-hover " style="width: 100%;">
+                                                <table id="selecionExistencia" class="table-hover " style="width: 100%;">
                                                     <thead>
                                                         <tr class="text-left">
                                                             <th>Folio </th>
@@ -339,10 +339,10 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                     <!-- /.box-body -->
                                     <div class="card-footer">
                                         <div class="btn-group btn-rounded btn-block col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-danger  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i> Cancelar
+                                            <button type="button" class="btn btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-primary" data-toggle="tooltip" title="Por Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
+                                            <button type="submit" class="btn  btn-primary" data-toggle="tooltip" title="Por Folio" name="AGREGAR" value="AGREGAR" <?php echo $DISABLED; ?>>
                                                 <i class="ti-save-alt"></i> P. Folio
                                             </button>
                                         </div>
@@ -356,11 +356,11 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <script>            
             const Toast = Swal.mixin({
                 toast: true,
@@ -414,18 +414,20 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
 
                 $_SESSION["parametro"] =  $_REQUEST['IDP'];
                 $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+
+                
                 echo '<script>
-                            Swal.fire({
-                                icon:"info",
-                                title:"Folios agregados al rechazo",
-                                showConfirmButton:true,
-                                confirmButtonText:"Volver al rechazo"
-                            }).then((result)=>{
-                                if(result.value){
-                                    location.href="' . $_REQUEST['URLO'] . '.php?op";
-                                }
-                            })
-                        </script>';
+                    Swal.fire({
+                        icon:"success",
+                        title:"Accion realizada",
+                        text:"Se agregado la existencia al rechazo.",
+                        showConfirmButton: true,
+                        confirmButtonText:"Volver a proceso",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>';
                 // echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
             }
         }

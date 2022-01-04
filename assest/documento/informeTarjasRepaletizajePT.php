@@ -1,16 +1,16 @@
 <?php
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES 
-include_once '../controlador/DREPALETIZAJEEX_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/DREPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
 
-include_once '../controlador/FOLIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/FOLIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -186,7 +186,7 @@ foreach ($ARRAYDREPALETIZAJEMP as $r) :
     <div class=" " >
 		<div class="titulotarja" style="text-align: center; >
              <b  "> 
-				 <img src="../vista/img/logo.png" width="90px" height="25px"/>
+				 <img src="../../assest/img/logo.png" width="90px" height="25px"/>
              </b><br>
             <b > 
 				PRODUCTO TERMINADO :   ' . $r['FOLIO_NUEVO_DREPALETIZAJE'] . ' 

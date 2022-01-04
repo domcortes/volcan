@@ -401,8 +401,8 @@ class INPSAG_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                                   DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                   DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                                    INGRESO AS 'INGRESO',
+                                                    MODIFICACION AS 'MODIFICACION',
                                                    IFNULL(CANTIDAD_ENVASE_INPSAG,0)  AS 'ENVASE',
                                                    IFNULL(KILOS_NETO_INPSAG,0)  AS 'NETO',
                                                    IFNULL(KILOS_BRUTO_INPSAG,0)  AS 'BRUTO',

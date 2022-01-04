@@ -1,17 +1,17 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TCONTENEDOR_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TCONTENEDOR_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
 
 
-include_once '../controlador/OCOMPRA_ADO.php';
-include_once '../controlador/DOCOMPRA_ADO.php';
+include_once '../../assest/controlador/OCOMPRA_ADO.php';
+include_once '../../assest/controlador/DOCOMPRA_ADO.php';
 
-include_once '../modelo/DOCOMPRA.php';
+include_once '../../assest/modelo/DOCOMPRA.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -81,57 +81,7 @@ $ARRAYOCOMPRA = "";
 $ARRAYPRODUCTO = $PRODUCTO_ADO->listarProductoPorEmpresaCBX($EMPRESAS);
 $ARRAYTCONTENEDOR = $TCONTENEDOR_ADO->listarTcontenedorPorEmpresaCBX($EMPRESAS);
 $ARRAYTUMEDIDA = $TUMEDIDA_ADO->listarTumedidaPorEmpresaCBX($EMPRESAS);
-include_once "../config/validarDatosUrlD.php";
-
-
-
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CREAR'])) {
-
-
-
-    //$VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
-    $DOCOMPRA->__SET('CANTIDAD_DOCOMPRA', $_REQUEST['CANTIDAD']);
-    $DOCOMPRA->__SET('VALOR_UNITARIO_DOCOMPRA', $_REQUEST['VALORUNITARIO']);
-    $DOCOMPRA->__SET('DESCRIPCION_DOCOMPRA', $_REQUEST['DESCRIPCION']);
-    $DOCOMPRA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $DOCOMPRA->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $DOCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DOCOMPRA_ADO->agregarDocompra($DOCOMPRA);
-
-
-    //REDIRECCIONAR A PAGINA registroRecepcion.php 
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['EDITAR'])) {
-
-    //$VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
-    $DOCOMPRA->__SET('CANTIDAD_DOCOMPRA', $_REQUEST['CANTIDAD']);
-    $DOCOMPRA->__SET('VALOR_UNITARIO_DOCOMPRA', $_REQUEST['VALORUNITARIO']);
-    $DOCOMPRA->__SET('DESCRIPCION_DOCOMPRA', $_REQUEST['DESCRIPCION']);
-    $DOCOMPRA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
-    $DOCOMPRA->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
-    $DOCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
-    $DOCOMPRA->__SET('ID_DOCOMPRA', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DOCOMPRA_ADO->actualizarDocompra($DOCOMPRA);
-
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
-if (isset($_REQUEST['ELIMINAR'])) {
-    $DOCOMPRA->__SET('ID_DOCOMPRA', $_REQUEST['ID']);
-    //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
-    $DOCOMPRA_ADO->deshabilitar($DOCOMPRA);
-    $_SESSION["parametro"] =  $_REQUEST['IDP'];
-    $_SESSION["parametro1"] =  $_REQUEST['OPP'];
-    echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php?op';</script>";
-}
+include_once "../../assest/config/validarDatosUrlD.php";
 
 
 
@@ -274,7 +224,7 @@ if (isset($_POST)) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function total() {
@@ -398,7 +348,7 @@ if (isset($_POST)) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuMaterial.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -406,15 +356,14 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Detalle </h3>
+                                <h3 class="page-title">Orden Compra </h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">Módulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Orden Compra</li>
-                                            <li class="breadcrumb-item" aria-current="page">Envases</li>
-                                            <li class="breadcrumb-item" aria-current="page">Registro Orden </li>
+                                            <li class="breadcrumb-item" aria-current="page">Registro Orden Compra</li>
                                             <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Detalle </a>
                                             </li>
                                         </ol>
@@ -453,7 +402,7 @@ if (isset($_POST)) {
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <label>Producto</label>
                                             <input type="hidden" class="form-control" placeholder="ID DOCOMPRA" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
                                             <input type="hidden" class="form-control" placeholder="ID OCOMPRA" id="IDP" name="IDP" value="<?php echo $IDP; ?>" />
@@ -483,7 +432,7 @@ if (isset($_POST)) {
                                             <input type="text" class="form-control" placeholder="Unidad Medida" id="TUMEDIDAV" name="TUMEDIDAV" value="<?php echo $TUMEDIDAV; ?>" disabled />
                                             <label id="val_tumedida" class="validacion"> </label>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Cantidad Producto</label>
                                                 <input type="hidden" class="form-control" placeholder="CANTIDADE" id="CANTIDADE" name="CANTIDADE" value="<?php echo $CANTIDAD; ?>" />
@@ -491,7 +440,7 @@ if (isset($_POST)) {
                                                 <label id="val_cantidad" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Valor Unitario </label>
                                                 <input type="hidden" class="form-control" placeholder="VALORUNITARIOE" id="VALORUNITARIOE" name="VALORUNITARIOE" value="<?php echo $VALORUNITARIO; ?>" />
@@ -499,7 +448,7 @@ if (isset($_POST)) {
                                                 <label id="val_vu" class="validacion"> </label>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
+                                        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Valor Total </label>
                                                 <input type="hidden" class="form-control" placeholder="VALORTOTAL" id="VALORTOTAL" name="VALORTOTAL" value="<?php echo $VALORTOTAL; ?>" />
@@ -529,18 +478,18 @@ if (isset($_POST)) {
                                         </button>
                                         <?php if ($OP == "") { ?>
                                             <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                <i class="ti-save-alt"></i> Agregar
+                                                <i class="ti-save-alt"></i> Guardar
                                             </button>
                                         <?php } ?>
                                         <?php if ($OP != "") { ?>
                                             <?php if ($OP == "crear") { ?>
                                                 <button type="submit" class="btn  btn-primary " data-toggle="tooltip" title="Crear" name="CREAR" value="CREAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Duplicar
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "editar") { ?>
                                                 <button type="submit" class="btn  btn-warning   " data-toggle="tooltip" title="Editar" name="EDITAR" value="EDITAR" <?php echo $DISABLED; ?> onclick="return validacion()">
-                                                    <i class="ti-save-alt"></i> Editar
+                                                    <i class="ti-save-alt"></i> Guardar
                                                 </button>
                                             <?php } ?>
                                             <?php if ($OP == "eliminar") { ?>
@@ -559,11 +508,91 @@ if (isset($_POST)) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php";   ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php";   ?>
+                <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php 
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['CREAR'])) {
+
+
+
+                //$VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
+                $DOCOMPRA->__SET('CANTIDAD_DOCOMPRA', $_REQUEST['CANTIDAD']);
+                $DOCOMPRA->__SET('VALOR_UNITARIO_DOCOMPRA', $_REQUEST['VALORUNITARIO']);
+                $DOCOMPRA->__SET('DESCRIPCION_DOCOMPRA', $_REQUEST['DESCRIPCION']);
+                $DOCOMPRA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $DOCOMPRA->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $DOCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DOCOMPRA_ADO->agregarDocompra($DOCOMPRA);
+
+
+                //REDIRECCIONAR A PAGINA registroRecepcion.php 
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                        Swal.fire({
+                            icon:"success",
+                            title:"Registro creado",
+                            text:"El registro de detalle de OC se ha creado correctamente",
+                            showConfirmButton:true,
+                            confirmButtonText:"Volver a OC"
+                        }).then((result)=>{
+                            location.href ="'. $_REQUEST['URLO'].'.php?op";                            
+                        })
+                    </script>';
+            }
+            if (isset($_REQUEST['EDITAR'])) {
+
+                //$VALORTOTAL = $_REQUEST['CANTIDAD'] * $_REQUEST['VALORUNITARIO'];
+                $DOCOMPRA->__SET('CANTIDAD_DOCOMPRA', $_REQUEST['CANTIDAD']);
+                $DOCOMPRA->__SET('VALOR_UNITARIO_DOCOMPRA', $_REQUEST['VALORUNITARIO']);
+                $DOCOMPRA->__SET('DESCRIPCION_DOCOMPRA', $_REQUEST['DESCRIPCION']);
+                $DOCOMPRA->__SET('ID_PRODUCTO', $_REQUEST['PRODUCTO']);
+                $DOCOMPRA->__SET('ID_TUMEDIDA', $_REQUEST['TUMEDIDA']);
+                $DOCOMPRA->__SET('ID_OCOMPRA', $_REQUEST['IDP']);
+                $DOCOMPRA->__SET('ID_DOCOMPRA', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DOCOMPRA_ADO->actualizarDocompra($DOCOMPRA);
+
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"info",
+                        title:"Registro Modificado",
+                        text:"El registro del detalle de OC se ha modificada correctamente",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a OC"
+                    }).then((result)=>{
+                        location.href ="'. $_REQUEST['URLO'].'.php?op";                            
+                    })
+                </script>';
+            }
+            if (isset($_REQUEST['ELIMINAR'])) {
+                $DOCOMPRA->__SET('ID_DOCOMPRA', $_REQUEST['ID']);
+                //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
+                $DOCOMPRA_ADO->deshabilitar($DOCOMPRA);
+                $_SESSION["parametro"] =  $_REQUEST['IDP'];
+                $_SESSION["parametro1"] =  $_REQUEST['OPP'];
+                echo '<script>
+                    Swal.fire({
+                        icon:"error",
+                        title:"Registro Eliminado",
+                        text:"El registro del detalle OC se ha eliminado correctamente ",
+                        showConfirmButton:true,
+                        confirmButtonText:"Volver a OC"
+                    }).then((result)=>{
+                        location.href ="' . $_REQUEST['URLO'] . '.php?op";                        
+                    })
+                </script>';
+            }
+
+        ?>
 </body>
 
 </html>

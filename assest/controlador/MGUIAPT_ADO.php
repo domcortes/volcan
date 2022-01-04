@@ -164,7 +164,7 @@ class MGUIAPT_ADO {
                                             ID_TEMPORADA, 
                                             ID_USUARIOI, 
                                             ID_USUARIOM, 
-                                            FECHA_INGRESO_MGUIA,
+                                            INGRESO,
                                             ESTADO_REGISTRO
                                      ) VALUES
 	       	( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), 1);";

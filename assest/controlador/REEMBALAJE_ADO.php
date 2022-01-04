@@ -412,9 +412,9 @@ class REEMBALAJE_ADO
                                                 IFNULL(KILOS_INDUSTRIALNC_REEMBALAJE,0) AS 'INDUSTRIALNC'    ,                                                
                                                 IFNULL(KILOS_NETO_REEMBALAJE,0) AS 'NETO',                                        
                                                 IFNULL(KILOS_NETO_ENTRADA,0) AS 'ENTRADA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',      
-                                                DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y') AS 'FECHA'
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION',      
+                                                FECHA_REEMBALAJE AS 'FECHA'
                                         FROM fruta_reembalaje                                                                               
                                         WHERE   ESTADO_REGISTRO = 1 
                                         AND ID_EMPRESA = '" . $EMPRESA . "' 

@@ -7,30 +7,22 @@ include_once '../../assest/controlador/EMPRESA_ADO.php';
 include_once '../../assest/controlador/PLANTA_ADO.php';
 include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
-include_once '../../assest/controlador/EEXPORTACION_ADO.php';
-include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
-include_once '../../assest/controlador/DESPACHOEX_ADO.php';
-include_once '../../assest/controlador/ICARGA_ADO.php';
-
-include_once '../../assest/controlador/EXPORTADORA_ADO.php';
-include_once '../../assest/controlador/TINPSAG_ADO.php';
 include_once '../../assest/controlador/VESPECIES_ADO.php';
 include_once '../../assest/controlador/PRODUCTOR_ADO.php';
-include_once '../../assest/controlador/INPECTOR_ADO.php';
-include_once '../../assest/controlador/CONTRAPARTE_ADO.php';
-include_once '../../assest/controlador/PAIS_ADO.php';
-include_once '../../assest/controlador/TMANEJO_ADO.php';
-include_once '../../assest/controlador/PROVINCIA_ADO.php';
-include_once '../../assest/controlador/COMUNA_ADO.php';
-include_once '../../assest/controlador/CIUDAD_ADO.php';
-include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+
 include_once '../../assest/controlador/CONDUCTOR_ADO.php';
 include_once '../../assest/controlador/TRANSPORTE_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/COMPRADOR_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/CIUDAD_ADO.php';
+include_once '../../assest/controlador/PROVINCIA_ADO.php';
+include_once '../../assest/controlador/COMUNA_ADO.php';
 
-
-
-include_once '../../assest/modelo/INPSAG.php';
-include_once '../../assest/modelo/EXIEXPORTACION.php';
+include_once '../../assest/controlador/DESPACHOPT_ADO.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -41,144 +33,74 @@ $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
 
-
-
-$EEXPORTACION_ADO = new EEXPORTACION_ADO();
-$EXIEXPORTACION_ADO = new EXIEXPORTACION_ADO();
-$DESPACHOEX_ADO =  new DESPACHOEX_ADO();
-
-$ICARGA_ADO =  new ICARGA_ADO();
-$EXPORTADORA_ADO =  new EXPORTADORA_ADO();
-$TINPSAG_ADO =  new TINPSAG_ADO();
 $VESPECIES_ADO =  new VESPECIES_ADO();
 $PRODUCTOR_ADO = new PRODUCTOR_ADO();
-$INPECTOR_ADO =  new INPECTOR_ADO();
-$CONTRAPARTE_ADO =  new CONTRAPARTE_ADO();
-$PAIS_ADO =  new PAIS_ADO();
-$TMANEJO_ADO =  new TMANEJO_ADO();
-$PROVINCIA_ADO =  new PROVINCIA_ADO();
-$COMUNA_ADO =  new COMUNA_ADO();
-$CIUDAD_ADO =  new CIUDAD_ADO();
-$TCALIBRE_ADO =  new TCALIBRE_ADO();
+$EEXPORTACION_ADO =  new EEXPORTACION_ADO();
+
 $TRANSPORTE_ADO =  new TRANSPORTE_ADO();
 $CONDUCTOR_ADO =  new CONDUCTOR_ADO();
+$PRODUCTOR_ADO =  new PRODUCTOR_ADO();
+$COMPRADOR_ADO =  new COMPRADOR_ADO();
+$TCALIBRE_ADO =  new TCALIBRE_ADO();
+$CIUDAD_ADO =  new CIUDAD_ADO();
+$PROVINCIA_ADO =  new PROVINCIA_ADO();
+$COMUNA_ADO =  new COMUNA_ADO();
 
 
+$DESPACHOPT_ADO =  new DESPACHOPT_ADO();
+$EXIEXPORTACION_ADO =  new EXIEXPORTACION_ADO();
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
-$NUMERO = "";
-$NUMEROVER = "";
-$IDDESPACHOEX = "";
-$FECHADESPACHOEX = "";
-$FECHAINGRESODESPACHOEX = "";
-$FECHAMODIFCIACIONDESPACHOEX = "";
-$TINPSAG = "";
-$EMBARQUE = "";
-$NOMBRETINPSAG = "";
-$NOMBRETESTADOSAG = "";
 
-$OBSERVACIONDESPACHOEX = "";
-$INPECTOR = "";
-$CONTRAPARTE = "";
-$PAIS = "";
+$NUMERODESPACHO = "";
 $EMPRESA = "";
-$TEMPORADA = "";
-$PLANTA = "";
-$CALIBRE = "";
-$TMANEJO = "";
 $EMPRESAURL = "";
-
-$CIF="";
+$FECHA = "";
+$FECHAINGRESO = "";
+$FECHAMODIFCACION = "";
+$EMPRESA = "";
+$PLANTA = "";
+$PLANTA2 = "";
+$PLANTA3 = "";
+$TEMPORADA = "";
+$NUMEROSELLO = "";
+$NUMEROGUIA = "";
+$TDESPACHO = "";
+$TRANSPORTE = "";
+$PATENTECAMION = "";
+$PATENTECARRO = "";
+$CONDUCTOR = "";
+$PRODUCTOR = "";
+$COMPRADOR = "";
+$REGALO = "";
+$PRECIOPALLET = "";
+$TOTALPALLET = "";
 
 $TOTALENVASE = "";
 $TOTALNETO = "";
-$TOTALBRUTO = "";
+$NUMERO = "";
 
-$TOTALENVASE2 = "";
-$TOTALNETO2 = "";
-$TOTALBRUTO2 = "";
-
-$CSGPRODUCTOR = "";
-$NOMBREPRODUCTOR = "";
-$COMUNAPRODUCTOR = "";
-$PROVINCIAPRODUCTOR="";
-
-$CODIGOESTANDAR = "";
-$NOMBREESTANDAR = "";
-$NOMBREVARIEDAD = "";
-
-
-$CSPPLANTA="";
-$RAZONPLANTA="";
-$COMUNAPLANTA="";
-$CIUDADPLANTA="";
-$NOMBREPROVINICA="";
-$CSPPLANTA2="";
-$NOMBREPLANTA2="";
-$COMUNAPLANTA2="";
-$PROVINCIAPLANTA2="";
-
-
-$CSPPLANTA3="";
-$NOMBREPLANTA3="";
-$COMUNAPLANTA3="";
-$PROVINCIAPLANTA3="";
-$NOMBRENAVE="";
-$NOMBREEXPORTADORA="";
-$NOMBRECONTRAPARTE="";
-
-$FECHAETA="";
-$FECHAETD="";
+$IDOP = "";
+$OP = "";
 
 //INICIALIZAR ARREGLOS
-$ARRAYDESPACHOEX = "";
-$ARRAYEXIEXPORTACION = "";
-$ARRAYEXIEXPORTACION2 = "";
-$ARRAYEXIEXPORTACIONBOLSA = "";
-$ARRAYEXIEXPORTACIONBOLSA2 = "";
-$ARRAYEXIEXPORTACIONBOLSA3 = "";
-
-$ARRAYEXIEXPORTACIONPRODUCTOR = "";
-$ARRAYEXIEXPORTACIONPRODUCTORESTANDAR = "";
-$ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = "";
-
-$ARRAYEXIEXPORTACIONPRODUCTORTOTAL = "";
-$ARRAYEXIEXPORTACIONPRODUCTORESTANDARTOTAL = "";
-$ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = "";
-
-$ARRAYEXIEXPORTACIONTOTAL = "";
-$ARRAYEXIEXPORTACIONTOTAL2 = "";
-$ARRAYEXIEXPORTACIONBOLSATOTAL = "";
-
-$ARRAYINPECTOR = "";
-$ARRAYCONTRAPARTE = "";
-$ARRAYPAIS = "";
-$ARRAYCIUDAD = "";
-$ARRAYCOMUNA = "";
-$ARRAYPROVINCIA = "";
-
-
-$ARRAYCIUDAD3 = "";
-$ARRAYCOMUNA3= "";
-$ARRAYCIUDAD2 = "";
-$ARRAYCOMUNA2 = "";
-$ARRAYNAVE="";
-
-$ARRAYEXPORTADORA="";
-$ARRAYFOLIO = "";
 $ARRAYEMPRESA = "";
 $ARRAYPLANTA = "";
-$ARRAYPLANTA2 = "";
 $ARRAYTEMPORADA = "";
-$ARRAYVESPECIES = "";
-$ARRAYPVESPECIES = "";
-$ARRAYEEXPORTACION = "";
+$ARRAYDESPACHO = "";
+$ARRAYEXISTENCIATOMADA = "";
+
+$ARRAYTRANSPORTE = "";
+$ARRAYCONDUCTOR = "";
+$ARRAYCOMPRADOR = "";
 $ARRAYPRODUCTOR = "";
-$ARRAYCALIBRE = "";
-$ARRAYTMANEJO = "";
+$ARRAYPLANTA2 = "";
+$ARRAYPLANTA3 = "";
 $ARRAYUSUARIO="";
-$ARRAYICARGA="";
+$ARRAYCALIBRE="";
 
-
+$ARRAYVERPRODUCTORID = "";
+$ARRAYVERVESPECIESID = "";
+$ARRAYEVERERECEPCIONID = "";
 
 if (isset($_REQUEST['usuario'])) {
   $USUARIO = $_REQUEST['usuario'];
@@ -187,134 +109,126 @@ if (isset($_REQUEST['usuario'])) {
 }
 
 
-
 if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
+  $NUMERODESPACHO = $IDOP;
 }
+$ARRAYDESPACHO = $DESPACHOPT_ADO->verDespachopt2($IDOP);
+if($ARRAYDESPACHO){
 
-$ARRAYDESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($IDOP);
+  $ARRAYDESPACHOTOTAL = $DESPACHOPT_ADO->obtenerTotalesDespachoptPorDespachoCBX2($IDOP);
 
-if($ARRAYDESPACHOEX){
+  $ARRAYDESPACHOTOTAL2 = $EXIEXPORTACION_ADO->obtenerTotalesDespacho2($IDOP);
+  $ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPordespacho2($IDOP);  
+  $TOTALENVASE = $ARRAYDESPACHOTOTAL2[0]['ENVASE'];
+  $TOTALNETO = $ARRAYDESPACHOTOTAL2[0]['NETO'];
+  $TOTALPRECIO = $ARRAYDESPACHOTOTAL2[0]['TOTAL_PRECIO'];
 
-  $ARRAYEXIEXPORTACION = $EXIEXPORTACION_ADO->buscarPorDespachoex2AgrupadoFolio($IDOP);
-  $ARRAYEXIEXPORTACIONTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesDespachoEx2($IDOP);
-  $TOTALENVASE = $ARRAYEXIEXPORTACIONTOTAL[0]['ENVASE'];
-  $TOTALNETO = $ARRAYEXIEXPORTACIONTOTAL[0]['NETO'];
-  $TOTALBRUTO = $ARRAYEXIEXPORTACIONTOTAL[0]['BRUTO'];
   
-  $ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaDespachoexInspeccion2($IDOP);
-  $ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2($IDOP);
+  $ARRAYEXIEXPORTACIONBOLSA = $EXIEXPORTACION_ADO->buscarExistenciaDespachoInspeccion2($IDOP);
+  $ARRAYEXIEXPORTACIONBOLSATOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoe2($IDOP);
   $TOTALENVASEBOLSA = $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['ENVASE'];
   $TOTALNETOBOLSA= $ARRAYEXIEXPORTACIONBOLSATOTAL[0]['NETO'];
   
-  $NUMERODESPACHOEX = $ARRAYDESPACHOEX[0]['NUMERO_DESPACHOEX'];
-  $NUMEROPLANILLA = $ARRAYDESPACHOEX[0]['NUMERO_PLANILLA_DESPACHOEX'];
-  $FECHADESPACHOEX = $ARRAYDESPACHOEX[0]['FECHA'];
-  $EMBARQUE = $ARRAYDESPACHOEX[0]['TEMBARQUE_DESPACHOEX'];
-  $NUMEROGUIA = $ARRAYDESPACHOEX[0]['NUMERO_GUIA_DESPACHOEX'];
-  $NUMEROCONTENEDOR = $ARRAYDESPACHOEX[0]['NUMERO_CONTENEDOR_DESPACHOEX'];  
-  $FECHAETA= $ARRAYDESPACHOEX[0]['ETA'];
-  $FECHAETD= $ARRAYDESPACHOEX[0]['ETD'];  
-  $ESTADO = $ARRAYDESPACHOEX[0]['ESTADO'];
-  $PATENTECAMION = $ARRAYDESPACHOEX[0]['PATENTE_CAMION'];
-  $PATENTECARRO = $ARRAYDESPACHOEX[0]['PATENTE_CARRO'];
-  $OBSERVACIONES = $ARRAYDESPACHOEX[0]['OBSERVACION_DESPACHOEX'];
   
-  if ($ARRAYDESPACHOEX[0]['ESTADO'] == 1) {
+  $NUMERO = $ARRAYDESPACHO[0]['NUMERO_DESPACHO'];
+  $FECHA = $ARRAYDESPACHO[0]['FECHA'];
+  $FECHAINGRESO = $ARRAYDESPACHO[0]['INGRESO'];
+  $FECHAMODIFCACION = $ARRAYDESPACHO[0]['MODIFICACION'];
+  $TDESPACHO = $ARRAYDESPACHO[0]['TDESPACHO'];
+  $PATENTECAMION = $ARRAYDESPACHO[0]['PATENTE_CAMION'];
+  $PATENTECARRO = $ARRAYDESPACHO[0]['PATENTE_CARRO'];
+  $OBSERVACIONES = $ARRAYDESPACHO[0]['OBSERVACION_DESPACHO'];
+  
+  $ESTADO = $ARRAYDESPACHO[0]['ESTADO'];
+  if ($ARRAYDESPACHO[0]['ESTADO'] == 1) {
     $ESTADO = "Abierto";
-  }else if ($ARRAYDESPACHOEX[0]['ESTADO'] == 0) {
+  }else if ($ARRAYDESPACHO[0]['ESTADO'] == 0) {
     $ESTADO = "Cerrado";
   }else{
     $ESTADO="Sin Datos";
   }  
-
-  
-  $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYDESPACHOEX[0]['ID_TRANSPORTE']);
-  if($ARRAYTRANSPORTE){
-    $TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
-  }else{
-    $TRANSPORTE="Sin Datos";
-  }
-  $ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYDESPACHOEX[0]['ID_CONDUCTOR']);
-  if($ARRAYCONDUCTOR){
-    $CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
-  }else{
-    $CONDUCTOR="Sin Datos";
-  }
-  
-
-  $ARRAYCONTRAPARTE = $CONTRAPARTE_ADO->verContraparte($ARRAYDESPACHOEX[0]['ID_CONTRAPARTE']);
-  if($ARRAYCONTRAPARTE){
-      $NOMBRECONTRAPARTE = $ARRAYCONTRAPARTE[0]['ID_CONTRAPARTE'];
-  }
   
   
-  $ARRAYEXPORTADORA=$EXPORTADORA_ADO->verExportadora($ARRAYDESPACHOEX[0]['ID_EXPPORTADORA']);
-  if($ARRAYEXPORTADORA){
-    $NOMBREEXPORTADORA=$ARRAYEXPORTADORA[0]['RAZON_SOCIAL_EXPORTADORA'];
-  }
+  $IDUSUARIOI = $ARRAYDESPACHO[0]['ID_USUARIOI'];  
+  $ARRAYUSUARIO2 = $USUARIO_ADO->ObtenerNombreCompleto($IDUSUARIOI);
+  $NOMBRERESPONSABLE = $ARRAYUSUARIO2[0]["NOMBRE_COMPLETO"];
   
-  if($ARRAYDESPACHOEX[0]['ID_ICARGA']){
-    $ARRAYICARGA=$ICARGA_ADO->verIcarga($ARRAYDESPACHOEX[0]['ID_ICARGA']);
-    if($ARRAYICARGA){
-      
-    $NUMEROICARGA=$ARRAYICARGA[0]['NUMERO_ICARGA'];
-    $NUMEROICARGAFINAL=$ARRAYICARGA[0]['NREFERENCIA_ICARGA'];
   
+  if ($TDESPACHO == "1") {
+    $TDESPACHON = "Interplanta";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $NUMEROSELLO = $ARRAYDESPACHO[0]['NUMERO_SELLO_DESPACHO'];
+    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA2']);
+    if ($ARRAYPLANTA2) {
+      $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
+    } else {
+      $DESTINO = "Sin Datos";
     }
-  }else{
-    $NUMEROICARGA="Sin Datos";
-    $NUMEROICARGAFINAL="Sin Datos";
   }
-  
-  $NOMBRENAVE= $ARRAYDESPACHOEX[0]['NAVE_DESPACHOEX'];
-  
-  
-  if ($EMBARQUE == null || $EMBARQUE == "0") {
-    $NOMBRETEMBARQUE = "Sin Tipo";
+  if ($TDESPACHO == "2") {
+    $TDESPACHON = "Devolución Productor";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $NUMEROSELLO = $ARRAYDESPACHO[0]['NUMERO_SELLO_DESPACHO'];
+    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYDESPACHO[0]['ID_PRODUCTOR']);
+    if ($ARRAYPRODUCTOR) {
+      $CODIGOPRODUCTOR = $ARRAYPRODUCTOR[0]['CODGIGO_PRODUCTOR'];
+      $DESTINO = $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
+    } else {
+      $CODIGOPRODUCTOR = "";
+      $DESTINO = "";
+    }
   }
-  if ($EMBARQUE == "1") {
-    $NOMBRETEMBARQUE = "Terrestre";
+  if ($TDESPACHO == "3") {
+    $TDESPACHON = "Venta";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $NUMEROSELLO = $ARRAYDESPACHO[0]['NUMERO_SELLO_DESPACHO'];
+    $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYDESPACHO[0]['ID_COMPRADOR']);
+    if ($ARRAYCOMPRADOR) {
+      $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
+    } else {
+      $DESTINO = "";
+    }
   }
-  if ($EMBARQUE == "2") {
-    $NOMBRETEMBARQUE = "Aereo";
+  if ($TDESPACHO == "4") {
+    $TDESPACHON = "Despacho de Descarte(R)";
+    $NUMEROGUIA = "No Aplica";
+    $NUMEROSELLO = "No Aplica";
+    $DESTINO = $ARRAYDESPACHO[0]['REGALO_DESPACHO'];
   }
-  if ($EMBARQUE == "3") {
-    $NOMBRETEMBARQUE = "Maritimo";
-  }
+  if ($TDESPACHO == "5") {
+    $TDESPACHON = "Planta Externa";
+    $NUMEROGUIA = $ARRAYDESPACHO[0]['NUMERO_GUIA_DESPACHO'];
+    $NUMEROSELLO = $ARRAYDESPACHO[0]['NUMERO_SELLO_DESPACHO'];
+    $ARRAYPLANTA3= $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA3']);
+    if ($ARRAYPLANTA3) {
+      $DESTINO = $ARRAYPLANTA3[0]['NOMBRE_PLANTA'];
+    } else {
+      $DESTINO = "";
+    }
+  } 
   
   
+  $ARRAYTRANSPORTE = $TRANSPORTE_ADO->verTransporte($ARRAYDESPACHO[0]['ID_TRANSPORTE']);
+  $ARRAYCONDUCTOR = $CONDUCTOR_ADO->verConductor($ARRAYDESPACHO[0]['ID_CONDUCTOR']);;
   
+  $TRANSPORTE = $ARRAYTRANSPORTE[0]['NOMBRE_TRANSPORTE'];
+  $CONDUCTOR = $ARRAYCONDUCTOR[0]['NOMBRE_CONDUCTOR'];
   
+  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHO[0]['ID_PLANTA']);
+  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYDESPACHO[0]['ID_TEMPORADA']);
+  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYDESPACHO[0]['ID_EMPRESA']);
   
-  $ARRAYPLANTA = $PLANTA_ADO->verPlanta($ARRAYDESPACHOEX[0]['ID_PLANTA']);
-  $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($ARRAYDESPACHOEX[0]['ID_EMPRESA']);
-  $ARRAYTEMPORADA = $TEMPORADA_ADO->verTemporada($ARRAYDESPACHOEX[0]['ID_TEMPORADA']);
   $TEMPORADA = $ARRAYTEMPORADA[0]['NOMBRE_TEMPORADA'];
-  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA']; 
-  
-  
-  
-  $CSPPLANTA=$ARRAYPLANTA[0]['CODIGO_SAG_PLANTA'];
-  $RAZONPLANTA=$ARRAYPLANTA[0]['RAZON_SOCIAL_PLANTA'];
-  
-  
-  $ARRAYCIUDAD3 = $CIUDAD_ADO->verCiudad($ARRAYPLANTA[0]['ID_CIUDAD']);
-  $CIUDADPLANTA=$ARRAYCIUDAD3[0]['NOMBRE_CIUDAD'];
-  
-  
-  $ARRAYCOMUNA3 = $COMUNA_ADO->verComuna($ARRAYCIUDAD3[0]['ID_COMUNA']);
-  $COMUNAPLANTA=$ARRAYCOMUNA3[0]['NOMBRE_COMUNA'];;
-  
+  $PLANTA = $ARRAYPLANTA[0]['NOMBRE_PLANTA'];
   $EMPRESA = $ARRAYEMPRESA[0]['NOMBRE_EMPRESA'];
   $EMPRESAURL = $ARRAYEMPRESA[0]['LOGO_EMPRESA'];
   
   if ($EMPRESAURL == "") {
     $EMPRESAURL = "img/empresa/no_disponible.png";
   }
-  
-  
 }
+
 
 //OBTENCION DE LA FECHA
 date_default_timezone_set('America/Santiago');
@@ -382,8 +296,7 @@ $FECHANORMAL2 = $DIA . "/" . $MES . "/" . $ANO;
 $FECHANOMBRE = $NOMBREDIA . ", " . $DIA . " de " . $NOMBREMES . " del " . $ANO;
 
 
-$html = '
-<!DOCTYPE html>
+$html = '<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -392,52 +305,70 @@ $html = '
   <body>
     <header class="clearfix">
       <div id="logo">
-           <img src="../../assest/img/logo.png" width="100px" height="30px"/>
+           <img src="../../assest/img/logo.png" width="150px" height="45px"/>
       </div>
       <div id="company">
         <h2 class="name">Soc. Agrícola El Álamo Ltda.</h2>
         <div>Camino a Antuco, Kilómetro N°13</div>
         <div>Los Ángeles, Chile.</div>
+        <div><a href="mailto:ti@fvolcan.com">ti@fvolcan.cl</a></div>
       </div>
     </header>
     <main>
       <h2 class="titulo" style="text-align: center; color: black;">
-        INFORME DESPACHO EXPORTACION
+        INFORME DESPACHO PRODUCTO TERMINADO
         <br>
-        <b> Número Despacho: ' . $NUMEROPLANILLA . '</b>
+        <b> Número Despacho: ' . $NUMERO . '</b>
       </h2>
-      <div id="details" class="clearfix">        
-        <div id="invoice">
-          <div class="date"><b>Código BRC: </b>REP-DESPCOM </div>  
-          <div class="date"><b>Fecha Despacho: </b>' . $FECHADESPACHOEX . ' </div>
-          <div class="date"><b>Empresa: </b>' . $EMPRESA . '</div>
-          <div class="date"><b>Planta: </b>' . $PLANTA . '</div>
-          <div class="date"><b>Temporada: </b>' . $TEMPORADA . '</div>
-        </div>
+      <div id="details" class="clearfix">
+        
+      <div id="invoice">
+        <div class="date"><b>Código BRC: </b>REP-DESPPT </div>  
+        <div class="date"><b>Fecha Despacho: </b>' . $FECHA . ' </div>
+        <div class="date"><b>Empresa: </b>' . $EMPRESA . '  </div>
+        <div class="date"><b>Planta: </b>' . $PLANTA . '  </div>
+        <div class="date"><b>Temporada: </b>' . $TEMPORADA . '  </div>
+      </div>
+
+
         <div id="client">
-           <div class="address"><b>Exportadora: </b>' . $NOMBREEXPORTADORA . '</div>
-           <div class="address"><b>Establecimiento: </b>' . $RAZONPLANTA . '</div>
-           <div class="address"><b>Comuna: </b>' . $COMUNAPLANTA . '</div>
-           <div class="address"><b>Ciudad: </b>' . $CIUDADPLANTA . '</div>
-           <div class="address"><b>CSP: </b>' . $CSPPLANTA . '</div>
-           <div class="address"><b>Estado Despacho: </b> ' . $ESTADO . ' </div>
-        </div>   
-        <div id="client">
-           <div class="address">
-                <b>Número Intructivo: </b>' . $NUMEROICARGA . ' 
-                <b>Número Final: </b>' . $NUMEROICARGAFINAL . '
-            </div>
-           <div class="address"><b>Número Guía: </b>' . $NUMEROGUIA . '</div>
-           <div class="address"><b>Número Contenedor: </b>' . $NUMEROCONTENEDOR . '</div>
-           <div class="address"><b>Nave : </b>' . $NOMBRENAVE . '</div>
-           <div class="address"><b>Fecha ETD: </b>' . $FECHAETD . '</div>
-           <div class="address"><b>Fecha ETA: </b>' . $FECHAETA . '</div>
-        </div>            
-      </div>     
-        ';
+          <div class="address"><b>Número Guía:  </b>' . $NUMEROGUIA . '</div>
+          <div class="address"><b>Número Sello:  </b>' . $NUMEROSELLO . '</div>
+          <div class="address"><b>Tipo Despacho:  </b>' . $TDESPACHON . '</div>
+          ';
+if ($TDESPACHO == "1") {
+  $html .= '
+            <div class="address"><b>Planta Destino:  </b>' . $DESTINO . '</div>
+            ';
+}
+if ($TDESPACHO == "2") {
+  $html .= '
+            <div class="address"><b>CSG:  </b>' . $CODIGOPRODUCTOR . '</div>
+            <div class="address"><b>Productor Destino:  </b>' . $DESTINO . '</div>
+            ';
+}
+if ($TDESPACHO == "3") {
+  $html .= '
+            <div class="address"><b>Comprador Destino:  </b>' . $DESTINO . '</div>
+            ';
+}
+if ($TDESPACHO == "4") {
+  $html .= '
+            <div class="address"><b>Destino:  </b>' . $DESTINO . '</div>
+            ';
+}
+if ($TDESPACHO == "5") {
+  $html .= '
+            <div class="address"><b>Planta Destino:  </b>' . $DESTINO . '</div>
+            ';
+}
+
 
 
         $html = $html . '
+        <div class="address"><b>Estado Despacho: </b> ' . $ESTADO . ' </div>
+    </div>        
+  </div>
         <table border="0" cellspacing="0" cellpadding="0">
           <thead>
             <tr>
@@ -450,6 +381,7 @@ $html = '
               <th class="color center ">Provincia </th>
               <th class="color center ">Variedad </th>
               <th class="color center ">Cantidad Envases </th>
+              <th class="color center ">Kilos Neto </th>
             </tr>
           </thead>
            <tbody>
@@ -457,8 +389,8 @@ $html = '
   
   foreach ($ARRAYEXIEXPORTACIONBOLSA as $a) :
   
-    $ARRAYEXIEXPORTACIONPRODUCTOR = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2DiferenciadoProductor($IDOP, $a['ID_PRODUCTOR']);
-    $ARRAYEXIEXPORTACIONPRODUCTORTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeExnDiferenciadoProductor2($IDOP, $a['ID_PRODUCTOR']);
+    $ARRAYEXIEXPORTACIONPRODUCTOR = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespacho2DiferenciadoProductor($IDOP, $a['ID_PRODUCTOR']);
+    $ARRAYEXIEXPORTACIONPRODUCTORTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoenDiferenciadoProductor2($IDOP, $a['ID_PRODUCTOR']);
     $TOTALENVASEPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['ENVASE'];
     $TOTALNETOPRODUCTOR = $ARRAYEXIEXPORTACIONPRODUCTORTOTAL[0]['NETO'];
   
@@ -470,15 +402,14 @@ $html = '
       $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]["NOMBRE_PRODUCTOR"];
       $COMUNAPRODUCTOR = $ARRAYCOMUNA[0]["NOMBRE_COMUNA"];
       $ARRAYPROVINCIA= $PROVINCIA_ADO->verProvincia($ARRAYCOMUNA[0]["ID_PROVINCIA"]);
-      $NOMBREPROVINICA=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"];
+      $NOMBREPROVINICA=$ARRAYPROVINCIA[0]["NOMBRE_PROVINCIA"]; 
   
   
-  
-          $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoEx2ProductorEstandarDiferenciadoProductorVariedad($IDOP, $b['ID_PRODUCTOR']);
+          $ARRAYEXIEXPORTACIONBOLSA3 = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespacho2ProductorEstandarDiferenciadoProductorVariedad($IDOP, $b['ID_PRODUCTOR']);
           foreach ($ARRAYEXIEXPORTACIONBOLSA3 as $e) :
   
-            $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoeEx2ProductorVariedadDiferenciadoProductorVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_VESPECIES']);
-            $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoeEx2ProductorVariedadDiferenciadoProductorVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_VESPECIES']);
+            $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD = $EXIEXPORTACION_ADO->buscarExistenciaBolsaDespachoe2ProductorVariedadDiferenciadoProductorVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_VESPECIES']);
+            $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL = $EXIEXPORTACION_ADO->obtenerTotalesExistenciaBolsaDespachoe2ProductorVariedadDiferenciadoProductorVariedad($IDOP, $e['ID_PRODUCTOR'], $e['ID_VESPECIES']);
             $TOTALENVASEVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['ENVASE'];
             $TOTALNETOVARIEDAD = $ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDADTOTAL[0]['NETO'];
             foreach ($ARRAYEXIEXPORTACIONPRODUCTORESTANDARPVARIEDAD as $f) :
@@ -494,6 +425,7 @@ $html = '
                   <td class="center">' . $NOMBREPROVINICA . '</td>
                   <td class="center">' . $NOMBREVARIEDAD . '</td>
                   <th class="center">' . $TOTALENVASEVARIEDAD . '</th>
+                  <th class="center">' . $TOTALNETOVARIEDAD . '</th>
               </tr>
               ';
   
@@ -512,6 +444,7 @@ $html = '
         <th class="color2 center">&nbsp;</th>
         <th class="color2 right"> Total Productor </th>
         <th class="color2 center">' . $TOTALENVASEPRODUCTOR . '</th>
+        <th class="color2 center">' . $TOTALNETOPRODUCTOR . '</th>
     </tr>
   ';
   
@@ -525,6 +458,7 @@ $html = '
       <th class="color center">&nbsp;</th>
       <th class="color right"> Total  </th>
       <th class="color center">' . $TOTALENVASEBOLSA . '</th>
+      <th class="color center">' . $TOTALNETOBOLSA . '</th>
   </tr>
   ';
   

@@ -1,34 +1,34 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/TUSUARIO_ADO.php';
-include_once '../controlador/USUARIO_ADO.php';
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/PLANTA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/PLANTA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
-include_once '../controlador/FOLIO_ADO.php';
-
-
+include_once '../../assest/controlador/FOLIO_ADO.php';
 
 
-include_once '../controlador/PRODUCTOR_ADO.php';
-include_once '../controlador/VESPECIES_ADO.php';
-include_once '../controlador/PROCESO_ADO.php';
-include_once '../controlador/EEXPORTACION_ADO.php';
-include_once '../controlador/TMANEJO_ADO.php';
-include_once '../controlador/TCALIBRE_ADO.php';
-include_once '../controlador/TEMBALAJE_ADO.php';
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../controlador/REPALETIZAJEEX_ADO.php';
-include_once '../controlador/DREPALETIZAJEEX_ADO.php';
 
-include_once '../modelo/REPALETIZAJEEX.php';
-include_once '../modelo/EXIEXPORTACION.php';
-include_once '../modelo/DREPALETIZAJEEX.php';
+include_once '../../assest/controlador/PRODUCTOR_ADO.php';
+include_once '../../assest/controlador/VESPECIES_ADO.php';
+include_once '../../assest/controlador/PROCESO_ADO.php';
+include_once '../../assest/controlador/EEXPORTACION_ADO.php';
+include_once '../../assest/controlador/TMANEJO_ADO.php';
+include_once '../../assest/controlador/TCALIBRE_ADO.php';
+include_once '../../assest/controlador/TEMBALAJE_ADO.php';
+
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/controlador/REPALETIZAJEEX_ADO.php';
+include_once '../../assest/controlador/DREPALETIZAJEEX_ADO.php';
+
+include_once '../../assest/modelo/REPALETIZAJEEX.php';
+include_once '../../assest/modelo/EXIEXPORTACION.php';
+include_once '../../assest/modelo/DREPALETIZAJEEX.php';
 
 
 //INICIALIZAR CONTROLADOR
@@ -189,8 +189,8 @@ $ARRAYEMBALAJE = "";
 $ARRAYEMPRESA = $EMPRESA_ADO->listarEmpresaCBX();
 $ARRAYPLANTA = $PLANTA_ADO->listarPlantaCBX();
 $ARRAYTEMPORADA = $TEMPORADA_ADO->listarTemporadaCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrlD.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrlD.php";
 
 
 $ARRAYFOLIO = $FOLIO_ADO->verFolioPorEmpresaPlantaTemporadaTexportacion($EMPRESAS, $PLANTAS, $TEMPORADAS);
@@ -372,7 +372,7 @@ if ($_POST) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -468,7 +468,7 @@ if ($_POST) {
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
 
             <div class="content-wrapper">
@@ -613,10 +613,10 @@ if ($_POST) {
                                         </div>
                                         <div class="btn-group  col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12  float-right">
                                             <?php if ($OP != "") : ?>
-                                                <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php if ($ESTADO == "1") { echo "disabled"; } ?> <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeRepaletizajePT.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
+                                                <button type="button" class="btn  btn-primary  " data-toggle="tooltip" title="Informe" id="defecto" name="tarjas" <?php if ($ESTADO == "1") { echo "disabled"; } ?> <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../../assest/documento/informeRepaletizajePT.php?parametro=<?php echo $IDOP; ?>&usuario=<?php echo $IDUSUARIOS; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Informe
                                                 </button>
-                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $IDOP; ?>'); ">
+                                                <button type="button" class="btn btn-info  " data-toggle="tooltip" title="Tarja" id="defecto" name="tarjas" <?php echo $DISABLEDFOLIO; ?> Onclick="abrirPestana('../../assest/documento/informeTarjasRepaletizajePT.php?parametro=<?php echo $IDOP; ?>'); ">
                                                     <i class="fa fa-file-pdf-o"></i> Tarjas
                                                 </button>
                                                 <button type="button" class="btn  btn-success" data-toggle="tooltip" id="defecto" name="tarjas" title="Archivo Plano" <?php echo $DISABLEDS; ?> <?php echo $DISABLEDT; ?>  Onclick="abrirPestana('../../assest/csv/CsvRepa.php?parametro=<?php echo $IDOP; ?>&&usuario=<?php echo $IDUSUARIOS; ?>'); ">
@@ -655,7 +655,7 @@ if ($_POST) {
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <div class="table-responsive">
-                                                    <table id="ingreso" class="table table-hover " style="width: 100%;">
+                                                    <table id="ingreso" class=" table-hover " style="width: 100%;">
                                                         <thead>
                                                             <tr class="text-left">
                                                                 <th> N° Folio </th>
@@ -771,7 +771,7 @@ if ($_POST) {
                                                                                     <button type="submit" class="btn btn-danger btn-sm   " id="QUITAR" name="QUITAR" data-toggle="tooltip" title="Quitar  Existencia" 
                                                                                         <?php echo $DISABLED2; ?> <?php if ($NODATO =="0") { echo "disabled"; } ?>
                                                                                         <?php  if ($ESTADO == "0") { echo "disabled"; } ?>>
-                                                                                            <i class="ti-close  "></i> Quitar
+                                                                                            <i class="ti-close  "></i><br> Quitar
                                                                                     </button>
                                                                                 </div>
                                                                             </form>
@@ -859,7 +859,7 @@ if ($_POST) {
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table-responsive">
-                                                <table id="detalle" class="table table-hover " style="width: 100%;">
+                                                <table id="detalle" class="table-hover " style="width: 100%;">
                                                     <thead>
                                                         <tr class="text-left">
                                                             <th> Folio Nuevo </th>
@@ -951,7 +951,7 @@ if ($_POST) {
                                                                             <div class="btn-group col-6 btn-block" role="group" aria-label="Operaciones Detalle">
                                                                                 <button type="submit" class="btn btn-danger btn-sm  " id="ELIMINAR" name="ELIMINAR" data-toggle="tooltip" title="Eliminar Existencia" <?php echo $DISABLED2; ?>
                                                                                 <?php if ($ESTADO == "0") {   echo "disabled";  } ?>>
-                                                                                    <i class="ti-close"></i> Eliminar
+                                                                                    <i class="ti-close"></i><br> Eliminar
                                                                                 </button>
                                                                             </div>
                                                                         </form>
@@ -986,11 +986,11 @@ if ($_POST) {
                 </div>
             </div>
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
         <?php       
 
         //OPERACIONES

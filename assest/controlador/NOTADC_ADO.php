@@ -341,9 +341,9 @@ class NOTADC_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_NOTA, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                                FECHA_NOTA AS 'FECHA',  
+                                                INGRESO AS 'INGRESO',
+                                                MODIFICACION AS 'MODIFICACION'
                                         FROM fruta_notadc                                                                           
                                         WHERE ESTADO_REGISTRO = 1
                                         AND  ID_EMPRESA = '" . $EMPRESA . "' 

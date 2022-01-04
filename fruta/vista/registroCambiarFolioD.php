@@ -1,10 +1,10 @@
 <?php
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioFruta.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/EXIEXPORTACION_ADO.php';
-include_once '../modelo/EXIEXPORTACION.php';
+include_once '../../assest/controlador/EXIEXPORTACION_ADO.php';
+include_once '../../assest/modelo/EXIEXPORTACION.php';
 
 
 
@@ -40,27 +40,6 @@ $ARRAYFOLIOPOEXPO = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['CAMBIAR'])) {
-/*
-    $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($_REQUEST['FOLION']);
-    if ($ARRAYFOLIOPOEXPO) {
-        $SINO = "1";
-        $MENSAJE = "EL FOLIO INGRESADO EXISTE";
-    } else {
-        $SINO = "0";
-        $$MENSAJE = "";
-    }
-
-    if ($SINO == "0") {}*/
-
-        $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $_REQUEST['FOLION']);
-        $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $_REQUEST['ID']);
-        $EXIEXPORTACION_ADO->cambioFolio($EXIEXPORTACION);
-        echo "<script type='text/javascript'> location.href ='" . $_REQUEST['URLO'] . ".php';</script>";
-    
-}
 
 
 //OPERACION PARA OBTENER EL ID RECEPCION Y FOLIO BASE, SOLO SE OCUPA PARA CREAR UN REGISTRO NUEVO
@@ -93,7 +72,7 @@ if ($_POST) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -140,7 +119,7 @@ if ($_POST) {
         <!- LLAMADA AL MENU PRINCIPAL DE LA PAGINA-!>
 
 
-            <?php include_once "../config/menu.php";
+            <?php include_once "../../assest/config/menuFruta.php";
             ?>
             <div class="content-wrapper">
                 <div class="container-full">
@@ -217,11 +196,11 @@ if ($_POST) {
                                     <!-- /.box-body -->
                                     <div class="box-footer">
                                         <div class="btn-group btn-rounded btn-block col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12" role="group" aria-label="Acciones generales">
-                                            <button type="button" class="btn btn-rounded btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
-                                                <i class="ti-back-left "></i>
+                                            <button type="button" class="btn  btn-success  " data-toggle="tooltip" title="Volver" name="CANCELAR" value="CANCELAR" Onclick="irPagina('<?php echo $URLO; ?>.php?op');">
+                                                <i class="ti-back-left "></i> Volver
                                             </button>
-                                            <button type="submit" class="btn btn-rounded btn-warning   " data-toggle="tooltip" title="Cambiar" name="CAMBIAR" value="EDCAMBIARITAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i>
+                                            <button type="submit" class="btn btn-warning   " data-toggle="tooltip" title="Cambiar" name="CAMBIAR" value="EDCAMBIARITAR" <?php echo $DISABLED; ?>>
+                                                <i class="ti-save-alt"></i> Cambiar
                                             </button>
                                         </div>
                                     </div>
@@ -235,11 +214,45 @@ if ($_POST) {
 
 
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
-                <?php include_once "../config/footer.php"; ?>
-                <?php include_once "../config/menuExtra.php"; ?>
+                <?php include_once "../../assest/config/footer.php"; ?>
+                <?php include_once "../../assest/config/menuExtraFruta.php"; ?>
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
-        <?php include_once "../config/urlBase.php"; ?>
+        <?php include_once "../../assest/config/urlBase.php"; ?>
+        <?php         
+                //OPERACIONES
+                //OPERACION DE REGISTRO DE FILA
+                if (isset($_REQUEST['CAMBIAR'])) {
+                    /*
+                        $ARRAYFOLIOPOEXPO = $EXIEXPORTACION_ADO->buscarPorFolio($_REQUEST['FOLION']);
+                        if ($ARRAYFOLIOPOEXPO) {
+                            $SINO = "1";
+                            $MENSAJE = "EL FOLIO INGRESADO EXISTE";
+                        } else {
+                            $SINO = "0";
+                            $$MENSAJE = "";
+                        }                    
+                        if ($SINO == "0") {}*/
+                    
+                            $EXIEXPORTACION->__SET('FOLIO_AUXILIAR_EXIEXPORTACION', $_REQUEST['FOLION']);
+                            $EXIEXPORTACION->__SET('ID_EXIEXPORTACION', $_REQUEST['ID']);
+                            $EXIEXPORTACION_ADO->cambioFolio($EXIEXPORTACION);
+                            echo '<script>
+                                    Swal.fire({
+                                        icon:"info",
+                                        title:"Registro Modificado",
+                                        text:"El folio se ha modificada correctamente",
+                                        showConfirmButton:true,
+                                        confirmButtonText:"Cerrar"
+                                    }).then((result)=>{
+                                        if(result.value){
+                                            location.href ="' . $_REQUEST['URLO'] . '.php?op";
+                                        }
+                                    })
+                                </script>';
+                        
+                    }    
+        ?>
 </body>
 
 </html>

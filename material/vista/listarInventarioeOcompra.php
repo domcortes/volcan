@@ -1,15 +1,15 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioMaterial.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
 
-include_once '../controlador/BODEGA_ADO.php';
-include_once '../controlador/PRODUCTO_ADO.php';
-include_once '../controlador/TUMEDIDA_ADO.php';
-include_once '../controlador/RECEPCIONE_ADO.php';
+include_once '../../assest/controlador/BODEGA_ADO.php';
+include_once '../../assest/controlador/PRODUCTO_ADO.php';
+include_once '../../assest/controlador/TUMEDIDA_ADO.php';
+include_once '../../assest/controlador/RECEPCIONE_ADO.php';
 
-include_once '../controlador/INVENTARIOE_ADO.php';
+include_once '../../assest/controlador/INVENTARIOE_ADO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -53,14 +53,10 @@ $ARRAYDRECEPCION = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     $ARRAYINVENTARIO = $INVENTARIOE_ADO->listarInventarioPorEmpresaPlantaTemporadaCBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $ARRAYINVENTARIOTOTALES = $INVENTARIOE_ADO->obtenerTotalInventarioPorEmpresaPlantaTemporada2CBX($EMPRESAS, $PLANTAS, $TEMPORADAS);
-    $TOTALCANTIDAD = $ARRAYINVENTARIOTOTALES[0]['CANTIDAD'];
-    $TOTALENTRADA = $ARRAYINVENTARIOTOTALES[0]['ENTRADA'];
-    $TOTALSALIDA = $ARRAYINVENTARIOTOTALES[0]['SALIDA'];
+
 }
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
-include_once "../config/reporteUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
 ?>
@@ -76,7 +72,7 @@ include_once "../config/reporteUrl.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!- LLAMADA DE LOS ARCHIVOS NECESARIOS PARA DISEÑO Y FUNCIONES BASE DE LA VISTA -!>
-        <?php include_once "../config/urlHead.php"; ?>
+        <?php include_once "../../assest/config/urlHead.php"; ?>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 //REDIRECCIONAR A LA PAGINA SELECIONADA
@@ -142,7 +138,7 @@ include_once "../config/reporteUrl.php";
 
 <body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuMaterial.php"; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
@@ -164,10 +160,9 @@ include_once "../config/reporteUrl.php";
                                 </nav>
                             </div>
                         </div>
-                        <?php include_once "../config/verIndicadorEconomico.php"; ?>
+                        <?php include_once "../../assest/config/verIndicadorEconomico.php"; ?>
                     </div>
                 </div>
-
                 <!-- Main content -->
                 <section class="content">
                     <div class="box">
@@ -175,7 +170,7 @@ include_once "../config/reporteUrl.php";
                             <div class="row">
                                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table id="existencia" class="table table-hover " style="width: 100%;">
+                                        <table id="existenciae" class="table-hover " style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>Código Producto</th>
@@ -226,58 +221,50 @@ include_once "../config/reporteUrl.php";
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            </div>                              
                             <div class="box-footer">
-                                <div class="btn-toolbar" role="toolbar" aria-label="datos generales">
-                                    <div class="form-row align-items-center" role="group" aria-label="datos">
+                                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Datos generales">
+                                    <div class="form-row align-items-center" role="group" aria-label="Datos">
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Entrada </div>
+                                                    <div class="input-group-text">Total Entrada</div>
+                                                    <button class="btn   btn-default" id="TOTALENTRADAV" name="TOTALENTRADAV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Entrada" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALENTRADA; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
-                                        </div>                                        
+                                        </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Salida </div>
+                                                    <div class="input-group-text">Total Salida</div>
+                                                    <button class="btn   btn-default" id="TOTALSALIDAV" name="TOTALSALIDAV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Salida" id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALSALIDA; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
-                                        </div>                                        
+                                        </div>
                                         <div class="col-auto">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">Total </div>
+                                                    <div class="input-group-text">Saldo</div>
+                                                    <button class="btn   btn-default" id="TOTALV" name="TOTALV" >                                                           
+                                                    </button>
                                                 </div>
-                                                <!-- input -->
-                                                <input type="text" class="form-control" placeholder="Total " id="TOTALENVASEV" name="TOTALENVASEV" value="<?php echo $TOTALCANTIDAD; ?>" disabled />
-                                                <!-- /input -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <!-- /.box -->
                 </section>
                 <!-- /.content -->
-
             </div>
         </div>
-
-
-
-        <?php include_once "../config/footer.php"; ?>
-        <?php include_once "../config/menuExtra.php"; ?>
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraMaterial.php"; ?>
     </div>
-    <?php include_once "../config/urlBase.php"; ?>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
 </body>
 
 </html>
