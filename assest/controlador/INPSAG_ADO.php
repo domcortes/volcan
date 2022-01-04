@@ -517,6 +517,10 @@ class INPSAG_ADO
                                                             FROM fruta_especies especies
                                                             WHERE especies.ID_ESPECIES = variedad.ID_ESPECIES      
                                                             ) AS 'ESPECIES',  
+                                                            ( SELECT especies.CODIGO_SAG_ESPECIES
+                                                              FROM fruta_especies especies
+                                                              WHERE especies.ID_ESPECIES = variedad.ID_ESPECIES      
+                                                            )  AS 'CODIGO',
                                                             FORMAT(IFNULL(SUM(existencia.CANTIDAD_ENVASE_EXIEXPORTACION),0),0,'de_DE') AS 'CANTIDAD'
                                                     FROM fruta_inpsag inpsag, fruta_exiexportacion existencia, fruta_vespecies variedad
                                                     WHERE 
