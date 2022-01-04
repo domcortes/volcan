@@ -3016,9 +3016,9 @@ if (isset($_POST)) {
                                             </div>
                                             <div class="col-xxl-2 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                                 <div class="form-group">
-                                                    <label>BOL/AWB/CRT </label>
+                                                    <label>BL/AWB </label>
                                                     <input type="hidden" class="form-control" placeholder="BOLAWBCRTINSTRUCTIVOE" id="BOLAWBCRTINSTRUCTIVOE" name="BOLAWBCRTINSTRUCTIVOE" value="<?php echo $BOLAWBCRTINSTRUCTIVO; ?>" />
-                                                    <input type="text" class="form-control" placeholder="BOL/AWB/CRT Instructivo" id="BOLAWBCRTINSTRUCTIVO" name="BOLAWBCRTINSTRUCTIVO" value="<?php echo $BOLAWBCRTINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
+                                                    <input type="text" class="form-control" placeholder="BL/AWB Instructivo" id="BOLAWBCRTINSTRUCTIVO" name="BOLAWBCRTINSTRUCTIVO" value="<?php echo $BOLAWBCRTINSTRUCTIVO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_bolawbcrt" class="validacion"> </label>
                                                 </div>
                                             </div>
