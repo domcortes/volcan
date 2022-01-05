@@ -180,7 +180,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                             <li class="breadcrumb-item" aria-current="page">Calidad de Fruta</li>
                                             <li class="breadcrumb-item" aria-current="page">Rechazo</li>
                                             <li class="breadcrumb-item" aria-current="page">Materia Prima</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Operaciones Seleccion Existencia</a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Seleccion Existencia</a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -209,8 +209,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                     </div>
                     <section class="content">
                         <div class="card">
-                            <div class="card-header with-border">
-                                <h4 class="card-title">Selecciona las existencias</h4>
+                            <div class="card-header with-border bg-success">                                   
+                                <h4 class="box-title">Seleccionar existencia</h4>                                        
                             </div>
                             <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
                                 <div class="card-body ">
