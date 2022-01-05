@@ -128,9 +128,9 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *, 
-                                                     DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA' ,
-                                                     DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
-                                                     DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD' ,
+                                                     FECHA_DESPACHOEX AS 'FECHA' ,
+                                                     FECHAETA_DESPACHOEX AS 'ETA' ,
+                                                     FECHAETD_DESPACHOEX AS 'ETD' ,
                                                      FORMAT(NUMERO_GUIA_DESPACHOEX,0,'de_DE') AS 'TOTAL_GUIA'  
                                             FROM fruta_despachoex
                                             WHERE ID_DESPACHOEX= '" . $ID . "';");
@@ -148,6 +148,33 @@ class DESPACHOEX_ADO
         }
     }
 
+
+    public function verDespachoex3($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' , 
+                                                DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA' ,
+                                                DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%d-%m-%Y') AS 'GUIA',
+                                                DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
+                                                DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD' 
+                                            FROM fruta_despachoex
+                                            WHERE ID_DESPACHOEX= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function verDespachoexCsv($ID)
     {
@@ -617,17 +644,18 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT * ,
-                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' , 
-                                                    DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA' ,
-                                                    DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%d-%m-%Y') AS 'GUIA',
-                                                    DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
-                                                    DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' , 
+                                                    FECHA_DESPACHOEX  AS 'FECHA' ,
+                                                    FECHA_GUIA_DESPACHOEX  AS 'GUIA',
+                                                    FECHAETA_DESPACHOEX  AS 'ETA' ,
+                                                    FECHAETD_DESPACHOEX  AS 'ETD',
                                                     IFNULL(CANTIDAD_ENVASE_DESPACHOEX,0)  AS 'ENVASE',
                                                     IFNULL(KILOS_NETO_DESPACHOEX,0)  AS 'NETO',
                                                     IFNULL(KILOS_BRUTO_DESPACHOEX,0)  AS 'BRUTO'
                                                 FROM fruta_despachoex                                                                           
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -649,17 +677,18 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT * ,
-                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION' , 
-                                                    DATE_FORMAT(FECHA_DESPACHOEX, '%d-%m-%Y') AS 'FECHA' ,
-                                                    DATE_FORMAT(FECHA_GUIA_DESPACHOEX, '%d-%m-%Y') AS 'GUIA',
-                                                    DATE_FORMAT(FECHAETA_DESPACHOEX, '%d-%m-%Y') AS 'ETA' ,
-                                                    DATE_FORMAT(FECHAETD_DESPACHOEX, '%d-%m-%Y') AS 'ETD',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' , 
+                                                    FECHA_DESPACHOEX AS 'FECHA' ,
+                                                    FECHA_GUIA_DESPACHOEX  AS 'GUIA',
+                                                    FECHAETA_DESPACHOEX  AS 'ETA' ,
+                                                    FECHAETD_DESPACHOEX  AS 'ETD',
                                                     FORMAT(CANTIDAD_ENVASE_DESPACHOEX,0,'de_DE')  AS 'ENVASE',
                                                     FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
                                                     FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO'
                                                 FROM fruta_despachoex                                                                           
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
@@ -680,8 +709,8 @@ class DESPACHOEX_ADO
         try {
 
             $datos = $this->conexion->prepare(" SELECT * ,
-                                                    INGRESO AS 'INGRESO',
-                                                    MODIFICACION AS 'MODIFICACION' , 
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' , 
                                                     FECHA_DESPACHOEX AS 'FECHA' ,
                                                     FECHA_GUIA_DESPACHOEX AS 'GUIA',
                                                     FECHAETA_DESPACHOEX AS 'ETA' ,
@@ -690,7 +719,8 @@ class DESPACHOEX_ADO
                                                     FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
                                                     FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO'
                                                 FROM fruta_despachoex                                                                           
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -720,7 +750,8 @@ class DESPACHOEX_ADO
                                                     FORMAT(KILOS_NETO_DESPACHOEX,2,'de_DE')  AS 'NETO',
                                                     FORMAT(KILOS_BRUTO_DESPACHOEX,2,'de_DE')  AS 'BRUTO'
                                                 FROM fruta_despachoex                                                                           
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "';	");
             $datos->execute();
             $resultado = $datos->fetchAll();
@@ -776,8 +807,8 @@ class DESPACHOEX_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT *
                                                 FROM fruta_despachoex
-                                                WHERE 
-                                                    NUMERO_SELLO_DESPACHOEX = " . $NUMEROGUIA . "
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                    AND NUMERO_SELLO_DESPACHOEX = " . $NUMEROGUIA . "
                                                     AND ID_PRODUCTOR = " . $PRODUCTOR . "                                                 
                                                     AND ID_EMPRESA = " . $EMPRESA . " 
                                                     AND ID_PLANTA = " . $PLANTA . " 
@@ -1008,7 +1039,8 @@ class DESPACHOEX_ADO
                                                  IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0)  AS 'BRUTO'  
                                         FROM fruta_despachoex 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -1034,7 +1066,8 @@ class DESPACHOEX_ADO
                                                  FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0),2,'de_DE')  AS 'BRUTO'  
                                         FROM fruta_despachoex 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_PLANTA = '" . $PLANTA . "'
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
@@ -1061,7 +1094,8 @@ class DESPACHOEX_ADO
                                                  IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0)  AS 'BRUTO'  
                                         FROM fruta_despachoex 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();
@@ -1087,7 +1121,8 @@ class DESPACHOEX_ADO
                                                   FORMAT(IFNULL(SUM(KILOS_BRUTO_DESPACHOEX),0),2,'de_DE')  AS 'BRUTO'  
                                         FROM fruta_despachoex 
                                                                                                              
-                                        WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                        WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                        AND ID_EMPRESA = '" . $EMPRESA . "' 
                                         AND ID_TEMPORADA = '" . $TEMPORADA . "'
                                         ;	");
             $datos->execute();

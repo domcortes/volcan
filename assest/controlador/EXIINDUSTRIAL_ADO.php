@@ -1253,9 +1253,9 @@ class EXIINDUSTRIAL_ADO
         try {
             $datos = $this->conexion->prepare("SELECT  *,
                                                     DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                                 FROM fruta_exiindustrial existencia, estandar_eindustrial estandar 
                                                 WHERE existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
@@ -1281,10 +1281,10 @@ class EXIINDUSTRIAL_ADO
     {
         try {
             $datos = $this->conexion->prepare("SELECT  *,
-                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
+                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',      
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',          
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                                 FROM fruta_exiindustrial existencia, estandar_erecepcion estandar 
                                                 WHERE existencia.ID_ESTANDARMP=estandar.ID_ESTANDAR
@@ -1309,10 +1309,10 @@ class EXIINDUSTRIAL_ADO
     {
         try {
             $datos = $this->conexion->prepare("SELECT  *,
-                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
+                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',      
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',        
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                                 FROM fruta_exiindustrial existencia, estandar_eexportacion estandar 
                                                 WHERE existencia.ID_ESTANDARPT=estandar.ID_ESTANDAR
@@ -1339,9 +1339,9 @@ class EXIINDUSTRIAL_ADO
         try {
             $datos = $this->conexion->prepare("SELECT  *,
                                                     DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                                 FROM fruta_exiindustrial existencia, estandar_eindustrial estandar 
                                                 WHERE existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
@@ -1369,9 +1369,9 @@ class EXIINDUSTRIAL_ADO
         try {
             $datos = $this->conexion->prepare("SELECT  *,
                                                     DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                                 FROM fruta_exiindustrial existencia, estandar_erecepcion estandar 
                                                 WHERE existencia.ID_ESTANDARMP=estandar.ID_ESTANDAR
@@ -1398,9 +1398,9 @@ class EXIINDUSTRIAL_ADO
         try {
             $datos = $this->conexion->prepare("SELECT  *,
                                                     DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                                 FROM fruta_exiindustrial existencia, estandar_eexportacion estandar 
                                                 WHERE existencia.ID_ESTANDARPT=estandar.ID_ESTANDAR
@@ -1549,9 +1549,9 @@ class EXIINDUSTRIAL_ADO
         try {
             $datos = $this->conexion->prepare("SELECT  *,
                                                     DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                                 FROM fruta_exiindustrial existencia
                                                 WHERE existencia.ID_ESTANDAR
@@ -1577,9 +1577,9 @@ class EXIINDUSTRIAL_ADO
         try {
             $datos = $this->conexion->prepare("SELECT  *,
                                                     DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
-                                                    DATE_FORMAT(existencia.INGRESO, '%d/%m/%Y ') AS 'INGRESO',
-                                                    DATE_FORMAT(existencia.MODIFICACION, '%d/%m/%Y ') AS 'MODIFICACION',      
-                                                    DATE_FORMAT(existencia.FECHA_EMBALADO_EXIINDUSTRIAL, '%d/%m/%Y') AS 'EMBALADO',     
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
                                                     IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
                                                 FROM fruta_exiindustrial existencia
                                                 WHERE existencia.ID_ESTANDAR
@@ -1610,9 +1610,9 @@ class EXIINDUSTRIAL_ADO
                                                         IFNULL(DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y'),'Sin Datos') AS 'PROCESO',
                                                         IFNULL(DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y'),'Sin Datos') AS 'REEMBALAJE',
                                                         IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
-                                                        DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
-                                                        DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',      
-                                                        DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',     
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                        FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
                                                         IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO'    
                                         FROM fruta_exiindustrial 
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 
@@ -1641,9 +1641,9 @@ class EXIINDUSTRIAL_ADO
                                                         IFNULL(DATE_FORMAT(FECHA_PROCESO, '%d-%m-%Y'),'Sin Datos') AS 'PROCESO',
                                                         IFNULL(DATE_FORMAT(FECHA_REEMBALAJE, '%d-%m-%Y'),'Sin Datos') AS 'REEMBALAJE',
                                                         IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
-                                                        DATE_FORMAT(INGRESO, '%d-%m-%Y ') AS 'INGRESO',
-                                                        DATE_FORMAT(MODIFICACION, '%d-%m-%Y ') AS 'MODIFICACION',      
-                                                        DATE_FORMAT(FECHA_EMBALADO_EXIINDUSTRIAL, '%d-%m-%Y') AS 'EMBALADO',     
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                        FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
                                                         IFNULL(KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO'    
                                         FROM fruta_exiindustrial 
                                         WHERE ID_EMPRESA = '" . $EMPRESA . "' 

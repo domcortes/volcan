@@ -129,7 +129,7 @@ if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($IDOP);
+$ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje3($IDOP);
 if($ARRAYREEMBALAJE){
 
   $ARRAYEXISTENCIATOMADA = $EXIEXPORTACION_ADO->buscarPorReembalaje2($IDOP);

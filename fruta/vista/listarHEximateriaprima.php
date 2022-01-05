@@ -322,9 +322,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
                                                         }
@@ -338,7 +338,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $TPROCESO = "Sin datos";
                                                         }
 
@@ -404,7 +404,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         }else {
                                                             $DESTINO = "Sin datos";
                                                             $TDESPACHO = "Sin datos";
-                                                            $FECHADESPACHO = "Sin Datos";
+                                                            $FECHADESPACHO = "";
                                                             $NUMERODESPACHO = "Sin Datos";
                                                             $NUMEROGUIADESPACHO = "Sin Datos";
                                                             $CSGCSPDESTINO="Sin Datos";

@@ -110,6 +110,29 @@ class DESPACHOM_ADO
     {
         try {
 
+            $datos = $this->conexion->prepare("SELECT *, FECHA_DESPACHO AS 'FECHA'  
+                                                    , DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO'
+                                                    , DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
+                                            FROM material_despachom
+                                            WHERE ID_DESPACHO= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	var_dump($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function verDespachom3($ID)
+    {
+        try {
+
             $datos = $this->conexion->prepare("SELECT *, DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA'  
                                                     , DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO'
                                                     , DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
@@ -538,9 +561,9 @@ class DESPACHOM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
                                         WHERE ESTADO_REGISTRO = 1 
@@ -618,9 +641,9 @@ class DESPACHOM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
                                         WHERE ESTADO_REGISTRO = 1 
@@ -701,9 +724,9 @@ class DESPACHOM_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT *,
-                                                DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y') AS 'FECHA',  
-                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION', 
+                                                FECHA_DESPACHO AS 'FECHA',  
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION', 
                                                 IFNULL(CANTIDAD_DESPACHO,0)  AS 'CANTIDAD'
                                         FROM material_despachom                                                                           
                                         WHERE   ESTADO_REGISTRO = 1 

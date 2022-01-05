@@ -127,7 +127,7 @@ class RECEPCIONE_ADO {
         
     }
 
-    public function verRecepcion2($ID){
+    public function verRecepcion3($ID){
         try{
             
             $datos=$this->conexion->prepare("SELECT * , 
@@ -151,12 +151,12 @@ class RECEPCIONE_ADO {
         
     }
   
-    public function verRecepcion3($ID){
+    public function verRecepcion2($ID){
         try{
             
             $datos=$this->conexion->prepare("SELECT * , 
-                                                INGRESO AS 'INGRESO',
-                                                MODIFICACION AS 'MODIFICACION' ,
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                 FECHA_RECEPCION AS 'FECHA' 
                                             FROM  material_recepcione  
                                                 WHERE  ID_RECEPCION = '".$ID."';");
@@ -897,8 +897,8 @@ class RECEPCIONE_ADO {
         try{
             
             $datos=$this->conexion->prepare("SELECT * ,
-                                                INGRESO AS 'INGRESO',
-                                                MODIFICACION AS 'MODIFICACION',
+                                                DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                 FECHA_RECEPCION AS 'FECHA',
                                             IFNULL( TOTAL_CANTIDAD_RECEPCION ,0) AS 'CANTIDAD' 
                                              FROM  material_recepcione 

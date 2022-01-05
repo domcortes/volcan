@@ -268,7 +268,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                     <th>Fecha Recepción </th>
                                                     <th>Tipo Recepción </th>
                                                     <th>Número Guía Recepción </th>
-                                                    <th>Fecha Guía Recepción
+                                                    <th>Fecha Guía Recepción</th>  
                                                     <th>Número Repaletizaje </th>
                                                     <th>Fecha Repaletizaje </th>
                                                     <th>Número Proceso </th>

@@ -116,8 +116,8 @@ class RECEPCIONPT_ADO
             $datos = $this->conexion->prepare("SELECT *,
                                                         FECHA_GUIA_RECEPCION AS 'GUIA',
                                                         FECHA_RECEPCION AS 'FECHA',
-                                                        INGRESO AS 'INGRESO',
-                                                        MODIFICACION AS 'MODIFICACION' 
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
                                             FROM fruta_recepcionpt
                                             WHERE ID_RECEPCION= '" . $ID . "';");
             $datos->execute();
@@ -133,6 +133,32 @@ class RECEPCIONPT_ADO
             die($e->getMessage());
         }
     }
+    
+    public function verRecepcion3($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
+                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                            FROM fruta_recepcionpt
+                                            WHERE ID_RECEPCION= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
 
     //BUSCAR CONSIDENCIA DE ACUERDO AL CARACTER INGRESADO EN LA FUNCION
@@ -420,8 +446,8 @@ class RECEPCIONPT_ADO
         try {
             $datos = $this->conexion->prepare(" SELECT *
                                                 FROM fruta_recepcionpt
-                                                WHERE 
-                                                    NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                    AND NUMERO_GUIA_RECEPCION = " . $NUMEROGUIA . "
                                                     AND ID_PLANTA2 = " . $PLANTA2 . "                                                 
                                                     AND ID_EMPRESA = " . $EMPRESA . " 
                                                     AND ID_PLANTA = " . $PLANTA . " 
@@ -448,17 +474,17 @@ class RECEPCIONPT_ADO
         try {
 
             $datos = $this->conexion->prepare("SELECT * ,
-                                            DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
-                                            DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
-                                            DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
-                                            DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION',
+                                            FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
+                                            FECHA_RECEPCION AS 'FECHA',
+                                            DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                            DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                             IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
                                             IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
                                             IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
                                             IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0)  AS 'GUIA'
                                             FROM fruta_recepcionpt 
-                                            WHERE  
-                                                ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
@@ -490,7 +516,8 @@ class RECEPCIONPT_ADO
                                                     FORMAT(IFNULL(KILOS_BRUTO_RECEPCION,0),2,'de_DE')  AS 'BRUTO',
                                                     FORMAT(IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0),2,'de_DE')  AS 'GUIA'
                                             FROM fruta_recepcionpt 
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
@@ -514,14 +541,15 @@ class RECEPCIONPT_ADO
             $datos = $this->conexion->prepare("SELECT *  ,
                                                     FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
                                                     FECHA_RECEPCION AS 'FECHA',
-                                                    INGRESO AS 'INGRESO',
-                                                    MODIFICACION AS 'MODIFICACION',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
                                                     IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
                                                     IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
                                                     IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
                                                     IFNULL(TOTAL_KILOS_GUIA_RECEPCION,0) AS 'GUIA'
                                             FROM fruta_recepcionpt 
-                                            WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "'   
                                             ;	");
             $datos->execute();
@@ -592,8 +620,8 @@ class RECEPCIONPT_ADO
                                                         IFNULL(SUM(KILOS_NETO_RECEPCION),0)  AS 'NETO',  
                                                         IFNULL(SUM(KILOS_BRUTO_RECEPCION),0)   AS 'BRUTO'  
                                             FROM fruta_recepcionpt 
-                                            WHERE  
-                                                ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                             ;	");
             $datos->execute();
@@ -619,8 +647,8 @@ class RECEPCIONPT_ADO
                                                         FORMAT(IFNULL(SUM(KILOS_NETO_RECEPCION),0),2,'de_DE')  AS 'NETO',  
                                                         FORMAT(IFNULL(SUM(KILOS_BRUTO_RECEPCION),0),2,'de_DE')   AS 'BRUTO'  
                                             FROM fruta_recepcionpt 
-                                            WHERE  
-                                                ID_EMPRESA = '" . $EMPRESA . "' 
+                                            WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                            AND ID_EMPRESA = '" . $EMPRESA . "' 
                                             AND ID_PLANTA = '" . $PLANTA . "'
                                             AND ID_TEMPORADA = '" . $TEMPORADA . "' 
                                             ;	");

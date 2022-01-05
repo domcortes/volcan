@@ -355,9 +355,9 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 }
                                                             } else {
                                                                 $NUMERORECEPCION = "Sin Datos";
-                                                                $FECHARECEPCION = "Sin Datos";
+                                                                $FECHARECEPCION = "";
                                                                 $NUMEROGUIARECEPCION = "Sin Datos";
-                                                                $FECHAGUIARECEPCION = "Sin Datos";
+                                                                $FECHAGUIARECEPCION = "";
                                                                 $TIPORECEPCION = "Sin Datos";
                                                                 $ORIGEN = "Sin Datos";
                                                                 $CSGCSPORIGEN = "Sin Datos";
@@ -372,7 +372,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 }
                                                             } else {
                                                                 $NUMEROPROCESO = "Sin datos";
-                                                                $FECHAPROCESO = "Sin datos";
+                                                                $FECHAPROCESO = "";
                                                                 $TPROCESO = "Sin datos";
                                                             }
                                                             $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($r['ID_REEMBALAJE']);
@@ -385,7 +385,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 }
                                                             } else {
                                                                 $NUMEROREEMBALEJE = "Sin datos";
-                                                                $FECHAREEMBALEJE = "Sin datos";
+                                                                $FECHAREEMBALEJE = "";
                                                                 $TREEMBALAJE = "Sin datos";
                                                             }
 
@@ -395,89 +395,10 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                                 $NUMEROREPALETIZAJE = $ARRATREPALETIZAJE[0]["NUMERO_REPALETIZAJE"];
                                                             } else {
                                                                 $NUMEROREPALETIZAJE = "Sin Datos";
-                                                                $FECHAREPALETIZAJE = "Sin Datos";
+                                                                $FECHAREPALETIZAJE = "";
                                                             }
 
-                                                            $ARRAYVERDESPACHOPT = $DESPACHOPT_ADO->verDespachopt2($r['ID_DESPACHO']);
-                                                            $ARRYADESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($r['ID_DESPACHOEX']);
-                                                            if ($ARRAYVERDESPACHOPT) {
-                                                                $NUMERODESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_DESPACHO"];
-                                                                $FECHADESPACHO = $ARRAYVERDESPACHOPT[0]["FECHA"];
-
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "1") {
-                                                                    $TDESPACHO = "Interplanta";
-                                                                    $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                                    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYVERDESPACHOPT[0]['ID_PLANTA2']);
-                                                                    if ($ARRAYPLANTA2) {
-                                                                        $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-                                                                        $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
-                                                                    } else {
-                                                                        $DESTINO = "Sin Datos";
-                                                                        $CSGCSPDESTINO="Sin Datos";
-                                                                    }
-                                                                }
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "2") {
-                                                                    $TDESPACHO = "Devolución Productor";
-                                                                    $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                                    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYVERDESPACHOPT[0]['ID_PRODUCTOR']);
-                                                                    if ($ARRAYPRODUCTOR) {
-                                                                        $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-                                                                        $DESTINO =  $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-                                                                    } else {
-                                                                        $DESTINO = "Sin Datos";
-                                                                        $CSGCSPDESTINO="Sin Datos";
-                                                                    }
-                                                                }
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "3") {
-                                                                    $TDESPACHO = "Venta";
-                                                                    $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                                    $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYVERDESPACHOPT[0]['ID_COMPRADOR']);
-                                                                    if ($ARRAYCOMPRADOR) {
-                                                                        $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
-                                                                        $CSGCSPDESTINO="No Aplica";
-                                                                    } else {
-                                                                        $DESTINO = "Sin Datos";
-                                                                        $CSGCSPDESTINO="Sin Datos";
-                                                                    }
-                                                                }
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "4") {
-                                                                    $TDESPACHO = "Despacho de Decarte";
-                                                                    $NUMEROGUIADESPACHO = "No Aplica";
-                                                                    $CSGCSPDESTINO="No Aplica";
-                                                                    $DESTINO = $ARRAYVERDESPACHOPT[0]['REGALO_DESPACHO'];
-                                                                }
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "5") {
-                                                                    $TDESPACHO = "Planta Externa";
-                                                                    $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                                    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYVERDESPACHOPT[0]['ID_PLANTA3']);
-                                                                    if ($ARRAYPLANTA2) {
-                                                                        $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-                                                                        $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
-                                                                    } else {
-                                                                        $DESTINO = "Sin Datos";
-                                                                        $CSGCSPDESTINO="Sin Datos";
-                                                                    }
-                                                                }
-                                                            } else if ($ARRYADESPACHOEX) {
-                                                                $TDESPACHO = "Exportación";
-                                                                $CSGCSPDESTINO="No Aplica";
-                                                                $NUMERODESPACHO = $ARRYADESPACHOEX[0]["NUMERO_DESPACHOEX"];
-                                                                $NUMEROGUIADESPACHO = $ARRYADESPACHOEX[0]["NUMERO_GUIA_DESPACHOEX"];
-                                                                $FECHADESPACHO = $ARRYADESPACHOEX[0]["FECHA"];
-                                                                $ARRAYDFINAL = $DFINAL_ADO->verDfinal($ARRYADESPACHOEX[0]['ID_DFINAL']);
-                                                                if ($ARRAYDFINAL) {
-                                                                    $DESTINO = $ARRAYDFINAL[0]['NOMBRE_DFINAL'];
-                                                                } else {
-                                                                    $DESTINO = "Sin Datos";
-                                                                }
-                                                            } else {
-                                                                $DESTINO = "Sin datos";
-                                                                $TDESPACHO = "Sin datos";
-                                                                $FECHADESPACHO = "Sin Datos";
-                                                                $NUMERODESPACHO = "Sin Datos";
-                                                                $NUMEROGUIADESPACHO = "Sin Datos";
-                                                                $CSGCSPDESTINO="Sin Datos";
-                                                            }
+                                                  
                                                             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                             if ($ARRAYVERPRODUCTORID) {
 

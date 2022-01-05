@@ -192,7 +192,7 @@ if (isset($_REQUEST['parametro'])) {
   $IDOP = $_REQUEST['parametro'];
 }
 
-$ARRAYDESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($IDOP);
+$ARRAYDESPACHOEX = $DESPACHOEX_ADO->verDespachoex3($IDOP);
 
 if($ARRAYDESPACHOEX){
 

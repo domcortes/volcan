@@ -344,11 +344,12 @@ class RECHAZOMP_ADO
                                                     IFNULL(CANTIDAD_ENVASE_RECHAZO,0) AS 'ENVASE'   ,                                                 
                                                     IFNULL(KILOS_NETO_RECHAZO,0) AS 'NETO'    ,                                                 
                                                     IFNULL(KILOS_BRUTO_RECHAZO,0) AS 'BRUTO',
-                                                    DATE_FORMAT(FECHA_RECHAZO, '%d-%m-%Y') AS 'FECHA', 
-                                                    DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
-                                                    DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
+                                                    FECHA_RECHAZO AS 'FECHA', 
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO', 
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION'
                                                 FROM fruta_rechazomp                                                        
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
@@ -377,7 +378,8 @@ class RECHAZOMP_ADO
                                                     DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO', 
                                                     DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                                 FROM fruta_rechazomp                                                        
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
@@ -457,7 +459,8 @@ class RECHAZOMP_ADO
                                                     SUM(IFNULL(KILOS_NETO_RECHAZO,0)) AS 'NETO'    ,                                                 
                                                     SUM(IFNULL(KILOS_BRUTO_RECHAZO,0)) AS 'BRUTO'
                                                 FROM fruta_rechazomp                                                        
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();
@@ -483,7 +486,8 @@ class RECHAZOMP_ADO
                                                     FORMAT(SUM(IFNULL(KILOS_NETO_RECHAZO,0)),2,'de_DE') AS 'NETO'    ,                                                 
                                                     FORMAT(SUM(IFNULL(KILOS_BRUTO_RECHAZO,0)),2,'de_DE') AS 'BRUTO'
                                                 FROM fruta_rechazomp                                                        
-                                                WHERE ID_EMPRESA = '" . $EMPRESA . "' 
+                                                WHERE ESTADO_REGISTRO = 1                                                                                                        
+                                                AND ID_EMPRESA = '" . $EMPRESA . "' 
                                                 AND ID_PLANTA = '" . $PLANTA . "'
                                                 AND ID_TEMPORADA = '" . $TEMPORADA . "' ;	");
             $datos->execute();

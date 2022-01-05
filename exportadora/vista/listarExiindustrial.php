@@ -310,9 +310,9 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
                                                             $CSGCSPORIGEN = "Sin Datos";
@@ -327,7 +327,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($r['ID_REEMBALAJE']);
@@ -340,7 +340,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
@@ -488,9 +488,9 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
                                                             $CSGCSPORIGEN = "Sin Datos";
@@ -505,7 +505,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($r['ID_REEMBALAJE']);
@@ -518,7 +518,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);
@@ -666,9 +666,9 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMERORECEPCION = "Sin Datos";
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
                                                             $CSGCSPORIGEN = "Sin Datos";
@@ -683,7 +683,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($r['ID_REEMBALAJE']);
@@ -696,7 +696,7 @@ if ($EMPRESAS   && $TEMPORADAS) {
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
                                                         $ARRAYEMPRESA = $EMPRESA_ADO->verEmpresa($r['ID_EMPRESA']);

@@ -116,8 +116,33 @@ class RECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT *,
                                                         FECHA_GUIA_RECEPCION AS 'GUIA',
                                                         FECHA_RECEPCION AS 'FECHA',
-                                                        INGRESO AS 'INGRESO',
-                                                        MODIFICACION AS 'MODIFICACION' 
+                                                        DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                        DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' 
+                                            FROM fruta_recepcionind
+                                            WHERE ID_RECEPCION= '" . $ID . "';");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function verRecepcion3($ID)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT * ,
+                                                DATE_FORMAT(FECHA_GUIA_RECEPCION, '%d-%m-%Y') AS 'FECHA_GUIA',
+                                                DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y') AS 'FECHA',
+                                                DATE_FORMAT(INGRESO, '%d-%m-%Y') AS 'INGRESO',
+                                                DATE_FORMAT(MODIFICACION, '%d-%m-%Y') AS 'MODIFICACION'
                                             FROM fruta_recepcionind
                                             WHERE ID_RECEPCION= '" . $ID . "';");
             $datos->execute();
@@ -460,8 +485,8 @@ class RECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT *  ,
                                                     FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
                                                     FECHA_RECEPCION AS 'FECHA',
-                                                    INGRESO AS 'INGRESO',
-                                                    MODIFICACION AS 'MODIFICACION',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                     IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
                                                     IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
                                                     IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',
@@ -492,8 +517,8 @@ class RECEPCIONIND_ADO
             $datos = $this->conexion->prepare("SELECT *  ,
                                                     FECHA_GUIA_RECEPCION AS 'FECHA_GUIA',
                                                     FECHA_RECEPCION AS 'FECHA',
-                                                    INGRESO AS 'INGRESO',
-                                                    MODIFICACION AS 'MODIFICACION',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d') AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION' ,
                                                     IFNULL(CANTIDAD_ENVASE_RECEPCION,0)  AS 'ENVASE',
                                                     IFNULL(KILOS_NETO_RECEPCION,0) AS 'NETO',
                                                     IFNULL(KILOS_BRUTO_RECEPCION,0)  AS 'BRUTO',

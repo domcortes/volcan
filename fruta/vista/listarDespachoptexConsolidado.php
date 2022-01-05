@@ -523,10 +523,10 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 $ORIGEN = "Sin Datos";
                                                             }
                                                         } else {
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
                                                             $CSGCSPORIGEN = "Sin Datos";
@@ -541,7 +541,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
@@ -554,7 +554,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
 
@@ -564,7 +564,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                             $NUMEROREPALETIZAJE = $ARRATREPALETIZAJE[0]["NUMERO_REPALETIZAJE"];
                                                         } else {
                                                             $NUMEROREPALETIZAJE = "Sin Datos";
-                                                            $FECHAREPALETIZAJE = "Sin Datos";
+                                                            $FECHAREPALETIZAJE = "";
                                                         }
                                                         ?>
                                                         <tr class="text-left">
@@ -793,10 +793,10 @@ include_once "../../assest/config/datosUrLP.php";
                                                                 $ORIGEN = "Sin Datos";
                                                             }
                                                         } else {
-                                                            $FECHARECEPCION = "Sin Datos";
+                                                            $FECHARECEPCION = "";
                                                             $NUMERORECEPCION = "Sin Datos";
                                                             $NUMEROGUIARECEPCION = "Sin Datos";
-                                                            $FECHAGUIARECEPCION = "Sin Datos";
+                                                            $FECHAGUIARECEPCION = "";
                                                             $TIPORECEPCION = "Sin Datos";
                                                             $ORIGEN = "Sin Datos";
                                                             $CSGCSPORIGEN = "Sin Datos";
@@ -811,7 +811,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROPROCESO = "Sin datos";
-                                                            $FECHAPROCESO = "Sin datos";
+                                                            $FECHAPROCESO = "";
                                                             $TPROCESO = "Sin datos";
                                                         }
                                                         $ARRAYREEMBALAJE = $REEMBALAJE_ADO->verReembalaje2($s['ID_REEMBALAJE']);
@@ -824,7 +824,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                             }
                                                         } else {
                                                             $NUMEROREEMBALEJE = "Sin datos";
-                                                            $FECHAREEMBALEJE = "Sin datos";
+                                                            $FECHAREEMBALEJE = "";
                                                             $TREEMBALAJE = "Sin datos";
                                                         }
 
@@ -834,7 +834,7 @@ include_once "../../assest/config/datosUrLP.php";
                                                             $NUMEROREPALETIZAJE = $ARRATREPALETIZAJE[0]["NUMERO_REPALETIZAJE"];
                                                         } else {
                                                             $NUMEROREPALETIZAJE = "Sin Datos";
-                                                            $FECHAREPALETIZAJE = "Sin Datos";
+                                                            $FECHAREPALETIZAJE = "";
                                                         }
                                                         ?>
                                                         <tr class="text-left">
@@ -869,8 +869,8 @@ include_once "../../assest/config/datosUrLP.php";
                                                             <td><?php echo $TREEMBALAJE; ?></td>                                                    
                                                             <td><?php echo $r['NUMERO_DESPACHOEX']; ?></td>
                                                             <td><?php echo $r['FECHA']; ?></td>
-                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo $r['NUMERO_GUIA_DESPACHOEX']; ?></td>
+                                                            <td><?php echo "Exportación"; ?></td>
                                                             <td><?php echo "No Aplica"; ?></td>
                                                             <td><?php echo $DESTINO; ?></td>
                                                             <td><?php echo $NOMBRETMANEJO; ?></td>
