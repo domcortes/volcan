@@ -126,6 +126,16 @@ if($ARRAYRECHAZO){
   $MOTIVO = $ARRAYRECHAZO[0]['MOTIVO_RECHAZO'];
 
   
+  $ESTADO = $ARRAYRECHAZO[0]['ESTADO'];
+  if ($ARRAYRECHAZO[0]['ESTADO'] == 1) {
+    $ESTADO = "Abierto";
+  }else if ($ARRAYRECHAZO[0]['ESTADO'] == 0) {
+    $ESTADO = "Cerrado";
+  }else{
+    $ESTADO="Sin Datos";
+  }  
+  
+  
 
   
 
@@ -274,7 +284,7 @@ $html = '
       <div id="details" class="clearfix">
         
       <div id="invoice">
-      <div class="date"><b>Fecha Despacho: </b>' . $FECHA . ' </div>
+      <div class="date"><b>Fecha Rechazo: </b>' . $FECHA . ' </div>
       <div class="date"><b>Empresa: </b>' . $EMPRESA . '  </div>
       <div class="date"><b>Planta: </b>' . $PLANTA . '  </div>
       <div class="date"><b>Temporada: </b>' . $TEMPORADA . '  </div>
@@ -282,9 +292,10 @@ $html = '
 
 
     <div id="client">
-    <div class="address"><b>Tipo Despacho:  </b>' . $TRECHAZO . '</div>
+    <div class="address"><b>Tipo Rechazo:  </b>' . $TRECHAZO . '</div>
+    <div class="address"><b>Estado Rechazo:  </b>' . $ESTADO . '</div>
     <div class="address"><b>CSG:  </b>' . $CSGPRODUCTOR . '</div>
-    <div class="address"><b>Productor:  </b>' . $NOMBREPRODUCTOR . '</div>
+    <div class="address"><b>Nombre Productor:  </b>' . $NOMBREPRODUCTOR . '</div>
     <div class="address"><b>Variedad:  </b>' . $NOMBREVESPECIES . '</div>
     ';
 
@@ -298,35 +309,76 @@ $html .= '
                 </tr>
                 <tr>
                     <th class="color left">Folio</th>
-                    <th class="color left">Fecha Embalado</th>
-                    <th class="color left">Envase/Estandar</th>8
+                    <th class="color left">Fecha Cosecha</th>
+                    <th class="color left">Codigo Estandar</th>
+                    <th class="color left">Envase/Estandar</th>
                     <th class="color center">Cant. Envase</th>
                     <th class="color center">Kilos Neto</th>
                     <th class="color center">Kilos Bruto</th>
                     <th class="color center ">Variedad </th>
-                    <th class="color center ">CSG </th>
-                    <th class="color center ">Productor </th>
+                    <th class="color center ">Tipo Manejo </th>
                 </tr>
             </thead>
             <tbody>
     ';
 foreach ($ARRAYEXISTENCIATOMADA as $r) :
 
-  $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
-  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
   $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);
+  if ($ARRAYEVERERECEPCIONID) {
+      $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+      $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+  } else {
+      $CODIGOESTANDAR = "Sin Datos";
+      $NOMBREESTANDAR = "Sin Datos";
+  }
+  $ARRAYVERVESPECIESID = $VESPECIES_ADO->verVespecies($r['ID_VESPECIES']);
+  if ($ARRAYVERVESPECIESID) {
+      $NOMBREVESPECIES = $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'];
+      $ARRAYVERESPECIESID = $ESPECIES_ADO->verEspecies($ARRAYVERVESPECIESID[0]['ID_ESPECIES']);
+      if ($ARRAYVERVESPECIESID) {
+          $NOMBRESPECIES = $ARRAYVERESPECIESID[0]['NOMBRE_ESPECIES'];
+      } else {
+          $NOMBRESPECIES = "Sin Datos";
+      }
+  } else {
+      $NOMBREVESPECIES = "Sin Datos";
+      $NOMBRESPECIES = "Sin Datos";
+  }
+  $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
+  if ($ARRAYVERPRODUCTORID) {
+
+      $CSGPRODUCTOR = $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'];
+      $NOMBREPRODUCTOR = $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'];
+  } else {
+      $CSGPRODUCTOR = "Sin Datos";
+      $NOMBREPRODUCTOR = "Sin Datos";
+  }
+  $ARRAYEVERERECEPCIONID = $ERECEPCION_ADO->verEstandar($r['ID_ESTANDAR']);
+  if ($ARRAYEVERERECEPCIONID) {
+      $CODIGOESTANDAR = $ARRAYEVERERECEPCIONID[0]['CODIGO_ESTANDAR'];
+      $NOMBREESTANDAR = $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'];
+  } else {
+      $CODIGOESTANDAR = "Sin Datos";
+      $NOMBREESTANDAR = "Sin Datos";
+  }
+  $ARRAYTMANEJO = $TMANEJO_ADO->verTmanejo($r['ID_TMANEJO']);
+  if ($ARRAYTMANEJO) {
+      $NOMBRETMANEJO = $ARRAYTMANEJO[0]['NOMBRE_TMANEJO'];
+  } else {
+      $NOMBRETMANEJO = "Sin Datos";
+  }
 
   $html = $html . '
         <tr>
             <th class=" left">' . $r['FOLIO_AUXILIAR_EXIMATERIAPRIMA'] . '</th>
             <td class=" left">' . $r['COSECHA'] . '</td>
-            <td class=" left">' . $ARRAYEVERERECEPCIONID[0]['NOMBRE_ESTANDAR'] . '</td>
+            <td class=" left">' . $CODIGOESTANDAR . '</td>
+            <td class=" left">' . $NOMBREESTANDAR . '</td>
             <td class=" center">' . $r['ENVASE'] . '</td>
             <td class=" center">' . $r['NETO'] . '</td>
             <td class=" center">' . $r['BRUTO'] . '</td>
-            <td class=" center ">' . $ARRAYVERVESPECIESID[0]['NOMBRE_VESPECIES'] . ' </td>
-            <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['CSG_PRODUCTOR'] . ' </td>
-            <td class=" center ">' . $ARRAYVERPRODUCTORID[0]['NOMBRE_PRODUCTOR'] . ' </td>
+            <td class=" center ">' . $NOMBREVESPECIES . ' </td>
+            <td class=" center ">' . $NOMBRETMANEJO . ' </td>
         </tr>
         ';
 endforeach;
@@ -334,11 +386,11 @@ $html = $html . '
         <tr>
             <th class="color left">&nbsp;</th>
             <th class="color left">&nbsp;</th>
+            <th class="color center ">&nbsp; </th>
             <th class="color left">Sub Total</th>
             <th class="color center">' . $TOTALENVASE . '</th>
             <th class="color center">' . $TOTALNETO . '</th>
             <th class="color center">' . $TOTALBRUTO . '</th>
-            <th class="color center ">&nbsp; </th>
             <th class="color center ">&nbsp; </th>
             <th class="color left">&nbsp;</th>
         </tr>
@@ -369,12 +421,6 @@ $html = $html . '
   </div>
   
 </main>
-<footer>
-Informe generado por Departamento TI Fruticola Volcan <a href="mailto:ti@fvolcan.cl">ti@fvolcan.cl</a>
-<br>
-Impreso Por: <b>' . $NOMBRE . '</b>
-
-</footer>
 </body>
 </html>
 
