@@ -187,7 +187,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                             <li class="breadcrumb-item" aria-current="page">Modulo</li>
                                             <li class="breadcrumb-item" aria-current="page">Existencia</li>
                                             <li class="breadcrumb-item" aria-current="page">Historial</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Existencia Producto Terminado </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#"> Existencia Producto Terminado </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -229,6 +229,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
+                                                        <th>Estado Calidad</th>
                                                         <th>Condición </th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
@@ -340,6 +341,20 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             }
                                                             if ($r['TESTADOSAG'] == "5") {
                                                                 $ESTADOSAG =  "Rechazado";
+                                                            }
+
+                                                            if($r['COLOR']=="1"){
+                                                                $TRECHAZOCOLOR="badge badge-danger ";
+                                                                $COLOR="Rechazado";
+                                                            }else if($r['COLOR']=="2"){
+                                                                $TRECHAZOCOLOR="badge badge-warning ";
+                                                                $COLOR="Objetado";
+                                                            }else if($r['COLOR']=="3"){
+                                                                $TRECHAZOCOLOR="badge badge-Success ";
+                                                                $COLOR="Aprobado";
+                                                            }else{
+                                                                $TRECHAZOCOLOR="";
+                                                                $COLOR="Sin Datos";
                                                             }
                                                             $ARRAYRECEPCION = $RECEPCIONPT_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                             if ($ARRAYRECEPCION) {
@@ -608,14 +623,21 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             }
                                                             ?>
                                                             <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_EXIEXPORTACION']; ?> </td>
-                                                                <td>
-                                                                    <a Onclick="abrirPestana('../../assest/documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $r['ID_EMPRESA']; ?>&&parametro2=<?php echo $r['ID_PLANTA']; ?>&&tipo=3');">                                                                        
-                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>                                                                                                                                        
-                                                                    </a>
+                                                                <td>                                                                    
+                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                        <?php echo $r['FOLIO_EXIEXPORTACION']; ?> 
+                                                                    </span>
+                                                                </td>
+                                                                <td>                   
+                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                        <a Onclick="abrirPestana('../../assest/documento/informeTarjasPT.php?parametro=<?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>&&parametro1=<?php echo $r['ID_EMPRESA']; ?>&&parametro2=<?php echo $r['ID_PLANTA']; ?>&&tipo=3');">                                                                        
+                                                                            <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>                                                                                                                                        
+                                                                        </a>
+                                                                    </span>
                                                                 </td>
                                                                 <td><?php echo $r['EMBALADO']; ?></td>
                                                                 <td><?php echo $ESTADO; ?></td>
+                                                                <td><?php echo $COLOR; ?></td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>
                                                                 <td><?php echo $CODIGOESTANDAR; ?></td>
                                                                 <td><?php echo $NOMBREESTANDAR; ?></td>
@@ -675,6 +697,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
+                                                        <th>Estado Calidad</th>
                                                         <th>Condición </th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>

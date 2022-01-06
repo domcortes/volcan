@@ -1248,6 +1248,34 @@ class EXIINDUSTRIAL_ADO
 
 
     //LISTAR
+    public function listarExiindustrialTemporadaDisponibleCBX(  $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare("SELECT  *,
+                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',    
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',     
+                                                    IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
+                                                FROM fruta_exiindustrial existencia, estandar_eindustrial estandar 
+                                                WHERE existencia.ID_ESTANDAR=estandar.ID_ESTANDAR
+                                                AND  existencia.ESTADO = 2
+                                                AND  existencia.ESTADO_REGISTRO = 1
+                                                AND  estandar.COBRO = 1                      
+                                                AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarExiindustrialEmpresaTemporadaDisponibleCBX($EMPRESA,  $TEMPORADA)
     {
         try {
@@ -1277,6 +1305,33 @@ class EXIINDUSTRIAL_ADO
             die($e->getMessage());
         }
     }
+    public function listarExiindustrialRechazoMPTemporadaDisponibleCBX(  $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare("SELECT  *,
+                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',      
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',          
+                                                    IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
+                                                FROM fruta_exiindustrial existencia, estandar_erecepcion estandar 
+                                                WHERE existencia.ID_ESTANDARMP=estandar.ID_ESTANDAR
+                                                AND  existencia.ESTADO = 2
+                                                AND  existencia.ESTADO_REGISTRO = 1   
+                                                AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarExiindustrialRechazoMPEmpresaTemporadaDisponibleCBX($EMPRESA,  $TEMPORADA)
     {
         try {
@@ -1291,6 +1346,33 @@ class EXIINDUSTRIAL_ADO
                                                 AND  existencia.ESTADO = 2
                                                 AND  existencia.ESTADO_REGISTRO = 1   
                                                 AND existencia.ID_EMPRESA = '" . $EMPRESA . "' 
+                                                AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function listarExiindustrialRechazoPTTemporadaDisponibleCBX(  $TEMPORADA)
+    {
+        try {
+            $datos = $this->conexion->prepare("SELECT  *,
+                                                    DATEDIFF(SYSDATE(), existencia.FECHA_EMBALADO_EXIINDUSTRIAL) AS 'DIAS',      
+                                                    DATE_FORMAT(existencia.INGRESO, '%Y-%m-%d ') AS 'INGRESO',
+                                                    DATE_FORMAT(existencia.MODIFICACION, '%Y-%m-%d ') AS 'MODIFICACION',      
+                                                    existencia.FECHA_EMBALADO_EXIINDUSTRIAL AS 'EMBALADO',        
+                                                    IFNULL(existencia.KILOS_NETO_EXIINDUSTRIAL,0) AS 'NETO' 
+                                                FROM fruta_exiindustrial existencia, estandar_eexportacion estandar 
+                                                WHERE existencia.ID_ESTANDARPT=estandar.ID_ESTANDAR
+                                                AND  existencia.ESTADO = 2
+                                                AND  existencia.ESTADO_REGISTRO = 1   
                                                 AND existencia.ID_TEMPORADA = '" . $TEMPORADA . "'	");
             $datos->execute();
             $resultado = $datos->fetchAll();

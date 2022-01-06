@@ -240,6 +240,7 @@ class EXIMATERIAPRIMA_ADO
                                                            ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA,
                                                            GASIFICADO,
                                                            INGRESO,
+                                                           COLOR,
                                                            ID_TMANEJO,
                                                            ID_FOLIO,
                                                            ID_TTRATAMIENTO1,
@@ -259,7 +260,7 @@ class EXIMATERIAPRIMA_ADO
                                                            ESTADO,  
                                                            ESTADO_REGISTRO
                                                    ) VALUES
-              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
+              ( ?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,  ?, ?,  ?,   ?, ?, ?, ?, ?,   ?, ?, ?, SYSDATE(), 2, 1);";
             $this->conexion->prepare($query)
                 ->execute(
                     array(
@@ -279,6 +280,7 @@ class EXIMATERIAPRIMA_ADO
                         $EXIMATERIAPRIMA->__GET('ALIAS_ESTATICO_FOLIO_EXIMATERIAPRIMA'),
                         $EXIMATERIAPRIMA->__GET('GASIFICADO'),
                         $EXIMATERIAPRIMA->__GET('INGRESO'),
+                        $EXIMATERIAPRIMA->__GET('COLOR'),
                         $EXIMATERIAPRIMA->__GET('ID_TMANEJO'),
                         $EXIMATERIAPRIMA->__GET('ID_FOLIO'),
                         $EXIMATERIAPRIMA->__GET('ID_TTRATAMIENTO1'),
@@ -650,6 +652,40 @@ class EXIMATERIAPRIMA_ADO
 
     //LISTAS 
     //BUSCAR POR LA RECEPCION ASOCIADA A LA EXIMATERIAPRIMA
+    public function listarEximateriaprimaTemporadaDisponible(   $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT *,  
+                                                    DATEDIFF(SYSDATE(), INGRESO) AS 'DIAS',
+                                                    DATE_FORMAT(INGRESO, '%Y-%m-%d')AS 'INGRESO',
+                                                    DATE_FORMAT(MODIFICACION, '%Y-%m-%d') AS 'MODIFICACION',
+                                                    FECHA_COSECHA_EXIMATERIAPRIMA AS 'COSECHA',
+                                                    IFNULL(DATE_FORMAT(FECHA_RECEPCION, '%d-%m-%Y'),'Sin Datos') AS 'RECEPCION',
+                                                    IFNULL(DATE_FORMAT(FECHA_REPALETIZAJE, '%d-%m-%Y'),'Sin Datos') AS 'REPALETIZAJE',
+                                                    IFNULL(DATE_FORMAT(FECHA_DESPACHO, '%d-%m-%Y'),'Sin Datos') AS 'DESPACHO',
+                                                    IFNULL(CANTIDAD_ENVASE_EXIMATERIAPRIMA,0) AS 'ENVASE',
+                                                    IFNULL(KILOS_NETO_EXIMATERIAPRIMA,0) AS 'NETO',
+                                                    IFNULL(KILOS_BRUTO_EXIMATERIAPRIMA,0) AS 'BRUTO',
+                                                    IFNULL(KILOS_PROMEDIO_EXIMATERIAPRIMA,0) AS 'PROMEDIO',
+                                                    IFNULL(PESO_PALLET_EXIMATERIAPRIMA,0) AS 'PALLET'
+                                                    FROM fruta_eximateriaprima
+                                                    WHERE ESTADO_REGISTRO = 1
+                                                    AND ESTADO = 2
+                                                    AND ID_TEMPORADA = '" . $TEMPORADA . "';  ");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function listarEximateriaprimaEmpresaTemporadaDisponible($EMPRESA,   $TEMPORADA)
     {
         try {
@@ -2253,7 +2289,7 @@ class EXIMATERIAPRIMA_ADO
                         UPDATE fruta_eximateriaprima SET
                                 MODIFICACION = SYSDATE(),				
                                 COLOR = ?,				
-                                ESTADO = 2
+                                ESTADO = 3
                         WHERE ID_EXIMATERIAPRIMA= ?;";
             $this->conexion->prepare($query)
                 ->execute(

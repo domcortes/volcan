@@ -708,8 +708,7 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                       <li><a href="listarRechazomp.php">Agrupado Rechazo<i class="ti-more"></i></a></li>
                       <li><a href="listarRechazompDetallado.php">Detallado Rechazo<i class="ti-more"></i></a></li>
                     </ul>
-                  </li>
-                  <!--
+                  </li>                  
                   <li class="treeview">
                     <a href="#">Producto Terminado
                       <span class="pull-left-container">
@@ -717,12 +716,11 @@ $ARRAYPLANTACAMBIAR = $PLANTA_ADO->listarPlantaPropiaCBX();
                       </span>
                     </a>
                     <ul class="treeview-menu">
-                      <li><a href="#">Registro Rechazo<i class="ti-more"></i></a></li>
-                      <li><a href="#">Agrupado Rechazo<i class="ti-more"></i></a></li>
-                      <li><a href="#">Detallado Rechazo<i class="ti-more"></i></a></li>
+                      <li><a href="registroRechazopt.php">Registro Rechazo<i class="ti-more"></i></a></li>
+                      <li><a href="listarRechazopt.php">Agrupado Rechazo<i class="ti-more"></i></a></li>
+                      <li><a href="listarRechazoptDetallado.php">Detallado Rechazo<i class="ti-more"></i></a></li>
                     </ul>
-                  </li>
-                -->
+                  </li>                
                 </ul>
               </li>
               <!--

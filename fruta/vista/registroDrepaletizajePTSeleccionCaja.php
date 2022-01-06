@@ -331,6 +331,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                         <tr class="text-left">
 
                                                             <th>Folio </th>
+                                                            <th>Estado Calidad</th>
                                                             <th>Condición </th>
                                                             <th>Selección</th>
                                                             <th>Seleccion Cajas</th>
@@ -369,6 +370,19 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                 }
                                                                 if ($r['TESTADOSAG'] == "5") {
                                                                     $ESTADOSAG =  "Rechazado";
+                                                                }
+                                                                if($r['COLOR']=="1"){
+                                                                    $TRECHAZOCOLOR="badge badge-danger ";
+                                                                    $COLOR="Rechazado";
+                                                                }else if($r['COLOR']=="2"){
+                                                                    $TRECHAZOCOLOR="badge badge-warning ";
+                                                                    $COLOR="Objetado";
+                                                                }else if($r['COLOR']=="3"){
+                                                                    $TRECHAZOCOLOR="badge badge-Success ";
+                                                                    $COLOR="Aprobado";
+                                                                }else{
+                                                                    $TRECHAZOCOLOR="";
+                                                                    $COLOR="Sin Datos";
                                                                 }
                                                                 $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                                 if ($ARRAYVERPRODUCTORID) {
@@ -421,7 +435,12 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                                                                 <?php if ($ENVASERESTANTE > 0) { ?>
                                                                     <?php $CONTADOR = $CONTADOR + 1; ?>
                                                                     <tr class="text-left">
-                                                                        <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                        <td>                                                                   
+                                                                            <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                                <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
+                                                                            </span>
+                                                                        </td>
+                                                                        <td><?php echo $COLOR; ?></td>
                                                                         <td><?php echo $ESTADOSAG; ?></td>
                                                                         <td>
                                                                             <div class="form-group">
@@ -665,6 +684,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REEMBALAJE"]);
                         $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REPALETIZAJE"]);
                         $EXIEXPORTACION->__SET('INGRESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["INGRESO"]);
+                        $EXIEXPORTACION->__SET('COLOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["COLOR"]);
                         $EXIEXPORTACION->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
                         $EXIEXPORTACION->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
                         $EXIEXPORTACION->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
@@ -835,6 +855,7 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1']) && isset($_S
                         $EXIEXPORTACION->__SET('FECHA_REEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REEMBALAJE"]);
                         $EXIEXPORTACION->__SET('FECHA_REPALETIZAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["FECHA_REPALETIZAJE"]);
                         $EXIEXPORTACION->__SET('INGRESO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["INGRESO"]);
+                        $EXIEXPORTACION->__SET('COLOR', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["COLOR"]);
                         $EXIEXPORTACION->__SET('ID_TCALIBRE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TCALIBRE"]);
                         $EXIEXPORTACION->__SET('ID_TEMBALAJE', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TEMBALAJE"]);
                         $EXIEXPORTACION->__SET('ID_TMANEJO', $ARRAYEXIEXPORTACIONBOLSASELECCION[0]["ID_TMANEJO"]);
