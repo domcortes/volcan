@@ -21,8 +21,12 @@ $ARRAYLISTARPLANTA=$PLANTA_ADO->listarPlantaPropiaCBX();
 $ARRAYEXISTENCIAMP=$CONSULTA_ADO->existenciaDisponibleMp($TEMPORADAS);
 $TOTALEXISTENCIAMP=$ARRAYEXISTENCIAMP[0]["NETO"];
 
+
+
 $ARRAYRECEPCIONMP=$CONSULTA_ADO->acumuladoRecepcionMp($TEMPORADAS);
+$ARRAYRECEPCIONBULKMP=$CONSULTA_ADO->acumuladoRecepcionMpBulk($TEMPORADAS);
 $TOTALRECECPCIOANDO=$ARRAYRECEPCIONMP[0]["NETO"];
+$TOTALRECECPCIOANDOBULK=$ARRAYRECEPCIONBULKMP[0]["NETO"];
 
 
 $ARRAYPROCESADOMP=$CONSULTA_ADO->acumuladoProcesadoMp($TEMPORADAS);
@@ -74,27 +78,33 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                                     <tr>
                                                         <th>Empresa/Planta</th>                           
                                                         <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>                                
-                                                            <th > <?php echo $s["NOMBRE_PLANTA"];?> <br> Recepcion   </th>                                    
-                                                            <th > <?php echo $s["NOMBRE_PLANTA"];?> <br> Proceso  </th>                                                       
+                                                            <th  class="right"> <?php echo $s["NOMBRE_PLANTA"];?> <br> Recepcion   </th>          
+                                                            <th  class="center"> <?php echo $s["NOMBRE_PLANTA"];?> <br> Bulk   </th>                                   
+                                                            <th  class="left"> <?php echo $s["NOMBRE_PLANTA"];?> <br> Proceso  </th>                                                       
                                                         <?php endforeach; ?>
-                                                        <th class="right">Total Recepción</th>  
-                                                        <th class="left">Total Procesado</th>                                                          
+                                                        <th class="right">Total <br> Recepción</th>  
+                                                        <th class="center">Total <br> Bulk</th>  
+                                                        <th class="left">Total <br> Procesado</th>                                                          
                                                     </tr>   
                                                 </thead>
                                                 <tbody>                                                    
                                                 <?php foreach ($ARRAYLISTAREMPRESA as $r) : ?>
                                                     <?php $ARRAYRECEPCIONMPEMPRESA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS)?>
+                                                    <?php $ARRAYRECEPCIONMPBULKEMPRESA=$CONSULTA_ADO->acumuladoRecepcionMpBulkPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS)?>
                                                     <?php $ARRAYPROCESADOMPEMPRESA=$CONSULTA_ADO->acumuladoProcesadoMpPorEmpresa($r["ID_EMPRESA"],$TEMPORADAS)?>
                                                         <tr >
                                                         <th> <?php echo $r["NOMBRE_EMPRESA"];?> </th>                    
                                                         <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>     
                                                             <?php $ARRAYRECEPCIONMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
+                                                            <?php $ARRAYRECEPCIONMPBULKEMPRESAPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpBulkPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
                                                             <?php $ARRAYPROCESADOMPEMPRESAPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorEmpresaPlanta($r["ID_EMPRESA"],$s["ID_PLANTA"],$TEMPORADAS)?>  
-                                                            <td><?php echo $ARRAYRECEPCIONMPEMPRESAPLANTA[0]["NETO"]; ?></td>
-                                                            <td><?php echo $ARRAYPROCESADOMPEMPRESAPLANTA[0]["NETO"]; ?></td>                                                                                                                        
+                                                            <td class="right"><?php echo $ARRAYRECEPCIONMPEMPRESAPLANTA[0]["NETO"]; ?></td>
+                                                            <td class="center"><?php echo $ARRAYRECEPCIONMPBULKEMPRESAPLANTA[0]["NETO"]; ?></td>  
+                                                            <td class="left"><?php echo $ARRAYPROCESADOMPEMPRESAPLANTA[0]["NETO"]; ?></td>                                                                                                                        
                                                         <?php endforeach; ?>    
-                                                        <td><?php echo $ARRAYRECEPCIONMPEMPRESA[0]["NETO"]; ?></td>
-                                                        <td><?php echo $ARRAYPROCESADOMPEMPRESA[0]["NETO"]; ?></td>
+                                                        <td class="right"><?php echo $ARRAYRECEPCIONMPEMPRESA[0]["NETO"]; ?></td>
+                                                        <td class="center"><?php echo $ARRAYRECEPCIONMPBULKEMPRESA[0]["NETO"]; ?></td>
+                                                        <td class="left"><?php echo $ARRAYPROCESADOMPEMPRESA[0]["NETO"]; ?></td>
                                                     </tr>    
                                                 <?php endforeach; ?>       
                                                 </tbody>
@@ -102,13 +112,16 @@ $TOTALPROCESADO=$ARRAYPROCESADOMP[0]["NETO"];
                                                     <tr>
                                                         <th>Sub Total</th>                           
                                                         <?php foreach ($ARRAYLISTARPLANTA as $s) : ?>    
-                                                            <?php $ARRAYRECEPCIONMPPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>      
+                                                            <?php $ARRAYRECEPCIONMPPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>    
+                                                            <?php $ARRAYRECEPCIONMPBULKPLANTA=$CONSULTA_ADO->acumuladoRecepcionMpBulkPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>       
                                                             <?php $ARRAYPROCESADOMPPLANTA=$CONSULTA_ADO->acumuladoProcesadoMpPorPlanta($s["ID_PLANTA"],$TEMPORADAS)?>      
-                                                            <td><?php echo $ARRAYRECEPCIONMPPLANTA[0]["NETO"]; ?></td>
-                                                            <td><?php echo $ARRAYPROCESADOMPPLANTA[0]["NETO"]; ?></td>
+                                                            <td class="right"><?php echo $ARRAYRECEPCIONMPPLANTA[0]["NETO"]; ?></td>    
+                                                            <td class="center"><?php echo $ARRAYRECEPCIONMPBULKPLANTA[0]["NETO"]; ?></td>
+                                                            <td class="left"><?php echo $ARRAYPROCESADOMPPLANTA[0]["NETO"]; ?></td>
                                                         <?php endforeach; ?>  
-                                                        <td><?php echo $TOTALRECECPCIOANDO;?> </td>
-                                                        <td><?php echo $TOTALPROCESADO;?> </td>                                                                                                                  
+                                                        <td class="right"><?php echo $TOTALRECECPCIOANDO;?> </td>
+                                                        <td class="center"><?php echo $TOTALRECECPCIOANDOBULK; ?></td>
+                                                        <td class="left"><?php echo $TOTALPROCESADO;?> </td>                                                                                                                  
                                                     </tr>  
                                                 </tfoot>
                                             </table> 

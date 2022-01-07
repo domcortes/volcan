@@ -231,9 +231,31 @@
           <li><a href="listarRecepcionmpDetallado.php">Detallado Recepcion MP<i class="ti-more"></i></a></li>
           <li><a href="listarProceso.php">Proceso<i class="ti-more"></i></a></li>
         </ul>
-      </li> 
-      <li class="header">Configuraciones</li>
-  
+      </li>       
+      <li class="treeview">
+        <a href="#">
+          <img src="../../api/cryptioadmin10/html/images/svg-icon/sidebar-menu/pages.svg" class="svg-icon" alt="">
+          <span>Existencia</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="treeview">
+            <a href="#">Disponible
+              <span class="pull-left-container">
+                <i class=" fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="listarEximateriaprima.php">Materia Prima<i class="ti-more"></i></a></li>
+              <li><a href="listarExiexportacion.php">Producto Terminado<i class="ti-more"></i></a></li>
+              <li><a href="listarExiindustrial.php">Producto Industrial<i class="ti-more"></i></a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>   
+      <li class="header">Configuraciones</li>  
     </ul>
   </section>
 </aside>

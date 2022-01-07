@@ -52,7 +52,38 @@ class CONSULTA_ADO
                                                 AND  empresa.ESTADO_REGISTRO = 1
                                                 AND  recepcion.ESTADO = 0
                                                 AND  recepcion.ESTADO_REGISTRO = 1
-                                                AND  detalle.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1 
+                                                AND recepcion.TRECEPCION !=3
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function acumuladoRecepcionMpBulk($TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle, principal_empresa empresa
+                                                WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
+                                                AND  recepcion.ID_EMPRESA=empresa.ID_EMPRESA
+                                                AND  empresa.ESTADO_REGISTRO = 1
+                                                AND  recepcion.ESTADO = 0
+                                                AND  recepcion.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1 
+                                                AND  recepcion.TRECEPCION = 3
                                                 AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
             $datos->execute();
@@ -80,6 +111,35 @@ class CONSULTA_ADO
                                                 AND  recepcion.ESTADO = 0
                                                 AND  recepcion.ESTADO_REGISTRO = 1
                                                 AND  detalle.ESTADO_REGISTRO = 1
+                                                AND  recepcion.TRECEPCION != 3
+                                                AND recepcion.ID_EMPRESA = '".$EMPRESA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function acumuladoRecepcionMpBulkPorEmpresa($EMPRESA,$TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle
+                                                WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
+                                                AND  recepcion.ESTADO = 0
+                                                AND  recepcion.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1
+                                                AND  recepcion.TRECEPCION = 3
                                                 AND recepcion.ID_EMPRESA = '".$EMPRESA."'
                                                 AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
@@ -110,6 +170,38 @@ class CONSULTA_ADO
                                                 AND  recepcion.ESTADO = 0
                                                 AND  recepcion.ESTADO_REGISTRO = 1
                                                 AND  detalle.ESTADO_REGISTRO = 1
+                                                AND  recepcion.TRECEPCION !=3
+                                                AND  recepcion.ID_PLANTA = '".$PLANTA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function acumuladoRecepcionMpBulkPorPlanta($PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle, principal_empresa empresa
+                                                WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
+                                                AND recepcion.ID_EMPRESA=empresa.ID_EMPRESA
+                                                AND  empresa.ESTADO_REGISTRO = 1
+                                                AND  recepcion.ESTADO = 0
+                                                AND  recepcion.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1
+                                                AND  recepcion.TRECEPCION =3
                                                 AND recepcion.ID_PLANTA = '".$PLANTA."'
                                                 AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
                                                 ;	");
@@ -137,6 +229,36 @@ class CONSULTA_ADO
                                                 AND  recepcion.ESTADO = 0
                                                 AND  recepcion.ESTADO_REGISTRO = 1
                                                 AND  detalle.ESTADO_REGISTRO = 1
+                                                AND  recepcion.TRECEPCION !=3
+                                                AND recepcion.ID_EMPRESA = '".$EMPRESA."'
+                                                AND recepcion.ID_PLANTA = '".$PLANTA."'
+                                                AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'
+                                                ;	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+
+
+            return $resultado;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function acumuladoRecepcionMpBulkPorEmpresaPlanta($EMPRESA, $PLANTA, $TEMPORADA)
+    {
+        try {
+
+            $datos = $this->conexion->prepare("SELECT 
+                                                    FORMAT(IFNULL(SUM(detalle.KILOS_NETO_DRECEPCION),0),2,'de_DE') AS 'NETO' 
+                                                FROM  fruta_recepcionmp recepcion ,  fruta_drecepcionmp detalle
+                                                WHERE recepcion.ID_RECEPCION =  detalle.ID_RECEPCION
+                                                AND  recepcion.ESTADO = 0
+                                                AND  recepcion.ESTADO_REGISTRO = 1
+                                                AND  detalle.ESTADO_REGISTRO = 1
+                                                AND  recepcion.TRECEPCION =3
                                                 AND recepcion.ID_EMPRESA = '".$EMPRESA."'
                                                 AND recepcion.ID_PLANTA = '".$PLANTA."'
                                                 AND  recepcion.ID_TEMPORADA = '".$TEMPORADA."'

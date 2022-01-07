@@ -215,13 +215,14 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existenciapt" class="table-hover " style="width: 300%;">
+                                            <table id="existenciapt" class="table-hover" style="width: 300%;">
                                                 <thead>
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
+                                                        <th>Estado Calidad</th>
                                                         <th>Condición </th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
@@ -334,6 +335,19 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             }
                                                             if ($r['TESTADOSAG'] == "5") {
                                                                 $ESTADOSAG =  "Rechazado";
+                                                            }
+                                                            if($r['COLOR']=="1"){
+                                                                $TRECHAZOCOLOR="badge badge-danger ";
+                                                                $COLOR="Rechazado";
+                                                            }else if($r['COLOR']=="2"){
+                                                                $TRECHAZOCOLOR="badge badge-warning ";
+                                                                $COLOR="Objetado";
+                                                            }else if($r['COLOR']=="3"){
+                                                                $TRECHAZOCOLOR="badge badge-Success ";
+                                                                $COLOR="Aprobado";
+                                                            }else{
+                                                                $TRECHAZOCOLOR="";
+                                                                $COLOR="Sin Datos";
                                                             }
                                                             $ARRAYRECEPCION = $RECEPCIONPT_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                             if ($ARRAYRECEPCION) {
@@ -602,10 +616,19 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             }
                                                             ?>
                                                             <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_EXIEXPORTACION']; ?> </td>
-                                                                <td> <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                <td>                     
+                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                        <?php echo $r['FOLIO_EXIEXPORTACION']; ?> 
+                                                                    </span>
+                                                                </td>
+                                                                <td>                     
+                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">                                                                        
+                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>                                                                                                                                                                                                                
+                                                                    </span>
+                                                                </td>
                                                                 <td><?php echo $r['EMBALADO']; ?></td>
                                                                 <td><?php echo $ESTADO; ?></td>
+                                                                <td><?php echo $COLOR; ?></td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>
                                                                 <td><?php echo $CODIGOESTANDAR; ?></td>
                                                                 <td><?php echo $NOMBREESTANDAR; ?></td>

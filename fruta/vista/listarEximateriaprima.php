@@ -182,6 +182,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Fecha Cosecha </th>
                                                         <th>Estado </th>
                                                         <th>Estado Calidad</th>
+                                                        <th>Días</th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
                                                         <th>CSG</th>
@@ -203,7 +204,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                         <th>Tipo Tratamiento 1 </th>
                                                         <th>Tipo Tratamiento 2 </th>
                                                         <th>Gasificacion</th>
-                                                        <th>Días</th>
                                                         <th>Ingreso</th>
                                                         <th>Modificación</th>
                                                         <th>Empresa</th>
@@ -400,6 +400,7 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $r['COSECHA']; ?></td>
                                                             <td><?php echo $ESTADO; ?></td>
                                                             <td><?php echo $COLOR; ?></td>
+                                                            <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $CODIGOESTANDAR; ?></td>
                                                             <td><?php echo $NOMBREESTANDAR; ?></td>
                                                             <td><?php echo $CSGPRODUCTOR; ?></td>
@@ -421,7 +422,6 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
                                                             <td><?php echo $NOMBRETTRATAMIENTO1; ?></td>
                                                             <td><?php echo $NOMBRETTRATAMIENTO2; ?></td>
                                                             <td><?php echo $GASIFICADO; ?></td>
-                                                            <td><?php echo $r['DIAS']; ?></td>
                                                             <td><?php echo $r['INGRESO']; ?></td>
                                                             <td><?php echo $r['MODIFICACION']; ?></td>
                                                             <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -480,6 +480,19 @@ if ($EMPRESAS  && $PLANTAS && $TEMPORADAS) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                showConfirmButton: false
+            })
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Las <b>Existencia</b> que tienen la letra de color <b>Rojo</b> tiene mas de 7 dias desde su ingreso.</label>"
+            })
+        </script>
 </body>
 
 </html>

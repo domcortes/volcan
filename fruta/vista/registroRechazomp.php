@@ -469,7 +469,7 @@ if (isset($_POST)) {
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="page-title">Registro Rechazo</h3>
+                                <h3 class="page-title">Rechazo</h3>
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
@@ -478,7 +478,7 @@ if (isset($_POST)) {
                                             <li class="breadcrumb-item" aria-current="page">Calidad de Fruta</li>
                                             <li class="breadcrumb-item" aria-current="page">Rechazo</li>
                                             <li class="breadcrumb-item" aria-current="page">Materia Prima</li>
-                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#p">Operaciones Registro Rechazo </a>
+                                            <li class="breadcrumb-item active" aria-current="page"> <a href="#">Registro Rechazo </a>
                                             </li>
                                         </ol>
                                     </nav>
@@ -509,9 +509,9 @@ if (isset($_POST)) {
                     <!-- Main content -->
                     <section class="content">
                         <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
-                            <div class="box">
-                                <div class="card-header">
-                                    <h4 class="card-title">Encabezado de Rechazo</h4>
+                            <div class="box">                   
+                                 <div class="box-header with-border bg-primary">                                   
+                                    <h4 class="box-title">Registro de Rechazo</h4>                                        
                                 </div>
                                 <div class="box-body ">
                                     <div class="row">

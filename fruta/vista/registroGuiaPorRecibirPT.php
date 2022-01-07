@@ -510,6 +510,7 @@ include_once "../../assest/config/datosUrLP.php";
                 $EXIEXPORTACION->__SET('TESTADOSAG', $r['TESTADOSAG']);
                 $EXIEXPORTACION->__SET('VGM', $r['VGM']);
                 $EXIEXPORTACION->__SET('INGRESO', $r['INGRESO']);
+                $EXIEXPORTACION->__SET('COLOR', $r['COLOR']);
                 $EXIEXPORTACION->__SET('ID_TCALIBRE', $r['ID_TCALIBRE']);
                 $EXIEXPORTACION->__SET('ID_TEMBALAJE', $r['ID_TEMBALAJE']);
                 $EXIEXPORTACION->__SET('ID_TMANEJO', $r['ID_TMANEJO']);

@@ -210,15 +210,16 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                 <div class="row">
                                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table id="existenciapt" class="table-hover " style="width: 300%;">
+                                            <table id="existenciapt" class="table-hover" style="width: 300%;">
                                                 <thead>
-                                                    <tr class="text-left">
                                                     <tr class="text-left">
                                                         <th>Folio Original</th>
                                                         <th>Folio Nuevo</th>
                                                         <th>Fecha Embalado </th>
                                                         <th>Estado </th>
-                                                        <th>Condición </th>
+                                                        <th>Estado Calidad</th>
+                                                        <th>Condición </th> 
+                                                        <th>Días</th>
                                                         <th>Código Estandar</th>
                                                         <th>Envase/Estandar</th>
                                                         <th>Tipo Calibre </th>
@@ -255,8 +256,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                         <th>Gasificacion</th>
                                                         <th>Prefrío</th>
                                                         <th>Tipo Categoria </th>
-                                                        <th>Tipo Color </th>      
-                                                        <th>Días</th>
+                                                        <th>Tipo Color </th>     
                                                         <th>Ingreso</th>
                                                         <th>Modificación</th>
                                                         <th>Empresa</th>
@@ -266,6 +266,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                 </thead>
                                                 <tbody>
                                                     <?php foreach ($ARRAYEXIEXPORTACION as $s) : ?>
+
                                                         <?php $ARRAYEXISTENCIA=$EXIEXPORTACION_ADO->listarExiexportacionEmpresaTemporadaPorFolioDisponible($EMPRESAS,  $TEMPORADAS,$s['FOLIO_AUXILIAR_EXIEXPORTACION'] );  ?>                                                                                                                    
                                                         <?php foreach ($ARRAYEXISTENCIA as $r) : ?>
                                                             <?php  $CONTADOR+=1;   ?>
@@ -323,6 +324,19 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             }
                                                             if ($r['TESTADOSAG'] == "5") {
                                                                 $ESTADOSAG =  "Rechazado";
+                                                            }
+                                                            if($r['COLOR']=="1"){
+                                                                $TRECHAZOCOLOR="badge badge-danger ";
+                                                                $COLOR="Rechazado";
+                                                            }else if($r['COLOR']=="2"){
+                                                                $TRECHAZOCOLOR="badge badge-warning ";
+                                                                $COLOR="Objetado";
+                                                            }else if($r['COLOR']=="3"){
+                                                                $TRECHAZOCOLOR="badge badge-Success ";
+                                                                $COLOR="Aprobado";
+                                                            }else{
+                                                                $TRECHAZOCOLOR="";
+                                                                $COLOR="Sin Datos";
                                                             }
                                                             $ARRAYRECEPCION = $RECEPCIONPT_ADO->verRecepcion2($r['ID_RECEPCION']);
                                                             if ($ARRAYRECEPCION) {
@@ -397,86 +411,7 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 $FECHAREPALETIZAJE = "";
                                                             }
 
-                                                            $ARRAYVERDESPACHOPT = $DESPACHOPT_ADO->verDespachopt2($r['ID_DESPACHO']);
-                                                            $ARRYADESPACHOEX = $DESPACHOEX_ADO->verDespachoex2($r['ID_DESPACHOEX']);
-                                                            if ($ARRAYVERDESPACHOPT) {
-                                                                $NUMERODESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_DESPACHO"];
-                                                                $FECHADESPACHO = $ARRAYVERDESPACHOPT[0]["FECHA"];
-
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "1") {
-                                                                    $TDESPACHO = "Interplanta";
-                                                                    $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                                    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYVERDESPACHOPT[0]['ID_PLANTA2']);
-                                                                    if ($ARRAYPLANTA2) {
-                                                                        $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-                                                                        $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
-                                                                    } else {
-                                                                        $DESTINO = "Sin Datos";
-                                                                        $CSGCSPDESTINO="Sin Datos";
-                                                                    }
-                                                                }
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "2") {
-                                                                    $TDESPACHO = "Devolución Productor";
-                                                                    $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                                    $ARRAYPRODUCTOR = $PRODUCTOR_ADO->verProductor($ARRAYVERDESPACHOPT[0]['ID_PRODUCTOR']);
-                                                                    if ($ARRAYPRODUCTOR) {
-                                                                        $CSGCSPDESTINO=$ARRAYPRODUCTOR[0]['CSG_PRODUCTOR'];
-                                                                        $DESTINO =  $ARRAYPRODUCTOR[0]['NOMBRE_PRODUCTOR'];
-                                                                    } else {
-                                                                        $DESTINO = "Sin Datos";
-                                                                        $CSGCSPDESTINO="Sin Datos";
-                                                                    }
-                                                                }
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "3") {
-                                                                    $TDESPACHO = "Venta";
-                                                                    $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                                    $ARRAYCOMPRADOR = $COMPRADOR_ADO->verComprador($ARRAYVERDESPACHOPT[0]['ID_COMPRADOR']);
-                                                                    if ($ARRAYCOMPRADOR) {
-                                                                        $DESTINO = $ARRAYCOMPRADOR[0]['NOMBRE_COMPRADOR'];
-                                                                        $CSGCSPDESTINO="No Aplica";
-                                                                    } else {
-                                                                        $DESTINO = "Sin Datos";
-                                                                        $CSGCSPDESTINO="Sin Datos";
-                                                                    }
-                                                                }
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "4") {
-                                                                    $TDESPACHO = "Despacho de Decarte";
-                                                                    $NUMEROGUIADESPACHO = "No Aplica";
-                                                                    $CSGCSPDESTINO="No Aplica";
-                                                                    $DESTINO = $ARRAYVERDESPACHOPT[0]['REGALO_DESPACHO'];
-                                                                }
-                                                                if ($ARRAYVERDESPACHOPT[0]['TDESPACHO'] == "5") {
-                                                                    $TDESPACHO = "Planta Externa";
-                                                                    $NUMEROGUIADESPACHO = $ARRAYVERDESPACHOPT[0]["NUMERO_GUIA_DESPACHO"];
-                                                                    $ARRAYPLANTA2 = $PLANTA_ADO->verPlanta($ARRAYVERDESPACHOPT[0]['ID_PLANTA3']);
-                                                                    if ($ARRAYPLANTA2) {
-                                                                        $DESTINO = $ARRAYPLANTA2[0]['NOMBRE_PLANTA'];
-                                                                        $CSGCSPDESTINO=$ARRAYPLANTA2[0]['CODIGO_SAG_PLANTA'];
-                                                                    } else {
-                                                                        $DESTINO = "Sin Datos";
-                                                                        $CSGCSPDESTINO="Sin Datos";
-                                                                    }
-                                                                }
-                                                            } else if ($ARRYADESPACHOEX) {
-                                                                $TDESPACHO = "Exportación";
-                                                                $CSGCSPDESTINO="No Aplica";
-                                                                $NUMERODESPACHO = $ARRYADESPACHOEX[0]["NUMERO_DESPACHOEX"];
-                                                                $NUMEROGUIADESPACHO = $ARRYADESPACHOEX[0]["NUMERO_GUIA_DESPACHOEX"];
-                                                                $FECHADESPACHO = $ARRYADESPACHOEX[0]["FECHA"];
-                                                                $ARRAYDFINAL = $DFINAL_ADO->verDfinal($ARRYADESPACHOEX[0]['ID_DFINAL']);
-                                                                if ($ARRAYDFINAL) {
-                                                                    $DESTINO = $ARRAYDFINAL[0]['NOMBRE_DFINAL'];
-                                                                } else {
-                                                                    $DESTINO = "Sin Datos";
-                                                                }
-                                                            } else {
-                                                                $DESTINO = "Sin datos";
-                                                                $TDESPACHO = "Sin datos";
-                                                                $FECHADESPACHO = "";
-                                                                $NUMERODESPACHO = "Sin Datos";
-                                                                $NUMEROGUIADESPACHO = "Sin Datos";
-                                                                $CSGCSPDESTINO="Sin Datos";
-                                                            }
+                                                  
                                                             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                             if ($ARRAYVERPRODUCTORID) {
 
@@ -591,11 +526,21 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                             }
                                                             ?>
                                                             <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_EXIEXPORTACION']; ?> </td>
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?></td>
+                                                                <td>                                                                   
+                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                        <?php echo $r['FOLIO_EXIEXPORTACION']; ?>
+                                                                    </span>
+                                                                </td>
+                                                                <td>                    
+                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">                                                                       
+                                                                            <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>                                                                                                                                                                                                               
+                                                                    </span>
+                                                                </td>
                                                                 <td><?php echo $r['EMBALADO']; ?></td>
                                                                 <td><?php echo $ESTADO; ?></td>
+                                                                <td><?php echo $COLOR; ?></td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>
+                                                                <td><?php echo $r['DIAS']; ?></td>
                                                                 <td><?php echo $CODIGOESTANDAR; ?></td>
                                                                 <td><?php echo $NOMBREESTANDAR; ?></td>
                                                                 <td><?php echo $NOMBRETCALIBRE; ?></td>
@@ -633,7 +578,6 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
                                                                 <td><?php echo $PREFRIO; ?></td>
                                                                 <td><?php echo $NOMBRETCATEGORIA; ?></td>
                                                                 <td><?php echo $NOMBRETCOLOR; ?></td>
-                                                                <td><?php echo $r['DIAS']; ?></td>
                                                                 <td><?php echo $r['INGRESO']; ?></td>
                                                                 <td><?php echo $r['MODIFICACION']; ?></td>
                                                                 <td><?php echo $NOMBREEMPRESA; ?></td>
@@ -693,6 +637,19 @@ if ($EMPRESAS  &&  $TEMPORADAS) {
     </div>
     <!- LLAMADA URL DE ARCHIVOS DE DISEÑO Y JQUERY E OTROS -!>
         <?php include_once "../../assest/config/urlBase.php"; ?>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                showConfirmButton: false
+            })
+            Toast.fire({
+                icon: "info",
+                title: "Informacion importante",
+                html: "<label>Las <b>Existencia</b> que tienen la letra de color <b>Rojo</b> tiene mas de 7 dias desde su ingreso.</label>"
+            })
+        </script>
 </body>
 
 </html>

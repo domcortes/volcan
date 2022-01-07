@@ -243,6 +243,7 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                                     <thead>
                                                         <tr class="text-left">
                                                             <th>Folio </th>
+                                                            <th>Estado Calidad</th>
                                                             <th>Condición </th>
                                                             <th>Selección</th>
                                                             <th>Fecha Embalado </th>
@@ -279,6 +280,19 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                                             }
                                                             if ($r['TESTADOSAG'] == "5") {
                                                                 $ESTADOSAG =  "Rechazado";
+                                                            }
+                                                            if($r['COLOR']=="1"){
+                                                                $TRECHAZOCOLOR="badge badge-danger ";
+                                                                $COLOR="Rechazado";
+                                                            }else if($r['COLOR']=="2"){
+                                                                $TRECHAZOCOLOR="badge badge-warning ";
+                                                                $COLOR="Objetado";
+                                                            }else if($r['COLOR']=="3"){
+                                                                $TRECHAZOCOLOR="badge badge-Success ";
+                                                                $COLOR="Aprobado";
+                                                            }else{
+                                                                $TRECHAZOCOLOR="";
+                                                                $COLOR="Sin Datos";
                                                             }
                                                             $ARRAYVERPRODUCTORID = $PRODUCTOR_ADO->verProductor($r['ID_PRODUCTOR']);
                                                             if ($ARRAYVERPRODUCTORID) {
@@ -323,7 +337,12 @@ include_once "../../assest/config/validarDatosUrlD.php";
                                                             }
                                                             ?>
                                                             <tr class="text-left">
-                                                                <td><?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?> </td>
+                                                                <td>                                                                   
+                                                                    <span class="<?php echo $TRECHAZOCOLOR; ?>">
+                                                                        <?php echo $r['FOLIO_AUXILIAR_EXIEXPORTACION']; ?>
+                                                                    </span>
+                                                                </td>
+                                                                <td><?php echo $COLOR; ?></td>
                                                                 <td><?php echo $ESTADOSAG; ?></td>
                                                                 <td>
                                                                     <div class="form-group">

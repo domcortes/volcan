@@ -231,7 +231,8 @@ class RECHAZOPT_ADO
                         $RECHAZOPT->__GET('ID_PLANTA'),
                         $RECHAZOPT->__GET('ID_TEMPORADA'),
                         
-                        $RECHAZOPT->__GET('ID_USUARIOM')
+                        $RECHAZOPT->__GET('ID_USUARIOM'),
+                        $RECHAZOPT->__GET('ID_RECHAZO')
 
                     )
 
@@ -503,7 +504,7 @@ class RECHAZOPT_ADO
     public function obtenerNumero($EMPRESA, $PLANTA, $TEMPORADA)
     {
         try {
-            $datos = $this->conexion->prepare(" SELECT  COUNT(IFNULL(NUMERO_RECHAZOMP,0)) AS 'NUMERO'
+            $datos = $this->conexion->prepare(" SELECT  COUNT(IFNULL(NUMERO_RECHAZO,0)) AS 'NUMERO'
                                                 FROM fruta_rechazopt
                                                 WHERE  
                                                     ID_EMPRESA = '" . $EMPRESA . "' 
