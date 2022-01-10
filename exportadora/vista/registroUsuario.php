@@ -1,9 +1,9 @@
 <?php
 
-include_once "../config/validarUsuario.php";
+include_once "../../assest/config/validarUsuarioExpo.php";
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../modelo/USUARIO.php';
+include_once '../../assest/modelo/USUARIO.php';
 
 
 //INCIALIZAR LAS VARIBLES
@@ -13,13 +13,12 @@ include_once '../modelo/USUARIO.php';
 $USUARIO =  new USUARIO();
 
 //INCIALIZAR VARIBALES A OCUPAR PARA LA FUNCIONALIDAD
+
 $IDOP = "";
 $OP = "";
 $DISABLED = "";
 $DISABLED2 = "";
 
-$RUTUSUARIO = "";
-$DVUSUARIO = "";
 $NOMBREUSUARIO = "";
 
 $PNOMBREUSUARIO = "";
@@ -31,13 +30,11 @@ $CONTRASENA = "";
 $CCONTRASENA = "";
 $CORREO = "";
 $TELEFONO = "";
-
 $TUSUARIO = "";
+
 $SINO = "";
 
 $MENSAJE = "";
-$FOCUS = "";
-$BORDER = "";
 
 //INICIALIZAR ARREGLOS
 $ARRAYUSUARIO = "";
@@ -49,57 +46,11 @@ $ARRAYUSUARIOBUSCARNOMBREUSUARIO = "";
 //DEFINIR ARREGLOS CON LOS DATOS OBTENIDOS DE LAS FUNCIONES DE LOS CONTROLADORES
 $ARRAYUSUARIO = $USUARIO_ADO->listarUsuarioCBX();
 $ARRAYTUSUARIOS = $TUSUARIO_ADO->listarTusuarioCBX();
-include_once "../config/validarDatosUrl.php";
-include_once "../config/datosUrl.php";
+include_once "../../assest/config/validarDatosUrl.php";
+include_once "../../assest/config/datosUrl.php";
 
 
 
-//OPERACIONES
-//OPERACION DE REGISTRO DE FILA
-if (isset($_REQUEST['GUARDAR'])) {
-    $ARRAYUSUARIOBUSCARNOMBREUSUARIO = $USUARIO_ADO->BuscarUsuarioNombre($_REQUEST['NOMBREUSUARIO']);
-
-    if ($ARRAYUSUARIOBUSCARNOMBREUSUARIO) {
-        $SINO = "1";
-        $MENSAJE = "EXISTE UN REGISTRO ASOCIADO AL NOMBRE DE USUARIO INGRESADO";
-    }
-    if (empty($ARRAYUSUARIOBUSCARNOMBREUSUARIO)) {
-        $SINO = "0";
-        $MENSAJE = "";
-    }
-    if ($SINO == "0") {
-        $USUARIO->__SET('RUT_USUARIO', $_REQUEST['RUTUSUARIO']);
-        $USUARIO->__SET('DV_USUARIO', $_REQUEST['DVUSUARIO']);
-        $USUARIO->__SET('NOMBRE_USUARIO', $_REQUEST['NOMBREUSUARIO']);
-        $USUARIO->__SET('PNOMBRE_USUARIO', $_REQUEST['PNOMBREUSUARIO']);
-        $USUARIO->__SET('SNOMBRE_USUARIO', $_REQUEST['SNOMBREUSUARIO']);
-        $USUARIO->__SET('PAPELLIDO_USUARIO', $_REQUEST['PAPELLIDOUSUARIO']);
-        $USUARIO->__SET('SAPELLIDO_USUARIO', $_REQUEST['SAPELLIDOUSUARIO']);
-        $USUARIO->__SET('CONTRASENA_USUARIO', $_REQUEST['CONTRASENA']);
-        $USUARIO->__SET('EMAIL_USUARIO', $_REQUEST['CORREO']);
-        $USUARIO->__SET('TELEFONO_USUARIO', $_REQUEST['TELEFONO']);
-        $USUARIO->__SET('ID_TUSUARIO', $_REQUEST['TUSUARIO']);
-        $USUARIO_ADO->agregarUsuario($USUARIO);
-        echo "<script type='text/javascript'> location.href ='registroUsuario.php';</script>";
-    }
-}
-
-//OPERACION DE EDICION DE FILA
-if (isset($_REQUEST['EDITAR'])) {
-    $USUARIO->__SET('RUT_USUARIO', $_REQUEST['RUTUSUARIO']);
-    $USUARIO->__SET('DV_USUARIO', $_REQUEST['DVUSUARIO']);
-    $USUARIO->__SET('PNOMBRE_USUARIO', $_REQUEST['PNOMBREUSUARIO']);
-    $USUARIO->__SET('SNOMBRE_USUARIO', $_REQUEST['SNOMBREUSUARIO']);
-    $USUARIO->__SET('PAPELLIDO_USUARIO', $_REQUEST['PAPELLIDOUSUARIO']);
-    $USUARIO->__SET('SAPELLIDO_USUARIO', $_REQUEST['SAPELLIDOUSUARIO']);
-    $USUARIO->__SET('CONTRASENA_USUARIO', $_REQUEST['CONTRASENA']);
-    $USUARIO->__SET('EMAIL_USUARIO', $_REQUEST['CORREO']);
-    $USUARIO->__SET('TELEFONO_USUARIO', $_REQUEST['TELEFONO']);
-    $USUARIO->__SET('ID_TUSUARIO', $_REQUEST['TUSUARIO']);
-    $USUARIO->__SET('ID_USUARIO', $_REQUEST['ID']);
-    $USUARIO_ADO->actualizarUsuario($USUARIO);
-    echo "<script type='text/javascript'> location.href ='registroUsuario.php';</script>";
-}
 
 //OBTENCION DE DATOS ENVIADOR A LA URL
 //PARA OPERACIONES DE EDICION Y VISUALIZACION
@@ -136,7 +87,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYUSUARIOID as $r) :
-            $RUTUSUARIO = "" . $r['RUT_USUARIO'];
             $NOMBREUSUARIO = "" . $r['NOMBRE_USUARIO'];
 
             $PNOMBREUSUARIO = "" . $r['PNOMBRE_USUARIO'];
@@ -164,7 +114,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         //OBTENCIONS DE LOS DATODS DE LA COLUMNAS DE LA FILA OBTENIDA
         //PASAR DATOS OBTENIDOS A VARIABLES QUE SE VISUALIZAR EN EL FORMULARIO DE LA VISTA
         foreach ($ARRAYUSUARIOID as $r) :
-            $RUTUSUARIO = "" . $r['RUT_USUARIO'];
             $NOMBREUSUARIO = "" . $r['NOMBRE_USUARIO'];
 
             $PNOMBREUSUARIO = "" . $r['PNOMBRE_USUARIO'];
@@ -182,19 +131,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
 }
 
 if ($_POST) {
-    $RUTUSUARIO = "" . $_POST['RUTUSUARIO'];
-    $NOMBREUSUARIO = "" . $_POST['NOMBREUSUARIO'];
+    
 
-    $PNOMBREUSUARIO = "" . $_POST['PNOMBREUSUARIO'];
-    $SNOMBREUSUARIO = "" . $_POST['SNOMBREUSUARIO'];
-    $PAPELLIDOUSUARIO = "" . $_POST['PAPELLIDOUSUARIO'];
-    $SAPELLIDOUSUARIO = "" . $_POST['SAPELLIDOUSUARIO'];
-
-    $CONTRASENA = "" . $_POST['CONTRASENA'];
-    $CCONTRASENA = "" . $_POST['CCONTRASENA'];
-    $CORREO = "" . $_POST['CORREO'];
-    $TELEFONO = "" . $_POST['TELEFONO'];
-    $TUSUARIO = "" . $_POST['TUSUARIO'];
 }
 
 
@@ -211,7 +149,7 @@ if ($_POST) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
     <meta name="author" content="">
-    <?php include_once "../config/urlHead.php"; ?>
+    <?php include_once "../../assest/config/urlHead.php"; ?>
     <script type="text/javascript">
         function validacion() {
 
@@ -220,8 +158,6 @@ if ($_POST) {
             SNOMBREUSUARIO = document.getElementById("SNOMBREUSUARIO").value;
             PAPELLIDOUSUARIO = document.getElementById("PAPELLIDOUSUARIO").value;
             SAPELLIDOUSUARIO = document.getElementById("SAPELLIDOUSUARIO").value;
-            RUTUSUARIO = document.getElementById("RUTUSUARIO").value;
-            DVUSUARIO = document.getElementById("DVUSUARIO").value;
             TELEFONO = document.getElementById("TELEFONO").value;
             CORREO = document.getElementById("CORREO").value;
             CONTRASENA = document.getElementById("CONTRASENA").value;
@@ -234,8 +170,6 @@ if ($_POST) {
             document.getElementById('val_snombre').innerHTML = "";
             document.getElementById('val_papellido').innerHTML = "";
             document.getElementById('val_sapellido').innerHTML = "";
-            document.getElementById('val_rutusuario').innerHTML = "";
-            document.getElementById('val_dv').innerHTML = "";
             document.getElementById('val_telefono').innerHTML = "";
             document.getElementById('val_correo').innerHTML = "";
             document.getElementById('val_contrasena').innerHTML = "";
@@ -249,25 +183,7 @@ if ($_POST) {
                 return false;
             }
             document.form_reg_dato.NOMBREUSUARIO.style.borderColor = "#4AF575";
-
-
-
-            if (RUTUSUARIO == null || RUTUSUARIO.length == 0 || /^\s+$/.test(RUTUSUARIO)) {
-                document.form_reg_dato.RUTUSUARIO.focus();
-                document.form_reg_dato.RUTUSUARIO.style.borderColor = "#FF0000";
-                document.getElementById('val_rutusuario').innerHTML = "NO A INGRESADO DATO";
-                return false;
-            }
-            document.form_reg_dato.RUTUSUARIO.style.borderColor = "#4AF575";
-
-            if (DVUSUARIO == null || DVUSUARIO.length == 0 || /^\s+$/.test(DVUSUARIO)) {
-                document.form_reg_dato.DVUSUARIO.focus();
-                document.form_reg_dato.DVUSUARIO.style.borderColor = "#FF0000";
-                document.getElementById('val_dv').innerHTML = "NO A INGRESADO DATO";
-                return false;
-            }
-            document.form_reg_dato.DVUSUARIO.style.borderColor = "#4AF575";
-
+      
 
             if (PNOMBREUSUARIO == null || PNOMBREUSUARIO.length == 0 || /^\s+$/.test(PNOMBREUSUARIO)) {
                 document.form_reg_dato.PNOMBREUSUARIO.focus();
@@ -276,7 +192,7 @@ if ($_POST) {
                 return false;
             }
             document.form_reg_dato.PNOMBREUSUARIO.style.borderColor = "#4AF575";
-
+            /*
             if (SNOMBREUSUARIO == null || SNOMBREUSUARIO.length == 0 || /^\s+$/.test(SNOMBREUSUARIO)) {
                 document.form_reg_dato.SNOMBREUSUARIO.focus();
                 document.form_reg_dato.SNOMBREUSUARIO.style.borderColor = "#FF0000";
@@ -284,7 +200,7 @@ if ($_POST) {
                 return false;
             }
             document.form_reg_dato.SNOMBREUSUARIO.style.borderColor = "#4AF575";
-
+            */
 
             if (PAPELLIDOUSUARIO == null || PAPELLIDOUSUARIO.length == 0 || /^\s+$/.test(PAPELLIDOUSUARIO)) {
                 document.form_reg_dato.PAPELLIDOUSUARIO.focus();
@@ -293,7 +209,7 @@ if ($_POST) {
                 return false;
             }
             document.form_reg_dato.PAPELLIDOUSUARIO.style.borderColor = "#4AF575";
-
+            /*
             if (SAPELLIDOUSUARIO == null || SAPELLIDOUSUARIO.length == 0 || /^\s+$/.test(SAPELLIDOUSUARIO)) {
                 document.form_reg_dato.SAPELLIDOUSUARIO.focus();
                 document.form_reg_dato.SAPELLIDOUSUARIO.style.borderColor = "#FF0000";
@@ -301,9 +217,9 @@ if ($_POST) {
                 return false;
             }
             document.form_reg_dato.SAPELLIDOUSUARIO.style.borderColor = "#4AF575";
+            */
 
-
-
+            /*
             if (TELEFONO == null || TELEFONO == 0) {
                 document.form_reg_dato.TELEFONO.focus();
                 document.form_reg_dato.TELEFONO.style.borderColor = "#FF0000";
@@ -311,7 +227,7 @@ if ($_POST) {
                 return false;
             }
             document.form_reg_dato.TELEFONO.style.borderColor = "#4AF575";
-
+            */
             if (CORREO == null || CORREO.length == 0 || /^\s+$/.test(CORREO)) {
                 document.form_reg_dato.CORREO.focus();
                 document.form_reg_dato.CORREO.style.borderColor = "#FF0000";
@@ -362,59 +278,17 @@ if ($_POST) {
             document.form_reg_dato.TUSUARIO.style.borderColor = "#4AF575";
 
         }
-
-
         function irPagina(url) {
             location.href = "" + url;
-        }
-
-
-        function mueveReloj() {
-
-
-            momentoActual = new Date();
-
-            dia = momentoActual.getDate();
-            mes = momentoActual.getMonth() + 1;
-            ano = momentoActual.getFullYear();
-
-            hora = momentoActual.getHours();
-            minuto = momentoActual.getMinutes();
-            segundo = momentoActual.getSeconds();
-
-            if (dia < 10) {
-                dia = "0" + dia;
-            }
-
-            if (mes < 10) {
-                mes = "0" + mes;
-            }
-            if (hora < 10) {
-                hora = "0" + hora;
-            }
-            if (minuto < 10) {
-                minuto = "0" + minuto;
-            }
-            if (segundo < 10) {
-                segundo = "0" + segundo;
-            }
-
-            horaImprimible = hora + " : " + minuto;
-            fechaImprimible = dia + "-" + mes + "-" + ano;
-
-
-            //     document.form_reg_dato.HORARECEPCION.value = horaImprimible;
-            document.fechahora.fechahora.value = fechaImprimible + " " + horaImprimible;
-            setTimeout("mueveReloj()", 1000);
         }
     </script>
 
 
 </head>
 
-<body class="hold-transition light-skin fixed sidebar-mini theme-primary" onload="mueveReloj()">
+<body class="hold-transition light-skin fixed sidebar-mini theme-primary" >
     <div class="wrapper">
-        <?php include_once "../config/menu.php"; ?>
+        <?php include_once "../../assest/config/menuExpo.php"; ?>
         <div class="content-wrapper">
             <div class="container-full">
 
@@ -428,8 +302,7 @@ if ($_POST) {
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.php"><i class="mdi mdi-home-outline"></i></a></li>
                                         <li class="breadcrumb-item" aria-current="page">Usuario</li>
-                                        <li class="breadcrumb-item active" aria-current="page"> <a href="registroUsuario.php"> Registro Usuario </a>
-                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page"> <a href="registroUsuario.php"> Registro Usuario </a> </li>
                                     </ol>
                                 </nav>
                             </div>
@@ -455,126 +328,93 @@ if ($_POST) {
                         </div>
                     </div>
                 </div>
-
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-                        <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <!--  
-                                                    <h4 class="box-title">Sample form 1</h4>
-                                                -->
+                                <div class="box-header with-border bg-primary">                                    
+                                    <h4 class="box-title">Registro Usuario</h4>                                                
                                 </div>
                                 <!-- /.box-header -->
-                                <form class="form" role="form" method="post" name="form_reg_dato" onsubmit="return validacion()">
-                                    <div class="box-body">
-                                        <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Registro
-                                        </h4>
+                                <form class="form" role="form" method="post" name="form_reg_dato" id="form_reg_dato">
+                                    <div class="box-body">                                      
                                         <hr class="my-15">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
-                                                    <label>Nombre Usuario</label>
-                                                    <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />
-                                                    <input type="hidden" class="form-control" placeholder="Nombre Usuario" id="NOMBREUSUARIOV" name="NOMBREUSUARIOV" value="<?php echo $NOMBREUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
-                                                    <input type="text" class="form-control" placeholder="Nombre Usuario" id="NOMBREUSUARIO" name="NOMBREUSUARIO" value="<?php echo $NOMBREUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> <?php echo $DISABLED2; ?> />
+                                                    <label>Nombre Usuario</label>                                                    
+                                                    <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $IDOP; ?>" />                                                    
+                                                    <input type="hidden" class="form-control" placeholder="Nombre Usuario" id="NOMBREUSUARIOV" name="NOMBREUSUARIOV" value="<?php echo $NOMBREUSUARIO; ?>"  />                                                    
+                                                    <input type="text" class="form-control" placeholder="Nombre Usuario" id="NOMBREUSUARIO" name="NOMBREUSUARIO" value="<?php echo $NOMBREUSUARIO; ?>" <?php echo $DISABLED; ?> <?php echo $DISABLED2; ?> />
                                                     <label id="val_nombre" class="validacion"> <?php echo $MENSAJE; ?> </label>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Rut </label>
-                                                    <input type="text" class="form-control" placeholder="Rut " id="RUTUSUARIO" name="RUTUSUARIO" value="<?php echo $RUTUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
-                                                    <label id="val_rutusuario" class="validacion"> </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label>DV </label>
-                                                    <input type="text" class="form-control" placeholder="DV " id="DVUSUARIO" name="DVUSUARIO" value="<?php echo $DVUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
-                                                    <label id="val_dv" class="validacion"> </label>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                            </div>      
+                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Primer Nombre</label>
-                                                    <input type="text" class="form-control" placeholder="Primer Nombre" id="PNOMBREUSUARIO" name="PNOMBREUSUARIO" value="<?php echo $PNOMBREUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
+                                                    <input type="text" class="form-control" placeholder="Primer Nombre" id="PNOMBREUSUARIO" name="PNOMBREUSUARIO" value="<?php echo $PNOMBREUSUARIO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_pnombre" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Segundo Nombre</label>
-                                                    <input type="text" class="form-control" placeholder="Segundo Nombre" id="SNOMBREUSUARIO" name="SNOMBREUSUARIO" value="<?php echo $SNOMBREUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
+                                                    <input type="text" class="form-control" placeholder="Segundo Nombre" id="SNOMBREUSUARIO" name="SNOMBREUSUARIO" value="<?php echo $SNOMBREUSUARIO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_snombre" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Primer Apellido</label>
-                                                    <input type="text" class="form-control" placeholder="Primer Apellido" id="PAPELLIDOUSUARIO" name="PAPELLIDOUSUARIO" value="<?php echo $PAPELLIDOUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
+                                                    <input type="text" class="form-control" placeholder="Primer Apellido" id="PAPELLIDOUSUARIO" name="PAPELLIDOUSUARIO" value="<?php echo $PAPELLIDOUSUARIO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_papellido" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Segundo Apellido</label>
-                                                    <input type="text" class="form-control" placeholder="Segundo Apellido" id="SAPELLIDOUSUARIO" name="SAPELLIDOUSUARIO" value="<?php echo $SAPELLIDOUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
+                                                    <input type="text" class="form-control" placeholder="Segundo Apellido" id="SAPELLIDOUSUARIO" name="SAPELLIDOUSUARIO" value="<?php echo $SAPELLIDOUSUARIO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_sapellido" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Telefono</label>
-                                                    <input type="number" class="form-control" placeholder="Telefono" id="TELEFONO" name="TELEFONO" value="<?php echo $TELEFONO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
+                                                    <input type="number" class="form-control" placeholder="Telefono" id="TELEFONO" name="TELEFONO" value="<?php echo $TELEFONO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_telefono" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Correo</label>
-                                                    <input type="text" class="form-control" placeholder="Correo" id="CORREO" name="CORREO" value="<?php echo $CORREO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
+                                                    <input type="text" class="form-control" placeholder="Correo" id="CORREO" name="CORREO" value="<?php echo $CORREO; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_correo" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Contraseña</label>
-                                                    <input type="text" class="form-control" placeholder="Contraseña" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
+                                                    <input type="text" class="form-control" placeholder="Contraseña" id="CONTRASENA" name="CONTRASENA" value="<?php echo $CONTRASENA; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_contrasena" class="validacion"> </label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Confirmar Contraseña</label>
-                                                    <input type="text" class="form-control" placeholder="Confirmar Contraseña" id="CCONTRASENA" name="CCONTRASENA" value="<?php echo $CCONTRASENA; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?> />
+                                                    <input type="text" class="form-control" placeholder="Confirmar Contraseña" id="CCONTRASENA" name="CCONTRASENA" value="<?php echo $CCONTRASENA; ?>" <?php echo $DISABLED; ?> />
                                                     <label id="val_ccontrasena" class="validacion"> </label>
                                                 </div>
                                             </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Tipo Usuario</label>
-                                                    <select class="form-control select2" id="TUSUARIO" name="TUSUARIO" value="<?php echo $TUSUARIO; ?>" <?php echo $FOCUS; ?> <?php echo  $BORDER; ?> <?php echo $DISABLED; ?>>
+                                                    <select class="form-control select2" id="TUSUARIO" name="TUSUARIO" value="<?php echo $TUSUARIO; ?>" <?php echo $DISABLED; ?>>
                                                         <option></option>
                                                         <?php foreach ($ARRAYTUSUARIOS as $r) : ?>
                                                             <?php if ($ARRAYTUSUARIOS) {    ?>
-                                                                <option value="<?php echo $r['ID_TUSUARIO']; ?>" <?php if ($TUSUARIO == $r['ID_TUSUARIO']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>>
+                                                                <option value="<?php echo $r['ID_TUSUARIO']; ?>" 
+                                                                <?php if ($TUSUARIO == $r['ID_TUSUARIO']) { echo "selected";  } ?>>
                                                                     <?php echo $r['NOMBRE_TUSUARIO'] ?>
                                                                 </option>
                                                             <?php } else { ?>
@@ -582,103 +422,108 @@ if ($_POST) {
                                                             <?php } ?>
 
                                                         <?php endforeach; ?>
-
-
                                                     </select>
                                                     <label id="val_tusuario" class="validacion"> </label>
                                                 </div>
                                             </div>
                                         </div>
 
-
                                     </div>
                                     <!-- /.box-body -->
+                                           
                                     <div class="box-footer">
-                                        <button type="button" class="btn btn-rounded btn-warning btn-outline mr-1" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroUsuario.php'); ">
-                                            <i class="ti-trash"></i> Cancelar
-                                        </button>
-                                        <?php if ($OP != "editar") { ?>
-                                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="GUARDAR" value="GUARDAR" <?php echo $DISABLED; ?>>
-                                                <i class="ti-save-alt"></i> Crear
-                                            </button>
-                                        <?php } else { ?>
-                                            <button type="submit" class="btn btn-rounded btn-primary btn-outline" name="EDITAR" value="EDITAR">
-                                                <i class="ti-save-alt"></i> Guardar
-                                            </button>
-                                        <?php } ?>
-                                    </div>
+                                            <div class="btn-group   col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-xs-12 " role="group" aria-label="Acciones generales">                                    
+                                                <button type="button" class="btn  btn-warning " data-toggle="tooltip" title="Cancelar" name="CANCELAR" value="CANCELAR" Onclick="irPagina('registroUsuario.php');">
+                                                <i class="ti-trash"></i>Cancelar
+                                                </button>
+                                                <?php if ($OP != "editar") { ?>
+                                                    <button type="submit" class="btn btn-primary" name="GUARDAR" value="GUARDAR"  data-toggle="tooltip" title="Guardar"  <?php echo $DISABLED; ?> Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-primary" name="EDITAR" value="EDITAR"   data-toggle="tooltip" title="Guardar" Onclick="return validacion()">
+                                                        <i class="ti-save-alt"></i> Guardar
+                                                    </button>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
                                 </form>
                             </div>
                             <!-- /.box -->
                         </div>
-                        <div class="col-lg-6 col-12">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-xs-12">
                             <div class="box">
-                                <div class="box-header with-border">
-                                    <h4 class="box-title">Registros</h4>
+                                <div class="box-header with-border bg-info">
+                                    <h4 class="box-title">Agrupado Usuario</h4>
                                 </div>
                                 <div class="box-body">
-                                    <div class="row">
-
-                                    </div>
                                     <table id="listar" class="table table-hover " style="width: 100%;">
                                         <thead>
                                             <tr>
-
-                                                <th>Rut Usuario</th>
                                                 <th>Nombre Usuario</th>
                                                 <th>Nombre Completo</th>
+                                                <th>Tipos Usuario</th>
                                                 <th class="text-center">Operaciónes</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($ARRAYUSUARIO as $r) : ?>
+                                                <?php 
+                                                    $ARRAYVERTUSUARIO=$TUSUARIO_ADO->verTusuario($r['ID_TUSUARIO']);
+                                                    if($ARRAYVERTUSUARIO){
+                                                      $NOMBRETUSUARIO=$ARRAYVERTUSUARIO[0]["NOMBRE_TUSUARIO"];
+                                                    }else{
+                                                        $NOMBRETUSUARIO="Sin Datos";
+                                                    }
+                                                
+                                                ?>
                                                 <tr class="center">
                                                     <td>
                                                         <a href="#" class="text-warning hover-warning">
-                                                            <?php echo $r['RUT_USUARIO']; ?>-<?php echo $r['DV_USUARIO']; ?>
+                                                            <?php echo $r['NOMBRE_USUARIO']; ?>
                                                         </a>
                                                     </td>
-                                                    <td><?php echo $r['NOMBRE_USUARIO']; ?></td>
-
-                                                    <td><?php echo $r['PNOMBRE_USUARIO'] . " " . $r['SNOMBRE_USUARIO'] . " " . $r['PAPELLIDO_USUARIO'] . " " . $r['SAPELLIDO_USUARIO']; ?></td>
-
+                                                    <td><?php echo $r['PNOMBRE_USUARIO'] . " " . $r['SNOMBRE_USUARIO'] . " " . $r['PAPELLIDO_USUARIO'] . " " . $r['SAPELLIDO_USUARIO']; ?></td>                                                                                                                                                                        
+                                                    <td><?php echo $NOMBRETUSUARIO;?></td>                                                                                                                                                                        
                                                     <td class="text-center">
-                                                        <form method="post" id="form1">
-                                                            <div class="list-icons d-inline-flex">
-                                                                <div class="list-icons-item dropdown">
-                                                                    <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown">
-                                                                        <i class="glyphicon glyphicon-cog"></i>
-                                                                    </a>
-                                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                                        <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_USUARIO']; ?>" />
-                                                                        <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroUsuario" />
-                                                                        <button type="submit" class="btn btn-rounded btn-outline-info btn-sm " id="VERURL" name="VERURL">
-                                                                            <i class="ti-eye"></i>
-                                                                        </button>Ver
-                                                                        <br>
-                                                                        <button type="submit" class="btn btn-rounded btn-outline-warning btn-sm" id="EDITARURL" name="EDITARURL">
-                                                                            <i class="ti-pencil-alt"></i>
-                                                                        </button>Editar
-                                                                        <br>
-                                                                        <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
-                                                                            <button type="submit" class="btn btn-rounded btn-outline-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
-                                                                                <i class="ti-na "></i>
-                                                                            </button>Desahabilitar
-                                                                            <br>
-                                                                        <?php } ?>
-                                                                        <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
-                                                                            <button type="submit" class="btn btn-rounded btn-outline-success btn-sm" id="HABILITARURL" name="HABILITARURL">
-                                                                                <i class="ti-check "></i>
-                                                                            </button>Habilitar
-                                                                            <br>
-                                                                        <?php } ?>
+                                                                <form method="post" id="form1">
+                                                                    <div class="list-icons d-inline-flex">
+                                                                        <div class="list-icons-item dropdown">
+                                                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <span class="icon-copy ti-settings"></span>
+                                                                            </button>
+                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                <input type="hidden" class="form-control" placeholder="ID" id="ID" name="ID" value="<?php echo $r['ID_USUARIO']; ?>" />
+                                                                                <input type="hidden" class="form-control" placeholder="URL" id="URL" name="URL" value="registroUsuario" />
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Ver">
+                                                                                    <button type="submit" class="btn btn-info btn-block  btn-sm" id="VERURL" name="VERURL">
+                                                                                        <i class="ti-eye"></i> Ver
+                                                                                    </button>
+                                                                                </span> 
+                                                                                <span href="#" class="dropdown-item" data-toggle="tooltip" title="Editar">
+                                                                                    <button type="submit" class="btn  btn-warning btn-block   btn-sm" id="EDITARURL" name="EDITARURL">
+                                                                                        <i class="ti-pencil-alt"></i> Editar
+                                                                                    </button>
+                                                                                </span>
+                                                                                <?php if ($r['ESTADO_REGISTRO'] == 1) { ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Desahabilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-danger btn-sm" id="ELIMINARURL" name="ELIMINARURL">
+                                                                                            <i class="ti-na "></i> Desahabilitar
+                                                                                        </button>
+                                                                                    </span>                                                                                
+                                                                                <?php } ?>
+                                                                                <?php if ($r['ESTADO_REGISTRO'] == 0) { ?>
+                                                                                    <span href="#" class="dropdown-item" data-toggle="tooltip" title="Habilitar">
+                                                                                        <button type="submit" class="btn btn-block btn-success btn-sm" id="HABILITARURL" name="HABILITARURL">
+                                                                                            <i class="ti-check "></i> Habilitar
+                                                                                        </button>
+                                                                                    </span>    
+                                                                                <?php } ?>                                                       
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </td>
-
-
+                                                                </form>
+                                                            </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -689,23 +534,95 @@ if ($_POST) {
                         </div>
                         <!-- /.box -->
                     </div>
-
+                    <!--.row -->
+                </section>
+                <!-- /.content -->
 
             </div>
-            <!--.row -->
-
-            </section>
-            <!-- /.content -->
-
         </div>
+
+
+
+        <?php include_once "../../assest/config/footer.php"; ?>
+        <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
     </div>
+    <?php include_once "../../assest/config/urlBase.php"; ?>
+    <?php        
+            //OPERACIONES
+            //OPERACION DE REGISTRO DE FILA
+            if (isset($_REQUEST['GUARDAR'])) {
+                $ARRAYUSUARIOBUSCARNOMBREUSUARIO = $USUARIO_ADO->BuscarUsuarioNombre($_REQUEST['NOMBREUSUARIO']);
 
-
-
-    <?php include_once "../config/footer.php"; ?>
-    <?php include_once "../config/menuExtra.php"; ?>
-    </div>
-    <?php include_once "../config/urlBase.php"; ?>
+                if ($ARRAYUSUARIOBUSCARNOMBREUSUARIO) {
+                    $SINO = "1";
+                    echo '<script>
+                            Swal.fire({
+                                icon:"warning",
+                                title:"Accion restringida",
+                                text:"Existe un registro asociado al nombre de usuario  ingresado",
+                                showConfirmButton: true,
+                                confirmButtonText:"Cerrar",
+                                closeOnConfirm:false
+                            })
+                        </script>';
+                }
+                if (empty($ARRAYUSUARIOBUSCARNOMBREUSUARIO)) {
+                    $SINO = "0";
+                    $MENSAJE = "";
+                }
+                if ($SINO == "0") {
+                    $USUARIO->__SET('NOMBRE_USUARIO', $_REQUEST['NOMBREUSUARIO']);
+                    $USUARIO->__SET('PNOMBRE_USUARIO', $_REQUEST['PNOMBREUSUARIO']);
+                    $USUARIO->__SET('SNOMBRE_USUARIO', $_REQUEST['SNOMBREUSUARIO']);
+                    $USUARIO->__SET('PAPELLIDO_USUARIO', $_REQUEST['PAPELLIDOUSUARIO']);
+                    $USUARIO->__SET('SAPELLIDO_USUARIO', $_REQUEST['SAPELLIDOUSUARIO']);
+                    $USUARIO->__SET('CONTRASENA_USUARIO', $_REQUEST['CONTRASENA']);
+                    $USUARIO->__SET('EMAIL_USUARIO', $_REQUEST['CORREO']);
+                    $USUARIO->__SET('TELEFONO_USUARIO', $_REQUEST['TELEFONO']);
+                    $USUARIO->__SET('ID_TUSUARIO', $_REQUEST['TUSUARIO']);
+                    $USUARIO_ADO->agregarUsuario($USUARIO);
+                    echo '<script>
+                    Swal.fire({
+                        icon:"success",
+                        title:"Registro Creado",
+                        text:"El registro de  Usuario se ha creado correctamente",
+                        showConfirmButton: true,
+                        confirmButtonText:"Cerrar",
+                        closeOnConfirm:false
+                    }).then((result)=>{
+                        location.href = "registroUsuario.php";                            
+                    })
+                </script>';
+                }
+            }
+            //OPERACION DE EDICION DE FILA
+            if (isset($_REQUEST['EDITAR'])) {
+                $USUARIO->__SET('PNOMBRE_USUARIO', $_REQUEST['PNOMBREUSUARIO']);
+                $USUARIO->__SET('SNOMBRE_USUARIO', $_REQUEST['SNOMBREUSUARIO']);
+                $USUARIO->__SET('PAPELLIDO_USUARIO', $_REQUEST['PAPELLIDOUSUARIO']);
+                $USUARIO->__SET('SAPELLIDO_USUARIO', $_REQUEST['SAPELLIDOUSUARIO']);
+                $USUARIO->__SET('CONTRASENA_USUARIO', $_REQUEST['CONTRASENA']);
+                $USUARIO->__SET('EMAIL_USUARIO', $_REQUEST['CORREO']);
+                $USUARIO->__SET('TELEFONO_USUARIO', $_REQUEST['TELEFONO']);
+                $USUARIO->__SET('ID_TUSUARIO', $_REQUEST['TUSUARIO']);
+                $USUARIO->__SET('ID_USUARIO', $_REQUEST['ID']);
+                $USUARIO_ADO->actualizarUsuario($USUARIO);
+                
+                echo '<script>
+                Swal.fire({
+                    icon:"info",
+                    title:"Registro Modificado",
+                    text:"El registro de Usuario se ha modificado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText:"Cerrar",
+                    closeOnConfirm:false
+                }).then((result)=>{
+                    location.href = "registroUsuario.php";                            
+                })
+            </script>';
+            }
+    
+    ?>
 </body>
 
 </html>
