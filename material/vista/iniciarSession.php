@@ -6,10 +6,10 @@ if (isset($_SESSION["NOMBRE_USUARIO"])) {
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/USUARIO_ADO.php';
-//include_once '../controlador/EMPRESA_ADO.php';
-//include_once '../controlador/PLANTA_ADO.php';
-//include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/USUARIO_ADO.php';
+//include_once '../../assest/controlador/EMPRESA_ADO.php';
+//include_once '../../assest/controlador/PLANTA_ADO.php';
+//include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -53,37 +53,34 @@ $ARRAYTEMPORADA = "";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fruticola Volcan</title>
 
+        <link rel="icon" href="../../assest/img/favicon.png">
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-        <!--Bootsrap 4 CDN-->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-        <!--Fontawesome CDN-->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <!--Estilo base-->
+        <link rel="stylesheet" type="text/css" HREF="../../assest/css/reset.css" />
+        <link rel="stylesheet" type="text/css" HREF="../../assest/css/style.css" />
 
         <!--Custom styles-->
-        <link rel="stylesheet" href="../../loginv2.css">
+        <link rel="stylesheet" href="../../assest/css/loginv2.css">
+        <!--     bootstrap  -->        
+        <link rel="stylesheet" href="../../api/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="../../api/bootstrap/css/bootstrap.min.css" />  
+
+        <!--JS -->
+        <script src="../../assest/js/jquery.min.js"></script>    
         <!--sweetalert-->
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="../../assest/js/sweetalert2@11.js"></script>
 
 </head>
-
-
-
 <body class="hold-transition sidebar-collapse sidebar-mini login-page">
         <div class="login-box">
             <div class="login-logo">
-                <img src="../../img/volcan-foods-logo-original.png" alt="" height="50px">
+                <img src="../../assest/img/volcan-foods-logo-original.png" alt="" height="50px">
             </div>
             <div class="card border-0">
                 <div class="card-header bg-info text-white text-center text-uppercase">
-                    <img src="../..//img/favicon.png" alt="" height="20px">
+                    <img src="../../assest/img/favicon.png" alt="" height="20px">
                     Inicio de sesion <strong id="title_section"></strong>
                 </div>
-
                 <div class="card-body login-card-body">
                     <form class="form" role="form" method="post" name="form_reg_dato">
                         <div class="input-group mb-3">

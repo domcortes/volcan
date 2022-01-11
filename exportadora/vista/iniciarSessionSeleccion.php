@@ -1,5 +1,5 @@
 <?php
-require_once '../../vendor/autoload.php';
+require_once '../../api/vendor/autoload.php';
 $detect = new Mobile_Detect;
 
 session_start();
@@ -8,8 +8,8 @@ if (isset($_SESSION["ID_EMPRESA"])  && isset($_SESSION["ID_TEMPORADA"])  ) {
 }
 
 //LLAMADA ARCHIVOS NECESARIOS PARA LAS OPERACIONES
-include_once '../controlador/EMPRESA_ADO.php';
-include_once '../controlador/TEMPORADA_ADO.php';
+include_once '../../assest/controlador/EMPRESA_ADO.php';
+include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 //INCIALIZAR LAS VARIBLES
 //INICIALIZAR CONTROLADOR
@@ -57,20 +57,23 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INICIAR SESSION</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!--Bootsrap 4 CDN-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="icon" href="../../assest/img/favicon.png">
 
-    <!--Fontawesome CDN-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <!--Estilo base-->
+        <link rel="stylesheet" type="text/css" HREF="../../assest/css/reset.css" />
+        <link rel="stylesheet" type="text/css" HREF="../../assest/css/style.css" />
 
-    <!--Custom styles-->
-    <link rel="stylesheet" href="../../loginv2.css">
-    <!--sweetalert-->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!--Custom styles-->
+        <link rel="stylesheet" href="../../assest/css/loginv2.css">
+        <!--     bootstrap  -->        
+        <link rel="stylesheet" href="../../api/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="../../api/bootstrap/css/bootstrap.min.css" />  
+
+        <!--JS -->
+        <script src="../../assest/js/jquery.min.js"></script>    
+        <!--sweetalert-->
+        <script src="../../assest/js/sweetalert2@11.js"></script>
         <!- FUNCIONES BASES -!>
             <script type="text/javascript">
                 function validacion() {
@@ -109,7 +112,7 @@ if (isset($_SESSION["ID_TEMPORADA"])) {
 <body class="hold-transition sidebar-collapse sidebar-mini  login-page-exportadora"> 
     <div class="card border-0">
         <div class="card-header bg-info text-white text-center text-uppercase">
-            <img src="../..//img/favicon.png" alt="" height="20px">Seleccion de parametros <strong id="title_section"></strong>
+            <img src="../../assest/img/favicon.png" alt="" height="20px">Seleccion de parametros <strong id="title_section"></strong>
         </div>
         <div class="card-body login-card-body">
             <form class="form" role="form" method="post" onsubmit="return validacion()" name="form_reg_dato">

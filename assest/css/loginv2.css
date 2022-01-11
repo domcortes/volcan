@@ -15,7 +15,7 @@
 .register-page {
   -ms-flex-align: center;
   align-items: center;
-  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url('https://s1.wklcdn.com/image_16/508107/5411704/2834365Master.jpg');
+  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url('../../assest/img/loginimg1.jpeg');
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
@@ -34,7 +34,7 @@
 .register-page-exportadora {
   -ms-flex-align: center;
   align-items: center;
-  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url('https://blogs.iadb.org/integracion-comercio/wp-content/uploads/sites/14/2020/02/AdobeStock_20549086-min.jpeg');
+  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url('../../assest/img/loginimg2.jpeg');
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
