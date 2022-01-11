@@ -273,7 +273,6 @@ class USUARIO_ADO {
             UPDATE  usuario_usuario  
             SET 
              MODIFICACION  = SYSDATE(), 
-             RUT_USUARIO  = ?, 
              PNOMBRE_USUARIO  = ?, 
              SNOMBRE_USUARIO  = ?, 
              PAPELLIDO_USUARIO  = ?, 
@@ -285,7 +284,6 @@ class USUARIO_ADO {
             $this->conexion->prepare($query)
             ->execute(
                 array(
-                    $USUARIO->__GET('RUT_USUARIO'),
                     $USUARIO->__GET('PNOMBRE_USUARIO')	,
                     $USUARIO->__GET('SNOMBRE_USUARIO')	,
                     $USUARIO->__GET('PAPELLIDO_USUARIO')	,
