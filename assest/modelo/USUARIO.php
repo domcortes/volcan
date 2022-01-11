@@ -9,8 +9,6 @@ class USUARIO {
     //ATRIBUTOS DE LA CLASE
     private	  $ID_USUARIO;
     private	  $NOMBRE_USUARIO;
-    private	  $DV_USUARIO;
-    private	  $RUT_USUARIO; 
     private	  $PNOMBRE_USUARIO;
     private	  $SNOMBRE_USUARIO;
     private	  $PAPELLIDO_USUARIO;

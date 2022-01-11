@@ -49,7 +49,7 @@ class USUARIO_ADO {
     public function listarUsuario(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` limit 8;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  limit 8;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -67,7 +67,7 @@ class USUARIO_ADO {
     public function listarUsuarioCBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `ESTADO_REGISTRO` = 1;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  WHERE  ESTADO_REGISTRO  = 1;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -85,7 +85,7 @@ class USUARIO_ADO {
     public function listarUsuario2CBX(){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `ESTADO_REGISTRO` = 0;	");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  WHERE  ESTADO_REGISTRO  = 0;	");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -105,7 +105,7 @@ class USUARIO_ADO {
     public function verUsuario($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `ID_USUARIO`= '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  WHERE  ID_USUARIO = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -126,7 +126,7 @@ class USUARIO_ADO {
     public function BuscarUsuarioNombre($NOMBRE){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `NOMBRE_USUARIO` LIKE '%".$NOMBRE."%';");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  WHERE  NOMBRE_USUARIO  LIKE '%".$NOMBRE."%';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -144,9 +144,9 @@ class USUARIO_ADO {
     public function ObtenerNombreCompleto($ID){
         try{
             
-            $datos=$this->conexion->prepare("SELECT  IFNULL(CONCAT(`PNOMBRE_USUARIO`,' ', `SNOMBRE_USUARIO`,' ', `PAPELLIDO_USUARIO`,' ', `SAPELLIDO_USUARIO`),'') AS 'NOMBRE_COMPLETO'
-                                            FROM `usuario_usuario` 
-                                            WHERE `ID_USUARIO` = '".$ID."';");
+            $datos=$this->conexion->prepare("SELECT  IFNULL(CONCAT( PNOMBRE_USUARIO ,' ',  SNOMBRE_USUARIO ,' ',  PAPELLIDO_USUARIO ,' ',  SAPELLIDO_USUARIO ),'') AS 'NOMBRE_COMPLETO'
+                                            FROM  usuario_usuario  
+                                            WHERE  ID_USUARIO  = '".$ID."';");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
@@ -169,14 +169,27 @@ class USUARIO_ADO {
             
             
             $query=
-            "INSERT INTO `usuario_usuario` (`RUT_USUARIO`, `DV_USUARIO`, `NOMBRE_USUARIO`, `PNOMBRE_USUARIO`, `SNOMBRE_USUARIO`, `PAPELLIDO_USUARIO`, `SAPELLIDO_USUARIO`,
-                                    `CONTRASENA_USUARIO`,`EMAIL_USUARIO` ,`TELEFONO_USUARIO`,`ID_TUSUARIO`,`INGRESO`,`MODIFICACION`, `ESTADO_REGISTRO`) VALUES
-	       	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
+            "INSERT INTO  usuario_usuario  ( 
+                                              NOMBRE_USUARIO ,  
+
+                                              PNOMBRE_USUARIO ,  
+                                              SNOMBRE_USUARIO ,  
+                                              PAPELLIDO_USUARIO ,  
+                                              SAPELLIDO_USUARIO ,
+
+                                              CONTRASENA_USUARIO ,                                               
+                                              EMAIL_USUARIO  , 
+                                              TELEFONO_USUARIO , 
+                                              ID_TUSUARIO , 
+
+                                              INGRESO , 
+                                              MODIFICACION ,  
+                                              ESTADO_REGISTRO 
+                                            ) VALUES
+	       	( ?,   ?, ?, ?, ?,   ?, ?, ?, ?, SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
                 array(
-                    $USUARIO->__GET('RUT_USUARIO')	,
-                    $USUARIO->__GET('DV_USUARIO')	,
                     $USUARIO->__GET('NOMBRE_USUARIO')	,
 
                     $USUARIO->__GET('PNOMBRE_USUARIO')	,
@@ -199,7 +212,7 @@ class USUARIO_ADO {
     
     //ELIMINAR FILA, NO SE UTILIZA
     public function eliminarUsuario($id){
-        try{$sql="DELETE FROM `usuario_usuario` WHERE `ID_USUARIO`=".$id.";";
+        try{$sql="DELETE FROM  usuario_usuario  WHERE  ID_USUARIO =".$id.";";
         $statement=$this->conexion->prepare($sql);
         $statement->execute();
         }catch(Exception $e){
@@ -216,26 +229,22 @@ class USUARIO_ADO {
         try{
             $query = "
 
-            UPDATE `usuario_usuario` 
+            UPDATE  usuario_usuario  
             SET 
-            `MODIFICACION` = SYSDATE(), 
-            `RUT_USUARIO` = ?, 
-            `DV_USUARIO` = ?, 
-            `PNOMBRE_USUARIO` = ?, 
-            `SNOMBRE_USUARIO` = ?, 
-            `PAPELLIDO_USUARIO` = ?, 
-            `SAPELLIDO_USUARIO` = ?, 
-            `CONTRASENA_USUARIO` = ?, 
-            `EMAIL_USUARIO` = ?, 
-            `TELEFONO_USUARIO` = ? , 
-            `ID_TUSUARIO` = ? 
+             MODIFICACION  = SYSDATE(), 
+             PNOMBRE_USUARIO  = ?, 
+             SNOMBRE_USUARIO  = ?, 
+             PAPELLIDO_USUARIO  = ?, 
+             SAPELLIDO_USUARIO  = ?, 
+             CONTRASENA_USUARIO  = ?, 
+             EMAIL_USUARIO  = ?, 
+             TELEFONO_USUARIO  = ? , 
+             ID_TUSUARIO  = ? 
             WHERE 
-              `ID_USUARIO` = ? ;";
+               ID_USUARIO  = ? ;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
-                    $USUARIO->__GET('RUT_USUARIO'),
-                    $USUARIO->__GET('DV_USUARIO')	,
                     $USUARIO->__GET('PNOMBRE_USUARIO')	,
                     $USUARIO->__GET('SNOMBRE_USUARIO')	,
                     $USUARIO->__GET('PAPELLIDO_USUARIO')	,
@@ -261,18 +270,18 @@ class USUARIO_ADO {
         try{
             $query = "
 
-            UPDATE `usuario_usuario` 
+            UPDATE  usuario_usuario  
             SET 
-            `MODIFICACION` = SYSDATE(), 
-            `RUT_USUARIO` = ?, 
-            `PNOMBRE_USUARIO` = ?, 
-            `SNOMBRE_USUARIO` = ?, 
-            `PAPELLIDO_USUARIO` = ?, 
-            `SAPELLIDO_USUARIO` = ?, 
-            `EMAIL_USUARIO` = ?, 
-            `TELEFONO_USUARIO` = ? 
+             MODIFICACION  = SYSDATE(), 
+             RUT_USUARIO  = ?, 
+             PNOMBRE_USUARIO  = ?, 
+             SNOMBRE_USUARIO  = ?, 
+             PAPELLIDO_USUARIO  = ?, 
+             SAPELLIDO_USUARIO  = ?, 
+             EMAIL_USUARIO  = ?, 
+             TELEFONO_USUARIO  = ? 
             WHERE 
-              `ID_USUARIO` = ? ;";
+               ID_USUARIO  = ? ;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -299,12 +308,12 @@ class USUARIO_ADO {
         try{
             $query = "
 
-            UPDATE `usuario_usuario` 
+            UPDATE  usuario_usuario  
             SET 
-            `MODIFICACION`= SYSDATE(),	
-            `CONTRASENA_USUARIO` = ?
+             MODIFICACION = SYSDATE(),	
+             CONTRASENA_USUARIO  = ?
             WHERE 
-              `ID_USUARIO` = ? ;";
+               ID_USUARIO  = ? ;";
             $this->conexion->prepare($query)
             ->execute(
                 array(
@@ -330,10 +339,10 @@ class USUARIO_ADO {
 
         try{
             $query = "
-		UPDATE `usuario_usuario` SET	
-            `MODIFICACION`= SYSDATE(),			
-            `ESTADO_REGISTRO` = 0
-		WHERE `ID_USUARIO`= ?;";
+		UPDATE  usuario_usuario  SET	
+             MODIFICACION = SYSDATE(),			
+             ESTADO_REGISTRO  = 0
+		WHERE  ID_USUARIO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -352,10 +361,10 @@ class USUARIO_ADO {
 
         try{
             $query = "
-		UPDATE `usuario_usuario` SET	
-            `MODIFICACION`= SYSDATE(),			
-            `ESTADO_REGISTRO` = 1
-		WHERE `ID_USUARIO`= ?;";
+		UPDATE  usuario_usuario  SET	
+             MODIFICACION = SYSDATE(),			
+             ESTADO_REGISTRO  = 1
+		WHERE  ID_USUARIO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -375,7 +384,10 @@ class USUARIO_ADO {
     public function iniciarSession($NOMBRE,$CONTRASENA){
         try{
             
-            $datos=$this->conexion->prepare("SELECT * FROM `usuario_usuario` WHERE `NOMBRE_USUARIO`= '".$NOMBRE."' AND `CONTRASENA_USUARIO` = '".$CONTRASENA."';");
+            $datos=$this->conexion->prepare("SELECT * FROM  usuario_usuario  
+                                            WHERE  NOMBRE_USUARIO = '".$NOMBRE."' 
+                                            AND  CONTRASENA_USUARIO  = '".$CONTRASENA."'
+                                            AND ESTADO_REGISTRO  = 1;");
             $datos->execute();
             $resultado = $datos->fetchAll();
             $datos=null;
