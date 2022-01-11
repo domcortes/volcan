@@ -174,7 +174,7 @@ $DISABLED = "";
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="box-body">
-                                                        <table id="listarActividad" class="table table-hover " style="width: 100%;">
+                                                        <table id="listarActividad" class="table-hover " style="width: 100%;">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Id </th>
