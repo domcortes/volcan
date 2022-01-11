@@ -457,7 +457,7 @@ if ($_POST) {
                                     <h4 class="box-title">Agrupado Usuario</h4>
                                 </div>
                                 <div class="box-body">
-                                    <table id="listar" class="table table-hover " style="width: 100%;">
+                                    <table id="listar" class="table-hover " style="width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th>Nombre Usuario</th>

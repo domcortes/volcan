@@ -318,7 +318,6 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 </div>
             </div>
 
-
             <!- LLAMADA ARCHIVO DEL DISEÑO DEL FOOTER Y MENU USUARIO -!>
                 <?php include_once "../../assest/config/footer.php"; ?>
                 <?php include_once "../../assest/config/menuExtraExpo.php"; ?>
@@ -334,6 +333,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO   
                 $TUSUARIOS->__SET('NOMBRE_TUSUARIO', $_REQUEST['NOMBRETUSUARIO']);
+                $TUSUARIOS->__SET('ID_USUARIOI', $IDUSUARIOS);
+                $TUSUARIOS->__SET('ID_USUARIOM', $IDUSUARIOS);                
                 //LLAMADA AL METODO DE REGISTRO DEL CONTROLADOR
                 $TUSUARIO_ADO->agregarTusuario($TUSUARIOS);
                 //REDIRECCIONAR A PAGINA registroEcomercial.php
@@ -354,9 +355,8 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
             if (isset($_REQUEST['EDITAR'])) {
                 //UTILIZACION METODOS SET DEL MODELO
                 //SETEO DE ATRIBUTOS DE LA CLASE, OBTENIDO EN EL FORMULARIO 
-
-
                 $TUSUARIOS->__SET('NOMBRE_TUSUARIO', $_REQUEST['NOMBRETUSUARIO']);
+                $TUSUARIOS->__SET('ID_USUARIOM', $IDUSUARIOS);  
                 $TUSUARIOS->__SET('ID_TUSUARIO', $_REQUEST['ID']);
                 //LLAMADA AL METODO DE EDICION DEL CONTROLADOR   
                 $TUSUARIO_ADO->actualizarTusuario($TUSUARIOS);
@@ -378,5 +378,4 @@ if (isset($_SESSION['parametro']) && isset($_SESSION['parametro1'])) {
         
         ?>
 </body>
-
 </html>

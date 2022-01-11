@@ -2,7 +2,7 @@
 session_start();
 $NOMBREUSUARIOS = "";
 $IDUSUARIOS = "";
-$TUSUARIO = "";
+$TUSUARIOS = "";
 $EMPRESAS = "";
 $PLANTAS = "";
 $TEMPORADAS = "";
@@ -12,6 +12,7 @@ $ARRAYEMPRESAS = "";
 $ARRAYPLANTAS = "";
 $ARRAYTEMPORADAS = "";
 $ARRAYTUSUARIO = "";
+$ARRAYVERPTUSUARIO = "";
 $ARRAYNOMBRESUSUARIOSLOGIN = "";
 
 $EMPRESACAMBIAR = "";
@@ -23,6 +24,8 @@ $DISABLEDMENU = "";
 
 include_once '../../assest/controlador/USUARIO_ADO.php';
 include_once '../../assest/controlador/TUSUARIO_ADO.php';
+include_once '../../assest/controlador/PTUSUARIO_ADO.php';
+
 include_once '../../assest/controlador/EMPRESA_ADO.php';
 include_once '../../assest/controlador/PLANTA_ADO.php';
 include_once '../../assest/controlador/TEMPORADA_ADO.php';
@@ -30,6 +33,8 @@ include_once '../../assest/controlador/TEMPORADA_ADO.php';
 
 $USUARIO_ADO = new USUARIO_ADO();
 $TUSUARIO_ADO = new TUSUARIO_ADO();
+$PTUSUARIO_ADO = new PTUSUARIO_ADO();
+
 $EMPRESA_ADO =  new EMPRESA_ADO();
 $PLANTA_ADO =  new PLANTA_ADO();
 $TEMPORADA_ADO =  new TEMPORADA_ADO();
@@ -43,8 +48,12 @@ if (isset($_REQUEST['CERRARS'])) {
 if (isset($_SESSION["NOMBRE_USUARIO"])) {
     $IDUSUARIOS = $_SESSION["ID_USUARIO"];
     $NOMBREUSUARIOS = $_SESSION["NOMBRE_USUARIO"];
-    $TUSUARIO = $_SESSION["TIPO_USUARIO"];
+    $TUSUARIOS = $_SESSION["TIPO_USUARIO"];
     
+    $ARRAYVERPTUSUARIO  =$PTUSUARIO_ADO->listarPtusuarioPorTusuarioCBX($TUSUARIOS);
+    if($ARRAYVERPTUSUARIO){
+    }else{        
+    }
  
     if (isset($_SESSION["ID_EMPRESA"])) {
         $EMPRESAS = $_SESSION["ID_EMPRESA"];

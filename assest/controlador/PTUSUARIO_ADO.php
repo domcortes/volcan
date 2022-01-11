@@ -112,213 +112,158 @@ class PTUSUARIO_ADO {
     public function agregarPtusuario(PTUSUARIO $PTUSUARIO){
         try{
             
+              
             
             $query=
-            "INSERT INTO  usuario_ptusuario  ( 
+            "INSERT INTO  usuario_ptusuario  (          
                                                         FRUTA,
                                                         FGRANEL,
                                                         FGRECEPCION,
-                                                        FGRMP,
-                                                        FGRIND,
-
-                                                        FGR_CONSOLIDADO,       
-                                                        FGDESPACHO ,
-                                                        FGDMP,  
-                                                        FGDIND,  
-                                                        FGD_CONSOLIDADO, 
-
-                                                        FGGUIA,  
-                                                        FGGMP,  
-                                                        FGGIND,
-                                                        FG_EXISTENCIAMP,  
-                                                        FG_EXISTENCIAIND,   
+                                                        FGDESPACHO,
+                                                        FGGUIA,
 
                                                         FPACKING,
                                                         FPPROCESO,
-                                                        FPREEMBALAJE,
-                                                        FP_EXISTENCIAMP,
-                                                        FP_EXISTENCIAIND,
+                                                        FPREEMBALEJE,
 
-                                                        FP_EXISTENCIAPT,
-                                                        FLOGISTICA,
-                                                        FLICARGA,
-                                                        FL_EXISTENCIAPT,
                                                         FSAG,
+                                                        FSAGINSPECCION,
 
-                                                        FSINSPECCION,
-                                                        FS_EXISTENCIAPT,
                                                         FFRIGORIFICO,
-                                                        FFRECEPCIONPT,
-                                                        FFDESPACHO,
+                                                        FFRECEPCION,
+                                                        FFRDESPACHO,
+                                                        FFRGUIA,
+                                                        FFRREPALETIZAJE,
+                                                        FFRPC,
+                                                        FFRCFOLIO,
 
-                                                        FFDPT,
-                                                        FFDEX,
-                                                        FFD_CONSOLIDADO,
-                                                        FFGUIA,
-                                                        FFGPT,
+                                                        FCFRUTA,
+                                                        FCFRECHAZO,
+                                                        FCFLEVANTAMIENTO,
 
-                                                        FFPC,
-                                                        FFREPALETIZAJE,   
-                                                        FF_EXISTENCIAPT,
-                                                        MATERIAL,
-                                                        MMATERIAL,
-
-                                                        MMRECEPCION,
-                                                        MMDESPACHO,
+                                                        FEXISTENCIA,
+                   
+                                                        MATERIALES,
+                                                        MMATERIALES,
+                                                        MMRECEPION,
+                                                        MMDEAPCHO,
                                                         MMGUIA,
-                                                        MMEXISTENCIA,
-                                                        MENVASE,
 
+                                                        MENVASE,
                                                         MERECEPCION,
                                                         MEDESPACHO,
-                                                        MEEXISTENCIA,
-                                                        MEGUIA,   
-                                                        MCONSOLIDADO, 
+                                                        MEGUIA,
 
-                                                        MCRECEPCION,
-                                                        MCDESPACHO,
                                                         MADMINISTRACION,
                                                         MAOC,
-                                                        MAOC_AR,
+                                                        MAOCAR,
 
-                                                        MAOC_EXISTENCIAM,
-                                                        MAOC_EXISTENCIAE,   
                                                         MKARDEX,
                                                         MKMATERIAL,
                                                         MKENVASE,
 
                                                         EXPORTADORA,
-                                                        ELOGISTICA,
-                                                        ELICARGA,
-                                                        EMATERIAL,
-                                                        EMFICHA,
+                                                        EMATERIALES,
+                                                        EEXPORTACION,
+                                                        EINFORMES,
 
+                                                        ESTADISTICA , 
+                                                        ESTARVSP , 
+                                                        ESTASTOPMP , 
+                                                        ESTAINFORME , 
+                                                        ESTAEXISTENCIA , 
+                                                        ESTAPRODUCTOR , 
 
-                                                        EINFORME,
-                                                        EIGRANEL,
-                                                        EIPT,
-                                                        EIGESTION,
-                                                        MANTENEDORES,
+                                                        MANTENEDORES , 
+                                                        MREGISTRO , 
+                                                        MEDITAR , 
+                                                        MVER , 
+                                                        MAGRUPADO , 
 
-                                                        M_REGISTRO,
-                                                        M_EDITAR,
-                                                        M_VER,
-                                                        M_INFORME,
-                                                        M_REPORTE,
+                                                        ADMINISTRADOR , 
+                                                        ADUSUARIO , 
 
-                                                        M_AGRUPADO,
-                                                        FHISTORIAL,
-                                                        FENVASES,
-                                                        FGENVASES,
-                                                        AREGISTRO,
-
-
+                                                        ID_USUARIOI , 
+                                                        ID_USUARIOM , 
                                                         ID_TUSUARIO , 
 
-                                                        INGRESO
-                                                        MODIFICACION
+                                                        INGRESO,
+                                                        MODIFICACION,
                                                         ESTADO_REGISTRO
                                              ) VALUES
-	       	( ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?, ?,    ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,       ?, ?, ?, ?, ?,      ?,  SYSDATE(), SYSDATE(), 1);";
+	       	( ?, ?, ?, ?, ?,    ?, ?, ?,    ?, ?,   ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?,  ?,    ?, ?, ?, ?, ?,   ?, ?, ?, ?,   ?, ?, ?,   ?, ?, ?,    ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?,      ?, ?, ?, ?, ?,      ?, ?,     ?, ?, ?,  SYSDATE(), SYSDATE(), 1);";
             $this->conexion->prepare($query)
             ->execute(
-                array(                    
-                    $PTUSUARIO->__GET('FRUTA')  ,
-                    $PTUSUARIO->__GET('FGRANEL') ,
-                    $PTUSUARIO->__GET('FGRECEPCION') ,
-                    $PTUSUARIO->__GET('FGRMP') ,
-                    $PTUSUARIO->__GET('FGRIND') ,
-                    
-                    $PTUSUARIO->__GET('FGR_CONSOLIDADO')  ,
-                    $PTUSUARIO->__GET('FGDESPACHO') ,
-                    $PTUSUARIO->__GET('FGDMP') ,
-                    $PTUSUARIO->__GET('FGDIND') ,
-                    $PTUSUARIO->__GET('FGD_CONSOLIDADO') ,
-                    
-                    $PTUSUARIO->__GET('FGGUIA')  ,
-                    $PTUSUARIO->__GET('FGGMP') ,
-                    $PTUSUARIO->__GET('FGGIND') ,
-                    $PTUSUARIO->__GET('FG_EXISTENCIAMP') ,
-                    $PTUSUARIO->__GET('FG_EXISTENCIAIND') ,
-                    
-                    $PTUSUARIO->__GET('FPACKING')  ,
-                    $PTUSUARIO->__GET('FPPROCESO') ,
-                    $PTUSUARIO->__GET('FPREEMBALAJE') ,
-                    $PTUSUARIO->__GET('FP_EXISTENCIAMP') ,
-                    $PTUSUARIO->__GET('FP_EXISTENCIAIND') ,
-                    
-                    $PTUSUARIO->__GET('FP_EXISTENCIAPT')  ,
-                    $PTUSUARIO->__GET('FLOGISTICA') ,
-                    $PTUSUARIO->__GET('FLICARGA') ,
-                    $PTUSUARIO->__GET('FL_EXISTENCIAPT') ,
-                    $PTUSUARIO->__GET('FSAG') ,
-                    
-                    $PTUSUARIO->__GET('FSINSPECCION')  ,
-                    $PTUSUARIO->__GET('FS_EXISTENCIAPT') ,
-                    $PTUSUARIO->__GET('FFRIGORIFICO') ,
-                    $PTUSUARIO->__GET('FFRECEPCIONPT') ,
-                    $PTUSUARIO->__GET('FFDESPACHO') ,
-                    
-                    $PTUSUARIO->__GET('FFDPT')  ,
-                    $PTUSUARIO->__GET('FFDEX') ,
-                    $PTUSUARIO->__GET('FFD_CONSOLIDADO') ,
-                    $PTUSUARIO->__GET('FFGUIA') ,
-                    $PTUSUARIO->__GET('FFGPT') ,
-                    
-                    $PTUSUARIO->__GET('FFPC')  ,
-                    $PTUSUARIO->__GET('FFREPALETIZAJE') ,
-                    $PTUSUARIO->__GET('FF_EXISTENCIAPT') ,
-                    $PTUSUARIO->__GET('MATERIAL') ,
-                    $PTUSUARIO->__GET('MRECEPCION') ,
+                array(              
+                    $PTUSUARIO->__GET('FRUTA')  ,  
+                    $PTUSUARIO->__GET('FGRANEL')  ,  
+                    $PTUSUARIO->__GET('FGRECEPCION')  ,  
+                    $PTUSUARIO->__GET('FGDESPACHO')  ,  
+                    $PTUSUARIO->__GET('FGGUIA')  ,  
 
-                    $PTUSUARIO->__GET('MRMATERIAL')  ,
-                    $PTUSUARIO->__GET('MRENVASE') ,
-                    $PTUSUARIO->__GET('MRGUIA') ,
-                    $PTUSUARIO->__GET('MRGMATERIAL') ,
-                    $PTUSUARIO->__GET('MRGENVASE') ,
-
-                    $PTUSUARIO->__GET('MR_CONSOLIDADO')  ,
-                    $PTUSUARIO->__GET('MR_EXISTENCIAM') ,
-                    $PTUSUARIO->__GET('MR_EXISTENCIAE') ,
-                    $PTUSUARIO->__GET('MDESPACHO') ,
-                    $PTUSUARIO->__GET('MDENVASE')  ,
-
-                    $PTUSUARIO->__GET('MD_CONSOLIDADO') ,
-                    $PTUSUARIO->__GET('MD_EXISTENCIAM') ,
-                    $PTUSUARIO->__GET('MADMINISTRACION') ,
-                    $PTUSUARIO->__GET('MAOC')  ,
-                    $PTUSUARIO->__GET('MAOC_AR') ,
+                    $PTUSUARIO->__GET('FPACKING')  ,  
+                    $PTUSUARIO->__GET('FPPROCESO')  ,  
+                    $PTUSUARIO->__GET('FPREEMBALEJE')  ,  
+                  
+                    $PTUSUARIO->__GET('FSAG')  ,  
+                    $PTUSUARIO->__GET('FSAGINSPECCION')  ,                   
+                   
+                    $PTUSUARIO->__GET('FFRIGORIFICO')  ,  
+                    $PTUSUARIO->__GET('FFRECEPCION')  ,  
+                    $PTUSUARIO->__GET('FFRDESPACHO')  , 
+                    $PTUSUARIO->__GET('FFRGUIA')  ,  
+                    $PTUSUARIO->__GET('FFRREPALETIZAJE')  ,  
+                    $PTUSUARIO->__GET('FFRPC')  ,  
+                    $PTUSUARIO->__GET('FFRCFOLIO')  ,    
                     
-                    $PTUSUARIO->__GET('MAOC_EXISTENCIAM') ,
-                    $PTUSUARIO->__GET('MAOC_EXISTENCIAE') ,
-                    $PTUSUARIO->__GET('MKARDEX') ,
-                    $PTUSUARIO->__GET('MKMATERIAL')  ,
-                    $PTUSUARIO->__GET('MKENVASE') ,
+                    $PTUSUARIO->__GET('FCFRUTA')  ,  
+                    $PTUSUARIO->__GET('FCFRECHAZO')  ,  
+                    $PTUSUARIO->__GET('FCFLEVANTAMIENTO')  ,  
+                 
+                    $PTUSUARIO->__GET('FEXISTENCIA')  , 
 
-                    $PTUSUARIO->__GET('EXPORTADORA') ,
-                    $PTUSUARIO->__GET('ELOGISTICA') ,
-                    $PTUSUARIO->__GET('ELICARGA') ,
-                    $PTUSUARIO->__GET('EMATERIAL')  ,
-                    $PTUSUARIO->__GET('EMFICHA') ,
+                    $PTUSUARIO->__GET('MATERIALES')  ,  
+                    $PTUSUARIO->__GET('MMATERIALES')  ,  
+                    $PTUSUARIO->__GET('MMRECEPION')  ,  
+                    $PTUSUARIO->__GET('MMDEAPCHO')  ,  
+                    $PTUSUARIO->__GET('MMGUIA')  ,  
+                    
+                    $PTUSUARIO->__GET('MENVASE')  ,  
+                    $PTUSUARIO->__GET('MERECEPCION')  ,  
+                    $PTUSUARIO->__GET('MEDESPACHO')  ,  
+                    $PTUSUARIO->__GET('MEGUIA')  ,  
 
-                    $PTUSUARIO->__GET('EINFORME') ,
-                    $PTUSUARIO->__GET('EIGRANEL') ,
-                    $PTUSUARIO->__GET('EIPT') ,                    
-                    $PTUSUARIO->__GET('EIGESTION')  ,
-                    $PTUSUARIO->__GET('MANTENEDORES') ,
+                    $PTUSUARIO->__GET('MADMINISTRACION')  ,  
+                    $PTUSUARIO->__GET('MAOC')  ,  
+                    $PTUSUARIO->__GET('MAOCAR')  ,  
+                    
+                    $PTUSUARIO->__GET('MKARDEX')  ,  
+                    $PTUSUARIO->__GET('MKMATERIAL')  ,  
+                    $PTUSUARIO->__GET('MKENVASE')  ,  
 
-                    $PTUSUARIO->__GET('M_REGISTRO') ,
-                    $PTUSUARIO->__GET('M_EDITAR') ,
-                    $PTUSUARIO->__GET('M_VER') ,   
-                    $PTUSUARIO->__GET('M_INFORME')  ,
-                    $PTUSUARIO->__GET('M_REPORTE') ,
+                    $PTUSUARIO->__GET('EXPORTADORA')  ,  
+                    $PTUSUARIO->__GET('EMATERIALES')  ,  
+                    $PTUSUARIO->__GET('EEXPORTACION')  ,  
+                    $PTUSUARIO->__GET('EINFORMES')  ,  
 
-                    $PTUSUARIO->__GET('M_AGRUPADO') , 
-                    $PTUSUARIO->__GET('FHISTORIAL') , 
-                    $PTUSUARIO->__GET('FENVASES') , 
-                    $PTUSUARIO->__GET('FGENVASES') , 
-                    $PTUSUARIO->__GET('AREGISTRO') ,                     
-               
+                    $PTUSUARIO->__GET('ESTADISTICA')  ,  
+                    $PTUSUARIO->__GET('ESTARVSP')  ,  
+                    $PTUSUARIO->__GET('ESTASTOPMP')  ,  
+                    $PTUSUARIO->__GET('ESTAINFORME')  ,  
+                    $PTUSUARIO->__GET('ESTAEXISTENCIA')  ,  
+                    $PTUSUARIO->__GET('ESTAPRODUCTOR')  ,
+
+                    $PTUSUARIO->__GET('MANTENEDORES')  ,  
+                    $PTUSUARIO->__GET('MREGISTRO')  ,  
+                    $PTUSUARIO->__GET('MEDITAR')  ,  
+                    $PTUSUARIO->__GET('MVER')  ,  
+                    $PTUSUARIO->__GET('MAGRUPADO')  ,  
+
+                    $PTUSUARIO->__GET('ADMINISTRADOR')  , 
+                    $PTUSUARIO->__GET('ADUSUARIO')  , 
+
+                    $PTUSUARIO->__GET('ID_USUARIOI')  ,  
+                    $PTUSUARIO->__GET('ID_USUARIOM')  ,  
                     $PTUSUARIO->__GET('ID_TUSUARIO')              
                 )
                 
@@ -349,207 +294,150 @@ class PTUSUARIO_ADO {
     public function actualizarPtusuario(PTUSUARIO $PTUSUARIO){
         try{
             $query = "
-		UPDATE  usuario_ptusuario  SET
-             
-                FRUTA=?, 
-                FGRANEL=?, 
-                FGRECEPCION=?,
-                FGRMP=?,
-                FGRIND=?,
+		UPDATE  usuario_ptusuario  SET             
+                MODIFICACION = SYSDATE(),
 
-                FGR_CONSOLIDADO=?,        
-                FGDESPACHO =?,
-                FGDMP=?,   
-                FGDIND=?,   
-                FGD_CONSOLIDADO=?,  
+                FRUTA = ?,
+                FGRANEL = ?,
+                FGRECEPCION = ?,
+                FGDESPACHO = ?,
+                FGGUIA = ?,
 
-                FGGUIA=?,   
-                FGGMP=?,   
-                FGGIND=?,
-                FG_EXISTENCIAMP=?,   
-                FG_EXISTENCIAIND=?,  
+                FPACKING = ?,
+                FPPROCESO = ?,
+                FPREEMBALEJE = ?,
 
-                FPACKING=?,
-                FPPROCESO=?,
-                FPREEMBALAJE=?,
-                FP_EXISTENCIAMP=?,
-                FP_EXISTENCIAIND=?,
+                FSAG = ?,
+                FSAGINSPECCION = ?,
 
-                FP_EXISTENCIAPT=?,
-                FLOGISTICA=?,
-                FLICARGA=?,
-                FL_EXISTENCIAPT=?,
-                FSAG=?,
+                FFRIGORIFICO = ?,
+                FFRECEPCION = ?,
+                FFRDESPACHO = ?,
+                FFRGUIA = ?,
+                FFRREPALETIZAJE = ?,
+                FFRPC = ?,
+                FFRCFOLIO = ?,
 
-                FSINSPECCION=?,
-                FS_EXISTENCIAPT=?,
-                FFRIGORIFICO=?,
-                FFRECEPCIONPT=?,
-                FFDESPACHO=?,
+                FCFRUTA = ?,
+                FCFRECHAZO = ?,
+                FCFLEVANTAMIENTO = ?,
 
-                FFDPT=?,
-                FFDEX=?,
-                FFD_CONSOLIDADO=?,
-                FFGUIA=?,
-                FFGPT=?,
+                FEXISTENCIA = ?,
+                
+                MATERIALES = ?,
+                MMATERIALES = ?,
+                MMRECEPION = ?,
+                MMDEAPCHO = ?,
+                MMGUIA = ?,
 
-                FFPC=?,
-                FFREPALETIZAJE=?,    
-                FF_EXISTENCIAPT=?,
-                MATERIAL=?,
-                MRECEPCION=?,
+                MENVASE = ?,
+                MERECEPCION = ?,
+                MEDESPACHO = ?,
+                MEGUIA = ?,
+                
+                MADMINISTRACION = ?,
+                MAOC = ?,
+                MAOCAR = ?,
+                
+                MKARDEX = ?,
+                MKMATERIAL = ?,
+                MKENVASE = ?,
 
-                MRMATERIAL=?,
-                MRENVASE=?,
-                MRGUIA=?,
-                MRGMATERIAL=?,
-                MRGENVASE=?,
+                EXPORTADORA = ?,
+                EMATERIALES = ?,
+                EEXPORTACION = ?,
+                EINFORMES = ?,               
 
-                MR_CONSOLIDADO=?,
-                MR_EXISTENCIAM=?,
-                MR_EXISTENCIAE=?,
-                MDESPACHO=?,
-                MDENVASE=?,    
+                ESTADISTICA = ?,
+                ESTARVSP = ?,
+                ESTASTOPMP = ?,
+                ESTAINFORME = ?,
+                ESTAEXISTENCIA = ?,
+                ESTAPRODUCTOR = ?,
 
-                MD_CONSOLIDADO=?,
-                MD_EXISTENCIAM=?,
-                MADMINISTRACION=?,
-                MAOC=?,
-                MAOC_AR=?,
+                MANTENEDORES = ?,
+                MREGISTRO = ?,
+                MEDITAR = ?,
+                MVER = ?,
+                MAGRUPADO = ?,
 
-                MAOC_EXISTENCIAM=?,
-                MAOC_EXISTENCIAE=?,    
-                MKARDEX=?,
-                MKMATERIAL=?,
-                MKENVASE=?,
+                ADMINISTRADOR = ?,
+                ADUSUARIO = ?,
 
-                EXPORTADORA=?,
-                ELOGISTICA=?,
-                ELICARGA=?,
-                EMATERIAL=?,
-                EMFICHA=?,         
-
-                EINFORME=?,
-                EIGRANEL=?,
-                EIPT=?,
-                EIGESTION=?,
-                MANTENEDORES=?,
-
-                M_REGISTRO=?,
-                M_EDITAR=?,
-                M_VER=?,
-                M_INFORME=?,
-                M_REPORTE=?,
-
-                M_AGRUPADO=?,
-                FHISTORIAL=?,
-                FENVASES=?,
-                FGENVASES=?,
-                AREGISTRO=?,                
-
-                ID_TUSUARIO = ?            
+                ID_USUARIOM = ?          
 		WHERE  ID_PTUSUARIO = ?;";
             $this->conexion->prepare($query)
             ->execute(
-                array(
-                        $PTUSUARIO->__GET('FRUTA')  ,
-                        $PTUSUARIO->__GET('FGRANEL') ,
-                        $PTUSUARIO->__GET('FGRECEPCION') ,
-                        $PTUSUARIO->__GET('FGRMP') ,
-                        $PTUSUARIO->__GET('FGRIND') ,
-                        
-                        $PTUSUARIO->__GET('FGR_CONSOLIDADO')  ,
-                        $PTUSUARIO->__GET('FGDESPACHO') ,
-                        $PTUSUARIO->__GET('FGDMP') ,
-                        $PTUSUARIO->__GET('FGDIND') ,
-                        $PTUSUARIO->__GET('FGD_CONSOLIDADO') ,
-                        
-                        $PTUSUARIO->__GET('FGGUIA')  ,
-                        $PTUSUARIO->__GET('FGGMP') ,
-                        $PTUSUARIO->__GET('FGGIND') ,
-                        $PTUSUARIO->__GET('FG_EXISTENCIAMP') ,
-                        $PTUSUARIO->__GET('FG_EXISTENCIAIND') ,
-                        
-                        $PTUSUARIO->__GET('FPACKING')  ,
-                        $PTUSUARIO->__GET('FPPROCESO') ,
-                        $PTUSUARIO->__GET('FPREEMBALAJE') ,
-                        $PTUSUARIO->__GET('FP_EXISTENCIAMP') ,
-                        $PTUSUARIO->__GET('FP_EXISTENCIAIND') ,
-                        
-                        $PTUSUARIO->__GET('FP_EXISTENCIAPT')  ,
-                        $PTUSUARIO->__GET('FLOGISTICA') ,
-                        $PTUSUARIO->__GET('FLICARGA') ,
-                        $PTUSUARIO->__GET('FL_EXISTENCIAPT') ,
-                        $PTUSUARIO->__GET('FSAG') ,
-                        
-                        $PTUSUARIO->__GET('FSINSPECCION')  ,
-                        $PTUSUARIO->__GET('FS_EXISTENCIAPT') ,
-                        $PTUSUARIO->__GET('FFRIGORIFICO') ,
-                        $PTUSUARIO->__GET('FFRECEPCIONPT') ,
-                        $PTUSUARIO->__GET('FFDESPACHO') ,
-                        
-                        $PTUSUARIO->__GET('FFDPT')  ,
-                        $PTUSUARIO->__GET('FFDEX') ,
-                        $PTUSUARIO->__GET('FFD_CONSOLIDADO') ,
-                        $PTUSUARIO->__GET('FFGUIA') ,
-                        $PTUSUARIO->__GET('FFGPT') ,
-                        
-                        $PTUSUARIO->__GET('FFPC')  ,
-                        $PTUSUARIO->__GET('FFREPALETIZAJE') ,
-                        $PTUSUARIO->__GET('FF_EXISTENCIAPT') ,
-                        $PTUSUARIO->__GET('MATERIAL') ,
-                        $PTUSUARIO->__GET('MRECEPCION') ,
+                array(                        
 
-                        $PTUSUARIO->__GET('MRMATERIAL')  ,
-                        $PTUSUARIO->__GET('MRENVASE') ,
-                        $PTUSUARIO->__GET('MRGUIA') ,
-                        $PTUSUARIO->__GET('MRGMATERIAL') ,
-                        $PTUSUARIO->__GET('MRGENVASE') ,
+                    $PTUSUARIO->__GET('FRUTA')  ,  
+                    $PTUSUARIO->__GET('FGRANEL')  ,  
+                    $PTUSUARIO->__GET('FGRECEPCION')  ,  
+                    $PTUSUARIO->__GET('FGDESPACHO')  ,  
+                    $PTUSUARIO->__GET('FGGUIA')  ,  
 
-                        $PTUSUARIO->__GET('MR_CONSOLIDADO')  ,
-                        $PTUSUARIO->__GET('MR_EXISTENCIAM') ,
-                        $PTUSUARIO->__GET('MR_EXISTENCIAE') ,
-                        $PTUSUARIO->__GET('MDESPACHO') ,
-                        $PTUSUARIO->__GET('MDENVASE')  ,
+                    $PTUSUARIO->__GET('FPACKING')  ,  
+                    $PTUSUARIO->__GET('FPPROCESO')  ,  
+                    $PTUSUARIO->__GET('FPREEMBALEJE')  ,  
+                  
+                    $PTUSUARIO->__GET('FSAG')  ,  
+                    $PTUSUARIO->__GET('FSAGINSPECCION')  ,                   
+                   
+                    $PTUSUARIO->__GET('FFRIGORIFICO')  ,  
+                    $PTUSUARIO->__GET('FFRECEPCION')  ,  
+                    $PTUSUARIO->__GET('FFRDESPACHO')  , 
+                    $PTUSUARIO->__GET('FFRGUIA')  ,  
+                    $PTUSUARIO->__GET('FFRREPALETIZAJE')  ,  
+                    $PTUSUARIO->__GET('FFRPC')  ,  
+                    $PTUSUARIO->__GET('FFRCFOLIO')  ,    
+                    
+                    $PTUSUARIO->__GET('FCFRUTA')  ,  
+                    $PTUSUARIO->__GET('FCFRECHAZO')  ,  
+                    $PTUSUARIO->__GET('FCFLEVANTAMIENTO')  ,  
+                 
+                    $PTUSUARIO->__GET('FEXISTENCIA')  , 
+                    $PTUSUARIO->__GET('MATERIALES')  ,  
+                    $PTUSUARIO->__GET('MMATERIALES')  ,  
+                    $PTUSUARIO->__GET('MMRECEPION')  ,  
+                    $PTUSUARIO->__GET('MMDEAPCHO')  ,  
+                    $PTUSUARIO->__GET('MMGUIA')  ,  
+                    
+                    $PTUSUARIO->__GET('MENVASE')  ,  
+                    $PTUSUARIO->__GET('MERECEPCION')  ,  
+                    $PTUSUARIO->__GET('MEDESPACHO')  ,  
+                    $PTUSUARIO->__GET('MEGUIA')  ,  
+                                        
+                    $PTUSUARIO->__GET('MADMINISTRACION')  ,  
+                    $PTUSUARIO->__GET('MAOC')  ,  
+                    $PTUSUARIO->__GET('MAOCAR')  ,  
+                    
+                    $PTUSUARIO->__GET('MKARDEX')  ,  
+                    $PTUSUARIO->__GET('MKMATERIAL')  ,  
+                    $PTUSUARIO->__GET('MKENVASE')  ,  
 
-                        $PTUSUARIO->__GET('MD_CONSOLIDADO') ,
-                        $PTUSUARIO->__GET('MD_EXISTENCIAM') ,
-                        $PTUSUARIO->__GET('MADMINISTRACION') ,
-                        $PTUSUARIO->__GET('MAOC')  ,
-                        $PTUSUARIO->__GET('MAOC_AR') ,
+                    $PTUSUARIO->__GET('EXPORTADORA')  ,  
+                    $PTUSUARIO->__GET('EMATERIALES')  ,  
+                    $PTUSUARIO->__GET('EEXPORTACION')  ,  
+                    $PTUSUARIO->__GET('EINFORMES')  ,  
+                    
+                    $PTUSUARIO->__GET('ESTADISTICA')  ,  
+                    $PTUSUARIO->__GET('ESTARVSP')  ,  
+                    $PTUSUARIO->__GET('ESTASTOPMP')  ,  
+                    $PTUSUARIO->__GET('ESTAINFORME')  ,  
+                    $PTUSUARIO->__GET('ESTAEXISTENCIA')  ,  
+                    $PTUSUARIO->__GET('ESTAPRODUCTOR')  ,
 
-                        $PTUSUARIO->__GET('MAOC_EXISTENCIAM') ,
-                        $PTUSUARIO->__GET('MAOC_EXISTENCIAE') ,
-                        $PTUSUARIO->__GET('MKARDEX') ,
-                        $PTUSUARIO->__GET('MKMATERIAL')  ,
-                        $PTUSUARIO->__GET('MKENVASE') ,
+                    $PTUSUARIO->__GET('MANTENEDORES')  ,  
+                    $PTUSUARIO->__GET('MREGISTRO')  ,  
+                    $PTUSUARIO->__GET('MEDITAR')  ,  
+                    $PTUSUARIO->__GET('MVER')  ,  
+                    $PTUSUARIO->__GET('MAGRUPADO')  ,  
 
-                        $PTUSUARIO->__GET('EXPORTADORA') ,
-                        $PTUSUARIO->__GET('ELOGISTICA') ,
-                        $PTUSUARIO->__GET('ELICARGA') ,
-                        $PTUSUARIO->__GET('EMATERIAL')  ,
-                        $PTUSUARIO->__GET('EMFICHA') ,
+                    $PTUSUARIO->__GET('ADMINISTRADOR')  , 
+                    $PTUSUARIO->__GET('ADUSUARIO')  , 
 
-                        $PTUSUARIO->__GET('EINFORME') ,
-                        $PTUSUARIO->__GET('EIGRANEL') ,
-                        $PTUSUARIO->__GET('EIPT') ,                        
-                        $PTUSUARIO->__GET('EIGESTION')  ,
-                        $PTUSUARIO->__GET('MANTENEDORES') ,
-
-                        $PTUSUARIO->__GET('M_REGISTRO') ,
-                        $PTUSUARIO->__GET('M_EDITAR') ,
-                        $PTUSUARIO->__GET('M_VER') ,   
-                        $PTUSUARIO->__GET('M_INFORME')  ,
-                        $PTUSUARIO->__GET('M_REPORTE') ,  
-                        
-                        $PTUSUARIO->__GET('M_AGRUPADO') , 
-                        $PTUSUARIO->__GET('FHISTORIAL') , 
-                        $PTUSUARIO->__GET('FENVASES') , 
-                        $PTUSUARIO->__GET('FGENVASES') , 
-                        $PTUSUARIO->__GET('AREGISTRO') ,    
-                        
-                        $PTUSUARIO->__GET('ID_TUSUARIO'),                    
-                        $PTUSUARIO->__GET('ID_PTUSUARIO')
+                    $PTUSUARIO->__GET('ID_USUARIOM')  ,             
+                    $PTUSUARIO->__GET('ID_PTUSUARIO')
                     
                 )
                 
@@ -569,9 +457,9 @@ class PTUSUARIO_ADO {
 
         try{
             $query = "
-    UPDATE  usuario_ptusuario  SET			
-             ESTADO_REGISTRO  = 0
-    WHERE  ID_PTUSUARIO = ?;";
+            UPDATE  usuario_ptusuario  SET			
+                    ESTADO_REGISTRO  = 0
+            WHERE  ID_PTUSUARIO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -589,9 +477,9 @@ class PTUSUARIO_ADO {
     public function habilitar(PTUSUARIO $PTUSUARIO){
         try{
             $query = "
-    UPDATE  usuario_ptusuario  SET			
-             ESTADO_REGISTRO  = 1
-    WHERE  ID_PTUSUARIO = ?;";
+            UPDATE  usuario_ptusuario  SET			
+                    ESTADO_REGISTRO  = 1
+            WHERE  ID_PTUSUARIO = ?;";
             $this->conexion->prepare($query)
             ->execute(
                 array(                 
@@ -607,5 +495,25 @@ class PTUSUARIO_ADO {
     }
     //BUSCADE DE LA EMPRESAS ASOACIADAS A USUARIOS
 
+    public function listarPtusuarioPorTusuarioCBX($IDTUSUARIO){
+        try{
+            
+            $datos=$this->conexion->prepare("SELECT * 
+                                            FROM  usuario_ptusuario  
+                                            WHERE ID_TUSUARIO = '".$IDTUSUARIO."';	");
+            $datos->execute();
+            $resultado = $datos->fetchAll();
+            $datos=null;
+            
+            //	print_r($resultado);
+            //	VAR_DUMP($resultado);
+            
+            
+            return $resultado;
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+        
+    }
 }
 ?>
